@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.larmic.ts</groupId>
+	<artifactId>larmic-ts</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>larmic-jsf2-components</name>
+	<url>http://www.larmic.de</url>
+
+	<scm>
+		<connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
+		<url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
+		<developerConnection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<properties>
+		<default.encoding>UTF-8</default.encoding>
+		<project.build.sourceEncoding>${default.encoding}</project.build.sourceEncoding>
+		<maven.version>3.0.0</maven.version>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+
+		<javax.javaee-api.version>7.0</javax.javaee-api.version>
+	</properties>
+
+	<dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javax.javaee-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
