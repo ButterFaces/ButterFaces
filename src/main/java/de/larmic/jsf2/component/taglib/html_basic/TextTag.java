@@ -10,9 +10,19 @@ public class TextTag extends PanelGroupTag {
 	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.TextRenderer";
 
 	private javax.el.ValueExpression label;
+	private javax.el.ValueExpression readonly;
+	private javax.el.ValueExpression value;
 
 	public void setLabel(final javax.el.ValueExpression label) {
 		this.label = label;
+	}
+
+	public void setReadonly(final javax.el.ValueExpression readonly) {
+		this.readonly = readonly;
+	}
+
+	public void setValue(final javax.el.ValueExpression value) {
+		this.value = value;
 	}
 
 	@Override
@@ -23,6 +33,14 @@ public class TextTag extends PanelGroupTag {
 		if (this.label != null) {
 			component.setValueExpression("label", this.label);
 		}
+
+		if (this.readonly != null) {
+			component.setValueExpression("readonly", this.readonly);
+		}
+
+		if (this.value != null) {
+			component.setValueExpression("value", this.value);
+		}
 	}
 
 	@Override
@@ -30,6 +48,8 @@ public class TextTag extends PanelGroupTag {
 		super.release();
 
 		this.label = null;
+		this.readonly = null;
+		this.value = null;
 	}
 
 	@Override

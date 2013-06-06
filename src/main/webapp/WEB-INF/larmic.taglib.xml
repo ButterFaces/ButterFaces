@@ -13,6 +13,12 @@
 		<attribute>
 			<name>label</name>
 		</attribute>
+		<attribute>
+			<name>value</name>
+		</attribute>
+		<attribute>
+			<name>readonly</name>
+		</attribute>
 	</tag>
 
 </facelet-taglib>
