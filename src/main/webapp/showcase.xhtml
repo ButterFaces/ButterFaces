@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title><h:outputText value="#{msg['application.name']}" /></title>
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="CacheControl" content="no-cache" />
+	<meta http-equiv="CacheControl" content="no-store" />
+	<meta http-equiv="CacheControl" content="must-revalidate" />
+	<meta http-equiv="CacheControl" content="private" />
+	<meta http-equiv="CacheControl" content="max-stale=0" />
+	<meta http-equiv="CacheControl" content="post-check=0" />
+	<meta http-equiv="CacheControl" content="pre-check=0" />
+	<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+	
+	<h:outputStylesheet library="css" name="norm.css"/>
+	<h:outputStylesheet library="css" name="layout.css"/>
+	
+	<h:outputScript library="js" name="global.js" target="body"/>
+</h:head>
+
+<h:body>
+	<f:view>
+		<h1>Hello JSF</h1>
+		<h:inputText value="Test" />
+	</f:view>
+</h:body>
+</html>

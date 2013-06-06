@@ -1,0 +1,61 @@
+/*normalisierung marign, padding, body rausgenommen, da sonst mit schatten probleme!*/
+
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td 
+{
+margin:0;
+padding:0;
+}
+
+/*normalisierung font-size header*/
+
+h1, h2, h3, h4, h5, h6
+{
+font-size:100%;
+}
+
+/*entfernt list-style aus listen*/
+
+ol, ul
+{
+list-style:none;
+}
+
+/*normalisiert font-style und font-weight auf normal*/
+
+address, caption, cite, code, dfn, em, strong, th, var
+{
+font-style:normal;
+font-weight: normal;
+}
+
+
+/*normalisiert tabellen*/
+table
+{
+border-collapse: collapse;
+border-spacing:0;
+}
+
+/*entfernt border aus fieldset und img*/
+fieldset, img
+{
+border:0;
+vertical-align:bottom;
+}
+
+/*richtet text in caption und th links aus*/
+caption, th
+{
+text-align:left;
+}
+
+/*entfernt anfuehrungszeichen aus q*/
+q:before, q:after
+{
+content:'';
+}
+zeichen aus q*/
+q:before, q:after
+{
+content:'';
+}
