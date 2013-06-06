@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+	id="l">
+	<namespace>http://larmic.de/jsf2</namespace>
+
+	<tag>
+		<tag-name>text</tag-name>
+		<component>
+			<component-type>de.larmic.component.text</component-type>
+		</component>
+		<attribute>
+			<name>label</name>
+		</attribute>
+	</tag>
+
+</facelet-taglib>

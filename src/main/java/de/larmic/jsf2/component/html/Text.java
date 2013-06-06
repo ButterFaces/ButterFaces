@@ -1,5 +1,6 @@
 package de.larmic.jsf2.component.html;
 
+import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 
@@ -9,10 +10,14 @@ public class Text extends HtmlPanelGroup {
 
 	private static final String LAYOUT = "block";
 
-	private String label;
+	private final HtmlOutputLabel labelComponent;
 
 	public Text() {
 		this.setLayout(LAYOUT);
+
+		this.labelComponent = new HtmlOutputLabel();
+
+		this.getChildren().add(this.labelComponent);
 	}
 
 	@Override
@@ -24,7 +29,7 @@ public class Text extends HtmlPanelGroup {
 	public Object saveState(final FacesContext context) {
 		final Object values[] = new Object[2];
 		values[0] = super.saveState(context);
-		values[1] = this.label;
+		values[1] = this.labelComponent.getValue();
 		return ((values));
 	}
 
@@ -32,15 +37,15 @@ public class Text extends HtmlPanelGroup {
 	public void restoreState(final FacesContext context, final Object state) {
 		final Object values[] = (Object[]) state;
 		super.restoreState(context, values[0]);
-		this.label = (String) values[1];
+		this.labelComponent.setValue(values[1]);
 	}
 
 	public String getLabel() {
-		return this.label;
+		return (String) this.labelComponent.getValue();
 	}
 
 	public void setLabel(final String label) {
-		this.label = label;
+		this.labelComponent.setValue(label);
 	}
 
 }
