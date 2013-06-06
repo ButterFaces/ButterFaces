@@ -5,3 +5,4 @@ target/*
 .settings/org.eclipse.wst.common.component
 .settings/org.eclipse.wst.common.project.facet.core.xml
 .faces-config.xml.jsfdia
+org.eclipse.wst.common.project.facet.core.prefs.xml

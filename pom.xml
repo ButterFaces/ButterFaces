@@ -36,6 +36,7 @@
 		<maven.compiler.target>1.7</maven.compiler.target>
 
 		<javax.javaee-api.version>7.0</javax.javaee-api.version>
+		<jsf.version>2.2.0-m15</jsf.version>
 	</properties>
 
 	<dependencies>
@@ -45,5 +46,11 @@
             <version>${javax.javaee-api.version}</version>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${jsf.version}</version>
+			<scope>provided</scope>
+		</dependency>
     </dependencies>
 </project>

@@ -5,6 +5,20 @@
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
+	<component>
+		<component-type>de.larmic.component.text</component-type>
+		<component-class>de.larmic.jsf2.component.html.Text</component-class>
+	</component>
+
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<renderer>
+			<component-family>de.larmic.component.text</component-family>
+			<renderer-type>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-type>
+			<renderer-class>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+
 	<application>
 		<locale-config>
 			<default-locale>de</default-locale>

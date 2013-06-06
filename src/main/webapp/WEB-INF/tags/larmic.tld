@@ -1,0 +1,17 @@
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+	<tlib-version>2.0</tlib-version>
+	<short-name>larmic</short-name>
+	<uri>http://www.larmic.de/jsf/component/tags</uri>
+
+	<tag>
+		<name>text</name>
+		<tag-class>de.larmic.jsf2.component.taglib.html_basic.TextTag</tag-class>
+		<attribute>
+			<name>label</name>
+			<description>The value of the label</description>
+		</attribute>
+	</tag>
+</taglib>
