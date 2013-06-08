@@ -12,6 +12,9 @@ public class Showcase implements Serializable {
 
 	private boolean readonlyTextComponent;
 	private boolean requiredTextComponent;
+	private boolean floatingTextComponent;
+	private String labelTextComponent = "label";
+	private String valueTextComponent = "value";
 
 	public boolean isReadonlyTextComponent() {
 		return this.readonlyTextComponent;
@@ -28,4 +31,29 @@ public class Showcase implements Serializable {
 	public void setRequiredTextComponent(final boolean requiredTextComponent) {
 		this.requiredTextComponent = requiredTextComponent;
 	}
+
+	public boolean isFloatingTextComponent() {
+		return this.floatingTextComponent;
+	}
+
+	public void setFloatingTextComponent(final boolean floatingTextComponent) {
+		this.floatingTextComponent = floatingTextComponent;
+	}
+
+	public String getLabelTextComponent() {
+		return this.labelTextComponent;
+	}
+
+	public void setLabelTextComponent(final String labelTextComponent) {
+		this.labelTextComponent = labelTextComponent;
+	}
+
+	public String getValueTextComponent() {
+		return this.valueTextComponent;
+	}
+
+	public void setValueTextComponent(final String valueTextComponent) {
+		this.valueTextComponent = valueTextComponent;
+	}
+
 }

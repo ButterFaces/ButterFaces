@@ -11,6 +11,7 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 	protected static final String PROPERTY_STYLE_CLASS = "styleClass";
 	protected static final String PROPERTY_READONLY = "readonly";
 	protected static final String PROPERTY_REQUIRED = "required";
+	protected static final String PROPERTY_FLOATING = "floating";
 
 	protected final UIInput inputComponent;
 	protected final String family;
@@ -51,7 +52,7 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 	}
 
 	public Boolean isReadonly() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, "false");
+		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, false);
 	}
 
 	public void setReadonly(final Boolean readonly) {
@@ -59,11 +60,19 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 	}
 
 	public Boolean isRequired() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, "false");
+		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, false);
 	}
 
 	public void setRequired(final Boolean required) {
 		this.updateStateHelper(PROPERTY_REQUIRED, required);
+	}
+
+	public Boolean isFloating() {
+		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+	}
+
+	public void setFloating(final Boolean floating) {
+		this.updateStateHelper(PROPERTY_FLOATING, floating);
 	}
 
 	public String getStyle() {

@@ -12,6 +12,10 @@ import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.jsf2.component.html.AbstractHtmlContainer;
 
 public class AbstractContainerRenderer extends HtmlBasicRenderer {
+
+	private static final String FLOATING_STYLE = "float: left;";
+	private static final String CLEAR_FLOATS = "clear: both;";
+
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
 
@@ -27,6 +31,7 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		final String styleClass = htmlComponent.getStyleClass();
 		final boolean readonly = htmlComponent.isReadonly();
 		final boolean required = htmlComponent.isRequired();
+		final boolean floating = htmlComponent.isFloating();
 		final String label = htmlComponent.getLabel();
 		final Object value = htmlComponent.getValue();
 
@@ -43,7 +48,9 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 			writer.writeAttribute("class", styleClass, "styleClass");
 		}
 		if (style != null) {
-			writer.writeAttribute("style", style, "style");
+			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, "style");
+		} else if (floating) {
+			writer.writeAttribute("style", FLOATING_STYLE, "style");
 		}
 		if (label != null) {
 			writer.startElement("label", component);
@@ -64,7 +71,6 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		if (readonly) {
 			writer.writeText(value, null);
 		}
-
 	}
 
 	@Override
@@ -94,6 +100,16 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		}
 
 		final ResponseWriter writer = context.getResponseWriter();
+
+		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
+		final boolean floating = htmlComponent.isFloating();
+
+		if (!floating) {
+			writer.startElement("div", component);
+			writer.writeAttribute("style", CLEAR_FLOATS, "style");
+			writer.endElement("div");
+		}
+
 		writer.endElement("div");
 	}
 

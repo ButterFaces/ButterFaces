@@ -4,5 +4,10 @@ span.requiredLabel {
 
 input[type=text]{
 	font-size: 14px;
-	height: 24px;
+	height: 18px;
+}
+
+.component {
+	float: left;
+	width: 400px;
 }
