@@ -6,15 +6,18 @@ import javax.faces.component.UIInput;
 public abstract class AbstractHtmlContainer extends javax.faces.component.UIPanel {
 
 	protected static final String PROPERTY_LABEL = "label";
+	protected static final String PROPERTY_VALUE = "value";
 	protected static final String PROPERTY_STYLE = "style";
 	protected static final String PROPERTY_STYLE_CLASS = "styleClass";
 	protected static final String PROPERTY_READONLY = "readonly";
 
 	protected final UIInput inputComponent;
+	protected final String family;
 
-	public AbstractHtmlContainer(final String rendererType) {
+	public AbstractHtmlContainer(final String componentType, final String rendererType) {
 		this.setRendererType(rendererType);
 
+		this.family = componentType;
 		this.inputComponent = this.initInputComponent();
 
 		this.getChildren().add(this.inputComponent);
@@ -24,6 +27,11 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 	 * Returns initialized input component.
 	 */
 	protected abstract UIInput initInputComponent();
+
+	@Override
+	public String getFamily() {
+		return this.family;
+	}
 
 	public Boolean isReadonly() {
 		return (Boolean) this.getStateHelper().eval("readonly", "false");
@@ -39,6 +47,14 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 
 	public void setLabel(final String label) {
 		this.updateStateHelper(PROPERTY_LABEL, label);
+	}
+
+	public Object getValue() {
+		return this.getStateHelper().eval(PROPERTY_VALUE);
+	}
+
+	public void setValue(final Object value) {
+		this.updateStateHelper(PROPERTY_VALUE, value);
 	}
 
 	public String getStyle() {

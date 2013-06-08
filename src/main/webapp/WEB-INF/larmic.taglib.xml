@@ -16,6 +16,7 @@
 		</attribute>
 		<attribute>
 			<name>value</name>
+			<required>true</required>
 		</attribute>
 		<attribute>
 			<name>readonly</name>

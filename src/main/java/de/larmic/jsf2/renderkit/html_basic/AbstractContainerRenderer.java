@@ -9,7 +9,7 @@ import javax.faces.context.ResponseWriter;
 
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 
-import de.larmic.jsf2.component.html.Text;
+import de.larmic.jsf2.component.html.AbstractHtmlContainer;
 
 public class AbstractContainerRenderer extends HtmlBasicRenderer {
 	@Override
@@ -20,14 +20,23 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		if (!this.shouldEncode(component)) {
 			return;
 		}
-		// Render a span around this group if necessary
-		final String style = (String) component.getAttributes().get("style");
-		final String styleClass = (String) component.getAttributes().get("styleClass");
+
+		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
+
+		final String style = htmlComponent.getStyle();
+		final String styleClass = htmlComponent.getStyleClass();
+		final boolean readonly = htmlComponent.isReadonly();
+		final String label = htmlComponent.getLabel();
+		final Object value = htmlComponent.getValue();
+
 		final ResponseWriter writer = context.getResponseWriter();
 
 		writer.startElement("div", component);
 
-		this.writeIdAttributeIfNecessary(context, writer, component);
+		this.writeIdAttributeIfNecessary(context, writer, htmlComponent);
+		htmlComponent.getInputComponent().setRendered(!readonly);
+		htmlComponent.getInputComponent().setValue(value);
+		htmlComponent.getInputComponent().setId(htmlComponent.getId() + "_input");
 
 		if (styleClass != null) {
 			writer.writeAttribute("class", styleClass, "styleClass");
@@ -35,17 +44,19 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		if (style != null) {
 			writer.writeAttribute("style", style, "style");
 		}
+		if (label != null) {
+			writer.startElement("label", component);
+			if (!readonly) {
+				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), "for");
+			}
+			writer.writeText(htmlComponent.getLabel(), null);
+			writer.endElement("label");
+		}
 
-		final Text textComponent = (Text) component;
+		if (readonly) {
+			writer.writeText(value, null);
+		}
 
-		writer.startElement("div", component);
-		writer.writeText(textComponent.getLabel(), textComponent.getLabel());
-		writer.endElement("div");
-
-		final boolean readonly = textComponent.isReadonly();
-
-		textComponent.getReadonlyComponent().setRendered(readonly);
-		textComponent.getInputComponent().setRendered(!readonly);
 	}
 
 	@Override
@@ -80,8 +91,6 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 
 	@Override
 	public boolean getRendersChildren() {
-
 		return true;
-
 	}
 }
