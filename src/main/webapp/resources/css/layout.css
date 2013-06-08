@@ -1,0 +1,8 @@
+span.requiredLabel {
+	color: red;
+}
+
+input[type=text]{
+	font-size: 14px;
+	height: 24px;
+}

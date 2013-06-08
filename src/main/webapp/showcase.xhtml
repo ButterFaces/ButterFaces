@@ -33,12 +33,23 @@
 				enctype="#{multipart == true ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}"
 				acceptcharset="utf-8">
 			<h1>Welcome to larmic jsf2 components</h1> 
-			<l:text id="text" label="Labeltext" value="Valuetext" readonly="#{showcase.readonlyTextComponent}" styleClass="test">
-				<h:outputLabel value="innerLabel" />
+			<l:text id="text" 
+					label="Labeltext" 
+					value="Valuetext" 
+					readonly="#{showcase.readonlyTextComponent}" 
+					required="#{showcase.requiredTextComponent}"
+					styleClass="test">
 			</l:text>
-			<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
-				<a4j:ajax execute="@this" render="text"  />
-			</h:selectBooleanCheckbox>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Readonly " />
+				<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
+					<a4j:ajax execute="@this" render="text"  />
+				</h:selectBooleanCheckbox>
+				<h:outputLabel value="Required " />
+				<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
+					<a4j:ajax execute="@this" render="text"  />
+				</h:selectBooleanCheckbox>
+			</h:panelGrid>
 		</h:form>
 	</f:view>
 </h:body>

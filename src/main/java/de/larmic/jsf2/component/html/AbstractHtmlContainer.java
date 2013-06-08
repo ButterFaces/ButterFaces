@@ -10,6 +10,7 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 	protected static final String PROPERTY_STYLE = "style";
 	protected static final String PROPERTY_STYLE_CLASS = "styleClass";
 	protected static final String PROPERTY_READONLY = "readonly";
+	protected static final String PROPERTY_REQUIRED = "required";
 
 	protected final UIInput inputComponent;
 	protected final String family;
@@ -33,14 +34,6 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 		return this.family;
 	}
 
-	public Boolean isReadonly() {
-		return (Boolean) this.getStateHelper().eval("readonly", "false");
-	}
-
-	public void setReadonly(final Boolean readonly) {
-		this.updateStateHelper(PROPERTY_READONLY, readonly);
-	}
-
 	public String getLabel() {
 		return (String) this.getStateHelper().eval(PROPERTY_LABEL);
 	}
@@ -55,6 +48,22 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 
 	public void setValue(final Object value) {
 		this.updateStateHelper(PROPERTY_VALUE, value);
+	}
+
+	public Boolean isReadonly() {
+		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, "false");
+	}
+
+	public void setReadonly(final Boolean readonly) {
+		this.updateStateHelper(PROPERTY_READONLY, readonly);
+	}
+
+	public Boolean isRequired() {
+		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, "false");
+	}
+
+	public void setRequired(final Boolean required) {
+		this.updateStateHelper(PROPERTY_REQUIRED, required);
 	}
 
 	public String getStyle() {

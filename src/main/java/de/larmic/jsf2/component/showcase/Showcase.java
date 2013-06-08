@@ -11,6 +11,7 @@ import javax.inject.Named;
 public class Showcase implements Serializable {
 
 	private boolean readonlyTextComponent;
+	private boolean requiredTextComponent;
 
 	public boolean isReadonlyTextComponent() {
 		return this.readonlyTextComponent;
@@ -20,4 +21,11 @@ public class Showcase implements Serializable {
 		this.readonlyTextComponent = readonlyTextComponent;
 	}
 
+	public boolean isRequiredTextComponent() {
+		return this.requiredTextComponent;
+	}
+
+	public void setRequiredTextComponent(final boolean requiredTextComponent) {
+		this.requiredTextComponent = requiredTextComponent;
+	}
 }

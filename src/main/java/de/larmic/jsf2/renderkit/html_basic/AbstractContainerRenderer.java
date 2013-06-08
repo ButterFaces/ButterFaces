@@ -26,6 +26,7 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		final String style = htmlComponent.getStyle();
 		final String styleClass = htmlComponent.getStyleClass();
 		final boolean readonly = htmlComponent.isReadonly();
+		final boolean required = htmlComponent.isRequired();
 		final String label = htmlComponent.getLabel();
 		final Object value = htmlComponent.getValue();
 
@@ -51,6 +52,13 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 			}
 			writer.writeText(htmlComponent.getLabel(), null);
 			writer.endElement("label");
+		}
+		if (required && !readonly) {
+			writer.startElement("span", null);
+			writer.writeAttribute("id", htmlComponent.getInputComponent().getClientId() + "_requiredLabel", null);
+			writer.writeAttribute("class", "requiredLabel", null);
+			writer.writeText("*", null);
+			writer.endElement("span");
 		}
 
 		if (readonly) {
