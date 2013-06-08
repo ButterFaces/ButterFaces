@@ -37,6 +37,8 @@
 
 		<javax.javaee-api.version>7.0</javax.javaee-api.version>
 		<jsf.version>2.2.0-m15</jsf.version>
+		<!-- https://repository.jboss.org/nexus/content/groups/public-jboss/org/richfaces/richfaces-bom/ -->
+		<org.richfaces.bom.version>4.3.2.Final</org.richfaces.bom.version>
 	</properties>
 
 	<dependencies>
@@ -52,5 +54,22 @@
 			<version>${jsf.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.richfaces</groupId>
+			<artifactId>richfaces-bom</artifactId>
+			<version>${org.richfaces.bom.version}</version>
+			<scope>import</scope>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+	        <groupId>org.richfaces.ui</groupId>
+	        <artifactId>richfaces-components-ui</artifactId>
+	        <version>${org.richfaces.bom.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.richfaces.core</groupId>
+	        <artifactId>richfaces-core-impl</artifactId>
+	        <version>${org.richfaces.bom.version}</version>
+	    </dependency>
     </dependencies>
 </project>
