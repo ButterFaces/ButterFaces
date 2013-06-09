@@ -24,6 +24,15 @@ input[type=text] {
 		Geneva, Verdana, sans-serif;
 }
 
+.footer {
+	background-color: #333333;
+	bottom: 0;
+	color: #999999;
+	height: 30px;
+	position: absolute;
+	width: 100%;
+}
+
 #form {
 	position: fixed;
 	top: 0;
@@ -48,11 +57,11 @@ input[type=text] {
 	padding: 5px;
 	width: 250px;
 	float: left;
-	margin-left: 20px;
-	-moz-border-radius: 10px; /* Firefox */
+	margin-left: 20px; -moz-border-radius : 10px; /* Firefox */
 	-webkit-border-radius: 10px; /* Safari, Chrome */
 	-khtml-border-radius: 10px; /* Konqueror */
-	border-radius: 10px; /* CSS3 */
+	border-radius: 10px;
+	-moz-border-radius: 10px; /* CSS3 */
 }
 
 .component {
