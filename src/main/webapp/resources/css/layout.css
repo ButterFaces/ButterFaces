@@ -2,9 +2,57 @@ span.requiredLabel {
 	color: red;
 }
 
-input[type=text]{
+input[type=text] {
 	font-size: 14px;
 	height: 18px;
+}
+
+.header {
+	background-color: #333333;
+	background-position: initial initial;
+	background-repeat: initial initial;
+	box-shadow: rgba(0, 0, 0, 0.8) 0 0 2px;
+	line-height: 60px;
+	top: 0;
+}
+
+.header h1 {
+	color: #999999;
+	font-size: x-large;
+	margin-left: 10px;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+		Geneva, Verdana, sans-serif;
+}
+
+#form {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #999999;
+}
+
+.componentWrapper {
+	float: left;
+	width: 100%;
+	margin: 10px;
+}
+
+.componentControls {
+	float: left;
+}
+
+.componentCode {
+	background-color: #333333;
+	padding: 5px;
+	width: 250px;
+	float: left;
+	margin-left: 20px;
+	-moz-border-radius: 10px; /* Firefox */
+	-webkit-border-radius: 10px; /* Safari, Chrome */
+	-khtml-border-radius: 10px; /* Konqueror */
+	border-radius: 10px; /* CSS3 */
 }
 
 .component {
