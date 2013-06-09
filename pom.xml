@@ -10,6 +10,13 @@
 	<name>larmic-jsf2-components</name>
 	<url>http://www.larmic.de</url>
 
+	<distributionManagement>
+		<repository>
+			<id>repository.local</id>
+			<url>file:///Users/larmic/Work/larmic/maven-artifacts</url>
+		</repository>
+	</distributionManagement>
+
 	<scm>
 		<connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
 		<url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
