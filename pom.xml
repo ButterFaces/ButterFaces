@@ -17,13 +17,21 @@
 		<tag>HEAD</tag>
 	</scm>
 
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+				    <!-- goals>deploy</goals-->
+				    <autoversionsubmodules>true</autoversionsubmodules>
+				  </configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -53,13 +61,6 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>${jsf.version}</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces</groupId>
-			<artifactId>richfaces-bom</artifactId>
-			<version>${org.richfaces.bom.version}</version>
-			<scope>import</scope>
-			<type>pom</type>
 		</dependency>
 		<dependency>
 	        <groupId>org.richfaces.ui</groupId>
