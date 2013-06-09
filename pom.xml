@@ -4,7 +4,7 @@
 
 	<groupId>de.larmic.ts</groupId>
 	<artifactId>larmic-jsf2-components</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 
 	<name>larmic-jsf2-components</name>
@@ -14,7 +14,7 @@
 		<connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
 		<url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
 		<developerConnection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>larmic-jsf2-components-0.0.1</tag>
 	</scm>
 
 	<build>
