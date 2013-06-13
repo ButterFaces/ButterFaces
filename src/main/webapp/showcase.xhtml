@@ -20,12 +20,13 @@
 	<meta http-equiv="CacheControl" content="pre-check=0" />
 	<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
 	
-	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=sons-of-obsidian" />
-	
+	<h:outputStylesheet library="prettify" name="prettify.css"/>
+	<h:outputStylesheet library="prettify" name="sons-of-obsidian.css"/>
 	<h:outputStylesheet library="css" name="norm.css"/>
 	<h:outputStylesheet library="css" name="layout.css"/>
 	
 	<h:outputScript library="js" name="global.js" target="body"/>
+	<h:outputScript library="prettify" name="prettify.js" target="body"/>
 </h:head>
 
 <h:body>
@@ -34,61 +35,64 @@
 				prependId="false"
 				enctype="#{multipart == true ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}"
 				acceptcharset="utf-8">
-			<div class="header">	
-				<h1>Welcome to larmic jsf2 components showcase</h1>
-			</div>
-			<h:panelGroup styleClass="componentWrapper"> 
-				<div class="component">
-					<l:text id="text" 
-							label="#{showcase.labelTextComponent}" 
-							value="#{showcase.valueTextComponent}" 
-							readonly="#{showcase.readonlyTextComponent}" 
-							required="#{showcase.requiredTextComponent}"
-							floating="#{showcase.floatingTextComponent}"
-							styleClass="test">
-					</l:text>
-					<h:outputLabel value="folling Text" />
+			<div class="page">
+				<div class="header">	
+					<h1>Welcome to larmic jsf2 components showcase</h1>
+					<div class="link">
+						Visit project on <a href="https://bitbucket.org/larmicBB/larmic-jsf2-components" target="_blank">Bitbucket!</a>
+					</div>
 				</div>
-				<h:panelGrid columns="2" styleClass="componentControls">
-					<h:outputLabel value="Label" />
-					<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
-						<a4j:ajax event="keyup" execute="@this" render="text"  />
-					</h:inputText>
-					<h:outputLabel value="Value" />
-					<h:inputText value="#{showcase.valueTextComponent}" maxlength="10">
-						<a4j:ajax event="keyup" execute="@this" render="text"  />
-					</h:inputText>
-					<h:outputLabel value="Readonly" />
-					<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
-						<a4j:ajax execute="@this" render="text"  />
-					</h:selectBooleanCheckbox>
-					<h:outputLabel value="Required" />
-					<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
-						<a4j:ajax execute="@this" render="text"  />
-					</h:selectBooleanCheckbox>
-					<h:outputLabel value="Floating" />
-					<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
-						<a4j:ajax execute="@this" render="text" />
-					</h:selectBooleanCheckbox>
-				</h:panelGrid>
-				<pre class="prettyprint componentCode">
-&lt;l:text label="#{showcase.labelTextComponent}" 
-	value="#{showcase.valueTextComponent}" 
-	readonly="#{showcase.readonlyTextComponent}" 
-	required="#{showcase.requiredTextComponent}"
-	floating="#{showcase.floatingTextComponent}"
-	styleClass="test"&gt;
-&lt;/l:text&gt;</pre>
-			</h:panelGroup>
-			
-			<div class="footer">
-				Visit project on <a href="https://bitbucket.org/larmicBB/larmic-jsf2-components" target="_blank">Bitbucket!</a>
+				<div class="content">
+					<h:panelGroup styleClass="componentWrapper"> 
+						<div class="component">
+							<l:text id="text" 
+									label="#{showcase.labelTextComponent}" 
+									value="#{showcase.valueTextComponent}" 
+									readonly="#{showcase.readonlyTextComponent}" 
+									required="#{showcase.requiredTextComponent}"
+									floating="#{showcase.floatingTextComponent}"
+									styleClass="test">
+							</l:text>
+							<h:outputLabel value="folling Text" />
+						</div>
+						<h:panelGrid columns="2" styleClass="componentControls">
+							<h:outputLabel value="Label" />
+							<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
+								<a4j:ajax event="keyup" execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:inputText>
+							<h:outputLabel value="Value" />
+							<h:inputText value="#{showcase.valueTextComponent}" maxlength="10">
+								<a4j:ajax event="keyup" execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:inputText>
+							<h:outputLabel value="Readonly" />
+							<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
+								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Required" />
+							<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
+								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Floating" />
+							<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
+								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:selectBooleanCheckbox>
+						</h:panelGrid>
+						<h:panelGroup id="source" layout="block">
+							<pre class="prettyprint componentCode">
+#{showcase.textComponentCode}</pre>
+						</h:panelGroup>
+					</h:panelGroup >
+				</div>
 			</div>
 		</h:form>
 		
 	</f:view>
 </h:body>
 
-
+<script type="text/javascript">
+	jQuery(function() {
+		prettyPrint();
+	});
+</script>
 
 </html>

@@ -58,8 +58,12 @@ public class Showcase implements Serializable {
 
 	public String getTextComponentCode() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<l:text \n");
-		sb.append("test");
+		sb.append("<l:text label=\"" + this.labelTextComponent + "\"\n");
+		sb.append("        value=\"" + this.valueTextComponent + "\"\n");
+		sb.append("        required=\"" + this.readonlyTextComponent + "\"\n");
+		sb.append("        required=\"" + this.requiredTextComponent + "\"\n");
+		sb.append("        floating=\"" + this.floatingTextComponent + "\">\n");
+		sb.append("</l:text>");
 		return sb.toString();
 	}
 }

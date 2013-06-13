@@ -13,8 +13,11 @@ import de.larmic.jsf2.component.html.AbstractHtmlContainer;
 
 public class AbstractContainerRenderer extends HtmlBasicRenderer {
 
-	private static final String FLOATING_STYLE = "float: left;";
-	private static final String CLEAR_FLOATS = "clear: both;";
+	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
+	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
+	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
+
+	private static final String FLOATING_STYLE = "display: inline-block;";
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -43,6 +46,7 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		htmlComponent.getInputComponent().setRendered(!readonly);
 		htmlComponent.getInputComponent().setValue(value);
 		htmlComponent.getInputComponent().setId(htmlComponent.getId() + "_input");
+		htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
 
 		if (styleClass != null) {
 			writer.writeAttribute("class", styleClass, "styleClass");
@@ -50,12 +54,13 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		if (style != null) {
 			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, "style");
 		} else if (floating) {
-			writer.writeAttribute("style", FLOATING_STYLE, "style");
+			writer.writeAttribute("style", FLOATING_STYLE, "styleClass");
 		}
 		if (label != null) {
 			writer.startElement("label", component);
 			if (!readonly) {
 				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), "for");
+				writer.writeAttribute("class", LABEL_STYLE_CLASS, "class");
 			}
 			writer.writeText(htmlComponent.getLabel(), null);
 			writer.endElement("label");
@@ -63,7 +68,7 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		if (required && !readonly) {
 			writer.startElement("span", null);
 			writer.writeAttribute("id", htmlComponent.getInputComponent().getClientId() + "_requiredLabel", null);
-			writer.writeAttribute("class", "requiredLabel", null);
+			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, "class");
 			writer.writeText("*", null);
 			writer.endElement("span");
 		}
@@ -100,15 +105,6 @@ public class AbstractContainerRenderer extends HtmlBasicRenderer {
 		}
 
 		final ResponseWriter writer = context.getResponseWriter();
-
-		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
-		final boolean floating = htmlComponent.isFloating();
-
-		if (!floating) {
-			writer.startElement("div", component);
-			writer.writeAttribute("style", CLEAR_FLOATS, "style");
-			writer.endElement("div");
-		}
 
 		writer.endElement("div");
 	}
