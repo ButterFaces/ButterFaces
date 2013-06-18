@@ -3,7 +3,7 @@ package de.larmic.jsf2.component.html;
 import javax.el.ValueExpression;
 import javax.faces.component.UIInput;
 
-public abstract class AbstractHtmlContainer extends javax.faces.component.UIPanel {
+public abstract class AbstractHtmlContainer extends UIInput {
 
 	protected static final String PROPERTY_LABEL = "label";
 	protected static final String PROPERTY_VALUE = "value";
@@ -43,15 +43,17 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 		this.updateStateHelper(PROPERTY_LABEL, label);
 	}
 
+	@Override
 	public Object getValue() {
 		return this.getStateHelper().eval(PROPERTY_VALUE);
 	}
 
+	@Override
 	public void setValue(final Object value) {
 		this.updateStateHelper(PROPERTY_VALUE, value);
 	}
 
-	public Boolean isReadonly() {
+	public Boolean getReadonly() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, false);
 	}
 
@@ -59,7 +61,7 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 		this.updateStateHelper(PROPERTY_READONLY, readonly);
 	}
 
-	public Boolean isRequired() {
+	public Boolean getRequired() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, false);
 	}
 
@@ -67,7 +69,7 @@ public abstract class AbstractHtmlContainer extends javax.faces.component.UIPane
 		this.updateStateHelper(PROPERTY_REQUIRED, required);
 	}
 
-	public Boolean isFloating() {
+	public Boolean getFloating() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
 	}
 

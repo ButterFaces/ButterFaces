@@ -66,4 +66,8 @@ public class Showcase implements Serializable {
 		sb.append("</l:text>");
 		return sb.toString();
 	}
+
+	public void submit() {
+
+	}
 }

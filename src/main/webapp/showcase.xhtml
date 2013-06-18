@@ -44,7 +44,7 @@
 				</div>
 				<div class="content">
 					<h:panelGroup styleClass="componentWrapper"> 
-						<div class="component">
+						<a4j:outputPanel id="component" styleClass="component">
 							<l:text id="text" 
 									label="#{showcase.labelTextComponent}" 
 									value="#{showcase.valueTextComponent}" 
@@ -54,7 +54,9 @@
 									styleClass="test">
 							</l:text>
 							<h:outputLabel value="folling Text" />
-						</div>
+							#{showcase.valueTextComponent}
+							<a4j:commandButton value="Submit" execute="component" action="#{showcase.submit}" render="component"/>
+						</a4j:outputPanel>
 						<h:panelGrid columns="2" styleClass="componentControls">
 							<h:outputLabel value="Label" />
 							<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
@@ -83,6 +85,7 @@
 						</h:panelGroup>
 					</h:panelGroup >
 				</div>
+				<a4j:log/>
 			</div>
 		</h:form>
 		
