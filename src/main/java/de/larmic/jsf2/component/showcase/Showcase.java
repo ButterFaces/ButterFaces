@@ -13,6 +13,7 @@ public class Showcase implements Serializable {
 	private boolean readonlyTextComponent;
 	private boolean requiredTextComponent;
 	private boolean floatingTextComponent;
+	private boolean validateTextComponent;
 	private String labelTextComponent = "label";
 	private String valueTextComponent = "value";
 
@@ -56,6 +57,14 @@ public class Showcase implements Serializable {
 		this.valueTextComponent = valueTextComponent;
 	}
 
+	public boolean isValidateTextComponent() {
+		return this.validateTextComponent;
+	}
+
+	public void setValidateTextComponent(final boolean validateTextComponent) {
+		this.validateTextComponent = validateTextComponent;
+	}
+
 	public String getTextComponentCode() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<l:text label=\"" + this.labelTextComponent + "\"\n");
@@ -63,6 +72,9 @@ public class Showcase implements Serializable {
 		sb.append("        required=\"" + this.readonlyTextComponent + "\"\n");
 		sb.append("        required=\"" + this.requiredTextComponent + "\"\n");
 		sb.append("        floating=\"" + this.floatingTextComponent + "\">\n");
+		if (this.validateTextComponent) {
+			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
+		}
 		sb.append("</l:text>");
 		return sb.toString();
 	}

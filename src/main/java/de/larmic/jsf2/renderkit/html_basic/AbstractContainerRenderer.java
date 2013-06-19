@@ -17,6 +17,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
+	private static final String INVALID_STYLE_CLASS = "input-invalid";
 
 	private static final String FLOATING_STYLE = "display: inline-block;";
 
@@ -49,7 +50,13 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		htmlComponent.getInputComponent().setRendered(!readonly);
 		htmlComponent.getInputComponent().setValue(value);
 		htmlComponent.getInputComponent().setId(htmlComponent.getId() + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
-		htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
+
+		if (!htmlComponent.isValid()) {
+			htmlComponent.getInputComponent().getAttributes()
+					.put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
+		} else {
+			htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
+		}
 
 		if (styleClass != null) {
 			writer.writeAttribute("class", styleClass, "styleClass");
@@ -134,12 +141,6 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		if (newValue != null) {
 			this.setSubmittedValue(component, newValue);
 		}
-
-	}
-
-	@Override
-	public void setSubmittedValue(final UIComponent component, final Object value) {
-		((AbstractHtmlContainer) component).setSubmittedValue(value);
 	}
 
 	@Override

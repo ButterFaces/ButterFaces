@@ -43,16 +43,6 @@ public abstract class AbstractHtmlContainer extends UIInput {
 		this.updateStateHelper(PROPERTY_LABEL, label);
 	}
 
-	@Override
-	public Object getValue() {
-		return this.getStateHelper().eval(PROPERTY_VALUE);
-	}
-
-	@Override
-	public void setValue(final Object value) {
-		this.updateStateHelper(PROPERTY_VALUE, value);
-	}
-
 	public Boolean getReadonly() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, false);
 	}

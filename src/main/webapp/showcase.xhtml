@@ -52,6 +52,7 @@
 									required="#{showcase.requiredTextComponent}"
 									floating="#{showcase.floatingTextComponent}"
 									styleClass="test">
+								<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
 							</l:text>
 							<h:outputLabel value="folling Text" />
 							#{showcase.valueTextComponent}
@@ -78,6 +79,10 @@
 							<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
 								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
 							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Validate" />
+							<h:selectBooleanCheckbox value="#{showcase.validateTextComponent}">
+								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+							</h:selectBooleanCheckbox>
 						</h:panelGrid>
 						<h:panelGroup id="source" layout="block">
 							<pre class="prettyprint componentCode">
@@ -85,7 +90,6 @@
 						</h:panelGroup>
 					</h:panelGroup >
 				</div>
-				<a4j:log/>
 			</div>
 		</h:form>
 		

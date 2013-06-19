@@ -15,6 +15,10 @@
 	margin-right: 2px;
 }
 
+.input-invalid {
+	background-color: #CC6633 !important;
+}
+
 /*************** showcase ***************/
 
 .page {
@@ -80,7 +84,7 @@
 .componentCode {
 	background-color: #333333;
 	padding: 5px !important;
-	width: 250px;
+	width: 380px;
 	float: left;
 	margin-left: 60px;
 	-moz-border-radius: 6px; /* Firefox */
@@ -92,5 +96,38 @@
 
 .component {
 	float: left;
-	width: 400px;
+	width: 330px;
+	height: 120px;
+}
+
+.component input[type="submit"] {
+	background-color: #69A1C9;
+    border-color: #3D7CA9 !important;
+    border-style: solid;
+    border-width: 4px;
+    left: 120px;
+    position: relative;
+    top: 70px;
+    -moz-border-radius: 6px; /* Firefox */
+	-webkit-border-radius: 6px; /* Safari, Chrome */
+	-khtml-border-radius: 6px; /* Konqueror */
+	border-radius: 6px;
+	-moz-border-radius: 6px; /* CSS3 */
+	background-image: linear-gradient(bottom, #1C7586 3%, #3899A1 52%, #3D7CA9 97%);
+	background-image: -o-linear-gradient(bottom, #1C7586 3%, #3899A1 52%, #3D7CA9 97%);
+	background-image: -moz-linear-gradient(bottom, #1C7586 3%, #3899A1 52%, #3D7CA9 97%);
+	background-image: -webkit-linear-gradient(bottom, #1C7586 3%, #3899A1 52%, #3D7CA9 97%);
+	background-image: -ms-linear-gradient(bottom, #1C7586 3%, #3899A1 52%, #3D7CA9 97%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.03, #1C7586),
+		color-stop(0.52, #3899A1),
+		color-stop(0.97, #3D7CA9)
+	);
+}
+
+.component input[type="submit"]:HOVER {
+	background-color: #3D7CA9;
 }
