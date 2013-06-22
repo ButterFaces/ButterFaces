@@ -56,7 +56,7 @@
 							</l:text>
 							<h:outputLabel value="folling Text" />
 							#{showcase.valueTextComponent} 
-							<h:commandButton value="Submit">
+							<h:commandButton value="Submit" rendered="#{not showcase.readonlyTextComponent}">
 								<f:ajax execute="component" render="component" />
 							</h:commandButton>
 						</h:panelGroup>

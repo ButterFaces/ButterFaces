@@ -20,7 +20,8 @@
 }
 
 .larmic-component-label-tooltip {
-	
+	border-bottom: 1px dashed; 
+	text-decoration:none;
 }
 
 /*************** showcase ***************/
