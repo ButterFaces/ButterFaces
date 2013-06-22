@@ -19,6 +19,10 @@
 	background-color: #CC6633 !important;
 }
 
+.larmic-component-label-tooltip {
+	
+}
+
 /*************** showcase ***************/
 
 .page {
@@ -86,7 +90,7 @@
 	padding: 5px !important;
 	width: 380px;
 	float: left;
-	margin-left: 60px;
+	margin-left: 35px;
 	-moz-border-radius: 6px; /* Firefox */
 	-webkit-border-radius: 6px; /* Safari, Chrome */
 	-khtml-border-radius: 6px; /* Konqueror */

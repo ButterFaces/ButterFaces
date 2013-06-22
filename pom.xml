@@ -69,15 +69,5 @@
 			<version>${jsf.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-	        <groupId>org.richfaces.ui</groupId>
-	        <artifactId>richfaces-components-ui</artifactId>
-	        <version>${org.richfaces.bom.version}</version>
-	    </dependency>
-	    <dependency>
-	        <groupId>org.richfaces.core</groupId>
-	        <artifactId>richfaces-core-impl</artifactId>
-	        <version>${org.richfaces.bom.version}</version>
-	    </dependency>
     </dependencies>
 </project>

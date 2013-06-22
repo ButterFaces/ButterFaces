@@ -5,8 +5,6 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:h="http://java.sun.com/jsf/html" 
 	  xmlns:l="http://larmic.de/jsf2"
-	  xmlns:rich="http://richfaces.org/rich"
-	  xmlns:a4j="http://richfaces.org/a4j"
 	  xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title><h:outputText value="#{msg['application.name']}" /></title>
@@ -26,6 +24,7 @@
 	<h:outputStylesheet library="css" name="layout.css"/>
 	
 	<h:outputScript library="js" name="global.js" target="body"/>
+	<h:outputScript library="js" name="jquery-1.10.1.min.js" target="head"/>
 	<h:outputScript library="prettify" name="prettify.js" target="body"/>
 </h:head>
 
@@ -44,10 +43,11 @@
 				</div>
 				<div class="content">
 					<h:panelGroup styleClass="componentWrapper"> 
-						<a4j:outputPanel id="component" styleClass="component">
+						<h:panelGroup id="component" styleClass="component">
 							<l:text id="text" 
 									label="#{showcase.labelTextComponent}" 
 									value="#{showcase.valueTextComponent}" 
+									tooltip="#{showcase.tooltipTextComponent}"
 									readonly="#{showcase.readonlyTextComponent}" 
 									required="#{showcase.requiredTextComponent}"
 									floating="#{showcase.floatingTextComponent}"
@@ -55,33 +55,39 @@
 								<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
 							</l:text>
 							<h:outputLabel value="folling Text" />
-							#{showcase.valueTextComponent}
-							<a4j:commandButton value="Submit" execute="component" action="#{showcase.submit}" render="component"/>
-						</a4j:outputPanel>
+							#{showcase.valueTextComponent} 
+							<h:commandButton value="Submit">
+								<f:ajax execute="component" render="component" />
+							</h:commandButton>
+						</h:panelGroup>
 						<h:panelGrid columns="2" styleClass="componentControls">
 							<h:outputLabel value="Label" />
 							<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
-								<a4j:ajax event="keyup" execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax event="keyup" render="text source prettyprint" />
 							</h:inputText>
 							<h:outputLabel value="Value" />
 							<h:inputText value="#{showcase.valueTextComponent}" maxlength="10">
-								<a4j:ajax event="keyup" execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax event="keyup" render="text source prettyprint" />
+							</h:inputText>
+							<h:outputLabel value="Tooltip" />
+							<h:inputText value="#{showcase.tooltipTextComponent}" maxlength="10">
+								<f:ajax event="keyup" render="text source prettyprint" />
 							</h:inputText>
 							<h:outputLabel value="Readonly" />
 							<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
-								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax render="text source prettyprint" />
 							</h:selectBooleanCheckbox>
 							<h:outputLabel value="Required" />
 							<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
-								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax render="text source prettyprint" />
 							</h:selectBooleanCheckbox>
 							<h:outputLabel value="Floating" />
 							<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
-								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax render="text source prettyprint" />
 							</h:selectBooleanCheckbox>
 							<h:outputLabel value="Validate" />
 							<h:selectBooleanCheckbox value="#{showcase.validateTextComponent}">
-								<a4j:ajax execute="@this" render="text, source" oncomplete="jQuery(prettyPrint);" />
+								<f:ajax render="text source prettyprint" />
 							</h:selectBooleanCheckbox>
 						</h:panelGrid>
 						<h:panelGroup id="source" layout="block">
@@ -91,15 +97,17 @@
 					</h:panelGroup >
 				</div>
 			</div>
+			
+			<h:panelGroup id="prettyprint">
+				<script type="text/javascript">
+					jQuery(function() {
+						prettyPrint();
+					});
+				</script>
+			</h:panelGroup>
 		</h:form>
 		
 	</f:view>
 </h:body>
-
-<script type="text/javascript">
-	jQuery(function() {
-		prettyPrint();
-	});
-</script>
 
 </html>

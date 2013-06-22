@@ -18,10 +18,13 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
 	private static final String INVALID_STYLE_CLASS = "input-invalid";
+	private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
+	private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
 
 	private static final String FLOATING_STYLE = "display: inline-block;";
 
 	private static final String INPUT_COMPONENT_CLIENT_ID_POSTFIX = "_input";
+	private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -50,6 +53,18 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		htmlComponent.getInputComponent().setRendered(!readonly);
 		htmlComponent.getInputComponent().setValue(value);
 		htmlComponent.getInputComponent().setId(htmlComponent.getId() + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
+		htmlComponent
+				.getInputComponent()
+				.getAttributes()
+				.put("onfocus",
+						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
+								+ "').style.display = 'block';");
+		htmlComponent
+				.getInputComponent()
+				.getAttributes()
+				.put("onblur",
+						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
+								+ "').style.display = 'none';");
 
 		if (!htmlComponent.isValid()) {
 			htmlComponent.getInputComponent().getAttributes()
@@ -59,19 +74,24 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		}
 
 		if (styleClass != null) {
-			writer.writeAttribute("class", styleClass, "styleClass");
+			writer.writeAttribute("class", styleClass, null);
 		}
 		if (style != null) {
-			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, "style");
+			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, null);
 		} else if (floating) {
-			writer.writeAttribute("style", FLOATING_STYLE, "styleClass");
+			writer.writeAttribute("style", FLOATING_STYLE, null);
 		}
 		if (label != null) {
 			writer.startElement("label", component);
 			if (!readonly) {
-				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), "for");
-				writer.writeAttribute("class", LABEL_STYLE_CLASS, "class");
+				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), null);
 			}
+			if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
+				writer.writeAttribute("class", LABEL_STYLE_CLASS + " " + TOOLTIP_LABEL_CLASS, null);
+			} else {
+				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
+			}
+			writer.writeAttribute("title", htmlComponent.getTooltip(), null);
 			writer.writeText(htmlComponent.getLabel(), null);
 			writer.endElement("label");
 		}
@@ -114,6 +134,16 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		}
 
 		final ResponseWriter writer = context.getResponseWriter();
+		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
+
+		if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
+			writer.startElement("span", htmlComponent);
+			writer.writeAttribute("id", htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
+			writer.writeAttribute("class", TOOLTIP_CLASS, null);
+			writer.writeAttribute("style", "position: relative; display: none;", null);
+			writer.writeText(htmlComponent.getTooltip(), null);
+			writer.endElement("span");
+		}
 
 		writer.endElement("div");
 	}

@@ -14,6 +14,7 @@ public class Showcase implements Serializable {
 	private boolean requiredTextComponent;
 	private boolean floatingTextComponent;
 	private boolean validateTextComponent;
+	private String tooltipTextComponent;
 	private String labelTextComponent = "label";
 	private String valueTextComponent = "value";
 
@@ -65,11 +66,22 @@ public class Showcase implements Serializable {
 		this.validateTextComponent = validateTextComponent;
 	}
 
+	public String getTooltipTextComponent() {
+		return this.tooltipTextComponent;
+	}
+
+	public void setTooltipTextComponent(final String tooltipTextComponent) {
+		this.tooltipTextComponent = tooltipTextComponent;
+	}
+
 	public String getTextComponentCode() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<l:text label=\"" + this.labelTextComponent + "\"\n");
 		sb.append("        value=\"" + this.valueTextComponent + "\"\n");
-		sb.append("        required=\"" + this.readonlyTextComponent + "\"\n");
+		if (this.tooltipTextComponent != null && !"".equals(this.tooltipTextComponent)) {
+			sb.append("        tooltip=\"" + this.tooltipTextComponent + "\"\n");
+		}
+		sb.append("        readonly=\"" + this.readonlyTextComponent + "\"\n");
 		sb.append("        required=\"" + this.requiredTextComponent + "\"\n");
 		sb.append("        floating=\"" + this.floatingTextComponent + "\">\n");
 		if (this.validateTextComponent) {
@@ -77,9 +89,5 @@ public class Showcase implements Serializable {
 		}
 		sb.append("</l:text>");
 		return sb.toString();
-	}
-
-	public void submit() {
-
 	}
 }

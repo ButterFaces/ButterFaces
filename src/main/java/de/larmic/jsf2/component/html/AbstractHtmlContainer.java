@@ -12,6 +12,7 @@ public abstract class AbstractHtmlContainer extends UIInput {
 	protected static final String PROPERTY_READONLY = "readonly";
 	protected static final String PROPERTY_REQUIRED = "required";
 	protected static final String PROPERTY_FLOATING = "floating";
+	protected static final String PROPERTY_TOOLTIP = "tooltip";
 
 	protected final UIInput inputComponent;
 	protected final String family;
@@ -51,6 +52,14 @@ public abstract class AbstractHtmlContainer extends UIInput {
 		this.updateStateHelper(PROPERTY_READONLY, readonly);
 	}
 
+	public Boolean getFloating() {
+		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+	}
+
+	public void setFloating(final Boolean floating) {
+		this.updateStateHelper(PROPERTY_FLOATING, floating);
+	}
+
 	public Boolean getRequired() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, false);
 	}
@@ -59,12 +68,12 @@ public abstract class AbstractHtmlContainer extends UIInput {
 		this.updateStateHelper(PROPERTY_REQUIRED, required);
 	}
 
-	public Boolean getFloating() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+	public String getTooltip() {
+		return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
 	}
 
-	public void setFloating(final Boolean floating) {
-		this.updateStateHelper(PROPERTY_FLOATING, floating);
+	public void setTooltip(final String tooltip) {
+		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
 	}
 
 	public String getStyle() {

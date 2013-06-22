@@ -19,6 +19,10 @@
 			<required>true</required>
 		</attribute>
 		<attribute>
+			<name>tooltip</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
 			<name>readonly</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
