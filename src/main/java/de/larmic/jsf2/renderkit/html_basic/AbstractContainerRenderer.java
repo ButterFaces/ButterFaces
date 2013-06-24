@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -12,6 +13,13 @@ import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 
 import de.larmic.jsf2.component.html.AbstractHtmlContainer;
 
+/**
+ * larmic jsf2 components - An jsf 2 component extension
+ * https://bitbucket.org/larmicBB/larmic-jsf2-components
+ * 
+ * Copyright 2013 by Lars Michaelis <br/>
+ * Released under the MIT license http://opensource.org/licenses/mit-license.php
+ */
 public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
@@ -49,59 +57,12 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 
 		writer.startElement("div", component);
 
+		this.initInputComponent(htmlComponent, readonly, value);
+		this.initOuterDiv(style, styleClass, floating, writer);
+
 		this.writeIdAttributeIfNecessary(context, writer, htmlComponent);
-		htmlComponent.getInputComponent().setRendered(!readonly);
-		htmlComponent.getInputComponent().setValue(value);
-		htmlComponent.getInputComponent().setId(htmlComponent.getId() + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
-		htmlComponent
-				.getInputComponent()
-				.getAttributes()
-				.put("onfocus",
-						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
-								+ "').style.display = 'block';");
-		htmlComponent
-				.getInputComponent()
-				.getAttributes()
-				.put("onblur",
-						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
-								+ "').style.display = 'none';");
-
-		if (!htmlComponent.isValid()) {
-			htmlComponent.getInputComponent().getAttributes()
-					.put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
-		} else {
-			htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
-		}
-
-		if (styleClass != null) {
-			writer.writeAttribute("class", styleClass, null);
-		}
-		if (style != null) {
-			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, null);
-		} else if (floating) {
-			writer.writeAttribute("style", FLOATING_STYLE, null);
-		}
-		if (label != null) {
-			writer.startElement("label", component);
-			if (!readonly) {
-				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), null);
-			}
-			if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
-				writer.writeAttribute("class", LABEL_STYLE_CLASS + " " + TOOLTIP_LABEL_CLASS, null);
-			} else {
-				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
-			}
-			writer.writeAttribute("title", htmlComponent.getTooltip(), null);
-			writer.writeText(htmlComponent.getLabel(), null);
-			writer.endElement("label");
-		}
-		if (required && !readonly) {
-			writer.startElement("span", null);
-			writer.writeAttribute("id", htmlComponent.getInputComponent().getClientId() + "_requiredLabel", null);
-			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, "class");
-			writer.writeText("*", null);
-			writer.endElement("span");
-		}
+		this.writeLabelIfNecessary(component, htmlComponent, readonly, label, writer);
+		this.writeRequiredSpanIfNecessary(htmlComponent, readonly, required, writer);
 
 		if (readonly) {
 			writer.writeText(value, null);
@@ -136,12 +97,35 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		final ResponseWriter writer = context.getResponseWriter();
 		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
 
-		if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
+		final boolean tooltipNecessary = this.isTooltipNecessary(htmlComponent);
+
+		if (tooltipNecessary || !htmlComponent.isValid()) {
 			writer.startElement("span", htmlComponent);
 			writer.writeAttribute("id", htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
 			writer.writeAttribute("class", TOOLTIP_CLASS, null);
-			writer.writeAttribute("style", "position: relative; display: none;", null);
-			writer.writeText(htmlComponent.getTooltip(), null);
+			writer.writeAttribute("style", this.createOuterTooltipStyle(), null);
+
+			if (tooltipNecessary) {
+				writer.startElement("span", htmlComponent);
+				writer.writeAttribute("style", "position:relative;left:5px;top:4px;", null);
+				writer.writeText(htmlComponent.getTooltip(), null);
+				writer.endElement("span");
+			}
+
+			if (tooltipNecessary && !context.getMessageList().isEmpty()) {
+				writer.startElement("hr", htmlComponent);
+				writer.endElement("hr");
+				writer.startElement("ul", htmlComponent);
+			}
+
+			if (!context.getMessageList().isEmpty()) {
+				for (final FacesMessage message : context.getMessageList()) {
+					writer.startElement("li", htmlComponent);
+					writer.writeText(message.getSummary(), null);
+					writer.endElement("li");
+				}
+				writer.endElement("ul");
+			}
 			writer.endElement("span");
 		}
 
@@ -170,11 +154,101 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 
 		if (newValue != null) {
 			this.setSubmittedValue(component, newValue);
+			((AbstractHtmlContainer) component).setValue(newValue);
 		}
 	}
 
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	private void initInputComponent(final AbstractHtmlContainer htmlComponent, final boolean readonly,
+			final Object value) {
+		htmlComponent.getInputComponent().setRendered(!readonly);
+		htmlComponent.getInputComponent().setValue(value);
+		htmlComponent.getInputComponent().setId(htmlComponent.getId() + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
+		htmlComponent
+				.getInputComponent()
+				.getAttributes()
+				.put("onfocus",
+						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
+								+ "').style.display = 'inline-block';");
+		htmlComponent
+				.getInputComponent()
+				.getAttributes()
+				.put("onblur",
+						"document.getElementById('" + htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
+								+ "').style.display = 'none';");
+
+		if (!htmlComponent.isValid()) {
+			htmlComponent.getInputComponent().getAttributes()
+					.put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
+		} else {
+			htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
+		}
+	}
+
+	private void initOuterDiv(final String style, final String styleClass, final boolean floating,
+			final ResponseWriter writer) throws IOException {
+		if (styleClass != null) {
+			writer.writeAttribute("class", styleClass, null);
+		}
+		if (style != null) {
+			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, null);
+		} else if (floating) {
+			writer.writeAttribute("style", FLOATING_STYLE, null);
+		}
+	}
+
+	private void writeLabelIfNecessary(final UIComponent component, final AbstractHtmlContainer htmlComponent,
+			final boolean readonly, final String label, final ResponseWriter writer) throws IOException {
+		if (label != null) {
+			writer.startElement("label", component);
+			if (!readonly) {
+				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), null);
+			}
+			if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
+				writer.writeAttribute("class", LABEL_STYLE_CLASS + " " + TOOLTIP_LABEL_CLASS, null);
+			} else {
+				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
+			}
+			writer.startElement("abbr", component);
+			if (this.isTooltipNecessary(htmlComponent)) {
+				writer.writeAttribute("title", htmlComponent.getTooltip(), null);
+				writer.writeAttribute("style", "cursor: help;", null);
+			}
+			writer.writeText(htmlComponent.getLabel(), null);
+			writer.endElement("abbr");
+			writer.endElement("label");
+		}
+	}
+
+	private void writeRequiredSpanIfNecessary(final AbstractHtmlContainer htmlComponent, final boolean readonly,
+			final boolean required, final ResponseWriter writer) throws IOException {
+		if (required && !readonly) {
+			writer.startElement("span", null);
+			writer.writeAttribute("id", htmlComponent.getInputComponent().getClientId() + "_requiredLabel", null);
+			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, "class");
+			writer.writeText("*", null);
+			writer.endElement("span");
+		}
+	}
+
+	private String createOuterTooltipStyle() {
+		final StringBuilder tooltipStyle = new StringBuilder();
+		tooltipStyle.append("display: none;");
+		tooltipStyle.append("position: absolute;");
+		tooltipStyle.append("background-color: white;");
+		tooltipStyle.append("border-style: solid;");
+		tooltipStyle.append("border-width: 1px;");
+		tooltipStyle.append("width: 200px;");
+		tooltipStyle.append("z-index: 200;");
+		tooltipStyle.append("min-height: 25px;");
+		return tooltipStyle.toString();
+	}
+
+	private boolean isTooltipNecessary(final AbstractHtmlContainer htmlComponent) {
+		return htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip());
 	}
 }

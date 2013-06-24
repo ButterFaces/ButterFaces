@@ -19,9 +19,10 @@
 	background-color: #CC6633 !important;
 }
 
-.larmic-component-label-tooltip {
-	border-bottom: 1px dashed; 
-	text-decoration:none;
+.larmic-component-tooltip li {
+	list-style: disc outside none;
+    margin-left: 20px;
+    color: #CC6633;
 }
 
 /*************** showcase ***************/
@@ -78,20 +79,29 @@
 	margin: 10px;
 }
 
+.componentControlContainer {
+    float: left;
+    margin-right: 10px;
+}
+
 .componentControls {
-	float: left;
+	width: 235px !important;
+	color: #E0E2E4;
 }
 
 .componentControls label {
 	margin-right: 10px;
 }
 
+#source {
+	float: left;
+}
+
 .componentCode {
 	background-color: #333333;
 	padding: 5px !important;
 	width: 380px;
-	float: left;
-	margin-left: 35px;
+	margin-bottom: 5px;
 	-moz-border-radius: 6px; /* Firefox */
 	-webkit-border-radius: 6px; /* Safari, Chrome */
 	-khtml-border-radius: 6px; /* Konqueror */
@@ -99,20 +109,29 @@
 	-moz-border-radius: 6px; /* CSS3 */
 }
 
-.component {
+.componentContainer {
 	float: left;
-	width: 330px;
+	width: 325px;
 	height: 120px;
+	margin-right: 10px;
 }
 
-.component input[type="submit"] {
+.component {
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	-moz-border-radius: 6px; /* Firefox */
+	-webkit-border-radius: 6px; /* Safari, Chrome */
+	-khtml-border-radius: 6px; /* Konqueror */
+	border-radius: 6px;
+	-moz-border-radius: 6px; /* CSS3 */
+}
+
+.componentControls input[type="submit"] {
 	background-color: #69A1C9;
     border-color: #3D7CA9 !important;
     border-style: solid;
     border-width: 4px;
-    left: 120px;
-    position: relative;
-    top: 70px;
     -moz-border-radius: 6px; /* Firefox */
 	-webkit-border-radius: 6px; /* Safari, Chrome */
 	-khtml-border-radius: 6px; /* Konqueror */

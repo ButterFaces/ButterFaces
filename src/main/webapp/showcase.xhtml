@@ -43,58 +43,67 @@
 				</div>
 				<div class="content">
 					<h:panelGroup styleClass="componentWrapper"> 
-						<h:panelGroup id="component" styleClass="component">
-							<l:text id="text" 
-									label="#{showcase.labelTextComponent}" 
-									value="#{showcase.valueTextComponent}" 
-									tooltip="#{showcase.tooltipTextComponent}"
-									readonly="#{showcase.readonlyTextComponent}" 
-									required="#{showcase.requiredTextComponent}"
-									floating="#{showcase.floatingTextComponent}"
-									styleClass="test">
-								<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
-							</l:text>
-							<h:outputLabel value="folling Text" />
-							#{showcase.valueTextComponent} 
-							<h:commandButton value="Submit" rendered="#{not showcase.readonlyTextComponent}">
-								<f:ajax execute="component" render="component" />
-							</h:commandButton>
+						<div class="componentControlContainer">
+							<h2>controls</h2>
+							<div class="componentCode componentControls">
+								<h:panelGrid id="componentControl" columns="2">
+									<h:outputLabel value="label" />
+									<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
+										<f:ajax event="keyup" render="text source prettyprint" />
+									</h:inputText>
+									<h:outputLabel value="tooltip" />
+									<h:inputText value="#{showcase.tooltipTextComponent}" maxlength="10">
+										<f:ajax event="keyup" render="text source prettyprint" />
+									</h:inputText>
+									<h:outputLabel value="readonly" />
+									<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
+										<f:ajax render="text source prettyprint" />
+									</h:selectBooleanCheckbox>
+									<h:outputLabel value="required" />
+									<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
+										<f:ajax render="text source prettyprint" />
+									</h:selectBooleanCheckbox>
+									<h:outputLabel value="floating" />
+									<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
+										<f:ajax render="text source prettyprint" />
+									</h:selectBooleanCheckbox>
+									<h:outputLabel value="validate" />
+									<h:selectBooleanCheckbox value="#{showcase.validateTextComponent}">
+										<f:ajax render="text source prettyprint" />
+									</h:selectBooleanCheckbox>
+									<h:commandButton value="submit" rendered="#{not showcase.readonlyTextComponent}">
+										<f:ajax execute="component" render="component componentControl source prettyprint" />
+									</h:commandButton>
+									<div>#{showcase.valueTextComponent}</div>
+								</h:panelGrid>
+							</div>
+						</div>
+						<h:panelGroup id="component" styleClass="componentContainer">
+							<h2>component</h2>
+							<div class="component">
+								<l:text id="text" 
+										label="#{showcase.labelTextComponent}" 
+										value="#{showcase.valueTextComponent}" 
+										tooltip="#{showcase.tooltipTextComponent}"
+										readonly="#{showcase.readonlyTextComponent}" 
+										required="#{showcase.requiredTextComponent}"
+										floating="#{showcase.floatingTextComponent}"
+										styleClass="test">
+									<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
+								</l:text>
+								Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+								
+							</div>
 						</h:panelGroup>
-						<h:panelGrid columns="2" styleClass="componentControls">
-							<h:outputLabel value="Label" />
-							<h:inputText value="#{showcase.labelTextComponent}" maxlength="10">
-								<f:ajax event="keyup" render="text source prettyprint" />
-							</h:inputText>
-							<h:outputLabel value="Value" />
-							<h:inputText value="#{showcase.valueTextComponent}" maxlength="10">
-								<f:ajax event="keyup" render="text source prettyprint" />
-							</h:inputText>
-							<h:outputLabel value="Tooltip" />
-							<h:inputText value="#{showcase.tooltipTextComponent}" maxlength="10">
-								<f:ajax event="keyup" render="text source prettyprint" />
-							</h:inputText>
-							<h:outputLabel value="Readonly" />
-							<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
-								<f:ajax render="text source prettyprint" />
-							</h:selectBooleanCheckbox>
-							<h:outputLabel value="Required" />
-							<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
-								<f:ajax render="text source prettyprint" />
-							</h:selectBooleanCheckbox>
-							<h:outputLabel value="Floating" />
-							<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
-								<f:ajax render="text source prettyprint" />
-							</h:selectBooleanCheckbox>
-							<h:outputLabel value="Validate" />
-							<h:selectBooleanCheckbox value="#{showcase.validateTextComponent}">
-								<f:ajax render="text source prettyprint" />
-							</h:selectBooleanCheckbox>
-						</h:panelGrid>
 						<h:panelGroup id="source" layout="block">
+							<h2>xhtml:</h2>
 							<pre class="prettyprint componentCode">
 #{showcase.textComponentCode}</pre>
+							<h2>css:</h2>
+							<pre class="prettyprint componentCode">
+#{showcase.textComponentCSS}</pre>
 						</h:panelGroup>
-					</h:panelGroup >
+					</h:panelGroup>
 				</div>
 			</div>
 			

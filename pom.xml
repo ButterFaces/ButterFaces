@@ -17,6 +17,13 @@
 		</repository>
 	</distributionManagement>
 
+	<licenses>
+		<license>
+			<name>MIT license</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
 	<scm>
 		<connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
 		<url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>

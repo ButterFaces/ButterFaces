@@ -3,6 +3,13 @@ package de.larmic.jsf2.component.html;
 import javax.el.ValueExpression;
 import javax.faces.component.UIInput;
 
+/**
+ * larmic jsf2 components - An jsf 2 component extension
+ * https://bitbucket.org/larmicBB/larmic-jsf2-components
+ * 
+ * Copyright 2013 by Lars Michaelis <br/>
+ * Released under the MIT license http://opensource.org/licenses/mit-license.php
+ */
 public abstract class AbstractHtmlContainer extends UIInput {
 
 	protected static final String PROPERTY_LABEL = "label";

@@ -90,4 +90,39 @@ public class Showcase implements Serializable {
 		sb.append("</l:text>");
 		return sb.toString();
 	}
+
+	public String getTextComponentCSS() {
+		final StringBuilder sb = new StringBuilder();
+
+		sb.append(".larmic-component-label {\n");
+		sb.append("    margin-right: 2px;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".larmic-component-required {\n");
+		sb.append("    color: red;\n");
+		sb.append("    margin-right: 2px;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".larmic-component-input {\n");
+		sb.append("    font-size: 14px !important;\n");
+		sb.append("    height: 18px;\n");
+		sb.append("    margin-right: 2px;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".input-invalid {\n");
+		sb.append("    background-color: #CC6633 !important;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".larmic-component-tooltip li {\n");
+		sb.append("    list-style: disc outside none;\n");
+		sb.append("    margin-left: 20px;\n");
+		sb.append("    color: #CC6633;\n");
+		sb.append("}\n");
+
+		return sb.toString();
+	}
 }
