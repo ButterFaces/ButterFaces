@@ -15,6 +15,7 @@ public class Showcase implements Serializable {
 	private boolean requiredTextComponent;
 	private boolean floatingTextComponent;
 	private boolean validateTextComponent;
+	private boolean ajaxTextComponent;
 	private String tooltipTextComponent;
 	private String labelTextComponent = "label";
 	private String valueTextComponent = "value";
@@ -83,9 +84,18 @@ public class Showcase implements Serializable {
 		this.renderedTextComponent = renderedTextComponent;
 	}
 
+	public boolean isAjaxTextComponent() {
+		return this.ajaxTextComponent;
+	}
+
+	public void setAjaxTextComponent(final boolean ajaxTextComponent) {
+		this.ajaxTextComponent = ajaxTextComponent;
+	}
+
 	public String getTextComponentCode() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<l:text label=\"" + this.labelTextComponent + "\"\n");
+		sb.append("<l:text id=\"input\"\n");
+		sb.append("        label=\"" + this.labelTextComponent + "\"\n");
 		sb.append("        value=\"" + this.valueTextComponent + "\"\n");
 		if (this.tooltipTextComponent != null && !"".equals(this.tooltipTextComponent)) {
 			sb.append("        tooltip=\"" + this.tooltipTextComponent + "\"\n");
@@ -94,10 +104,19 @@ public class Showcase implements Serializable {
 		sb.append("        required=\"" + this.requiredTextComponent + "\"\n");
 		sb.append("        floating=\"" + this.floatingTextComponent + "\"\n");
 		sb.append("        rendered=\"" + this.renderedTextComponent + "\">\n");
+		if (this.ajaxTextComponent) {
+			sb.append("    <f:ajax event=\"keyup\" execute=\"text\"\n");
+			sb.append("            render=\"output\"/>\n");
+		}
 		if (this.validateTextComponent) {
 			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
 		sb.append("</l:text>");
+
+		if (this.ajaxTextComponent) {
+			sb.append("\n");
+			sb.append("<h:outputText id=\"output\" value=\"" + this.valueTextComponent + "\"/>");
+		}
 		return sb.toString();
 	}
 

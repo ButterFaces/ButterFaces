@@ -1,7 +1,13 @@
 package de.larmic.jsf2.component.html;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 import javax.el.ValueExpression;
 import javax.faces.component.UIInput;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * larmic jsf2 components - An jsf 2 component extension
@@ -10,7 +16,7 @@ import javax.faces.component.UIInput;
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
-public abstract class AbstractHtmlContainer extends UIInput {
+public abstract class AbstractHtmlContainer extends UIInput implements ClientBehaviorHolder {
 
 	protected static final String PROPERTY_LABEL = "label";
 	protected static final String PROPERTY_VALUE = "value";
@@ -37,6 +43,26 @@ public abstract class AbstractHtmlContainer extends UIInput {
 	 * Returns initialized input component.
 	 */
 	protected abstract UIInput initInputComponent();
+
+	@Override
+	public Collection<String> getEventNames() {
+		return this.inputComponent.getEventNames();
+	}
+
+	@Override
+	public void addClientBehavior(final String eventName, final ClientBehavior behavior) {
+		this.inputComponent.addClientBehavior(eventName, behavior);
+	}
+
+	@Override
+	public Map<String, List<ClientBehavior>> getClientBehaviors() {
+		return this.inputComponent.getClientBehaviors();
+	}
+
+	@Override
+	public String getDefaultEventName() {
+		return this.inputComponent.getDefaultEventName();
+	}
 
 	@Override
 	public String getFamily() {

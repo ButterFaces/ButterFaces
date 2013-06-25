@@ -91,6 +91,14 @@
 										</h:selectBooleanCheckbox>
 										<label for="floatingTextComponent" />
 									</h:panelGroup>
+									<h:outputLabel value="ajax" />
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="ajaxTextComponent"
+																 value="#{showcase.ajaxTextComponent}">
+											<f:ajax render="text source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="ajaxTextComponent" />
+									</h:panelGroup>
 									<h:outputLabel value="validate" />
 									<h:panelGroup>
 										<h:selectBooleanCheckbox id="validateTextComponent" value="#{showcase.validateTextComponent}">
@@ -117,10 +125,12 @@
 										rendered="#{showcase.renderedTextComponent}"
 										floating="#{showcase.floatingTextComponent}"
 										styleClass="test">
+									<f:ajax event="keyup" execute="text" render="output source prettyprint" disabled="#{not showcase.ajaxTextComponent}"/>
 									<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
 								</l:text>
 								Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-								
+								<br />
+								Output: <h:outputText id="output" value="#{showcase.valueTextComponent}" />
 							</div>
 						</h:panelGroup>
 						<h:panelGroup id="source" layout="block">
