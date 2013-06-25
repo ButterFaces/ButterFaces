@@ -95,20 +95,19 @@ public class Showcase implements Serializable {
 		final StringBuilder sb = new StringBuilder();
 
 		sb.append(".larmic-component-label {\n");
-		sb.append("    margin-right: 2px;\n");
+		sb.append("    width: 50px;\n");
 		sb.append("}\n");
 
 		sb.append("\n");
 		sb.append(".larmic-component-required {\n");
-		sb.append("    color: red;\n");
-		sb.append("    margin-right: 2px;\n");
+		sb.append("    /* nothing */\n");
 		sb.append("}\n");
 
 		sb.append("\n");
 		sb.append(".larmic-component-input {\n");
 		sb.append("    font-size: 14px !important;\n");
 		sb.append("    height: 18px;\n");
-		sb.append("    margin-right: 2px;\n");
+		sb.append("    width: 150px;\n");
 		sb.append("}\n");
 
 		sb.append("\n");

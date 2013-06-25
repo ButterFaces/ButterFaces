@@ -1,7 +1,7 @@
 /*************** components ***************/
 
 .larmic-component-label {
-	margin-right: 2px;
+	width: 50px
 }
 
 .larmic-component-required {
@@ -29,7 +29,7 @@
 
 .page {
 	margin: 0 auto;
-	width: 1000px;	
+	width: 1024px;	
 }
 
 .header {
@@ -50,34 +50,63 @@
     position: absolute;
     top: 10px;
     font-size: 9pt;
-    left: 1020px;
-    background: -moz-linear-gradient(center top , #E3E3E3, #F2F2F2) repeat scroll 0 0 transparent;
-    border-radius: 200px 200px 200px 200px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) inset;
+    left: 1050px;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #f2f2f2));
+  background: -webkit-linear-gradient(top, #e3e3e3, #f2f2f2);
+  background: -moz-linear-gradient(top, #e3e3e3, #f2f2f2);
+  background: -o-linear-gradient(top, #e3e3e3, #f2f2f2);
+  background: linear-gradient(top, #e3e3e3, #f2f2f2);
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  -ms-border-radius: 200px;
+  -o-border-radius: 200px;
+  border-radius: 200px;
+  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
+  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
     padding: 10px;
 }
 
 .link {
-    background: -moz-linear-gradient(center top , #FBFBFB, #E1E1E1) repeat scroll 0 0 transparent;
-    border: 1px solid #D4D4D4;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 1px 2px rgba(0, 0, 0, 0.2);
-    color: #666666;
-    display: inline-block;
-    font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    height: 32px;
-    line-height: 32px;
-    margin: 0;
-    padding: 0 25.6px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 1px 1px white;
-    vertical-align: middle;
+    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	background-color: #eeeeee;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fbfbfb), color-stop(100%, #e1e1e1));
+	background: -webkit-linear-gradient(top, #fbfbfb, #e1e1e1);
+	background: -moz-linear-gradient(top, #fbfbfb, #e1e1e1);
+	background: -o-linear-gradient(top, #fbfbfb, #e1e1e1);
+	background: linear-gradient(top, #fbfbfb, #e1e1e1);
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: middle;
+	*vertical-align: auto;
+	zoom: 1;
+	*display: inline;
+	border: 1px solid #d4d4d4;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 25.6px;
+	font-weight: 300;
+	font-size: 14px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #666666;
+	text-shadow: 0 1px 1px white;
+	margin: 0;
+	text-decoration: none;
+	text-align: center;}
+
+.link:hover {
+	background-color: #00a1cb;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00c9fe), color-stop(100%, #008db2));
+  background: -webkit-linear-gradient(top, #00c9fe, #008db2);
+  background: -moz-linear-gradient(top, #00c9fe, #008db2);
+  background: -o-linear-gradient(top, #00c9fe, #008db2);
+  background: linear-gradient(top, #00c9fe, #008db2);
 }
 
 .link > div {
-    padding-top: 40px;
+    padding-top: 24px;
 }
 
 .link-glow {
@@ -87,24 +116,38 @@
 }
 
 .link-flat-primary {
-    background: none repeat scroll 0 0 #00A1CB;
-    border: medium none;
-    box-shadow: none;
-    color: white;
-    text-shadow: none;
-    transition-duration: 0.3s;
-    transition-property: background, color;
+	-webkit-transition-property: background, color;
+	-moz-transition-property: background, color;
+	-o-transition-property: background, color;
+	transition-property: background, color;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	background: #00a1cb;
+	color: white;
+	text-shadow: none;
+	border: none;
 }
 
-.link-circle {
-    border-radius: 240px 240px 240px 240px;
-    border-width: 4px;
-    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) inset, 0 1px 2px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    height: 120px;
-    line-height: 20px;
-    padding: 0;
-    width: 120px;
+.link-circle  {
+	-webkit-border-radius: 240px;
+	-moz-border-radius: 240px;
+	-ms-border-radius: 240px;
+	-o-border-radius: 240px;
+	border-radius: 240px;
+	-webkit-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.5), 0px 1px 2px rgba(0, 0, 0, 0.2);
+	width: 80px;
+	line-height: 20px;
+	height: 80px;
+	padding: 0;
+	border-width: 4px;
+	font-size: 11px;
 }
 
 .content {
@@ -164,7 +207,7 @@
 
 .componentContainer {
 	float: left;
-	width: 325px;
+	width: 350px;
 	height: 120px;
 	margin-right: 10px;
 }
@@ -207,4 +250,143 @@
 
 .component input[type="submit"]:HOVER {
 	background-color: #3D7CA9;
+}
+
+/*************** glowing ***************/
+@-webkit-keyframes glowing {
+  /* line 8, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 9, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 10, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@-khtml-keyframes glowing {
+  /* line 14, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 15, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 16, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@-moz-keyframes glowing {
+  /* line 20, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 21, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 22, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@-ms-keyframes glowing {
+  /* line 26, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 27, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 28, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@-o-keyframes glowing {
+  /* line 32, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 33, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 34, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes glowing {
+  /* line 38, ../scss/_glow.scss */
+  from {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 39, ../scss/_glow.scss */
+  50% {
+    -webkit-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px rgba(44, 154, 219, 0.8), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* line 40, ../scss/_glow.scss */
+  to {
+    -webkit-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 0px rgba(44, 154, 219, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  }
 }

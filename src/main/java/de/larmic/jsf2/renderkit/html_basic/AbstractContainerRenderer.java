@@ -61,8 +61,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		this.initOuterDiv(style, styleClass, floating, writer);
 
 		this.writeIdAttributeIfNecessary(context, writer, htmlComponent);
-		this.writeLabelIfNecessary(component, htmlComponent, readonly, label, writer);
-		this.writeRequiredSpanIfNecessary(htmlComponent, readonly, required, writer);
+		this.writeLabelIfNecessary(component, htmlComponent, readonly, required, label, writer);
 
 		if (readonly) {
 			writer.writeText(value, null);
@@ -184,6 +183,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		if (!htmlComponent.isValid()) {
 			htmlComponent.getInputComponent().getAttributes()
 					.put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
+			htmlComponent.getInputComponent().getAttributes().put("style", "background-color: red;");
 		} else {
 			htmlComponent.getInputComponent().getAttributes().put("styleClass", INPUT_STYLE_CLASS);
 		}
@@ -202,7 +202,8 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 	}
 
 	private void writeLabelIfNecessary(final UIComponent component, final AbstractHtmlContainer htmlComponent,
-			final boolean readonly, final String label, final ResponseWriter writer) throws IOException {
+			final boolean readonly, final boolean required, final String label, final ResponseWriter writer)
+			throws IOException {
 		if (label != null) {
 			writer.startElement("label", component);
 			if (!readonly) {
@@ -213,12 +214,15 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 			} else {
 				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
 			}
+			writer.writeAttribute("style", "display: inline-block; margin-right: 2px;", null);
+
 			writer.startElement("abbr", component);
 			if (this.isTooltipNecessary(htmlComponent)) {
 				writer.writeAttribute("title", htmlComponent.getTooltip(), null);
 				writer.writeAttribute("style", "cursor: help;", null);
 			}
 			writer.writeText(htmlComponent.getLabel(), null);
+			this.writeRequiredSpanIfNecessary(htmlComponent, readonly, required, writer);
 			writer.endElement("abbr");
 			writer.endElement("label");
 		}
@@ -229,7 +233,8 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		if (required && !readonly) {
 			writer.startElement("span", null);
 			writer.writeAttribute("id", htmlComponent.getInputComponent().getClientId() + "_requiredLabel", null);
-			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, "class");
+			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, null);
+			writer.writeAttribute("style", "margin-left: 2px; color: red;", null);
 			writer.writeText("*", null);
 			writer.endElement("span");
 		}
