@@ -67,14 +67,6 @@ public abstract class AbstractHtmlContainer extends UIInput {
 		this.updateStateHelper(PROPERTY_FLOATING, floating);
 	}
 
-	public Boolean getRequired() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_REQUIRED, false);
-	}
-
-	public void setRequired(final Boolean required) {
-		this.updateStateHelper(PROPERTY_REQUIRED, required);
-	}
-
 	public String getTooltip() {
 		return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
 	}
@@ -93,7 +85,6 @@ public abstract class AbstractHtmlContainer extends UIInput {
 
 	public String getStyleClass() {
 		return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
-
 	}
 
 	public void setStyleClass(final String styleClass) {

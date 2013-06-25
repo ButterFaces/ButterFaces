@@ -48,7 +48,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		final String style = htmlComponent.getStyle();
 		final String styleClass = htmlComponent.getStyleClass();
 		final boolean readonly = htmlComponent.getReadonly();
-		final boolean required = htmlComponent.getRequired();
+		final boolean required = htmlComponent.isRequired();
 		final boolean floating = htmlComponent.getFloating();
 		final String label = htmlComponent.getLabel();
 		final Object value = htmlComponent.getValue();
