@@ -10,6 +10,7 @@ import javax.inject.Named;
 @SuppressWarnings("serial")
 public class Showcase implements Serializable {
 
+	private boolean renderedTextComponent = true;
 	private boolean readonlyTextComponent;
 	private boolean requiredTextComponent;
 	private boolean floatingTextComponent;
@@ -74,6 +75,14 @@ public class Showcase implements Serializable {
 		this.tooltipTextComponent = tooltipTextComponent;
 	}
 
+	public boolean isRenderedTextComponent() {
+		return this.renderedTextComponent;
+	}
+
+	public void setRenderedTextComponent(final boolean renderedTextComponent) {
+		this.renderedTextComponent = renderedTextComponent;
+	}
+
 	public String getTextComponentCode() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<l:text label=\"" + this.labelTextComponent + "\"\n");
@@ -83,7 +92,8 @@ public class Showcase implements Serializable {
 		}
 		sb.append("        readonly=\"" + this.readonlyTextComponent + "\"\n");
 		sb.append("        required=\"" + this.requiredTextComponent + "\"\n");
-		sb.append("        floating=\"" + this.floatingTextComponent + "\">\n");
+		sb.append("        floating=\"" + this.floatingTextComponent + "\"\n");
+		sb.append("        rendered=\"" + this.renderedTextComponent + "\">\n");
 		if (this.validateTextComponent) {
 			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}

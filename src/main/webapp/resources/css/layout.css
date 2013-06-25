@@ -46,6 +46,25 @@
 		Geneva, Verdana, sans-serif;
 }
 
+input[type="checkbox"] {
+    display:none;
+}
+
+input[type="checkbox"] + label {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(#{resource['img:check_radio_sheet.png']}) left top no-repeat;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label {
+    background:url(#{resource['img:check_radio_sheet.png']}) -19px top no-repeat;
+}
+
+
 .linkContainer {
     position: absolute;
     top: 10px;

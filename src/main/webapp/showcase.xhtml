@@ -60,21 +60,44 @@
 										<f:ajax event="keyup" render="text source prettyprint" />
 									</h:inputText>
 									<h:outputLabel value="readonly" />
-									<h:selectBooleanCheckbox value="#{showcase.readonlyTextComponent}">
-										<f:ajax render="text source prettyprint" />
-									</h:selectBooleanCheckbox>
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="readonlyTextComponent"
+															     value="#{showcase.readonlyTextComponent}">
+											<f:ajax render="text source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="readonlyTextComponent" />
+									</h:panelGroup>
 									<h:outputLabel value="required" />
-									<h:selectBooleanCheckbox value="#{showcase.requiredTextComponent}">
-										<f:ajax render="text source prettyprint" />
-									</h:selectBooleanCheckbox>
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="requiredTextComponent"
+																 value="#{showcase.requiredTextComponent}">
+											<f:ajax render="text source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="requiredTextComponent" />
+									</h:panelGroup>
+									<h:outputLabel value="rendered" />
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="renderedTextComponent"
+																 value="#{showcase.renderedTextComponent}">
+											<f:ajax render="component source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="renderedTextComponent" />
+									</h:panelGroup>
 									<h:outputLabel value="floating" />
-									<h:selectBooleanCheckbox value="#{showcase.floatingTextComponent}">
-										<f:ajax render="text source prettyprint" />
-									</h:selectBooleanCheckbox>
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="floatingTextComponent"
+																 value="#{showcase.floatingTextComponent}">
+											<f:ajax render="text source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="floatingTextComponent" />
+									</h:panelGroup>
 									<h:outputLabel value="validate" />
-									<h:selectBooleanCheckbox value="#{showcase.validateTextComponent}">
-										<f:ajax render="text source prettyprint" />
-									</h:selectBooleanCheckbox>
+									<h:panelGroup>
+										<h:selectBooleanCheckbox id="validateTextComponent" value="#{showcase.validateTextComponent}">
+											<f:ajax render="text source prettyprint" />
+										</h:selectBooleanCheckbox>
+										<label for="validateTextComponent"/>
+									</h:panelGroup>
 									<h:commandButton value="submit" rendered="#{not showcase.readonlyTextComponent}">
 										<f:ajax execute="component" render="component componentControl source prettyprint" />
 									</h:commandButton>
@@ -91,6 +114,7 @@
 										tooltip="#{showcase.tooltipTextComponent}"
 										readonly="#{showcase.readonlyTextComponent}" 
 										required="#{showcase.requiredTextComponent}"
+										rendered="#{showcase.renderedTextComponent}"
 										floating="#{showcase.floatingTextComponent}"
 										styleClass="test">
 									<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>

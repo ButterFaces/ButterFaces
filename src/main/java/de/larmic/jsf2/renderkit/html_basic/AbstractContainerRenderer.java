@@ -70,7 +70,6 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 
 	@Override
 	public void encodeChildren(final FacesContext context, final UIComponent component) throws IOException {
-
 		this.rendererParamsNotNull(context, component);
 
 		if (!this.shouldEncodeChildren(component)) {
@@ -86,7 +85,6 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-
 		this.rendererParamsNotNull(context, component);
 
 		if (!this.shouldEncode(component)) {
