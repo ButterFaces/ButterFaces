@@ -5,12 +5,13 @@
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<application>
-		<locale-config>
-			<default-locale>de</default-locale>
-			<supported-locale>de</supported-locale>
-			<supported-locale>en</supported-locale>
-		</locale-config>
-	</application>
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<renderer>
+			<component-family>de.larmic.component.text</component-family>
+			<renderer-type>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-type>
+			<renderer-class>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-class>
+		</renderer>
+	</render-kit>
 	
 </faces-config>
