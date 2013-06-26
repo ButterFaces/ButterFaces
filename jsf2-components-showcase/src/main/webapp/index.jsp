@@ -3,7 +3,7 @@
 <head></head>
 <body>
 	<%
-		String redirectURL = "/larmic-jsf2-components/showcase.jsf";
+		String redirectURL = "/jsf2-components-showcase/showcase.jsf";
 		response.sendRedirect(redirectURL);
 	%>
 </body>

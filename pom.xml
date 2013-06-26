@@ -3,12 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.larmic</groupId>
-	<artifactId>larmic-jsf2-components</artifactId>
+	<artifactId>larmic-components</artifactId>
 	<version>0.0.5-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 
-	<name>larmic-jsf2-components</name>
-	<url>http://www.larmic.de</url>
+	<name>larmic-components</name>
+	<url>http://components.larmic.de</url>
+
+	<modules>
+		<module>jsf2-components</module>
+		<module>jsf2-components-showcase</module>
+	</modules>
 
 	<distributionManagement>
 		<repository>
@@ -70,6 +75,8 @@
 		<default.encoding>UTF-8</default.encoding>
 		<project.build.sourceEncoding>${default.encoding}</project.build.sourceEncoding>
 		<maven.version>3.0.0</maven.version>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
 
 		<javax.javaee-api.version>7.0</javax.javaee-api.version>
 		<jsf.version>2.2.0-m15</jsf.version>
@@ -77,18 +84,25 @@
 		<org.richfaces.bom.version>4.3.2.Final</org.richfaces.bom.version>
 	</properties>
 
-	<dependencies>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>${javax.javaee-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>${jsf.version}</version>
-			<scope>provided</scope>
-		</dependency>
-    </dependencies>
+	<dependencyManagement>
+		<dependencies>
+	        <dependency>
+	            <groupId>javax</groupId>
+	            <artifactId>javaee-api</artifactId>
+	            <version>${javax.javaee-api.version}</version>
+	            <scope>provided</scope>
+	        </dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>${jsf.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>de.larmic</groupId>
+				<artifactId>jsf2-components</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+	    </dependencies>
+    </dependencyManagement>
 </project>
