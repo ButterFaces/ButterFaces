@@ -16,13 +16,38 @@
 }
 
 .input-invalid {
-	background-color: #CC6633 !important;
+	background-color: #FFEBDA !important;
+    border-color: #FF0044;
+    border-style: solid;
 }
 
-.larmic-component-tooltip li {
+.larmic-component-tooltip {
+	-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;	
+    -moz-box-shadow:    2px 2px 3px #AAAAAA;
+  	-webkit-box-shadow: 2px 2px 3px #AAAAAA;
+    box-shadow: 2px 2px 3px #AAAAAA;
+}
+
+.larmic-component-error-message {
+	background-color: #FFEBDA;
+    border: 1px solid #FF0044;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;	
+    margin: 5px;
+}
+
+.larmic-component-error-message li {
 	list-style: disc outside none;
     margin-left: 20px;
-    color: #CC6633;
+    color: #555555;
+    font-style: italic;
 }
 
 /*************** showcase ***************/

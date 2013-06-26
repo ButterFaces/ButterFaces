@@ -123,8 +123,7 @@
 										readonly="#{showcase.readonlyTextComponent}" 
 										required="#{showcase.requiredTextComponent}"
 										rendered="#{showcase.renderedTextComponent}"
-										floating="#{showcase.floatingTextComponent}"
-										styleClass="test">
+										floating="#{showcase.floatingTextComponent}">
 									<f:ajax event="keyup" execute="text" render="output source prettyprint" disabled="#{not showcase.ajaxTextComponent}"/>
 									<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.validateTextComponent}"/>
 								</l:text>

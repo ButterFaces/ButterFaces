@@ -25,9 +25,11 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
+	private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-input-invalid";
 	private static final String INVALID_STYLE_CLASS = "input-invalid";
 	private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
 	private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
+	private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
 
 	private static final String FLOATING_STYLE = "display: inline-block;";
 
@@ -50,6 +52,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		final boolean readonly = htmlComponent.getReadonly();
 		final boolean required = htmlComponent.isRequired();
 		final boolean floating = htmlComponent.getFloating();
+		final boolean valid = htmlComponent.isValid();
 		final String label = htmlComponent.getLabel();
 		final Object value = htmlComponent.getValue();
 
@@ -58,7 +61,7 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		writer.startElement("div", component);
 
 		this.initInputComponent(htmlComponent, readonly, value);
-		this.initOuterDiv(style, styleClass, floating, writer);
+		this.initOuterDiv(style, styleClass, floating, valid, writer);
 
 		this.writeIdAttributeIfNecessary(context, writer, htmlComponent);
 		this.writeLabelIfNecessary(component, htmlComponent, readonly, required, label, writer);
@@ -109,19 +112,17 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 				writer.endElement("span");
 			}
 
-			if (tooltipNecessary && !context.getMessageList().isEmpty()) {
-				writer.startElement("hr", htmlComponent);
-				writer.endElement("hr");
-				writer.startElement("ul", htmlComponent);
-			}
-
 			if (!context.getMessageList().isEmpty()) {
+				writer.startElement("div", htmlComponent);
+				writer.writeAttribute("class", ERROR_MESSAGE_CLASS, null);
+				writer.startElement("ul", htmlComponent);
 				for (final FacesMessage message : context.getMessageList()) {
 					writer.startElement("li", htmlComponent);
 					writer.writeText(message.getSummary(), null);
 					writer.endElement("li");
 				}
 				writer.endElement("ul");
+				writer.endElement("div");
 			}
 			writer.endElement("span");
 		}
@@ -187,10 +188,12 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 		}
 	}
 
-	private void initOuterDiv(final String style, final String styleClass, final boolean floating,
+	private void initOuterDiv(final String style, final String styleClass, final boolean floating, final boolean valid,
 			final ResponseWriter writer) throws IOException {
 		if (styleClass != null) {
-			writer.writeAttribute("class", styleClass, null);
+			writer.writeAttribute("class", valid ? styleClass : COMPONENT_INVALID_STYLE_CLASS + " " + styleClass, null);
+		} else if (!valid) {
+			writer.writeAttribute("class", COMPONENT_INVALID_STYLE_CLASS, null);
 		}
 		if (style != null) {
 			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, null);

@@ -105,7 +105,8 @@ public class Showcase implements Serializable {
 		sb.append("        floating=\"" + this.floatingTextComponent + "\"\n");
 		sb.append("        rendered=\"" + this.renderedTextComponent + "\">\n");
 		if (this.ajaxTextComponent) {
-			sb.append("    <f:ajax event=\"keyup\" execute=\"text\"\n");
+			sb.append("    <f:ajax event=\"keyup\" \n");
+			sb.append("            execute=\"input\"\n");
 			sb.append("            render=\"output\"/>\n");
 		}
 		if (this.validateTextComponent) {
@@ -141,14 +142,31 @@ public class Showcase implements Serializable {
 
 		sb.append("\n");
 		sb.append(".input-invalid {\n");
-		sb.append("    background-color: #CC6633 !important;\n");
+		sb.append("    background-color: #FFEBDA !important;\n");
+		sb.append("    border-color: #FF0044;\n");
+		sb.append("    border-style: solid;\n");
 		sb.append("}\n");
 
 		sb.append("\n");
-		sb.append(".larmic-component-tooltip li {\n");
+		sb.append(".larmic-component-tooltip {\n");
+		sb.append("    border-radius: 3px;\n");
+		sb.append("    box-shadow: 2px 2px 3px #AAAAAA;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".larmic-component-error-message {\n");
+		sb.append("    background-color: #FFEBDA;\n");
+		sb.append("    border: 1px solid #FF0044;\n");
+		sb.append("    border-radius: 3px;\n");
+		sb.append("    margin: 5px;\n");
+		sb.append("}\n");
+
+		sb.append("\n");
+		sb.append(".larmic-component-error-message li {\n");
 		sb.append("    list-style: disc outside none;\n");
 		sb.append("    margin-left: 20px;\n");
-		sb.append("    color: #CC6633;\n");
+		sb.append("    color: #555555;\n");
+		sb.append("    font-style: italic;\n");
 		sb.append("}\n");
 
 		return sb.toString();
