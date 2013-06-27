@@ -223,8 +223,10 @@ public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
 				writer.writeAttribute("style", "cursor: help;", null);
 			}
 			writer.writeText(htmlComponent.getLabel(), null);
-			this.writeRequiredSpanIfNecessary(htmlComponent, readonly, required, writer);
 			writer.endElement("abbr");
+
+			this.writeRequiredSpanIfNecessary(htmlComponent, readonly, required, writer);
+
 			writer.endElement("label");
 		}
 	}
