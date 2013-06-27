@@ -97,7 +97,6 @@ input[type="checkbox"]:checked + label {
     position: absolute;
     top: 10px;
     font-size: 9pt;
-    left: 1050px;
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #f2f2f2));
   background: -webkit-linear-gradient(top, #e3e3e3, #f2f2f2);
   background: -moz-linear-gradient(top, #e3e3e3, #f2f2f2);
@@ -112,6 +111,7 @@ input[type="checkbox"]:checked + label {
   -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
     padding: 10px;
+    margin-left: 880px;
 }
 
 .link {
@@ -215,6 +215,7 @@ input[type="checkbox"]:checked + label {
 	right: 0;
 	bottom: 0;
 	background-color: #999999;
+	overflow-y: auto;
 }
 
 .componentWrapper {
@@ -239,6 +240,7 @@ input[type="checkbox"]:checked + label {
 
 #source {
 	float: left;
+	margin-top: 10px;
 }
 
 .xhtml {
