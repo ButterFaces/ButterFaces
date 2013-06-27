@@ -89,6 +89,9 @@ input[type="checkbox"]:checked + label {
     background:url(#{resource['img:check_radio_sheet.png']}) -19px top no-repeat;
 }
 
+#output {
+	font-weight: bold;	
+}
 
 .linkContainer {
     position: absolute;
@@ -202,6 +205,7 @@ input[type="checkbox"]:checked + label {
 	border-radius: 0px 0px 6px 6px;
 	-moz-border-radius: 0px 0px 6px 6px; /* CSS3 */
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+	padding: 10px;
 }
 
 #form {
@@ -216,12 +220,12 @@ input[type="checkbox"]:checked + label {
 .componentWrapper {
 	display: inline-block;
 	width: 100%;
-	margin: 10px;
 }
 
 .componentControlContainer {
     float: left;
-    margin-right: 10px;
+    width: 250px;
+    margin-right: 5px;	
 }
 
 .componentControls {
@@ -237,10 +241,20 @@ input[type="checkbox"]:checked + label {
 	float: left;
 }
 
+.xhtml {
+	float: left;
+	margin-right: 10px;
+    width: 400px;
+}
+
+.css {
+	float: left;
+	width: 330px;
+}
+
 .componentCode {
 	background-color: #333333;
 	padding: 5px !important;
-	width: 380px;
 	margin-bottom: 5px;
 	-moz-border-radius: 6px; /* Firefox */
 	-webkit-border-radius: 6px; /* Safari, Chrome */
@@ -249,11 +263,13 @@ input[type="checkbox"]:checked + label {
 	-moz-border-radius: 6px; /* CSS3 */
 }
 
-.componentContainer {
+#component {
+	display: inline-block;
+}
+
+#componentAndSource {
 	float: left;
-	width: 350px;
-	height: 120px;
-	margin-right: 10px;
+	width: 740px;
 }
 
 .component {

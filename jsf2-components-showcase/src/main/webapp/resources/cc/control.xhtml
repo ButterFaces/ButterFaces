@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="control" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
+		<composite:attribute name="execute" type="java.lang.String" required="true" />
+		<composite:attribute name="render" type="java.lang.String" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGrid id="control" columns="2">
+			<h:outputLabel value="label" />
+			<h:inputText value="#{cc.attrs.control.label}" maxlength="20">
+				<f:ajax event="keyup" render=":form:#{cc.attrs.render}" />
+			</h:inputText>
+			<h:outputLabel value="tooltip" />
+			<h:inputText value="#{cc.attrs.control.tooltip}" maxlength="20">
+				<f:ajax event="keyup" render=":form:#{cc.attrs.render}" />
+			</h:inputText>
+			<h:outputLabel value="readonly" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="readonlyTextComponent" value="#{cc.attrs.control.readonly}">
+					<f:ajax render=":form:#{cc.attrs.render}" />
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('readonlyTextComponent')}" />
+			</h:panelGroup>
+			<h:outputLabel value="required" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="requiredTextComponent" value="#{cc.attrs.control.required}">
+					<f:ajax render=":form:#{cc.attrs.render}" />
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('requiredTextComponent')}" />
+			</h:panelGroup>
+			<h:outputLabel value="rendered" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="renderedTextComponent" value="#{cc.attrs.control.rendered}">
+					<f:ajax render=":form:#{cc.attrs.render}" />
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('renderedTextComponent')}" />
+			</h:panelGroup>
+			<h:outputLabel value="floating" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="floatingTextComponent" value="#{cc.attrs.control.floating}">
+					<f:ajax render=":form:#{cc.attrs.render}"/>
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('floatingTextComponent')}" />
+			</h:panelGroup>
+			<h:outputLabel value="ajax" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="ajaxTextComponent" value="#{cc.attrs.control.ajax}">
+					<f:ajax render=":form:#{cc.attrs.render}" />
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('ajaxTextComponent')}" />
+			</h:panelGroup>
+			<h:outputLabel value="validate" />
+			<h:panelGroup>
+				<h:selectBooleanCheckbox id="validateTextComponent" value="#{cc.attrs.control.validation}">
+					<f:ajax event="click" render=":form:#{cc.attrs.render}" />
+				</h:selectBooleanCheckbox>
+				<label for="#{clientId.find('validateTextComponent')}" />
+			</h:panelGroup>
+			<h:commandButton value="submit" rendered="#{not cc.attrs.control.readonly}">
+				<f:ajax execute=":form:#{clientId.find(cc.attrs.execute)}"
+						render=":form:#{cc.attrs.render}" />
+			</h:commandButton>
+			<div>#{cc.attrs.control.readableValue}</div>
+		</h:panelGrid>
+	</composite:implementation>
+</h:body>
+</html>
