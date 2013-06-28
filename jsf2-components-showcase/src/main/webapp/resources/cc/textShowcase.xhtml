@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:l="http://larmic.de/jsf2"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		<l:text id="text" 
+				label="#{cc.attrs.component.label}"
+				value="#{cc.attrs.component.value}"
+				tooltip="#{cc.attrs.component.tooltip}"
+				readonly="#{cc.attrs.component.readonly}"
+				required="#{cc.attrs.component.required}"
+				rendered="#{cc.attrs.component.rendered}"
+				floating="#{cc.attrs.component.floating}">
+			<f:ajax event="keyup" 
+					execute="text"
+					render=":form:output :form:source :form:prettyprint"
+					disabled="#{not cc.attrs.component.ajax}" />
+			<f:validateLength minimum="2" 
+							  maximum="10"
+							  disabled="#{not cc.attrs.component.validation}" />
+		</l:text>
+	</composite:implementation>
+</h:body>
+</html>

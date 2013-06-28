@@ -18,6 +18,9 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
  */
 public abstract class AbstractHtmlContainer extends UIInput implements ClientBehaviorHolder {
 
+	public static final String COMPONENT_FAMILY = "de.larmic.component.family";
+	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.BasicContainerRenderer";
+
 	protected static final String PROPERTY_LABEL = "label";
 	protected static final String PROPERTY_VALUE = "value";
 	protected static final String PROPERTY_STYLE = "style";
@@ -28,12 +31,10 @@ public abstract class AbstractHtmlContainer extends UIInput implements ClientBeh
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 
 	protected final UIInput inputComponent;
-	protected final String family;
 
-	public AbstractHtmlContainer(final String componentType, final String rendererType) {
-		this.setRendererType(rendererType);
+	public AbstractHtmlContainer() {
+		this.setRendererType(RENDERER_TYPE);
 
-		this.family = componentType;
 		this.inputComponent = this.initInputComponent();
 
 		this.getChildren().add(this.inputComponent);
@@ -66,7 +67,7 @@ public abstract class AbstractHtmlContainer extends UIInput implements ClientBeh
 
 	@Override
 	public String getFamily() {
-		return this.family;
+		return COMPONENT_FAMILY;
 	}
 
 	public String getLabel() {

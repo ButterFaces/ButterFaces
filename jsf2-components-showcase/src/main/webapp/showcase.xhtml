@@ -50,8 +50,11 @@
 				<div class="content">
 					<div class="navigation">
 						<h:commandButton value="text" 
-										 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"/>
-						<h:commandButton value="textArea" />
+										 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"
+										 action="#{showcase.activateTextComponent}" />
+						<h:commandButton value="textArea" 
+										 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
+										 action="#{showcase.activateTextAreaComponent}" />
 						<h:commandButton value="checkBox" />
 						<h:commandButton value="comboBox" />
 					</div>
@@ -70,17 +73,10 @@
 							<h:panelGroup id="component">
 								<h2>component</h2>
 								<div class="component">
-									<l:text id="text" 
-											label="#{showcase.showcaseComponent.label}" 
-											value="#{showcase.showcaseComponent.value}" 
-											tooltip="#{showcase.showcaseComponent.tooltip}"
-											readonly="#{showcase.showcaseComponent.readonly}" 
-											required="#{showcase.showcaseComponent.required}"
-											rendered="#{showcase.showcaseComponent.rendered}"
-											floating="#{showcase.showcaseComponent.floating}">
-										<f:ajax event="keyup" execute="text" render="output source prettyprint" disabled="#{not showcase.showcaseComponent.ajax}"/>
-										<f:validateLength minimum="2" maximum="10" disabled="#{not showcase.showcaseComponent.validation}"/>
-									</l:text>
+									<showcase:textShowcase component="#{showcase.showcaseComponent}" 
+														   rendered="#{showcase.textComponentRendered}"/>
+									<showcase:textAreaShowcase component="#{showcase.showcaseComponent}" 
+														   	   rendered="#{showcase.textAreaComponentRendered}"/>
 									Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
 									<br />
 									<hr />

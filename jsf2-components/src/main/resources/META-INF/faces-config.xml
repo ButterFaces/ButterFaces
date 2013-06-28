@@ -5,13 +5,14 @@
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<render-kit>
+	<!-- @FacesRenderer is used instead -->
+	<!-- render-kit>
 		<render-kit-id>HTML_BASIC</render-kit-id>
 		<renderer>
 			<component-family>de.larmic.component.text</component-family>
-			<renderer-type>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-type>
-			<renderer-class>de.larmic.jsf2.renderkit.html_basic.TextRenderer</renderer-class>
+			<renderer-type>de.larmic.jsf2.renderkit.html_basic.BasicContainerRenderer</renderer-type>
+			<renderer-class>de.larmic.jsf2.renderkit.html_basic.BasicContainerRenderer</renderer-class>
 		</renderer>
-	</render-kit>
+	</render-kit-->
 	
 </faces-config>

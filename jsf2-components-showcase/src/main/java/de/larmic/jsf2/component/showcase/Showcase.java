@@ -26,7 +26,16 @@ public class Showcase implements Serializable {
 		this.component = new TextShowcaseComponent();
 	}
 
+	public boolean isTextAreaComponentRendered() {
+		return TextAreaShowcaseComponent.class.equals(this.component.getClass());
+	}
+
+	public void activateTextAreaComponent() {
+		this.component = new TextAreaShowcaseComponent();
+	}
+
 	public AbstractShowcaseComponent getShowcaseComponent() {
 		return this.component;
 	}
+
 }

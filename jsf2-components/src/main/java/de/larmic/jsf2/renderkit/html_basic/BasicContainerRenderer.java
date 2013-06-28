@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
 
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 
@@ -20,7 +21,8 @@ import de.larmic.jsf2.component.html.AbstractHtmlContainer;
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
-public class AbstractContainerRenderer extends HtmlBasicInputRenderer {
+@FacesRenderer(componentFamily = AbstractHtmlContainer.COMPONENT_FAMILY, rendererType = AbstractHtmlContainer.RENDERER_TYPE)
+public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
