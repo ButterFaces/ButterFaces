@@ -56,7 +56,9 @@
 										 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
 										 action="#{showcase.activateTextAreaComponent}" />
 						<h:commandButton value="checkBox" />
-						<h:commandButton value="comboBox" />
+						<h:commandButton value="comboBox" 
+										 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
+										 action="#{showcase.activateComboBoxComponent}" />
 					</div>
 				
 					<div class="componentWrapper"> 
@@ -77,6 +79,8 @@
 														   rendered="#{showcase.textComponentRendered}"/>
 									<showcase:textAreaShowcase component="#{showcase.showcaseComponent}" 
 														   	   rendered="#{showcase.textAreaComponentRendered}"/>
+									<showcase:comboBoxShowcase component="#{showcase.showcaseComponent}" 
+														   	   rendered="#{showcase.comboBoxComponentRendered}"/>
 									Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
 									<br />
 									<hr />

@@ -34,8 +34,15 @@ public class Showcase implements Serializable {
 		this.component = new TextAreaShowcaseComponent();
 	}
 
+	public boolean isComboBoxComponentRendered() {
+		return ComboBoxShowcaseComponent.class.equals(this.component.getClass());
+	}
+
+	public void activateComboBoxComponent() {
+		this.component = new ComboBoxShowcaseComponent();
+	}
+
 	public AbstractShowcaseComponent getShowcaseComponent() {
 		return this.component;
 	}
-
 }

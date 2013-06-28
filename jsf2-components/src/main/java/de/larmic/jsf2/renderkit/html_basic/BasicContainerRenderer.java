@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 
+import com.sun.faces.facelets.compiler.UIInstructions;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 
 import de.larmic.jsf2.component.html.AbstractHtmlContainer;
@@ -42,6 +43,11 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 	private static final String INPUT_COMPONENT_CLIENT_ID_POSTFIX = "_input";
 	private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
 
+	/**
+	 * List overcomes ajax request.
+	 */
+	private final List<UIComponent> componentChildren = new ArrayList<>();
+
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
 
@@ -54,6 +60,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
 
 		this.handleAjaxExecutes(htmlComponent);
+		this.handleChildren(htmlComponent);
 
 		final String style = htmlComponent.getStyle();
 		final String styleClass = htmlComponent.getStyleClass();
@@ -156,6 +163,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 
 		final Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
 
+		// get new value from inner input component (except of super.decode)
 		final String newValue = requestMap.get(clientId + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
 
 		if (newValue != null) {
@@ -266,6 +274,22 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 
 	private boolean isTooltipNecessary(final AbstractHtmlContainer htmlComponent) {
 		return htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip());
+	}
+
+	/**
+	 * Initialize internal children list and add children to inner component.
+	 */
+	private void handleChildren(final AbstractHtmlContainer htmlComponent) {
+		for (final UIComponent child : htmlComponent.getChildren()) {
+			if (!UIInstructions.class.equals(child.getClass())
+					&& !htmlComponent.getInputComponent().getClass().equals(child.getClass())) {
+				this.componentChildren.add(child);
+			}
+		}
+
+		// add children to inner component does remove children from outer
+		// component automatically
+		htmlComponent.getInputComponent().getChildren().addAll(this.componentChildren);
 	}
 
 	/**

@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:l="http://larmic.de/jsf2"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		<l:comboBox label="#{cc.attrs.component.label}"
+					value="#{cc.attrs.component.value}"
+					tooltip="#{cc.attrs.component.tooltip}"
+					readonly="#{cc.attrs.component.readonly}"
+					required="#{cc.attrs.component.required}"
+					rendered="#{cc.attrs.component.rendered}"
+					floating="#{cc.attrs.component.floating}">
+			<f:selectItem itemValue="#{null}" itemLabel="Choose one..." />
+			<f:selectItem itemValue="2000" itemLabel="Year 2000" />
+			<f:selectItem itemValue="2010" itemLabel="Year 2010" />
+			<f:selectItem itemValue="2020" itemLabel="Year 2020" />
+			<f:ajax event="change" 
+					execute="@this"
+					render=":form:output :form:source :form:prettyprint"
+					disabled="#{not cc.attrs.component.ajax}" />
+			<!-- f:validateLength minimum="2" 
+							  maximum="10"
+							  disabled="#{not cc.attrs.component.validation}" /-->
+		</l:comboBox>
+	</composite:implementation>
+</h:body>
+</html>
