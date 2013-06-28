@@ -20,7 +20,7 @@
 				rendered="#{cc.attrs.component.rendered}"
 				floating="#{cc.attrs.component.floating}">
 			<f:ajax event="keyup" 
-					execute="text"
+					execute="@this"
 					render=":form:output :form:source :form:prettyprint"
 					disabled="#{not cc.attrs.component.ajax}" />
 			<f:validateLength minimum="2" 

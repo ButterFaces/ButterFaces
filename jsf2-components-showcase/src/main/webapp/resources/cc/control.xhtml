@@ -15,51 +15,51 @@
 		<h:panelGrid id="control" columns="2">
 			<h:outputLabel value="label" />
 			<h:inputText value="#{cc.attrs.control.label}" maxlength="20">
-				<f:ajax event="keyup" render=":form:#{cc.attrs.render}" />
+				<f:ajax event="keyup" execute="@this" render=":form:#{cc.attrs.render}" />
 			</h:inputText>
 			<h:outputLabel value="tooltip" />
 			<h:inputText value="#{cc.attrs.control.tooltip}" maxlength="20">
-				<f:ajax event="keyup" render=":form:#{cc.attrs.render}" />
+				<f:ajax event="keyup" execute="@this" render=":form:#{cc.attrs.render}" />
 			</h:inputText>
 			<h:outputLabel value="readonly" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="readonlyTextComponent" value="#{cc.attrs.control.readonly}">
-					<f:ajax render=":form:#{cc.attrs.render}" />
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}" />
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('readonlyTextComponent')}" />
 			</h:panelGroup>
 			<h:outputLabel value="required" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="requiredTextComponent" value="#{cc.attrs.control.required}">
-					<f:ajax render=":form:#{cc.attrs.render}" />
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}" />
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('requiredTextComponent')}" />
 			</h:panelGroup>
 			<h:outputLabel value="rendered" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="renderedTextComponent" value="#{cc.attrs.control.rendered}">
-					<f:ajax render=":form:#{cc.attrs.render}" />
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}" />
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('renderedTextComponent')}" />
 			</h:panelGroup>
 			<h:outputLabel value="floating" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="floatingTextComponent" value="#{cc.attrs.control.floating}">
-					<f:ajax render=":form:#{cc.attrs.render}"/>
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}"/>
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('floatingTextComponent')}" />
 			</h:panelGroup>
 			<h:outputLabel value="ajax" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="ajaxTextComponent" value="#{cc.attrs.control.ajax}">
-					<f:ajax render=":form:#{cc.attrs.render}" />
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}" />
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('ajaxTextComponent')}" />
 			</h:panelGroup>
 			<h:outputLabel value="validate" />
 			<h:panelGroup>
 				<h:selectBooleanCheckbox id="validateTextComponent" value="#{cc.attrs.control.validation}">
-					<f:ajax event="click" render=":form:#{cc.attrs.render}" />
+					<f:ajax execute="@this" render=":form:#{cc.attrs.render}" />
 				</h:selectBooleanCheckbox>
 				<label for="#{clientId.find('validateTextComponent')}" />
 			</h:panelGroup>

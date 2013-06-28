@@ -1,11 +1,15 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -48,6 +52,8 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		}
 
 		final AbstractHtmlContainer htmlComponent = (AbstractHtmlContainer) component;
+
+		this.handleAjaxExecutes(htmlComponent);
 
 		final String style = htmlComponent.getStyle();
 		final String styleClass = htmlComponent.getStyleClass();
@@ -260,5 +266,32 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 
 	private boolean isTooltipNecessary(final AbstractHtmlContainer htmlComponent) {
 		return htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip());
+	}
+
+	/**
+	 * Ajax attribute execute @this is not supported, because @this points to
+	 * inner component.
+	 */
+	private void handleAjaxExecutes(final AbstractHtmlContainer htmlComponent) {
+		final Iterator<List<ClientBehavior>> behavioriterator = htmlComponent.getClientBehaviors().values().iterator();
+
+		while (behavioriterator.hasNext()) {
+			final List<ClientBehavior> behaviors = behavioriterator.next();
+
+			for (final ClientBehavior behavior : behaviors) {
+				if (behavior instanceof AjaxBehavior) {
+					final AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;
+
+					if (ajaxBehavior.getExecute().contains("@this")) {
+						// @this attribute has found in execute list -> add
+						// client id of outer component
+						final List<String> executes = new ArrayList<String>();
+						executes.addAll(ajaxBehavior.getExecute());
+						executes.add(htmlComponent.getClientId());
+						ajaxBehavior.setExecute(executes);
+					}
+				}
+			}
+		}
 	}
 }
