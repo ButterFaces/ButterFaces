@@ -90,6 +90,16 @@ input[type="checkbox"]:checked + label {
 }
 
 #output {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+#output label {
+	width: 115px;
+	display: inline-block;
+}
+
+.output {
 	font-weight: bold;	
 }
 
@@ -208,7 +218,7 @@ input[type="checkbox"]:checked + label {
 	padding: 10px;
 }
 
-#form {
+.body {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -312,6 +322,7 @@ input[type="submit"] {
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.03, #1C7586), color-stop(0.52, #3899A1), color-stop(0.97, #3D7CA9));
 	cursor: pointer;
 	padding: 2px;
+	float: left;
 }
 
 input[type="submit"]:HOVER {
