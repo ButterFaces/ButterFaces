@@ -45,11 +45,11 @@
 			</div>
 				
 			<div class="content">
-				<div class="navigation">
+				<h:panelGroup id="navigation" layout="block">
 					<h:commandButton value="text" 
 									 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"
 									 action="#{showcase.activateTextComponent}">
-						<f:ajax immediate="true" render="form"/>
+						<f:ajax immediate="true" render="navigation form"/>
 					</h:commandButton>
 					<h:commandButton value="textArea" 
 									 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
@@ -57,14 +57,14 @@
 						<f:ajax immediate="true" render="form"/>
 					</h:commandButton>
 					<h:commandButton value="checkBox">
-						<f:ajax immediate="true" render="form"/>
+						<f:ajax immediate="true" render="navigation form"/>
 					</h:commandButton>
 					<h:commandButton value="comboBox" 
 									 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
 									 action="#{showcase.activateComboBoxComponent}">
-						<f:ajax immediate="true" render="form"/>
+						<f:ajax immediate="true" render="navigation form"/>
 					</h:commandButton>
-				</div>
+				</h:panelGroup>
 				
 				<div class="componentWrapper"> 
 					<h:form id="form" 

@@ -39,6 +39,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 	private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
 
 	private static final String FLOATING_STYLE = "display: inline-block;";
+	private static final String NON_FLOATING_STYLE = "display: table;";
 
 	private static final String INPUT_COMPONENT_CLIENT_ID_POSTFIX = "_input";
 	private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
@@ -207,14 +208,16 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 	private void initOuterDiv(final String style, final String styleClass, final boolean floating, final boolean valid,
 			final ResponseWriter writer) throws IOException {
 		if (styleClass != null) {
-			writer.writeAttribute("class", valid ? styleClass : COMPONENT_INVALID_STYLE_CLASS + " " + styleClass, null);
+			writer.writeAttribute("class",
+					valid ? styleClass : this.concatStyles(COMPONENT_INVALID_STYLE_CLASS, styleClass), null);
 		} else if (!valid) {
 			writer.writeAttribute("class", COMPONENT_INVALID_STYLE_CLASS, null);
 		}
 		if (style != null) {
-			writer.writeAttribute("style", floating ? FLOATING_STYLE + style : style, null);
-		} else if (floating) {
-			writer.writeAttribute("style", FLOATING_STYLE, null);
+			final String floatingStyle = floating ? FLOATING_STYLE : NON_FLOATING_STYLE;
+			writer.writeAttribute("style", this.concatStyles(floatingStyle, style), null);
+		} else {
+			writer.writeAttribute("style", floating ? FLOATING_STYLE : NON_FLOATING_STYLE, null);
 		}
 	}
 
@@ -227,16 +230,16 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 				writer.writeAttribute("for", htmlComponent.getInputComponent().getId(), null);
 			}
 			if (htmlComponent.getTooltip() != null && !"".equals(htmlComponent.getTooltip())) {
-				writer.writeAttribute("class", LABEL_STYLE_CLASS + " " + TOOLTIP_LABEL_CLASS, null);
+				writer.writeAttribute("class", this.concatStyles(LABEL_STYLE_CLASS, TOOLTIP_LABEL_CLASS), null);
 			} else {
 				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
 			}
-			writer.writeAttribute("style", "display: inline-block; margin-right: 2px;", null);
+			writer.writeAttribute("style", "display: inline-block; margin-right: 2px; float: left;", null);
 
 			writer.startElement("abbr", component);
 			if (this.isTooltipNecessary(htmlComponent)) {
 				writer.writeAttribute("title", htmlComponent.getTooltip(), null);
-				writer.writeAttribute("style", "cursor: help;", null);
+				writer.writeAttribute("style", "cursor: help; word-wrap: breaking-word;", null);
 			}
 			writer.writeText(htmlComponent.getLabel(), null);
 			writer.endElement("abbr");
@@ -317,5 +320,16 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 				}
 			}
 		}
+	}
+
+	private String concatStyles(final String... styles) {
+		final StringBuilder sb = new StringBuilder();
+
+		for (final String style : styles) {
+			sb.append(style);
+			sb.append(" ");
+		}
+
+		return sb.toString();
 	}
 }

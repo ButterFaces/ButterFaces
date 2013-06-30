@@ -295,7 +295,12 @@ input[type="checkbox"]:checked + label {
 	-moz-border-radius: 6px; /* CSS3 */
 }
 
-.navigation input[type="submit"] {
+#navigation {
+	padding-bottom: 5px;
+	display: inline-block;
+}
+
+#navigation input[type="submit"] {
 	margin: 2px;
 	
 }
