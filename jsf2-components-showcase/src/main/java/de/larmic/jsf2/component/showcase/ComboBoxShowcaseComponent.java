@@ -35,11 +35,7 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 		sb.append("    <f:selectItem itemValue=\"2020\" \n");
 		sb.append("                  itemLabel=\"Year 2020\"/>\n");
 
-		if (this.isAjax()) {
-			sb.append("    <f:ajax event=\"change\" \n");
-			sb.append("            execute=\"@this\"\n");
-			sb.append("            render=\"output\"/>\n");
-		}
+		this.createAjaxXhtml(sb, "change");
 
 		/*
 		 * if (this.isValidation()) {
@@ -49,10 +45,8 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 
 		sb.append("</l:comboBox>");
 
-		if (this.isAjax()) {
-			sb.append("\n");
-			sb.append("<h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
-		}
+		this.createOutputXhtml(sb);
+
 		return sb.toString();
 	}
 }

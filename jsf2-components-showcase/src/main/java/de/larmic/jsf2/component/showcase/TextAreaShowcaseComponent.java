@@ -26,20 +26,15 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent {
 		sb.append("        	   floating=\"" + this.isFloating() + "\"\n");
 		sb.append("        	   rendered=\"" + this.isRendered() + "\">\n");
 
-		if (this.isAjax()) {
-			sb.append("    <f:ajax event=\"keyup\" \n");
-			sb.append("            execute=\"input\"\n");
-			sb.append("            render=\"output\"/>\n");
-		}
+		this.createAjaxXhtml(sb, "keyup");
+
 		if (this.isValidation()) {
 			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
 		sb.append("</l:textArea>");
 
-		if (this.isAjax()) {
-			sb.append("\n");
-			sb.append("<h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
-		}
+		this.createOutputXhtml(sb);
+
 		return sb.toString();
 	}
 }

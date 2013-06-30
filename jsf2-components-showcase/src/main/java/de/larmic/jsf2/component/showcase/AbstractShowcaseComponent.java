@@ -1,5 +1,10 @@
 package de.larmic.jsf2.component.showcase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+
 public abstract class AbstractShowcaseComponent {
 	protected static final String NEW_LINE = "\n";
 	protected static final String START_BRACE = "{";
@@ -13,7 +18,7 @@ public abstract class AbstractShowcaseComponent {
 	private boolean rendered = true;
 	private boolean floating;
 	private boolean validation;
-	private boolean ajax;
+	private AjaxType ajaxType = AjaxType.NONE;
 
 	public AbstractShowcaseComponent() {
 		this.value = this.initValue();
@@ -38,6 +43,35 @@ public abstract class AbstractShowcaseComponent {
 	 */
 	public void addCss(final StringBuilder sb) {
 
+	}
+
+	public boolean isAjax() {
+		return AjaxType.NONE != this.getAjaxType();
+	}
+
+	public List<SelectItem> getAjaxTypes() {
+		final List<SelectItem> items = new ArrayList<SelectItem>();
+
+		for (final AjaxType type : AjaxType.values()) {
+			items.add(new SelectItem(type, type.label));
+		}
+		return items;
+	}
+
+	public void createAjaxXhtml(final StringBuilder sb, final String event) {
+		if (this.isAjax()) {
+			final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
+			sb.append("    <f:ajax event=\"" + event + "\" \n");
+			sb.append("            execute=\"" + execute + "\"\n");
+			sb.append("            render=\"output\"/>\n");
+		}
+	}
+
+	public void createOutputXhtml(final StringBuilder sb) {
+		if (this.isAjax()) {
+			sb.append("\n");
+			sb.append("<h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
+		}
 	}
 
 	public String getCss() {
@@ -156,11 +190,11 @@ public abstract class AbstractShowcaseComponent {
 		this.validation = validation;
 	}
 
-	public boolean isAjax() {
-		return this.ajax;
+	public AjaxType getAjaxType() {
+		return this.ajaxType;
 	}
 
-	public void setAjax(final boolean ajax) {
-		this.ajax = ajax;
+	public void setAjaxType(final AjaxType ajax) {
+		this.ajaxType = ajax;
 	}
 }

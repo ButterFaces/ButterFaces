@@ -49,10 +49,10 @@
 			</h:panelGroup>
 			<h:outputLabel value="ajax" />
 			<h:panelGroup>
-				<h:selectBooleanCheckbox id="ajaxTextComponent" value="#{cc.attrs.control.ajax}">
-					<f:ajax execute="@this" render=":form:componentAndSource" />
-				</h:selectBooleanCheckbox>
-				<label for="#{clientId.find('ajaxTextComponent')}" />
+			<h:selectOneMenu value="#{cc.attrs.control.ajaxType}">
+				<f:selectItems value="#{cc.attrs.control.ajaxTypes}" />
+				<f:ajax event="change" execute="@this" render=":form:componentAndSource" />
+			</h:selectOneMenu>
 			</h:panelGroup>
 			<h:outputLabel value="validate" />
 			<h:panelGroup>
