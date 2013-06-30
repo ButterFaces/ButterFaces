@@ -105,13 +105,9 @@ input[type="checkbox"]:checked + label {
 
 .linkContainer {
     position: absolute;
-    top: 10px;
+    top: 5px;
     font-size: 9pt;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #f2f2f2));
-  background: -webkit-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: -moz-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: -o-linear-gradient(top, #e3e3e3, #f2f2f2);
-  background: linear-gradient(top, #e3e3e3, #f2f2f2);
+	background-color: #333333;
   -webkit-border-radius: 200px;
   -moz-border-radius: 200px;
   -ms-border-radius: 200px;
@@ -302,16 +298,17 @@ input[type="checkbox"]:checked + label {
 
 #navigation input[type="submit"] {
 	margin: 2px;
-	
+	padding: 10px;
 }
 
 .selected {
-	background-color: #3D7CA9 !important;
+	background-color: #007998 !important;
 }
 
 input[type="submit"] {
-	background-color: #69A1C9;
-    border-color: #3D7CA9 !important;
+	background-color: #00A1CB;
+	color: white;
+    border-color: #007998 !important;
     border-style: solid;
     border-width: 2px;
     -moz-border-radius: 6px; /* Firefox */
@@ -328,10 +325,11 @@ input[type="submit"] {
 	cursor: pointer;
 	padding: 2px;
 	float: left;
+	padding:3px;
 }
 
 input[type="submit"]:HOVER {
-	background-color: #3D7CA9;
+	background-color: #007998;
 }
 
 .component input[type="submit"]:HOVER {
