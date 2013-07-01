@@ -1,6 +1,13 @@
 package de.larmic.jsf2.component.showcase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+
 public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
+
+	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 
 	@Override
 	protected Object initValue() {
@@ -49,4 +56,22 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 
 		return sb.toString();
 	}
+
+	public List<SelectItem> getComboBoxTypes() {
+		final List<SelectItem> items = new ArrayList<SelectItem>();
+
+		for (final ComboBoxValueType type : ComboBoxValueType.values()) {
+			items.add(new SelectItem(type, type.label));
+		}
+		return items;
+	}
+
+	public ComboBoxValueType getComboBoxValueType() {
+		return this.comboBoxValueType;
+	}
+
+	public void setComboBoxValueType(final ComboBoxValueType comboBoxValueType) {
+		this.comboBoxValueType = comboBoxValueType;
+	}
+
 }

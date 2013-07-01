@@ -241,7 +241,16 @@ input[type="checkbox"]:checked + label {
 }
 
 .componentControls label {
-	margin-right: 10px;
+	float: left;
+    width: 80px;
+}
+
+.componentControls select {
+    width: 150px;
+}
+
+.componentControls input {
+    width: 150px;
 }
 
 #source {

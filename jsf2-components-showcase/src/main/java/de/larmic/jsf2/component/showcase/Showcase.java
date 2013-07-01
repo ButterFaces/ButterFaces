@@ -42,6 +42,10 @@ public class Showcase implements Serializable {
 		this.component = new ComboBoxShowcaseComponent();
 	}
 
+	public ComboBoxShowcaseComponent getComboBoxComponent() {
+		return (ComboBoxShowcaseComponent) this.component;
+	}
+
 	public AbstractShowcaseComponent getShowcaseComponent() {
 		return this.component;
 	}
