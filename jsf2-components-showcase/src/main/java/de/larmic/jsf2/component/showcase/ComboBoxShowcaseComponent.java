@@ -1,15 +1,21 @@
 package de.larmic.jsf2.component.showcase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 import de.larmic.jsf2.component.showcase.comboBox.Foo;
 import de.larmic.jsf2.component.showcase.comboBox.FooConverter;
 import de.larmic.jsf2.component.showcase.comboBox.FooType;
 
-public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
+@Named
+@SessionScoped
+@SuppressWarnings("serial")
+public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 
@@ -34,7 +40,7 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 			return super.getValue().toString();
 		}
 
-		return "no selection (item is null)";
+		return "(item is null)";
 	}
 
 	@Override
@@ -42,12 +48,14 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 		if (super.getValue() != null) {
 			if (super.getValue() instanceof Foo) {
 				return ((Foo) super.getValue()).getValue();
+			} else if (super.getValue() instanceof FooType) {
+				return ((FooType) super.getValue()).label;
 			}
 
 			return (String) super.getValue();
 		}
 
-		return "no selection (item is null)";
+		return "(item is null)";
 	}
 
 	public List<SelectItem> getValues() {
@@ -57,7 +65,6 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 		case ENUM:
 			return this.enums;
 		default:
-			// default is string
 			return this.strings;
 		}
 	}
@@ -76,14 +83,21 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent {
 		sb.append("        	   floating=\"" + this.isFloating() + "\"\n");
 		sb.append("        	   rendered=\"" + this.isRendered() + "\">\n");
 
-		sb.append("    <f:selectItem itemValue=\"#{null}\" \n");
-		sb.append("                  itemLabel=\"Choose one...\"/>\n");
-		sb.append("    <f:selectItem itemValue=\"2000\" \n");
-		sb.append("                  itemLabel=\"Year 2000\"/>\n");
-		sb.append("    <f:selectItem itemValue=\"2010\" \n");
-		sb.append("                  itemLabel=\"Year 2010\"/>\n");
-		sb.append("    <f:selectItem itemValue=\"2020\" \n");
-		sb.append("                  itemLabel=\"Year 2020\"/>\n");
+		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
+			sb.append("    <f:selectItem itemValue=\"#{null}\" \n");
+			sb.append("                  itemLabel=\"Choose one...\"/>\n");
+			sb.append("    <f:selectItem itemValue=\"2000\" \n");
+			sb.append("                  itemLabel=\"Year 2000\"/>\n");
+			sb.append("    <f:selectItem itemValue=\"2010\" \n");
+			sb.append("                  itemLabel=\"Year 2010\"/>\n");
+			sb.append("    <f:selectItem itemValue=\"2020\" \n");
+			sb.append("                  itemLabel=\"Year 2020\"/>\n");
+		} else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
+			sb.append("    <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
+		} else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
+			sb.append("    <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
+			sb.append("    <f:converter converterId=\"fooConverter\"/>\n");
+		}
 
 		this.createAjaxXhtml(sb, "change");
 

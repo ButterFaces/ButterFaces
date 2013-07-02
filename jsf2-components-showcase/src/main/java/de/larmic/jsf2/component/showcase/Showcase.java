@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
 public class Showcase implements Serializable {
+
+	@Inject
+	private ComboBoxShowcaseComponent comboBoxShowcaseComponent;
 
 	private AbstractShowcaseComponent component;
 
@@ -35,11 +39,11 @@ public class Showcase implements Serializable {
 	}
 
 	public boolean isComboBoxComponentRendered() {
-		return ComboBoxShowcaseComponent.class.equals(this.component.getClass());
+		return this.comboBoxShowcaseComponent.equals(this.component);
 	}
 
 	public void activateComboBoxComponent() {
-		this.component = new ComboBoxShowcaseComponent();
+		this.component = this.comboBoxShowcaseComponent;
 	}
 
 	public ComboBoxShowcaseComponent getComboBoxComponent() {

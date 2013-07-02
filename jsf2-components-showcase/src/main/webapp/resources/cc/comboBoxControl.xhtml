@@ -6,15 +6,14 @@
 
 <h:body>
 	<composite:interface>
-		<composite:attribute name="control" type="de.larmic.jsf2.component.showcase.ComboBoxShowcaseComponent" required="true" />
 	</composite:interface>
 
 	<composite:implementation>
 		<h:panelGrid id="control" columns="2">
 			<h:outputLabel value="combo box" />
 			<h:panelGroup>
-				<h:selectOneMenu value="#{cc.attrs.control.comboBoxValueType}">
-					<f:selectItems value="#{cc.attrs.control.comboBoxTypes}" />
+				<h:selectOneMenu value="#{comboBoxShowcaseComponent.comboBoxValueType}">
+					<f:selectItems value="#{comboBoxShowcaseComponent.comboBoxTypes}" />
 					<f:ajax event="change" execute="@this" render=":form:componentAndSource" />
 				</h:selectOneMenu>
 			</h:panelGroup>
