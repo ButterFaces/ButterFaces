@@ -2,8 +2,8 @@ package de.larmic.jsf2.renderkit.html_basic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +48,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 	/**
 	 * List overcomes ajax request.
 	 */
-	private final Map<String, UIComponent> componentChildren = new HashMap<String, UIComponent>();
+	private final Map<String, UIComponent> componentChildren = new LinkedHashMap<String, UIComponent>();
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -184,6 +184,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		htmlComponent.getInputComponent().setRendered(!readonly);
 		htmlComponent.getInputComponent().setValue(value);
 		htmlComponent.getInputComponent().setId(htmlComponent.getId() + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
+		htmlComponent.getInputComponent().setConverter(htmlComponent.getConverter());
 		htmlComponent
 				.getInputComponent()
 				.getAttributes()
