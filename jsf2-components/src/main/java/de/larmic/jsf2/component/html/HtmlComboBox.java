@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
@@ -18,14 +19,17 @@ public class HtmlComboBox extends AbstractHtmlContainer {
 	public Object encodeValue(final Object value) {
 		for (final UIComponent uiComponent : this.getInputComponent().getChildren()) {
 			if (uiComponent instanceof UISelectItems) {
+				@SuppressWarnings("unchecked")
 				final ArrayList<SelectItem> items = (ArrayList<SelectItem>) ((UISelectItems) uiComponent).getValue();
 
 				for (final SelectItem item : items) {
-					final Object itemValue = item.getValue();
-
-					if (itemValue != null && itemValue.toString().equals(value)) {
-						return itemValue;
+					if (this.isItemMatching(item, value)) {
+						return value;
 					}
+				}
+			} else if (uiComponent instanceof UISelectItem) {
+				if (this.isItemMatching((SelectItem) ((UISelectItem) uiComponent).getValue(), value)) {
+					return value;
 				}
 			}
 		}
@@ -35,5 +39,11 @@ public class HtmlComboBox extends AbstractHtmlContainer {
 	@Override
 	protected UIInput initInputComponent() {
 		return new HtmlSelectOneMenu();
+	}
+
+	private boolean isItemMatching(final SelectItem item, final Object value) {
+		final Object itemValue = item.getValue();
+
+		return itemValue != null && itemValue.toString().equals(value);
 	}
 }
