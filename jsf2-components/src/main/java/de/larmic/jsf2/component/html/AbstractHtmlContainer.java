@@ -45,6 +45,10 @@ public abstract class AbstractHtmlContainer extends UIInput implements ClientBeh
 	 */
 	protected abstract UIInput initInputComponent();
 
+	public Object encodeValue(final Object value) {
+		return value;
+	}
+
 	@Override
 	public Collection<String> getEventNames() {
 		return this.inputComponent.getEventNames();

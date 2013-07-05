@@ -13,6 +13,7 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
 import javax.faces.render.FacesRenderer;
 
 import com.sun.faces.facelets.compiler.UIInstructions;
@@ -71,7 +72,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		final boolean floating = htmlComponent.getFloating();
 		final boolean valid = htmlComponent.isValid();
 		final String label = htmlComponent.getLabel();
-		final Object value = htmlComponent.getValue();
+		final Object value = htmlComponent.encodeValue(htmlComponent.getValue());
 
 		final ResponseWriter writer = context.getResponseWriter();
 
@@ -84,7 +85,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		this.writeLabelIfNecessary(component, htmlComponent, readonly, required, label, writer);
 
 		if (readonly) {
-			writer.writeText(value, null);
+			writer.writeText(this.getReadonlyDisplayValue(value, htmlComponent, htmlComponent.getConverter()), null);
 		}
 	}
 
@@ -116,7 +117,7 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 
 		final boolean tooltipNecessary = this.isTooltipNecessary(htmlComponent);
 
-		if (tooltipNecessary || !htmlComponent.isValid()) {
+		if ((tooltipNecessary || !htmlComponent.isValid()) && !htmlComponent.getReadonly()) {
 			writer.startElement("span", htmlComponent);
 			writer.writeAttribute("id", htmlComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
 			writer.writeAttribute("class", TOOLTIP_CLASS, null);
@@ -169,14 +170,43 @@ public class BasicContainerRenderer extends HtmlBasicInputRenderer {
 		final String newValue = requestMap.get(clientId + INPUT_COMPONENT_CLIENT_ID_POSTFIX);
 
 		if (newValue != null) {
-			this.setSubmittedValue(component, newValue);
-			((AbstractHtmlContainer) component).setValue(newValue);
+			this.decodeNewValue(component, newValue);
 		}
+	}
+
+	/**
+	 * Should decode and set the new value as value and submitted value. Can be
+	 * overridden for custom components.
+	 * 
+	 * @param component
+	 *            the actual input component
+	 * @param newValue
+	 *            the new value as string
+	 */
+	protected void decodeNewValue(final UIComponent component, final String newValue) {
+		this.setSubmittedValue(component, newValue);
 	}
 
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	/**
+	 * Should return value string for the readonly view mode. Can be overridden
+	 * for custom components.
+	 * 
+	 * @return the value string for the readonly view mode
+	 */
+	protected String getReadonlyDisplayValue(final Object value, final AbstractHtmlContainer component,
+			final Converter converter) {
+		if (value == null) {
+			return "-";
+		} else if (converter != null) {
+			return converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+		}
+
+		return String.valueOf(value);
 	}
 
 	private void initInputComponent(final AbstractHtmlContainer htmlComponent, final boolean readonly,
