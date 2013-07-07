@@ -49,49 +49,6 @@
 	</tag>
 
 	<tag>
-		<tag-name>text</tag-name>
-		<component>
-			<component-type>de.larmic.component.text</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>floating</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
-
-	<tag>
 		<tag-name>textArea</tag-name>
 		<component>
 			<component-type>de.larmic.component.textArea</component-type>
