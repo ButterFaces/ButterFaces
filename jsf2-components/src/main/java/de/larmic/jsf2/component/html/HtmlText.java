@@ -4,10 +4,10 @@ import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
 
-@FacesComponent(HtmlTextV2.COMPONENT_TYPE)
-public class HtmlTextV2 extends HtmlInputText {
+@FacesComponent(HtmlText.COMPONENT_TYPE)
+public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
-	public static final String COMPONENT_TYPE = "de.larmic.component.textV2";
+	public static final String COMPONENT_TYPE = "de.larmic.component.text";
 	public static final String COMPONENT_FAMILY = "de.larmic.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.BasicInputRenderer";
 
@@ -15,7 +15,7 @@ public class HtmlTextV2 extends HtmlInputText {
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 	protected static final String PROPERTY_READONLY = "readonly";
 
-	public HtmlTextV2() {
+	public HtmlText() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
 	}
@@ -25,6 +25,7 @@ public class HtmlTextV2 extends HtmlInputText {
 		return COMPONENT_FAMILY;
 	}
 
+	@Override
 	public String getTooltip() {
 		return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
 	}
@@ -33,16 +34,18 @@ public class HtmlTextV2 extends HtmlInputText {
 		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
 	}
 
-	public Boolean getReadonly() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_READONLY, false);
+	@Override
+	public boolean getReadonly() {
+		return (boolean) this.getStateHelper().eval(PROPERTY_READONLY, false);
 	}
 
 	public void setReadonly(final Boolean readonly) {
 		this.updateStateHelper(PROPERTY_READONLY, readonly);
 	}
 
-	public Boolean getFloating() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+	@Override
+	public boolean getFloating() {
+		return (boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
 	}
 
 	public void setFloating(final Boolean floating) {

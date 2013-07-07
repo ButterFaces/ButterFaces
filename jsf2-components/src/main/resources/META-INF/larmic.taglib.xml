@@ -6,9 +6,9 @@
 	<namespace>http://larmic.de/jsf2</namespace>
 
 	<tag>
-		<tag-name>textV2</tag-name>
+		<tag-name>text</tag-name>
 		<component>
-			<component-type>de.larmic.component.textV2</component-type>
+			<component-type>de.larmic.component.text</component-type>
 		</component>
 		<attribute>
 			<name>label</name>

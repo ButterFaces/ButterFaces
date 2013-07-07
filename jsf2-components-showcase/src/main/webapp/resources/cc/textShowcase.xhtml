@@ -11,7 +11,7 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<l:textV2 id="text" 
+		<l:text id="text" 
 				label="#{cc.attrs.component.label}"
 				value="#{cc.attrs.component.value}"
 				tooltip="#{cc.attrs.component.tooltip}"
@@ -26,7 +26,7 @@
 			<f:validateLength minimum="2" 
 							  maximum="10"
 							  disabled="#{not cc.attrs.component.validation}" />
-		</l:textV2>
+		</l:text>
 	</composite:implementation>
 </h:body>
 </html>
