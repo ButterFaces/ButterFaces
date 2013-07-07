@@ -15,6 +15,9 @@ public class Showcase implements Serializable {
 	@Inject
 	private ComboBoxShowcaseComponent comboBoxShowcaseComponent;
 
+	@Inject
+	private CheckBoxShowcaseComponent checkBoxShowcaseComponent;
+
 	private AbstractShowcaseComponent component;
 
 	@PostConstruct
@@ -50,8 +53,12 @@ public class Showcase implements Serializable {
 		this.component = this.comboBoxShowcaseComponent;
 	}
 
-	public ComboBoxShowcaseComponent getComboBoxComponent() {
-		return (ComboBoxShowcaseComponent) this.component;
+	public boolean isCheckBoxComponentRendered() {
+		return this.checkBoxShowcaseComponent.equals(this.component);
+	}
+
+	public void activateCheckBoxComponent() {
+		this.component = this.checkBoxShowcaseComponent;
 	}
 
 	public AbstractShowcaseComponent getShowcaseComponent() {

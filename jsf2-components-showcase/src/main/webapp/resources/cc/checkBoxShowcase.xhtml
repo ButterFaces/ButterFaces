@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:l="http://larmic.de/jsf2"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<composite:interface>
+	</composite:interface>
+
+	<composite:implementation>
+		<l:checkBox label="#{checkBoxShowcaseComponent.label}"
+					value="#{checkBoxShowcaseComponent.value}"
+					tooltip="#{checkBoxShowcaseComponent.tooltip}"
+					readonly="#{checkBoxShowcaseComponent.readonly}"
+					required="#{checkBoxShowcaseComponent.required}"
+					rendered="#{checkBoxShowcaseComponent.rendered}"
+					floating="#{checkBoxShowcaseComponent.floating}">
+			<f:ajax event="change" 
+					execute="@this"
+					render=":form:output :form:source :form:prettyprint"
+					disabled="#{not checkBoxShowcaseComponent.ajax}" />
+		</l:checkBox>
+	</composite:implementation>
+</h:body>
+</html>

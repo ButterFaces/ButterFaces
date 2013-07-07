@@ -56,9 +56,11 @@
 									 action="#{showcase.activateTextAreaComponent}">
 						<f:ajax immediate="true" render="navigation form"/>
 					</h:commandButton>
-					<!-- h:commandButton value="checkBox">
+					<h:commandButton value="checkBox"
+									 styleClass="#{showcase.checkBoxComponentRendered ? 'selected' : ''}"
+									 action="#{showcase.activateCheckBoxComponent}">
 						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton-->
+					</h:commandButton>
 					<h:commandButton value="comboBox" 
 									 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
 									 action="#{showcase.activateComboBoxComponent}">
@@ -88,6 +90,7 @@
 									<showcase:textAreaShowcase component="#{showcase.showcaseComponent}" 
 														   	   rendered="#{showcase.textAreaComponentRendered}"/>				   	   
 									<showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
+									<showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>
 									Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
 									<br />
 									<hr />

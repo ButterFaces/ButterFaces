@@ -71,7 +71,7 @@
 		Geneva, Verdana, sans-serif;
 }
 
-input[type="checkbox"] {
+.componentControls input[type="checkbox"] {
     display:none;
 }
 
