@@ -22,6 +22,10 @@ public class Showcase implements Serializable {
 		this.activateTextComponent();
 	}
 
+	public void submit() {
+
+	}
+
 	public boolean isTextComponentRendered() {
 		return TextShowcaseComponent.class.equals(this.component.getClass());
 	}

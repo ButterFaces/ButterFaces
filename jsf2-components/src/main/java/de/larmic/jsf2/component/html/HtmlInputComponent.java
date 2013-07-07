@@ -4,7 +4,7 @@ public interface HtmlInputComponent {
 
 	String getTooltip();
 
-	boolean getReadonly();
+	boolean isReadonly();
 
 	boolean getFloating();
 
@@ -21,5 +21,4 @@ public interface HtmlInputComponent {
 	Object getValue();
 
 	String getClientId();
-
 }

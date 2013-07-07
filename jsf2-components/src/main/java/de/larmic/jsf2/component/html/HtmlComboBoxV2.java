@@ -2,20 +2,20 @@ package de.larmic.jsf2.component.html;
 
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlSelectOneMenu;
 
-@FacesComponent(HtmlText.COMPONENT_TYPE)
-public class HtmlText extends HtmlInputText implements HtmlInputComponent {
+@FacesComponent(HtmlComboBoxV2.COMPONENT_TYPE)
+public class HtmlComboBoxV2 extends HtmlSelectOneMenu implements HtmlInputComponent {
 
-	public static final String COMPONENT_TYPE = "de.larmic.component.text";
+	public static final String COMPONENT_TYPE = "de.larmic.component.comboBoxV2";
 	public static final String COMPONENT_FAMILY = "de.larmic.component.family";
-	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.TextRenderer";
+	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.ComboBoxRenderer";
 
 	protected static final String PROPERTY_FLOATING = "floating";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 	protected static final String PROPERTY_READONLY = "readonly";
 
-	public HtmlText() {
+	public HtmlComboBoxV2() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
 	}

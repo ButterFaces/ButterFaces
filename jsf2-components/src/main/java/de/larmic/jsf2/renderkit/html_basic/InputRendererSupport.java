@@ -41,7 +41,7 @@ public class InputRendererSupport {
 
 		final String style = component.getStyle();
 		final String styleClass = component.getStyleClass();
-		final boolean readonly = component.getReadonly();
+		final boolean readonly = component.isReadonly();
 		final boolean required = component.isRequired();
 		final boolean floating = component.getFloating();
 		final boolean valid = component.isValid();
@@ -66,14 +66,13 @@ public class InputRendererSupport {
 	 * 
 	 * NOTE: getEndTextToRender of super implementation should be called first.
 	 */
-	public void getEndTextToRender(final FacesContext context, final HtmlInputComponent component,
-			final String currentValue) throws IOException {
+	public void encodeEnd(final FacesContext context, final HtmlInputComponent component) throws IOException {
 		final UIInput uiComponent = (UIInput) component;
 		final ResponseWriter writer = context.getResponseWriter();
 
 		final boolean tooltipNecessary = this.isTooltipNecessary(component);
 
-		if ((tooltipNecessary || !component.isValid()) && !component.getReadonly()) {
+		if ((tooltipNecessary || !component.isValid()) && !component.isReadonly()) {
 			writer.startElement("span", uiComponent);
 			writer.writeAttribute("id", uiComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
 			writer.writeAttribute("class", TOOLTIP_CLASS, null);

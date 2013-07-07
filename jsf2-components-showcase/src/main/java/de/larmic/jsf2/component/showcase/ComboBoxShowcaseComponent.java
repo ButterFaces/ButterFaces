@@ -140,7 +140,7 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 		for (final String key : FooConverter.fooMap.keySet()) {
 			final Foo foo = FooConverter.fooMap.get(key);
-			this.foos.add(new SelectItem(foo, foo.getValue()));
+			this.foos.add(new SelectItem(foo, foo.getKey()));
 		}
 	}
 
