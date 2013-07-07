@@ -70,6 +70,16 @@ public abstract class AbstractHtmlContainer extends UIInput implements ClientBeh
 	}
 
 	@Override
+	public boolean isValid() {
+		return this.inputComponent.isValid();
+	}
+
+	@Override
+	public void setValid(final boolean valid) {
+		this.inputComponent.setValid(valid);
+	}
+
+	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
