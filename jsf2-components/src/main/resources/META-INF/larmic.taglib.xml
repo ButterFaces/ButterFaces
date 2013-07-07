@@ -94,7 +94,7 @@
 	<tag>
 		<tag-name>comboBox</tag-name>
 		<component>
-			<component-type>de.larmic.component.comboBoxV2</component-type>
+			<component-type>de.larmic.component.comboBox</component-type>
 		</component>
 		<attribute>
 			<name>label</name>

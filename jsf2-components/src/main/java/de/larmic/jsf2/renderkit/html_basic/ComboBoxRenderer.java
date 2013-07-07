@@ -6,7 +6,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 
-import de.larmic.jsf2.component.html.HtmlComboBoxV2;
+import de.larmic.jsf2.component.html.HtmlComboBox;
 import de.larmic.jsf2.component.html.HtmlInputComponent;
 import de.larmic.jsf2.component.html.HtmlText;
 
@@ -17,7 +17,7 @@ import de.larmic.jsf2.component.html.HtmlText;
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
-@FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBoxV2.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRenderer {
 
 	private final InputRendererSupport inputRendererSupport = new InputRendererSupport();
