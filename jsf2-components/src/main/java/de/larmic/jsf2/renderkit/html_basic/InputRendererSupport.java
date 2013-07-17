@@ -18,10 +18,11 @@ import de.larmic.jsf2.component.html.HtmlInputComponent;
 public class InputRendererSupport {
 
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
+	private static final String LABEL_TOOLTIP_STYLE_CLASS = "larmic-component-label";
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
-	private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-input-invalid";
-	private static final String INVALID_STYLE_CLASS = "input-invalid";
+	private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-component-invalid";
+	private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
 	private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
 	private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
 	private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
@@ -76,11 +77,10 @@ public class InputRendererSupport {
 			writer.startElement("span", uiComponent);
 			writer.writeAttribute("id", uiComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
 			writer.writeAttribute("class", TOOLTIP_CLASS, null);
-			writer.writeAttribute("style", this.createOuterTooltipStyle(), null);
 
 			if (tooltipNecessary) {
 				writer.startElement("span", uiComponent);
-				writer.writeAttribute("style", "position:relative;left:5px;top:4px;", null);
+				writer.writeAttribute("style", LABEL_TOOLTIP_STYLE_CLASS, null);
 				writer.writeText(component.getTooltip(), null);
 				writer.endElement("span");
 			}
@@ -165,7 +165,6 @@ public class InputRendererSupport {
 			} else {
 				writer.writeAttribute("class", LABEL_STYLE_CLASS, null);
 			}
-			writer.writeAttribute("style", "display: inline-block; margin-right: 2px; float: left;", null);
 
 			writer.startElement("abbr", uiComponent);
 			if (this.isTooltipNecessary(component)) {
@@ -187,7 +186,6 @@ public class InputRendererSupport {
 			writer.startElement("span", null);
 			writer.writeAttribute("id", clientId + "_requiredLabel", null);
 			writer.writeAttribute("class", REQUIRED_SPAN_CLASS, null);
-			writer.writeAttribute("style", "margin-left: 2px; color: red;", null);
 			writer.writeText("*", null);
 			writer.endElement("span");
 		}
@@ -206,18 +204,5 @@ public class InputRendererSupport {
 
 	protected boolean isTooltipNecessary(final HtmlInputComponent component) {
 		return component.getTooltip() != null && !"".equals(component.getTooltip());
-	}
-
-	protected String createOuterTooltipStyle() {
-		final StringBuilder tooltipStyle = new StringBuilder();
-		tooltipStyle.append("display: none;");
-		tooltipStyle.append("position: absolute;");
-		tooltipStyle.append("background-color: white;");
-		tooltipStyle.append("border-style: solid;");
-		tooltipStyle.append("border-width: 1px;");
-		tooltipStyle.append("width: 200px;");
-		tooltipStyle.append("z-index: 200;");
-		tooltipStyle.append("min-height: 25px;");
-		return tooltipStyle.toString();
 	}
 }

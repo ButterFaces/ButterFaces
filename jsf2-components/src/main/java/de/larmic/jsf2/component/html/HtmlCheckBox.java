@@ -1,9 +1,11 @@
 package de.larmic.jsf2.component.html;
 
 import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 
+@ResourceDependency(library = "css", name = "larmic-jsf2-components.css", target = "head")
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)
 public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent {
 

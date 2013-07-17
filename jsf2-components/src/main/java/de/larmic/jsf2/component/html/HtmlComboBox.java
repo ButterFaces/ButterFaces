@@ -1,9 +1,11 @@
 package de.larmic.jsf2.component.html;
 
 import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectOneMenu;
 
+@ResourceDependency(library = "css", name = "larmic-jsf2-components.css", target = "head")
 @FacesComponent(HtmlComboBox.COMPONENT_TYPE)
 public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent {
 
