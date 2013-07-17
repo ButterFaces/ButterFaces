@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
+import de.larmic.jsf2.component.html.HtmlCheckBox;
 import de.larmic.jsf2.component.html.HtmlInputComponent;
 
 /**
@@ -112,6 +113,10 @@ public class InputRendererSupport {
 			return "-";
 		} else if (converter != null) {
 			return converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+		}
+
+		if (component instanceof HtmlCheckBox) {
+			return (boolean) value ? "ja" : "nein";
 		}
 
 		return String.valueOf(value);
