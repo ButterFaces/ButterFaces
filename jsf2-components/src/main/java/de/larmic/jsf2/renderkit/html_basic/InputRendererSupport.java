@@ -123,14 +123,10 @@ public class InputRendererSupport {
 	}
 
 	protected void initInputComponent(final UIInput component) {
-		component.getAttributes().put(
-				"onfocus",
-				"document.getElementById('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
-						+ "').style.display = 'inline-block';");
-		component.getAttributes().put(
-				"onblur",
-				"document.getElementById('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX
-						+ "').style.display = 'none';");
+		component.getAttributes().put("onfocus",
+				"showTooltip('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
+		component.getAttributes().put("onblur",
+				"hideTooltip('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
 		if (!component.isValid()) {
 			component.getAttributes().put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
 		} else {
