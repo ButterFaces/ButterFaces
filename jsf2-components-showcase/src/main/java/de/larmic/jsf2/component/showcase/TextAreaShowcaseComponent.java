@@ -34,15 +34,18 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 	public String getXHtml() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<l:textArea id=\"input\"\n");
-		sb.append("        	   label=\"" + this.getLabel() + "\"\n");
-		sb.append("        	   value=\"" + this.getValue() + "\"\n");
+		sb.append("            label=\"" + this.getLabel() + "\"\n");
+		sb.append("            value=\"" + this.getValue() + "\"\n");
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
 			sb.append("            tooltip=\"" + this.getTooltip() + "\"\n");
 		}
-		sb.append("        	   readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("        	   required=\"" + this.isRequired() + "\"\n");
-		sb.append("        	   floating=\"" + this.isFloating() + "\"\n");
-		sb.append("        	   rendered=\"" + this.isRendered() + "\">\n");
+		sb.append("            readonly=\"" + this.isReadonly() + "\"\n");
+		sb.append("            required=\"" + this.isRequired() + "\"\n");
+		sb.append("            floating=\"" + this.isFloating() + "\"\n");
+		if (this.getMaxLength() != null) {
+			sb.append("            maxLength=\"" + this.getMaxLength() + "\"\n");
+		}
+		sb.append("            rendered=\"" + this.isRendered() + "\">\n");
 
 		this.createAjaxXhtml(sb, "keyup");
 

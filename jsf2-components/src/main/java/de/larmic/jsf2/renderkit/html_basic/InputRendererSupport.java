@@ -28,11 +28,14 @@ public class InputRendererSupport {
 	private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
 	private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
 	private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
+	private static final String TEXT_AREA_MAXLENGTH_CLASS = "larmic-component-textarea-maxlength";
 
 	private static final String FLOATING_STYLE = "display: inline-block;";
 	private static final String NON_FLOATING_STYLE = "display: table;";
 
+	private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
 	private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
+	private static final String MAXLENGTH_POSTFIX = "_maxLength";
 
 	/**
 	 * Render outer div and label (if needed) and initializes input component.
@@ -54,7 +57,7 @@ public class InputRendererSupport {
 		final ResponseWriter writer = context.getResponseWriter();
 
 		writer.startElement("div", uiComponent);
-		this.initOuterDiv(style, styleClass, floating, valid, writer);
+		this.initOuterDiv(component.getClientId(), style, styleClass, floating, valid, writer);
 		this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
 		if (readonly) {
@@ -65,6 +68,8 @@ public class InputRendererSupport {
 
 		if (uiComponent instanceof HtmlTextArea) {
 			writer.startElement("span", uiComponent);
+			writer.writeAttribute("id", component.getClientId() + MAXLENGTH_POSTFIX, null);
+			writer.writeAttribute("class", TEXT_AREA_MAXLENGTH_CLASS, null);
 			writer.writeText("MaxLength: " + ((HtmlTextArea) uiComponent).getMaxLength(), null);
 			writer.endElement("span");
 		}
@@ -83,7 +88,7 @@ public class InputRendererSupport {
 
 		if ((tooltipNecessary || !component.isValid()) && !component.isReadonly()) {
 			writer.startElement("span", uiComponent);
-			writer.writeAttribute("id", uiComponent.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
+			writer.writeAttribute("id", uiComponent.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
 			writer.writeAttribute("class", TOOLTIP_CLASS, null);
 
 			if (tooltipNecessary) {
@@ -131,9 +136,9 @@ public class InputRendererSupport {
 
 	protected void initInputComponent(final UIInput component) {
 		component.getAttributes().put("onfocus",
-				"showTooltip('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
+				"showTooltip('" + component.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
 		component.getAttributes().put("onblur",
-				"hideTooltip('" + component.getId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
+				"hideTooltip('" + component.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
 		if (!component.isValid()) {
 			component.getAttributes().put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
 		} else {
@@ -141,8 +146,9 @@ public class InputRendererSupport {
 		}
 	}
 
-	protected void initOuterDiv(final String style, final String styleClass, final boolean floating,
-			final boolean valid, final ResponseWriter writer) throws IOException {
+	protected void initOuterDiv(final String clientId, final String style, final String styleClass,
+			final boolean floating, final boolean valid, final ResponseWriter writer) throws IOException {
+		writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
 		if (styleClass != null) {
 			final String clearedStyleClass = styleClass.replaceAll(INVALID_STYLE_CLASS, "");
 			writer.writeAttribute("class",
