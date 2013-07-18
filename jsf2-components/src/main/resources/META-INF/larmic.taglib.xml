@@ -78,6 +78,10 @@
 			<type>java.lang.Boolean</type>
 		</attribute>
 		<attribute>
+			<name>maxLength</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+		<attribute>
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>

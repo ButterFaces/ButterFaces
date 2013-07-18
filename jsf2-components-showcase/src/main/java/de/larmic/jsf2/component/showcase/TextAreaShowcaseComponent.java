@@ -1,6 +1,16 @@
 package de.larmic.jsf2.component.showcase;
 
-public class TextAreaShowcaseComponent extends AbstractShowcaseComponent {
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
+@SuppressWarnings("serial")
+public class TextAreaShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+
+	private Integer maxLength;
 
 	@Override
 	protected Object initValue() {
@@ -10,6 +20,14 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent {
 	@Override
 	public String getReadableValue() {
 		return (String) this.getValue();
+	}
+
+	public Integer getMaxLength() {
+		return this.maxLength;
+	}
+
+	public void setMaxLength(final Integer maxLength) {
+		this.maxLength = maxLength;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.faces.convert.Converter;
 
 import de.larmic.jsf2.component.html.HtmlCheckBox;
 import de.larmic.jsf2.component.html.HtmlInputComponent;
+import de.larmic.jsf2.component.html.HtmlTextArea;
 
 /**
  * Renderer support classes provides methods used by custom component
@@ -61,6 +62,12 @@ public class InputRendererSupport {
 		}
 
 		this.initInputComponent(uiComponent);
+
+		if (uiComponent instanceof HtmlTextArea) {
+			writer.startElement("span", uiComponent);
+			writer.writeText("MaxLength: " + ((HtmlTextArea) uiComponent).getMaxLength(), null);
+			writer.endElement("span");
+		}
 	}
 
 	/**

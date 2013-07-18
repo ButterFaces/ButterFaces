@@ -18,6 +18,9 @@ public class Showcase implements Serializable {
 	@Inject
 	private CheckBoxShowcaseComponent checkBoxShowcaseComponent;
 
+	@Inject
+	private TextAreaShowcaseComponent textAreaShowcaseComponent;
+
 	private AbstractShowcaseComponent component;
 
 	@PostConstruct
@@ -38,11 +41,11 @@ public class Showcase implements Serializable {
 	}
 
 	public boolean isTextAreaComponentRendered() {
-		return TextAreaShowcaseComponent.class.equals(this.component.getClass());
+		return this.textAreaShowcaseComponent.equals(this.component);
 	}
 
 	public void activateTextAreaComponent() {
-		this.component = new TextAreaShowcaseComponent();
+		this.component = this.textAreaShowcaseComponent;
 	}
 
 	public boolean isComboBoxComponentRendered() {
