@@ -1,12 +1,20 @@
-/*
- ====================================================================================
- COMPONENT HANDLER
- ====================================================================================
+/**
+ * larmic jsf2 components - An jsf 2 component extension
+ * https://bitbucket.org/larmicBB/larmic-jsf2-components
+ *
+ * Copyright 2013 by Lars Michaelis & Stephan Zerhusen <br/>
+ * Released under the MIT license http://opensource.org/licenses/mit-license.php
+ */
+
+/**
+ *====================================================================================
+ *COMPONENT HANDLER
+ *====================================================================================
  */
 
 /**
  * A handler for input components. Will handle the tooltip.
- * @param componentId {String} the id of the outter  dom element
+ * @param componentId {String} the id of the outer  dom element
  * @param options {Object} an optional object with option parameters
  * @constructor
  */
@@ -20,30 +28,34 @@ ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
 
     self.options = options;
 
-    self._inputNode = self.getInputNode();
-    self._tooltipNode = self.getTooltipNode();
-    self._tooltipOpenedByFocus = false;
+    var isTooltipEnabled = typeof self.options !== "undefined" && self.options.showTooltip;
 
-    self._inputNode.onmouseover = function () {
-        if (self._tooltipOpenedByFocus) {
-            return;
-        }
-        self._showTooltip();
-    };
-    self._inputNode.onmouseout = function () {
-        if (self._tooltipOpenedByFocus) {
-            return;
-        }
-        self._hideTooltip();
-    };
-    self._inputNode.onfocus = function () {
-        self._tooltipOpenedByFocus = true;
-        self._showTooltip();
-    };
-    self._inputNode.onblur = function () {
-        self._hideTooltip();
-        self._tooltipOpenedByFocus = false;
-    };
+    self._tooltipOpenedByFocus = false;
+    self._inputNode = self.getInputNode();
+    if (isTooltipEnabled) {
+        self._tooltipNode = self.getTooltipNode();
+
+        self._inputNode.onmouseover = function () {
+            if (self._tooltipOpenedByFocus) {
+                return;
+            }
+            self._showTooltip();
+        };
+        self._inputNode.onmouseout = function () {
+            if (self._tooltipOpenedByFocus) {
+                return;
+            }
+            self._hideTooltip();
+        };
+        self._inputNode.onfocus = function () {
+            self._tooltipOpenedByFocus = true;
+            self._showTooltip();
+        };
+        self._inputNode.onblur = function () {
+            self._hideTooltip();
+            self._tooltipOpenedByFocus = false;
+        };
+    }
 };
 
 /**
@@ -109,23 +121,61 @@ ComponentHandler.prototype._hideTooltip = function () {
     this._tooltipNode.style.display = "none"
 };
 
-/*
- ====================================================================================
- TEXTAREA COMPONENT HANDLER
- ====================================================================================
+/**
+ *====================================================================================
+ *TEXTAREA COMPONENT HANDLER
+ *====================================================================================
  */
 
 /**
  * Custom component handler for textareas
- * @param componentId {String} the id of the outter dom element
+ * @param componentId {String} the id of the outer dom element
  * @param options {Object} an optional object with option parameters
  * @constructor
  */
-/*TextareaComponentHandler = function (*//*String*//*componentId, *//*Object*//* options) {
+TextareaComponentHandler = function (/*String*/componentId, /*Object*/ options) {
+    // call super constructor
     ComponentHandler.call(this, componentId, options);
+
+    this._initMaxLengthCounter();
 };
 TextareaComponentHandler.prototype = Object.create(ComponentHandler.prototype);
-TextareaComponentHandler.prototype.constructor = TextareaComponentHandler;*/
+TextareaComponentHandler.prototype.constructor = TextareaComponentHandler;
+
+/**
+ * Initializes the handling for the max length counter
+ * @private
+ */
+TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
+    var self = this; // prevent loosing scope "this" in closures
+
+    var hasMaxLength = typeof self.options !== "undefined" && typeof self.options.maxLength !== "undefined";
+    if (hasMaxLength) {
+        self._maxLength = self.options.maxLength * 1;
+        if (self._maxLength > 0) {
+            console.log("_initMaxLengthCounter " + self._maxLength);
+
+            self._maxLengthCounterNode = self.getChildren(self._componentNode, "larmic-component-textarea-maxlength-counter")[0];
+            console.log(self._maxLengthCounterNode);
+            self._checkValue();
+
+            self._inputNode.onkeyup = function () {
+                self._checkValue();
+            };
+        }
+    }
+};
+
+/**
+ * Checks and displays the number of free letters
+ * @private
+ */
+TextareaComponentHandler.prototype._checkValue = function () {
+    var inputValue = this._inputNode.value;
+    var freeLetterCount = this._maxLength - inputValue.length;
+    this._maxLengthCounterNode.innerHTML = freeLetterCount + "/" + this._maxLength;
+    this._maxLengthCounterNode.className = freeLetterCount < 0 ? "larmic-component-error" : "";
+};
 
 /*
  ====================================================================================

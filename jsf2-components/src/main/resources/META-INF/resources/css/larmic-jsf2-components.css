@@ -1,71 +1,75 @@
 .larmic-component-label {
-	width: 50px;
-	display: inline-block; 
-	margin-right: 2px; 
-	float: left;
+    width: 50px;
+    display: inline-block;
+    margin-right: 2px;
+    float: left;
 }
 
 .larmic-component-required {
-	color: red;
-	margin-right: 2px;
-	margin-left: 2px; 
+    color: red;
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .larmic-component-input {
-	font-size: 14px;
-	height: 18px;
-	margin-right: 2px;
+    font-size: 14px;
+    height: 18px;
+    margin-right: 2px;
 }
 
 .larmic-component-input-invalid {
-	background-color: #FFEBDA;
+    background-color: #FFEBDA;
     border-color: #FF0044;
     border-style: solid;
 }
 
+.larmic-component-error {
+    color: #FF0044;
+}
+
 .larmic-component-tooltip {
-	-webkit-border-radius: 3px;
+    -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
-    border-radius: 3px;	
-    -moz-box-shadow:    2px 2px 3px #AAAAAA;
-  	-webkit-box-shadow: 2px 2px 3px #AAAAAA;
+    border-radius: 3px;
+    -moz-box-shadow: 2px 2px 3px #AAAAAA;
+    -webkit-box-shadow: 2px 2px 3px #AAAAAA;
     box-shadow: 2px 2px 3px #AAAAAA;
     display: none;
-	position: absolute;
-	background-color: white;
-	border-style: solid;
-	border-width: 1px;
-	width: 200px;
-	z-index: 200;
-	min-height: 25px;
+    position: absolute;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    width: 200px;
+    z-index: 200;
+    min-height: 25px;
 }
 
 .larmic-component-label-tooltip {
-	position:relative;
-	left:5px;
-	top:4px;
+    position: relative;
+    left: 5px;
+    top: 4px;
 }
 
 .larmic-component-error-message {
-	background-color: #FFEBDA;
+    background-color: #FFEBDA;
     border: 1px solid #FF0044;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
-    border-radius: 3px;	
+    border-radius: 3px;
     margin: 5px;
 }
 
 .larmic-component-error-message li {
-	list-style: disc outside none;
+    list-style: disc outside none;
     margin-left: 20px;
     color: #555555;
     font-style: italic;
 }
 
 .larmic-component-textarea-maxlength {
-	
+
 }
