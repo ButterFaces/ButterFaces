@@ -19,9 +19,9 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 
-	private final List<SelectItem> foos = new ArrayList<>();
-	private final List<SelectItem> enums = new ArrayList<>();
-	private final List<SelectItem> strings = new ArrayList<>();
+	private final List<SelectItem> foos = new ArrayList<SelectItem>();
+	private final List<SelectItem> enums = new ArrayList<SelectItem>();
+	private final List<SelectItem> strings = new ArrayList<SelectItem>();
 
 	public ComboBoxShowcaseComponent() {
 		this.initFoos();

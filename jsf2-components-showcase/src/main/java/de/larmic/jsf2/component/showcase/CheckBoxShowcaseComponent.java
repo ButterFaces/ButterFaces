@@ -17,7 +17,7 @@ public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 	@Override
 	public String getReadableValue() {
-		return (boolean) this.getValue() ? "Ja" : "Nein";
+		return (Boolean) this.getValue() ? "Ja" : "Nein";
 	}
 
 	@Override

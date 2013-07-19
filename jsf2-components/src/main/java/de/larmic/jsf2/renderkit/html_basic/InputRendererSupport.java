@@ -128,7 +128,7 @@ public class InputRendererSupport {
 		}
 
 		if (component instanceof HtmlCheckBox) {
-			return (boolean) value ? "ja" : "nein";
+			return (Boolean) value ? "ja" : "nein";
 		}
 
 		return String.valueOf(value);

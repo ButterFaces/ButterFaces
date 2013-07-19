@@ -40,7 +40,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	@Override
 	public boolean getFloating() {
-		return (boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
 	}
 
 	public void setFloating(final Boolean floating) {
