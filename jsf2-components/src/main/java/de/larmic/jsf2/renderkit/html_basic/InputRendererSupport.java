@@ -39,7 +39,7 @@ public class InputRendererSupport {
 
 	/**
 	 * Render outer div and label (if needed) and initializes input component.
-	 * 
+	 *
 	 * NOTE: encodeBegin of super implementation should be called first.
 	 */
 	public void encodeBegin(final FacesContext context, final HtmlInputComponent component) throws IOException {
@@ -77,7 +77,7 @@ public class InputRendererSupport {
 
 	/**
 	 * Render tooltip and closes outer div.
-	 * 
+	 *
 	 * NOTE: getEndTextToRender of super implementation should be called first.
 	 */
 	public void encodeEnd(final FacesContext context, final HtmlInputComponent component) throws IOException {
@@ -111,6 +111,10 @@ public class InputRendererSupport {
 				writer.endElement("div");
 			}
 			writer.endElement("span");
+
+            writer.startElement("script", uiComponent);
+            writer.writeText("new ComponentHandler('" + uiComponent.getClientId() + "');", null);
+            writer.endElement("script");
 		}
 
 		writer.endElement("div");
@@ -135,10 +139,6 @@ public class InputRendererSupport {
 	}
 
 	protected void initInputComponent(final UIInput component) {
-		component.getAttributes().put("onfocus",
-				"showTooltip('" + component.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
-		component.getAttributes().put("onblur",
-				"hideTooltip('" + component.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX + "');");
 		if (!component.isValid()) {
 			component.getAttributes().put("styleClass", INPUT_STYLE_CLASS + " " + INVALID_STYLE_CLASS);
 		} else {
