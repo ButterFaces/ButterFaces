@@ -113,7 +113,8 @@ public class InputRendererSupport {
 			writer.endElement("span");
 
             writer.startElement("script", uiComponent);
-            writer.writeText("new ComponentHandler('" + uiComponent.getClientId() + "');", null);
+            String outerComponentId = component.getClientId() + OUTERDIV_POSTFIX;
+            writer.writeText("new ComponentHandler('" + outerComponentId + "');", null);
             writer.endElement("script");
 		}
 
