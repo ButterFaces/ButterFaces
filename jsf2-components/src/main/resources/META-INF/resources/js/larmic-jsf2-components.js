@@ -173,8 +173,8 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
 TextareaComponentHandler.prototype._checkValue = function () {
     var inputValue = this._inputNode.value;
     var freeLetterCount = this._maxLength - inputValue.length;
-    this._maxLengthCounterNode.innerHTML = freeLetterCount + "/" + this._maxLength;
-    this._maxLengthCounterNode.className = freeLetterCount < 0 ? "larmic-component-error" : "";
+    this._maxLengthCounterNode.innerHTML = freeLetterCount + " von " + this._maxLength + " Zeichen &uuml;brig";
+    this._maxLengthCounterNode.className = freeLetterCount < 0 ? "larmic-textarea-counter larmic-component-error" : "larmic-textarea-counter";
 };
 
 /*

@@ -27,6 +27,12 @@
     color: #FF0044;
 }
 
+.larmic-component-label-tooltip {
+    position: relative;
+    left: 5px;
+    top: 4px;
+}
+
 .larmic-component-tooltip {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -44,12 +50,22 @@
     width: 200px;
     z-index: 200;
     min-height: 25px;
+    margin-left: 10px
 }
 
-.larmic-component-label-tooltip {
-    position: relative;
-    left: 5px;
-    top: 4px;
+.larmic-component-tooltip  .noteConnector {
+	height: 17px;
+    left: -11px;
+    position: absolute;
+    top: 2px;
+    width: 11px;
+    border: 0 none;
+    z-index: 201;
+	background: transparent url(#{resource ['img:noteConnectorLeft.png']}) no-repeat top !important;	
+}
+
+.larmic-component-tooltip .noteContent {
+	padding: 5px;
 }
 
 .larmic-component-error-message {
@@ -70,6 +86,7 @@
     font-style: italic;
 }
 
-.larmic-component-textarea-maxlength {
-
+.larmic-textarea-counter {
+	font-style: italic;
+	margin-left: 50px;
 }
