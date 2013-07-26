@@ -8,6 +8,76 @@
 
 /**
  *====================================================================================
+ *DOM UTILS
+ *====================================================================================
+ */
+
+/**
+ * An object with dom utility functions
+ * @type {Object}
+ */
+DomUtils = {
+    /**
+     * Returns the children of a node. Can optionally select only children by a given class name
+     * @param node the node
+     * @param className an optional class name for selecting specific children
+     * @returns {Array} an array with the selected child nodes
+     */
+    getChildren:function (/*Node*/node, /*String*/className) {
+        var children = [];
+        if (typeof className !== "undefined" && className !== "") {
+            children = [].slice.call(node.children)// convert to array
+                // filter out children that don't have the given class
+                .filter(function (childNode) {
+                    var clazz = childNode.className;
+                    return typeof clazz !== "undefined" && clazz.indexOf(className) > -1;
+                });
+        } else {
+            children = [].slice.call(node.children);
+        }
+        return children;
+    },
+
+    /**
+     * Returns the siblings of a node. Can optionally select only siblings by a given class name
+     * @param node the node
+     * @param className an optional class name for selecting specific siblings
+     * @returns {Array} an array with the selected sibling nodes
+     */
+    getSiblings:function (/*Node*/node, /*String*/className) {
+        return DomUtils.getChildren(node.parentNode, className);
+    },
+
+    /**
+     *
+     * @param node
+     * @param eventNames
+     * @param handlerFunction
+     */
+    bindEvent:function (/*Node*/node, /*String*/eventNames, /*Function*/handlerFunction) {
+        var events = eventNames.split(" ");
+
+        if (events.length === 1) {
+            // bind the function to the given event
+            if (typeof node.addEventListener !== "undefined") {
+                node.addEventListener(events[0], handlerFunction, false);
+            } else {
+                // for older IE versions
+                node.attachEvent("on" + events[0], function () {
+                    return handlerFunction.call(node, window.event);
+                });
+            }
+        } else {
+            // bind function to each given event
+            for (var i = 0; i < events.length; i++) {
+                DomUtils.bindEvent(node, events[i], handlerFunction);
+            }
+        }
+    }
+};
+
+/**
+ *====================================================================================
  *COMPONENT HANDLER
  *====================================================================================
  */
@@ -35,26 +105,26 @@ ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
     if (isTooltipEnabled) {
         self._tooltipNode = self.getTooltipNode();
 
-        self._inputNode.onmouseover = function () {
+        DomUtils.bindEvent(self._inputNode, "mouseover", function () {
             if (self._tooltipOpenedByFocus) {
                 return;
             }
             self._showTooltip();
-        };
-        self._inputNode.onmouseout = function () {
+        });
+        DomUtils.bindEvent(self._inputNode, "mouseout", function () {
             if (self._tooltipOpenedByFocus) {
                 return;
             }
             self._hideTooltip();
-        };
-        self._inputNode.onfocus = function () {
+        });
+        DomUtils.bindEvent(self._inputNode, "focus", function () {
             self._tooltipOpenedByFocus = true;
             self._showTooltip();
-        };
-        self._inputNode.onblur = function () {
+        });
+        DomUtils.bindEvent(self._inputNode, "blur", function () {
             self._hideTooltip();
             self._tooltipOpenedByFocus = false;
-        };
+        });
     }
 };
 
@@ -63,7 +133,7 @@ ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
  * @returns {Node} the input field node
  */
 ComponentHandler.prototype.getInputNode = function () {
-    return this.getChildren(this._componentNode, "larmic-component-input")[0];
+    return DomUtils.getChildren(this._componentNode, "larmic-component-input")[0];
 };
 
 /**
@@ -71,38 +141,7 @@ ComponentHandler.prototype.getInputNode = function () {
  * @returns {Node} the tooltip node
  */
 ComponentHandler.prototype.getTooltipNode = function () {
-    return this.getChildren(this._componentNode, "larmic-component-tooltip")[0];
-};
-
-/**
- * Returns the children of a node. Can optionally select only children by a given class name
- * @param node the node
- * @param className an optional class name for selecting specific children
- * @returns {Array} an array with the selected child nodes
- */
-ComponentHandler.prototype.getChildren = function (/*Node*/node, /*String*/className) {
-    var children = [];
-    if (typeof className !== "undefined" && className !== "") {
-        children = [].slice.call(node.children)// convert to array
-            // filter out children that don't have the given class
-            .filter(function (childNode) {
-                var clazz = childNode.className;
-                return typeof clazz !== "undefined" && clazz.indexOf(className) > -1;
-            });
-    } else {
-        children = [].slice.call(node.children);
-    }
-    return children;
-};
-
-/**
- * Returns the siblings of a node. Can optionally select only siblings by a given class name
- * @param node the node
- * @param className an optional class name for selecting specific siblings
- * @returns {Array} an array with the selected sibling nodes
- */
-ComponentHandler.prototype.getSiblings = function (/*Node*/node, /*String*/className) {
-    return this.getChildren(node.parentNode, className);
+    return DomUtils.getChildren(this._componentNode, "larmic-component-tooltip")[0];
 };
 
 /**
@@ -153,15 +192,20 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
     if (hasMaxLength) {
         self._maxLength = self.options.maxLength * 1;
         if (self._maxLength > 0) {
-            console.log("_initMaxLengthCounter " + self._maxLength);
+            self._maxLengthCounterNode = DomUtils.getChildren(self._componentNode, "larmic-component-textarea-maxlength-counter")[0];
 
-            self._maxLengthCounterNode = self.getChildren(self._componentNode, "larmic-component-textarea-maxlength-counter")[0];
-            console.log(self._maxLengthCounterNode);
+            // inital call of check function
             self._checkValue();
 
-            self._inputNode.onkeyup = function () {
-                self._checkValue();
-            };
+            if (self._inputNode.oninput !== "undefined") {
+                DomUtils.bindEvent(self._inputNode, "input", function () {
+                    self._checkValue();
+                });
+            } else {
+                DomUtils.bindEvent(self._inputNode, "focus blur keyup cut paste", function () {
+                    self._checkValue();
+                });
+            }
         }
     }
 };
@@ -173,7 +217,7 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
 TextareaComponentHandler.prototype._checkValue = function () {
     var inputValue = this._inputNode.value;
     var freeLetterCount = this._maxLength - inputValue.length;
-    this._maxLengthCounterNode.innerHTML = freeLetterCount + " von " + this._maxLength + " Zeichen &uuml;brig";
+    this._maxLengthCounterNode.innerHTML = freeLetterCount + " of " + this._maxLength + " characters left";
     this._maxLengthCounterNode.className = freeLetterCount < 0 ? "larmic-textarea-counter larmic-component-error" : "larmic-textarea-counter";
 };
 
