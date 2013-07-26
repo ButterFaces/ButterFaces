@@ -49,10 +49,10 @@ DomUtils = {
     },
 
     /**
-     *
-     * @param node
-     * @param eventNames
-     * @param handlerFunction
+     * Binds a given function to one or more dom events
+     * @param node the node on that the events should be bound
+     * @param eventNames one or more event names separated by space (e.g. "focus blur")
+     * @param handlerFunction the function that will be called on the events (gets the event as parameter)
      */
     bindEvent:function (/*Node*/node, /*String*/eventNames, /*Function*/handlerFunction) {
         var events = eventNames.split(" ");
