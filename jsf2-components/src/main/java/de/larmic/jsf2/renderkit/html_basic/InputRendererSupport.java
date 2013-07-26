@@ -1,14 +1,21 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
+import javax.faces.model.SelectItem;
 
 import de.larmic.jsf2.component.html.HtmlCheckBox;
+import de.larmic.jsf2.component.html.HtmlComboBox;
 import de.larmic.jsf2.component.html.HtmlInputComponent;
 import de.larmic.jsf2.component.html.HtmlTextArea;
 
@@ -21,6 +28,7 @@ public class InputRendererSupport {
 
 	private static final String LABEL_STYLE_CLASS = "larmic-component-label";
 	private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
+	private static final String COMPONENT_STYLE_CLASS = "larmic-component";
 	private static final String INPUT_STYLE_CLASS = "larmic-component-input";
 	private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-component-invalid";
 	private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
@@ -59,7 +67,10 @@ public class InputRendererSupport {
 		this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
 		if (readonly) {
+			writer.startElement("span", uiComponent);
+			writer.writeAttribute("class", "larmic-component-readonly", null);
 			writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
+			writer.endElement("span");
 		}
 
 		this.initInputComponent(uiComponent);
@@ -102,18 +113,28 @@ public class InputRendererSupport {
 				writer.endElement("div");
 			}
 
-			if (!context.getMessageList().isEmpty()) {
-				writer.startElement("div", uiComponent);
-				writer.writeAttribute("class", ERROR_MESSAGE_CLASS, null);
-				writer.startElement("ul", uiComponent);
-				for (final FacesMessage message : context.getMessageList()) {
-					writer.startElement("li", uiComponent);
-					writer.writeText(message.getSummary(), null);
-					writer.endElement("li");
+			final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+
+			while (clientIdsWithMessages.hasNext()) {
+				final String clientIdWithMessages = clientIdsWithMessages.next();
+				if (uiComponent.getClientId().equals(clientIdWithMessages)) {
+					final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
+
+					writer.startElement("div", uiComponent);
+					writer.writeAttribute("class", ERROR_MESSAGE_CLASS, null);
+					writer.startElement("ul", uiComponent);
+
+					while (componentMessages.hasNext()) {
+						writer.startElement("li", uiComponent);
+						writer.writeText(componentMessages.next().getDetail(), null);
+						writer.endElement("li");
+					}
+
+					writer.endElement("ul");
+					writer.endElement("div");
 				}
-				writer.endElement("ul");
-				writer.endElement("div");
 			}
+
 			writer.endElement("div");
 
 			jsCall.append("showTooltip:true");
@@ -143,7 +164,7 @@ public class InputRendererSupport {
 	 * for custom components.
 	 */
 	protected String getReadonlyDisplayValue(final Object value, final UIInput component, final Converter converter) {
-		if (value == null) {
+		if (value == null || "".equals(value)) {
 			return "-";
 		} else if (converter != null) {
 			return converter.getAsString(FacesContext.getCurrentInstance(), component, value);
@@ -153,7 +174,42 @@ public class InputRendererSupport {
 			return (Boolean) value ? "ja" : "nein";
 		}
 
+		if (component instanceof HtmlComboBox) {
+			return this.getReadableValueFrom((HtmlComboBox) component, value);
+		}
+
 		return String.valueOf(value);
+	}
+
+	protected String getReadableValueFrom(final HtmlComboBox comboBox, final Object value) {
+		for (final UIComponent child : comboBox.getChildren()) {
+			if (child instanceof UISelectItems) {
+				final ArrayList<SelectItem> items = (ArrayList<SelectItem>) ((UISelectItems) child).getValue();
+
+				for (final SelectItem item : items) {
+					if (this.isMatchingLabel(item, value)) {
+						return item.getLabel();
+					}
+				}
+			}
+			if (child instanceof UISelectItem) {
+				final UISelectItem item = (UISelectItem) child;
+
+				if (this.isMatchingLabel(item, value)) {
+					return item.getItemLabel();
+				}
+			}
+		}
+
+		return String.valueOf(value);
+	}
+
+	private boolean isMatchingLabel(final SelectItem item, final Object value) {
+		return value.equals(item.getValue());
+	}
+
+	private boolean isMatchingLabel(final UISelectItem item, final Object value) {
+		return value.equals(item.getValue());
 	}
 
 	protected void initInputComponent(final UIInput component) {
@@ -167,14 +223,13 @@ public class InputRendererSupport {
 	protected void initOuterDiv(final String clientId, final String style, final String styleClass,
 			final boolean floating, final boolean valid, final ResponseWriter writer) throws IOException {
 		writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
-		if (styleClass != null) {
-			final String clearedStyleClass = styleClass.replaceAll(INVALID_STYLE_CLASS, "");
-			writer.writeAttribute("class",
-					valid ? clearedStyleClass : this.concatStyles(COMPONENT_INVALID_STYLE_CLASS, clearedStyleClass),
-					null);
-		} else if (!valid) {
-			writer.writeAttribute("class", COMPONENT_INVALID_STYLE_CLASS, null);
-		}
+
+		final String clearedStyleClass = styleClass != null ? this.concatStyles(COMPONENT_STYLE_CLASS,
+				styleClass.replaceAll(INVALID_STYLE_CLASS, "")) : COMPONENT_STYLE_CLASS;
+
+		writer.writeAttribute("class",
+				valid ? clearedStyleClass : this.concatStyles(COMPONENT_INVALID_STYLE_CLASS, clearedStyleClass), null);
+
 		if (style != null) {
 			final String floatingStyle = floating ? FLOATING_STYLE : NON_FLOATING_STYLE;
 			writer.writeAttribute("style", this.concatStyles(floatingStyle, style), null);
