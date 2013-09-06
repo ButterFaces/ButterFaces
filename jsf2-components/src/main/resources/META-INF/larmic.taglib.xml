@@ -46,6 +46,10 @@
 			<name>styleClass</name>
 			<type>java.lang.String</type>
 		</attribute>
+		<attribute>
+			<name>placeholder</name>
+			<type>java.lang.String</type>
+		</attribute>
 	</tag>
 
 	<tag>
@@ -91,6 +95,10 @@
 		</attribute>
 		<attribute>
 			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>placeholder</name>
 			<type>java.lang.String</type>
 		</attribute>
 	</tag>

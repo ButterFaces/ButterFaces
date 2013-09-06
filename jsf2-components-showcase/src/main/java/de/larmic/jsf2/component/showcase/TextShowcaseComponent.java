@@ -1,6 +1,16 @@
 package de.larmic.jsf2.component.showcase;
 
-public class TextShowcaseComponent extends AbstractShowcaseComponent {
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
+@SuppressWarnings("serial")
+public class TextShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+
+	private String placeholder;
 
 	@Override
 	protected Object initValue() {
@@ -21,6 +31,9 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent {
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
 			sb.append("        tooltip=\"" + this.getTooltip() + "\"\n");
 		}
+		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
+			sb.append("        placeholder=\"" + this.getPlaceholder() + "\"\n");
+		}
 		sb.append("        readonly=\"" + this.isReadonly() + "\"\n");
 		sb.append("        required=\"" + this.isRequired() + "\"\n");
 		sb.append("        floating=\"" + this.isFloating() + "\"\n");
@@ -37,4 +50,13 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent {
 
 		return sb.toString();
 	}
+
+	public String getPlaceholder() {
+		return this.placeholder;
+	}
+
+	public void setPlaceholder(final String placeholder) {
+		this.placeholder = placeholder;
+	}
+
 }

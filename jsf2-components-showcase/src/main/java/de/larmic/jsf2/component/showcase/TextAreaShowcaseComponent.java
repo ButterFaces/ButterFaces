@@ -12,6 +12,8 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 
 	private Integer maxLength;
 
+	private String placeholder;
+
 	@Override
 	protected Object initValue() {
 		return "value";
@@ -22,14 +24,6 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		return (String) this.getValue();
 	}
 
-	public Integer getMaxLength() {
-		return this.maxLength;
-	}
-
-	public void setMaxLength(final Integer maxLength) {
-		this.maxLength = maxLength;
-	}
-
 	@Override
 	public String getXHtml() {
 		final StringBuilder sb = new StringBuilder();
@@ -37,7 +31,10 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		sb.append("            label=\"" + this.getLabel() + "\"\n");
 		sb.append("            value=\"" + this.getValue() + "\"\n");
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("            tooltip=\"" + this.getTooltip() + "\"\n");
+			sb.append("        tooltip=\"" + this.getTooltip() + "\"\n");
+		}
+		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
+			sb.append("        placeholder=\"" + this.getPlaceholder() + "\"\n");
 		}
 		sb.append("            readonly=\"" + this.isReadonly() + "\"\n");
 		sb.append("            required=\"" + this.isRequired() + "\"\n");
@@ -57,5 +54,21 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		this.createOutputXhtml(sb);
 
 		return sb.toString();
+	}
+
+	public Integer getMaxLength() {
+		return this.maxLength;
+	}
+
+	public void setMaxLength(final Integer maxLength) {
+		this.maxLength = maxLength;
+	}
+
+	public String getPlaceholder() {
+		return this.placeholder;
+	}
+
+	public void setPlaceholder(final String placeholder) {
+		this.placeholder = placeholder;
 	}
 }

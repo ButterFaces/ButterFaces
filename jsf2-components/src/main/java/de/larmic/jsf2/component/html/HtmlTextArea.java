@@ -19,6 +19,7 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 	protected static final String PROPERTY_READONLY = "readonly";
 	protected static final String PROPERTY_MAXLENGTH = "maxLength";
+	protected static final String PROPERTY_PLACEHOLDER = "placeholder";
 
 	public HtmlTextArea() {
 		super();
@@ -37,6 +38,14 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
 	public void setTooltip(final String tooltip) {
 		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+	}
+
+	public String getPlaceholder() {
+		return (String) this.getStateHelper().eval(PROPERTY_PLACEHOLDER);
+	}
+
+	public void setPlaceholder(final String placeholder) {
+		this.updateStateHelper(PROPERTY_PLACEHOLDER, placeholder);
 	}
 
 	public Integer getMaxLength() {

@@ -9,18 +9,11 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGrid id="control" columns="2">
+		<h:panelGrid id="placeholder" columns="2">
 			<h:outputLabel value="placeholder" />
-			<h:inputText value="#{textAreaShowcaseComponent.placeholder}" maxlength="20">
+			<h:inputText value="#{textShowcaseComponent.placeholder}" maxlength="20">
 				<f:ajax event="keyup" execute="@this" render=":form:componentAndSource" />
 			</h:inputText>
-			<h:outputLabel value="maxLength" />
-			<h:panelGroup>
-				<h:inputText value="#{textAreaShowcaseComponent.maxLength}">
-					<f:ajax event="keyup" execute="@this" render=":form:componentAndSource" />
-					<f:convertNumber integerOnly="true" type="number" />
-				</h:inputText>
-			</h:panelGroup>
 		</h:panelGrid>
 	</composite:implementation>
 </h:body>

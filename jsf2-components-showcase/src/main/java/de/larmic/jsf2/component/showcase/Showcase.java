@@ -21,6 +21,9 @@ public class Showcase implements Serializable {
 	@Inject
 	private TextAreaShowcaseComponent textAreaShowcaseComponent;
 
+	@Inject
+	private TextShowcaseComponent textShowcaseComponent;
+
 	private AbstractShowcaseComponent component;
 
 	@PostConstruct
@@ -33,11 +36,11 @@ public class Showcase implements Serializable {
 	}
 
 	public boolean isTextComponentRendered() {
-		return TextShowcaseComponent.class.equals(this.component.getClass());
+		return this.textShowcaseComponent.equals(this.component);
 	}
 
 	public void activateTextComponent() {
-		this.component = new TextShowcaseComponent();
+		this.component = this.textShowcaseComponent;
 	}
 
 	public boolean isTextAreaComponentRendered() {

@@ -18,6 +18,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_FLOATING = "floating";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 	protected static final String PROPERTY_READONLY = "readonly";
+	protected static final String PROPERTY_PLACEHOLDER = "placeholder";
 
 	public HtmlText() {
 		super();
@@ -36,6 +37,14 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	public void setTooltip(final String tooltip) {
 		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+	}
+
+	public String getPlaceholder() {
+		return (String) this.getStateHelper().eval(PROPERTY_PLACEHOLDER);
+	}
+
+	public void setPlaceholder(final String placeholder) {
+		this.updateStateHelper(PROPERTY_PLACEHOLDER, placeholder);
 	}
 
 	@Override
