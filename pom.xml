@@ -79,9 +79,7 @@
 		<maven.compiler.target>1.7</maven.compiler.target>
 
 		<javax.javaee-api.version>7.0</javax.javaee-api.version>
-		<jsf.version>2.2.0-m15</jsf.version>
-		<!-- https://repository.jboss.org/nexus/content/groups/public-jboss/org/richfaces/richfaces-bom/ -->
-		<org.richfaces.bom.version>4.3.2.Final</org.richfaces.bom.version>
+		<jsf.version>2.1.9</jsf.version>
 	</properties>
 
 	<dependencyManagement>

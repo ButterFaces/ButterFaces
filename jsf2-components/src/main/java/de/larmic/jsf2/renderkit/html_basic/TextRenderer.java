@@ -1,12 +1,10 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
-import javax.faces.component.html.HtmlInputFile;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -68,17 +66,10 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 		final String dir = (String) component.getAttributes().get("dir");
 		final String lang = (String) component.getAttributes().get("lang");
 		final String title = (String) component.getAttributes().get("title");
-		final Map<String, Object> passthroughAttributes = component.getPassThroughAttributes(false);
-		final boolean hasPassthroughAttributes = null != passthroughAttributes && !passthroughAttributes.isEmpty();
 		if (component instanceof UIInput) {
 			writer.startElement("input", component);
 			this.writeIdAttributeIfNecessary(context, writer, component);
-
-			if (component instanceof HtmlInputFile) {
-				writer.writeAttribute("type", "file", null);
-			} else {
-				writer.writeAttribute("type", "text", null);
-			}
+			writer.writeAttribute("type", "text", null);
 			writer.writeAttribute("name", (component.getClientId(context)), "clientId");
 
 			// only output the autocomplete attribute if the value
@@ -116,7 +107,7 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 
 		} else if (isOutput = (component instanceof UIOutput)) {
 			if (styleClass != null || style != null || dir != null || lang != null || title != null
-					|| hasPassthroughAttributes || (shouldWriteIdAttribute = this.shouldWriteIdAttribute(component))) {
+					|| (shouldWriteIdAttribute = this.shouldWriteIdAttribute(component))) {
 				writer.startElement("span", component);
 				this.writeIdAttributeIfNecessary(context, writer, component);
 				if (null != styleClass) {
@@ -136,8 +127,7 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 			}
 		}
 		if (isOutput
-				&& (styleClass != null || style != null || dir != null || lang != null || title != null
-						|| hasPassthroughAttributes || (shouldWriteIdAttribute))) {
+				&& (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
 			writer.endElement("span");
 		}
 
