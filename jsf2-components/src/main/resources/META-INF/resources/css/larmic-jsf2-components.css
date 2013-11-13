@@ -23,6 +23,10 @@
     border-style: solid;
 }
 
+.larmic-component-readonly {
+    display: flex;
+}
+
 .larmic-component-error {
     color: #FF0044;
 }
@@ -61,7 +65,7 @@
     width: 11px;
     border: 0 none;
     z-index: 201;
-	background: transparent url(#{resource ['img:noteConnectorLeft.png']}) no-repeat top !important;	
+	background: transparent url(#{resource['img:noteConnectorLeft.png']}) no-repeat top !important;
 }
 
 .larmic-component-tooltip .noteContent {
