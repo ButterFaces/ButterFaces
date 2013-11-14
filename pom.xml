@@ -18,7 +18,7 @@
 	<distributionManagement>
 		<repository>
 			<id>repository.local</id>
-			<url>file:///Users/larmic/Work/larmic/maven-artifacts</url>
+			<url>file:///Users/larmic/Work/Private/maven-artifacts</url>
 		</repository>
 	</distributionManagement>
 
