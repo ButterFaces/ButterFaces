@@ -12,4 +12,5 @@ larmic-components is accessible by maven central repository. Add following depen
     <artifactId>larmic-components</artifactId>
     <version>1.0</version>
 </dependency>
+```
 
