@@ -1,106 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.larmic</groupId>
-	<artifactId>larmic-components</artifactId>
-	<version>1.1.11-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>de.larmic</groupId>
+    <artifactId>larmic-components</artifactId>
+    <version>1.1.11-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<name>larmic-components</name>
-	<url>http://components.larmic.de</url>
+    <name>larmic-components</name>
 
-	<modules>
-		<module>jsf2-components</module>
-		<module>jsf2-components-showcase</module>
-	</modules>
+    <url>https://bitbucket.org/larmicBB/larmic-jsf2-components</url>
 
-	<distributionManagement>
-		<repository>
-			<id>repository.local</id>
-			<url>file:///Users/larmic/Work/Private/maven-artifacts</url>
-		</repository>
-	</distributionManagement>
+    <modules>
+        <module>jsf2-components</module>
+        <module>jsf2-components-showcase</module>
+    </modules>
 
-	<licenses>
-		<license>
-			<name>MIT license</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>MIT license</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
-	<scm>
-		<connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
-		<url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
-		<developerConnection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
+    <developers>
+        <developer>
+            <name>Lars Michaelis</name>
+            <email>mail@larmic.de</email>
+        </developer>
+        <developer>
+            <name>Stephan Zerhusen</name>
+        </developer>
+    </developers>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-				    <!-- goals>deploy</goals-->
+    <scm>
+        <connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
+        <url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
+        <developerConnection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>sonatype-nexus-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>sonatype-nexus-staging</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <default.encoding>UTF-8</default.encoding>
+        <project.build.sourceEncoding>${default.encoding}</project.build.sourceEncoding>
+        <maven.version>3.0.0</maven.version>
+
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+
+        <!-- dependency versions -->
+        <javax.javaee-api.version>7.0</javax.javaee-api.version>
+        <jsf.version>2.1.9</jsf.version>
+
+        <!-- maven plugin dependency version -->
+        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
+        <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
+        <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <!-- see https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven -->
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>-Psonatype-oss-release -D${gpg.arguments}</arguments>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-				  </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.glassfish</groupId>
-				<artifactId>maven-embedded-glassfish-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-        			<goalPrefix>glassfish</goalPrefix>
-					<port>8080</port>
-					<contextRoot>${artifactId}</contextRoot>
-					<components>
-						<component>
-							<name>${artifactId}</name>
-							<artifact>target/${project.build.finalName}</artifact>
-						</component>
-					</components>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.glassfish</groupId>
+                <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                <version>${maven-embedded-glassfish-plugin.version}</version>
+                <configuration>
+                    <goalPrefix>glassfish</goalPrefix>
+                    <port>8080</port>
+                    <contextRoot>${artifactId}</contextRoot>
+                    <components>
+                        <component>
+                            <name>${artifactId}</name>
+                            <artifact>target/${project.build.finalName}</artifact>
+                        </component>
+                    </components>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<properties>
-		<default.encoding>UTF-8</default.encoding>
-		<project.build.sourceEncoding>${default.encoding}</project.build.sourceEncoding>
-		<maven.version>3.0.0</maven.version>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-		<javax.javaee-api.version>7.0</javax.javaee-api.version>
-		<jsf.version>2.1.9</jsf.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-	        <dependency>
-	            <groupId>javax</groupId>
-	            <artifactId>javaee-api</artifactId>
-	            <version>${javax.javaee-api.version}</version>
-	            <scope>provided</scope>
-	        </dependency>
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
-				<version>${jsf.version}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>de.larmic</groupId>
-				<artifactId>jsf2-components</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-	    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javax.javaee-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>${jsf.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.larmic</groupId>
+                <artifactId>jsf2-components</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 </project>
