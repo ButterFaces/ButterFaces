@@ -9,6 +9,8 @@
 
     <name>larmic-components</name>
 
+    <description>A JSF2 component library.</description>
+
     <url>https://bitbucket.org/larmicBB/larmic-jsf2-components</url>
 
     <modules>
