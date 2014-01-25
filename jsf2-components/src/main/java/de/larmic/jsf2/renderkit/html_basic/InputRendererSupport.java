@@ -63,7 +63,8 @@ public class InputRendererSupport {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("div", uiComponent);
-        this.initOuterDiv(component.getClientId(), style, styleClass, component.getComponentStyleClass(),  floating, valid, writer);
+        this.initOuterDiv(component.getClientId(), style, styleClass, component.getComponentStyleClass(),
+                component.getInputStyleClass(), floating, valid, writer);
         this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
         if (readonly) {
@@ -222,11 +223,13 @@ public class InputRendererSupport {
     }
 
     protected void initOuterDiv(final String clientId, final String style, final String styleClass, final String componentStyleClass,
-                                final boolean floating, final boolean valid, final ResponseWriter writer) throws IOException {
+                                final String inputStyleClass, final boolean floating, final boolean valid,
+                                final ResponseWriter writer) throws IOException {
         writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
 
-        final String clearedStyleClass = styleClass != null ? this.concatStyles(COMPONENT_STYLE_CLASS,
+        String clearedStyleClass = styleClass != null ? this.concatStyles(COMPONENT_STYLE_CLASS,
                 styleClass.replaceAll(INVALID_STYLE_CLASS, "")) : COMPONENT_STYLE_CLASS;
+        clearedStyleClass = clearedStyleClass.replaceAll(inputStyleClass, "");
 
         writer.writeAttribute("class",
                 valid ? this.concatStyles(componentStyleClass, clearedStyleClass)
