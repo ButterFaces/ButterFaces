@@ -49,6 +49,11 @@
 									 action="#{showcase.activateTextComponent}">
 						<f:ajax immediate="true" render="navigation form"/>
 					</h:commandButton>
+                    <h:commandButton value="secret"
+									 styleClass="#{showcase.secretComponentRendered ? 'selected' : ''}"
+									 action="#{showcase.activateSecretComponent}">
+						<f:ajax immediate="true" render="navigation form"/>
+					</h:commandButton>
 					<h:commandButton value="textArea" 
 									 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
 									 action="#{showcase.activateTextAreaComponent}">
@@ -77,7 +82,8 @@
 								<showcase:control control="#{showcase.showcaseComponent}" />
 								<showcase:comboBoxControl rendered="#{showcase.comboBoxComponentRendered}"/>
 								<showcase:textControl rendered="#{showcase.textComponentRendered}"/>	
-								<showcase:textAreaControl rendered="#{showcase.textAreaComponentRendered}"/>	
+								<showcase:secretControl rendered="#{showcase.secretComponentRendered}"/>
+								<showcase:textAreaControl rendered="#{showcase.textAreaComponentRendered}"/>
 							</div>
 						</div>
 						
@@ -87,6 +93,8 @@
 								<div class="component">
 									<showcase:textShowcase component="#{showcase.showcaseComponent}" 
 														   rendered="#{showcase.textComponentRendered}"/>
+                                    <showcase:secretShowcase component="#{showcase.showcaseComponent}"
+                                                             rendered="#{showcase.secretComponentRendered}"/>
 									<showcase:textAreaShowcase rendered="#{showcase.textAreaComponentRendered}"/>				   	   
 									<showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
 									<showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>

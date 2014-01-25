@@ -17,7 +17,9 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	protected static final String PROPERTY_FLOATING = "floating";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
-	protected static final String PROPERTY_READONLY = "readonly";
+	protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
+    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
+	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_PLACEHOLDER = "placeholder";
 
 	public HtmlText() {
@@ -47,12 +49,39 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 		this.updateStateHelper(PROPERTY_PLACEHOLDER, placeholder);
 	}
 
+    @Override
+    public String getComponentStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_COMPONENT_STYLE_CLASS);
+    }
+
+    public void setComponentStyleClass(final String componentStyleClass) {
+        this.updateStateHelper(PROPERTY_COMPONENT_STYLE_CLASS, componentStyleClass);
+    }
+
+    @Override
+    public String getInputStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
+    }
+
+    public void setInputStyleClass(final String inputStyleClass) {
+        this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
+    }
+
+    @Override
+    public String getLabelStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_LABEL_STYLE_CLASS);
+    }
+
+    public void setLabelStyleClass(final String labelStyleClass) {
+        this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
+    }
+
 	@Override
 	public boolean getFloating() {
 		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
 	}
 
-	public void setFloating(final Boolean floating) {
+    public void setFloating(final Boolean floating) {
 		this.updateStateHelper(PROPERTY_FLOATING, floating);
 	}
 

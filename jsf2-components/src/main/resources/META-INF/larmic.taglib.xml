@@ -46,11 +46,82 @@
 			<name>styleClass</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>labelStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>componentStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
 		<attribute>
 			<name>placeholder</name>
 			<type>java.lang.String</type>
 		</attribute>
 	</tag>
+
+    <tag>
+        <tag-name>secret</tag-name>
+        <component>
+            <component-type>de.larmic.component.secret</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>floating</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>labelStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>componentStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 
 	<tag>
 		<tag-name>textArea</tag-name>
@@ -97,6 +168,18 @@
 			<name>styleClass</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>labelStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>componentStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
 		<attribute>
 			<name>placeholder</name>
 			<type>java.lang.String</type>
@@ -144,6 +227,18 @@
 			<name>styleClass</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>labelStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>componentStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
 	</tag>
 
 	<tag>
@@ -187,6 +282,18 @@
 			<name>styleClass</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>labelStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>componentStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
 	</tag>
 
 </facelet-taglib>

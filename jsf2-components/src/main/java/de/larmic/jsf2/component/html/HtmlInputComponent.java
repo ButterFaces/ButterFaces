@@ -12,6 +12,12 @@ public interface HtmlInputComponent {
 
 	String getStyleClass();
 
+    String getComponentStyleClass();
+
+    String getInputStyleClass();
+
+    String getLabelStyleClass();
+
 	boolean isRequired();
 
 	boolean isValid();

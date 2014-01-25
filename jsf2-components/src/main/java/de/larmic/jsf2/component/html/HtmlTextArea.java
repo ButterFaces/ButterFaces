@@ -17,7 +17,9 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
 	protected static final String PROPERTY_FLOATING = "floating";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
-	protected static final String PROPERTY_READONLY = "readonly";
+    protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
+    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
+    protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_MAXLENGTH = "maxLength";
 	protected static final String PROPERTY_PLACEHOLDER = "placeholder";
 
@@ -30,6 +32,33 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
+
+    @Override
+    public String getComponentStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_COMPONENT_STYLE_CLASS);
+    }
+
+    public void setComponentStyleClass(final String componentStyleClass) {
+        this.updateStateHelper(PROPERTY_COMPONENT_STYLE_CLASS, componentStyleClass);
+    }
+
+    @Override
+    public String getInputStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
+    }
+
+    public void setInputStyleClass(final String inputStyleClass) {
+        this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
+    }
+
+    @Override
+    public String getLabelStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_LABEL_STYLE_CLASS);
+    }
+
+    public void setLabelStyleClass(final String labelStyleClass) {
+        this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
+    }
 
 	@Override
 	public String getTooltip() {

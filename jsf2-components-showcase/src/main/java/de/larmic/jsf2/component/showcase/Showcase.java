@@ -12,62 +12,73 @@ import javax.inject.Named;
 @SuppressWarnings("serial")
 public class Showcase implements Serializable {
 
-	@Inject
-	private ComboBoxShowcaseComponent comboBoxShowcaseComponent;
+    @Inject
+    private ComboBoxShowcaseComponent comboBoxShowcaseComponent;
 
-	@Inject
-	private CheckBoxShowcaseComponent checkBoxShowcaseComponent;
+    @Inject
+    private CheckBoxShowcaseComponent checkBoxShowcaseComponent;
 
-	@Inject
-	private TextAreaShowcaseComponent textAreaShowcaseComponent;
+    @Inject
+    private TextAreaShowcaseComponent textAreaShowcaseComponent;
 
-	@Inject
-	private TextShowcaseComponent textShowcaseComponent;
+    @Inject
+    private TextShowcaseComponent textShowcaseComponent;
 
-	private AbstractShowcaseComponent component;
+    @Inject
+    private SecretShowcaseComponent secretShowcaseComponent;
 
-	@PostConstruct
-	public void init() {
-		this.activateTextComponent();
-	}
+    private AbstractShowcaseComponent component;
 
-	public void submit() {
+    @PostConstruct
+    public void init() {
+        this.activateTextComponent();
+    }
 
-	}
+    public void submit() {
 
-	public boolean isTextComponentRendered() {
-		return this.textShowcaseComponent.equals(this.component);
-	}
+    }
 
-	public void activateTextComponent() {
-		this.component = this.textShowcaseComponent;
-	}
+    public boolean isTextComponentRendered() {
+        return this.textShowcaseComponent.equals(this.component);
+    }
 
-	public boolean isTextAreaComponentRendered() {
-		return this.textAreaShowcaseComponent.equals(this.component);
-	}
+    public void activateTextComponent() {
+        this.component = this.textShowcaseComponent;
+    }
 
-	public void activateTextAreaComponent() {
-		this.component = this.textAreaShowcaseComponent;
-	}
+    public boolean isSecretComponentRendered() {
+        return this.secretShowcaseComponent.equals(this.component);
+    }
 
-	public boolean isComboBoxComponentRendered() {
-		return this.comboBoxShowcaseComponent.equals(this.component);
-	}
+    public void activateSecretComponent() {
+        this.component = this.secretShowcaseComponent;
+    }
 
-	public void activateComboBoxComponent() {
-		this.component = this.comboBoxShowcaseComponent;
-	}
+    public boolean isTextAreaComponentRendered() {
+        return this.textAreaShowcaseComponent.equals(this.component);
+    }
 
-	public boolean isCheckBoxComponentRendered() {
-		return this.checkBoxShowcaseComponent.equals(this.component);
-	}
+    public void activateTextAreaComponent() {
+        this.component = this.textAreaShowcaseComponent;
+    }
 
-	public void activateCheckBoxComponent() {
-		this.component = this.checkBoxShowcaseComponent;
-	}
+    public boolean isComboBoxComponentRendered() {
+        return this.comboBoxShowcaseComponent.equals(this.component);
+    }
 
-	public AbstractShowcaseComponent getShowcaseComponent() {
-		return this.component;
-	}
+    public void activateComboBoxComponent() {
+        this.component = this.comboBoxShowcaseComponent;
+    }
+
+    public boolean isCheckBoxComponentRendered() {
+        return this.checkBoxShowcaseComponent.equals(this.component);
+    }
+
+    public void activateCheckBoxComponent() {
+        this.component = this.checkBoxShowcaseComponent;
+    }
+
+    public AbstractShowcaseComponent getShowcaseComponent() {
+        return this.component;
+    }
 }
