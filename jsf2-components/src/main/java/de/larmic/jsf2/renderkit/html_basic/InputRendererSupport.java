@@ -229,7 +229,10 @@ public class InputRendererSupport {
 
         String clearedStyleClass = styleClass != null ? this.concatStyles(COMPONENT_STYLE_CLASS,
                 styleClass.replaceAll(INVALID_STYLE_CLASS, "")) : COMPONENT_STYLE_CLASS;
-        clearedStyleClass = clearedStyleClass.replaceAll(inputStyleClass, "");
+
+        if (inputStyleClass != null) {
+            clearedStyleClass = clearedStyleClass.replaceAll(inputStyleClass, "");
+        }
 
         writer.writeAttribute("class",
                 valid ? this.concatStyles(componentStyleClass, clearedStyleClass)
