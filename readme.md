@@ -7,10 +7,10 @@ larmic-components is a JSF2 component library.
 larmic-components is accessible by maven central repository. Add following dependency to use it
 
 ```xml
-<dpendency>
-    <groupId>de.larmic.extension.cdi</groupId>
-    <artifactId>larmic-components</artifactId>
-    <version>1.0</version>
+<dependency>
+    <groupId>de.larmic</groupId>
+	<artifactId>jsf2-components</artifactId>
+	<version>1.1</version>
 </dependency>
 ```
 
