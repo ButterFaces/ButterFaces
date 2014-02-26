@@ -3,7 +3,7 @@
 <head></head>
 <body>
 	<%
-		String redirectURL = "/jsf2-components-showcase/showcase.jsf";
+		String redirectURL = "/showcase.jsf";
 		response.sendRedirect(redirectURL);
 	%>
 </body>
