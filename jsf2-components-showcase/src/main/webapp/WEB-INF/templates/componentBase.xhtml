@@ -7,6 +7,10 @@
 
         <div class="row">
             <div class="col-md-4">
+                <div class="jumbotron">
+                    <p>The text tag renders an HTML input element of the type "text".</p>
+                </div>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">Tag attributes</div>
                     <div class="panel-body">
@@ -14,14 +18,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <h:panelGroup id="output" layout="block" styleClass="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">Rendered output</div>
-                    <h:form id="output" prependId="false" styleClass="panel-body">
+                    <h:form styleClass="panel-body">
                         <ui:insert name="output"/>
                     </h:form>
                 </div>
-            </div>
+
+                <h:panelGroup layout="block" styleClass="panel panel-default">
+                    <div class="panel-heading">JSF example</div>
+                    <h:form styleClass="panel-body">
+                        <!-- linenums -->
+                            <pre class="prettyprint  lang-html">
+#{showcase.showcaseComponent.XHtml}</pre>
+                    </h:form>
+                </h:panelGroup>
+
+                <script type="text/javascript">
+                    jQuery(function () {
+                        prettyPrint();
+                    });
+                </script>
+            </h:panelGroup>
         </div>
     </ui:define>
 
