@@ -26,6 +26,16 @@
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
         <br/>
         <hr/>
+        <h:commandButton value="submit" rendered="#{not textShowcaseComponent.readonly}" action="#{textShowcaseComponent.submit}">
+            <f:ajax execute="@form" render="form" />
+        </h:commandButton>
+        <h:panelGroup id="output" layout="block">
+            <h:outputLabel value="Value:" />
+            <h:outputText value="#{textShowcaseComponent.value}" styleClass="output"/>
+            <br />
+            <h:outputLabel value="Readable value:" />
+            <h:outputText value="#{textShowcaseComponent.readableValue}" styleClass="output"/>
+        </h:panelGroup>
 
         <script type="application/javascript">
             $(document).ready(function () {

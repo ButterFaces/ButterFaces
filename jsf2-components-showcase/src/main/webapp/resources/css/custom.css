@@ -17,6 +17,14 @@
 
 .prettyprint ol.linenums > li { list-style-type: decimal; }
 
+/*** LARMIC COMPONENTS - START *********************************************************/
+
+.larmic-component-label {
+    width: 50px;
+}
+
+/*** LARMIC COMPONENTS - START *********************************************************/
+
 /*** DEFAULT LARMIC - START ************************************************************/
 #larmic-logo {
     text-indent: -9999px;

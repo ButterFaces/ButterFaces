@@ -1,9 +1,8 @@
 package de.larmic.jsf2.component.showcase;
 
+import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.model.SelectItem;
 
 public abstract class AbstractShowcaseComponent {
 	protected static final String NEW_LINE = "\n";
@@ -79,42 +78,6 @@ public abstract class AbstractShowcaseComponent {
 
 		sb.append(".larmic-component-label {\n");
 		sb.append("    width: 50px;\n");
-		sb.append("}\n");
-
-		sb.append("\n");
-		sb.append(".larmic-component-input {\n");
-		sb.append("    font-size: 14px !important;\n");
-		sb.append("    height: 18px;\n");
-		sb.append("    width: 150px;\n");
-		sb.append("}\n");
-
-		sb.append("\n");
-		sb.append(".input-invalid {\n");
-		sb.append("    background-color: #FFEBDA !important;\n");
-		sb.append("    border-color: #FF0044;\n");
-		sb.append("    border-style: solid;\n");
-		sb.append("}\n");
-
-		sb.append("\n");
-		sb.append(".larmic-component-tooltip {\n");
-		sb.append("    border-radius: 3px;\n");
-		sb.append("    box-shadow: 2px 2px 3px #AAAAAA;\n");
-		sb.append("}\n");
-
-		sb.append("\n");
-		sb.append(".larmic-component-error-message {\n");
-		sb.append("    background-color: #FFEBDA;\n");
-		sb.append("    border: 1px solid #FF0044;\n");
-		sb.append("    border-radius: 3px;\n");
-		sb.append("    margin: 5px;\n");
-		sb.append("}\n");
-
-		sb.append("\n");
-		sb.append(".larmic-component-error-message li {\n");
-		sb.append("    list-style: disc outside none;\n");
-		sb.append("    margin-left: 20px;\n");
-		sb.append("    color: #555555;\n");
-		sb.append("    font-style: italic;\n");
 		sb.append("}\n");
 
 		this.addCss(sb);
