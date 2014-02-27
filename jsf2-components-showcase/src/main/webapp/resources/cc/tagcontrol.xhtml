@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<composite:interface>
+		<composite:attribute name="label" type="java.lang.String" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+        <div class="input-group">
+            <span class="input-group-addon">#{cc.attrs.label}</span>
+            <composite:insertChildren />
+        </div>
+	</composite:implementation>
+</h:body>
+</html>

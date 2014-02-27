@@ -1,14 +1,29 @@
-<ui:composition template="/WEB-INF/templates/base.xhtml"
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{textShowcaseComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{textShowcaseComponent.tooltip}" />
+            <showcase:tagStringControl label="placeholder" value="#{textShowcaseComponent.placeholder}" />
+        </h:form>
+    </ui:define>
+
+    <ui:define name="output">
+
+        <showcase:textShowcase component="#{textShowcaseComponent}"
+                               rendered="true"/>
+
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        <br/>
+        <hr/>
 
 
         <script type="application/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 setActiveNavigation('text');
             });
         </script>

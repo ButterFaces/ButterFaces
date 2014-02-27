@@ -3,7 +3,15 @@
 }
 
 .content {
-    margin-top: 50px;
+    margin-top: 70px;
+}
+
+.input-group-addon {
+    width: 100px;
+}
+
+.input-group {
+    margin-bottom: 10px;
 }
 
 /*** DEFAULT LARMIC - START ************************************************************/

@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/templates/base.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Tag attributes</div>
+                    <div class="panel-body">
+                        <ui:insert name="attributes"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Rendered output</div>
+                    <h:form id="output" prependId="false" styleClass="panel-body">
+                        <ui:insert name="output"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
