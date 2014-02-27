@@ -1,144 +1,119 @@
-<!DOCTYPE html>
-<html lang="en"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html" 
-	  xmlns:l="http://larmic.de/jsf2"
-	  xmlns:showcase="http://java.sun.com/jsf/composite/cc" 
-	  xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<title><h:outputText value="#{msg['application.name']}" /></title>
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="CacheControl" content="no-cache" />
-	<meta http-equiv="CacheControl" content="no-store" />
-	<meta http-equiv="CacheControl" content="must-revalidate" />
-	<meta http-equiv="CacheControl" content="private" />
-	<meta http-equiv="CacheControl" content="max-stale=0" />
-	<meta http-equiv="CacheControl" content="post-check=0" />
-	<meta http-equiv="CacheControl" content="pre-check=0" />
-	<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
-	
-	<h:outputStylesheet library="prettify" name="prettify.css"/>
-	<h:outputStylesheet library="prettify" name="sons-of-obsidian.css"/>
-	<h:outputStylesheet library="css" name="norm.css"/>
-	<h:outputStylesheet library="css" name="layout.css"/>
-	
-	<h:outputScript library="js" name="global.js" target="body"/>
-	<h:outputScript library="js" name="jquery-1.10.1.min.js" target="head"/>
-	<h:outputScript library="prettify" name="prettify.js" target="body"/>
-</h:head>
+<ui:composition template="/WEB-INF/templates/base.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
 
-<h:body styleClass="body">
-	<f:view> 
-		
-		<div class="page">
-			<div class="header">	
-				<h1>Welcome to larmic jsf2 components showcase</h1>
-				<span class="linkContainer button-wrap">
-					<a href="https://bitbucket.org/larmicBB/larmic-jsf2-components" 
-					   target="_blank"
-					   class="link link-glow link-flat-primary link-circle ">
-					   <div>Visit project on Bitbucket!</div>
-					</a>
-				</span>
-			</div>
-				
-			<div class="content">
-				<h:panelGroup id="navigation" layout="block">
-					<h:commandButton value="text" 
-									 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"
-									 action="#{showcase.activateTextComponent}">
-						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton>
-                    <h:commandButton value="secret"
-									 styleClass="#{showcase.secretComponentRendered ? 'selected' : ''}"
-									 action="#{showcase.activateSecretComponent}">
-						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton>
-					<h:commandButton value="textArea" 
-									 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
-									 action="#{showcase.activateTextAreaComponent}">
-						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton>
-					<h:commandButton value="checkBox"
-									 styleClass="#{showcase.checkBoxComponentRendered ? 'selected' : ''}"
-									 action="#{showcase.activateCheckBoxComponent}">
-						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton>
-					<h:commandButton value="comboBox" 
-									 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
-									 action="#{showcase.activateComboBoxComponent}">
-						<f:ajax immediate="true" render="navigation form"/>
-					</h:commandButton>
-				</h:panelGroup>
-				
-				<div class="componentWrapper"> 
-					<h:form id="form" 
-							prependId="false"
-							enctype="#{multipart == true ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}"
-							acceptcharset="utf-8">
-						<div class="componentControlContainer">
-							<h2>controls</h2>
-							<div class="componentCode componentControls">
-								<showcase:control control="#{showcase.showcaseComponent}" />
-								<showcase:comboBoxControl rendered="#{showcase.comboBoxComponentRendered}"/>
-								<showcase:textControl rendered="#{showcase.textComponentRendered}"/>	
-								<showcase:secretControl rendered="#{showcase.secretComponentRendered}"/>
-								<showcase:textAreaControl rendered="#{showcase.textAreaComponentRendered}"/>
-							</div>
-						</div>
-						
-						<h:panelGroup id="componentAndSource" layout="block">
-							<h:panelGroup id="component" layout="block">
-								<h2>component</h2>
-								<div class="component">
-									<showcase:textShowcase component="#{showcase.showcaseComponent}" 
-														   rendered="#{showcase.textComponentRendered}"/>
-                                    <showcase:secretShowcase component="#{showcase.showcaseComponent}"
-                                                             rendered="#{showcase.secretComponentRendered}"/>
-									<showcase:textAreaShowcase rendered="#{showcase.textAreaComponentRendered}"/>				   	   
-									<showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
-									<showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-									<br />
-									<hr />
-									<h:commandButton value="submit" rendered="#{not cc.attrs.control.readonly}" action="#{showcase.submit}">
-										<f:ajax execute="component" render="form" />
-									</h:commandButton>
-									<h:panelGroup id="output" layout="block">
-										<h:outputLabel value="Value:" />
-										<h:outputText value="#{showcase.showcaseComponent.value}" styleClass="output"/>
-										<br />
-										<h:outputLabel value="Readable value:" />
-										<h:outputText value="#{showcase.showcaseComponent.readableValue}" styleClass="output"/>
-									</h:panelGroup>
-								</div>
-							</h:panelGroup>
-								
-							<h:panelGroup id="source" layout="block">
-								<div class="xhtml">
-									<h2>xhtml</h2>
+    <ui:define name="content">
+
+
+        <div class="content">
+            <h:panelGroup id="navigation" layout="block">
+                <h:commandButton value="text"
+                                 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"
+                                 action="#{showcase.activateTextComponent}">
+                    <f:ajax immediate="true" render="navigation form"/>
+                </h:commandButton>
+                <h:commandButton value="secret"
+                                 styleClass="#{showcase.secretComponentRendered ? 'selected' : ''}"
+                                 action="#{showcase.activateSecretComponent}">
+                    <f:ajax immediate="true" render="navigation form"/>
+                </h:commandButton>
+                <h:commandButton value="textArea"
+                                 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
+                                 action="#{showcase.activateTextAreaComponent}">
+                    <f:ajax immediate="true" render="navigation form"/>
+                </h:commandButton>
+                <h:commandButton value="checkBox"
+                                 styleClass="#{showcase.checkBoxComponentRendered ? 'selected' : ''}"
+                                 action="#{showcase.activateCheckBoxComponent}">
+                    <f:ajax immediate="true" render="navigation form"/>
+                </h:commandButton>
+                <h:commandButton value="comboBox"
+                                 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
+                                 action="#{showcase.activateComboBoxComponent}">
+                    <f:ajax immediate="true" render="navigation form"/>
+                </h:commandButton>
+            </h:panelGroup>
+
+            <div class="componentWrapper">
+                <h:form id="form"
+                        prependId="false"
+                        enctype="#{multipart == true ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}"
+                        acceptcharset="utf-8">
+                    <div class="componentControlContainer">
+                        <h2>controls</h2>
+
+                        <div class="componentCode componentControls">
+                            <showcase:control control="#{showcase.showcaseComponent}"/>
+                            <showcase:comboBoxControl rendered="#{showcase.comboBoxComponentRendered}"/>
+                            <showcase:textControl rendered="#{showcase.textComponentRendered}"/>
+                            <showcase:secretControl rendered="#{showcase.secretComponentRendered}"/>
+                            <showcase:textAreaControl rendered="#{showcase.textAreaComponentRendered}"/>
+                        </div>
+                    </div>
+
+                    <h:panelGroup id="componentAndSource" layout="block">
+                        <h:panelGroup id="component" layout="block">
+                            <h2>component</h2>
+
+                            <div class="component">
+                                <showcase:textShowcase component="#{showcase.showcaseComponent}"
+                                                       rendered="#{showcase.textComponentRendered}"/>
+                                <showcase:secretShowcase component="#{showcase.showcaseComponent}"
+                                                         rendered="#{showcase.secretComponentRendered}"/>
+                                <showcase:textAreaShowcase rendered="#{showcase.textAreaComponentRendered}"/>
+                                <showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
+                                <showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+                                <br/>
+                                <hr/>
+                                <h:commandButton value="submit" rendered="#{not cc.attrs.control.readonly}"
+                                                 action="#{showcase.submit}">
+                                    <f:ajax execute="component" render="form"/>
+                                </h:commandButton>
+                                <h:panelGroup id="output" layout="block">
+                                    <h:outputLabel value="Value:"/>
+                                    <h:outputText value="#{showcase.showcaseComponent.value}" styleClass="output"/>
+                                    <br/>
+                                    <h:outputLabel value="Readable value:"/>
+                                    <h:outputText value="#{showcase.showcaseComponent.readableValue}"
+                                                  styleClass="output"/>
+                                </h:panelGroup>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="source" layout="block">
+                            <div class="xhtml">
+                                <h2>xhtml</h2>
 									<pre class="prettyprint componentCode">
 #{showcase.showcaseComponent.XHtml}</pre>
-								</div>
-								<div class="css">
-								<h2>css</h2>
+                            </div>
+                            <div class="css">
+                                <h2>css</h2>
 									<pre class="prettyprint componentCode">
 #{showcase.showcaseComponent.css}</pre>
-								</div>
-							</h:panelGroup>
-								
-							<h:panelGroup id="prettyprint">
-								<script type="text/javascript">
-									jQuery(function() {
-										prettyPrint();
-									});
-								</script>
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:form>
-				</div>
-			</div>
-		</div>		
-	</f:view>
-</h:body>
-</html>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="prettyprint">
+                            <script type="text/javascript">
+                                jQuery(function () {
+                                    prettyPrint();
+                                });
+                            </script>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+        </div>
+
+        <script type="application/javascript">
+            $(document).ready(function() {
+                setNotActiveNavigation();
+            });
+        </script>
+
+    </ui:define>
+
+</ui:composition>

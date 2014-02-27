@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>JSF2 components showase</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Demonstrates larmic jsf2 components"/>
+    <meta name="keywords" content="JSF, JSF2, larmic, showcase, components"/>
+    <meta name="author" content="Lars Michaelis, Stephan Zerhusen"/>
+
+    <h:outputStylesheet library="css" name="normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
+    <h:outputStylesheet library="css" name="custom.css"/>
+    <h:outputStylesheet library="prettify" name="prettify.css"/>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <h:outputScript library="prettify" name="prettify.js" target="body"/>
+    <h:outputScript library="js" name="global.js" target="body"/>
+</h:head>
+
+<h:body styleClass="body">
+    <f:view>
+
+        <showcase:header/>
+
+        <div class="content container">
+            <ui:insert name="content"/>
+        </div>
+
+        <showcase:footer/>
+
+    </f:view>
+</h:body>
+</html>
