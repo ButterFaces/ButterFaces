@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <composite:interface>
+        <composite:attribute name="label" type="java.lang.String" required="true"/>
+        <composite:attribute name="value" required="true"/>
+        <composite:attribute name="values" required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <showcase:tagcontrol label="#{cc.attrs.label}">
+            <div class="form-control">
+                <h:selectOneMenu value="#{cc.attrs.value}">
+                    <f:selectItems value="#{cc.attrs.values}"/>
+                    <f:ajax event="change" execute="@this" render="output"/>
+                </h:selectOneMenu>
+            </div>
+        </showcase:tagcontrol>
+    </composite:implementation>
+</h:body>
+</html>

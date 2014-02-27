@@ -8,6 +8,12 @@
         <h:form prependId="false">
             <showcase:tagStringControl label="label" value="#{textShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{textShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="readonly" value="#{textShowcaseComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{textShowcaseComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{textShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="floating" value="#{textShowcaseComponent.floating}" />
+            <showcase:tagEnumControl label="ajax" value="#{textShowcaseComponent.ajaxType}" values="#{textShowcaseComponent.ajaxTypes}"/>
+            <showcase:tagBooleanControl label="validate" value="#{textShowcaseComponent.validation}" />
             <showcase:tagStringControl label="placeholder" value="#{textShowcaseComponent.placeholder}" />
         </h:form>
     </ui:define>
