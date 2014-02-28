@@ -8,20 +8,21 @@
 
 <h:body>
 	<composite:interface>
+        <composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
 	</composite:interface>
 
 	<composite:implementation>
-		<l:checkBox label="#{checkBoxShowcaseComponent.label}"
-					value="#{checkBoxShowcaseComponent.value}"
-					tooltip="#{checkBoxShowcaseComponent.tooltip}"
-					readonly="#{checkBoxShowcaseComponent.readonly}"
-					required="#{checkBoxShowcaseComponent.required}"
-					rendered="#{checkBoxShowcaseComponent.rendered}"
-					floating="#{checkBoxShowcaseComponent.floating}">
+		<l:checkBox label="#{cc.attrs.component.label}"
+					value="#{cc.attrs.component.value}"
+					tooltip="#{cc.attrs.component.tooltip}"
+					readonly="#{cc.attrs.component.readonly}"
+					required="#{cc.attrs.component.required}"
+					rendered="#{cc.attrs.component.rendered}"
+					floating="#{cc.attrs.component.floating}">
 			<f:ajax event="change" 
 					execute="@this"
-					render=":form:output :form:source :form:prettyprint"
-					disabled="#{not checkBoxShowcaseComponent.ajax}" />
+					render="output:outputValues output:other"
+					disabled="#{not cc.attrs.component.ajax}" />
 		</l:checkBox>
 	</composite:implementation>
 </h:body>

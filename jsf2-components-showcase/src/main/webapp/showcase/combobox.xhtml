@@ -1,17 +1,36 @@
-<ui:composition template="/WEB-INF/templates/base.xhtml"
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
+    <ui:define name="header">
+        <strong>l:comboBox</strong> The comboBox tag renders an HTML "select" element with a "size" of 1 without the "multiple" attribute. This component is designed for situations where you want to display a single-select list of options to the user in a menu that displays one item at a time. The main difference between select lists and menus in JSF is the "size" attribute. Menus always have a size of one, while lists can have a variable size.
+    </ui:define>
 
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{comboBoxShowcaseComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcaseComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="floating" value="#{comboBoxShowcaseComponent.floating}" />
+            <showcase:tagEnumControl label="ajax" value="#{comboBoxShowcaseComponent.ajaxType}" values="#{comboBoxShowcaseComponent.ajaxTypes}"/>
+            <showcase:tagBooleanControl label="validate" value="#{comboBoxShowcaseComponent.validation}" />
+            <showcase:tagEnumControl label="combo box" value="#{comboBoxShowcaseComponent.comboBoxValueType}" values="#{comboBoxShowcaseComponent.comboBoxTypes}"/>
+        </h:form>
+    </ui:define>
 
-        <script type="application/javascript">
-            $(document).ready(function() {
-                setActiveNavigation('combobox');
-            });
-        </script>
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent activeComponentNavigationId="combobox" component="#{comboBoxShowcaseComponent}">
+            <showcase:comboBoxShowcase component="#{comboBoxShowcaseComponent}"
+                                       rendered="true"/>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{comboBoxShowcaseComponent}" />
     </ui:define>
 
 </ui:composition>

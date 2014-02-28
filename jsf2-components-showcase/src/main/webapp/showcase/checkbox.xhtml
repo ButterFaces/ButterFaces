@@ -1,17 +1,35 @@
-<ui:composition template="/WEB-INF/templates/base.xhtml"
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
+    <ui:define name="header">
+        <strong>l:checkBox</strong> The checkBox tag renders an HTML input element of the type "checkbox". This component is designed for situations where you want to display an option to the user that can be enabled or disabled, such as a "remember me" checkbox on a login form.
+    </ui:define>
 
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="floating" value="#{checkBoxShowcaseComponent.floating}" />
+            <showcase:tagEnumControl label="ajax" value="#{checkBoxShowcaseComponent.ajaxType}" values="#{checkBoxShowcaseComponent.ajaxTypes}"/>
+            <showcase:tagBooleanControl label="validate" value="#{checkBoxShowcaseComponent.validation}" />
+        </h:form>
+    </ui:define>
 
-        <script type="application/javascript">
-            $(document).ready(function() {
-                setActiveNavigation('checkbox');
-            });
-        </script>
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent activeComponentNavigationId="checkbox" component="#{checkBoxShowcaseComponent}">
+            <showcase:checkBoxShowcase component="#{checkBoxShowcaseComponent}"
+                                       rendered="true"/>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{checkBoxShowcaseComponent}" />
     </ui:define>
 
 </ui:composition>

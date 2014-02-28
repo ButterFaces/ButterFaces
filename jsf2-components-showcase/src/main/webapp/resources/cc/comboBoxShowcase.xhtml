@@ -8,27 +8,28 @@
 
 <h:body>
 	<composite:interface>
+        <composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
 	</composite:interface>
 
 	<composite:implementation>
-		<l:comboBox label="#{comboBoxShowcaseComponent.label}"
-					value="#{comboBoxShowcaseComponent.value}"
-					tooltip="#{comboBoxShowcaseComponent.tooltip}"
-					readonly="#{comboBoxShowcaseComponent.readonly}"
-					required="#{comboBoxShowcaseComponent.required}"
-					rendered="#{comboBoxShowcaseComponent.rendered}"
-					floating="#{comboBoxShowcaseComponent.floating}">
-			<f:selectItems value="#{comboBoxShowcaseComponent.values}" />
+		<l:comboBox label="#{cc.attrs.component.label}"
+					value="#{cc.attrs.component.value}"
+					tooltip="#{cc.attrs.component.tooltip}"
+					readonly="#{cc.attrs.component.readonly}"
+					required="#{cc.attrs.component.required}"
+					rendered="#{cc.attrs.component.rendered}"
+					floating="#{cc.attrs.component.floating}">
+			<f:selectItems value="#{cc.attrs.component.values}" />
 			<f:ajax event="change" 
 					execute="@this"
-					render=":form:output :form:source :form:prettyprint"
-					disabled="#{not comboBoxShowcaseComponent.ajax}" />
-			<c:if test="#{comboBoxShowcaseComponent.converterActive}">
+					render="output:outputValues output:other"
+					disabled="#{not cc.attrs.component.ajax}" />
+			<c:if test="#{cc.attrs.component.converterActive}">
 				<f:converter converterId="fooConverter"/>
 			</c:if>
 			<!-- f:validateLength minimum="2" 
 							  maximum="10"
-							  disabled="#{not comboBoxShowcaseComponent.validation}" /-->
+							  disabled="#{not cc.attrs.component.validation}" /-->
 		</l:comboBox>
 	</composite:implementation>
 </h:body>

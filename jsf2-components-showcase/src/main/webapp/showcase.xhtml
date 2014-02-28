@@ -7,56 +7,6 @@
     <ui:define name="content">
 
 
-        <div class="content">
-
-            <div class="componentWrapper">
-                <h:form id="form"
-                        prependId="false"
-                        enctype="#{multipart == true ? 'multipart/form-data' : 'application/x-www-form-urlencoded'}"
-                        acceptcharset="utf-8">
-                    <div class="componentControlContainer">
-                        <h2>controls</h2>
-
-                        <div class="componentCode componentControls">
-                            <showcase:comboBoxControl rendered="#{showcase.comboBoxComponentRendered}"/>
-                            <showcase:secretControl rendered="#{showcase.secretComponentRendered}"/>
-                        </div>
-                    </div>
-
-                    <h:panelGroup id="componentAndSource" layout="block">
-                        <h:panelGroup id="component" layout="block">
-                            <h2>component</h2>
-
-                            <div class="component">
-                                <showcase:textShowcase component="#{showcase.showcaseComponent}"
-                                                       rendered="#{showcase.textComponentRendered}"/>
-                                <showcase:secretShowcase component="#{showcase.showcaseComponent}"
-                                                         rendered="#{showcase.secretComponentRendered}"/>
-                                <showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
-                                <showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                                <br/>
-                                <hr/>
-                                <h:commandButton value="submit" rendered="#{not cc.attrs.control.readonly}"
-                                                 action="#{showcase.submit}">
-                                    <f:ajax execute="component" render="form"/>
-                                </h:commandButton>
-                                <h:panelGroup id="output" layout="block">
-                                    <h:outputLabel value="Value:"/>
-                                    <h:outputText value="#{showcase.showcaseComponent.value}" styleClass="output"/>
-                                    <br/>
-                                    <h:outputLabel value="Readable value:"/>
-                                    <h:outputText value="#{showcase.showcaseComponent.readableValue}"
-                                                  styleClass="output"/>
-                                </h:panelGroup>
-                            </div>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:form>
-            </div>
-        </div>
-
-
     </ui:define>
 
 </ui:composition>
