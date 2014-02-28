@@ -21,6 +21,11 @@
 
 .prettyprint ol.linenums > li { list-style-type: decimal; }
 
+.prettyprint {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
 /*** LARMIC COMPONENTS - START *********************************************************/
 
 .larmic-component-label {

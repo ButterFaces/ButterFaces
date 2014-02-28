@@ -57,19 +57,45 @@ public abstract class AbstractShowcaseComponent {
 		return items;
 	}
 
+    protected void addXhtmlStart(final StringBuilder sb) {
+        sb.append("<!DOCTYPE html>");
+        sb.append("\n");
+        sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"");
+        sb.append("\n");
+        sb.append("      xmlns:h=\"http://java.sun.com/jsf/html\"");
+        sb.append("\n");
+        sb.append("      xmlns:l=\"http://larmic.de/jsf2\">");
+        sb.append("\n");
+        sb.append("<h:head />");
+        sb.append("\n");
+        sb.append("<body>");
+        sb.append("\n");
+        sb.append("    <form>");
+        sb.append("\n");
+
+    }
+
+    protected void addXhtmlEnd(final StringBuilder sb) {
+        sb.append("\n");
+        sb.append("    </form>");
+        sb.append("\n");
+        sb.append("</body>");
+        sb.append("\n");
+        sb.append("</html>");
+    }
+
 	public void createAjaxXhtml(final StringBuilder sb, final String event) {
 		if (this.isAjax()) {
 			final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
-			sb.append("    <f:ajax event=\"" + event + "\" \n");
-			sb.append("            execute=\"" + execute + "\"\n");
-			sb.append("            render=\"output\"/>\n");
+			sb.append("            <f:ajax event=\"" + event + "\"  execute=\"" + execute + "\" render=\"output\"/>\n");
 		}
 	}
 
 	public void createOutputXhtml(final StringBuilder sb) {
 		if (this.isAjax()) {
 			sb.append("\n");
-			sb.append("<h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
+			sb.append("\n");
+			sb.append("        <h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
 		}
 	}
 

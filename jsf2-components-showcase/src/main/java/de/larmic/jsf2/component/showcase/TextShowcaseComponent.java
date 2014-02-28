@@ -1,9 +1,8 @@
 package de.larmic.jsf2.component.showcase;
 
-import java.io.Serializable;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -25,28 +24,33 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 	@Override
 	public String getXHtml() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<l:text id=\"input\"\n");
-		sb.append("        label=\"" + this.getLabel() + "\"\n");
-		sb.append("        value=\"" + this.getValue() + "\"\n");
+
+        this.addXhtmlStart(sb);
+
+		sb.append("        <l:text id=\"input\"\n");
+		sb.append("                label=\"" + this.getLabel() + "\"\n");
+		sb.append("                value=\"" + this.getValue() + "\"\n");
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("        tooltip=\"" + this.getTooltip() + "\"\n");
+			sb.append("                tooltip=\"" + this.getTooltip() + "\"\n");
 		}
 		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
-			sb.append("        placeholder=\"" + this.getPlaceholder() + "\"\n");
+			sb.append("                placeholder=\"" + this.getPlaceholder() + "\"\n");
 		}
-		sb.append("        readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("        required=\"" + this.isRequired() + "\"\n");
-		sb.append("        floating=\"" + this.isFloating() + "\"\n");
-		sb.append("        rendered=\"" + this.isRendered() + "\">\n");
+		sb.append("                readonly=\"" + this.isReadonly() + "\"\n");
+		sb.append("                required=\"" + this.isRequired() + "\"\n");
+		sb.append("                floating=\"" + this.isFloating() + "\"\n");
+		sb.append("                rendered=\"" + this.isRendered() + "\">\n");
 
 		this.createAjaxXhtml(sb, "keyup");
 
 		if (this.isValidation()) {
-			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
+			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
-		sb.append("</l:text>");
+		sb.append("        </l:text>");
 
 		this.createOutputXhtml(sb);
+
+        this.addXhtmlEnd(sb);
 
 		return sb.toString();
 	}
