@@ -7,26 +7,27 @@
 
 <h:body>
 	<composite:interface>
+        <composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent" required="true" />
 	</composite:interface>
 
 	<composite:implementation>
 		<l:textArea id="textArea" 
-					label="#{textAreaShowcaseComponent.label}"
-					value="#{textAreaShowcaseComponent.value}"
-					tooltip="#{textAreaShowcaseComponent.tooltip}"
-					readonly="#{textAreaShowcaseComponent.readonly}"
-					required="#{textAreaShowcaseComponent.required}"
-					rendered="#{textAreaShowcaseComponent.rendered}"
-					maxLength="#{textAreaShowcaseComponent.maxLength}"
-					placeholder="#{textAreaShowcaseComponent.placeholder}"
-					floating="#{textAreaShowcaseComponent.floating}">
+					label="#{cc.attrs.component.label}"
+					value="#{cc.attrs.component.value}"
+					tooltip="#{cc.attrs.component.tooltip}"
+					readonly="#{cc.attrs.component.readonly}"
+					required="#{cc.attrs.component.required}"
+					rendered="#{cc.attrs.component.rendered}"
+					maxLength="#{cc.attrs.component.maxLength}"
+					placeholder="#{cc.attrs.component.placeholder}"
+					floating="#{cc.attrs.component.floating}">
 			<f:ajax event="keyup" 
 					execute="textArea"
-					render=":form:output :form:source :form:prettyprint"
-					disabled="#{not textAreaShowcaseComponent.ajax}" />
+					render="output:outputValues output:other"
+					disabled="#{not cc.attrs.component.ajax}" />
 			<f:validateLength minimum="2" 
 							  maximum="10"
-							  disabled="#{not textAreaShowcaseComponent.validation}" />
+							  disabled="#{not cc.attrs.component.validation}" />
 		</l:textArea>
 	</composite:implementation>
 </h:body>

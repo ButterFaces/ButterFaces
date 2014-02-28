@@ -8,33 +8,6 @@
 
 
         <div class="content">
-            <h:panelGroup id="navigation" layout="block">
-                <h:commandButton value="text"
-                                 styleClass="#{showcase.textComponentRendered ? 'selected' : ''}"
-                                 action="#{showcase.activateTextComponent}">
-                    <f:ajax immediate="true" render="navigation form"/>
-                </h:commandButton>
-                <h:commandButton value="secret"
-                                 styleClass="#{showcase.secretComponentRendered ? 'selected' : ''}"
-                                 action="#{showcase.activateSecretComponent}">
-                    <f:ajax immediate="true" render="navigation form"/>
-                </h:commandButton>
-                <h:commandButton value="textArea"
-                                 styleClass="#{showcase.textAreaComponentRendered ? 'selected' : ''}"
-                                 action="#{showcase.activateTextAreaComponent}">
-                    <f:ajax immediate="true" render="navigation form"/>
-                </h:commandButton>
-                <h:commandButton value="checkBox"
-                                 styleClass="#{showcase.checkBoxComponentRendered ? 'selected' : ''}"
-                                 action="#{showcase.activateCheckBoxComponent}">
-                    <f:ajax immediate="true" render="navigation form"/>
-                </h:commandButton>
-                <h:commandButton value="comboBox"
-                                 styleClass="#{showcase.comboBoxComponentRendered ? 'selected' : ''}"
-                                 action="#{showcase.activateComboBoxComponent}">
-                    <f:ajax immediate="true" render="navigation form"/>
-                </h:commandButton>
-            </h:panelGroup>
 
             <div class="componentWrapper">
                 <h:form id="form"
@@ -45,11 +18,8 @@
                         <h2>controls</h2>
 
                         <div class="componentCode componentControls">
-                            <showcase:control control="#{showcase.showcaseComponent}"/>
                             <showcase:comboBoxControl rendered="#{showcase.comboBoxComponentRendered}"/>
-                            <showcase:textControl rendered="#{showcase.textComponentRendered}"/>
                             <showcase:secretControl rendered="#{showcase.secretComponentRendered}"/>
-                            <showcase:textAreaControl rendered="#{showcase.textAreaComponentRendered}"/>
                         </div>
                     </div>
 
@@ -62,7 +32,6 @@
                                                        rendered="#{showcase.textComponentRendered}"/>
                                 <showcase:secretShowcase component="#{showcase.showcaseComponent}"
                                                          rendered="#{showcase.secretComponentRendered}"/>
-                                <showcase:textAreaShowcase rendered="#{showcase.textAreaComponentRendered}"/>
                                 <showcase:comboBoxShowcase rendered="#{showcase.comboBoxComponentRendered}"/>
                                 <showcase:checkBoxShowcase rendered="#{showcase.checkBoxComponentRendered}"/>
                                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
@@ -82,29 +51,11 @@
                                 </h:panelGroup>
                             </div>
                         </h:panelGroup>
-
-                        <h:panelGroup id="source" layout="block">
-                            <div class="xhtml">
-                                <h2>xhtml</h2>
-									<pre class="prettyprint componentCode">
-#{showcase.showcaseComponent.XHtml}</pre>
-                            </div>
-                            <div class="css">
-                                <h2>css</h2>
-									<pre class="prettyprint componentCode">
-#{showcase.showcaseComponent.css}</pre>
-                            </div>
-                        </h:panelGroup>
                     </h:panelGroup>
                 </h:form>
             </div>
         </div>
 
-        <script type="application/javascript">
-            $(document).ready(function() {
-                setNotActiveNavigation();
-            });
-        </script>
 
     </ui:define>
 

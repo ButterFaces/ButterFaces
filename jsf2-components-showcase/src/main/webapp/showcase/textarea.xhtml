@@ -1,17 +1,39 @@
-<ui:composition template="/WEB-INF/templates/base.xhtml"
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
+    <ui:define name="header">
+        <strong>l:textArea</strong> The textArea tag renders an HTML "textarea" element.
+    </ui:define>
 
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{textAreaShowcaseComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{textAreaShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="readonly" value="#{textAreaShowcaseComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{textAreaShowcaseComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="floating" value="#{textAreaShowcaseComponent.floating}" />
+            <showcase:tagEnumControl label="ajax" value="#{textAreaShowcaseComponent.ajaxType}" values="#{textAreaShowcaseComponent.ajaxTypes}"/>
+            <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseComponent.validation}" />
+            <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}" />
+            <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}">
+                <f:convertNumber integerOnly="true" type="number" for="input" />
+            </showcase:tagStringControl>
+        </h:form>
+    </ui:define>
 
-        <script type="application/javascript">
-            $(document).ready(function() {
-                setActiveNavigation('textarea');
-            });
-        </script>
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent activeComponentNavigationId="textarea" component="#{textAreaShowcaseComponent}">
+            <showcase:textAreaShowcase component="#{textAreaShowcaseComponent}"
+                                       rendered="true"/>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{textAreaShowcaseComponent}" />
     </ui:define>
 
 </ui:composition>

@@ -29,7 +29,7 @@
 /*** LARMIC COMPONENTS - START *********************************************************/
 
 .larmic-component-label {
-    width: 50px;
+    width: 100px !important;
 }
 
 /*** LARMIC COMPONENTS - START *********************************************************/
