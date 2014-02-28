@@ -12,8 +12,6 @@
 
         <div class="row">
             <div class="col-md-4">
-
-
                 <div class="panel panel-default">
                     <div class="panel-heading">Tag attributes</div>
                     <div class="panel-body">
@@ -21,36 +19,18 @@
                     </div>
                 </div>
             </div>
-            <h:panelGroup id="output" layout="block" styleClass="col-md-8">
+            <h:form id="output" prependId="true" styleClass="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">Rendered output</div>
-                    <h:form styleClass="panel-body">
+                    <div class="panel-body">
                         <ui:insert name="output"/>
-                    </h:form>
+                    </div>
                 </div>
 
-                <h:panelGroup layout="block" styleClass="panel panel-default">
-                    <div class="panel-heading">JSF example</div>
-                    <div class="row panel-body">
-                        <div class="col-md-6">
-                            <!-- linenums -->
-                            <pre class="prettyprint lang-html">
-#{showcase.showcaseComponent.XHtml}</pre>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- linenums -->
-                            <pre class="prettyprint lang-css">
-#{showcase.showcaseComponent.css}</pre>
-                        </div>
-                    </div>
+                <h:panelGroup id="other" layout="block">
+                    <ui:insert name="other"/>
                 </h:panelGroup>
-
-                <script type="text/javascript">
-                    jQuery(function () {
-                        prettyPrint();
-                    });
-                </script>
-            </h:panelGroup>
+            </h:form>
         </div>
     </ui:define>
 
