@@ -19,9 +19,7 @@
             <showcase:tagEnumControl label="ajax" value="#{textAreaShowcaseComponent.ajaxType}" values="#{textAreaShowcaseComponent.ajaxTypes}"/>
             <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseComponent.validation}" />
             <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}" />
-            <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}">
-                <f:convertNumber integerOnly="true" type="number" for="input" />
-            </showcase:tagStringControl>
+            <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}" />
         </h:form>
     </ui:define>
 

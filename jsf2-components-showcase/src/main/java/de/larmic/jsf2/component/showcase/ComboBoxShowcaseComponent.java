@@ -1,16 +1,15 @@
 package de.larmic.jsf2.component.showcase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import de.larmic.jsf2.component.showcase.comboBox.Foo;
+import de.larmic.jsf2.component.showcase.comboBox.FooConverter;
+import de.larmic.jsf2.component.showcase.comboBox.FooType;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
-
-import de.larmic.jsf2.component.showcase.comboBox.Foo;
-import de.larmic.jsf2.component.showcase.comboBox.FooConverter;
-import de.larmic.jsf2.component.showcase.comboBox.FooType;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @SessionScoped
@@ -72,31 +71,34 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 	@Override
 	public String getXHtml() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<l:comboBox id=\"input\"\n");
-		sb.append("        	   label=\"" + this.getLabel() + "\"\n");
-		sb.append("        	   value=\"" + this.getValue() + "\"\n");
+
+        this.addXhtmlStart(sb);
+
+		sb.append("        <l:comboBox id=\"input\"\n");
+		sb.append("                    label=\"" + this.getLabel() + "\"\n");
+		sb.append("                    value=\"" + this.getValue() + "\"\n");
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("        	   tooltip=\"" + this.getTooltip() + "\"\n");
+			sb.append("                    tooltip=\"" + this.getTooltip() + "\"\n");
 		}
-		sb.append("        	   readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("        	   required=\"" + this.isRequired() + "\"\n");
-		sb.append("        	   floating=\"" + this.isFloating() + "\"\n");
-		sb.append("        	   rendered=\"" + this.isRendered() + "\">\n");
+		sb.append("                    readonly=\"" + this.isReadonly() + "\"\n");
+		sb.append("                    required=\"" + this.isRequired() + "\"\n");
+		sb.append("                    floating=\"" + this.isFloating() + "\"\n");
+		sb.append("                    rendered=\"" + this.isRendered() + "\">\n");
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
-			sb.append("    <f:selectItem itemValue=\"#{null}\" \n");
-			sb.append("                  itemLabel=\"Choose one...\"/>\n");
-			sb.append("    <f:selectItem itemValue=\"2000\" \n");
-			sb.append("                  itemLabel=\"Year 2000\"/>\n");
-			sb.append("    <f:selectItem itemValue=\"2010\" \n");
-			sb.append("                  itemLabel=\"Year 2010\"/>\n");
-			sb.append("    <f:selectItem itemValue=\"2020\" \n");
-			sb.append("                  itemLabel=\"Year 2020\"/>\n");
+			sb.append("            <f:selectItem itemValue=\"#{null}\" \n");
+			sb.append("                          itemLabel=\"Choose one...\"/>\n");
+			sb.append("            <f:selectItem itemValue=\"2000\" \n");
+			sb.append("                          itemLabel=\"Year 2000\"/>\n");
+			sb.append("            <f:selectItem itemValue=\"2010\" \n");
+			sb.append("                          itemLabel=\"Year 2010\"/>\n");
+			sb.append("            <f:selectItem itemValue=\"2020\" \n");
+			sb.append("                          itemLabel=\"Year 2020\"/>\n");
 		} else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-			sb.append("    <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
+			sb.append("            <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
 		} else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
-			sb.append("    <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
-			sb.append("    <f:converter converterId=\"fooConverter\"/>\n");
+			sb.append("            <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
+			sb.append("            <f:converter converterId=\"fooConverter\"/>\n");
 		}
 
 		this.createAjaxXhtml(sb, "change");
@@ -107,9 +109,11 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 		 * }
 		 */
 
-		sb.append("</l:comboBox>");
+		sb.append("        </l:comboBox>");
 
 		this.createOutputXhtml(sb);
+
+        this.addXhtmlEnd(sb);
 
 		return sb.toString();
 	}

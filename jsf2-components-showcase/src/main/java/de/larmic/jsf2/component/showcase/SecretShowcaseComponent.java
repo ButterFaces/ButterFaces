@@ -24,28 +24,33 @@ public class SecretShowcaseComponent extends AbstractShowcaseComponent implement
 	@Override
 	public String getXHtml() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("<l:secret id=\"input\"\n");
-		sb.append("        label=\"" + this.getLabel() + "\"\n");
-		sb.append("        value=\"" + this.getValue() + "\"\n");
+
+        this.addXhtmlStart(sb);
+
+		sb.append("        <l:secret id=\"input\"\n");
+		sb.append("                label=\"" + this.getLabel() + "\"\n");
+		sb.append("                value=\"" + this.getValue() + "\"\n");
 		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("        tooltip=\"" + this.getTooltip() + "\"\n");
+			sb.append("                tooltip=\"" + this.getTooltip() + "\"\n");
 		}
 		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
-			sb.append("        placeholder=\"" + this.getPlaceholder() + "\"\n");
+			sb.append("                placeholder=\"" + this.getPlaceholder() + "\"\n");
 		}
-		sb.append("        readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("        required=\"" + this.isRequired() + "\"\n");
-		sb.append("        floating=\"" + this.isFloating() + "\"\n");
-		sb.append("        rendered=\"" + this.isRendered() + "\">\n");
+		sb.append("                readonly=\"" + this.isReadonly() + "\"\n");
+		sb.append("                required=\"" + this.isRequired() + "\"\n");
+		sb.append("                floating=\"" + this.isFloating() + "\"\n");
+		sb.append("                rendered=\"" + this.isRendered() + "\">\n");
 
 		this.createAjaxXhtml(sb, "keyup");
 
 		if (this.isValidation()) {
-			sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
+			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
-		sb.append("</l:secret>");
+		sb.append("        </l:secret>");
 
 		this.createOutputXhtml(sb);
+
+        this.addXhtmlEnd(sb);
 
 		return sb.toString();
 	}
