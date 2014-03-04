@@ -41,6 +41,7 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		sb.append("                    readonly=\"" + this.isReadonly() + "\"\n");
 		sb.append("                    required=\"" + this.isRequired() + "\"\n");
 		sb.append("                    floating=\"" + this.isFloating() + "\"\n");
+        sb.append("                    disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
 		if (this.getMaxLength() != null) {
 			sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
 		}

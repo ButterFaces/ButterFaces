@@ -19,6 +19,8 @@
 					required="#{cc.attrs.component.required}"
 					rendered="#{cc.attrs.component.rendered}"
                     disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
+                    componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
+                    inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
 					floating="#{cc.attrs.component.floating}">
 			<f:selectItems value="#{cc.attrs.component.values}" />
 			<f:ajax event="change" 

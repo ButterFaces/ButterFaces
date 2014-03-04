@@ -39,6 +39,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 		sb.append("                readonly=\"" + this.isReadonly() + "\"\n");
 		sb.append("                required=\"" + this.isRequired() + "\"\n");
 		sb.append("                floating=\"" + this.isFloating() + "\"\n");
+        sb.append("                disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
 		sb.append("                rendered=\"" + this.isRendered() + "\">\n");
 
 		this.createAjaxXhtml(sb, "keyup");

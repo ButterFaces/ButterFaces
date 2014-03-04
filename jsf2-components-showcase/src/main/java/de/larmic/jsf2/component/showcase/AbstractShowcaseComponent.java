@@ -16,6 +16,7 @@ public abstract class AbstractShowcaseComponent {
     private boolean required;
     private boolean rendered = true;
     private boolean floating;
+    private boolean bootstrap;
     private boolean validation;
     private AjaxType ajaxType = AjaxType.NONE;
     private StyleSheetType styleSheetType = StyleSheetType.DEFAULT;
@@ -202,6 +203,10 @@ public abstract class AbstractShowcaseComponent {
     }
 
     public boolean isDisableDefaultStyleClasses() {
-        return StyleSheetType.DISABLE_DEFAULT == this.styleSheetType;
+        return StyleSheetType.DISABLE_DEFAULT == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
+    }
+
+    public boolean isBootstrap() {
+        return StyleSheetType.BOOT_STRAP == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
     }
 }

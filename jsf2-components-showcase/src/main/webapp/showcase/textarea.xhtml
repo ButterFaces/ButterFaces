@@ -16,11 +16,24 @@
             <showcase:tagBooleanControl label="required" value="#{textAreaShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcaseComponent.rendered}" />
             <showcase:tagBooleanControl label="floating" value="#{textAreaShowcaseComponent.floating}" />
-            <showcase:tagEnumControl label="styleClass" value="#{textAreaShowcaseComponent.styleSheetType}" values="#{textAreaShowcaseComponent.styleSheetTypes}" />
-            <showcase:tagEnumControl label="ajax" value="#{textAreaShowcaseComponent.ajaxType}" values="#{textAreaShowcaseComponent.ajaxTypes}"/>
-            <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseComponent.validation}" />
             <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}" />
             <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}" />
+            <hr/>
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{textAreaShowcaseComponent.styleSheetType}"
+                                     values="#{textAreaShowcaseComponent.styleSheetTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Updates attributes"
+                                     popoverContentMarkerClass="styleSheetPopoverContent">
+
+            </showcase:tagEnumControl>
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{textAreaShowcaseComponent.ajaxType}"
+                                     values="#{textAreaShowcaseComponent.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseComponent.validation}" />
         </h:form>
     </ui:define>
 
