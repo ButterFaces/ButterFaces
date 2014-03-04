@@ -104,12 +104,6 @@ public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 		this.createAjaxXhtml(sb, "change");
 
-		/*
-		 * if (this.isValidation()) {
-		 * sb.append("    <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
-		 * }
-		 */
-
 		sb.append("        </l:comboBox>");
 
 		this.createOutputXhtml(sb);
