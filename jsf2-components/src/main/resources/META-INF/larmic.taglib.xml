@@ -38,6 +38,10 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
+        <attribute>
+			<name>disableDefaultStyleClasses</name>
+			<type>java.lang.Boolean</type>
+		</attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
@@ -95,6 +99,10 @@
         </attribute>
         <attribute>
             <name>floating</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>disableDefaultStyleClasses</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
@@ -160,6 +168,10 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
+        <attribute>
+            <name>disableDefaultStyleClasses</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
@@ -219,6 +231,10 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
+        <attribute>
+            <name>disableDefaultStyleClasses</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
@@ -274,6 +290,10 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
+        <attribute>
+            <name>disableDefaultStyleClasses</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>

@@ -37,8 +37,9 @@ public class InputRendererSupport {
     private static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
     private static final String LABEL_STYLE_CLASS = "larmic-component-label";
 
+    private static final String INPUT_COMPONENT_MARKER = "larmic-input-component-marker";
+
     private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
-    private static final String INPUT_STYLE_CLASS = "larmic-component-input";
     private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-component-invalid";
     private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
     private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
@@ -60,6 +61,7 @@ public class InputRendererSupport {
         final boolean readonly = component.isReadonly();
         final boolean required = component.isRequired();
         final boolean floating = component.getFloating();
+        final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
         final boolean valid = component.isValid();
         final String label = component.getLabel();
         final Object value = component.getValue();
@@ -67,8 +69,8 @@ public class InputRendererSupport {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("div", uiComponent);
-        this.initOuterDiv(component.getClientId(), component.getComponentStyleClass(),
-                floating, valid, writer);
+        this.initOuterDiv(component.getClientId(), component.getComponentStyleClass(), floating,
+                disableDefaultStyleClasses, valid, writer);
 
         this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
@@ -82,7 +84,8 @@ public class InputRendererSupport {
         this.initInputComponent(uiComponent);
 
         writer.startElement("div", uiComponent);
-        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, INPUT_CONTAINER_STYLE_CLASS), null);
+        final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
+        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
     }
 
     /**
@@ -225,7 +228,7 @@ public class InputRendererSupport {
 
     protected void initInputComponent(final UIInput component) {
         final HtmlInputComponent htmlInputComponent = (HtmlInputComponent) component;
-        final String styleClass = this.concatStyles(INPUT_STYLE_CLASS,
+        final String styleClass = this.concatStyles(INPUT_COMPONENT_MARKER,
                 htmlInputComponent.getInputStyleClass(),
                 !component.isValid() ? INVALID_STYLE_CLASS : null);
 
@@ -233,13 +236,15 @@ public class InputRendererSupport {
     }
 
     protected void initOuterDiv(final String clientId, final String componentStyleClass, final boolean floating,
+                                final boolean disableDefaultStyleClasses,
                                 final boolean valid, final ResponseWriter writer) throws IOException {
         writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
 
         final String floatingStyle = floating ? FLOATING_STYLE_CLASS : NON_FLOATING_STYLE_CLASS;
         final String validationClass = valid ? COMPONENT_INVALID_STYLE_CLASS : null;
+        final String componentClass = disableDefaultStyleClasses ? null : COMPONENT_STYLE_CLASS;
         final String styleClass = this.concatStyles(COMPONENT_MARKER_STYLE_CLASS,
-                COMPONENT_STYLE_CLASS, componentStyleClass, validationClass, floatingStyle);
+                componentClass, componentStyleClass, validationClass, floatingStyle);
 
         writer.writeAttribute("class", styleClass, null);
     }
@@ -256,7 +261,8 @@ public class InputRendererSupport {
 
             final String tooltipStyleClass = this.isEmpty(component.getTooltip()) ? TOOLTIP_CLASS : null;
 
-            writer.writeAttribute("class", this.concatStyles(LABEL_STYLE_CLASS, LABEL_MARKER_STYLE_CLASS,
+            final String labelStyleClass = component.getDisableDefaultStyleClasses() ? null : LABEL_STYLE_CLASS;
+            writer.writeAttribute("class", this.concatStyles(labelStyleClass, LABEL_MARKER_STYLE_CLASS,
                     TOOLTIP_LABEL_CLASS, tooltipStyleClass, component.getLabelStyleClass()), null);
 
             writer.startElement("abbr", uiComponent);

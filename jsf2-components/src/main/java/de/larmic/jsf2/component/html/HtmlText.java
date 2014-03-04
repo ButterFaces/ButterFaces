@@ -16,6 +16,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.TextRenderer";
 
 	protected static final String PROPERTY_FLOATING = "floating";
+    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
 	protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
@@ -74,6 +75,15 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
     public void setLabelStyleClass(final String labelStyleClass) {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
+    }
+
+    @Override
+    public boolean getDisableDefaultStyleClasses() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_STYLE_CLASSES, false);
+    }
+
+    public void setDisableDefaultStyleClasses(final Boolean disableDefaultStyleClasses) {
+        this.updateStateHelper(PROPERTY_DISABLE_STYLE_CLASSES, disableDefaultStyleClasses);
     }
 
 	@Override

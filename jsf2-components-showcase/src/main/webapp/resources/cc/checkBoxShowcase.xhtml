@@ -18,8 +18,9 @@
 					readonly="#{cc.attrs.component.readonly}"
 					required="#{cc.attrs.component.required}"
 					rendered="#{cc.attrs.component.rendered}"
+                    disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
 					floating="#{cc.attrs.component.floating}">
-			<f:ajax event="change" 
+			<f:ajax event="change"
 					execute="@this"
 					render="output:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />

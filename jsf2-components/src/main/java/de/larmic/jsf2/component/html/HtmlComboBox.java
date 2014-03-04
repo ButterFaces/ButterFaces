@@ -16,6 +16,7 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
 	public static final String RENDERER_TYPE = "de.larmic.jsf2.renderkit.html_basic.ComboBoxRenderer";
 
 	protected static final String PROPERTY_FLOATING = "floating";
+    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
@@ -66,6 +67,15 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
 	public void setTooltip(final String tooltip) {
 		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
 	}
+
+    @Override
+    public boolean getDisableDefaultStyleClasses() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_STYLE_CLASSES, false);
+    }
+
+    public void setDisableDefaultStyleClasses(final Boolean disableDefaultStyleClasses) {
+        this.updateStateHelper(PROPERTY_DISABLE_STYLE_CLASSES, disableDefaultStyleClasses);
+    }
 
 	@Override
 	public boolean getFloating() {

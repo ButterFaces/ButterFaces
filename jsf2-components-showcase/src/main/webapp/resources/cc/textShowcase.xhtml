@@ -11,7 +11,7 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<l:text id="text" 
+		<l:text id="text"
 				label="#{cc.attrs.component.label}"
 				value="#{cc.attrs.component.value}"
 				tooltip="#{cc.attrs.component.tooltip}"
@@ -19,6 +19,7 @@
 				required="#{cc.attrs.component.required}"
 				rendered="#{cc.attrs.component.rendered}"
 				placeholder="#{textShowcaseComponent.placeholder}"
+                disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
 				floating="#{cc.attrs.component.floating}">
 			<f:ajax event="keyup" 
 					execute="@this"

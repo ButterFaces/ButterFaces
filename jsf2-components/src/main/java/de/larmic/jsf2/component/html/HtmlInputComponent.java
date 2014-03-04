@@ -8,6 +8,8 @@ public interface HtmlInputComponent {
 
 	boolean getFloating();
 
+    boolean getDisableDefaultStyleClasses();
+
     String getComponentStyleClass();
 
     String getInputStyleClass();

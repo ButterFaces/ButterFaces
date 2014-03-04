@@ -134,7 +134,7 @@ ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
  */
 ComponentHandler.prototype.getInputNode = function () {
     var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
-    return DomUtils.getChildren(inputContainer, "larmic-component-input")[0];
+    return DomUtils.getChildren(inputContainer, "larmic-input-component-marker")[0];
 };
 
 /**
