@@ -44,6 +44,10 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		if (this.getMaxLength() != null) {
 			sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
 		}
+        if (this.isBootstrap()) {
+            this.appendString("componentStyleClass", "form-group", sb);
+            this.appendString("inputStyleClass", "form-control", sb);
+        }
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 

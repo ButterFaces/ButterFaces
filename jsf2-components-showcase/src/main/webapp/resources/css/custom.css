@@ -28,6 +28,10 @@
 
 /*** LARMIC COMPONENTS - START *********************************************************/
 
+.form-control {
+    float: left; /* fixes tooltip position */
+}
+
 /*** LARMIC COMPONENTS - START *********************************************************/
 
 /*** DEFAULT LARMIC - START ************************************************************/

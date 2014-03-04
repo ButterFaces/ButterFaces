@@ -137,6 +137,12 @@ public abstract class AbstractShowcaseComponent {
     public String getCss() {
         final StringBuilder sb = new StringBuilder();
 
+        if (this.isBootstrap()) {
+            sb.append(".form-control {\n");
+            sb.append("    float: left; /* fixes tooltip position */\n");
+            sb.append("}");
+        }
+
         this.addCss(sb);
 
         return sb.toString();

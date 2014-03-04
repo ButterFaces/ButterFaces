@@ -38,6 +38,12 @@ public class SecretShowcaseComponent extends AbstractShowcaseComponent implement
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
+
+        if (this.isBootstrap()) {
+            this.appendString("componentStyleClass", "form-group", sb);
+            this.appendString("inputStyleClass", "form-control", sb);
+        }
+
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		this.createAjaxXhtml(sb, "keyup");
