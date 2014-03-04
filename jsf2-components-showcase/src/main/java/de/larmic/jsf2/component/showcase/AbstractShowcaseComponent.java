@@ -102,10 +102,6 @@ public abstract class AbstractShowcaseComponent {
 	public String getCss() {
 		final StringBuilder sb = new StringBuilder();
 
-		sb.append(".larmic-component-label {\n");
-		sb.append("    width: 100px;\n");
-		sb.append("}\n");
-
 		this.addCss(sb);
 
 		return sb.toString();

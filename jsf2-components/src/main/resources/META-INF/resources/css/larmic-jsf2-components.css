@@ -1,7 +1,9 @@
 .larmic-component-label {
-    width: 50px;
-    display: inline-block;
-    margin-right: 2px;
+    width: 100px;
+    float: left;
+}
+
+.larmic-input-container {
     float: left;
 }
 
@@ -86,5 +88,12 @@
 
 .larmic-textarea-counter {
 	font-style: italic;
-	margin-left: 50px;
+}
+
+.larmic-component-floating {
+    display: inline-block;
+}
+
+.larmic-component-non-floating {
+    display: table;
 }

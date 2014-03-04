@@ -133,7 +133,8 @@ ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
  * @returns {Node} the input field node
  */
 ComponentHandler.prototype.getInputNode = function () {
-    return DomUtils.getChildren(this._componentNode, "larmic-component-input")[0];
+    var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
+    return DomUtils.getChildren(inputContainer, "larmic-component-input")[0];
 };
 
 /**
@@ -141,7 +142,8 @@ ComponentHandler.prototype.getInputNode = function () {
  * @returns {Node} the tooltip node
  */
 ComponentHandler.prototype.getTooltipNode = function () {
-    return DomUtils.getChildren(this._componentNode, "larmic-component-tooltip")[0];
+    var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
+    return DomUtils.getChildren(inputContainer, "larmic-component-tooltip")[0];
 };
 
 /**
@@ -192,7 +194,8 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
     if (hasMaxLength) {
         self._maxLength = self.options.maxLength * 1;
         if (self._maxLength > 0) {
-            self._maxLengthCounterNode = DomUtils.getChildren(self._componentNode, "larmic-component-textarea-maxlength-counter")[0];
+            var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
+            self._maxLengthCounterNode = DomUtils.getChildren(inputContainer, "larmic-component-textarea-maxlength-counter")[0];
 
             // inital call of check function
             self._checkValue();

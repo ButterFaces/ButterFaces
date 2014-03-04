@@ -60,13 +60,6 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		return sb.toString();
 	}
 
-    @Override
-    public void addCss(StringBuilder sb) {
-        sb.append(".larmic-textarea-counter {\n");
-        sb.append("    margin-left: 100px;\n");
-        sb.append("}");
-    }
-
     public Integer getMaxLength() {
 		return this.maxLength;
 	}

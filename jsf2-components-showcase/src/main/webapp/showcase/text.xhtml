@@ -23,7 +23,9 @@
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent activeComponentNavigationId="text" component="#{textShowcaseComponent}">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="text"
+                                         component="#{textShowcaseComponent}">
             <showcase:textShowcase component="#{textShowcaseComponent}"
                                    rendered="true"/>
         </showcase:showcaseOuputComponent>

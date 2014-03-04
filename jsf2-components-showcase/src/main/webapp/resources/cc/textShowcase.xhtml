@@ -22,7 +22,7 @@
 				floating="#{cc.attrs.component.floating}">
 			<f:ajax event="keyup" 
 					execute="@this"
-					render="output:outputValues output:other"
+					render="output:outputComponent:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
 			<f:validateLength minimum="2" 
 							  maximum="10"

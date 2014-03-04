@@ -20,7 +20,7 @@
             </div>
         </h:panelGroup>
 
-        <h:panelGroup layout="block" styleClass="panel panel-default">
+        <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.css}">
             <div class="panel-heading">Custom css</div>
             <div class="row panel-body">
                 <pre class="prettyprint lang-css">

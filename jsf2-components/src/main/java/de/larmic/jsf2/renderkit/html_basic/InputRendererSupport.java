@@ -1,8 +1,9 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import de.larmic.jsf2.component.html.HtmlCheckBox;
+import de.larmic.jsf2.component.html.HtmlComboBox;
+import de.larmic.jsf2.component.html.HtmlInputComponent;
+import de.larmic.jsf2.component.html.HtmlTextArea;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -13,11 +14,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
-
-import de.larmic.jsf2.component.html.HtmlCheckBox;
-import de.larmic.jsf2.component.html.HtmlComboBox;
-import de.larmic.jsf2.component.html.HtmlInputComponent;
-import de.larmic.jsf2.component.html.HtmlTextArea;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Renderer support classes provides methods used by custom component
@@ -26,9 +25,19 @@ import de.larmic.jsf2.component.html.HtmlTextArea;
  */
 public class InputRendererSupport {
 
-    private static final String LABEL_STYLE_CLASS = "larmic-component-label";
-    private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
+    private static final String FLOATING_STYLE_CLASS = "larmic-component-floating";
+    private static final String NON_FLOATING_STYLE_CLASS = "larmic-component-non-floating";
+
+    private static final String COMPONENT_MARKER_STYLE_CLASS = "larmic-component-marker";
     private static final String COMPONENT_STYLE_CLASS = "larmic-component";
+
+    private static final String INPUT_CONTAINER_MARKER_STYLE_CLASS = "larmic-input-container-marker";
+    private static final String INPUT_CONTAINER_STYLE_CLASS = "larmic-input-container";
+
+    private static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
+    private static final String LABEL_STYLE_CLASS = "larmic-component-label";
+
+    private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
     private static final String INPUT_STYLE_CLASS = "larmic-component-input";
     private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-component-invalid";
     private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
@@ -36,9 +45,6 @@ public class InputRendererSupport {
     private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
     private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
     private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "larmic-component-textarea-maxlength-counter";
-
-    private static final String FLOATING_STYLE = "display: inline-block;";
-    private static final String NON_FLOATING_STYLE = "display: table;";
 
     private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
     private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
@@ -51,8 +57,6 @@ public class InputRendererSupport {
     public void encodeBegin(final FacesContext context, final HtmlInputComponent component) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        final String style = component.getStyle();
-        final String styleClass = component.getStyleClass();
         final boolean readonly = component.isReadonly();
         final boolean required = component.isRequired();
         final boolean floating = component.getFloating();
@@ -63,8 +67,9 @@ public class InputRendererSupport {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("div", uiComponent);
-        this.initOuterDiv(component.getClientId(), style, styleClass, component.getComponentStyleClass(),
-                component.getInputStyleClass(), floating, valid, writer);
+        this.initOuterDiv(component.getClientId(), component.getComponentStyleClass(),
+                floating, valid, writer);
+
         this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
         if (readonly) {
@@ -75,6 +80,9 @@ public class InputRendererSupport {
         }
 
         this.initInputComponent(uiComponent);
+
+        writer.startElement("div", uiComponent);
+        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, INPUT_CONTAINER_STYLE_CLASS), null);
     }
 
     /**
@@ -151,6 +159,8 @@ public class InputRendererSupport {
             jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
         }
 
+        writer.endElement("div"); // .larmic-input-container
+
         jsCall.append("});");
 
         writer.startElement("script", uiComponent);
@@ -222,45 +232,32 @@ public class InputRendererSupport {
         component.getAttributes().put("styleClass", styleClass);
     }
 
-    protected void initOuterDiv(final String clientId, final String style, final String styleClass, final String componentStyleClass,
-                                final String inputStyleClass, final boolean floating, final boolean valid,
-                                final ResponseWriter writer) throws IOException {
+    protected void initOuterDiv(final String clientId, final String componentStyleClass, final boolean floating,
+                                final boolean valid, final ResponseWriter writer) throws IOException {
         writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
 
-        String clearedStyleClass = styleClass != null ? this.concatStyles(COMPONENT_STYLE_CLASS,
-                styleClass.replaceAll(INVALID_STYLE_CLASS, "")) : COMPONENT_STYLE_CLASS;
+        final String floatingStyle = floating ? FLOATING_STYLE_CLASS : NON_FLOATING_STYLE_CLASS;
+        final String validationClass = valid ? COMPONENT_INVALID_STYLE_CLASS : null;
+        final String styleClass = this.concatStyles(COMPONENT_MARKER_STYLE_CLASS,
+                COMPONENT_STYLE_CLASS, componentStyleClass, validationClass, floatingStyle);
 
-        if (inputStyleClass != null) {
-            clearedStyleClass = clearedStyleClass.replaceAll(inputStyleClass, "");
-        }
-
-        writer.writeAttribute("class",
-                valid ? this.concatStyles(componentStyleClass, clearedStyleClass)
-                        : this.concatStyles(COMPONENT_INVALID_STYLE_CLASS, componentStyleClass, clearedStyleClass), null);
-
-        if (style != null) {
-            final String floatingStyle = floating ? FLOATING_STYLE : NON_FLOATING_STYLE;
-            writer.writeAttribute("style", this.concatStyles(floatingStyle, style), null);
-        } else {
-            writer.writeAttribute("style", floating ? FLOATING_STYLE : NON_FLOATING_STYLE, null);
-        }
+        writer.writeAttribute("class", styleClass, null);
     }
 
     protected void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
                                          final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (label != null) {
+        if (!this.isEmpty(label)) {
             final UIInput uiComponent = (UIInput) component;
-            final HtmlInputComponent htmlInputComponent = (HtmlInputComponent) component;
 
             writer.startElement("label", uiComponent);
             if (!readonly) {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
-            if (component.getTooltip() != null && !"".equals(component.getTooltip())) {
-                writer.writeAttribute("class", this.concatStyles(LABEL_STYLE_CLASS, TOOLTIP_LABEL_CLASS, htmlInputComponent.getLabelStyleClass()), null);
-            } else {
-                writer.writeAttribute("class", this.concatStyles(LABEL_STYLE_CLASS, htmlInputComponent.getLabelStyleClass()), null);
-            }
+
+            final String tooltipStyleClass = this.isEmpty(component.getTooltip()) ? TOOLTIP_CLASS : null;
+
+            writer.writeAttribute("class", this.concatStyles(LABEL_STYLE_CLASS, LABEL_MARKER_STYLE_CLASS,
+                    TOOLTIP_LABEL_CLASS, tooltipStyleClass, component.getLabelStyleClass()), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {
@@ -301,6 +298,10 @@ public class InputRendererSupport {
     }
 
     protected boolean isTooltipNecessary(final HtmlInputComponent component) {
-        return component.getTooltip() != null && !"".equals(component.getTooltip());
+        return !isEmpty(component.getTooltip());
+    }
+
+    private boolean isEmpty(final String value) {
+        return !(value != null && !"".equals(value));
     }
 }
