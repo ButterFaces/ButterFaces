@@ -17,7 +17,11 @@
             <showcase:tagBooleanControl label="rendered" value="#{textShowcaseComponent.rendered}"/>
             <showcase:tagBooleanControl label="floating" value="#{textShowcaseComponent.floating}"/>
             <showcase:tagStringControl label="placeholder" value="#{textShowcaseComponent.placeholder}"/>
-            <hr/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
             <showcase:tagEnumControl label="styleClass"
                                      value="#{textShowcaseComponent.styleSheetType}"
                                      values="#{textShowcaseComponent.styleSheetTypes}"

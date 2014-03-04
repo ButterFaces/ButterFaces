@@ -18,7 +18,11 @@
             <showcase:tagBooleanControl label="floating" value="#{textAreaShowcaseComponent.floating}" />
             <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}" />
             <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}" />
-            <hr/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
             <showcase:tagEnumControl label="styleClass"
                                      value="#{textAreaShowcaseComponent.styleSheetType}"
                                      values="#{textAreaShowcaseComponent.styleSheetTypes}"

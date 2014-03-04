@@ -16,8 +16,17 @@
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseComponent.rendered}" />
             <showcase:tagBooleanControl label="floating" value="#{comboBoxShowcaseComponent.floating}" />
-            <showcase:tagEnumControl label="combo box" value="#{comboBoxShowcaseComponent.comboBoxValueType}" values="#{comboBoxShowcaseComponent.comboBoxTypes}"/>
-            <hr/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
+            <showcase:tagEnumControl label="combo box"
+                                     value="#{comboBoxShowcaseComponent.comboBoxValueType}"
+                                     values="#{comboBoxShowcaseComponent.comboBoxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add selectItems children"
+                                     popoverContentMarkerClass="comboboxPopoverContent"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{comboBoxShowcaseComponent.styleSheetType}"
                                      values="#{comboBoxShowcaseComponent.styleSheetTypes}"

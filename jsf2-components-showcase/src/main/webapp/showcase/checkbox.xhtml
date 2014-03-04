@@ -10,13 +10,17 @@
 
     <ui:define name="attributes">
         <h:form prependId="false">
-            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseComponent.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseComponent.tooltip}" />
-            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseComponent.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseComponent.required}" />
-            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseComponent.rendered}" />
-            <showcase:tagBooleanControl label="floating" value="#{checkBoxShowcaseComponent.floating}" />
-            <hr/>
+            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseComponent.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseComponent.tooltip}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseComponent.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseComponent.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="floating" value="#{checkBoxShowcaseComponent.floating}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
             <showcase:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcaseComponent.styleSheetType}"
                                      values="#{checkBoxShowcaseComponent.styleSheetTypes}"
@@ -31,19 +35,20 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagBooleanControl label="validate" value="#{checkBoxShowcaseComponent.validation}" />
+            <showcase:tagBooleanControl label="validate" value="#{checkBoxShowcaseComponent.validation}"/>
         </h:form>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox" component="#{checkBoxShowcaseComponent}">
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
+                                         component="#{checkBoxShowcaseComponent}">
             <showcase:checkBoxShowcase component="#{checkBoxShowcaseComponent}"
                                        rendered="true"/>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{checkBoxShowcaseComponent}" />
+        <showcase:showcaseExampleComponent component="#{checkBoxShowcaseComponent}"/>
     </ui:define>
 
 </ui:composition>
