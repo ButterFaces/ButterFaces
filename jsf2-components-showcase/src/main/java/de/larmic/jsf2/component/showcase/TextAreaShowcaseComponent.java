@@ -32,20 +32,20 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 		sb.append("        <l:textArea id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
-		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("                    tooltip=\"" + this.getTooltip() + "\"\n");
-		}
-		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
-			sb.append("                    placeholder=\"" + this.getPlaceholder() + "\"\n");
-		}
-		sb.append("                    readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("                    required=\"" + this.isRequired() + "\"\n");
-		sb.append("                    floating=\"" + this.isFloating() + "\"\n");
-        sb.append("                    disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
+
+        this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("placeholder", this.getPlaceholder(), sb);
+
+        this.appendBoolean("readonly", this.isReadonly(), sb);
+        this.appendBoolean("required", this.isRequired(), sb);
+        this.appendBoolean("floating", this.isFloating(), sb);
+        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
+
 		if (this.getMaxLength() != null) {
 			sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
 		}
-		sb.append("                    rendered=\"" + this.isRendered() + "\">\n");
+
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		this.createAjaxXhtml(sb, "keyup");
 
@@ -60,6 +60,10 @@ public class TextAreaShowcaseComponent extends AbstractShowcaseComponent impleme
 
 		return sb.toString();
 	}
+
+    protected String getEmptyDistanceString() {
+        return "                    ";
+    }
 
     public Integer getMaxLength() {
 		return this.maxLength;

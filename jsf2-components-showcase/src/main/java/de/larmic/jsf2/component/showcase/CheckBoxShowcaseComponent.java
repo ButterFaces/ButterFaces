@@ -28,14 +28,14 @@ public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 		sb.append("        <l:checkBox id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
-		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("                    tooltip=\"" + this.getTooltip() + "\"\n");
-		}
-		sb.append("                    readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("                    required=\"" + this.isRequired() + "\"\n");
-		sb.append("                    floating=\"" + this.isFloating() + "\"\n");
-		sb.append("                    disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
-		sb.append("                    rendered=\"" + this.isRendered() + "\">\n");
+
+        this.appendString("tooltip", this.getTooltip(), sb);
+
+        this.appendBoolean("readonly", this.isReadonly(), sb);
+        this.appendBoolean("required", this.isRequired(), sb);
+        this.appendBoolean("floating", this.isFloating(), sb);
+        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		this.createAjaxXhtml(sb, "change");
 
@@ -47,4 +47,8 @@ public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 		return sb.toString();
 	}
+
+    protected String getEmptyDistanceString() {
+        return "                    ";
+    }
 }

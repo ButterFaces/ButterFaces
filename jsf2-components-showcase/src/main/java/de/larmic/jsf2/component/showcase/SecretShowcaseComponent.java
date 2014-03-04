@@ -28,19 +28,17 @@ public class SecretShowcaseComponent extends AbstractShowcaseComponent implement
         this.addXhtmlStart(sb);
 
 		sb.append("        <l:secret id=\"input\"\n");
-		sb.append("                label=\"" + this.getLabel() + "\"\n");
-		sb.append("                value=\"" + this.getValue() + "\"\n");
-		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("                tooltip=\"" + this.getTooltip() + "\"\n");
-		}
-		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
-			sb.append("                placeholder=\"" + this.getPlaceholder() + "\"\n");
-		}
-		sb.append("                readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("                required=\"" + this.isRequired() + "\"\n");
-		sb.append("                floating=\"" + this.isFloating() + "\"\n");
-        sb.append("                disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
-		sb.append("                rendered=\"" + this.isRendered() + "\">\n");
+		sb.append("                  label=\"" + this.getLabel() + "\"\n");
+		sb.append("                  value=\"" + this.getValue() + "\"\n");
+
+        this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("placeholder", this.getPlaceholder(), sb);
+
+        this.appendBoolean("readonly", this.isReadonly(), sb);
+        this.appendBoolean("required", this.isRequired(), sb);
+        this.appendBoolean("floating", this.isFloating(), sb);
+        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		this.createAjaxXhtml(sb, "keyup");
 
@@ -55,6 +53,10 @@ public class SecretShowcaseComponent extends AbstractShowcaseComponent implement
 
 		return sb.toString();
 	}
+
+    protected String getEmptyDistanceString() {
+        return "                  ";
+    }
 
 	public String getPlaceholder() {
 		return this.placeholder;

@@ -110,6 +110,30 @@ public abstract class AbstractShowcaseComponent {
         }
     }
 
+    protected void appendString(final String attribute, final String value, final StringBuilder sb, final boolean isLastValue) {
+       if (value != null && !"".equals(value)) {
+           sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
+       }
+    }
+
+    protected void appendString(final String attribute, final String value, final StringBuilder sb) {
+        this.appendString(attribute, value, sb, false);
+    }
+
+    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb, final boolean isLastValue) {
+        if (value) {
+            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
+        }
+    }
+
+    protected String getEmptyDistanceString() {
+        return "                ";
+    }
+
+    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb) {
+        this.appendBoolean(attribute, value, sb, false);
+    }
+
     public String getCss() {
         final StringBuilder sb = new StringBuilder();
 

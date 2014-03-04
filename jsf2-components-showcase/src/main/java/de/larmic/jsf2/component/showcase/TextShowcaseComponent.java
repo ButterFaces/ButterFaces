@@ -9,59 +9,57 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TextShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
-	private String placeholder;
+    private String placeholder;
 
-	@Override
-	protected Object initValue() {
-		return "value";
-	}
+    @Override
+    protected Object initValue() {
+        return "value";
+    }
 
-	@Override
-	public String getReadableValue() {
-		return (String) this.getValue();
-	}
+    @Override
+    public String getReadableValue() {
+        return (String) this.getValue();
+    }
 
-	@Override
-	public String getXHtml() {
-		final StringBuilder sb = new StringBuilder();
+    @Override
+    public String getXHtml() {
+        final StringBuilder sb = new StringBuilder();
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:text id=\"input\"\n");
-		sb.append("                label=\"" + this.getLabel() + "\"\n");
-		sb.append("                value=\"" + this.getValue() + "\"\n");
-		if (this.getTooltip() != null && !"".equals(this.getTooltip())) {
-			sb.append("                tooltip=\"" + this.getTooltip() + "\"\n");
-		}
-		if (this.getPlaceholder() != null && !"".equals(this.getPlaceholder())) {
-			sb.append("                placeholder=\"" + this.getPlaceholder() + "\"\n");
-		}
-		sb.append("                readonly=\"" + this.isReadonly() + "\"\n");
-		sb.append("                required=\"" + this.isRequired() + "\"\n");
-		sb.append("                floating=\"" + this.isFloating() + "\"\n");
-        sb.append("                disableDefaultStyleClasses=\"" + this.isDisableDefaultStyleClasses() + "\"\n");
-		sb.append("                rendered=\"" + this.isRendered() + "\">\n");
+        sb.append("        <l:text id=\"input\"\n");
+        sb.append("                label=\"" + this.getLabel() + "\"\n");
+        sb.append("                value=\"" + this.getValue() + "\"\n");
 
-		this.createAjaxXhtml(sb, "keyup");
+        this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("placeholder", this.getPlaceholder(), sb);
 
-		if (this.isValidation()) {
-			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
-		}
-		sb.append("        </l:text>");
+        this.appendBoolean("readonly", this.isReadonly(), sb);
+        this.appendBoolean("required", this.isRequired(), sb);
+        this.appendBoolean("floating", this.isFloating(), sb);
+        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-		this.createOutputXhtml(sb);
+        this.createAjaxXhtml(sb, "keyup");
+
+        if (this.isValidation()) {
+            sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
+        }
+        sb.append("        </l:text>");
+
+        this.createOutputXhtml(sb);
 
         this.addXhtmlEnd(sb);
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
-	public String getPlaceholder() {
-		return this.placeholder;
-	}
+    public String getPlaceholder() {
+        return this.placeholder;
+    }
 
-	public void setPlaceholder(final String placeholder) {
-		this.placeholder = placeholder;
-	}
+    public void setPlaceholder(final String placeholder) {
+        this.placeholder = placeholder;
+    }
 
 }
