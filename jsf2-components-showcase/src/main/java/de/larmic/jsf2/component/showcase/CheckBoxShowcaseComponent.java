@@ -9,25 +9,25 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
-	@Override
-	protected Object initValue() {
-		return false;
-	}
+    @Override
+    protected Object initValue() {
+        return false;
+    }
 
-	@Override
-	public String getReadableValue() {
-		return (Boolean) this.getValue() ? "Ja" : "Nein";
-	}
+    @Override
+    public String getReadableValue() {
+        return (Boolean) this.getValue() ? "Ja" : "Nein";
+    }
 
-	@Override
-	public String getXHtml() {
-		final StringBuilder sb = new StringBuilder();
+    @Override
+    public String getXHtml() {
+        final StringBuilder sb = new StringBuilder();
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:checkBox id=\"input\"\n");
-		sb.append("                    label=\"" + this.getLabel() + "\"\n");
-		sb.append("                    value=\"" + this.getValue() + "\"\n");
+        sb.append("        <l:checkBox id=\"input\"\n");
+        sb.append("                    label=\"" + this.getLabel() + "\"\n");
+        sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
 
@@ -43,16 +43,26 @@ public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-		this.createAjaxXhtml(sb, "change");
+        this.createAjaxXhtml(sb, "change");
 
-		sb.append("        </l:checkBox>");
+        sb.append("        </l:checkBox>");
 
-		this.createOutputXhtml(sb);
+        this.createOutputXhtml(sb);
 
         this.addXhtmlEnd(sb);
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
+
+    @Override
+    public void addCss(StringBuilder sb) {
+        if (this.isBootstrap()) {
+            sb.append("\n\n.form-group input[type=checkbox] {\n");
+            sb.append("    width: 14px; /* fixes checkbox position */\n");
+            sb.append("    height: 14px; /* fixes checkbox position */\n");
+            sb.append("}");
+        }
+    }
 
     protected String getEmptyDistanceString() {
         return "                    ";

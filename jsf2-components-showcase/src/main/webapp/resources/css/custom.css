@@ -32,6 +32,11 @@
     float: left; /* fixes tooltip position */
 }
 
+.form-group input[type=checkbox] {
+    width: 14px; /* fixes checkbox position */
+    height: 14px; /* fixes checkbox position */
+}
+
 /*** LARMIC COMPONENTS - START *********************************************************/
 
 /*** DEFAULT LARMIC - START ************************************************************/
