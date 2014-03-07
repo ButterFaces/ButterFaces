@@ -259,11 +259,9 @@ public class InputRendererSupport {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
 
-            final String tooltipStyleClass = this.isEmpty(component.getTooltip()) ? TOOLTIP_CLASS : null;
-
             final String labelStyleClass = component.getDisableDefaultStyleClasses() ? null : LABEL_STYLE_CLASS;
             writer.writeAttribute("class", this.concatStyles(labelStyleClass, LABEL_MARKER_STYLE_CLASS,
-                    TOOLTIP_LABEL_CLASS, tooltipStyleClass, component.getLabelStyleClass()), null);
+                    TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {
