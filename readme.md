@@ -10,7 +10,7 @@ larmic-components is accessible by maven central repository. Add following depen
 <dependency>
     <groupId>de.larmic</groupId>
 	<artifactId>jsf2-components</artifactId>
-	<version>1.1</version>
+	<version>1.3</version>
 </dependency>
 ```
 
