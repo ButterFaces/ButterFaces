@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>l:radioBox</strong> The radioBox tag renders an HTML "input" elements of the type "radio". This component is designed for situations where you want to display a mutually exclusive list of options to the user as a set of radio buttons. Like the selectManyCheckbox tag, this tag supports two layout modes:lineDirection (horizontal, the default) and pageDirection (vertical).
+    </ui:define>
+
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{radioBoxShowcaseComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcaseComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{radioBoxShowcaseComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="floating" value="#{radioBoxShowcaseComponent.floating}" />
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
+            <showcase:tagEnumControl label="radio box"
+                                     value="#{radioBoxShowcaseComponent.comboBoxValueType}"
+                                     values="#{radioBoxShowcaseComponent.comboBoxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add selectItems children"
+                                     popoverContentMarkerClass="comboboxPopoverContent"/>
+            <showcase:tagEnumControl label="radio box"
+                                     value="#{radioBoxShowcaseComponent.radioBoxLayoutType}"
+                                     values="#{radioBoxShowcaseComponent.radioLayoutTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add selectItems children"
+                                     popoverContentMarkerClass="radioboxLayoutPopoverContent"/>
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{radioBoxShowcaseComponent.styleSheetType}"
+                                     values="#{radioBoxShowcaseComponent.styleSheetTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Updates attributes"
+                                     popoverContentMarkerClass="styleSheetPopoverContent">
+
+            </showcase:tagEnumControl>
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{radioBoxShowcaseComponent.ajaxType}"
+                                     values="#{radioBoxShowcaseComponent.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="radiobox" component="#{radioBoxShowcaseComponent}">
+            <showcase:radioBoxShowcase component="#{radioBoxShowcaseComponent}"
+                                       rendered="true"/>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{radioBoxShowcaseComponent}" />
+    </ui:define>
+
+</ui:composition>
