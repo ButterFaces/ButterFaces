@@ -97,3 +97,8 @@
 .larmic-component-non-floating {
     display: table;
 }
+
+/* fixed tooltip position on radio buttons */
+table.larmic-input-component-marker  {
+    float: left;
+}
