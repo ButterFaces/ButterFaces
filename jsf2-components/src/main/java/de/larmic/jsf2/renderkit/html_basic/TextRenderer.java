@@ -1,6 +1,10 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
-import java.io.IOException;
+import com.sun.faces.renderkit.Attribute;
+import com.sun.faces.renderkit.AttributeManager;
+import com.sun.faces.renderkit.RenderKitUtils;
+import de.larmic.jsf2.component.html.HtmlInputComponent;
+import de.larmic.jsf2.component.html.HtmlText;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -8,13 +12,7 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
-
-import de.larmic.jsf2.component.html.HtmlInputComponent;
-import de.larmic.jsf2.component.html.HtmlText;
+import java.io.IOException;
 
 /**
  * larmic jsf2 components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-jsf2-components
@@ -69,7 +67,6 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 		if (component instanceof UIInput) {
 			writer.startElement("input", component);
 			this.writeIdAttributeIfNecessary(context, writer, component);
-			writer.writeAttribute("type", "text", null);
 			writer.writeAttribute("name", (component.getClientId(context)), "clientId");
 
 			// only output the autocomplete attribute if the value
@@ -93,7 +90,14 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 				if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
 					writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
 				}
-			}
+                if (inputComponent.getType() != null && !"".equals(inputComponent.getType())) {
+                    writer.writeAttribute("type", inputComponent.getType(), "type");
+                } else {
+                    writer.writeAttribute("type", "text", null);
+                }
+			} else {
+                writer.writeAttribute("type", "text", null);
+            }
 			// *** END HTML 5 CHANGED ****************************
 
 			// style is rendered as a passthur attribute

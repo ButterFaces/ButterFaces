@@ -21,7 +21,8 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
 	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
-	protected static final String PROPERTY_PLACEHOLDER = "placeholder";
+	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
+	protected static final String PROPERTY_HTML5_TYPE = "type";
 
 	public HtmlText() {
 		super();
@@ -43,11 +44,19 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	}
 
 	public String getPlaceholder() {
-		return (String) this.getStateHelper().eval(PROPERTY_PLACEHOLDER);
+		return (String) this.getStateHelper().eval(PROPERTY_HTML5_PLACEHOLDER);
 	}
 
 	public void setPlaceholder(final String placeholder) {
-		this.updateStateHelper(PROPERTY_PLACEHOLDER, placeholder);
+		this.updateStateHelper(PROPERTY_HTML5_PLACEHOLDER, placeholder);
+	}
+
+    public String getType() {
+		return (String) this.getStateHelper().eval(PROPERTY_HTML5_TYPE);
+	}
+
+	public void setType(final String type) {
+		this.updateStateHelper(PROPERTY_HTML5_TYPE, type);
 	}
 
     @Override

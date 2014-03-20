@@ -42,6 +42,10 @@
 			<name>disableDefaultStyleClasses</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
+        <attribute>
+            <name>type</name>
+            <type>java.lang.String</type>
+        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>

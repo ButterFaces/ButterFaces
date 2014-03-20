@@ -16,7 +16,13 @@
             <showcase:tagBooleanControl label="required" value="#{textShowcaseComponent.required}"/>
             <showcase:tagBooleanControl label="rendered" value="#{textShowcaseComponent.rendered}"/>
             <showcase:tagBooleanControl label="floating" value="#{textShowcaseComponent.floating}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="html5attributes">
+        <h:form prependId="false">
             <showcase:tagStringControl label="placeholder" value="#{textShowcaseComponent.placeholder}"/>
+            <showcase:tagStringControl label="type" value="#{textShowcaseComponent.type}"/>
         </h:form>
     </ui:define>
 

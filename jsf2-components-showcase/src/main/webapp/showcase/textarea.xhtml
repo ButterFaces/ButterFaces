@@ -16,8 +16,13 @@
             <showcase:tagBooleanControl label="required" value="#{textAreaShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcaseComponent.rendered}" />
             <showcase:tagBooleanControl label="floating" value="#{textAreaShowcaseComponent.floating}" />
-            <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}" />
             <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}" />
+        </h:form>
+    </ui:define>
+
+    <ui:define name="html5attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}"/>
         </h:form>
     </ui:define>
 

@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class TextShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
     private String placeholder;
+    private String type;
 
     @Override
     protected Object initValue() {
@@ -33,6 +34,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
+        this.appendString("type", this.getType(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
@@ -68,4 +70,11 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
         this.placeholder = placeholder;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
