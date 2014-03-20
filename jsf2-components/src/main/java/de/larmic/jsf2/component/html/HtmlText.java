@@ -25,6 +25,8 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_HTML5_TYPE = "type";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 	protected static final String PROPERTY_HTML5_PATTERN = "pattern";
+	protected static final String PROPERTY_HTML5_MIN = "min";
+	protected static final String PROPERTY_HTML5_MAX = "max";
 
 	public HtmlText() {
 		super();
@@ -67,6 +69,22 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	public void setPattern(final String pattern) {
 		this.updateStateHelper(PROPERTY_HTML5_PATTERN, pattern);
+	}
+
+    public String getMin() {
+		return (String) this.getStateHelper().eval(PROPERTY_HTML5_MIN);
+	}
+
+	public void setMin(final String min) {
+		this.updateStateHelper(PROPERTY_HTML5_MIN, min);
+	}
+
+    public String getMax() {
+		return (String) this.getStateHelper().eval(PROPERTY_HTML5_MAX);
+	}
+
+	public void setMax(final String max) {
+		this.updateStateHelper(PROPERTY_HTML5_MAX, max);
 	}
 
     public boolean getAutoFocus() {

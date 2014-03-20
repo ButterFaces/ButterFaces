@@ -12,6 +12,8 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
     private String placeholder;
     private String type;
     private String pattern;
+    private String min;
+    private String max;
     private boolean autoFocus;
 
     @Override
@@ -38,6 +40,8 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("placeholder", this.getPlaceholder(), sb);
         this.appendString("type", this.getType(), sb);
         this.appendString("pattern", this.getPattern(), sb);
+        this.appendString("min", this.getMin(), sb);
+        this.appendString("max", this.getMax(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
@@ -96,5 +100,21 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public String getMin() {
+        return min;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
+    public String getMax() {
+        return max;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
     }
 }

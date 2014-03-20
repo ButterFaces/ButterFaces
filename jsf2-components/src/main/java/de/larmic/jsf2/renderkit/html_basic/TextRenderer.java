@@ -90,6 +90,8 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 
                 writeHTML5AttributeIfNotEmpty(writer, "placeholder", inputComponent.getPlaceholder());
                 writeHTML5AttributeIfNotEmpty(writer, "pattern", inputComponent.getPattern());
+                writeHTML5AttributeIfNotEmpty(writer, "min", inputComponent.getMin());
+                writeHTML5AttributeIfNotEmpty(writer, "max", inputComponent.getMax());
                 writeHTML5AttributeIfNotEmpty(writer, "type", inputComponent.getType(), "text");
 
                 if (inputComponent.getAutoFocus()) {
