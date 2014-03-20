@@ -5,7 +5,7 @@ In Addition to that it allows to activate tooltips and marks input fields if an 
 
 ![Foo](https://bytebucket.org/larmicBB/larmic-jsf2-components/raw/aec73eb8409af515797f05011a6e0ea6f741481f/showcase.png)
 
-A showcase is available under http://components.larmic.de/.
+A showcase is available under [components.larmic.de](http://components.larmic.de/).
 
 ## Install
 
