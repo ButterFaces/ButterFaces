@@ -68,7 +68,7 @@
         <jsf.version>2.2.5</jsf.version>
 
         <!-- maven plugin dependency version -->
-        <maven-release-plugin.version>2.4.1</maven-release-plugin.version>
+        <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>4.0</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
     </properties>
