@@ -42,7 +42,14 @@ public abstract class AbstractShowcaseComponent {
     /**
      * Is called by getCss() and can be used to add custom css output.
      */
-    public void addCss(final StringBuilder sb) {
+    protected void addCss(final StringBuilder sb) {
+
+    }
+
+    /**
+     * Is called by getJS() and can be used to add custom js output.
+     */
+    protected void addJs(final StringBuilder sb) {
 
     }
 
@@ -111,9 +118,9 @@ public abstract class AbstractShowcaseComponent {
     }
 
     protected void appendString(final String attribute, final String value, final StringBuilder sb, final boolean isLastValue) {
-       if (value != null && !"".equals(value)) {
-           sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
-       }
+        if (value != null && !"".equals(value)) {
+            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
+        }
     }
 
     protected void appendString(final String attribute, final String value, final StringBuilder sb) {
@@ -144,6 +151,14 @@ public abstract class AbstractShowcaseComponent {
         }
 
         this.addCss(sb);
+
+        return sb.toString();
+    }
+
+    public String getJs() {
+        final StringBuilder sb = new StringBuilder();
+
+        this.addJs(sb);
 
         return sb.toString();
     }

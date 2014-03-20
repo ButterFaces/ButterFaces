@@ -89,7 +89,7 @@ public class RadioBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
         if (this.isBootstrap()) {
             this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
+            this.appendString("inputStyleClass", "bootstrap-radio-marker", sb);
         }
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
@@ -118,6 +118,18 @@ public class RadioBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
 		return sb.toString();
 	}
+
+    @Override
+    protected void addJs(StringBuilder sb) {
+        if (isBootstrap()) {
+            sb.append("<script>\n");
+            sb.append("    <!-- add bootstrap radio class to component -->\n");
+            sb.append("    <!-- bootstrap radio buttons are using pageDirection as default -->\n");
+            sb.append("    <!-- maybe use radio-inline -->\n");
+            sb.append("    $(\".bootstrap-radio-marker\").find(\"td\").addClass(\"radio\");\n");
+            sb.append("</script>");
+        }
+    }
 
     protected String getEmptyDistanceString() {
         return "                    ";

@@ -28,6 +28,14 @@
             </div>
         </h:panelGroup>
 
+        <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.js}">
+            <div class="panel-heading">Custom javascript</div>
+            <div class="row panel-body">
+                <pre class="prettyprint lang-css">
+#{cc.attrs.component.js}</pre>
+            </div>
+        </h:panelGroup>
+
         <script type="text/javascript">
             jQuery(function () {
                 prettyPrint();
