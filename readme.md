@@ -1,6 +1,9 @@
 # larmic-components
 
-This component framework is a lightweight JSF2 component library. It enables most of the HTML5 features for default JSF components. In Addition to that it 
+This component framework is a lightweight JSF2 component library. It enables most of the HTML5 features for default JSF components. 
+In Addition to that it allows to activate tooltips and marks input fields if an validation error occurs.
+
+![Foo](https://bitbucket.org/larmicBB/larmic-jsf2-components/src/6156b33ba3c05ba475f1a9c54cde385aa4482afb/showcase.png)
 
 ## Install
 
