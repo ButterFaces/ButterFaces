@@ -5,6 +5,8 @@ In Addition to that it allows to activate tooltips and marks input fields if an 
 
 ![Foo](https://bytebucket.org/larmicBB/larmic-jsf2-components/raw/aec73eb8409af515797f05011a6e0ea6f741481f/showcase.png)
 
+A showcase is available under http://components.larmic.de/.
+
 ## Install
 
 larmic-components is accessible by maven central repository. Add following dependency to use it
@@ -36,5 +38,6 @@ Add `xmlns:l="http://larmic.de/jsf2"` to your `<html .../>` and use `<!DOCTYPE h
       xmlns:l="http://larmic.de/jsf2"
       xmlns:f="http://java.sun.com/jsf/core">
       ...
+    <l:text id="test" ... />
 </html>
 ```
