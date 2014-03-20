@@ -1,6 +1,6 @@
 # larmic-components
 
-larmic-components is a JSF2 component library.
+This component framework is a lightweight JSF2 component library. It enables most of the HTML5 features for default JSF components. In Addition to that it 
 
 ## Install
 
