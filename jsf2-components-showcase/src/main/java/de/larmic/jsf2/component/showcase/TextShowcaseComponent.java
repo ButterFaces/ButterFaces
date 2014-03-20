@@ -11,6 +11,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
     private String placeholder;
     private String type;
+    private String pattern;
     private boolean autoFocus;
 
     @Override
@@ -36,6 +37,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
         this.appendString("type", this.getType(), sb);
+        this.appendString("pattern", this.getPattern(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
@@ -86,5 +88,13 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 }

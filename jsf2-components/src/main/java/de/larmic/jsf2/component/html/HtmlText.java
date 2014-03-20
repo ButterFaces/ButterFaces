@@ -24,6 +24,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
 	protected static final String PROPERTY_HTML5_TYPE = "type";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
+	protected static final String PROPERTY_HTML5_PATTERN = "pattern";
 
 	public HtmlText() {
 		super();
@@ -58,6 +59,14 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	public void setType(final String type) {
 		this.updateStateHelper(PROPERTY_HTML5_TYPE, type);
+	}
+
+    public String getPattern() {
+		return (String) this.getStateHelper().eval(PROPERTY_HTML5_PATTERN);
+	}
+
+	public void setPattern(final String pattern) {
+		this.updateStateHelper(PROPERTY_HTML5_PATTERN, pattern);
 	}
 
     public boolean getAutoFocus() {
