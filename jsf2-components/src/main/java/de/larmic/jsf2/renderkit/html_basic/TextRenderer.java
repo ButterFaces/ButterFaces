@@ -95,6 +95,9 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
                 } else {
                     writer.writeAttribute("type", "text", null);
                 }
+                if (inputComponent.getAutoFocus()) {
+                    writer.writeAttribute("autofocus", "true", null);
+                }
 			} else {
                 writer.writeAttribute("type", "text", null);
             }

@@ -11,6 +11,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
     private String placeholder;
     private String type;
+    private boolean autoFocus;
 
     @Override
     protected Object initValue() {
@@ -39,6 +40,7 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
+        this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
         this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
 
         if (this.isBootstrap()) {
@@ -76,5 +78,13 @@ public class TextShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isAutoFocus() {
+        return autoFocus;
+    }
+
+    public void setAutoFocus(boolean autoFocus) {
+        this.autoFocus = autoFocus;
     }
 }

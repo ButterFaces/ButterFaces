@@ -1,7 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html" 
-	  xmlns:composite="http://java.sun.com/jsf/composite" 
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:composite="http://java.sun.com/jsf/composite"
 	  xmlns:l="http://larmic.de/jsf2"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
@@ -20,15 +20,16 @@
 				rendered="#{cc.attrs.component.rendered}"
 				placeholder="#{textShowcaseComponent.placeholder}"
                 type="#{textShowcaseComponent.type}"
+                autoFocus="#{textShowcaseComponent.autoFocus}"
                 disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
                 componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
                 inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
 				floating="#{cc.attrs.component.floating}">
-			<f:ajax event="keyup" 
+			<f:ajax event="keyup"
 					execute="@this"
 					render="output:outputComponent:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
-			<f:validateLength minimum="2" 
+			<f:validateLength minimum="2"
 							  maximum="10"
 							  disabled="#{not cc.attrs.component.validation}" />
 		</l:text>
