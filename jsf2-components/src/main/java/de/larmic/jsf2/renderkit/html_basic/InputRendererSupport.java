@@ -76,18 +76,18 @@ public class InputRendererSupport {
 
         this.writeLabelIfNecessary(component, readonly, required, label, writer);
 
+        this.initInputComponent(uiComponent);
+
+        writer.startElement("div", uiComponent);
+        final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
+        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
+
         if (readonly) {
             writer.startElement("span", uiComponent);
             writer.writeAttribute("class", "larmic-component-readonly", null);
             writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             writer.endElement("span");
         }
-
-        this.initInputComponent(uiComponent);
-
-        writer.startElement("div", uiComponent);
-        final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
-        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
     }
 
     /**
