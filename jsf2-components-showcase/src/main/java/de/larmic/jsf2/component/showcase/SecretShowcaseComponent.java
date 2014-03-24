@@ -48,6 +48,12 @@ public class SecretShowcaseComponent extends AbstractShowcaseComponent implement
 
 		this.createAjaxXhtml(sb, "keyup");
 
+        if (getFacetText() != null && !"".equals(getFacetText())) {
+            sb.append("            " + "<f:facet name=\"input-container\">\n");
+            sb.append("            " + "    " + getFacetText() + "\n");
+            sb.append("            " + "</f:facet>\n");
+        }
+
 		if (this.isValidation()) {
 			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}

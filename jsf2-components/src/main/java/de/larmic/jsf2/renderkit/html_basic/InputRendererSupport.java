@@ -33,6 +33,8 @@ public class InputRendererSupport {
 
     private static final String INPUT_CONTAINER_MARKER_STYLE_CLASS = "larmic-input-container-marker";
     private static final String INPUT_CONTAINER_STYLE_CLASS = "larmic-input-container";
+    private static final String INPUT_CONTAINER_FACET_MARKER_STYLE_CLASS = "larmic-input-container-facet-marker";
+    private static final String INPUT_CONTAINER_FACET_NAME = "input-container";
 
     private static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
     private static final String LABEL_STYLE_CLASS = "larmic-component-label";
@@ -160,6 +162,14 @@ public class InputRendererSupport {
             writer.endElement("div");
 
             jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
+        }
+
+        final UIComponent inputContainerFacet = uiComponent.getFacet(INPUT_CONTAINER_FACET_NAME);
+        if (inputContainerFacet != null) {
+            writer.startElement("div", uiComponent);
+            writer.writeAttribute("class", INPUT_CONTAINER_FACET_MARKER_STYLE_CLASS, null);
+            inputContainerFacet.encodeAll(context);
+            writer.endElement("div");
         }
 
         writer.endElement("div"); // .larmic-input-container

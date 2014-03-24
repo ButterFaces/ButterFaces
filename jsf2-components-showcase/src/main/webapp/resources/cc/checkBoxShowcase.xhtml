@@ -26,6 +26,9 @@
 					execute="@this"
 					render="output:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
+            <f:facet name="input-container">
+                #{cc.attrs.component.facetText}
+            </f:facet>
 		</l:checkBox>
 	</composite:implementation>
 </h:body>

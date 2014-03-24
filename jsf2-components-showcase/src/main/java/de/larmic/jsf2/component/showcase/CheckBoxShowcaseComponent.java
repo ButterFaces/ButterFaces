@@ -45,6 +45,12 @@ public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent impleme
 
         this.createAjaxXhtml(sb, "change");
 
+        if (getFacetText() != null && !"".equals(getFacetText())) {
+            sb.append("            " + "<f:facet name=\"input-container\">\n");
+            sb.append("            " + "    " + getFacetText() + "\n");
+            sb.append("            " + "</f:facet>\n");
+        }
+
         sb.append("        </l:checkBox>");
 
         this.createOutputXhtml(sb);
