@@ -1,0 +1,70 @@
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>l:number</strong> Experimental: The number tag renders an HTML input element of the type "text".
+    </ui:define>
+
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="label" value="#{numberShowcaseComponent.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{numberShowcaseComponent.tooltip}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{numberShowcaseComponent.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{numberShowcaseComponent.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{numberShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="floating" value="#{numberShowcaseComponent.floating}"/>
+            <showcase:tagStringControl label="min" value="#{numberShowcaseComponent.min}"/>
+            <showcase:tagStringControl label="max" value="#{numberShowcaseComponent.max}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="html5attributes">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="placeholder" value="#{numberShowcaseComponent.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcaseComponent.autoFocus}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="facets">
+        <h:form prependId="false">
+            <showcase:tagStringControl label="input facet" value="#{numberShowcaseComponent.facetText}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{numberShowcaseComponent.styleSheetType}"
+                                     values="#{numberShowcaseComponent.styleSheetTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Updates attributes"
+                                     popoverContentMarkerClass="styleSheetPopoverContent">
+
+            </showcase:tagEnumControl>
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{numberShowcaseComponent.ajaxType}"
+                                     values="#{numberShowcaseComponent.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagBooleanControl label="validate"
+                                        value="#{numberShowcaseComponent.validation}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="number"
+                                         component="#{numberShowcaseComponent}">
+            <showcase:numberShowcase component="#{numberShowcaseComponent}"
+                                     rendered="true"/>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{numberShowcaseComponent}"/>
+    </ui:define>
+</ui:composition>

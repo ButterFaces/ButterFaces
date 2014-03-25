@@ -6,6 +6,18 @@
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 
+function handleSpinner(e, component, min, max) {
+    if(!isNaN(component.value)) {
+        if (e.keyCode == 38) {
+            component.value = parseInt(component.value) + 1;
+            e.preventDefault();
+        } else if (e.keyCode == 40) {
+            component.value = parseInt(component.value) - 1;
+            e.preventDefault();
+        }
+    }
+};
+
 /**
  *====================================================================================
  *DOM UTILS
@@ -23,7 +35,7 @@ DomUtils = {
      * @param className an optional class name for selecting specific children
      * @returns {Array} an array with the selected child nodes
      */
-    getChildren:function (/*Node*/node, /*String*/className) {
+    getChildren: function (/*Node*/node, /*String*/className) {
         var children = [];
         if (typeof className !== "undefined" && className !== "") {
             children = [].slice.call(node.children)// convert to array
@@ -44,7 +56,7 @@ DomUtils = {
      * @param className an optional class name for selecting specific siblings
      * @returns {Array} an array with the selected sibling nodes
      */
-    getSiblings:function (/*Node*/node, /*String*/className) {
+    getSiblings: function (/*Node*/node, /*String*/className) {
         return DomUtils.getChildren(node.parentNode, className);
     },
 
@@ -54,7 +66,7 @@ DomUtils = {
      * @param eventNames one or more event names separated by space (e.g. "focus blur")
      * @param handlerFunction the function that will be called on the events (gets the event as parameter)
      */
-    bindEvent:function (/*Node*/node, /*String*/eventNames, /*Function*/handlerFunction) {
+    bindEvent: function (/*Node*/node, /*String*/eventNames, /*Function*/handlerFunction) {
         var events = eventNames.split(" ");
 
         if (events.length === 1) {

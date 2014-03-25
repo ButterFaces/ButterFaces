@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:l="http://larmic.de/jsf2"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <composite:interface>
+        <composite:attribute name="component" type="de.larmic.jsf2.component.showcase.AbstractShowcaseComponent"
+                             required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <l:number id="text"
+                  label="#{cc.attrs.component.label}"
+                  value="#{cc.attrs.component.value}"
+                  tooltip="#{cc.attrs.component.tooltip}"
+                  readonly="#{cc.attrs.component.readonly}"
+                  required="#{cc.attrs.component.required}"
+                  rendered="#{cc.attrs.component.rendered}"
+                  placeholder="#{numberShowcaseComponent.placeholder}"
+                  type="#{numberShowcaseComponent.type}"
+                  pattern="#{numberShowcaseComponent.pattern}"
+                  min="#{numberShowcaseComponent.min}"
+                  max="#{numberShowcaseComponent.max}"
+                  autoFocus="#{numberShowcaseComponent.autoFocus}"
+                  disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
+                  componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
+                  inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
+                  floating="#{cc.attrs.component.floating}">
+            <f:facet name="input-container">
+                #{cc.attrs.component.facetText}
+            </f:facet>
+            <f:ajax event="keyup"
+                    execute="@this"
+                    render="output:outputComponent:outputValues output:other"
+                    disabled="#{not cc.attrs.component.ajax}"/>
+        </l:number>
+    </composite:implementation>
+</h:body>
+</html>
