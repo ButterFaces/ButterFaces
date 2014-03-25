@@ -108,12 +108,10 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
                 final HtmlNumber inputComponent = (HtmlNumber) component;
 
                 writer.startElement("script", component);
-                writer.writeText("window.onload = function() {", null);
                 writer.writeText("var _component = document.getElementById('" + component.getClientId() + "');", null);
                 writer.writeText("_component.addEventListener('keyup', function(e) {handleSpinner(e, _component, "
-                        + ("".equals(inputComponent.getMin()) ? "null" : "'" + inputComponent.getMin() + "'") + ", "
-                        + ("".equals(inputComponent.getMax()) ? "null" : "'" + inputComponent.getMax() + "'") + ")}, false);", null);
-                writer.writeText("}", null);
+                        + convertMinMax(inputComponent.getMin()) + ", "
+                        + convertMinMax(inputComponent.getMax()) + ")}, false);", null);
                 writer.endElement("script");
             }
             // *** END CUSTOM CHANGED ****************************
@@ -143,7 +141,14 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
                 && (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
             writer.endElement("span");
         }
+    }
 
+    private String convertMinMax(String value) {
+        try {
+            return "'" + Integer.valueOf(value) + "'";
+        } catch (NumberFormatException e) {
+            return "null";
+        }
     }
 
     private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue) throws IOException {

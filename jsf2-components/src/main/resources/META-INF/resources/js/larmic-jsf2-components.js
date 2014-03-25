@@ -9,11 +9,16 @@
 function handleSpinner(e, component, min, max) {
     if(!isNaN(component.value)) {
         if (e.keyCode == 38) {
-            component.value = parseInt(component.value) + 1;
+            if (!max || max && component.value < max) {
+                component.value = parseInt(component.value) + 1;
+                e.preventDefault();
+            }
             e.preventDefault();
         } else if (e.keyCode == 40) {
-            component.value = parseInt(component.value) - 1;
-            e.preventDefault();
+            if (!min || min && component.value > min) {
+                component.value = parseInt(component.value) - 1;
+                e.preventDefault();
+            }
         }
     }
 };
