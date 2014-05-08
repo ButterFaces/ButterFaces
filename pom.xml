@@ -70,7 +70,7 @@
         <!-- maven plugin dependency version -->
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
-        <maven-gpg-plugin.version>1.4</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
     </properties>
 
     <build>

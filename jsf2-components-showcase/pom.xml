@@ -22,4 +22,14 @@
 			<artifactId>jsf2-components</artifactId>
 		</dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.1.Final</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
