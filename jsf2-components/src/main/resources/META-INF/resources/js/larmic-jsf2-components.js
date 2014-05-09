@@ -105,7 +105,7 @@ DomUtils = {
  * @param options {Object} an optional object with option parameters
  * @constructor
  */
-ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
+var ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
     var self = this; // prevent loosing scope "this" in closures
 
     self._componentNode = document.getElementById(componentId);
@@ -181,6 +181,41 @@ ComponentHandler.prototype._hideTooltip = function () {
 
 /**
  *====================================================================================
+ *TOAST
+ *====================================================================================
+ */
+
+/**
+ * A component for displaying messages
+ * @constructor
+ */
+var Toast = function () {
+    this._rootNode;
+};
+
+/**
+ * Displays an error message
+ * @param message the message string
+ */
+Toast.prototype.error = function (message) {
+    if (typeof this._rootNode === "undefined") {
+        this._rootNode = document.createElement("div");
+        this._rootNode.id = "toastContainer";
+        document.getElementsByTagName("body")[0].appendChild(this._rootNode);
+    }
+
+    var msgNode = document.createElement("div");
+    msgNode.className = "toast-error";
+    msgNode.innerHTML = message;
+
+    this._rootNode.appendChild(msgNode);
+};
+
+// instantiate it for future usage
+var toast = new Toast();
+
+/**
+ *====================================================================================
  *TEXTAREA COMPONENT HANDLER
  *====================================================================================
  */
@@ -191,7 +226,7 @@ ComponentHandler.prototype._hideTooltip = function () {
  * @param options {Object} an optional object with option parameters
  * @constructor
  */
-TextareaComponentHandler = function (/*String*/componentId, /*Object*/ options) {
+var TextareaComponentHandler = function (/*String*/componentId, /*Object*/ options) {
     // call super constructor
     ComponentHandler.call(this, componentId, options);
 
