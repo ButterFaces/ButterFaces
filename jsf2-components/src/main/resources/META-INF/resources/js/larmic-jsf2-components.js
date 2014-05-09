@@ -200,12 +200,12 @@ var Toast = function () {
 Toast.prototype.error = function (message) {
     if (typeof this._rootNode === "undefined") {
         this._rootNode = document.createElement("div");
-        this._rootNode.id = "toastContainer";
+        this._rootNode.className = "larmic-component-toastContainer";
         document.getElementsByTagName("body")[0].appendChild(this._rootNode);
     }
 
     var msgNode = document.createElement("div");
-    msgNode.className = "toast-error";
+    msgNode.className = "larmic-component-toast-error";
     msgNode.innerHTML = message;
 
     this._rootNode.appendChild(msgNode);

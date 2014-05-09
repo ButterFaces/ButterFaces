@@ -97,6 +97,19 @@
     display: table;
 }
 
+.larmic-component-toastContainer{
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.larmic-component-toast-error{
+    border: 2px solid #f00;
+    background-color: #ddf;
+    padding: 10px;
+    font-weight: bold;
+}
+
 /* fixed tooltip position on radio buttons */
 table.larmic-input-component-marker  {
     float: left;
