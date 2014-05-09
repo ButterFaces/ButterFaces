@@ -29,6 +29,9 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.0.1.Final</version>
+                <configuration>
+                    <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>

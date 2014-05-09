@@ -87,22 +87,6 @@
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.glassfish</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <version>${maven-embedded-glassfish-plugin.version}</version>
-                <configuration>
-                    <goalPrefix>glassfish</goalPrefix>
-                    <port>8080</port>
-                    <contextRoot>${project.artifactId}</contextRoot>
-                    <components>
-                        <component>
-                            <name>${project.artifactId}</name>
-                            <artifact>target/${project.build.finalName}</artifact>
-                        </component>
-                    </components>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
