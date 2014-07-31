@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <h:panelGroup rendered="#{facesContext.externalContext.request.serverName eq 'localhost'}">
-        <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/less/custom.less?preventCache=#{environment.resourceVersion}" />
+        <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/less/showcase-localhost.less?preventCache=#{environment.resourceVersion}" />
         <script type="text/javascript">
             less = {
                 env: "development" // (development|production) DO NOT CHANGE! use localStorage.clear() to clear the localStorage...
@@ -14,7 +14,7 @@
 
     <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}">
         <link rel="stylesheet" type="text/css"
-              href="#{facesContext.externalContext.request.contextPath}/css/custom.css?preventCache=#{environment.resourceVersion}"/>
+              href="#{facesContext.externalContext.request.contextPath}/css/showcase.css?preventCache=#{environment.resourceVersion}"/>
     </h:panelGroup>
 
 </ui:composition>
