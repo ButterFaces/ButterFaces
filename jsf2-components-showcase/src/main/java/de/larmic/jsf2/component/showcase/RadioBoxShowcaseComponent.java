@@ -14,7 +14,7 @@ import java.util.List;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class RadioBoxShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;

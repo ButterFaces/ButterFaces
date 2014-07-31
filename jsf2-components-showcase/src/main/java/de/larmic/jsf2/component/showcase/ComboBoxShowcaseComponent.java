@@ -14,7 +14,7 @@ import java.util.List;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class ComboBoxShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 

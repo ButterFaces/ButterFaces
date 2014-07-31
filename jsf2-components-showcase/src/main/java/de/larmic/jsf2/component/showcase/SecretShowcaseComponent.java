@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class SecretShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class SecretShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
 	private String placeholder = "enter password";
 

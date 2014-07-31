@@ -474,4 +474,26 @@
         </attribute>
 	</tag>
 
+    <tag>
+        <tag-name>fieldset</tag-name>
+        <component>
+            <component-type>de.larmic.component.fieldSet</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 </facelet-taglib>

@@ -111,6 +111,14 @@
     font-weight: bold;
 }
 
+.larmic-component-fieldset {
+    border-radius: 0;
+    border-top: 1px solid;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+
 /* fixed tooltip position on radio buttons */
 table.larmic-input-component-marker  {
     float: left;

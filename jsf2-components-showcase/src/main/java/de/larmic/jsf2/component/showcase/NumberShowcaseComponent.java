@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class NumberShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class NumberShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
     private String placeholder;
     private String min;

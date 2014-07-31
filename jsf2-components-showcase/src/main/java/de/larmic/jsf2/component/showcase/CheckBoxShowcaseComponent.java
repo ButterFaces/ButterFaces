@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class CheckBoxShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
     @Override
     protected Object initValue() {

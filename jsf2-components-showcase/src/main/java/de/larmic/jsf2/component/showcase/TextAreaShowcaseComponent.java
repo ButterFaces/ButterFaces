@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 @SuppressWarnings("serial")
-public class TextAreaShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
 	private Integer maxLength;
 

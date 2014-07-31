@@ -4,20 +4,18 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractShowcaseComponent {
+public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseComponent1 {
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";
     private String facetText;
     private boolean readonly;
     private boolean required;
-    private boolean rendered = true;
     private boolean floating;
     private boolean validation;
     private AjaxType ajaxType = AjaxType.NONE;
-    private StyleSheetType styleSheetType = StyleSheetType.DEFAULT;
 
-    public AbstractShowcaseComponent() {
+    public AbstractInputShowcaseComponent() {
         this.value = this.initValue();
     }
 
@@ -32,22 +30,6 @@ public abstract class AbstractShowcaseComponent {
      * something).
      */
     public abstract String getReadableValue();
-
-    public abstract String getXHtml();
-
-    /**
-     * Is called by getCss() and can be used to add custom css output.
-     */
-    protected void addCss(final StringBuilder sb) {
-
-    }
-
-    /**
-     * Is called by getJS() and can be used to add custom js output.
-     */
-    protected void addJs(final StringBuilder sb) {
-
-    }
 
     public boolean isAjax() {
         return AjaxType.NONE != this.getAjaxType();
@@ -137,26 +119,20 @@ public abstract class AbstractShowcaseComponent {
         this.appendBoolean(attribute, value, sb, false);
     }
 
+    @Override
     public String getCss() {
-        final StringBuilder sb = new StringBuilder();
-
         if (this.isBootstrap()) {
+            final StringBuilder sb = new StringBuilder();
+            sb.append(super.getCss());
+
             sb.append(".form-control {\n");
             sb.append("    float: left; /* fixes tooltip position */\n");
             sb.append("}");
+
+            return sb.toString();
         }
 
-        this.addCss(sb);
-
-        return sb.toString();
-    }
-
-    public String getJs() {
-        final StringBuilder sb = new StringBuilder();
-
-        this.addJs(sb);
-
-        return sb.toString();
+        return super.getCss();
     }
 
     public void submit() {
@@ -203,14 +179,6 @@ public abstract class AbstractShowcaseComponent {
         this.required = required;
     }
 
-    public boolean isRendered() {
-        return this.rendered;
-    }
-
-    public void setRendered(final boolean rendered) {
-        this.rendered = rendered;
-    }
-
     public boolean isFloating() {
         return this.floating;
     }
@@ -233,22 +201,6 @@ public abstract class AbstractShowcaseComponent {
 
     public void setAjaxType(final AjaxType ajax) {
         this.ajaxType = ajax;
-    }
-
-    public StyleSheetType getStyleSheetType() {
-        return styleSheetType;
-    }
-
-    public void setStyleSheetType(StyleSheetType styleSheetType) {
-        this.styleSheetType = styleSheetType;
-    }
-
-    public boolean isDisableDefaultStyleClasses() {
-        return StyleSheetType.DISABLE_DEFAULT == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
-    }
-
-    public boolean isBootstrap() {
-        return StyleSheetType.BOOT_STRAP == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
     }
 
     public String getFacetText() {
