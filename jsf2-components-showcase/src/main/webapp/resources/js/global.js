@@ -9,4 +9,5 @@ function setNotActiveNavigation() {
     jQuery('#secret').removeAttr('class');
     jQuery('#checkbox').removeAttr('class');
     jQuery('#combobox').removeAttr('class');
+    jQuery('#fieldset').removeAttr('class');
 };

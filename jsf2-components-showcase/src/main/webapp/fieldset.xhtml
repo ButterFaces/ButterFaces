@@ -26,5 +26,11 @@
 
     <ui:define name="other">
         <showcase:showcaseExampleComponent component="#{fieldSetShowcaseComponent}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('fieldset');
+            });
+        </script>
     </ui:define>
 </ui:composition>
