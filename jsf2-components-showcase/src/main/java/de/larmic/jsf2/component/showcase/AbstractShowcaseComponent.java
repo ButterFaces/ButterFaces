@@ -3,7 +3,7 @@ package de.larmic.jsf2.component.showcase;
 /**
  * Created by larmic on 31.07.14.
  */
-public abstract class AbstractShowcaseComponent1 {
+public abstract class AbstractShowcaseComponent {
 
     private boolean rendered = true;
     private StyleSheetType styleSheetType = StyleSheetType.DEFAULT;

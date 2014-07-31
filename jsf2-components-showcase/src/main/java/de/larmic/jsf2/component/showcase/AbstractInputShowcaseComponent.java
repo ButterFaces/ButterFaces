@@ -4,7 +4,7 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseComponent1 {
+public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseComponent {
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";

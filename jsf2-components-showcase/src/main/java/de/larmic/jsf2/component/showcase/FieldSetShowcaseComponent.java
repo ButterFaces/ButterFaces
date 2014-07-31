@@ -26,13 +26,8 @@ public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent im
         this.addXhtmlStart(sb);
 
         sb.append("        <l:fieldset id=\"input\"\n");
-        sb.append("                    label=\"" + this.getLabel() + "\"\n");
 
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
-        }
-
+        this.appendString("label", this.getLabel(), sb, !this.isRendered());
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         sb.append("        </l:fieldset>");
@@ -42,5 +37,10 @@ public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent im
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    @Override
+    protected String getEmptyDistanceString() {
+        return "                    ";
     }
 }

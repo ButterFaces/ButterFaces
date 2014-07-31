@@ -1,7 +1,6 @@
 package de.larmic.jsf2.renderkit.html_basic;
 
 import de.larmic.jsf2.component.html.HtmlFieldSet;
-import de.larmic.jsf2.component.html.HtmlText;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -12,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by larmic on 31.07.14.
  */
-@FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlText.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlFieldSet.COMPONENT_FAMILY, rendererType = HtmlFieldSet.RENDERER_TYPE)
 public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicRenderer {
 
     public static final String ELEMENT_FIELDSET = "fieldset";
