@@ -14,14 +14,10 @@
     <meta name="keywords" content="JSF, JSF2, larmic, showcase, components"/>
     <meta name="author" content="Lars Michaelis, Stephan Zerhusen"/>
 
-    <h:outputStylesheet library="css" name="normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
+    <ui:include src="../includes/less.xhtml" />
     <link rel="stylesheet" type="text/css" href="https://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css"/>
-    <h:outputStylesheet library="css" name="custom.css"/>
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <h:outputScript library="js" name="bootstrap/bootstrap-3.2.0.min.js" target="head"/>
+    <h:outputScript library="js" name="jQuery/jquery-2.1.1.min.js"/>
     <script type="text/javascript" src="https://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
     <h:outputScript library="js" name="global.js" target="body"/>
 </h:head>

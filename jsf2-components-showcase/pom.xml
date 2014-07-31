@@ -33,6 +33,26 @@
                     <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.lesscss</groupId>
+                <artifactId>lesscss-maven-plugin</artifactId>
+                <version>1.7.0.1.1</version>
+                <configuration>
+                    <sourceDirectory>src/main/webapp/resources/less</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/css</outputDirectory>
+                    <compress>true</compress>
+                    <includes>
+                        <include>custom.less</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

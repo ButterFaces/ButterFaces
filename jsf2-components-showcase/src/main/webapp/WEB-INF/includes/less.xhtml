@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName eq 'localhost'}">
+        <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/less/custom.less?preventCache=#{environment.resourceVersion}" />
+        <script type="text/javascript">
+            less = {
+                env: "development" // (development|production) DO NOT CHANGE! use localStorage.clear() to clear the localStorage...
+            };
+        </script>
+        <h:outputScript library="js" name="less/less-1.7.3.min.js" target="body"/>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}">
+        <link rel="stylesheet" type="text/css"
+              href="#{facesContext.externalContext.request.contextPath}/css/custom.css?preventCache=#{environment.resourceVersion}"/>
+    </h:panelGroup>
+
+</ui:composition>
