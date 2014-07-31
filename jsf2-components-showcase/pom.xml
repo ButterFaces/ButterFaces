@@ -42,7 +42,7 @@
                     <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/css</outputDirectory>
                     <compress>true</compress>
                     <includes>
-                        <include>generated.less</include>
+                        <include>showcase.less</include>
                     </includes>
                 </configuration>
                 <executions>
