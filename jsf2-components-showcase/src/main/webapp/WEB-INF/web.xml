@@ -22,8 +22,7 @@
 	</servlet-mapping>
 	
     <welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>showcase.jsf</welcome-file>
+		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
     
     <session-config>
