@@ -21,7 +21,7 @@ larmic-components is accessible by maven central repository. Add following depen
 
 Or you can clone git repository and install maven plugin by yourself.
 
-* Checkout the source: `git clone git@bitbucket.org:larmicBB/larmic-jsf2-components.git`.
+* Checkout the source: `git clone git@bitbucket.org:larmicBB/ButterFaces.git`.
 * Use maven to install it `maven install`
 
 ## Getting started
