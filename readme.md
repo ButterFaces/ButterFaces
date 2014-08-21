@@ -3,7 +3,7 @@
 This component framework is a lightweight bootstrap compatible JSF2 component library. It enables most of the HTML5 features for default JSF components. 
 In Addition to that it allows to activate tooltips and marks input fields if an validation error occurs.
 
-![Foo](https://bytebucket.org/larmicBB/larmic-jsf2-components/raw/aec73eb8409af515797f05011a6e0ea6f741481f/showcase.png)
+![Foo](https://bytebucket.org/larmicBB/ButterFaces/raw/aec73eb8409af515797f05011a6e0ea6f741481f/showcase.png)
 
 A showcase is available under [components.larmic.de](http://components.larmic.de/).
 
