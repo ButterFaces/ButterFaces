@@ -1,6 +1,6 @@
 /**
  * larmic jsf2 components - An jsf 2 component extension
- * https://bitbucket.org/larmicBB/larmic-jsf2-components
+ * https://bitbucket.org/larmicBB/butterfaces
  *
  * Copyright 2013 by Lars Michaelis & Stephan Zerhusen <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php

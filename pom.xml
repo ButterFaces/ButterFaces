@@ -11,7 +11,7 @@
 
     <description>A JSF2 component library.</description>
 
-    <url>https://bitbucket.org/larmicBB/larmic-jsf2-components</url>
+    <url>https://bitbucket.org/larmicBB/butterfaces</url>
 
     <modules>
         <module>jsf2-components</module>
@@ -37,9 +37,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</connection>
-        <url>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</url>
-        <developerConnection>scm:git:git@bitbucket.org:larmicBB/larmic-jsf2-components.git</developerConnection>
+        <connection>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</connection>
+        <url>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</url>
+        <developerConnection>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
