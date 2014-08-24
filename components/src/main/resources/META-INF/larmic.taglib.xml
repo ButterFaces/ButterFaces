@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
 	id="l">
-	<namespace>http://larmic.de/jsf2</namespace>
+	<namespace>http://butterfaces.larmic.de/components/components</namespace>
 
 	<tag>
 		<tag-name>text</tag-name>

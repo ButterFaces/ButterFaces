@@ -60,7 +60,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         sb.append("\n");
         sb.append("      xmlns:h=\"http://java.sun.com/jsf/html\"");
         sb.append("\n");
-        sb.append("      xmlns:l=\"http://larmic.de/jsf2\">");
+        sb.append("      xmlns:l=\"http://butterfaces.larmic.de/components/components\">");
         sb.append("\n");
         sb.append("<h:head />");
         sb.append("\n");
