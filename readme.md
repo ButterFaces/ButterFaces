@@ -19,6 +19,16 @@ larmic-components is accessible by maven central repository. Add following depen
 </dependency>
 ```
 
+For further versions (< 1.5.6) use
+
+```xml
+<dependency>
+    <groupId>de.larmic</groupId>
+	<artifactId>jsf2-components</artifactId>
+	<version>1.5.5</version>
+</dependency>
+```
+
 Or you can clone git repository and install maven plugin by yourself.
 
 * Checkout the source: `git clone git@bitbucket.org:larmicBB/ButterFaces.git`.
@@ -26,7 +36,7 @@ Or you can clone git repository and install maven plugin by yourself.
 
 ## Getting started
 
-Add `xmlns:l="http://larmic.de/jsf2"` to your `<html .../>` and use `<!DOCTYPE html>` to activate html 5 features.
+Add `http://butterfaces.larmic.de/components"` (version further than 1.5.6 use `xmlns:l="http://larmic.de/jsf2"`) to your `<html .../>` and use `<!DOCTYPE html>` to activate html 5 features.
 
 ### Example
 
@@ -35,7 +45,7 @@ Add `xmlns:l="http://larmic.de/jsf2"` to your `<html .../>` and use `<!DOCTYPE h
 <html lang="en"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:l="http://larmic.de/jsf2"
+      xmlns:l="http://butterfaces.larmic.de/components"
       xmlns:f="http://java.sun.com/jsf/core">
       ...
     <l:text id="test" ... />
