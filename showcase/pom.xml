@@ -3,14 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>de.larmic</groupId>
-		<artifactId>larmic-components</artifactId>
+		<groupId>de.larmic.butterfaces</groupId>
+		<artifactId>butterfaces</artifactId>
 		<version>1.5.6-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>jsf2-components-showcase</artifactId>
+	<artifactId>showcase</artifactId>
 	<packaging>war</packaging>
-	<name>larmic-jsf2-components-showcase</name>
+
+	<name>ButterFaces showcase</name>
 
 	<dependencies>
         <dependency>
@@ -19,7 +20,7 @@
         </dependency>
 		<dependency>
 			<groupId>de.larmic</groupId>
-			<artifactId>jsf2-components</artifactId>
+			<artifactId>components</artifactId>
 		</dependency>
     </dependencies>
 

@@ -2,20 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.larmic</groupId>
-    <artifactId>larmic-components</artifactId>
+    <groupId>de.larmic.butterfaces</groupId>
+    <artifactId>butterfaces</artifactId>
     <version>1.5.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>larmic-components</name>
+    <name>ButterFaces</name>
 
-    <description>A JSF2 component library.</description>
+    <description>ButterFaces is a JSF2 component library.</description>
 
     <url>https://bitbucket.org/larmicBB/butterfaces</url>
 
     <modules>
-        <module>jsf2-components</module>
-        <module>jsf2-components-showcase</module>
+        <module>components</module>
+        <module>showcase</module>
     </modules>
 
     <licenses>
@@ -137,7 +137,7 @@
             </dependency>
             <dependency>
                 <groupId>de.larmic</groupId>
-                <artifactId>jsf2-components</artifactId>
+                <artifactId>components</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
