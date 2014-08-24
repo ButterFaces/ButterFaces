@@ -19,7 +19,7 @@
             <artifactId>javaee-api</artifactId>
         </dependency>
 		<dependency>
-			<groupId>de.larmic</groupId>
+			<groupId>de.larmic.butterfaces</groupId>
 			<artifactId>components</artifactId>
 		</dependency>
     </dependencies>

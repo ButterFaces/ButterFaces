@@ -136,7 +136,7 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>de.larmic</groupId>
+                <groupId>de.larmic.butterfaces</groupId>
                 <artifactId>components</artifactId>
                 <version>${project.version}</version>
             </dependency>
