@@ -3,12 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
 	id="l">
-	<namespace>http://butterfaces.larmic.de/components/components</namespace>
+	<namespace>http://butterfaces.larmic.de/components</namespace>
 
 	<tag>
 		<tag-name>text</tag-name>
 		<component>
-			<component-type>de.larmic.component.text</component-type>
+			<component-type>de.larmic.butterfaces.component.text</component-type>
 		</component>
 		<attribute>
 			<name>label</name>
@@ -91,7 +91,7 @@
     <tag>
         <tag-name>number</tag-name>
         <component>
-            <component-type>de.larmic.component.number</component-type>
+            <component-type>de.larmic.butterfaces.component.number</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -166,7 +166,7 @@
     <tag>
         <tag-name>secret</tag-name>
         <component>
-            <component-type>de.larmic.component.secret</component-type>
+            <component-type>de.larmic.butterfaces.component.secret</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -229,7 +229,7 @@
 	<tag>
 		<tag-name>textArea</tag-name>
 		<component>
-			<component-type>de.larmic.component.textArea</component-type>
+			<component-type>de.larmic.butterfaces.component.textArea</component-type>
 		</component>
 		<attribute>
 			<name>label</name>
@@ -296,7 +296,7 @@
 	<tag>
 		<tag-name>comboBox</tag-name>
 		<component>
-			<component-type>de.larmic.component.comboBox</component-type>
+			<component-type>de.larmic.butterfaces.component.comboBox</component-type>
 		</component>
 		<attribute>
 			<name>label</name>
@@ -359,7 +359,7 @@
     <tag>
 		<tag-name>radioBox</tag-name>
 		<component>
-			<component-type>de.larmic.component.radioBox</component-type>
+			<component-type>de.larmic.butterfaces.component.radioBox</component-type>
 		</component>
 		<attribute>
 			<name>label</name>
@@ -418,7 +418,7 @@
 	<tag>
 		<tag-name>checkBox</tag-name>
 		<component>
-			<component-type>de.larmic.component.checkBox</component-type>
+			<component-type>de.larmic.butterfaces.component.checkBox</component-type>
 		</component>
 		<attribute>
 			<name>label</name>
@@ -477,7 +477,7 @@
     <tag>
         <tag-name>fieldset</tag-name>
         <component>
-            <component-type>de.larmic.component.fieldSet</component-type>
+            <component-type>de.larmic.butterfaces.component.fieldSet</component-type>
         </component>
         <attribute>
             <name>label</name>

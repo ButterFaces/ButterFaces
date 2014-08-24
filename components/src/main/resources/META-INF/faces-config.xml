@@ -9,9 +9,9 @@
 	<!-- render-kit>
 		<render-kit-id>HTML_BASIC</render-kit-id>
 		<renderer>
-			<component-family>de.larmic.component.text</component-family>
-			<renderer-type>de.larmic.jsf2.renderkit.html_basic.BasicContainerRenderer</renderer-type>
-			<renderer-class>de.larmic.jsf2.renderkit.html_basic.BasicContainerRenderer</renderer-class>
+			<component-family>de.larmic.butterfaces.component.text</component-family>
+			<renderer-type>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-type>
+			<renderer-class>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-class>
 		</renderer>
 	</render-kit-->
 	
