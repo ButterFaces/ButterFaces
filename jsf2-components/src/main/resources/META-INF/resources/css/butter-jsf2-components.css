@@ -17,7 +17,13 @@
     transition: 0.5s linear all;
 }*/
 
-.butter-component-tooltip {
+.butter-component-tooltip-hidden {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+.butter-component-tooltip-text {
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 5px;
@@ -26,8 +32,30 @@
     white-space: nowrap;
 }
 
-.butter-component-tooltip-hidden {
-    visibility: hidden;
+.butter-component-tooltip-right .butter-component-tooltip-text {
+    margin-left: 15px;
+}
+
+.butter-component-tooltip-right .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url("../img/tooltip_arrow_left.png");
     position: absolute;
-    left: -9999px;
+    top: 5px;
+    left: 0;
+    z-index: 10;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-text {
+    margin-top: 15px;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url("../img/tooltip_arrow_up.png");
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
 }

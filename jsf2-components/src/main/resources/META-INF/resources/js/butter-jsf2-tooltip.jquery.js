@@ -13,20 +13,26 @@
 
                     if (root.offset().left + root.outerWidth() + tooltipWidth < winWidth) {
                         // try position right
-                        tooltip.css({
-                            position: "absolute",
-                            top: 0,
-                            left: root.outerWidth(),
-                            zIndex: 1000
-                        });
+                        tooltip
+                            .removeClass("butter-component-tooltip-up")
+                            .addClass("butter-component-tooltip-right")
+                            .css({
+                                position: "absolute",
+                                top: 0,
+                                left: root.outerWidth(),
+                                zIndex: 1000
+                            });
                     } else {
                         // try position at bottom
-                        tooltip.css({
-                            position: "absolute",
-                            bottom: tooltip.outerHeight() * -1,
-                            right: 0,
-                            zIndex: 1000
-                        });
+                        tooltip
+                            .removeClass("butter-component-tooltip-right")
+                            .addClass("butter-component-tooltip-up")
+                            .css({
+                                position: "absolute",
+                                bottom: (tooltip.outerHeight() + 18) * -1,
+                                right: 0,
+                                zIndex: 1000
+                            });
                     }
 
                 };
