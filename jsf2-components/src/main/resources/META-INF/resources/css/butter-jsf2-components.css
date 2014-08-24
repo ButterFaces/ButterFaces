@@ -1,0 +1,33 @@
+.form-group {
+    position: relative;
+}
+
+.form-group:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+/*.butter-component.butter-component-tooltip-shown,
+.butter-component.butter-component-tooltip-hidden {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}*/
+
+.butter-component-tooltip {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #999;
+    white-space: nowrap;
+}
+
+.butter-component-tooltip-hidden {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
