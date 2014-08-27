@@ -2,9 +2,11 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlRadioBox;
+import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
@@ -18,23 +20,42 @@ import java.io.IOException;
 @FacesRenderer(componentFamily = HtmlRadioBox.COMPONENT_FAMILY, rendererType = HtmlRadioBox.RENDERER_TYPE)
 public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRenderer {
 
-	private final InputRendererSupport inputRendererSupport = new InputRendererSupport();
-
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
 		super.encodeBegin(context, component);
 
-		this.inputRendererSupport.encodeBegin(context, (HtmlInputComponent) component);
+        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final ResponseWriter writer = context.getResponseWriter();
+
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+
+        // Render label if components label attribute is set
+        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+
+        // Open inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+
+        // Render readonly span if components readonly attribute is set
+        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
 	}
 
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-		final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final ResponseWriter writer = context.getResponseWriter();
 
-		if (!htmlComponent.isReadonly()) {
-			super.encodeEnd(context, component);
-		}
+        if (!htmlComponent.isReadonly()) {
+            super.encodeEnd(context, component);
+        }
 
-		this.inputRendererSupport.encodeEnd(context, htmlComponent);
+        // Render tooltip if components tooltip attribute is set
+        new TooltipPartRenderer().renderTooltip(htmlComponent, true, writer, context);
+
+        // Close inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
 	}
 }

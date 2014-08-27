@@ -19,16 +19,20 @@ public class InnterComponentWrapperPartRenderer {
     public void renderInnerWrapperBegin(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        this.initInputComponent(uiComponent);
+        if (!component.isReadonly()) {
+            this.initInputComponent(uiComponent);
 
-        writer.startElement("div", uiComponent);
-        final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
-        final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
-        writer.writeAttribute("class", StringUtils.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
+            writer.startElement("div", uiComponent);
+            final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
+            final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
+            writer.writeAttribute("class", StringUtils.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
+        }
     }
 
-    public void renderInnerWrapperEnd(final ResponseWriter writer) throws IOException {
-        writer.endElement("div");
+    public void renderInnerWrapperEnd(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
+        if (!component.isReadonly()) {
+            writer.endElement("div");
+        }
     }
 
     protected void initInputComponent(final UIInput component) {

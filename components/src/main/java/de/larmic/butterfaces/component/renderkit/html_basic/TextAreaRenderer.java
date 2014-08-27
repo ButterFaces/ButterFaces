@@ -1,18 +1,17 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
+import com.sun.faces.renderkit.Attribute;
+import com.sun.faces.renderkit.AttributeManager;
+import com.sun.faces.renderkit.RenderKitUtils;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTextArea;
+import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
-
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlTextArea;
+import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-butterfaces-components
@@ -25,24 +24,46 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
 
 	private static final Attribute[] ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXTAREA);
 
-	private final InputRendererSupport inputRendererSupport = new InputRendererSupport();
-
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-		super.encodeBegin(context, component);
+        super.encodeBegin(context, component);
 
-		this.inputRendererSupport.encodeBegin(context, (HtmlInputComponent) component);
+        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final ResponseWriter writer = context.getResponseWriter();
+
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+
+        // Render label if components label attribute is set
+        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+
+        // Open inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+
+        // Render readonly span if components readonly attribute is set
+        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
 	}
 
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-		final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final ResponseWriter writer = context.getResponseWriter();
 
-		if (!htmlComponent.isReadonly()) {
-			super.encodeEnd(context, component);
-		}
+        if (!htmlComponent.isReadonly()) {
+            super.encodeEnd(context, component);
+        }
 
-		this.inputRendererSupport.encodeEnd(context, htmlComponent);
+        // Render tooltip if components tooltip attribute is set
+        new TooltipPartRenderer().renderTooltip(htmlComponent, false, writer, context);
+
+        // Render textarea counter
+        new CharacterCounterPartRenderer().renderCharacterCounter(htmlComponent, writer);
+
+        // Close inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
 	}
 
 	/**
