@@ -6,8 +6,8 @@ import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.ComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
@@ -18,7 +18,6 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Renderer support classes provides methods used by custom component
@@ -35,12 +34,9 @@ public class InputRendererSupport {
     private static final String INPUT_COMPONENT_MARKER = "larmic-input-component-marker";
 
     private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
-    private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
-    private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
     private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "larmic-component-textarea-maxlength-counter";
 
     private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
-    private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
 
     /**
      * Render outer div and label (if needed) and initializes input component.
@@ -82,6 +78,8 @@ public class InputRendererSupport {
         final UIInput uiComponent = (UIInput) component;
         final ResponseWriter writer = context.getResponseWriter();
 
+        new TooltipPartRenderer().renderTooltip(component, context.getResponseWriter(), context);
+
         final StringBuffer jsCall = new StringBuffer();
         jsCall.append("new ");
         if (uiComponent instanceof HtmlTextArea) {
@@ -95,45 +93,6 @@ public class InputRendererSupport {
         final boolean tooltipNecessary = this.isTooltipNecessary(component);
 
         if ((tooltipNecessary || !component.isValid()) && !component.isReadonly()) {
-            writer.startElement("div", uiComponent);
-            writer.writeAttribute("id", uiComponent.getClientId() + TOOLTIP_DIV_CLIENT_ID_POSTFIX, null);
-            writer.writeAttribute("class", TOOLTIP_CLASS, null);
-
-            writer.startElement("div", uiComponent);
-            writer.writeAttribute("class", "noteConnector", null);
-            writer.endElement("div");
-
-            if (tooltipNecessary) {
-                writer.startElement("div", uiComponent);
-                writer.writeAttribute("class", "noteContent", null);
-                writer.writeText(component.getTooltip(), null);
-                writer.endElement("div");
-            }
-
-            final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
-
-            while (clientIdsWithMessages.hasNext()) {
-                final String clientIdWithMessages = clientIdsWithMessages.next();
-                if (uiComponent.getClientId().equals(clientIdWithMessages)) {
-                    final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
-
-                    writer.startElement("div", uiComponent);
-                    writer.writeAttribute("class", ERROR_MESSAGE_CLASS, null);
-                    writer.startElement("ul", uiComponent);
-
-                    while (componentMessages.hasNext()) {
-                        writer.startElement("li", uiComponent);
-                        writer.writeText(componentMessages.next().getDetail(), null);
-                        writer.endElement("li");
-                    }
-
-                    writer.endElement("ul");
-                    writer.endElement("div");
-                }
-            }
-
-            writer.endElement("div");
-
             jsCall.append("showTooltip:true");
         } else {
             jsCall.append("showTooltip:false");
