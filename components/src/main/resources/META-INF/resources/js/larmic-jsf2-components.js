@@ -247,7 +247,7 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
         self._maxLength = self.options.maxLength * 1;
         if (self._maxLength > 0) {
             var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
-            self._maxLengthCounterNode = DomUtils.getChildren(inputContainer, "larmic-component-textarea-maxlength-counter")[0];
+            self._maxLengthCounterNode = DomUtils.getChildren(inputContainer, "butterfaces-maxlength-counter")[0];
 
             // inital call of check function
             self._checkValue();

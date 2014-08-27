@@ -28,7 +28,7 @@ public class ReadonlyPartRenderer {
 
         if (readonly) {
             responseWriter.startElement("span", uiComponent);
-            responseWriter.writeAttribute("class", "larmic-component-readonly", null);
+            responseWriter.writeAttribute("class", "butterfaces-readonly", null);
             responseWriter.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             responseWriter.endElement("span");
         }

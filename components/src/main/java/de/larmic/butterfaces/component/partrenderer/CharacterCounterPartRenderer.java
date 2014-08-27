@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class CharacterCounterPartRenderer {
 
-    private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "larmic-component-textarea-maxlength-counter";
+    private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "butterfaces-maxlength-counter";
     private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
 
     public void renderCharacterCounter(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
@@ -26,7 +26,7 @@ public class CharacterCounterPartRenderer {
             jsCall.append("('").append(outerComponentId).append("', {");
             jsCall.append("showTooltip:" + new TooltipPartRenderer().calculateShowTooltip(component));
 
-            if (uiComponent instanceof HtmlTextArea && ((HtmlTextArea) uiComponent).getMaxLength() != null) {
+            if (((HtmlTextArea) uiComponent).getMaxLength() != null) {
                 responseWriter.startElement("div", uiComponent);
                 responseWriter.writeAttribute("class", TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
                 responseWriter.endElement("div");
