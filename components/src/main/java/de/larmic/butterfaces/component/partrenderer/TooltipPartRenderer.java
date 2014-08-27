@@ -64,7 +64,7 @@ public class TooltipPartRenderer {
         } 
     }
 
-    protected boolean isTooltipNecessary(final HtmlInputComponent component) {
+    private boolean isTooltipNecessary(final HtmlInputComponent component) {
         return !StringUtils.isEmpty(component.getTooltip());
     }
 

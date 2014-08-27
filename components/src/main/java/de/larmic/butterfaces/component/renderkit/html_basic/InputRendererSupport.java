@@ -1,13 +1,8 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlTextArea;
-import de.larmic.butterfaces.component.partrenderer.ComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.*;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -62,52 +57,12 @@ public class InputRendererSupport {
      * NOTE: getEndTextToRender of super implementation should be called first.
      */
     public void encodeEnd(final FacesContext context, final HtmlInputComponent component) throws IOException {
-        final UIInput uiComponent = (UIInput) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        new TooltipPartRenderer().renderTooltip(component, context.getResponseWriter(), context);
-
-        final StringBuffer jsCall = new StringBuffer();
-        jsCall.append("new ");
-        if (uiComponent instanceof HtmlTextArea) {
-            jsCall.append("TextareaComponentHandler");
-        } else {
-            jsCall.append("ComponentHandler");
-        }
-        final String outerComponentId = component.getClientId() + OUTERDIV_POSTFIX;
-        jsCall.append("('").append(outerComponentId).append("', {");
-
-        final boolean tooltipNecessary = this.isTooltipNecessary(component);
-
-        if ((tooltipNecessary || !component.isValid()) && !component.isReadonly()) {
-            jsCall.append("showTooltip:true");
-        } else {
-            jsCall.append("showTooltip:false");
-        }
-
-        if (uiComponent instanceof HtmlTextArea && ((HtmlTextArea) uiComponent).getMaxLength() != null) {
-            writer.startElement("div", uiComponent);
-            writer.writeAttribute("class", TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
-            writer.endElement("div");
-
-            jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
-        }
-
-        final UIComponent inputContainerFacet = uiComponent.getFacet(INPUT_CONTAINER_FACET_NAME);
-        if (inputContainerFacet != null) {
-            writer.startElement("div", uiComponent);
-            writer.writeAttribute("class", INPUT_CONTAINER_FACET_MARKER_STYLE_CLASS, null);
-            inputContainerFacet.encodeAll(context);
-            writer.endElement("div");
-        }
+        new TooltipPartRenderer().renderTooltip(component, writer, context);
+        new CharacterCounterPartRenderer().renderCharacterCounter(component, writer);
 
         writer.endElement("div"); // .larmic-input-container
-
-        jsCall.append("});");
-
-        writer.startElement("script", uiComponent);
-        writer.writeText(jsCall.toString(), null);
-        writer.endElement("script");
 
         new ComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
