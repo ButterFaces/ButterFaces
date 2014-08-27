@@ -1,23 +1,17 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.ComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.convert.Converter;
-import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Renderer support classes provides methods used by custom component
@@ -46,9 +40,7 @@ public class InputRendererSupport {
     public void encodeBegin(final FacesContext context, final HtmlInputComponent component) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        final boolean readonly = component.isReadonly();
         final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
-        final Object value = component.getValue();
 
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -61,12 +53,7 @@ public class InputRendererSupport {
         final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
         writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
 
-        if (readonly) {
-            writer.startElement("span", uiComponent);
-            writer.writeAttribute("class", "larmic-component-readonly", null);
-            writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
-            writer.endElement("span");
-        }
+        new ReadonlyPartRenderer().renderReadonly(component, writer);
     }
 
     /**
@@ -123,59 +110,6 @@ public class InputRendererSupport {
         writer.endElement("script");
 
         new ComponentWrapperPartRenderer().renderComponentEnd(writer);
-    }
-
-    /**
-     * Should return value string for the readonly view mode. Can be overridden
-     * for custom components.
-     */
-    protected String getReadonlyDisplayValue(final Object value, final UIInput component, final Converter converter) {
-        if (value == null || "".equals(value)) {
-            return "-";
-        } else if (converter != null) {
-            return converter.getAsString(FacesContext.getCurrentInstance(), component, value);
-        }
-
-        if (component instanceof HtmlCheckBox) {
-            return (Boolean) value ? "ja" : "nein";
-        }
-
-        if (component instanceof HtmlComboBox) {
-            return this.getReadableValueFrom((HtmlComboBox) component, value);
-        }
-
-        return String.valueOf(value);
-    }
-
-    protected String getReadableValueFrom(final HtmlComboBox comboBox, final Object value) {
-        for (final UIComponent child : comboBox.getChildren()) {
-            if (child instanceof UISelectItems) {
-                final ArrayList<SelectItem> items = (ArrayList<SelectItem>) ((UISelectItems) child).getValue();
-
-                for (final SelectItem item : items) {
-                    if (this.isMatchingLabel(item, value)) {
-                        return item.getLabel();
-                    }
-                }
-            }
-            if (child instanceof UISelectItem) {
-                final UISelectItem item = (UISelectItem) child;
-
-                if (this.isMatchingLabel(item, value)) {
-                    return item.getItemLabel();
-                }
-            }
-        }
-
-        return String.valueOf(value);
-    }
-
-    private boolean isMatchingLabel(final SelectItem item, final Object value) {
-        return value.equals(item.getValue());
-    }
-
-    private boolean isMatchingLabel(final UISelectItem item, final Object value) {
-        return value.equals(item.getValue());
     }
 
     protected void initInputComponent(final UIInput component) {
