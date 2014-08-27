@@ -17,15 +17,8 @@ public class InputRendererSupport {
 
     private static final String INPUT_CONTAINER_MARKER_STYLE_CLASS = "larmic-input-container-marker";
     private static final String INPUT_CONTAINER_STYLE_CLASS = "larmic-input-container";
-    private static final String INPUT_CONTAINER_FACET_MARKER_STYLE_CLASS = "larmic-input-container-facet-marker";
-    private static final String INPUT_CONTAINER_FACET_NAME = "input-container";
-
     private static final String INPUT_COMPONENT_MARKER = "larmic-input-component-marker";
-
     private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
-    private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "larmic-component-textarea-maxlength-counter";
-
-    private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
 
     /**
      * Render outer div and label (if needed) and initializes input component.
@@ -88,13 +81,5 @@ public class InputRendererSupport {
         }
 
         return sb.toString();
-    }
-
-    protected boolean isTooltipNecessary(final HtmlInputComponent component) {
-        return !isEmpty(component.getTooltip());
-    }
-
-    private boolean isEmpty(final String value) {
-        return !(value != null && !"".equals(value));
     }
 }
