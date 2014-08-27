@@ -42,9 +42,4 @@ public class CharacterCounterPartRenderer {
             responseWriter.endElement("script");
         }
     }
-
-    private boolean isTooltipNecessary(final HtmlInputComponent component) {
-        return !StringUtils.isEmpty(component.getTooltip());
-    }
-
 }

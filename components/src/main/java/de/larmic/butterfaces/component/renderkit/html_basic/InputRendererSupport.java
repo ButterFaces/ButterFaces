@@ -4,7 +4,6 @@ import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.*;
 
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -16,32 +15,17 @@ import java.io.IOException;
  */
 public class InputRendererSupport {
 
-    private static final String INPUT_CONTAINER_MARKER_STYLE_CLASS = "larmic-input-container-marker";
-    private static final String INPUT_CONTAINER_STYLE_CLASS = "larmic-input-container";
-    private static final String INPUT_COMPONENT_MARKER = "larmic-input-component-marker";
-    private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
-
     /**
      * Render outer div and label (if needed) and initializes input component.
      * <p/>
      * NOTE: encodeBegin of super implementation should be called first.
      */
     public void encodeBegin(final FacesContext context, final HtmlInputComponent component) throws IOException {
-        final UIInput uiComponent = (UIInput) component;
-
-        final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
-
         final ResponseWriter writer = context.getResponseWriter();
 
-        new ComponentWrapperPartRenderer().renderComponentBegin(component, writer);
-        new LabelPartRenderer().renderLabel(component, context.getResponseWriter());
-
-        this.initInputComponent(uiComponent);
-
-        writer.startElement("div", uiComponent);
-        final String inputContainerStyleClass = disableDefaultStyleClasses ? null : INPUT_CONTAINER_STYLE_CLASS;
-        writer.writeAttribute("class", this.concatStyles(INPUT_CONTAINER_MARKER_STYLE_CLASS, inputContainerStyleClass), null);
-
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
         new ReadonlyPartRenderer().renderReadonly(component, writer);
     }
 
@@ -55,32 +39,9 @@ public class InputRendererSupport {
 
         new TooltipPartRenderer().renderTooltip(component, !(component instanceof HtmlTextArea), writer, context);
         new CharacterCounterPartRenderer().renderCharacterCounter(component, writer);
-
-        writer.endElement("div"); // .larmic-input-container
-
-        new ComponentWrapperPartRenderer().renderComponentEnd(writer);
-    }
-
-    protected void initInputComponent(final UIInput component) {
-        final HtmlInputComponent htmlInputComponent = (HtmlInputComponent) component;
-        final String styleClass = this.concatStyles(INPUT_COMPONENT_MARKER,
-                htmlInputComponent.getInputStyleClass(),
-                !component.isValid() ? INVALID_STYLE_CLASS : null);
-
-        component.getAttributes().put("styleClass", styleClass);
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(writer);
+        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
 
-    protected String concatStyles(final String... styles) {
-        final StringBuilder sb = new StringBuilder();
-
-        for (final String style : styles) {
-            if (style != null && !"".equals(style)) {
-                sb.append(style);
-                sb.append(" ");
-            }
-        }
-
-        return sb.toString();
-    }
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by larmic on 27.08.14.
  */
-public class ComponentWrapperPartRenderer {
+public class OuterComponentWrapperPartRenderer {
 
     private static final String FLOATING_STYLE_CLASS = "larmic-component-floating";
     private static final String NON_FLOATING_STYLE_CLASS = "larmic-component-non-floating";
