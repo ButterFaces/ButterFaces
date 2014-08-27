@@ -4,6 +4,8 @@ import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
+import de.larmic.butterfaces.component.partrenderer.ComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -25,27 +27,15 @@ import java.util.Iterator;
  */
 public class InputRendererSupport {
 
-    private static final String FLOATING_STYLE_CLASS = "larmic-component-floating";
-    private static final String NON_FLOATING_STYLE_CLASS = "larmic-component-non-floating";
-
-    private static final String COMPONENT_MARKER_STYLE_CLASS = "larmic-component-marker";
-    private static final String COMPONENT_STYLE_CLASS = "larmic-component";
-
     private static final String INPUT_CONTAINER_MARKER_STYLE_CLASS = "larmic-input-container-marker";
     private static final String INPUT_CONTAINER_STYLE_CLASS = "larmic-input-container";
     private static final String INPUT_CONTAINER_FACET_MARKER_STYLE_CLASS = "larmic-input-container-facet-marker";
     private static final String INPUT_CONTAINER_FACET_NAME = "input-container";
 
-    private static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
-    private static final String LABEL_STYLE_CLASS = "larmic-component-label";
-
     private static final String INPUT_COMPONENT_MARKER = "larmic-input-component-marker";
 
-    private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
-    private static final String COMPONENT_INVALID_STYLE_CLASS = "larmic-component-invalid";
     private static final String INVALID_STYLE_CLASS = "larmic-component-input-invalid";
     private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
-    private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
     private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
     private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "larmic-component-textarea-maxlength-counter";
 
@@ -61,20 +51,13 @@ public class InputRendererSupport {
         final UIInput uiComponent = (UIInput) component;
 
         final boolean readonly = component.isReadonly();
-        final boolean required = component.isRequired();
-        final boolean floating = component.getFloating();
         final boolean disableDefaultStyleClasses = component.getDisableDefaultStyleClasses();
-        final boolean valid = component.isValid();
-        final String label = component.getLabel();
         final Object value = component.getValue();
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        writer.startElement("div", uiComponent);
-        this.initOuterDiv(component.getClientId(), component.getComponentStyleClass(), floating,
-                disableDefaultStyleClasses, valid, writer);
-
-        this.writeLabelIfNecessary(component, readonly, required, label, writer);
+        new ComponentWrapperPartRenderer().renderComponentBegin(component, writer);
+        new LabelPartRenderer().renderLabel(component, context.getResponseWriter());
 
         this.initInputComponent(uiComponent);
 
@@ -180,7 +163,7 @@ public class InputRendererSupport {
         writer.writeText(jsCall.toString(), null);
         writer.endElement("script");
 
-        writer.endElement("div");
+        new ComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
     /**
@@ -245,58 +228,6 @@ public class InputRendererSupport {
         component.getAttributes().put("styleClass", styleClass);
     }
 
-    protected void initOuterDiv(final String clientId, final String componentStyleClass, final boolean floating,
-                                final boolean disableDefaultStyleClasses,
-                                final boolean valid, final ResponseWriter writer) throws IOException {
-        writer.writeAttribute("id", clientId + OUTERDIV_POSTFIX, null);
-
-        final String floatingStyle = floating ? FLOATING_STYLE_CLASS : NON_FLOATING_STYLE_CLASS;
-        final String validationClass = valid ? COMPONENT_INVALID_STYLE_CLASS : null;
-        final String componentClass = disableDefaultStyleClasses ? null : COMPONENT_STYLE_CLASS;
-        final String styleClass = this.concatStyles(COMPONENT_MARKER_STYLE_CLASS,
-                componentClass, componentStyleClass, validationClass, floatingStyle);
-
-        writer.writeAttribute("class", styleClass, null);
-    }
-
-    protected void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
-                                         final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (!this.isEmpty(label)) {
-            final UIInput uiComponent = (UIInput) component;
-
-            writer.startElement("label", uiComponent);
-            if (!readonly) {
-                writer.writeAttribute("for", uiComponent.getId(), null);
-            }
-
-            final String labelStyleClass = component.getDisableDefaultStyleClasses() ? null : LABEL_STYLE_CLASS;
-            writer.writeAttribute("class", this.concatStyles(labelStyleClass, LABEL_MARKER_STYLE_CLASS,
-                    TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
-
-            writer.startElement("abbr", uiComponent);
-            if (this.isTooltipNecessary(component)) {
-                writer.writeAttribute("title", component.getTooltip(), null);
-                writer.writeAttribute("style", "cursor: help; word-wrap: breaking-word;", null);
-            }
-            writer.writeText(component.getLabel(), null);
-            writer.endElement("abbr");
-
-            this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
-
-            writer.endElement("label");
-        }
-    }
-
-    protected void writeRequiredSpanIfNecessary(final String clientId, final boolean readonly, final boolean required,
-                                                final ResponseWriter writer) throws IOException {
-        if (required && !readonly) {
-            writer.startElement("span", null);
-            writer.writeAttribute("id", clientId + "_requiredLabel", null);
-            writer.writeAttribute("class", REQUIRED_SPAN_CLASS, null);
-            writer.writeText("*", null);
-            writer.endElement("span");
-        }
-    }
 
     protected String concatStyles(final String... styles) {
         final StringBuilder sb = new StringBuilder();
