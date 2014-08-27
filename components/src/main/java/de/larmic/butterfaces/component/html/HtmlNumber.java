@@ -11,8 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-@ResourceDependencies({@ResourceDependency(library = "css", name = "larmic-jsf2-components.css", target = "head"),
-        @ResourceDependency(library = "js", name = "larmic-jsf2-components.js", target = "head")})
+@ResourceDependencies({
+        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
+        @ResourceDependency(library = "js", name = "jquery-1.11.1.min.js", target = "head")})
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 

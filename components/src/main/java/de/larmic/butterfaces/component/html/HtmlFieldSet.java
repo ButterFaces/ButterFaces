@@ -6,8 +6,10 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
-@ResourceDependencies({ @ResourceDependency(library = "css", name = "larmic-jsf2-components.css", target = "head"),
-		@ResourceDependency(library = "js", name = "larmic-jsf2-components.js", target = "head") })
+@ResourceDependencies({
+        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
+        @ResourceDependency(library = "js", name = "jquery-1.11.1.min.js", target = "head") })
 @FacesComponent(HtmlFieldSet.COMPONENT_TYPE)
 public class HtmlFieldSet extends UIComponentBase {
 

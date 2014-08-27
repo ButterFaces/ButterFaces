@@ -6,31 +6,33 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 
-@ResourceDependencies({ @ResourceDependency(library = "css", name = "larmic-jsf2-components.css", target = "head"),
-		@ResourceDependency(library = "js", name = "larmic-jsf2-components.js", target = "head") })
+@ResourceDependencies({
+        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
+        @ResourceDependency(library = "js", name = "jquery-1.11.1.min.js", target = "head")})
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)
 public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent {
 
-	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.checkBox";
-	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CheckBoxRenderer";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.checkBox";
+    public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CheckBoxRenderer";
 
-	protected static final String PROPERTY_FLOATING = "floating";
-	protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
-	protected static final String PROPERTY_TOOLTIP = "tooltip";
+    protected static final String PROPERTY_FLOATING = "floating";
+    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
+    protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 
-	public HtmlCheckBox() {
-		super();
-		this.setRendererType(RENDERER_TYPE);
-	}
+    public HtmlCheckBox() {
+        super();
+        this.setRendererType(RENDERER_TYPE);
+    }
 
-	@Override
-	public String getFamily() {
-		return COMPONENT_FAMILY;
-	}
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
+    }
 
     @Override
     public String getComponentStyleClass() {
@@ -59,14 +61,14 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
 
-	@Override
-	public String getTooltip() {
-		return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
-	}
+    @Override
+    public String getTooltip() {
+        return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
+    }
 
-	public void setTooltip(final String tooltip) {
-		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
-	}
+    public void setTooltip(final String tooltip) {
+        this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+    }
 
     @Override
     public boolean getDisableDefaultStyleClasses() {
@@ -78,21 +80,21 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     }
 
     @Override
-	public boolean getFloating() {
-		return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
-	}
+    public boolean getFloating() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
+    }
 
-	public void setFloating(final Boolean floating) {
-		this.updateStateHelper(PROPERTY_FLOATING, floating);
-	}
+    public void setFloating(final Boolean floating) {
+        this.updateStateHelper(PROPERTY_FLOATING, floating);
+    }
 
-	private void updateStateHelper(final String propertyName, final Object value) {
-		this.getStateHelper().put(propertyName, value);
+    private void updateStateHelper(final String propertyName, final Object value) {
+        this.getStateHelper().put(propertyName, value);
 
-		final ValueExpression ve = this.getValueExpression(propertyName);
+        final ValueExpression ve = this.getValueExpression(propertyName);
 
-		if (ve != null) {
-			ve.setValue(this.getFacesContext().getELContext(), value);
-		}
-	}
+        if (ve != null) {
+            ve.setValue(this.getFacesContext().getELContext(), value);
+        }
+    }
 }
