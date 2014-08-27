@@ -18,38 +18,29 @@ public class CharacterCounterPartRenderer {
     public void renderCharacterCounter(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        final StringBuffer jsCall = new StringBuffer();
-        jsCall.append("new ");
-        if (uiComponent instanceof HtmlTextArea) {
-            jsCall.append("TextareaComponentHandler");
-        } else {
-            jsCall.append("ComponentHandler");
-        }
         final String outerComponentId = component.getClientId() + OUTERDIV_POSTFIX;
-        jsCall.append("('").append(outerComponentId).append("', {");
 
-        final boolean tooltipNecessary = this.isTooltipNecessary(component);
+        if (uiComponent instanceof HtmlTextArea) {
+            final StringBuffer jsCall = new StringBuffer();
+            jsCall.append("new TextareaComponentHandler");
+            jsCall.append("('").append(outerComponentId).append("', {");
+            jsCall.append("showTooltip:" + new TooltipPartRenderer().calculateShowTooltip(component));
 
-        if ((tooltipNecessary || !component.isValid()) && !component.isReadonly()) {
-            jsCall.append("showTooltip:true");
-        } else {
-            jsCall.append("showTooltip:false");
+            if (uiComponent instanceof HtmlTextArea && ((HtmlTextArea) uiComponent).getMaxLength() != null) {
+                responseWriter.startElement("div", uiComponent);
+                responseWriter.writeAttribute("class", TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
+                responseWriter.endElement("div");
+
+                jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
+            }
+
+
+            jsCall.append("});");
+
+            responseWriter.startElement("script", uiComponent);
+            responseWriter.writeText(jsCall.toString(), null);
+            responseWriter.endElement("script");
         }
-
-        if (uiComponent instanceof HtmlTextArea && ((HtmlTextArea) uiComponent).getMaxLength() != null) {
-            responseWriter.startElement("div", uiComponent);
-            responseWriter.writeAttribute("class", TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
-            responseWriter.endElement("div");
-
-            jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
-        }
-
-
-        jsCall.append("});");
-
-        responseWriter.startElement("script", uiComponent);
-        responseWriter.writeText(jsCall.toString(), null);
-        responseWriter.endElement("script");
     }
 
     private boolean isTooltipNecessary(final HtmlInputComponent component) {

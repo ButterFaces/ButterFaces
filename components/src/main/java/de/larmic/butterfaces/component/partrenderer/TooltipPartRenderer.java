@@ -17,8 +17,9 @@ public class TooltipPartRenderer {
     private static final String TOOLTIP_CLASS = "larmic-component-tooltip";
     private static final String ERROR_MESSAGE_CLASS = "larmic-component-error-message";
     private static final String TOOLTIP_DIV_CLIENT_ID_POSTFIX = "_tooltip";
+    private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
 
-    public void renderTooltip(final HtmlInputComponent component, final ResponseWriter responseWriter, final FacesContext context) throws IOException {
+    public void renderTooltip(final HtmlInputComponent component, final boolean renderJavaScript, final ResponseWriter responseWriter, final FacesContext context) throws IOException {
         final UIInput uiComponent = (UIInput) component;
         final boolean tooltipNecessary = this.isTooltipNecessary(component);
 
@@ -61,7 +62,34 @@ public class TooltipPartRenderer {
             }
 
             responseWriter.endElement("div");
-        } 
+        }
+
+        if (renderJavaScript) {
+            renderTooltipJavaScript(component, responseWriter);
+        }
+    }
+
+    private void renderTooltipJavaScript(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
+        final UIInput uiComponent = (UIInput) component;
+        final String outerComponentId = component.getClientId() + OUTERDIV_POSTFIX;
+
+        final StringBuffer jsCall = new StringBuffer();
+        jsCall.append("new ComponentHandler");
+        jsCall.append("('").append(outerComponentId).append("', {");
+        jsCall.append("showTooltip:" + calculateShowTooltip(component));
+        jsCall.append("});");
+
+        responseWriter.startElement("script", uiComponent);
+        responseWriter.writeText(jsCall.toString(), null);
+        responseWriter.endElement("script");
+    }
+
+    public String calculateShowTooltip(final HtmlInputComponent component) {
+        final boolean tooltipNecessary = this.isTooltipNecessary(component);
+
+        Boolean showTooltip = (tooltipNecessary || !component.isValid()) && !component.isReadonly();
+
+        return showTooltip.toString();
     }
 
     private boolean isTooltipNecessary(final HtmlInputComponent component) {

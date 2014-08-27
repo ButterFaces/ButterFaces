@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIInput;
@@ -52,7 +53,7 @@ public class InputRendererSupport {
     public void encodeEnd(final FacesContext context, final HtmlInputComponent component) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
-        new TooltipPartRenderer().renderTooltip(component, writer, context);
+        new TooltipPartRenderer().renderTooltip(component, !(component instanceof HtmlTextArea), writer, context);
         new CharacterCounterPartRenderer().renderCharacterCounter(component, writer);
 
         writer.endElement("div"); // .larmic-input-container
