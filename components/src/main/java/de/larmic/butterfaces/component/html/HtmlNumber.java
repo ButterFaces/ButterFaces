@@ -14,7 +14,7 @@ import javax.faces.validator.ValidatorException;
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "js", name = "jquery-1.11.1.min.js", target = "head")})
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head")})
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 

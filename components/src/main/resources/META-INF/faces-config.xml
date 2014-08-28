@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.0" 
-			  xmlns="http://java.sun.com/xml/ns/javaee"
-			  xmlns:xi="http://www.w3.org/2001/XInclude" 
-			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<!-- @FacesRenderer is used instead -->
-	<!-- render-kit>
-		<render-kit-id>HTML_BASIC</render-kit-id>
-		<renderer>
-			<component-family>de.larmic.butterfaces.component.text</component-family>
-			<renderer-type>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-type>
-			<renderer-class>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-class>
-		</renderer>
-	</render-kit-->
-	
+    <!-- @FacesRenderer is used instead -->
+    <!-- render-kit>
+        <render-kit-id>HTML_BASIC</render-kit-id>
+        <renderer>
+            <component-family>de.larmic.butterfaces.component.text</component-family>
+            <renderer-type>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-type>
+            <renderer-class>de.larmic.butterfaceserfaces.renderkit.html_basic.BasicContainerRenderer</renderer-class>
+        </renderer>
+    </render-kit-->
+
+    <application>
+        <resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler>
+    </application>
 </faces-config>

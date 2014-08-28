@@ -7,7 +7,7 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectOneMenu;
 
 @ResourceDependencies({ @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
-		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head") })
+		@ResourceDependency(library = "butterfaces-configurable", name = "butterfaces.js", target = "head") })
 @FacesComponent(HtmlComboBox.COMPONENT_TYPE)
 public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent {
 

@@ -9,7 +9,7 @@ import javax.faces.component.html.HtmlInputTextarea;
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
 		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "js", name = "jquery-1.11.1.min.js", target = "head") })
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head") })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
 public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent {
 
