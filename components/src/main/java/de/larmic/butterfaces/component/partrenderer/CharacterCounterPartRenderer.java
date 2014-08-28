@@ -24,7 +24,7 @@ public class CharacterCounterPartRenderer {
             final StringBuffer jsCall = new StringBuffer();
             jsCall.append("new TextareaComponentHandler");
             jsCall.append("('").append(outerComponentId).append("', {");
-            jsCall.append("showTooltip:" + new TooltipPartRenderer().calculateShowTooltip(component));
+            jsCall.append("showTooltip:" + this.calculateShowTooltip(component));
 
             if (((HtmlTextArea) uiComponent).getMaxLength() != null) {
                 responseWriter.startElement("div", uiComponent);
@@ -41,5 +41,17 @@ public class CharacterCounterPartRenderer {
             responseWriter.writeText(jsCall.toString(), null);
             responseWriter.endElement("script");
         }
+    }
+
+    private String calculateShowTooltip(final HtmlInputComponent component) {
+        final boolean tooltipNecessary = this.isTooltipNecessary(component);
+
+        Boolean showTooltip = (tooltipNecessary || !component.isValid()) && !component.isReadonly();
+
+        return showTooltip.toString();
+    }
+
+    private boolean isTooltipNecessary(final HtmlInputComponent component) {
+        return !StringUtils.isEmpty(component.getTooltip());
     }
 }

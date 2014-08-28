@@ -9,7 +9,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TextShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
-    private String placeholder;
+    private String placeholder = "Please enter something...";
     private String type;
     private String pattern;
     private String min;
@@ -18,7 +18,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
     @Override
     protected Object initValue() {
-        return "value";
+        return null;
     }
 
     @Override

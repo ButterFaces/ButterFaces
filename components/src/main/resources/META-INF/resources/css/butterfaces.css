@@ -13,7 +13,7 @@
     margin-left: 2px;
 }
 
-.larmic-component-input-invalid {
+.butterfaces-invalid {
     background-color: #FFEBDA;
     border-color: #FF0044;
     border-style: solid;
@@ -89,11 +89,11 @@
 	font-style: italic;
 }
 
-.larmic-component-floating {
+.butterfaces-component-floating {
     display: inline-block;
 }
 
-.larmic-component-non-floating {
+.butterfaces-component-non-floating {
     display: table;
 }
 
@@ -123,6 +123,6 @@
 }
 
 /* fixed tooltip position on radio buttons */
-table.larmic-input-component-marker  {
+table.butterfaces-input-component  {
     float: left;
 }

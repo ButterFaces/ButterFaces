@@ -16,6 +16,8 @@ public class LabelPartRenderer {
     private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
     private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 
+    private static final String BOOTSTRAP_CONTROL_LABEL = "control-label";
+
     public void renderLabel(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
         final boolean readonly = component.isReadonly();
         final boolean required = component.isRequired();
@@ -34,14 +36,12 @@ public class LabelPartRenderer {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
 
-            final String labelStyleClass = component.getDisableDefaultStyleClasses() ? null : LABEL_STYLE_CLASS;
-            writer.writeAttribute("class", StringUtils.concatStyles(labelStyleClass, LABEL_MARKER_STYLE_CLASS,
-                    TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
+            writer.writeAttribute("class", StringUtils.concatWithSpace(LABEL_STYLE_CLASS, BOOTSTRAP_CONTROL_LABEL,
+                    LABEL_MARKER_STYLE_CLASS, TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {
                 writer.writeAttribute("title", component.getTooltip(), null);
-                writer.writeAttribute("style", "cursor: help; word-wrap: breaking-word;", null);
             }
             writer.writeText(component.getLabel(), null);
             writer.endElement("abbr");
