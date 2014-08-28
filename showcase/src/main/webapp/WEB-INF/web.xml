@@ -9,7 +9,12 @@
 		<param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	
+
+    <context-param>
+		<param-name>de.larmic.butterfaces.provideJQuery</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
