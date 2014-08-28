@@ -38,7 +38,7 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent);
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -52,6 +52,9 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         if (!htmlComponent.isReadonly()) {
             super.encodeEnd(context, component);
         }
+
+        // Close inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // Render textarea counter
         new CharacterCounterPartRenderer().renderCharacterCounter(htmlComponent, writer);

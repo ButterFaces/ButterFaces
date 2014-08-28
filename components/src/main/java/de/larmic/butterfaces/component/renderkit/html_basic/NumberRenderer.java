@@ -42,7 +42,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent);
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -56,6 +56,9 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         if (!htmlComponent.isReadonly()) {
             super.encodeEnd(context, component);
         }
+
+        // Close inner component wrapper div
+        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
