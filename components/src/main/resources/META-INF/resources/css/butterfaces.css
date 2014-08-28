@@ -3,10 +3,6 @@
     float: left;
 }
 
-.larmic-input-container {
-    float: left;
-}
-
 .larmic-component-required {
     color: red;
     margin-right: 2px;

@@ -19,7 +19,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CheckBoxRenderer";
 
     protected static final String PROPERTY_FLOATING = "floating";
-    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
@@ -69,15 +68,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setTooltip(final String tooltip) {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
-    }
-
-    @Override
-    public boolean getDisableDefaultStyleClasses() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_STYLE_CLASSES, false);
-    }
-
-    public void setDisableDefaultStyleClasses(final Boolean disableDefaultStyleClasses) {
-        this.updateStateHelper(PROPERTY_DISABLE_STYLE_CLASSES, disableDefaultStyleClasses);
     }
 
     @Override

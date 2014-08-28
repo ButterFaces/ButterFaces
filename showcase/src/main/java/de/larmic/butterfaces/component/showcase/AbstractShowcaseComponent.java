@@ -6,7 +6,6 @@ package de.larmic.butterfaces.component.showcase;
 public abstract class AbstractShowcaseComponent {
 
     private boolean rendered = true;
-    private StyleSheetType styleSheetType = StyleSheetType.DEFAULT;
 
     public abstract String getXHtml();
 
@@ -27,12 +26,6 @@ public abstract class AbstractShowcaseComponent {
     public String getCss() {
         final StringBuilder sb = new StringBuilder();
 
-        if (this.isBootstrap()) {
-            sb.append(".form-control {\n");
-            sb.append("    float: left; /* fixes tooltip position */\n");
-            sb.append("}");
-        }
-
         this.addCss(sb);
 
         return sb.toString();
@@ -45,23 +38,6 @@ public abstract class AbstractShowcaseComponent {
 
         return sb.toString();
     }
-
-    public boolean isDisableDefaultStyleClasses() {
-        return StyleSheetType.DISABLE_DEFAULT == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
-    }
-
-    public boolean isBootstrap() {
-        return StyleSheetType.BOOT_STRAP == this.styleSheetType || StyleSheetType.BOOT_STRAP_ONLY == this.styleSheetType;
-    }
-
-    public StyleSheetType getStyleSheetType() {
-        return styleSheetType;
-    }
-
-    public void setStyleSheetType(StyleSheetType styleSheetType) {
-        this.styleSheetType = styleSheetType;
-    }
-
 
     public boolean isRendered() {
         return this.rendered;

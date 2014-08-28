@@ -19,12 +19,6 @@
         </h:form>
     </ui:define>
 
-    <ui:define name="facets">
-        <h:form prependId="false">
-            <showcase:tagStringControl label="input facet" value="#{radioBoxShowcaseComponent.facetText}"/>
-        </h:form>
-    </ui:define>
-
     <ui:define name="controls">
         <h:form prependId="false">
             <showcase:tagEnumControl label="radio box"
@@ -39,14 +33,6 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="radioboxLayoutPopoverContent"/>
-            <showcase:tagEnumControl label="styleClass"
-                                     value="#{radioBoxShowcaseComponent.styleSheetType}"
-                                     values="#{radioBoxShowcaseComponent.styleSheetTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Updates attributes"
-                                     popoverContentMarkerClass="styleSheetPopoverContent">
-
-            </showcase:tagEnumControl>
             <showcase:tagEnumControl label="ajax"
                                      value="#{radioBoxShowcaseComponent.ajaxType}"
                                      values="#{radioBoxShowcaseComponent.ajaxTypes}"

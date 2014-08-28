@@ -20,13 +20,7 @@
 					rendered="#{cc.attrs.component.rendered}"
 					maxLength="#{cc.attrs.component.maxLength}"
 					placeholder="#{cc.attrs.component.placeholder}"
-                    disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
-                    componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
-                    inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
 					floating="#{cc.attrs.component.floating}">
-            <f:facet name="input-container">
-                #{cc.attrs.component.facetText}
-            </f:facet>
 			<f:ajax event="keyup" 
 					execute="textArea"
 					render="output:outputValues output:other"

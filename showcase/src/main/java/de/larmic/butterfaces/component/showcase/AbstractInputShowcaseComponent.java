@@ -8,7 +8,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";
-    private String facetText;
     private boolean readonly;
     private boolean required;
     private boolean floating;
@@ -39,15 +38,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         final List<SelectItem> items = new ArrayList<>();
 
         for (final AjaxType type : AjaxType.values()) {
-            items.add(new SelectItem(type, type.label));
-        }
-        return items;
-    }
-
-    public List<SelectItem> getStyleSheetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        for (final StyleSheetType type : StyleSheetType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -121,17 +111,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     @Override
     public String getCss() {
-        if (this.isBootstrap()) {
-            final StringBuilder sb = new StringBuilder();
-            sb.append(super.getCss());
-
-            sb.append(".form-control {\n");
-            sb.append("    float: left; /* fixes tooltip position */\n");
-            sb.append("}");
-
-            return sb.toString();
-        }
-
         return super.getCss();
     }
 
@@ -201,13 +180,5 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setAjaxType(final AjaxType ajax) {
         this.ajaxType = ajax;
-    }
-
-    public String getFacetText() {
-        return facetText;
-    }
-
-    public void setFacetText(String facetText) {
-        this.facetText = facetText;
     }
 }

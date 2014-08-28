@@ -43,22 +43,9 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
-        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
-
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
-        }
-
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         this.createAjaxXhtml(sb, "keyup");
-
-        if (getFacetText() != null && !"".equals(getFacetText())) {
-            sb.append("            " + "<f:facet name=\"input-container\">\n");
-            sb.append("            " + "    " + getFacetText() + "\n");
-            sb.append("            " + "</f:facet>\n");
-        }
 
         sb.append("        </l:number>");
 

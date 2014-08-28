@@ -18,17 +18,11 @@
 					readonly="#{cc.attrs.component.readonly}"
 					required="#{cc.attrs.component.required}"
 					rendered="#{cc.attrs.component.rendered}"
-                    disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
-                    componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
-                    inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
 					floating="#{cc.attrs.component.floating}">
 			<f:ajax event="change"
 					execute="@this"
 					render="output:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
-            <f:facet name="input-container">
-                #{cc.attrs.component.facetText}
-            </f:facet>
 		</l:checkBox>
 	</composite:implementation>
 </h:body>

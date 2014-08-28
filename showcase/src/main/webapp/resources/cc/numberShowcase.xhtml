@@ -25,13 +25,7 @@
                   min="#{numberShowcaseComponent.min}"
                   max="#{numberShowcaseComponent.max}"
                   autoFocus="#{numberShowcaseComponent.autoFocus}"
-                  disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
-                  componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
-                  inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
                   floating="#{cc.attrs.component.floating}">
-            <f:facet name="input-container">
-                #{cc.attrs.component.facetText}
-            </f:facet>
             <f:ajax event="keyup"
                     execute="@this"
                     render="output:outputComponent:outputValues output:other"
