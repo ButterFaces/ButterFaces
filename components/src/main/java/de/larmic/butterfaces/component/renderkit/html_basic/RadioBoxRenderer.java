@@ -47,6 +47,16 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 
         if (!htmlComponent.isReadonly()) {
             super.encodeEnd(context, component);
+
+            final StringBuffer jsCall = new StringBuffer();
+
+            // add bootstrap radio class to component
+            // bootstrap radio buttons are using pageDirection as default
+            // maybe use radio-inline
+            writer.startElement("script", component);
+            writer.writeText("jQuery(\"table.butterfaces-input-component\").find(\"td\").addClass(\"radio\");", null);
+            writer.writeText("jQuery(\"table.butterfaces-input-component\").removeClass(\"form-control\");", null);
+            writer.endElement("script");
         }
 
         // Close inner component wrapper div
