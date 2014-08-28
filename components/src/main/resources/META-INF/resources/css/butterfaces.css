@@ -1,32 +1,22 @@
 .larmic-component-label {
-    width: 100px;
-    float: left;
 }
 
 .larmic-component-required {
-    color: red;
+    color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
 }
 
 .butterfaces-invalid {
-    background-color: #FFEBDA;
-    border-color: #FF0044;
-    border-style: solid;
 }
 
 .butterfaces-readonly {
-    display: flex;
 }
 
 .larmic-component-error {
-    color: #FF0044;
 }
 
 .larmic-component-label-tooltip {
-    position: relative;
-    left: 5px;
-    top: 4px;
 }
 
 .larmic-component-tooltip {
@@ -90,7 +80,6 @@
 }
 
 .butterfaces-component-non-floating {
-    display: table;
 }
 
 .larmic-component-toastContainer{
@@ -116,9 +105,4 @@
 
 .larmic-component-fieldset legend {
     margin-bottom: 0;
-}
-
-/* fixed tooltip position on radio buttons */
-table.butterfaces-input-component  {
-    float: left;
 }
