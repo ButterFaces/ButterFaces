@@ -34,7 +34,7 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -50,7 +50,7 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
         }
 
         // Close inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);

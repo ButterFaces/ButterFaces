@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by larmic on 27.08.14.
  */
-public class InnterComponentWrapperPartRenderer {
+public class InnerComponentWrapperPartRenderer {
 
     private static final String INPUT_COMPONENT_MARKER = "butterfaces-input-component";
     private static final String INVALID_STYLE_CLASS = "butterfaces-invalid";
