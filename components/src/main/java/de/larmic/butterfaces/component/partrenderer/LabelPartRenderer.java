@@ -47,8 +47,6 @@ public class LabelPartRenderer {
 
                 writer.endElement("label");
             }
-
-            component.setLabel(label);
         }
     }
 

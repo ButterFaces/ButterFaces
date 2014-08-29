@@ -23,6 +23,17 @@ function handleSpinner(e, component, min, max) {
     }
 };
 
+function addLabelAttributeToInnerComponent(/*String*/innerInputComponentId, /*String*/ label) {
+    var $component = jQuery(document.getElementById(innerInputComponentId));
+    var labelIsNull = !label || label.length === 0;
+
+    $component.removeAttr('label');
+
+    if (!labelIsNull) {
+        $component.attr('label', label);
+    }
+}
+
 /**
  *====================================================================================
  *DOM UTILS
