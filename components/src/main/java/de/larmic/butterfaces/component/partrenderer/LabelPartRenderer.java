@@ -11,13 +11,7 @@ import java.io.IOException;
  */
 public class LabelPartRenderer {
 
-    private static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
-    private static final String LABEL_STYLE_CLASS = "larmic-component-label";
-    private static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
-    private static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
 
-    private static final String BOOTSTRAP_CONTROL_LABEL = "control-label";
-    private static final String BOOTSTRAP_COL_SM_2L = "col-sm-2";
 
     public void renderLabel(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
         final boolean readonly = component.isReadonly();
@@ -37,8 +31,9 @@ public class LabelPartRenderer {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
 
-            writer.writeAttribute("class", StringUtils.concatWithSpace(LABEL_STYLE_CLASS, BOOTSTRAP_CONTROL_LABEL, BOOTSTRAP_COL_SM_2L,
-                    LABEL_MARKER_STYLE_CLASS, TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
+            writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
+                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2L, Constants.LABEL_MARKER_STYLE_CLASS,
+                    Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {
@@ -58,7 +53,7 @@ public class LabelPartRenderer {
         if (required && !readonly) {
             writer.startElement("span", null);
             writer.writeAttribute("id", clientId + "_requiredLabel", null);
-            writer.writeAttribute("class", REQUIRED_SPAN_CLASS, null);
+            writer.writeAttribute("class", Constants.REQUIRED_SPAN_CLASS, null);
             writer.writeText("*", null);
             writer.endElement("span");
         }

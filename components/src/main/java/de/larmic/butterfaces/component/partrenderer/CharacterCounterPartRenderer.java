@@ -12,13 +12,10 @@ import java.io.IOException;
  */
 public class CharacterCounterPartRenderer {
 
-    private static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "butterfaces-maxlength-counter";
-    private static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
-
     public void renderCharacterCounter(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        final String outerComponentId = component.getClientId() + OUTERDIV_POSTFIX;
+        final String outerComponentId = component.getClientId() + Constants.OUTERDIV_POSTFIX;
 
         if (uiComponent instanceof HtmlTextArea) {
             final StringBuffer jsCall = new StringBuffer();
@@ -28,7 +25,7 @@ public class CharacterCounterPartRenderer {
 
             if (((HtmlTextArea) uiComponent).getMaxLength() != null) {
                 responseWriter.startElement("div", uiComponent);
-                responseWriter.writeAttribute("class", TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
+                responseWriter.writeAttribute("class", Constants.TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
                 responseWriter.endElement("div");
 
                 jsCall.append(", maxLength:").append(((HtmlTextArea) uiComponent).getMaxLength().intValue());
