@@ -23,4 +23,6 @@ public interface HtmlInputComponent {
 	Object getValue();
 
 	String getClientId();
+
+    void setLabel(final String label);
 }

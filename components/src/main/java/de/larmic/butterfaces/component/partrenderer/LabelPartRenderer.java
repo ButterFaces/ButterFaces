@@ -45,6 +45,8 @@ public class LabelPartRenderer {
             this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
 
             writer.endElement("label");
+
+            component.setLabel(label);
         }
     }
 
