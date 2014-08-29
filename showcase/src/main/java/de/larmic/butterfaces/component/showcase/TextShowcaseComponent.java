@@ -9,7 +9,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TextShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
-    private String placeholder = "Please enter something...";
+    private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private String type;
     private String pattern;
     private String min;

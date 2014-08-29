@@ -9,14 +9,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class NumberShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
-    private String placeholder;
+    private String placeholder = DEFAULT_NUMBER_PLACEHOLDER;
     private String min;
     private String max;
     private boolean autoFocus;
 
     @Override
     protected Object initValue() {
-        return "3";
+        return null;
     }
 
     @Override

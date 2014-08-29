@@ -11,11 +11,11 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
 	private Integer maxLength;
 
-	private String placeholder;
+	private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
 
 	@Override
 	protected Object initValue() {
-		return "value";
+		return null;
 	}
 
 	@Override

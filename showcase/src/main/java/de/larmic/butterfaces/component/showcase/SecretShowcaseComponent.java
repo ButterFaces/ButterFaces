@@ -9,11 +9,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class SecretShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
-	private String placeholder = "enter password";
+	private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
 
 	@Override
 	protected Object initValue() {
-		return "value";
+		return null;
 	}
 
 	@Override

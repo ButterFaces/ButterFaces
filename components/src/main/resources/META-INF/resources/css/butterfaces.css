@@ -2,25 +2,10 @@ select.butterfaces-input-component {
     height: 34px; /* bootstrap default height */
 }
 
-.larmic-component-label {
-}
-
 .larmic-component-required {
     color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
-}
-
-.butterfaces-invalid {
-}
-
-.butterfaces-readonly {
-}
-
-.larmic-component-error {
-}
-
-.larmic-component-label-tooltip {
 }
 
 .larmic-component-tooltip {
@@ -81,9 +66,6 @@ select.butterfaces-input-component {
 
 .butterfaces-component-floating {
     display: inline-block;
-}
-
-.butterfaces-component-non-floating {
 }
 
 .larmic-component-toastContainer{
