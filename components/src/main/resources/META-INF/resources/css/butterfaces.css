@@ -92,3 +92,66 @@ select.butterfaces-input-component {
 .larmic-component-fieldset legend {
     margin-bottom: 0;
 }
+
+.form-group {
+    position: relative;
+}
+
+/* clearfix for form groups */
+.form-group:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+/*.butter-component.butter-component-tooltip-shown,
+.butter-component.butter-component-tooltip-hidden {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}*/
+
+.butter-component-tooltip-hidden {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+.butter-component-tooltip-text {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #999;
+    white-space: nowrap;
+}
+
+.butter-component-tooltip-right .butter-component-tooltip-text {
+    margin-left: 15px;
+}
+
+.butter-component-tooltip-right .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url("../img/tooltip_arrow_left.png");
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 10;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-text {
+    margin-top: 15px;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url("../img/tooltip_arrow_up.png");
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
+}
