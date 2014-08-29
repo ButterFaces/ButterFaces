@@ -23,6 +23,7 @@ public class Constants {
     public static final String BOOTSTRAP_CONTROL_LABEL = "control-label";
     public static final String BOOTSTRAP_COL_SM_2L = "col-sm-2";
     public static final String BOOTSTRAP_COL_SM_10 = "col-sm-10";
+    public static final String BOOTSTRAP_COL_SM_12 = "col-sm-12";
     public static final String BOOTSTRAP_ERROR = "has-error";
     public static final String BOOTSTRAP_CONTAINER = "form-group";
 

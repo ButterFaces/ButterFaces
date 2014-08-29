@@ -22,7 +22,7 @@ public class InnerComponentWrapperPartRenderer {
             uiComponent.getAttributes().put("styleClass", styleClass);
 
             writer.startElement("div", uiComponent);
-            writer.writeAttribute("class", Constants.BOOTSTRAP_COL_SM_10, null);
+            writer.writeAttribute("class", component.getHideLabel() ? Constants.BOOTSTRAP_COL_SM_12 : Constants.BOOTSTRAP_COL_SM_10, null);
         }
     }
 

@@ -25,6 +25,7 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
     protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
+    protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
@@ -69,6 +70,15 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
     public void setTooltip(final String tooltip) {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+    }
+
+    @Override
+    public boolean getHideLabel() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_HIDE_LABEL, false);
+    }
+
+    public void setHideLabel(final String hideLabel) {
+        this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
     }
 
     public String getPlaceholder() {

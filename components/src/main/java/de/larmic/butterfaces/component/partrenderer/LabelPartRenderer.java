@@ -24,27 +24,29 @@ public class LabelPartRenderer {
     private void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
                                        final boolean required, final String label, final ResponseWriter writer) throws IOException {
         if (!StringUtils.isEmpty(label)) {
-            final UIInput uiComponent = (UIInput) component;
+            if (!component.getHideLabel()) {
+                final UIInput uiComponent = (UIInput) component;
 
-            writer.startElement("label", uiComponent);
-            if (!readonly) {
-                writer.writeAttribute("for", uiComponent.getId(), null);
+                writer.startElement("label", uiComponent);
+                if (!readonly) {
+                    writer.writeAttribute("for", uiComponent.getId(), null);
+                }
+
+                writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
+                        Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2L, Constants.LABEL_MARKER_STYLE_CLASS,
+                        Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
+
+                writer.startElement("abbr", uiComponent);
+                if (this.isTooltipNecessary(component)) {
+                    writer.writeAttribute("title", component.getTooltip(), null);
+                }
+                writer.writeText(component.getLabel(), null);
+                writer.endElement("abbr");
+
+                this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
+
+                writer.endElement("label");
             }
-
-            writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2L, Constants.LABEL_MARKER_STYLE_CLASS,
-                    Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
-
-            writer.startElement("abbr", uiComponent);
-            if (this.isTooltipNecessary(component)) {
-                writer.writeAttribute("title", component.getTooltip(), null);
-            }
-            writer.writeText(component.getLabel(), null);
-            writer.endElement("abbr");
-
-            this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
-
-            writer.endElement("label");
 
             component.setLabel(label);
         }
