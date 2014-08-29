@@ -16,6 +16,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private boolean required;
     private boolean floating;
     private boolean validation;
+    private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
 
     public AbstractInputShowcaseComponent() {
@@ -184,5 +185,13 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setAjaxType(final AjaxType ajax) {
         this.ajaxType = ajax;
+    }
+
+    public boolean isHideLabel() {
+        return hideLabel;
+    }
+
+    public void setHideLabel(boolean hideLabel) {
+        this.hideLabel = hideLabel;
     }
 }
