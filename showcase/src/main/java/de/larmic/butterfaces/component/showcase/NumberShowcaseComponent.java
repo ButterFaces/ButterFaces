@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -57,6 +59,15 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    @Override
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
+            sb.append("}");
+        }
     }
 
     protected String getEmptyDistanceString() {

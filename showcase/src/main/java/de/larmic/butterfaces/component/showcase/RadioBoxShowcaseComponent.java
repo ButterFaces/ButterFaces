@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
@@ -114,6 +115,15 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		return sb.toString();
 	}
+
+    @Override
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
+            sb.append("}");
+        }
+    }
 
     protected String getEmptyDistanceString() {
         return "                    ";
