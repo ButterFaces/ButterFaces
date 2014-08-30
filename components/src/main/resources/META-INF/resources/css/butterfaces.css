@@ -93,6 +93,11 @@ select.butterfaces-input-component {
     margin-bottom: 0;
 }
 
+.larmic-component-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .form-group {
     position: relative;
 }

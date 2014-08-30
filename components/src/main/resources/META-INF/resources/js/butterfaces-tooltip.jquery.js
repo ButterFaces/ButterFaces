@@ -3,7 +3,7 @@
     $.fn.tooltip = function () {
         return this.each(function () {
             var root = $(this);
-            var valueElement = root.find("input, .butter-component-readonly-value");
+            var valueElement = root.find("input, .butterfaces-readonly-value");
             var tooltip = root.find(".butter-component-tooltip");
 
             if (tooltip.length > 0) {
