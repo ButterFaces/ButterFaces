@@ -17,7 +17,7 @@ public class TooltipPartRenderer {
 
         if (isTooltipNecessary(component)) {
             renderTooltipElement(component, writer, uiComponent);
-            RenderUtils.renderJQueryPluginCall(outerComponentId, "tooltip()", writer, uiComponent);
+            RenderUtils.renderJQueryPluginCall(outerComponentId, "butterTooltip()", writer, uiComponent);
         }
     }
 

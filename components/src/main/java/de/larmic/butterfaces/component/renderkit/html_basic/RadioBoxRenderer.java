@@ -62,6 +62,9 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
         // Close inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
+        // render tooltip elements if necessary
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
 	}
