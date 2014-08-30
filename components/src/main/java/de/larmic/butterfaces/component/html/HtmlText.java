@@ -10,7 +10,9 @@ import javax.faces.component.html.HtmlInputText;
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
 		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head") })
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
+})
 @FacesComponent(HtmlText.COMPONENT_TYPE)
 public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 

@@ -60,6 +60,8 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
         // Close inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }

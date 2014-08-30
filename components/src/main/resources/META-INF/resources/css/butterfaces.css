@@ -27,19 +27,19 @@ select.butterfaces-input-component {
     margin-left: 10px
 }
 
-.larmic-component-tooltip  .noteConnector {
-	height: 17px;
+.larmic-component-tooltip .noteConnector {
+    height: 17px;
     left: -11px;
     position: absolute;
     top: 2px;
     width: 11px;
     border: 0 none;
     z-index: 201;
-	background: transparent url(#{resource['img:noteConnectorLeft.png']}) no-repeat top !important;
+    background: transparent url(#{resource[ 'img:noteConnectorLeft.png' ]}) no-repeat top !important;
 }
 
 .larmic-component-tooltip .noteContent {
-	padding: 5px;
+    padding: 5px;
 }
 
 .larmic-component-error-message {
@@ -61,21 +61,21 @@ select.butterfaces-input-component {
 }
 
 .larmic-textarea-counter {
-	font-style: italic;
+    font-style: italic;
 }
 
 .butterfaces-component-floating {
     display: inline-block;
 }
 
-.larmic-component-toastContainer{
+.larmic-component-toastContainer {
     position: fixed;
     left: 0;
     top: 0;
     z-index: 500;
 }
 
-.larmic-component-toast-error{
+.larmic-component-toast-error {
     border: 2px solid #f00;
     background-color: #ddf;
     padding: 10px;
@@ -140,7 +140,7 @@ select.butterfaces-input-component {
 .butter-component-tooltip-right .butter-component-tooltip-arrow {
     height: 16px;
     width: 16px;
-    background-image: url("../img/tooltip_arrow_left.png");
+    background-image: url(#{resource[ 'img:tooltip_arrow_left.png' ]});
     position: absolute;
     top: 5px;
     left: 0;
@@ -154,7 +154,7 @@ select.butterfaces-input-component {
 .butter-component-tooltip-up .butter-component-tooltip-arrow {
     height: 16px;
     width: 16px;
-    background-image: url("../img/tooltip_arrow_up.png");
+    background-image: url(#{resource[ 'img:tooltip_arrow_up.png' ]});
     position: absolute;
     top: 0;
     left: 5px;
