@@ -23,6 +23,7 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 	protected static final String PROPERTY_FLOATING = "floating";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
+    protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_MAXLENGTH = "maxLength";
@@ -45,6 +46,15 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setInputStyleClass(final String inputStyleClass) {
         this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
+    }
+
+    @Override
+    public String getComponentStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    }
+
+    public void setComponentStyleClass(final String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
     }
 
     @Override

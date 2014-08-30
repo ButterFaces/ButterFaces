@@ -12,13 +12,13 @@ public class StringUtils {
         final StringBuilder sb = new StringBuilder();
 
         for (final String style : styles) {
-            if (style != null && !"".equals(style)) {
+            if (style != null && !BLANK.equals(style)) {
                 sb.append(style);
                 sb.append(" ");
             }
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public static final boolean isEmpty(final String value) {

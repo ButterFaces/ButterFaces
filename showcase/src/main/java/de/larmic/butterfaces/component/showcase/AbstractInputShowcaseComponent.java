@@ -20,6 +20,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private AjaxType ajaxType = AjaxType.NONE;
     private String inputStyleClass = null;
     private String labelStyleClass = null;
+    private String componentStyleClass = null;
 
     public AbstractInputShowcaseComponent() {
         this.value = this.initValue();
@@ -86,6 +87,17 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
         return items;
     }
+
+    public List<SelectItem> getComponentStyleClasses() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem(null, "default (null)"));
+        items.add(new SelectItem("inverted", "inverted"));
+
+        return items;
+    }
+
+
 
     protected void addXhtmlStart(final StringBuilder sb) {
         sb.append("<!DOCTYPE html>");
@@ -248,5 +260,13 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setLabelStyleClass(String labelStyleClass) {
         this.labelStyleClass = labelStyleClass;
+    }
+
+    public String getComponentStyleClass() {
+        return componentStyleClass;
+    }
+
+    public void setComponentStyleClass(String styleClass) {
+        this.componentStyleClass = styleClass;
     }
 }

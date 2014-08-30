@@ -12,7 +12,7 @@
 
 	<composite:implementation>
         <showcase:tagcontrol label="#{cc.attrs.label}">
-            <h:inputText value="#{cc.attrs.value}" styleClass="form-control" maxlength="20">
+            <h:inputText value="#{cc.attrs.value}" styleClass="form-control" maxlength="40">
                 <f:ajax event="keyup" execute="@this" render="output"/>
                 <composite:insertChildren />
             </h:inputText>

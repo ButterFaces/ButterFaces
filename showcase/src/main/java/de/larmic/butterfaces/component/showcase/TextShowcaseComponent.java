@@ -42,6 +42,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         this.appendString("pattern", this.getPattern(), sb);
         this.appendString("min", this.getMin(), sb);
         this.appendString("max", this.getMax(), sb);
+        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
         this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
