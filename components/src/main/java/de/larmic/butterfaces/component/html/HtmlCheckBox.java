@@ -23,7 +23,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
     protected static final String PROPERTY_DESCRIPTION = "description";
@@ -36,15 +35,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    @Override
-    public String getComponentStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_COMPONENT_STYLE_CLASS);
-    }
-
-    public void setComponentStyleClass(final String componentStyleClass) {
-        this.updateStateHelper(PROPERTY_COMPONENT_STYLE_CLASS, componentStyleClass);
     }
 
     @Override

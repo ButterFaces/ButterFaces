@@ -10,7 +10,7 @@ public interface HtmlInputComponent {
 
     boolean getFloating();
 
-    String getComponentStyleClass();
+    String getStyleClass();
 
     String getInputStyleClass();
 

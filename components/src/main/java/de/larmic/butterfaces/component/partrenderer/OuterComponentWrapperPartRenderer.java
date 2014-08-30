@@ -22,7 +22,7 @@ public class OuterComponentWrapperPartRenderer {
         final String floatingStyle = floating ? Constants.FLOATING_STYLE_CLASS : Constants.NON_FLOATING_STYLE_CLASS;
         final String validationClass = valid ? null : Constants.BOOTSTRAP_ERROR;
         final String styleClass = StringUtils.concatWithSpace(Constants.COMPONENT_STYLE_CLASS, Constants.BOOTSTRAP_CONTAINER,
-                component.getComponentStyleClass(), validationClass, floatingStyle);
+                component.getStyleClass(), validationClass, floatingStyle);
 
         writer.writeAttribute("class", styleClass, null);
     }
