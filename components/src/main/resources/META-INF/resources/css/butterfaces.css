@@ -64,6 +64,10 @@ select.butterfaces-input-component {
     font-style: italic;
 }
 
+.butterfaces-component .checkbox {
+    margin-top: 0;
+}
+
 .butterfaces-component-floating {
     display: inline-block;
 }

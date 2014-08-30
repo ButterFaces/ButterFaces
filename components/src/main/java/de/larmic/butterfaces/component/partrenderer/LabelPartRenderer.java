@@ -12,7 +12,6 @@ import java.io.IOException;
 public class LabelPartRenderer {
 
 
-
     public void renderLabel(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
         final boolean readonly = component.isReadonly();
         final boolean required = component.isRequired();
@@ -23,30 +22,28 @@ public class LabelPartRenderer {
 
     private void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
                                        final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (!StringUtils.isEmpty(label)) {
-            if (!component.getHideLabel()) {
-                final UIInput uiComponent = (UIInput) component;
+        if (!StringUtils.isEmpty(label) && !component.getHideLabel()) {
+            final UIInput uiComponent = (UIInput) component;
 
-                writer.startElement("label", uiComponent);
-                if (!readonly) {
-                    writer.writeAttribute("for", uiComponent.getId(), null);
-                }
-
-                writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                        Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2, Constants.LABEL_MARKER_STYLE_CLASS,
-                        Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
-
-                writer.startElement("abbr", uiComponent);
-                if (this.isTooltipNecessary(component)) {
-                    writer.writeAttribute("title", component.getTooltip(), null);
-                }
-                writer.writeText(component.getLabel(), null);
-                writer.endElement("abbr");
-
-                this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
-
-                writer.endElement("label");
+            writer.startElement("label", uiComponent);
+            if (!readonly) {
+                writer.writeAttribute("for", uiComponent.getId(), null);
             }
+
+            writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
+                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2, Constants.LABEL_MARKER_STYLE_CLASS,
+                    Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
+
+            writer.startElement("abbr", uiComponent);
+            if (this.isTooltipNecessary(component)) {
+                writer.writeAttribute("title", component.getTooltip(), null);
+            }
+            writer.writeText(component.getLabel(), null);
+            writer.endElement("abbr");
+
+            this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
+
+            writer.endElement("label");
         }
     }
 

@@ -32,6 +32,7 @@ public class Constants {
     public static final String BOOTSTRAP_COL_SM_9 = "col-sm-9";
     public static final String BOOTSTRAP_COL_SM_10 = "col-sm-10";
     public static final String BOOTSTRAP_COL_SM_12 = "col-sm-12";
+    public static final String BOOTSTRAP_COL_SM_OFFSET_2 = "col-sm-offset-2";
     public static final String BOOTSTRAP_ERROR = "has-error";
     public static final String BOOTSTRAP_CONTAINER = "form-group";
 

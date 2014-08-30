@@ -5,6 +5,9 @@ package de.larmic.butterfaces.component.partrenderer;
  */
 public class StringUtils {
 
+    public static final String BLANK = "";
+    public static final String SPACE = " ";
+
     public static final String concatWithSpace(final String... styles) {
         final StringBuilder sb = new StringBuilder();
 

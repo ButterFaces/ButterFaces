@@ -34,7 +34,7 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -50,7 +50,7 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
         }
 
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(htmlComponent, writer);

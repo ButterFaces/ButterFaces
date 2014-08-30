@@ -1,19 +1,16 @@
 package de.larmic.butterfaces.component.partrenderer;
 
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
-import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-/**
- * Created by larmic on 27.08.14.
- */
-public class InnerComponentWrapperPartRenderer {
+public class InnerComponentCheckBoxWrapperPartRenderer {
 
     public void renderInnerWrapperBegin(final HtmlInputComponent component, final ResponseWriter writer)
             throws IOException {
-        final UIInput uiComponent = (UIInput) component;
+        final HtmlCheckBox uiComponent = (HtmlCheckBox) component;
 
         if (!component.isReadonly()) {
             final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
@@ -39,13 +36,25 @@ public class InnerComponentWrapperPartRenderer {
             writer.startElement("div", uiComponent);
             writer.writeAttribute("class",
                     StringUtils.isEmpty(inputStyleClass) ? defaultStyleClass.toString() : inputStyleClass, null);
+
+            if (!StringUtils.isEmpty(uiComponent.getDescription())) {
+                writer.startElement("div", uiComponent);
+                writer.writeAttribute("class", "checkbox", null);
+                writer.startElement("label", uiComponent);
+            }
         }
     }
 
     public void renderInnerWrapperEnd(final HtmlInputComponent component, final ResponseWriter writer)
             throws IOException {
         if (!component.isReadonly()) {
-            final UIInput uiComponent = (UIInput) component;
+            final HtmlCheckBox uiComponent = (HtmlCheckBox) component;
+
+            if (!StringUtils.isEmpty(uiComponent.getDescription())) {
+                writer.writeText(uiComponent.getDescription(), null);
+                writer.endElement("label");
+                writer.endElement("div");
+            }
 
             writer.startElement("script", uiComponent);
             writer.writeText("addLabelAttributeToInnerComponent('" + component.getClientId() + "', '"

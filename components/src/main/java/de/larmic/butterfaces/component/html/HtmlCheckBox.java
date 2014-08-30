@@ -26,6 +26,7 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
+    protected static final String PROPERTY_DESCRIPTION = "description";
 
     public HtmlCheckBox() {
         super();
@@ -89,6 +90,14 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setFloating(final Boolean floating) {
         this.updateStateHelper(PROPERTY_FLOATING, floating);
+    }
+
+    public String getDescription() {
+        return (String) this.getStateHelper().eval(PROPERTY_DESCRIPTION);
+    }
+
+    public void setDescription(final String description) {
+        this.updateStateHelper(PROPERTY_DESCRIPTION, description);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

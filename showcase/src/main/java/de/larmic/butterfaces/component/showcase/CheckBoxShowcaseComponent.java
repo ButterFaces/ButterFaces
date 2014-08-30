@@ -9,6 +9,8 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
+    private String description = "some description";
+
     @Override
     protected Object initValue() {
         return false;
@@ -30,6 +32,7 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("description", this.getDescription(), sb);
         this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
@@ -46,6 +49,14 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     protected String getEmptyDistanceString() {
