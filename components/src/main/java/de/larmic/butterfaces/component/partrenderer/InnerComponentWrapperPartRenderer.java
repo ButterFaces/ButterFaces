@@ -16,14 +16,16 @@ public class InnerComponentWrapperPartRenderer {
 
         if (!component.isReadonly()) {
             final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
-                    Constants.BOOTSTRAP_FORM_CONTROL,
-                    component.getInputStyleClass(), !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
+                    Constants.BOOTSTRAP_FORM_CONTROL, !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
 
             uiComponent.getAttributes().put("styleClass", styleClass);
 
+            final String defaultStyleClass = component.getHideLabel() || StringUtils.isEmpty(component.getLabel())
+                    ? Constants.BOOTSTRAP_COL_SM_12 : Constants.BOOTSTRAP_COL_SM_10;
+            final String inputStyleClass = component.getInputStyleClass();
+
             writer.startElement("div", uiComponent);
-            writer.writeAttribute("class", component.getHideLabel() || StringUtils.isEmpty(component.getLabel())
-                    ? Constants.BOOTSTRAP_COL_SM_12 : Constants.BOOTSTRAP_COL_SM_10, null);
+            writer.writeAttribute("class", StringUtils.isEmpty(inputStyleClass) ? defaultStyleClass : inputStyleClass, null);
         }
     }
 

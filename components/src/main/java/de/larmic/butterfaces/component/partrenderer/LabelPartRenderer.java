@@ -33,7 +33,7 @@ public class LabelPartRenderer {
                 }
 
                 writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                        Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2L, Constants.LABEL_MARKER_STYLE_CLASS,
+                        Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2, Constants.LABEL_MARKER_STYLE_CLASS,
                         Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
 
                 writer.startElement("abbr", uiComponent);
