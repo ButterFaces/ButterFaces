@@ -30,9 +30,12 @@ public class LabelPartRenderer {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
 
+            final String labelStyleClass = component.getLabelStyleClass();
+
+
             writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.BOOTSTRAP_COL_SM_2, Constants.LABEL_MARKER_STYLE_CLASS,
-                    Constants.TOOLTIP_LABEL_CLASS, component.getLabelStyleClass()), null);
+                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS,
+                    StringUtils.isEmpty(labelStyleClass) ? Constants.BOOTSTRAP_COL_SM_2 : labelStyleClass), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {

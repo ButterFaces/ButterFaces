@@ -19,6 +19,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
     private String inputStyleClass = null;
+    private String labelStyleClass = null;
 
     public AbstractInputShowcaseComponent() {
         this.value = this.initValue();
@@ -52,7 +53,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     public List<SelectItem> getInputStyleClasses() {
         final List<SelectItem> items = new ArrayList<>();
 
-        items.add(new SelectItem(null, "default (col-sm-10)"));
         items.add(new SelectItem("col-sm-1", "col-sm-1"));
         items.add(new SelectItem("col-sm-2", "col-sm-2"));
         items.add(new SelectItem("col-sm-3", "col-sm-3"));
@@ -62,6 +62,27 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         items.add(new SelectItem("col-sm-7", "col-sm-7"));
         items.add(new SelectItem("col-sm-8", "col-sm-8"));
         items.add(new SelectItem("col-sm-9", "col-sm-9"));
+        items.add(new SelectItem(null, "default (col-sm-10)"));
+        items.add(new SelectItem("col-sm-9", "col-sm-11"));
+        items.add(new SelectItem("col-sm-9", "col-sm-12"));
+
+        return items;
+    }
+
+    public List<SelectItem> getLabelStyleClasses() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem("col-sm-1", "col-sm-1"));
+        items.add(new SelectItem(null, "default (col-sm-2)"));
+        items.add(new SelectItem("col-sm-3", "col-sm-3"));
+        items.add(new SelectItem("col-sm-4", "col-sm-4"));
+        items.add(new SelectItem("col-sm-5", "col-sm-5"));
+        items.add(new SelectItem("col-sm-6", "col-sm-6"));
+        items.add(new SelectItem("col-sm-7", "col-sm-7"));
+        items.add(new SelectItem("col-sm-8", "col-sm-8"));
+        items.add(new SelectItem("col-sm-9", "col-sm-10"));
+        items.add(new SelectItem("col-sm-9", "col-sm-11"));
+        items.add(new SelectItem("col-sm-9", "col-sm-12"));
 
         return items;
     }
@@ -219,5 +240,13 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setInputStyleClass(String inputStyleClass) {
         this.inputStyleClass = inputStyleClass;
+    }
+
+    public String getLabelStyleClass() {
+        return labelStyleClass;
+    }
+
+    public void setLabelStyleClass(String labelStyleClass) {
+        this.labelStyleClass = labelStyleClass;
     }
 }

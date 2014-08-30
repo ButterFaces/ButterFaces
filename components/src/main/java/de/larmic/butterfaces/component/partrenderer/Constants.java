@@ -7,7 +7,6 @@ public class Constants {
 
     public static final String INPUT_COMPONENT_MARKER = "butterfaces-input-component";
     public static final String INVALID_STYLE_CLASS = "butterfaces-invalid";
-    public static final String LABEL_MARKER_STYLE_CLASS = "larmic-component-label-marker";
     public static final String LABEL_STYLE_CLASS = "larmic-component-label";
     public static final String TOOLTIP_LABEL_CLASS = "larmic-component-label-tooltip";
     public static final String REQUIRED_SPAN_CLASS = "larmic-component-required";
