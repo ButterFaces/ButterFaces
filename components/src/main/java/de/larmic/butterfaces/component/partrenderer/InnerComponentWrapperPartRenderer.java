@@ -32,11 +32,7 @@ public class InnerComponentWrapperPartRenderer {
     public void renderInnerWrapperEnd(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
         if (!component.isReadonly()) {
             final UIInput uiComponent = (UIInput) component;
-            final StringBuffer jsCall = new StringBuffer();
 
-            // add bootstrap radio class to component
-            // bootstrap radio buttons are using pageDirection as default
-            // maybe use radio-inline
             writer.startElement("script", uiComponent);
             writer.writeText("addLabelAttributeToInnerComponent('" + component.getClientId() + "', '" + component.getLabel() + "');", null);
             writer.endElement("script");

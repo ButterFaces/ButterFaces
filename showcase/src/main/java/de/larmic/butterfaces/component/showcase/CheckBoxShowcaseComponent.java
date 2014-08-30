@@ -30,6 +30,7 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);

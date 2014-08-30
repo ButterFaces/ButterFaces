@@ -18,6 +18,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private boolean validation;
     private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
+    private String inputStyleClass = null;
 
     public AbstractInputShowcaseComponent() {
         this.value = this.initValue();
@@ -45,6 +46,23 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         for (final AjaxType type : AjaxType.values()) {
             items.add(new SelectItem(type, type.label));
         }
+        return items;
+    }
+
+    public List<SelectItem> getInputStyleClasses() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem(null, "default (col-sm-10)"));
+        items.add(new SelectItem("col-sm-1", "col-sm-1"));
+        items.add(new SelectItem("col-sm-2", "col-sm-2"));
+        items.add(new SelectItem("col-sm-3", "col-sm-3"));
+        items.add(new SelectItem("col-sm-4", "col-sm-4"));
+        items.add(new SelectItem("col-sm-5", "col-sm-5"));
+        items.add(new SelectItem("col-sm-6", "col-sm-6"));
+        items.add(new SelectItem("col-sm-7", "col-sm-7"));
+        items.add(new SelectItem("col-sm-8", "col-sm-8"));
+        items.add(new SelectItem("col-sm-9", "col-sm-9"));
+
         return items;
     }
 
@@ -193,5 +211,13 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setHideLabel(boolean hideLabel) {
         this.hideLabel = hideLabel;
+    }
+
+    public String getInputStyleClass() {
+        return inputStyleClass;
+    }
+
+    public void setInputStyleClass(String inputStyleClass) {
+        this.inputStyleClass = inputStyleClass;
     }
 }

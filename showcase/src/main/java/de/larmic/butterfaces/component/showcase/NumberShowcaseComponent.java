@@ -38,6 +38,7 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.appendString("placeholder", this.getPlaceholder(), sb);
         this.appendString("min", this.getMin(), sb);
         this.appendString("max", this.getMax(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
