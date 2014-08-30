@@ -92,7 +92,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem(null, "default (null)"));
-        items.add(new SelectItem("inverted", "inverted"));
+        items.add(new SelectItem("some-demo-class", "some-demo-class"));
 
         return items;
     }
