@@ -2,6 +2,10 @@ select.butterfaces-input-component {
     height: 34px; /* bootstrap default height */
 }
 
+.butterfaces-readonly-value {
+    white-space: pre-wrap;
+}
+
 .larmic-component-required {
     color: #a94442;
     margin-right: 2px;
