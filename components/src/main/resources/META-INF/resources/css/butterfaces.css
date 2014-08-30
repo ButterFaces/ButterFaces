@@ -110,6 +110,10 @@ select.butterfaces-input-component {
     clear: both;
 }
 
+.butter-component-tooltip {
+    display: inline-block;
+}
+
 /*.butter-component.butter-component-tooltip-shown,
 .butter-component.butter-component-tooltip-hidden {
     -webkit-transition: 0.5s linear all;

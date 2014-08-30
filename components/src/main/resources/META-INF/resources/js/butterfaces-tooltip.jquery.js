@@ -9,6 +9,7 @@
 
             if (tooltip.length > 0) {
                 console.log("found tooltip element");
+
                 var _positionTooltip = function () {
                     var tooltipWidth = tooltip.outerWidth();
                     var winWidth = $(window).width();
