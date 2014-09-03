@@ -62,7 +62,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Arquillian itself-->
@@ -98,11 +98,6 @@
             <artifactId>wildfly-embedded</artifactId>
             <version>8.1.0.Final</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.larmic.butterfaces</groupId>
-            <artifactId>showcase</artifactId>
-            <type>war</type>
         </dependency>
     </dependencies>
 
