@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 /**
- * Created by larmic on 03.09.14.
+ * Simple Arquillian test using {@link org.jboss.shrinkwrap.api.spec.JavaArchive} and wildfly as container.
  */
 @RunWith(Arquillian.class)
 public class GretterTest {

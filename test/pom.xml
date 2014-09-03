@@ -99,6 +99,11 @@
             <version>8.1.0.Final</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.larmic.butterfaces</groupId>
+            <artifactId>showcase</artifactId>
+            <type>war</type>
+        </dependency>
     </dependencies>
 
 </project>

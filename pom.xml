@@ -141,6 +141,12 @@
                 <artifactId>components</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>de.larmic.butterfaces</groupId>
+                <artifactId>showcase</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
