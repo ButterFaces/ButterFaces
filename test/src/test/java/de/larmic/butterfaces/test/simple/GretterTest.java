@@ -1,9 +1,8 @@
 package de.larmic.butterfaces.test.simple;
 
+import de.larmic.butterfaces.test.Deployments;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,9 +18,7 @@ public class GretterTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClass(Greeter.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return Deployments.createGreeterDeployment();
     }
 
     @Inject

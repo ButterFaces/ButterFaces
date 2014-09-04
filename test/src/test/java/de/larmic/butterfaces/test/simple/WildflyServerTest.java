@@ -1,12 +1,11 @@
 package de.larmic.butterfaces.test.simple;
 
+import de.larmic.butterfaces.test.Deployments;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -15,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.io.File;
 import java.net.URL;
 
 /**
@@ -26,9 +24,7 @@ public class WildflyServerTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(ZipImporter.class, "showcase.war")
-                .importFrom(new File("/Users/larmic/Work/Private/workspace/butterfaces/showcase/target/showcase-1.5.6-SNAPSHOT.war"))
-                .as(WebArchive.class);
+        return Deployments.createShowcaseDeployment();
     }
 
     @Drone
