@@ -27,6 +27,9 @@ public class GretterTest {
     @Inject
     private Greeter greeter;
 
+    /**
+     * Tests injecting cdi bean and call method on it.
+     */
     @Test
     public void should_create_greeting() {
         Assert.assertEquals("Hello, Earthling!", greeter.createGreeting("Earthling"));

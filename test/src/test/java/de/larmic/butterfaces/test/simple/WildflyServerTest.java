@@ -70,6 +70,9 @@ public class WildflyServerTest {
         }
     }
 
+    /**
+     * Tests finding all component links on butterfaces welcome page.
+     */
     @Test
     public void testWelcomPage() throws Exception {
         browser.get(deploymentUrl + "index.jsf");
