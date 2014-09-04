@@ -16,7 +16,7 @@
             <property name="managementPort">9990</property>
         </configuration>
     </container>
-    <extension qualifier="persistence-dbunit">
-        <property name="defaultDataSetFormat">YAML</property>
+    <extension qualifier="webdriver">
+        <property name="browser">${browser}</property>
     </extension>
 </arquillian>
