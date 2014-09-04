@@ -28,17 +28,18 @@ public class Deployments {
         File showcase = new File(absoluteTestExecutionPath + SHOWCASE_PATH);
 
         if (!showcase.exists()) {
-            if (absoluteTestExecutionPath.endsWith("test/")) {
+            System.out.println("ZZZZ:" + absoluteTestExecutionPath);
+
+            if (absoluteTestExecutionPath.endsWith("test/.")) {
                 // Pathes are not equal wenn starting test in IDE or by maven goal.
-                showcase = new File(absoluteTestExecutionPath + "../" + SHOWCASE_PATH);
+                System.out.println("ZZZZ:" + absoluteTestExecutionPath + "./" + SHOWCASE_PATH);
+                showcase = new File(absoluteTestExecutionPath + "./" + SHOWCASE_PATH);
             } else {
                 Assert.fail("Could not find showcase.war");
                 return null;
             }
         }
 
-
-        System.out.println("ZZZZ:" + showcase.getAbsolutePath());
         return ShrinkWrap.create(ZipImporter.class, "showcase.war").importFrom(showcase).as(WebArchive.class);
     }
 
