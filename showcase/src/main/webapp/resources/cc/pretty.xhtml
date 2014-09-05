@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:l="http://butterfaces.larmic.de/components"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <composite:interface>
+        <composite:attribute name="component" type="de.larmic.butterfaces.component.showcase.PrettyPrintShowcaseComponent" required="true" />
+    </composite:interface>
+
+    <composite:implementation>
+        <l:prettyprint id="prettyprint"
+                       language="lang-html"
+                       rendered="#{cc.attrs.component.rendered}">
+            #{cc.attrs.component.htmlExample}
+        </l:prettyprint>
+    </composite:implementation>
+</h:body>
+</html>
