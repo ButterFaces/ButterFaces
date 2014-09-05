@@ -17,8 +17,10 @@ public class RemoveResourceListener implements SystemEventListener {
     private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-configurable";
     public static final String CTX_PARAM_JQUERY = "de.larmic.butterfaces.provideJQuery";
     public static final String CTX_PARAM_BOOTSTRAP = "de.larmic.butterfaces.provideBootstrap";
+    public static final String CTX_PARAM_PRETTYPRINT = "de.larmic.butterfaces.providePrettify";
     public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
     public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
+    public static final String PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER = "prettify";
 
     @Override
     public void processEvent(final SystemEvent event) throws AbortProcessingException {
@@ -26,6 +28,7 @@ public class RemoveResourceListener implements SystemEventListener {
         final ExternalContext externalContext = context.getExternalContext();
         final boolean provideJQuery = this.readContextParameter(externalContext, CTX_PARAM_JQUERY);
         final boolean provideBootstrap = this.readContextParameter(externalContext, CTX_PARAM_BOOTSTRAP);
+        final boolean providePrettyprint = this.readContextParameter(externalContext, CTX_PARAM_PRETTYPRINT);
 
         if (!provideJQuery || !provideBootstrap) {
             // Fetch included resources list size
@@ -44,6 +47,10 @@ public class RemoveResourceListener implements SystemEventListener {
                         context.getViewRoot().removeComponentResource(context, resource, HEAD);
                     }
                     if (!provideBootstrap && resourceName.startsWith(BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER)) {
+                        // Remove resource from view
+                        context.getViewRoot().removeComponentResource(context, resource, HEAD);
+                    }
+                    if (!providePrettyprint && resourceName.startsWith(PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER)) {
                         // Remove resource from view
                         context.getViewRoot().removeComponentResource(context, resource, HEAD);
                     }
