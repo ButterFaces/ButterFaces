@@ -496,4 +496,27 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
+
+    <tag>
+        <tag-name>prettyprint</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.prettyprint</component-type>
+        </component>
+        <attribute>
+            <name>language</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 </facelet-taglib>
