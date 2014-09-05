@@ -38,7 +38,7 @@ public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent
         html.append("      </l:fieldset>\n");
         html.append("   </form>\n");
         html.append("</body>\n");
-        html.append("</html>\n");
+        html.append("</html>");
 
         return html.toString();
     }

@@ -7,6 +7,7 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
+        @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "prettify.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "prettify.js", target = "head")})
 @FacesComponent(HtmlPrettyPrint.COMPONENT_TYPE)

@@ -24,6 +24,24 @@ function handleSpinner(e, component, min, max) {
 };
 
 /**
+ * calls pretty print javascript framework and removes first and last empty children.
+ */
+function handlePrettyPrint(/*String*/ clientId) {
+    prettyPrint();
+
+    var $component = jQuery(document.getElementById(clientId));
+    var $firstPreChild = $component.find("pre span").first();
+    var $lastPreChild = $component.find("pre span").last();
+
+    if (!$firstPreChild.html().trim()) {
+        $firstPreChild.remove();
+    }
+    if (!$lastPreChild.html().trim()) {
+        $lastPreChild.remove();
+    }
+}
+
+/**
  *====================================================================================
  *DOM UTILS
  *====================================================================================
