@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>l:prettyprint</strong> The print tag renders an HTML element of the type "div" with included "pre".
+    </ui:define>
+
+    <ui:define name="attributes">
+        <h:form prependId="false">
+            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseComponent.rendered}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="html5attributes">
+    </ui:define>
+
+    <ui:define name="facets">
+    </ui:define>
+
+    <ui:define name="controls">
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:prettyPrintShowcase component="#{prettyPrintShowcaseComponent}" />
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('prettyprint');
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{prettyPrintShowcaseComponent}"/>
+    </ui:define>
+</ui:composition>

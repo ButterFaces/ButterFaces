@@ -34,7 +34,7 @@ public class TextComponentTest {
     @ArquillianResource
     private URL deploymentUrl;
 
-    @FindByJQuery("a.test_marker_text")
+    @FindByJQuery("a.arquillian_text")
     private WebElement textLink;
 
     @Test

@@ -7,21 +7,33 @@
     <ui:define name="content">
 
         <div class="jumbotron">
-            <h2>Welcome to ButterFaces</h2>
+            <h2>ButterFaces showcase</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Input components</h4>
+                    <ul>
+                        <li><h:link value="l:text" outcome="/text" styleClass="arquillian_text"/></li>
+                        <li><h:link value="l:textarea" outcome="/textarea" styleClass="arquillian_textarea"/></li>
+                        <li><h:link value="l:secret" outcome="/secret" styleClass="arquillian_secret"/></li>
+                        <li><h:link value="l:number" outcome="/number" styleClass="arquillian_number"/></li>
+                        <li><h:link value="l:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox"/></li>
+                        <li><h:link value="l:combobox" outcome="/combobox" styleClass="arquillian_combobox"/></li>
+                        <li><h:link value="l:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox"/></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Container</h4>
+                    <ul>
+                        <li><h:link value="l:fieldset" outcome="/fieldset" styleClass="arquillian_fieldset"/></li>
+                        <li><h:link value="l:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint experimental"/></li>
+                    </ul>
+                </div>
+            </div>
             <p>
-                <ul>
-                    <li><h:link value="l:text" outcome="/text" styleClass="test_marker_text"/></li>
-                    <li><h:link value="l:textarea" outcome="/textarea" styleClass="test_marker_textarea"/></li>
-                    <li><h:link value="l:secret" outcome="/secret" styleClass="test_marker_secret"/></li>
-                    <li><h:link value="l:number" outcome="/number" styleClass="test_marker_number"/></li>
-                    <li><h:link value="l:checkbox" outcome="/checkbox" styleClass="test_marker_checkbox"/></li>
-                    <li><h:link value="l:combobox" outcome="/combobox" styleClass="test_marker_combobox"/></li>
-                    <li><h:link value="l:radiobox" outcome="/radiobox" styleClass="test_marker_radiobox"/></li>
-                    <li><h:link value="l:fieldset" outcome="/fieldset" styleClass="test_marker_fieldset"/></li>
-                </ul>
+
             </p>
         </div>
-
 
     </ui:define>
 

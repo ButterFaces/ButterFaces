@@ -33,21 +33,21 @@ public class WildflyServerTest {
     @ArquillianResource
     private URL deploymentUrl;
 
-    @FindByJQuery("a.test_marker_text")
+    @FindByJQuery("a.arquillian_text")
     private WebElement textLink;
-    @FindByJQuery("a.test_marker_textarea")
+    @FindByJQuery("a.arquillian_textarea")
     private WebElement textAreaLink;
-    @FindByJQuery("a.test_marker_secret")
+    @FindByJQuery("a.arquillian_secret")
     private WebElement secretink;
-    @FindByJQuery("a.test_marker_number")
+    @FindByJQuery("a.arquillian_number")
     private WebElement numberLink;
-    @FindByJQuery("a.test_marker_checkbox")
+    @FindByJQuery("a.arquillian_checkbox")
     private WebElement checkboxLink;
-    @FindByJQuery("a.test_marker_combobox")
+    @FindByJQuery("a.arquillian_combobox")
     private WebElement comboboxLink;
-    @FindByJQuery("a.test_marker_radiobox")
+    @FindByJQuery("a.arquillian_radiobox")
     private WebElement radioboxLink;
-    @FindByJQuery("a.test_marker_fieldset")
+    @FindByJQuery("a.arquillian_fieldset")
     private WebElement fieldsetLink;
 
     /**
