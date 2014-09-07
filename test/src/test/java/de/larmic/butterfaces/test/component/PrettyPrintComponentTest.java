@@ -1,6 +1,5 @@
 package de.larmic.butterfaces.test.component;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
@@ -21,22 +20,30 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 public class PrettyPrintComponentTest extends AbstractComponentTest {
 
     public static final String BUTTER_COMPONENT_PRETTYPRINT = "arquillian_component";
+    public static final String OPTION_RENDERED = "arquillian_rendered";
+    public static final String OPTION_LANGUAGE = "arquillian_language";
 
-    @FindByJQuery("a.arquillian_prettyprint")
-    private WebElement prettyPrintLink;
+    @Test
+    public void testNavigation() throws Exception {
+        browser.get(deploymentUrl + "index.jsf");
+        guardHttp(this.findWebElementByClassName("arquillian_prettyprint")).click();
+        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "prettyprint.jsf", browser.getCurrentUrl());
+
+        browser.get(deploymentUrl + "index.jsf");
+        guardHttp(this.findWebElementByClassName("arquillian_prettyprint_header")).click();
+        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "prettyprint.jsf", browser.getCurrentUrl());
+    }
 
     @Test
     @InSequence(1)
     public void testElementsExists() {
-        browser.get(deploymentUrl + "index.jsf");
-
-        guardHttp(prettyPrintLink).click();
+        browser.get(deploymentUrl + "prettyprint.jsf");
 
         Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "prettyprint.jsf", browser.getCurrentUrl());
 
         this.findShowcaseComponentPre();
-        this.findWebElementByClassName("arquillian_rendered");
-        this.findWebElementByClassName("arquillian_language");
+        this.findWebElementByClassName(OPTION_RENDERED);
+        this.findWebElementByClassName(OPTION_LANGUAGE);
     }
 
     @Test
@@ -44,7 +51,7 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
     public void testRenderedOption() throws Exception {
         browser.get(deploymentUrl + "prettyprint.jsf");
 
-        final WebElement showcaseRenderedOption = this.findWebElementByClassName("arquillian_rendered");
+        final WebElement showcaseRenderedOption = this.findWebElementByClassName(OPTION_RENDERED);
 
         // test component not rendered
         guardAjax(showcaseRenderedOption).click();
@@ -53,6 +60,12 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
         // test render component again
         guardAjax(showcaseRenderedOption).click();
         Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT));
+    }
+
+    @Test
+    @InSequence(3)
+    public void testLanguageOption() throws Exception {
+        browser.get(deploymentUrl + "prettyprint.jsf");
     }
 
     private WebElement findShowcaseComponentPre() {

@@ -49,6 +49,8 @@ public class WildflyServerTest {
     private WebElement radioboxLink;
     @FindByJQuery("a.arquillian_fieldset")
     private WebElement fieldsetLink;
+    @FindByJQuery("a.arquillian_prettyprint")
+    private WebElement prettyPrintLink;
 
     /**
      * Run test endless for manually test.
@@ -81,5 +83,6 @@ public class WildflyServerTest {
         Assert.assertEquals("a", comboboxLink.getTagName());
         Assert.assertEquals("a", radioboxLink.getTagName());
         Assert.assertEquals("a", fieldsetLink.getTagName());
+        Assert.assertEquals("a", prettyPrintLink.getTagName());
     }
 }
