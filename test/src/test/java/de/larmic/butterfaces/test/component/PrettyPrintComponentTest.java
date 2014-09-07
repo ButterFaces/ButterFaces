@@ -1,21 +1,13 @@
 package de.larmic.butterfaces.test.component;
 
-import de.larmic.butterfaces.test.Deployments;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.net.URL;
 import java.util.List;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
@@ -24,18 +16,7 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
  * Created by larmic on 04.09.14.
  */
 @RunWith(Arquillian.class)
-public class PrettyPrintComponentTest {
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return Deployments.createShowcaseDeployment();
-    }
-
-    @Drone
-    private WebDriver browser;
-
-    @ArquillianResource
-    private URL deploymentUrl;
+public class PrettyPrintComponentTest extends AbstractComponentTest {
 
     @FindByJQuery("a.arquillian_prettyprint")
     private WebElement prettyPrintLink;
@@ -62,15 +43,4 @@ public class PrettyPrintComponentTest {
         return pres.get(0);
     }
 
-    private WebElement findWebElementByClassName(final String className) {
-        try {
-            final WebElement webElement = browser.findElement(By.className(className));
-            return webElement;
-        } catch (NoSuchElementException e) {
-            Assert.fail(e.toString());
-        }
-
-        return null;
-
-    }
 }
