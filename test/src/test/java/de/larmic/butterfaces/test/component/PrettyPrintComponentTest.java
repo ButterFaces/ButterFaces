@@ -39,6 +39,9 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
         this.findWebElementByClassName("arquillian_language");
     }
 
+    /**
+     * disabled because ajax event is not called...
+     */
     @Test
     @InSequence(2)
     @Ignore
