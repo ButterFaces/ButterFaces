@@ -4,7 +4,6 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -21,10 +20,11 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 @RunWith(Arquillian.class)
 public class PrettyPrintComponentTest extends AbstractComponentTest {
 
-    public static final String BUTTER_COMPONENT_PRETTYPRINT = "butter-component-prettyprint";
+    public static final String BUTTER_COMPONENT_PRETTYPRINT = "arquillian_component";
 
     @FindByJQuery("a.arquillian_prettyprint")
     private WebElement prettyPrintLink;
+
     @Test
     @InSequence(1)
     public void testElementsExists() {
@@ -39,12 +39,8 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
         this.findWebElementByClassName("arquillian_language");
     }
 
-    /**
-     * disabled because ajax event is not called...
-     */
     @Test
     @InSequence(2)
-    @Ignore
     public void testRenderedOption() throws Exception {
         browser.get(deploymentUrl + "prettyprint.jsf");
 

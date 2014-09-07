@@ -13,6 +13,7 @@
     <composite:implementation>
         <l:prettyprint id="prettyprint"
                        language="#{cc.attrs.component.language}"
+                       styleClass="arquillian_component"
                        rendered="#{cc.attrs.component.rendered}">
             #{cc.attrs.component.content}
         </l:prettyprint>
