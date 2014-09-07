@@ -12,9 +12,9 @@
 
     <composite:implementation>
         <l:prettyprint id="prettyprint"
-                       language="lang-html"
+                       language="#{cc.attrs.component.language}"
                        rendered="#{cc.attrs.component.rendered}">
-            #{cc.attrs.component.htmlExample}
+            #{cc.attrs.component.content}
         </l:prettyprint>
     </composite:implementation>
 </h:body>

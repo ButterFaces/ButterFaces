@@ -11,6 +11,9 @@
     <ui:define name="attributes">
         <h:form prependId="false">
             <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseComponent.rendered}"/>
+            <showcase:tagEnumControl label="language"
+                                     value="#{prettyPrintShowcaseComponent.prettyPrintType}"
+                                     values="#{prettyPrintShowcaseComponent.prettyPrintTypes}"/>
         </h:form>
     </ui:define>
 
