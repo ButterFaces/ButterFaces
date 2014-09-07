@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -66,6 +67,22 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
     @InSequence(3)
     public void testLanguageOption() throws Exception {
         browser.get(deploymentUrl + "prettyprint.jsf");
+
+        final Select language = new Select(this.findWebElementByClassName(OPTION_LANGUAGE));
+        language.selectByIndex(0);
+        assertStyleClass("lang-html");
+
+        language.selectByIndex(1);
+        assertStyleClass("lang-xml");
+
+        language.selectByIndex(2);
+        assertStyleClass("lang-java");
+    }
+
+    private void assertStyleClass(String expectedLanguage) {
+        final String classes = this.findShowcaseComponentPre().getAttribute("class");
+        Assert.assertTrue(classes.contains("prettyprint"));
+        Assert.assertTrue(classes.contains(expectedLanguage));
     }
 
     private WebElement findShowcaseComponentPre() {
