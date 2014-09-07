@@ -17,7 +17,7 @@
     <composite:implementation>
         <showcase:tagcontrol label="#{cc.attrs.label}">
             <div class="form-control">
-                <h:selectOneMenu value="#{cc.attrs.value}">
+                <h:selectOneMenu value="#{cc.attrs.value}" styleClass="arquillian_#{cc.attrs.label}">
                     <f:selectItems value="#{cc.attrs.values}"/>
                     <f:ajax event="change" execute="@this" render="output"/>
                 </h:selectOneMenu>

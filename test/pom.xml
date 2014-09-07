@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>test</artifactId>
+    <name>ButterFaces showcase integration test</name>
 
     <properties>
         <browser>phantomjs</browser> <!-- PhantomJS will be our default browser if no profile is specified-->
