@@ -28,11 +28,8 @@ public class Deployments {
         File showcase = new File(absoluteTestExecutionPath + SHOWCASE_PATH);
 
         if (!showcase.exists()) {
-            System.out.println("ZZZZ:" + absoluteTestExecutionPath);
-
             if (absoluteTestExecutionPath.endsWith("test/.")) {
                 // Pathes are not equal wenn starting test in IDE or by maven goal.
-                System.out.println("ZZZZ:" + absoluteTestExecutionPath + "./" + SHOWCASE_PATH);
                 showcase = new File(absoluteTestExecutionPath + "./" + SHOWCASE_PATH);
             } else {
                 Assert.fail("Could not find showcase.war");

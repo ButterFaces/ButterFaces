@@ -29,11 +29,21 @@ public abstract class AbstractComponentTest {
     }
 
     protected WebElement findWebElementByClassName(final String className) {
+        final WebElement webElement = findNullableWebElementByClassName(className);
+
+        if (webElement == null) {
+            Assert.fail("Could not find web element with class " + className);
+        }
+
+        return webElement;
+
+    }
+
+    protected WebElement findNullableWebElementByClassName(final String className) {
         try {
             final WebElement webElement = browser.findElement(By.className(className));
             return webElement;
         } catch (NoSuchElementException e) {
-            Assert.fail(e.toString());
         }
 
         return null;
