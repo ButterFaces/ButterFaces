@@ -5,6 +5,7 @@ import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
@@ -16,9 +17,9 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 @RunWith(Arquillian.class)
 public class FieldSetComponentTest extends AbstractComponentTest {
 
-    public static final String BUTTER_COMPONENT_PRETTYPRINT = "arquillian_component";
+    public static final String BUTTER_COMPONENT = "arquillian_component";
     public static final String OPTION_RENDERED = "arquillian_rendered";
-    public static final String OPTION_LANGUAGE = "arquillian_language";
+    public static final String OPTION_LABEL = "arquillian_label";
 
     @Test
     public void testNavigation() throws Exception {
@@ -36,8 +37,11 @@ public class FieldSetComponentTest extends AbstractComponentTest {
     public void testElementsExists() {
         browser.get(deploymentUrl + "fieldset.jsf");
 
-        this.findWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT);
+        final WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        Assert.assertEquals("Wrong tag name", "fieldset", component.getTagName());
+
         this.findWebElementByClassName(OPTION_RENDERED);
+        this.findWebElementByClassName(OPTION_LABEL);
     }
 
     @Test
@@ -49,11 +53,25 @@ public class FieldSetComponentTest extends AbstractComponentTest {
 
         // test component not rendered
         guardAjax(showcaseRenderedOption).click();
-        Assert.assertNull("Element should not be rendered but was.", findNullableWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT));
+        Assert.assertNull("Element should not be rendered but was.", findNullableWebElementByClassName(BUTTER_COMPONENT));
 
         // test render component again
         guardAjax(showcaseRenderedOption).click();
-        Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT));
+        Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(BUTTER_COMPONENT));
     }
 
+    @Test
+    @InSequence(3)
+    public void testLabelOption() throws Exception {
+        browser.get(deploymentUrl + "fieldset.jsf");
+
+        final WebElement showcaseLabelOption = this.findWebElementByClassName(OPTION_LABEL);
+
+        showcaseLabelOption.clear();
+        guardAjax(showcaseLabelOption).sendKeys("hello");
+
+        final WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        final WebElement legend = component.findElement(By.tagName("legend"));
+        Assert.assertEquals("hello", legend.getText());
+    }
 }
