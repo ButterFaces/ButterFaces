@@ -67,11 +67,20 @@ public class FieldSetComponentTest extends AbstractComponentTest {
 
         final WebElement showcaseLabelOption = this.findWebElementByClassName(OPTION_LABEL);
 
+        // clear label
         showcaseLabelOption.clear();
-        guardAjax(showcaseLabelOption).sendKeys("hello");
+        guardHttp(showcaseLabelOption).submit();
+        WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        Assert.assertTrue(component.findElements(By.tagName("legend")).isEmpty());
 
-        final WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        final WebElement legend = component.findElement(By.tagName("legend"));
+        guardAjax(showcaseLabelOption).sendKeys("hello");
+        component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        WebElement legend = component.findElement(By.tagName("legend"));
         Assert.assertEquals("hello", legend.getText());
+
+        guardAjax(showcaseLabelOption).sendKeys(" world!");
+        component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        legend = component.findElement(By.tagName("legend"));
+        Assert.assertEquals("hello world!", legend.getText());
     }
 }
