@@ -1,0 +1,59 @@
+package de.larmic.butterfaces.test.component;
+
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.openqa.selenium.WebElement;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+
+/**
+ * Created by larmic on 04.09.14.
+ */
+@RunWith(Arquillian.class)
+public class FieldSetComponentTest extends AbstractComponentTest {
+
+    public static final String BUTTER_COMPONENT_PRETTYPRINT = "arquillian_component";
+    public static final String OPTION_RENDERED = "arquillian_rendered";
+    public static final String OPTION_LANGUAGE = "arquillian_language";
+
+    @Test
+    public void testNavigation() throws Exception {
+        browser.get(deploymentUrl + "index.jsf");
+        guardHttp(this.findWebElementByClassName("arquillian_fieldset")).click();
+        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
+
+        browser.get(deploymentUrl + "index.jsf");
+        guardHttp(this.findWebElementByClassName("arquillian_fieldset_header")).click();
+        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
+    }
+
+    @Test
+    @InSequence(1)
+    public void testElementsExists() {
+        browser.get(deploymentUrl + "fieldset.jsf");
+
+        this.findWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT);
+        this.findWebElementByClassName(OPTION_RENDERED);
+    }
+
+    @Test
+    @InSequence(2)
+    public void testRenderedOption() throws Exception {
+        browser.get(deploymentUrl + "fieldset.jsf");
+
+        final WebElement showcaseRenderedOption = this.findWebElementByClassName(OPTION_RENDERED);
+
+        // test component not rendered
+        guardAjax(showcaseRenderedOption).click();
+        Assert.assertNull("Element should not be rendered but was.", findNullableWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT));
+
+        // test render component again
+        guardAjax(showcaseRenderedOption).click();
+        Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(BUTTER_COMPONENT_PRETTYPRINT));
+    }
+
+}

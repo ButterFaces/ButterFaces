@@ -25,8 +25,8 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
         final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
 
         if (fieldSet.isRendered()) {
-            final String style = (String) component.getAttributes().get("style");
-            final String styleClass = (String) component.getAttributes().get("styleClass");
+            final String style = fieldSet.getStyle();
+            final String styleClass = fieldSet.getStyleClass();
 
             writer.startElement(ELEMENT_FIELDSET, component);
 
@@ -34,7 +34,7 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
                 writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
             }
             if (null != styleClass) {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "larmic-component-fieldset" + styleClass, "styleClass");
+                writer.writeAttribute(ATTRIBUTE_CLASS, "larmic-component-fieldset " + styleClass, "styleClass");
             } else {
                 writer.writeAttribute(ATTRIBUTE_CLASS, "larmic-component-fieldset", "styleClass");
             }
