@@ -519,4 +519,30 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
+
+    <tag>
+        <tag-name>column</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.column</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <tag-name>table</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.table</component-type>
+        </component>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
 </facelet-taglib>
