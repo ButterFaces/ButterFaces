@@ -1,9 +1,7 @@
 <ui:composition template="/WEB-INF/templates/componentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:l="http://butterfaces.larmic.de/components"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:l="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
         <strong>l:table</strong> The table tag renders an HTML element of the type "table".
@@ -15,11 +13,34 @@
     </ui:define>
 
     <ui:define name="output">
-        <l:table id="test">
+        <l:table id="test"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
             <l:column id="column1"
-                      label="C1" />
+                      label="C1">
+                #{rowItem.a}
+            </l:column>
             <l:column id="column2"
-                      label="C3" />
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </l:column>
+        </l:table>
+        <l:table id="testNotRendered"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}"
+                 rendered="false">
+            <l:column id="column1"
+                      label="C1">
+                #{rowItem.a}
+            </l:column>
+            <l:column id="column2"
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </l:column>
+        </l:table>
+        <l:table id="testNoChildren"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
         </l:table>
     </ui:define>
 
