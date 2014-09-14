@@ -185,3 +185,12 @@ select.butterfaces-input-component {
     left: 5px;
     z-index: 10;
 }
+
+.butterfaces-maxlength-counter {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.has-error .butterfaces-maxlength-counter {
+    color: #a94442;
+}
