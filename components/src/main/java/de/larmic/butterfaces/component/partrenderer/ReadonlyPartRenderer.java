@@ -28,7 +28,7 @@ public class ReadonlyPartRenderer {
 
         if (readonly) {
             responseWriter.startElement("div", uiComponent);
-            responseWriter.writeAttribute("class", Constants.BOOTSTRAP_COL_SM_10 + " butterfaces-readonly-value", null);
+            responseWriter.writeAttribute("class", Constants.BOOTSTRAP_COL_SM_10 + " butter-readonly-value", null);
             responseWriter.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             responseWriter.endElement("div");
         }

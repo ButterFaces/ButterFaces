@@ -34,9 +34,9 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
                 writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
             }
             if (null != styleClass) {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "larmic-component-fieldset " + styleClass, "styleClass");
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset " + styleClass, "styleClass");
             } else {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "larmic-component-fieldset", "styleClass");
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset", "styleClass");
             }
 
 

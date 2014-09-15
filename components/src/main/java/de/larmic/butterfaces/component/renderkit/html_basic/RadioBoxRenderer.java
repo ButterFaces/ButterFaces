@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension
- * https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * https://bitbucket.org/larmicBB/butterfaces/
  * 
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -54,8 +54,8 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
             // bootstrap radio buttons are using pageDirection as default
             // maybe use radio-inline
             writer.startElement("script", component);
-            writer.writeText("jQuery(\"table.butterfaces-input-component\").find(\"td\").addClass(\"radio\");", null);
-            writer.writeText("jQuery(\"table.butterfaces-input-component\").removeClass(\"form-control\");", null);
+            writer.writeText("jQuery(\"table.butter-input-component\").find(\"td\").addClass(\"radio\");", null);
+            writer.writeText("jQuery(\"table.butter-input-component\").removeClass(\"form-control\");", null);
             writer.endElement("script");
         }
 

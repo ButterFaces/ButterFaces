@@ -180,7 +180,7 @@ var ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
  */
 ComponentHandler.prototype.getInputNode = function () {
     var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
-    return DomUtils.getChildren(inputContainer, "butterfaces-input-component")[0];
+    return DomUtils.getChildren(inputContainer, "butter-input-component")[0];
 };
 
 /**
@@ -276,7 +276,7 @@ TextareaComponentHandler.prototype._initMaxLengthCounter = function () {
         self._maxLength = self.options.maxLength * 1;
         if (self._maxLength > 0) {
             var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
-            self._maxLengthCounterNode = DomUtils.getChildren(inputContainer, "butterfaces-maxlength-counter")[0];
+            self._maxLengthCounterNode = DomUtils.getChildren(inputContainer, "butter-component-maxlength-counter")[0];
 
             // inital call of check function
             self._checkValue();

@@ -1,12 +1,12 @@
-select.butterfaces-input-component {
+select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
 
-.butterfaces-readonly-value {
+.butter-readonly-value {
     white-space: pre-wrap;
 }
 
-.larmic-component-required {
+.butter-component-required {
     color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
@@ -68,11 +68,11 @@ select.butterfaces-input-component {
     font-style: italic;
 }
 
-.butterfaces-component .checkbox {
+.butter-component .checkbox {
     margin-top: 0;
 }
 
-.butterfaces-component-floating {
+.butter-component-floating {
     display: inline-block;
 }
 
@@ -90,18 +90,18 @@ select.butterfaces-input-component {
     font-weight: bold;
 }
 
-.larmic-component-fieldset {
+.butter-component-fieldset {
     border-radius: 0;
     border-bottom: none;
     border-left: none;
     border-right: none;
 }
 
-.larmic-component-fieldset legend {
+.butter-component-fieldset legend {
     margin-bottom: 0;
 }
 
-.larmic-component-label {
+.butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -121,14 +121,6 @@ select.butterfaces-input-component {
 .butter-component-tooltip {
     display: inline-block;
 }
-
-/*.butter-component.butter-component-tooltip-shown,
-.butter-component.butter-component-tooltip-hidden {
-    -webkit-transition: 0.5s linear all;
-    -moz-transition: 0.5s linear all;
-    -o-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-}*/
 
 .butter-component-tooltip-hidden {
     visibility: hidden;
@@ -186,11 +178,11 @@ select.butterfaces-input-component {
     z-index: 10;
 }
 
-.butterfaces-maxlength-counter {
+.butter-component-maxlength-counter {
     padding-right: 15px;
     text-align: right;
 }
 
-.has-error .butterfaces-maxlength-counter {
+.has-error .butter-component-maxlength-counter {
     color: #a94442;
 }
