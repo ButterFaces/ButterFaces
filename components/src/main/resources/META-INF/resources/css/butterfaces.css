@@ -12,40 +12,6 @@ select.butter-input-component {
     margin-left: 2px;
 }
 
-.larmic-component-tooltip {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 2px 2px 3px #AAAAAA;
-    -webkit-box-shadow: 2px 2px 3px #AAAAAA;
-    box-shadow: 2px 2px 3px #AAAAAA;
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    width: 200px;
-    z-index: 200;
-    min-height: 25px;
-    margin-left: 10px
-}
-
-.larmic-component-tooltip .noteConnector {
-    height: 17px;
-    left: -11px;
-    position: absolute;
-    top: 2px;
-    width: 11px;
-    border: 0 none;
-    z-index: 201;
-    background: transparent url(#{resource[ 'img:noteConnectorLeft.png' ]}) no-repeat top !important;
-}
-
-.larmic-component-tooltip .noteContent {
-    padding: 5px;
-}
-
 .larmic-textarea-counter {
     font-style: italic;
 }
