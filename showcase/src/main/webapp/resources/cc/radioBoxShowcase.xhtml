@@ -15,19 +15,17 @@
     <composite:implementation>
         <l:radioBox label="#{cc.attrs.component.label}"
                     value="#{cc.attrs.component.value}"
+                    hideLabel="#{cc.attrs.component.hideLabel}"
                     tooltip="#{cc.attrs.component.tooltip}"
                     readonly="#{cc.attrs.component.readonly}"
                     required="#{cc.attrs.component.required}"
                     rendered="#{cc.attrs.component.rendered}"
-                    disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
-                    componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
-                    inputStyleClass="#{cc.attrs.component.bootstrap ? 'bootstrap-marker': ''}"
                     layout="#{cc.attrs.component.radioBoxLayoutType.label}"
+                    inputStyleClass="#{cc.attrs.component.inputStyleClass}"
+                    labelStyleClass="#{cc.attrs.component.labelStyleClass}"
+                    componentStyleClass="#{cc.attrs.component.componentStyleClass}"
                     floating="#{cc.attrs.component.floating}">
             <f:selectItems value="#{cc.attrs.component.values}"/>
-            <f:facet name="input-container">
-                #{cc.attrs.component.facetText}
-            </f:facet>
             <f:ajax event="change"
                     execute="@this"
                     render="output:outputValues output:other"
@@ -37,16 +35,18 @@
             </c:if>
         </l:radioBox>
 
-        <h:panelGroup rendered="#{cc.attrs.component.bootstrap}">
-            <script>
-                $(document).ready(function () {
-                    <!-- add bootstrap radio class to component -->
-                    <!-- bootstrap radio buttons are using pageDirection as default -->
-                    <!-- maybe use radio-inline -->
-                    $(".bootstrap-marker").find("td").addClass("radio");
-                });
-            </script>
-        </h:panelGroup>
+        <ui:remove>
+            <h:panelGroup rendered="#{cc.attrs.component.bootstrap}">
+                <script>
+                    $(document).ready(function () {
+                        <!-- add bootstrap radio class to component -->
+                        <!-- bootstrap radio buttons are using pageDirection as default -->
+                        <!-- maybe use radio-inline -->
+                        $(".bootstrap-marker").find("td").addClass("radio");
+                    });
+                </script>
+            </h:panelGroup>
+        </ui:remove>
     </composite:implementation>
 </h:body>
 </html>

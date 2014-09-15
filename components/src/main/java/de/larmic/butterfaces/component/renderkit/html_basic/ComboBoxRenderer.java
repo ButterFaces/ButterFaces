@@ -35,7 +35,7 @@ public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRen
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -50,11 +50,11 @@ public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRen
 			super.encodeEnd(context, component);
 		}
 
-        // Render tooltip if components tooltip attribute is set
-        new TooltipPartRenderer().renderTooltip(htmlComponent, true, writer, context);
-
         // Close inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+
+        // render tooltip elements if necessary
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);

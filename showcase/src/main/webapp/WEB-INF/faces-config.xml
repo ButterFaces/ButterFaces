@@ -9,9 +9,9 @@
         <resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler>
 
 		<locale-config>
-			<default-locale>de</default-locale>
-			<supported-locale>de</supported-locale>
+			<default-locale>en</default-locale>
 			<supported-locale>en</supported-locale>
+			<supported-locale>de</supported-locale>
 		</locale-config>
 	</application>
 	

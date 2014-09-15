@@ -12,16 +12,20 @@
         <h:form prependId="false">
             <showcase:tagStringControl label="label" value="#{radioBoxShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcaseComponent.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{radioBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcaseComponent.rendered}" />
             <showcase:tagBooleanControl label="floating" value="#{radioBoxShowcaseComponent.floating}" />
-        </h:form>
-    </ui:define>
-
-    <ui:define name="facets">
-        <h:form prependId="false">
-            <showcase:tagStringControl label="input facet" value="#{radioBoxShowcaseComponent.facetText}"/>
+            <showcase:tagEnumControl label="componentStyleClass"
+                                     value="#{radioBoxShowcaseComponent.componentStyleClass}"
+                                     values="#{radioBoxShowcaseComponent.componentStyleClasses}"/>
+            <showcase:tagEnumControl label="inputStyleClass"
+                                     value="#{radioBoxShowcaseComponent.inputStyleClass}"
+                                     values="#{radioBoxShowcaseComponent.inputStyleClasses}"/>
+            <showcase:tagEnumControl label="labelStyleClass"
+                                     value="#{radioBoxShowcaseComponent.labelStyleClass}"
+                                     values="#{radioBoxShowcaseComponent.labelStyleClasses}"/>
         </h:form>
     </ui:define>
 
@@ -39,14 +43,6 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="radioboxLayoutPopoverContent"/>
-            <showcase:tagEnumControl label="styleClass"
-                                     value="#{radioBoxShowcaseComponent.styleSheetType}"
-                                     values="#{radioBoxShowcaseComponent.styleSheetTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Updates attributes"
-                                     popoverContentMarkerClass="styleSheetPopoverContent">
-
-            </showcase:tagEnumControl>
             <showcase:tagEnumControl label="ajax"
                                      value="#{radioBoxShowcaseComponent.ajaxType}"
                                      values="#{radioBoxShowcaseComponent.ajaxTypes}"

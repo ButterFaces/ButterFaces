@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -9,7 +11,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class TextShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
-    private String placeholder;
+    private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private String type;
     private String pattern;
     private String min;
@@ -18,7 +20,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
     @Override
     protected Object initValue() {
-        return "value";
+        return null;
     }
 
     @Override
@@ -42,27 +44,17 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         this.appendString("pattern", this.getPattern(), sb);
         this.appendString("min", this.getMin(), sb);
         this.appendString("max", this.getMax(), sb);
+        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
-        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
-
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
-        }
-
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         this.createAjaxXhtml(sb, "keyup");
-
-        if (getFacetText() != null && !"".equals(getFacetText())) {
-            sb.append("            " + "<f:facet name=\"input-container\">\n");
-            sb.append("            " + "    " + getFacetText() + "\n");
-            sb.append("            " + "</f:facet>\n");
-        }
 
         if (this.isValidation()) {
             sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
@@ -74,6 +66,15 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    @Override
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
+            sb.append("}");
+        }
     }
 
     public String getPlaceholder() {

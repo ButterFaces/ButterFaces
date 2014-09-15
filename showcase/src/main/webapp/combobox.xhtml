@@ -12,16 +12,20 @@
         <h:form prependId="false">
             <showcase:tagStringControl label="label" value="#{comboBoxShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcaseComponent.tooltip}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcaseComponent.hideLabel}" />
             <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseComponent.rendered}" />
             <showcase:tagBooleanControl label="floating" value="#{comboBoxShowcaseComponent.floating}" />
-        </h:form>
-    </ui:define>
-
-    <ui:define name="facets">
-        <h:form prependId="false">
-            <showcase:tagStringControl label="input facet" value="#{comboBoxShowcaseComponent.facetText}"/>
+            <showcase:tagEnumControl label="componentStyleClass"
+                                     value="#{comboBoxShowcaseComponent.componentStyleClass}"
+                                     values="#{comboBoxShowcaseComponent.componentStyleClasses}"/>
+            <showcase:tagEnumControl label="inputStyleClass"
+                                     value="#{comboBoxShowcaseComponent.inputStyleClass}"
+                                     values="#{comboBoxShowcaseComponent.inputStyleClasses}"/>
+            <showcase:tagEnumControl label="labelStyleClass"
+                                     value="#{comboBoxShowcaseComponent.labelStyleClass}"
+                                     values="#{comboBoxShowcaseComponent.labelStyleClasses}"/>
         </h:form>
     </ui:define>
 
@@ -33,14 +37,6 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="comboboxPopoverContent"/>
-            <showcase:tagEnumControl label="styleClass"
-                                     value="#{comboBoxShowcaseComponent.styleSheetType}"
-                                     values="#{comboBoxShowcaseComponent.styleSheetTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Updates attributes"
-                                     popoverContentMarkerClass="styleSheetPopoverContent">
-
-            </showcase:tagEnumControl>
             <showcase:tagEnumControl label="ajax"
                                      value="#{comboBoxShowcaseComponent.ajaxType}"
                                      values="#{comboBoxShowcaseComponent.ajaxTypes}"

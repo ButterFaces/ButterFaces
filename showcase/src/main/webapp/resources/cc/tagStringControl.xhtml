@@ -12,9 +12,13 @@
 
 	<composite:implementation>
         <showcase:tagcontrol label="#{cc.attrs.label}">
+<<<<<<< HEAD
             <h:inputText value="#{cc.attrs.value}"
                          styleClass="form-control checkbox arquillian_#{cc.attrs.label}"
                          maxlength="20">
+=======
+            <h:inputText value="#{cc.attrs.value}" styleClass="form-control" maxlength="40">
+>>>>>>> remotes/origin/BUT-20-restructure-butterfaces-component
                 <f:ajax event="keyup" execute="@this" render="output"/>
                 <composite:insertChildren />
             </h:inputText>

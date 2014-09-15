@@ -1,36 +1,15 @@
-.larmic-component-label {
-    width: 100px;
-    float: left;
+select.butterfaces-input-component {
+    height: 34px; /* bootstrap default height */
 }
 
-.larmic-input-container {
-    float: left;
+.butterfaces-readonly-value {
+    white-space: pre-wrap;
 }
 
 .larmic-component-required {
-    color: red;
+    color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
-}
-
-.larmic-component-input-invalid {
-    background-color: #FFEBDA;
-    border-color: #FF0044;
-    border-style: solid;
-}
-
-.butterfaces-readonly {
-    display: flex;
-}
-
-.larmic-component-error {
-    color: #FF0044;
-}
-
-.larmic-component-label-tooltip {
-    position: relative;
-    left: 5px;
-    top: 4px;
 }
 
 .larmic-component-tooltip {
@@ -52,19 +31,19 @@
     margin-left: 10px
 }
 
-.larmic-component-tooltip  .noteConnector {
-	height: 17px;
+.larmic-component-tooltip .noteConnector {
+    height: 17px;
     left: -11px;
     position: absolute;
     top: 2px;
     width: 11px;
     border: 0 none;
     z-index: 201;
-	background: transparent url(#{resource['img:noteConnectorLeft.png']}) no-repeat top !important;
+    background: transparent url(#{resource[ 'img:noteConnectorLeft.png' ]}) no-repeat top !important;
 }
 
 .larmic-component-tooltip .noteContent {
-	padding: 5px;
+    padding: 5px;
 }
 
 .larmic-component-error-message {
@@ -86,25 +65,25 @@
 }
 
 .larmic-textarea-counter {
-	font-style: italic;
+    font-style: italic;
 }
 
-.larmic-component-floating {
+.butterfaces-component .checkbox {
+    margin-top: 0;
+}
+
+.butterfaces-component-floating {
     display: inline-block;
 }
 
-.larmic-component-non-floating {
-    display: table;
-}
-
-.larmic-component-toastContainer{
+.larmic-component-toastContainer {
     position: fixed;
     left: 0;
     top: 0;
     z-index: 500;
 }
 
-.larmic-component-toast-error{
+.larmic-component-toast-error {
     border: 2px solid #f00;
     background-color: #ddf;
     padding: 10px;
@@ -122,7 +101,96 @@
     margin-bottom: 0;
 }
 
-/* fixed tooltip position on radio buttons */
-table.larmic-input-component-marker  {
-    float: left;
+.larmic-component-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.form-group {
+    position: relative;
+}
+
+/* clearfix for form groups */
+.form-group:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.butter-component-tooltip {
+    display: inline-block;
+}
+
+/*.butter-component.butter-component-tooltip-shown,
+.butter-component.butter-component-tooltip-hidden {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}*/
+
+.butter-component-tooltip-hidden {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+.butter-component-tooltip-text {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #999;
+    white-space: nowrap;
+}
+
+.butter-component-tooltip-text hr {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.butter-component-tooltip-text ul {
+    margin-left: -20px;
+}
+
+.butter-component-tooltip-validation-error {
+    color: #a94442;
+}
+
+.butter-component-tooltip-right .butter-component-tooltip-text {
+    margin-left: 15px;
+}
+
+.butter-component-tooltip-right .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url(#{resource[ 'img:tooltip_arrow_left.png' ]});
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 10;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-text {
+    margin-top: 15px;
+}
+
+.butter-component-tooltip-up .butter-component-tooltip-arrow {
+    height: 16px;
+    width: 16px;
+    background-image: url(#{resource[ 'img:tooltip_arrow_up.png' ]});
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
+}
+
+.butterfaces-maxlength-counter {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.has-error .butterfaces-maxlength-counter {
+    color: #a94442;
 }

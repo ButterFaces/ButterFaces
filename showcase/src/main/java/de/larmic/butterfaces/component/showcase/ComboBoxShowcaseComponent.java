@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
@@ -79,17 +80,13 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
-        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
-
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
-        }
-
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
@@ -110,12 +107,6 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		this.createAjaxXhtml(sb, "change");
 
-        if (getFacetText() != null && !"".equals(getFacetText())) {
-            sb.append("            " + "<f:facet name=\"input-container\">\n");
-            sb.append("            " + "    " + getFacetText() + "\n");
-            sb.append("            " + "</f:facet>\n");
-        }
-
 		sb.append("        </l:comboBox>");
 
 		this.createOutputXhtml(sb);
@@ -124,6 +115,15 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		return sb.toString();
 	}
+
+    @Override
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
+            sb.append("}");
+        }
+    }
 
     protected String getEmptyDistanceString() {
         return "                    ";

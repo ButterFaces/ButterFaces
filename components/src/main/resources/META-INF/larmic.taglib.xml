@@ -13,6 +13,7 @@
 		<attribute>
 			<name>label</name>
 			<type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
 		</attribute>
 		<attribute>
 			<name>value</name>
@@ -21,6 +22,10 @@
 		<attribute>
 			<name>tooltip</name>
 			<type>java.lang.String</type>
+		</attribute>
+        <attribute>
+			<name>hideLabel</name>
+			<type>java.lang.Boolean</type>
 		</attribute>
 		<attribute>
 			<name>readonly</name>
@@ -36,10 +41,6 @@
 		</attribute>
 		<attribute>
 			<name>floating</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-        <attribute>
-			<name>disableDefaultStyleClasses</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
         <attribute>
@@ -96,6 +97,7 @@
         <attribute>
             <name>label</name>
             <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
         </attribute>
         <attribute>
             <name>value</name>
@@ -104,6 +106,10 @@
         <attribute>
             <name>tooltip</name>
             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
             <name>readonly</name>
@@ -119,10 +125,6 @@
         </attribute>
         <attribute>
             <name>floating</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
@@ -171,6 +173,7 @@
         <attribute>
             <name>label</name>
             <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
         </attribute>
         <attribute>
             <name>value</name>
@@ -179,6 +182,10 @@
         <attribute>
             <name>tooltip</name>
             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
             <name>readonly</name>
@@ -194,10 +201,6 @@
         </attribute>
         <attribute>
             <name>floating</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
@@ -234,6 +237,7 @@
 		<attribute>
 			<name>label</name>
 			<type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
 		</attribute>
 		<attribute>
 			<name>value</name>
@@ -243,6 +247,10 @@
 			<name>tooltip</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>readonly</name>
 			<type>java.lang.Boolean</type>
@@ -263,10 +271,6 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
@@ -301,6 +305,7 @@
 		<attribute>
 			<name>label</name>
 			<type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
 		</attribute>
 		<attribute>
 			<name>value</name>
@@ -310,6 +315,10 @@
 			<name>tooltip</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>readonly</name>
 			<type>java.lang.Boolean</type>
@@ -326,10 +335,6 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
         <attribute>
             <name>layout</name>
             <type>java.lang.String</type>
@@ -364,6 +369,7 @@
 		<attribute>
 			<name>label</name>
 			<type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
 		</attribute>
 		<attribute>
 			<name>value</name>
@@ -373,6 +379,10 @@
 			<name>tooltip</name>
 			<type>java.lang.String</type>
 		</attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>readonly</name>
 			<type>java.lang.Boolean</type>
@@ -389,10 +399,6 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
@@ -423,6 +429,7 @@
 		<attribute>
 			<name>label</name>
 			<type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.</description>
 		</attribute>
 		<attribute>
 			<name>value</name>
@@ -432,6 +439,14 @@
 			<name>tooltip</name>
 			<type>java.lang.String</type>
 		</attribute>
+		<attribute>
+			<name>description</name>
+			<type>java.lang.String</type>
+		</attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
 		<attribute>
 			<name>readonly</name>
 			<type>java.lang.Boolean</type>
@@ -448,10 +463,6 @@
 			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
-        <attribute>
-            <name>disableDefaultStyleClasses</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
 		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>

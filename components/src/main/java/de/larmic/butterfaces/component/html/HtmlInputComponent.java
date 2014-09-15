@@ -2,27 +2,29 @@ package de.larmic.butterfaces.component.html;
 
 public interface HtmlInputComponent {
 
-	String getTooltip();
+    String getTooltip();
 
-	boolean isReadonly();
+    boolean isReadonly();
 
-	boolean getFloating();
+    boolean getHideLabel();
 
-    boolean getDisableDefaultStyleClasses();
+    boolean getFloating();
 
     String getComponentStyleClass();
+
+    String getStyleClass();
 
     String getInputStyleClass();
 
     String getLabelStyleClass();
 
-	boolean isRequired();
+    boolean isRequired();
 
-	boolean isValid();
+    boolean isValid();
 
-	String getLabel();
+    String getLabel();
 
-	Object getValue();
+    Object getValue();
 
-	String getClientId();
+    String getClientId();
 }

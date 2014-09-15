@@ -27,10 +27,10 @@ public class ReadonlyPartRenderer {
         final Object value = component.getValue();
 
         if (readonly) {
-            responseWriter.startElement("span", uiComponent);
-            responseWriter.writeAttribute("class", "butterfaces-readonly", null);
+            responseWriter.startElement("div", uiComponent);
+            responseWriter.writeAttribute("class", Constants.BOOTSTRAP_COL_SM_10 + " butterfaces-readonly-value", null);
             responseWriter.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
-            responseWriter.endElement("span");
+            responseWriter.endElement("div");
         }
     }
 

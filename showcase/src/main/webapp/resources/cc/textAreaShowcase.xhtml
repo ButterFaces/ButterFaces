@@ -13,6 +13,7 @@
 	<composite:implementation>
 		<l:textArea id="textArea" 
 					label="#{cc.attrs.component.label}"
+                    hideLabel="#{cc.attrs.component.hideLabel}"
 					value="#{cc.attrs.component.value}"
 					tooltip="#{cc.attrs.component.tooltip}"
 					readonly="#{cc.attrs.component.readonly}"
@@ -20,13 +21,10 @@
 					rendered="#{cc.attrs.component.rendered}"
 					maxLength="#{cc.attrs.component.maxLength}"
 					placeholder="#{cc.attrs.component.placeholder}"
-                    disableDefaultStyleClasses="#{cc.attrs.component.disableDefaultStyleClasses}"
-                    componentStyleClass="#{cc.attrs.component.bootstrap ? 'form-group': ''}"
-                    inputStyleClass="#{cc.attrs.component.bootstrap ? 'form-control': ''}"
+                    inputStyleClass="#{cc.attrs.component.inputStyleClass}"
+                    labelStyleClass="#{cc.attrs.component.labelStyleClass}"
+                    componentStyleClass="#{cc.attrs.component.componentStyleClass}"
 					floating="#{cc.attrs.component.floating}">
-            <f:facet name="input-container">
-                #{cc.attrs.component.facetText}
-            </f:facet>
 			<f:ajax event="keyup" 
 					execute="textArea"
 					render="output:outputValues output:other"

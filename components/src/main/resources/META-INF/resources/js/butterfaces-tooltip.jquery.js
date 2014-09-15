@@ -1,12 +1,15 @@
 (function ($) {
 
-    $.fn.tooltip = function () {
+    $.fn.butterTooltip = function () {
         return this.each(function () {
+            //console.log("initializing tooltip");
             var root = $(this);
-            var valueElement = root.find("input, .butter-component-readonly-value");
+            var valueElement = root.find("input, textarea, select, .butterfaces-readonly-value");
             var tooltip = root.find(".butter-component-tooltip");
 
             if (tooltip.length > 0) {
+                //console.log("found tooltip element");
+
                 var _positionTooltip = function () {
                     var tooltipWidth = tooltip.outerWidth();
                     var winWidth = $(window).width();
@@ -38,6 +41,7 @@
                 };
 
                 var _hideTooltip = function () {
+                    //console.log("hiding tooltip");
                     tooltip.addClass("butter-component-tooltip-hidden");
                     tooltip.removeClass("butter-component-tooltip-shown");
                     tooltip.data("tooltip-visible", false);
@@ -46,6 +50,7 @@
                 };
 
                 var _showTooltip = function () {
+                    //console.log("showing tooltip");
                     if (!tooltip.data("tooltip-visible")) {
                         tooltip.removeClass("butter-component-tooltip-hidden");
                         tooltip.addClass("butter-component-tooltip-shown");

@@ -15,7 +15,9 @@ import javax.faces.validator.ValidatorException;
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head")})
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
+})
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
@@ -24,9 +26,9 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.NumberRenderer";
 
     protected static final String PROPERTY_FLOATING = "floating";
-    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
-    protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
+    protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
+    protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
     protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
@@ -72,6 +74,15 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
     }
 
+    @Override
+    public boolean getHideLabel() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_HIDE_LABEL, false);
+    }
+
+    public void setHideLabel(final String hideLabel) {
+        this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
+    }
+
     public String getPlaceholder() {
         return (String) this.getStateHelper().eval(PROPERTY_HTML5_PLACEHOLDER);
     }
@@ -106,11 +117,11 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
     @Override
     public String getComponentStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_COMPONENT_STYLE_CLASS);
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
     }
 
-    public void setComponentStyleClass(final String componentStyleClass) {
-        this.updateStateHelper(PROPERTY_COMPONENT_STYLE_CLASS, componentStyleClass);
+    public void setComponentStyleClass(final String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
     }
 
     @Override
@@ -129,15 +140,6 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
     public void setLabelStyleClass(final String labelStyleClass) {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
-    }
-
-    @Override
-    public boolean getDisableDefaultStyleClasses() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_STYLE_CLASSES, false);
-    }
-
-    public void setDisableDefaultStyleClasses(final Boolean disableDefaultStyleClasses) {
-        this.updateStateHelper(PROPERTY_DISABLE_STYLE_CLASSES, disableDefaultStyleClasses);
     }
 
     @Override

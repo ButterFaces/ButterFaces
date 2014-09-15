@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
@@ -85,13 +86,9 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
         this.appendString("layout", radioBoxLayoutType.label, sb);
-        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
-
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "bootstrap-radio-marker", sb);
-        }
-
+        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
@@ -110,12 +107,6 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		this.createAjaxXhtml(sb, "change");
 
-        if (getFacetText() != null && !"".equals(getFacetText())) {
-            sb.append("            " + "<f:facet name=\"input-container\">\n");
-            sb.append("            " + "    " + getFacetText() + "\n");
-            sb.append("            " + "</f:facet>\n");
-        }
-
 		sb.append("        </l:radioBox>");
 
 		this.createOutputXhtml(sb);
@@ -126,14 +117,11 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 	}
 
     @Override
-    protected void addJs(StringBuilder sb) {
-        if (isBootstrap()) {
-            sb.append("<script>\n");
-            sb.append("    <!-- add bootstrap radio class to component -->\n");
-            sb.append("    <!-- bootstrap radio buttons are using pageDirection as default -->\n");
-            sb.append("    <!-- maybe use radio-inline -->\n");
-            sb.append("    $(\".bootstrap-radio-marker\").find(\"td\").addClass(\"radio\");\n");
-            sb.append("</script>");
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
+            sb.append("}");
         }
     }
 

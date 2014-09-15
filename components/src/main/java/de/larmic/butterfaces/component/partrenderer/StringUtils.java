@@ -5,17 +5,20 @@ package de.larmic.butterfaces.component.partrenderer;
  */
 public class StringUtils {
 
-    public static final String concatStyles(final String... styles) {
+    public static final String BLANK = "";
+    public static final String SPACE = " ";
+
+    public static final String concatWithSpace(final String... styles) {
         final StringBuilder sb = new StringBuilder();
 
         for (final String style : styles) {
-            if (style != null && !"".equals(style)) {
+            if (style != null && !BLANK.equals(style)) {
                 sb.append(style);
                 sb.append(" ");
             }
         }
 
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public static final boolean isEmpty(final String value) {

@@ -10,7 +10,9 @@ import javax.faces.component.html.HtmlSelectOneRadio;
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head")})
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
+})
 @FacesComponent(HtmlRadioBox.COMPONENT_TYPE)
 public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputComponent {
 
@@ -19,9 +21,9 @@ public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputCompone
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.RadioBoxRenderer";
 
     protected static final String PROPERTY_FLOATING = "floating";
-    protected static final String PROPERTY_DISABLE_STYLE_CLASSES = "disableDefaultStyleClasses";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
-    protected static final String PROPERTY_COMPONENT_STYLE_CLASS = "componentStyleClass";
+    protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
+    protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 
@@ -37,11 +39,11 @@ public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputCompone
 
     @Override
     public String getComponentStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_COMPONENT_STYLE_CLASS);
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
     }
 
-    public void setComponentStyleClass(final String componentStyleClass) {
-        this.updateStateHelper(PROPERTY_COMPONENT_STYLE_CLASS, componentStyleClass);
+    public void setComponentStyleClass(final String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
     }
 
     @Override
@@ -72,12 +74,12 @@ public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputCompone
     }
 
     @Override
-    public boolean getDisableDefaultStyleClasses() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_STYLE_CLASSES, false);
+    public boolean getHideLabel() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_HIDE_LABEL, false);
     }
 
-    public void setDisableDefaultStyleClasses(final Boolean disableDefaultStyleClasses) {
-        this.updateStateHelper(PROPERTY_DISABLE_STYLE_CLASSES, disableDefaultStyleClasses);
+    public void setHideLabel(final String hideLabel) {
+        this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
     }
 
     @Override

@@ -15,17 +15,17 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-butterfaces-components
- * 
+ * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlTextArea.COMPONENT_FAMILY, rendererType = HtmlTextArea.RENDERER_TYPE)
 public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.TextareaRenderer {
 
-	private static final Attribute[] ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXTAREA);
+    private static final Attribute[] ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXTAREA);
 
-	@Override
-	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+    @Override
+    public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -38,14 +38,14 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
-	}
+    }
 
-	@Override
-	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+    @Override
+    public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -53,59 +53,59 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
             super.encodeEnd(context, component);
         }
 
-        // Render tooltip if components tooltip attribute is set
-        new TooltipPartRenderer().renderTooltip(htmlComponent, false, writer, context);
+        // Close inner component wrapper div
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // Render textarea counter
-        new CharacterCounterPartRenderer().renderCharacterCounter(htmlComponent, writer);
+        new MaxLengthPartRenderer().renderMaxLength(htmlComponent, writer);
 
-        // Close inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        // render tooltip elements if necessary
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
-	}
+    }
 
-	/**
-	 * Method copied from super class to add html features.
-	 */
-	@Override
-	protected void getEndTextToRender(final FacesContext context, final UIComponent component, final String currentValue)
-			throws IOException {
+    /**
+     * Method copied from super class to add html features.
+     */
+    @Override
+    protected void getEndTextToRender(final FacesContext context, final UIComponent component, final String currentValue)
+            throws IOException {
 
-		final ResponseWriter writer = context.getResponseWriter();
-		assert (writer != null);
+        final ResponseWriter writer = context.getResponseWriter();
+        assert (writer != null);
 
-		final String styleClass = (String) component.getAttributes().get("styleClass");
+        final String styleClass = (String) component.getAttributes().get("styleClass");
 
-		writer.startElement("textarea", component);
-		this.writeIdAttributeIfNecessary(context, writer, component);
-		writer.writeAttribute("name", component.getClientId(context), "clientId");
-		if (null != styleClass) {
-			writer.writeAttribute("class", styleClass, "styleClass");
-		}
+        writer.startElement("textarea", component);
+        this.writeIdAttributeIfNecessary(context, writer, component);
+        writer.writeAttribute("name", component.getClientId(context), "clientId");
+        if (null != styleClass) {
+            writer.writeAttribute("class", styleClass, "styleClass");
+        }
 
-		// *** BEGIN HTML 5 CHANGED **************************
-		if (component instanceof HtmlTextArea) {
-			final HtmlTextArea inputComponent = (HtmlTextArea) component;
-			if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
-				writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
-			}
-		}
-		// *** END HTML 5 CHANGED ****************************
+        // *** BEGIN HTML 5 CHANGED **************************
+        if (component instanceof HtmlTextArea) {
+            final HtmlTextArea inputComponent = (HtmlTextArea) component;
+            if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
+                writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
+            }
+        }
+        // *** END HTML 5 CHANGED ****************************
 
-		// style is rendered as a passthru attribute
-		RenderKitUtils.renderPassThruAttributes(context, writer, component, ATTRIBUTES);
-		RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
+        // style is rendered as a passthru attribute
+        RenderKitUtils.renderPassThruAttributes(context, writer, component, ATTRIBUTES);
+        RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
 
-		RenderKitUtils.renderOnchange(context, component, false);
+        RenderKitUtils.renderOnchange(context, component, false);
 
-		// render default text specified
-		if (currentValue != null) {
-			writer.writeText(currentValue, component, "value");
-		}
+        // render default text specified
+        if (currentValue != null) {
+            writer.writeText(currentValue, component, "value");
+        }
 
-		writer.endElement("textarea");
+        writer.endElement("textarea");
 
-	}
+    }
 }

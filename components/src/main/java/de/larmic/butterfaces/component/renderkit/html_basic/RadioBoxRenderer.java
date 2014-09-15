@@ -34,7 +34,7 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -47,13 +47,23 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 
         if (!htmlComponent.isReadonly()) {
             super.encodeEnd(context, component);
+
+            final StringBuffer jsCall = new StringBuffer();
+
+            // add bootstrap radio class to component
+            // bootstrap radio buttons are using pageDirection as default
+            // maybe use radio-inline
+            writer.startElement("script", component);
+            writer.writeText("jQuery(\"table.butterfaces-input-component\").find(\"td\").addClass(\"radio\");", null);
+            writer.writeText("jQuery(\"table.butterfaces-input-component\").removeClass(\"form-control\");", null);
+            writer.endElement("script");
         }
 
-        // Render tooltip if components tooltip attribute is set
-        new TooltipPartRenderer().renderTooltip(htmlComponent, true, writer, context);
-
         // Close inner component wrapper div
-        new InnterComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+
+        // render tooltip elements if necessary
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);

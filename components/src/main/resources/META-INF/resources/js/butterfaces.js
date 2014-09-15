@@ -23,6 +23,17 @@ function handleSpinner(e, component, min, max) {
     }
 };
 
+function addLabelAttributeToInnerComponent(/*String*/innerInputComponentId, /*String*/ label) {
+    var $component = jQuery(document.getElementById(innerInputComponentId));
+    var labelIsNull = !label || label.length === 0;
+
+    $component.removeAttr('label');
+
+    if (!labelIsNull) {
+        $component.attr('label', label);
+    }
+}
+
 /**
  * calls pretty print javascript framework and removes first and last empty children.
  */
@@ -169,7 +180,7 @@ var ComponentHandler = function (/*String*/componentId, /*Object*/ options) {
  */
 ComponentHandler.prototype.getInputNode = function () {
     var inputContainer = DomUtils.getChildren(this._componentNode, "larmic-input-container-marker")[0];
-    return DomUtils.getChildren(inputContainer, "larmic-input-component-marker")[0];
+    return DomUtils.getChildren(inputContainer, "butterfaces-input-component")[0];
 };
 
 /**

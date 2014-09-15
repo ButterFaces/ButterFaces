@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -8,6 +10,8 @@ import java.io.Serializable;
 @SessionScoped
 @SuppressWarnings("serial")
 public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+
+    private String description = "some description";
 
     @Override
     protected Object initValue() {
@@ -30,26 +34,17 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
+        this.appendString("description", this.getDescription(), sb);
+        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendBoolean("floating", this.isFloating(), sb);
-        this.appendBoolean("disableDefaultStyleClasses", this.isDisableDefaultStyleClasses(), sb);
-
-        if (this.isBootstrap()) {
-            this.appendString("componentStyleClass", "form-group", sb);
-            this.appendString("inputStyleClass", "form-control", sb);
-        }
-
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         this.createAjaxXhtml(sb, "change");
-
-        if (getFacetText() != null && !"".equals(getFacetText())) {
-            sb.append("            " + "<f:facet name=\"input-container\">\n");
-            sb.append("            " + "    " + getFacetText() + "\n");
-            sb.append("            " + "</f:facet>\n");
-        }
 
         sb.append("        </l:checkBox>");
 
@@ -61,13 +56,20 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
     }
 
     @Override
-    public void addCss(StringBuilder sb) {
-        if (this.isBootstrap()) {
-            sb.append("\n\n.form-group input[type=checkbox] {\n");
-            sb.append("    width: 14px; /* fixes checkbox position */\n");
-            sb.append("    height: 14px; /* fixes checkbox position */\n");
+    protected void addCss(StringBuilder sb) {
+        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+            sb.append(".some-demo-class {\n");
+            sb.append("    background-color: red;\n");
             sb.append("}");
         }
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     protected String getEmptyDistanceString() {
