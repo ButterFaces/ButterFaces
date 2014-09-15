@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:l="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>l:table</strong> The table tag renders an HTML element of the type "table".
+    </ui:define>
+
+    <ui:define name="attributes">
+        <h:form prependId="false">
+        </h:form>
+    </ui:define>
+
+    <ui:define name="output">
+        <l:table id="test"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
+            <l:column id="column1"
+                      label="C1">
+                #{rowItem.a}
+            </l:column>
+            <l:column id="column2"
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </l:column>
+        </l:table>
+        <l:table id="testNotRendered"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}"
+                 rendered="false">
+            <l:column id="column1"
+                      label="C1">
+                #{rowItem.a}
+            </l:column>
+            <l:column id="column2"
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </l:column>
+        </l:table>
+        <l:table id="testNoChildren"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
+        </l:table>
+    </ui:define>
+
+    <ui:define name="other">
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('table');
+            });
+        </script>
+    </ui:define>
+</ui:composition>
