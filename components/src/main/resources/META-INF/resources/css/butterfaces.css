@@ -76,20 +76,6 @@ select.butter-input-component {
     display: inline-block;
 }
 
-.larmic-component-toastContainer {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 500;
-}
-
-.larmic-component-toast-error {
-    border: 2px solid #f00;
-    background-color: #ddf;
-    padding: 10px;
-    font-weight: bold;
-}
-
 .butter-component-fieldset {
     border-radius: 0;
     border-bottom: none;

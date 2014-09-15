@@ -210,41 +210,6 @@ ComponentHandler.prototype._hideTooltip = function () {
 
 /**
  *====================================================================================
- *TOAST
- *====================================================================================
- */
-
-/**
- * A component for displaying messages
- * @constructor
- */
-var Toast = function () {
-    this._rootNode;
-};
-
-/**
- * Displays an error message
- * @param message the message string
- */
-Toast.prototype.error = function (message) {
-    if (typeof this._rootNode === "undefined") {
-        this._rootNode = document.createElement("div");
-        this._rootNode.className = "larmic-component-toastContainer";
-        document.getElementsByTagName("body")[0].appendChild(this._rootNode);
-    }
-
-    var msgNode = document.createElement("div");
-    msgNode.className = "larmic-component-toast-error";
-    msgNode.innerHTML = message;
-
-    this._rootNode.appendChild(msgNode);
-};
-
-// instantiate it for future usage
-var toast = new Toast();
-
-/**
- *====================================================================================
  *TEXTAREA COMPONENT HANDLER
  *====================================================================================
  */
