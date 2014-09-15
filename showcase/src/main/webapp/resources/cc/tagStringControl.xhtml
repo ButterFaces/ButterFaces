@@ -13,7 +13,7 @@
 	<composite:implementation>
         <showcase:tagcontrol label="#{cc.attrs.label}">
             <h:inputText value="#{cc.attrs.value}"
-                         styleClass="form-control checkbox arquillian_#{cc.attrs.label}"
+                         styleClass="form-control arquillian_#{cc.attrs.label}"
                          maxlength="40">
                 <f:ajax event="keyup" execute="@this" render="output"/>
                 <composite:insertChildren />
