@@ -26,7 +26,7 @@
                     <h4>Container</h4>
                     <ul>
                         <li><h:link value="l:fieldset" outcome="/fieldset" styleClass="arquillian_fieldset"/></li>
-                        <li><h:link value="l:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint experimental"/></li>
+                        <li><h:link value="l:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint"/></li>
                     </ul>
                 </div>
 
@@ -41,6 +41,15 @@
 
             </p>
         </div>
+        <span class="experimental pull-right hideExperimentalAttention">* experimental</span>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                if (jQuery('a.experimental').size() != 0) {
+                    jQuery('span.experimental').removeClass('hideExperimentalAttention');
+                }
+            });
+        </script>
 
     </ui:define>
 
