@@ -41,7 +41,7 @@
                 <version>1.7.0.1.1</version>
                 <configuration>
                     <sourceDirectory>src/main/webapp/resources/less</sourceDirectory>
-                    <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/css</outputDirectory>
+                    <outputDirectory>${project.build.directory}/${project.artifactId}/css</outputDirectory>
                     <compress>true</compress>
                     <includes>
                         <include>showcase.less</include>
