@@ -23,48 +23,52 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlPrettyPrint prettyPrint = (HtmlPrettyPrint) component;
 
-        if (prettyPrint.isRendered()) {
-            final String style = prettyPrint.getStyle();
-            final String styleClass = prettyPrint.getStyleClass();
+        final String style = prettyPrint.getStyle();
+        final String styleClass = prettyPrint.getStyleClass();
 
-            writer.startElement(ELEMENT_DIV, component);
+        writer.startElement(ELEMENT_DIV, component);
 
-            writer.writeAttribute("id", component.getClientId(), null);
+        writer.writeAttribute("id", component.getClientId(), null);
 
-            if (null != style) {
-                writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
-            }
-            if (null != styleClass) {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-prettyprint " + styleClass, "class");
-            } else {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-prettyprint", "class");
-            }
-
-            writer.startElement(ELEMENT_PRE, component);
-            writer.writeAttribute(ATTRIBUTE_CLASS, "prettyprint " + prettyPrint.getLanguage(), "class");
+        if (null != style) {
+            writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
         }
+        if (null != styleClass) {
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-prettyprint " + styleClass, "class");
+        } else {
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-prettyprint", "class");
+        }
+
+        writer.startElement(ELEMENT_PRE, component);
+        writer.writeAttribute(ATTRIBUTE_CLASS, "prettyprint " + prettyPrint.getLanguage(), "class");
     }
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlPrettyPrint prettyPrint = (HtmlPrettyPrint) component;
 
-        if (prettyPrint.isRendered()) {
-            writer.endElement(ELEMENT_PRE);
-            writer.endElement(ELEMENT_DIV);
+        writer.endElement(ELEMENT_PRE);
+        writer.endElement(ELEMENT_DIV);
 
-            // call pretty print javascript on render
-            writer.startElement("script", component);
-            writer.writeAttribute("type", "text/javascript", "type");
-            writer.writeText("jQuery(function () { handlePrettyPrint('" + component.getClientId() + "'); });", null);
-            writer.endElement("script");
-        }
+        // call pretty print javascript on render
+        writer.startElement("script", component);
+        writer.writeAttribute("type", "text/javascript", "type");
+        writer.writeText("jQuery(function () { handlePrettyPrint('" + component.getClientId() + "'); });", null);
+        writer.endElement("script");
     }
 
 }

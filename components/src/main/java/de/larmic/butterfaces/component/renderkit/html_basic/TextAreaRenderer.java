@@ -28,6 +28,10 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;

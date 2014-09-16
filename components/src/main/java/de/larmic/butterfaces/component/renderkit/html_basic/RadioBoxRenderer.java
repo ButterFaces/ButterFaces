@@ -24,6 +24,10 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
 		super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -45,6 +49,10 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();

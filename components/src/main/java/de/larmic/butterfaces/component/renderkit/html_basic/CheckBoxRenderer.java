@@ -26,6 +26,10 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
 
         super.encodeBegin(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -45,6 +49,10 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();

@@ -23,30 +23,32 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
 
-        if (fieldSet.isRendered()) {
-            final String style = fieldSet.getStyle();
-            final String styleClass = fieldSet.getStyleClass();
+        final String style = fieldSet.getStyle();
+        final String styleClass = fieldSet.getStyleClass();
 
-            writer.startElement(ELEMENT_FIELDSET, component);
+        writer.startElement(ELEMENT_FIELDSET, component);
 
-            if (null != style) {
-                writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
-            }
-            if (null != styleClass) {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset " + styleClass, "styleClass");
-            } else {
-                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset", "styleClass");
-            }
+        if (null != style) {
+            writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
+        }
+        if (null != styleClass) {
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset " + styleClass, "styleClass");
+        } else {
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset", "styleClass");
+        }
 
 
-            if (fieldSet.getLabel() != null && !"".equals(fieldSet.getLabel())) {
-                writer.startElement(ELEMENT_LEGEND, component);
-                writer.writeText(fieldSet.getLabel(), component, "label");
-                writer.endElement(ELEMENT_LEGEND);
-            }
+        if (fieldSet.getLabel() != null && !"".equals(fieldSet.getLabel())) {
+            writer.startElement(ELEMENT_LEGEND, component);
+            writer.writeText(fieldSet.getLabel(), component, "label");
+            writer.endElement(ELEMENT_LEGEND);
         }
     }
 
@@ -54,12 +56,11 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
-        final ResponseWriter writer = context.getResponseWriter();
-        final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
-
-        if (fieldSet.isRendered()) {
-            writer.endElement(ELEMENT_FIELDSET);
+        if (!shouldEncode(component)) {
+            return;
         }
+
+        context.getResponseWriter().endElement(ELEMENT_FIELDSET);
     }
 
 }
