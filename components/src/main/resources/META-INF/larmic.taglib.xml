@@ -566,4 +566,479 @@
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>
+
+    <tag>
+        <description>
+            &lt;p&gt;&lt;span
+            class="changed_modified_2_0"&gt;Render&lt;/span&gt; an HTML "a"
+            anchor
+            element that acts like a form submit button when
+            clicked.&lt;/p&gt;
+            &lt;p&gt;General Behaviour&lt;/p&gt;
+            &lt;p&gt;Both the encode and decode behavior require the ability to
+            get
+            the id/name for a hidden field, &lt;span
+            class="changed_added_2_0"&gt;which may be rendered in markup or
+            which
+            may be programmatically added via client DOM manipulation&lt;/span&gt;,
+            whose value is set by the JavaScript form submit. This name must
+            be constructed as follows:&lt;/p&gt;
+            &lt;ul&gt;
+            &lt;li&gt;&lt;p&gt;Get the clientId for the form of which this
+            component is a
+            child.&lt;/p&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;p&gt;Append
+            &lt;code&gt;NamingContainer.SEPARATOR_CHAR&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;p&gt;Append a constant string that is the same for all
+            command
+            link components in the tree.&lt;/p&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;In the following text, this String is called
+            hiddenFieldName.&lt;/p&gt;
+            &lt;p&gt;Decode Behavior&lt;/p&gt;
+            &lt;ul&gt;
+            &lt;p&gt;Obtain the "clientId" property of the component. Obtain the
+            &lt;code&gt;Map&lt;/code&gt; from the "requestParameterMap" property
+            of the
+            &lt;code&gt;ExternalContext&lt;/code&gt;. Derive hiddenFieldName as
+            above.
+            Get the entry in the &lt;code&gt;Map&lt;/code&gt; under the key that
+            is the
+            hiddenFieldName. If the there is no entry, or the entry is the
+            empty String, or the entry is not equal to the value of the
+            "clientId" property, return immediately. If there is an entry,
+            and its value is equal to the value of the "clientId" property,
+            create a new &lt;code&gt;javax.faces.event.ActionEvent&lt;/code&gt;
+            instance
+            around the component and call &lt;code&gt;queueActionEvent()&lt;/code&gt;
+            on
+            the component, passing the event.&lt;/p&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;Encode Behavior&lt;/p&gt;
+            &lt;ul&gt;
+            &lt;p&gt;If the value of the &lt;code&gt;disabled&lt;/code&gt;
+            attribute is
+            &lt;code&gt;true&lt;/code&gt;, render a span element. Render all the
+            passthru
+            attributes and the &lt;code&gt;target&lt;/code&gt; attribute as
+            pass-through
+            attributes on the span, even though the &lt;code&gt;target&lt;/code&gt;
+            attribute will have no effect on a span. Render the current value
+            of the component as the content of the span. Return.&lt;/p&gt;
+            &lt;p&gt;If the &lt;code&gt;disabled&lt;/code&gt; attribute is not
+            present, or its
+            value is &lt;code&gt;false&lt;/code&gt;, render an HTML &lt;code&gt;a&lt;/code&gt;
+            element. Render "#" as the value of the "href" attribute. Render
+            the current value of the component as the link text if it is
+            specified. Render JavaScript that is functionally equivalent to
+            the following as the value of the "onclick" attribute:&lt;/p&gt;
+            &lt;p&gt;&lt;code&gt;document.forms['CLIENT_ID']['hiddenFieldName'].value='CLIENT_ID';
+            document.forms['CLIENT_ID']['PARAM1_NAME'].value='PARAM1_VALUE';
+            document.forms['CLIENT_ID']['PARAM2_NAME'].value='PARAM2_VALUE';
+            return false;&lt;/code&gt;&lt;/p&gt;
+            &lt;p&gt;document.forms['CLIENT_ID'].submit()" where hiddenFieldName
+            is
+            as described above, CLIENT_ID is the clientId of the UICommand
+            component, PARAM*_NAME and PARAM*_VALUE are the names and values,
+            respectively, of any nested UIParameter children. The name and
+            the value must be URLEncoded. If an "onclick" attribute was
+            specified by the user, render this JavaScript in a function,
+            and render the user's JavaScript in a function. Render both
+            functions
+            in a choice function as follows:&lt;/p&gt;
+            &lt;p&gt;&lt;code&gt;var a=function(){#USER_FUNCTION#};
+            var b=function(){#JSF_FUNCTION#};
+            return (a()==false) ? false : b();&lt;/code&gt;&lt;/p&gt;
+            &lt;p&gt;where #USER_FUNCTION# is the user's JavaScript and
+            #JSF_FUNCTION# is the JavaScript rendered by JSF. The choice
+            function should operate such that if the user's JavaScript returns
+            true, then the rendered JavaScript will also execute.&lt;/p&gt;
+            &lt;p&gt;If the "styleClass" attribute is specified, render its
+            value as
+            the value of the "class" attribute. Render any non-UIParameter
+            output children as normal inside of the "a" element. These will
+            appear as the link text. Allow the form renderer to output a
+            single "input" element (for the entire page, regardless of how
+            many command link components are in the page) of "type" "hidden"
+            whose "name" is the value of hiddenFieldName, and which must not
+            have a "value" attribute. Multiple occurrences of command link
+            components in the tree should not cause multiple hiddenFieldName
+            hidden fields. Allow the form renderer to output an "input"
+            element of "type" "hidden" for each of the nested UIParameter
+            children, taking the name property (but not the value) from each
+            one in turn. If the "disabled" attribute is specified, do not
+            render the HTML "a" anchor element or its "href" attribute.
+            Instead, render a "span" element. If the "styleClass" attribute
+            is specified, render its value as the value of the "class"
+            attribute on the "span". Render any pass-through attributes on
+            the "span". The content of the span element comes from the value
+            of the component or its children as specified above.&lt;/p&gt;
+            &lt;p&gt;If the user specified a &lt;code&gt;target&lt;/code&gt;
+            attribute, its
+            value must be set using javascript since the &lt;code&gt;onclick&lt;/code&gt;
+            handler will prevent the target attribute from being generated.
+            This must be accomplished using JavaScript that is equivalent to
+            the following.&lt;/p&gt;
+            &lt;p&gt;&lt;code&gt;document.forms['CLIENT_ID'].target='TARGET';&lt;/code&gt;&lt;/p&gt;
+            &lt;p&gt;Where TARGET is the value of the target attribute on the
+            JSP
+            tag.&lt;/p&gt;
+            &lt;/ul&gt;
+        </description>
+        <tag-name>commandLink</tag-name>
+        <component>
+            <component-type>javax.faces.HtmlCommandLink</component-type>
+            <renderer-type>javax.faces.Link</renderer-type>
+        </component>
+        <attribute>
+            <description>
+                MethodExpression representing the application action to invoke
+                when this component is activated by the user. The expression
+                must evaluate to a public method that takes no parameters, and
+                returns an Object (the toString() of which is called to derive
+                the logical outcome) which is passed to the NavigationHandler
+                for this application.
+            </description>
+            <name>action</name>
+            <required>false</required>
+            <method-signature>java.lang.Object action()</method-signature>
+        </attribute>
+        <attribute>
+            <description>
+                &lt;p&gt;
+                MethodExpression representing an action listener method that
+                will be notified when this component is activated by the user.
+                The expression must evaluate to a public method that takes an
+                ActionEvent parameter, with a return type of void, &lt;span
+                class="changed_added_2_0"&gt;or to a public method that takes no
+                arguments with a return type of void. In the latter case, the
+                method has no way of easily knowing where the event came from,
+                but this can be useful in cases where a notification is needed
+                that "some action happened".&lt;/span&gt;
+                &lt;/p&gt;
+            </description>
+            <name>actionListener</name>
+            <required>false</required>
+            <method-signature>void actionListener(javax.faces.event.ActionEvent)
+            </method-signature>
+        </attribute>
+        <attribute>
+            <description>
+                The component identifier for this component. This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating that, if this component is activated by the
+                user,
+                notifications should be delivered to interested listeners and
+                actions
+                immediately (that is, during Apply Request Values phase) rather
+                than
+                waiting until Invoke Application phase.
+            </description>
+            <name>immediate</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit. The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                The current value of this component.
+            </description>
+            <name>value</name>
+            <required>false</required>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description>
+                Access key that, when pressed, transfers focus
+                to this element.
+            </description>
+            <name>accesskey</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The character encoding of the resource designated
+                by this hyperlink.
+            </description>
+            <name>charset</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The position and shape of the hot spot on the screen
+                (for use in client-side image maps).
+            </description>
+            <name>coords</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Direction indication for text that does not inherit
+                directionality.
+                Valid values are "LTR" (left-to-right) and "RTL"
+                (right-to-left).
+            </description>
+            <name>dir</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating that this element must never
+                receive focus or be included in a subsequent
+                submit.
+            </description>
+            <name>disabled</name>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>
+                The language code of the resource designated
+                by this hyperlink.
+            </description>
+            <name>hreflang</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Code describing the language used in the generated markup
+                for this component.
+            </description>
+            <name>lang</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when this element loses focus.
+            </description>
+            <name>onblur</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                clicked over this element.
+            </description>
+            <name>onclick</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                double clicked over this element.
+            </description>
+            <name>ondblclick</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when this element receives focus.
+            </description>
+            <name>onfocus</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                pressed down over this element.
+            </description>
+            <name>onkeydown</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                pressed and released over this element.
+            </description>
+            <name>onkeypress</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                released over this element.
+            </description>
+            <name>onkeyup</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                pressed down over this element.
+            </description>
+            <name>onmousedown</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved within this element.
+            </description>
+            <name>onmousemove</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved away from this element.
+            </description>
+            <name>onmouseout</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved onto this element.
+            </description>
+            <name>onmouseover</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                released over this element.
+            </description>
+            <name>onmouseup</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The relationship from the current document
+                to the anchor specified by this hyperlink.
+                The value of this attribute is a space-separated
+                list of link types.
+            </description>
+            <name>rel</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                A reverse link from the anchor specified
+                by this hyperlink to the current document.
+                The value of this attribute is a space-separated
+                list of link types.
+            </description>
+            <name>rev</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The shape of the hot spot on the screen
+                (for use in client-side image maps). Valid
+                values are: default (entire region); rect
+                (rectangular region); circle (circular region);
+                and poly (polygonal region).
+            </description>
+            <name>shape</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                CSS style(s) to be applied when this component is rendered.
+            </description>
+            <name>style</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Space-separated list of CSS style class(es) to be applied when
+                this element is rendered. This value must be passed through
+                as the "class" attribute on generated markup.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Position of this element in the tabbing order
+                for the current document. This value must be
+                an integer between 0 and 32767.
+            </description>
+            <name>tabindex</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Name of a frame where the resource
+                retrieved via this hyperlink is to
+                be displayed.
+            </description>
+            <name>target</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Advisory title information about markup elements generated
+                for this component.
+            </description>
+            <name>title</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The content type of the resource designated
+                by this hyperlink.
+            </description>
+            <name>type</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                The ValueExpression linking this component to a property in a
+                backing bean
+            </description>
+            <name>binding</name>
+            <required>false</required>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>Bootstrap glyphicon class</description>
+            <name>glyphicon</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 </facelet-taglib>
