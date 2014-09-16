@@ -6,10 +6,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Before;
+import org.openqa.selenium.*;
 
 import java.net.URL;
 
@@ -26,6 +24,11 @@ public abstract class AbstractComponentTest {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return Deployments.createShowcaseDeployment();
+    }
+
+    @Before
+    public void initBrowserSize() {
+        browser.manage().window().setSize(new Dimension(1280, 1024));
     }
 
     protected WebElement findWebElementByClassName(final String className) {
