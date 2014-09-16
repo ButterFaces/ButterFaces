@@ -59,7 +59,6 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-        final HtmlPrettyPrint prettyPrint = (HtmlPrettyPrint) component;
 
         writer.endElement(ELEMENT_PRE);
         writer.endElement(ELEMENT_DIV);
@@ -67,7 +66,7 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
         // call pretty print javascript on render
         writer.startElement("script", component);
         writer.writeAttribute("type", "text/javascript", "type");
-        writer.writeText("jQuery(function () { handlePrettyPrint('" + component.getClientId() + "'); });", null);
+        writer.writeText("jQuery(function () { handlePrettyPrint(); });", null);
         writer.endElement("script");
     }
 
