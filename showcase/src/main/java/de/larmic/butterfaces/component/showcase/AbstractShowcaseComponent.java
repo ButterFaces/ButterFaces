@@ -23,6 +23,57 @@ public abstract class AbstractShowcaseComponent {
 
     }
 
+    protected void appendString(final String attribute, final String value, final StringBuilder sb, final boolean isLastValue) {
+        if (value != null && !"".equals(value)) {
+            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
+        }
+    }
+
+    protected void appendString(final String attribute, final String value, final StringBuilder sb) {
+        this.appendString(attribute, value, sb, false);
+    }
+
+    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb, final boolean isLastValue) {
+        if (value) {
+            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
+        }
+    }
+
+    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb) {
+        this.appendBoolean(attribute, value, sb, false);
+    }
+
+    protected String getEmptyDistanceString() {
+        return "                ";
+    }
+
+    protected void addXhtmlStart(final StringBuilder sb) {
+        sb.append("<!DOCTYPE html>");
+        sb.append("\n");
+        sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"");
+        sb.append("\n");
+        sb.append("      xmlns:h=\"http://java.sun.com/jsf/html\"");
+        sb.append("\n");
+        sb.append("      xmlns:l=\"http://butterfaces.larmic.de/components\">");
+        sb.append("\n");
+        sb.append("<h:head />");
+        sb.append("\n");
+        sb.append("<body>");
+        sb.append("\n");
+        sb.append("    <form>");
+        sb.append("\n");
+
+    }
+
+    protected void addXhtmlEnd(final StringBuilder sb) {
+        sb.append("\n");
+        sb.append("    </form>");
+        sb.append("\n");
+        sb.append("</body>");
+        sb.append("\n");
+        sb.append("</html>");
+    }
+
     public String getCss() {
         final StringBuilder sb = new StringBuilder();
 
