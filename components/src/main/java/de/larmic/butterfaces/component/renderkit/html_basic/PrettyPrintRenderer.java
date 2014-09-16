@@ -35,7 +35,7 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
 
         writer.startElement(ELEMENT_DIV, component);
 
-        writer.writeAttribute("id", component.getClientId(), null);
+        this.writeIdAttributeIfNecessary(context, writer, component);
 
         if (null != style) {
             writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");

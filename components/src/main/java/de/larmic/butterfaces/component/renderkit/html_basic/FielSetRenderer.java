@@ -35,6 +35,8 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
 
         writer.startElement(ELEMENT_FIELDSET, component);
 
+        this.writeIdAttributeIfNecessary(context, writer, component);
+
         if (null != style) {
             writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
         }
