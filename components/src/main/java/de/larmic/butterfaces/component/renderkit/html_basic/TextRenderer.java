@@ -30,9 +30,9 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-        super.encodeBegin(context, component);
-
         rendererParamsNotNull(context, component);
+
+        super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
