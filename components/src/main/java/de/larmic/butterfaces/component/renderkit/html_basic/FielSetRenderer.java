@@ -21,6 +21,8 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
 
@@ -50,6 +52,8 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
 

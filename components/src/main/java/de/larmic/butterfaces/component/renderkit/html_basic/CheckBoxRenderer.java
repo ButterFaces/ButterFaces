@@ -24,6 +24,8 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeBegin(context, component);
 
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -42,6 +44,8 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 

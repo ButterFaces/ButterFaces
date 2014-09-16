@@ -15,9 +15,11 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
     }
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
     }
 }

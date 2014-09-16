@@ -21,6 +21,8 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlPrettyPrint prettyPrint = (HtmlPrettyPrint) component;
 
@@ -48,6 +50,8 @@ public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.Html
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlPrettyPrint prettyPrint = (HtmlPrettyPrint) component;
 

@@ -29,6 +29,8 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeBegin(context, component);
 
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -47,6 +49,8 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
