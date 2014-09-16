@@ -11,6 +11,11 @@
     <name>ButterFaces showcase integration test</name>
 
     <properties>
+        <version.jbossas>8.1.0.Final</version.jbossas>
+
+        <!-- Other props -->
+        <jbossHome>${project.build.directory}/wildfly-${version.jbossas}</jbossHome>
+
         <browser>phantomjs</browser> <!-- PhantomJS will be our default browser if no profile is specified-->
     </properties>
 
@@ -26,11 +31,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- Fork every test because it will launch a separate AS instance -->
-                    <forkMode>always</forkMode>
+                    <environmentVariables>
+                        <JBOSS_HOME>${jbossHome}</JBOSS_HOME>
+                    </environmentVariables>
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <jboss.home>${project.basedir}/target/wildfly-8.1.0.Final</jboss.home>
                         <module.path>${project.basedir}/target/wildfly-8.1.0.Final/modules</module.path>
                     </systemPropertyVariables>
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
@@ -119,14 +124,14 @@
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-arquillian-container-embedded</artifactId>
-            <version>8.1.0.Final</version>
+            <version>${version.jbossas}</version>
             <scope>test</scope>
         </dependency>
         <!-- this is the wildfly emb.container - BUT eventually it is not a fully blown emb.container-->
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-embedded</artifactId>
-            <version>8.1.0.Final</version>
+            <version>${version.jbossas}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
