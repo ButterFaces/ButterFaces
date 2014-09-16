@@ -687,8 +687,7 @@
         </description>
         <tag-name>commandLink</tag-name>
         <component>
-            <component-type>javax.faces.HtmlCommandLink</component-type>
-            <renderer-type>javax.faces.Link</renderer-type>
+            <component-type>de.larmic.butterfaces.component.glyphiconCommandLink</component-type>
         </component>
         <attribute>
             <description>
