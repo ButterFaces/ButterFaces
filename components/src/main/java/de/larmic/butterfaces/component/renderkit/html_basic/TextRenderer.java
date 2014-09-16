@@ -25,8 +25,7 @@ import java.io.IOException;
 public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
-    private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager
-            .getAttributes(AttributeManager.Key.OUTPUTTEXT);
+    private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.OUTPUTTEXT);
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -117,22 +116,7 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
             }
 
             // *** BEGIN HTML 5 CHANGED **************************
-            if (component instanceof HtmlText) {
-                final HtmlText inputComponent = (HtmlText) component;
-
-                writeHTML5AttributeIfNotEmpty(writer, "placeholder", inputComponent.getPlaceholder());
-                writeHTML5AttributeIfNotEmpty(writer, "pattern", inputComponent.getPattern());
-                writeHTML5AttributeIfNotEmpty(writer, "min", inputComponent.getMin());
-                writeHTML5AttributeIfNotEmpty(writer, "max", inputComponent.getMax());
-                writeHTML5AttributeIfNotEmpty(writer, "type", inputComponent.getType(), "text");
-
-                if (inputComponent.getAutoFocus()) {
-                    writer.writeAttribute("autofocus", "true", null);
-                }
-
-            } else {
-                writer.writeAttribute("type", "text", null);
-            }
+            this.renderHtmlFeatures(component, writer);
             // *** END HTML 5 CHANGED ****************************
 
             // style is rendered as a passthur attribute
@@ -169,18 +153,27 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
                 && (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
             writer.endElement("span");
         }
-
     }
 
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue) throws IOException {
-        writeHTML5AttributeIfNotEmpty(writer, attributeName, attributeValue, null);
-    }
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlText) {
+            final HtmlText inputComponent = (HtmlText) component;
 
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue, String alternativeValue) throws IOException {
-        if (attributeValue != null && !"".equals(attributeValue)) {
-            writer.writeAttribute(attributeName, attributeValue, attributeName);
-        } else if (alternativeValue != null && !"".equals(alternativeValue)) {
-            writer.writeAttribute(attributeName, alternativeValue, attributeName);
+            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
+
+            htmlAttributePartRenderer.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+            htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
+            htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
+            htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
+            htmlAttributePartRenderer.writeTypeAttribute(writer, inputComponent.getType());
+
+            if (inputComponent.getAutoFocus()) {
+                writer.writeAttribute("autofocus", "true", null);
+            }
+        } else {
+            writer.writeAttribute("type", "text", null);
         }
     }
+
+
 }

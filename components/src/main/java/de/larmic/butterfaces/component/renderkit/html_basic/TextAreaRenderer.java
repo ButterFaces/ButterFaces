@@ -94,12 +94,7 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         }
 
         // *** BEGIN HTML 5 CHANGED **************************
-        if (component instanceof HtmlTextArea) {
-            final HtmlTextArea inputComponent = (HtmlTextArea) component;
-            if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
-                writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
-            }
-        }
+        this.renderHtmlFeatures(component, writer);
         // *** END HTML 5 CHANGED ****************************
 
         // style is rendered as a passthru attribute
@@ -115,5 +110,12 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
 
         writer.endElement("textarea");
 
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlTextArea) {
+            final HtmlTextArea inputComponent = (HtmlTextArea) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+        }
     }
 }

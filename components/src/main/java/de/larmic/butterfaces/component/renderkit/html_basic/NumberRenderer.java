@@ -115,15 +115,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
             // *** END CUSTOM CHANGED ****************************
 
             // *** BEGIN HTML 5 CHANGED **************************
-            if (component instanceof HtmlNumber) {
-                final HtmlNumber inputComponent = (HtmlNumber) component;
-
-                writeHTML5AttributeIfNotEmpty(writer, "placeholder", inputComponent.getPlaceholder());
-
-                if (inputComponent.getAutoFocus()) {
-                    writer.writeAttribute("autofocus", "true", null);
-                }
-            }
+            this.renderHtmlFeatures(component, writer);
             // *** END HTML 5 CHANGED ****************************
 
             // style is rendered as a passthur attribute
@@ -175,23 +167,22 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         }
     }
 
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlNumber) {
+            final HtmlNumber inputComponent = (HtmlNumber) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+
+            if (inputComponent.getAutoFocus()) {
+                writer.writeAttribute("autofocus", "true", null);
+            }
+        }
+    }
+
     private String convertMinMax(String value) {
         try {
             return "'" + Integer.valueOf(value) + "'";
         } catch (NumberFormatException e) {
             return "null";
-        }
-    }
-
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue) throws IOException {
-        writeHTML5AttributeIfNotEmpty(writer, attributeName, attributeValue, null);
-    }
-
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue, String alternativeValue) throws IOException {
-        if (attributeValue != null && !"".equals(attributeValue)) {
-            writer.writeAttribute(attributeName, attributeValue, attributeName);
-        } else if (alternativeValue != null && !"".equals(alternativeValue)) {
-            writer.writeAttribute(attributeName, alternativeValue, attributeName);
         }
     }
 }

@@ -112,12 +112,7 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
         }
 
         // *** BEGIN HTML 5 CHANGED **************************
-        if (component instanceof HtmlSecret) {
-            final HtmlSecret inputComponent = (HtmlSecret) component;
-            if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
-                writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
-            }
-        }
+        this.renderHtmlFeatures(component, writer);
         // *** END HTML 5 CHANGED ****************************
 
         RenderKitUtils.renderPassThruAttributes(context,
@@ -137,5 +132,12 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
 
         writer.endElement("input");
 
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlSecret) {
+            final HtmlSecret inputComponent = (HtmlSecret) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+        }
     }
 }
