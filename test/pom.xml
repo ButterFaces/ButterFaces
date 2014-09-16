@@ -15,7 +15,7 @@
 
         <!-- Other props -->
         <jbossHome>${project.build.directory}/wildfly-${version.jbossas}</jbossHome>
-
+        <test.container>standalone</test.container>
         <browser>phantomjs</browser> <!-- PhantomJS will be our default browser if no profile is specified-->
     </properties>
 
@@ -36,7 +36,8 @@
                     </environmentVariables>
                     <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <module.path>${project.basedir}/target/wildfly-8.1.0.Final/modules</module.path>
+                        <arquillian.launch>${test.container}</arquillian.launch>
+                        <!--module.path>${jbossHome}/modules</module.path-->
                     </systemPropertyVariables>
                     <redirectTestOutputToFile>false</redirectTestOutputToFile>
                 </configuration>
