@@ -5,7 +5,6 @@ import de.larmic.butterfaces.component.html.HtmlActivateLibraries;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
@@ -19,12 +18,13 @@ public class ActivateLibrariesRenderer extends HtmlBasicRenderer {
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
+        /*
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.writeText("\n<!--\n", null);
         writer.writeText("   ButterFaces information:\n", null);
         writer.writeText("   tag <l:activateLibraries /> is used to enable Bootstrap and jQuery!\n", null);
-        writer.writeText("-->;\n", null);
+        writer.writeText("-->;\n", null);*/
     }
 
     @Override
