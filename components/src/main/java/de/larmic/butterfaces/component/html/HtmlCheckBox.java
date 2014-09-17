@@ -9,8 +9,9 @@ import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)

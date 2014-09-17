@@ -1,12 +1,19 @@
 package de.larmic.butterfaces.component.html.table;
 
 import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIData;
 
 /**
  * Created by larmic on 10.09.14.
  */
+@ResourceDependencies({
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head")
+})
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
 public class HtmlTable extends UIData {
 

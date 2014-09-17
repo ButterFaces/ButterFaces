@@ -568,6 +568,13 @@
     </tag>
 
     <tag>
+        <tag-name>activateLibraries</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.activateLibraries</component-type>
+        </component>
+    </tag>
+
+    <tag>
         <description>
             &lt;p&gt;&lt;span
             class="changed_modified_2_0"&gt;Render&lt;/span&gt; an HTML "a"
