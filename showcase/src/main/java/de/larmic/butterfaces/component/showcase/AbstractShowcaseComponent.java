@@ -48,6 +48,10 @@ public abstract class AbstractShowcaseComponent {
     }
 
     protected void addXhtmlStart(final StringBuilder sb) {
+        addXhtmlStart(sb, "<h:head />");
+    }
+
+    protected void addXhtmlStart(final StringBuilder sb, final String head) {
         sb.append("<!DOCTYPE html>");
         sb.append("\n");
         sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"");
@@ -56,13 +60,12 @@ public abstract class AbstractShowcaseComponent {
         sb.append("\n");
         sb.append("      xmlns:l=\"http://butterfaces.larmic.de/components\">");
         sb.append("\n");
-        sb.append("<h:head />");
+        sb.append(head);
         sb.append("\n");
         sb.append("<body>");
         sb.append("\n");
         sb.append("    <form>");
         sb.append("\n");
-
     }
 
     protected void addXhtmlEnd(final StringBuilder sb) {

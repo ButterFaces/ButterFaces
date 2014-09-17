@@ -13,7 +13,7 @@ import java.util.List;
 public class LinkShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
     private String value = "click me";
-    private String glyphicon = "glyphicon glyphicon-thumbs-up";
+    private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
     private String style = null;
     private int clicks = 0;
 
@@ -25,8 +25,8 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem(null, "No glyphicon"));
-        items.add(new SelectItem("glyphicon glyphicon-thumbs-up", "Bootstrap example"));
-        items.add(new SelectItem("fa fa-test", "Font-Awesome example"));
+        items.add(new SelectItem("glyphicon glyphicon-thumbs-up glyphicon-lg", "Bootstrap example"));
+        items.add(new SelectItem("fa fa-language fa-lg", "Font-Awesome example"));
 
         return items;
     }
@@ -44,7 +44,11 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     public String getXHtml() {
         final StringBuilder sb = new StringBuilder();
 
-        this.addXhtmlStart(sb);
+        if (this.getGlyphicon() != null && this.getGlyphicon().contains("fa")) {
+            this.addXhtmlStart(sb, "<h:head>\n    <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\"\n          rel=\"stylesheet\">\n</h:head>");
+        } else {
+            this.addXhtmlStart(sb);
+        }
 
         sb.append("        <l:commandLink id=\"input\"\n");
 
