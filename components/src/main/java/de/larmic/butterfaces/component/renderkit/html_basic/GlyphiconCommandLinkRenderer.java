@@ -28,7 +28,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
         if (glyphicon != null && !"".equals(glyphicon)) {
             writer.startElement("span", component);
-            writer.writeAttribute("class", glyphicon, null);
+            writer.writeAttribute("class", "butter-component-glyphicon " + glyphicon, null);
             writer.endElement("span");
         }
     }

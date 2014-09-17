@@ -1,8 +1,11 @@
 package de.larmic.butterfaces.component.showcase;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -10,10 +13,31 @@ import java.io.Serializable;
 public class LinkShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
     private String value = "click me";
+    private String glyphicon = "glyphicon glyphicon-thumbs-up";
+    private String style = null;
     private int clicks = 0;
 
     public void increaseClick() {
         clicks++;
+    }
+
+    public List<SelectItem> getGlyphicons() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem(null, "No glyphicon"));
+        items.add(new SelectItem("glyphicon glyphicon-thumbs-up", "Bootstrap example"));
+        items.add(new SelectItem("fa fa-test", "Font-Awesome example"));
+
+        return items;
+    }
+
+    public List<SelectItem> getStyles() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem(null, "default link"));
+        items.add(new SelectItem("btn btn-primary", "Bootstrap button"));
+
+        return items;
     }
 
     @Override
@@ -25,6 +49,8 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("        <l:commandLink id=\"input\"\n");
 
         this.appendString("value", this.getValue(), sb);
+        this.appendString("glyphicon", this.getGlyphicon(), sb);
+        this.appendString("styleClass", this.getStyle(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         sb.append("        </l:commandLink>");
@@ -45,6 +71,22 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getGlyphicon() {
+        return glyphicon;
+    }
+
+    public void setGlyphicon(String glyphicon) {
+        this.glyphicon = glyphicon;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     public int getClicks() {

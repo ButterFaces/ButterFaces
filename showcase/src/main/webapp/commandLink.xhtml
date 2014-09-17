@@ -13,14 +13,26 @@
         <h:form prependId="false">
             <showcase:tagStringControl label="value" value="#{linkShowcaseComponent.value}"/>
             <showcase:tagBooleanControl label="rendered" value="#{linkShowcaseComponent.rendered}"/>
+            <showcase:tagEnumControl label="glyphicon"
+                                     value="#{linkShowcaseComponent.glyphicon}"
+                                     values="#{linkShowcaseComponent.glyphicons}"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="controls">
+        <h:form prependId="false">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{linkShowcaseComponent.style}"
+                                     values="#{linkShowcaseComponent.styles}"/>
         </h:form>
     </ui:define>
 
     <ui:define name="output">
         <l:commandLink id="link"
-                       glyphicon="glyphicon glyphicon-thumbs-up"
+                       glyphicon="#{linkShowcaseComponent.glyphicon}"
                        value="#{linkShowcaseComponent.value}"
                        action="#{linkShowcaseComponent.increaseClick}"
+                       styleClass="#{linkShowcaseComponent.style}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" />
         </l:commandLink>
@@ -38,7 +50,7 @@
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
-                setActiveNavigation('link');
+                setActiveNavigation('commandLink');
             });
         </script>
     </ui:define>

@@ -1,12 +1,18 @@
 package de.larmic.butterfaces.component.html;
 
 import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlCommandLink;
 
 /**
  * Created by larmic on 16.09.14.
  */
+@ResourceDependencies({
+        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head") })
 @FacesComponent(HtmlGlyphiconCommandLink.COMPONENT_TYPE)
 public class HtmlGlyphiconCommandLink extends HtmlCommandLink{
 
@@ -24,6 +30,17 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink{
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    @Override
+    public String getStyleClass() {
+        final String styleClass = super.getStyleClass();
+
+        if (styleClass == null) {
+            return "butter-component-link";
+        }
+
+        return styleClass + " butter-component-link";
     }
 
     public String getGlyphicon() {

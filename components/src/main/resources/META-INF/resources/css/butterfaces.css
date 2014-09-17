@@ -116,3 +116,7 @@ select.butter-input-component {
 .has-error .butter-component-maxlength-counter {
     color: #a94442;
 }
+
+.butter-component-glyphicon {
+    margin-right: 5px;
+}
