@@ -14,7 +14,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private String tooltip = "tooltip";
     private boolean readonly;
     private boolean required;
-    private boolean floating;
     private boolean validation;
     private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
@@ -161,14 +160,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setRequired(final boolean required) {
         this.required = required;
-    }
-
-    public boolean isFloating() {
-        return this.floating;
-    }
-
-    public void setFloating(final boolean floating) {
-        this.floating = floating;
     }
 
     public boolean isValidation() {

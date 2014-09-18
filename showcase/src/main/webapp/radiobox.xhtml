@@ -2,6 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:l="http://butterfaces.larmic.de/components"
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
@@ -16,7 +17,6 @@
             <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{radioBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcaseComponent.rendered}" />
-            <showcase:tagBooleanControl label="floating" value="#{radioBoxShowcaseComponent.floating}" />
             <showcase:tagEnumControl label="componentStyleClass"
                                      value="#{radioBoxShowcaseComponent.componentStyleClass}"
                                      values="#{radioBoxShowcaseComponent.componentStyleClasses}"/>
@@ -60,6 +60,8 @@
     </ui:define>
 
     <ui:define name="other">
+        <l:activateLibraries />
+
         <showcase:showcaseExampleComponent component="#{radioBoxShowcaseComponent}" />
     </ui:define>
 

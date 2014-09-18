@@ -21,7 +21,6 @@ public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.SecretRenderer";
 
-    protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
@@ -90,15 +89,6 @@ public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
 
     public void setPlaceholder(final String placeholder) {
         this.updateStateHelper(PROPERTY_PLACEHOLDER, placeholder);
-    }
-
-    @Override
-    public boolean getFloating() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
-    }
-
-    public void setFloating(final Boolean floating) {
-        this.updateStateHelper(PROPERTY_FLOATING, floating);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

@@ -39,10 +39,6 @@
 			<name>required</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
-		<attribute>
-			<name>floating</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
         <attribute>
             <name>type</name>
             <type>java.lang.String</type>
@@ -124,10 +120,6 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <name>floating</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
             <name>autoFocus</name>
             <type>java.lang.Boolean</type>
         </attribute>
@@ -200,10 +192,6 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <name>floating</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
             <name>style</name>
             <type>java.lang.String</type>
         </attribute>
@@ -268,10 +256,6 @@
 			<type>java.lang.Integer</type>
 		</attribute>
 		<attribute>
-			<name>floating</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
 		</attribute>
@@ -329,10 +313,6 @@
 		</attribute>
 		<attribute>
 			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
         <attribute>
@@ -396,10 +376,6 @@
 			<type>java.lang.Boolean</type>
 		</attribute>
 		<attribute>
-			<name>floating</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
 		</attribute>
@@ -457,10 +433,6 @@
 		</attribute>
 		<attribute>
 			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>floating</name>
 			<type>java.lang.Boolean</type>
 		</attribute>
 		<attribute>

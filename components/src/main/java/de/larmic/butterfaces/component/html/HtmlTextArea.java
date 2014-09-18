@@ -22,7 +22,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TextAreaRenderer";
 
-    protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
@@ -100,15 +99,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setMaxLength(final Integer maxLength) {
         this.updateStateHelper(PROPERTY_MAXLENGTH, maxLength);
-    }
-
-    @Override
-    public boolean getFloating() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
-    }
-
-    public void setFloating(final Boolean floating) {
-        this.updateStateHelper(PROPERTY_FLOATING, floating);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

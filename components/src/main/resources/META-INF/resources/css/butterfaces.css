@@ -16,10 +16,6 @@ select.butter-input-component {
     margin-top: 0;
 }
 
-.butter-component-floating {
-    display: inline-block;
-}
-
 .butter-component-fieldset {
     border-radius: 0;
     border-bottom: none;

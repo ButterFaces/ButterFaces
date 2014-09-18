@@ -50,7 +50,6 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 

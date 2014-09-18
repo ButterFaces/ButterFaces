@@ -21,7 +21,6 @@ public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputCompone
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.RadioBoxRenderer";
 
-    protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
@@ -81,15 +80,6 @@ public class HtmlRadioBox extends HtmlSelectOneRadio implements HtmlInputCompone
 
     public void setHideLabel(final String hideLabel) {
         this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
-    }
-
-    @Override
-    public boolean getFloating() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
-    }
-
-    public void setFloating(final Boolean floating) {
-        this.updateStateHelper(PROPERTY_FLOATING, floating);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

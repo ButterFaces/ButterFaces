@@ -43,7 +43,6 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
 
 		if (this.getMaxLength() != null) {
 			sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
