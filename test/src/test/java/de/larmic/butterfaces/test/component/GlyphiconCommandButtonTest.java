@@ -5,7 +5,11 @@ import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
@@ -19,8 +23,10 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     public static final String COMPONENT_PAGE = "commandLink.jsf";
 
     public static final String BUTTER_COMPONENT = "arquillian_component";
+    public static final String CLICKS_SPAN = "arquillian_component_clicks";
     public static final String OPTION_RENDERED = "arquillian_rendered";
     public static final String OPTION_VALUE = "arquillian_value";
+    public static final String OPTION_GLYPHICON = "arquillian_glyphicon";
 
     @Test
     public void testNavigation() throws Exception {
@@ -43,6 +49,8 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
 
         this.findWebElementByClassName(OPTION_RENDERED);
         this.findWebElementByClassName(OPTION_VALUE);
+        this.findWebElementByClassName(OPTION_GLYPHICON);
+        this.findWebElementByClassName(CLICKS_SPAN);
     }
 
     @Test
@@ -62,7 +70,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     }
 
     @Test
-    @InSequence(3)
+    @InSequence(2)
     public void testValueOption() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
 
@@ -84,8 +92,47 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     }
 
     @Test
-    @InSequence(3)
+    @InSequence(2)
     public void testGlyphiconOption() throws Exception {
+        browser.get(deploymentUrl + COMPONENT_PAGE);
 
+        final Select glyphicon = new Select(this.findWebElementByClassName(OPTION_GLYPHICON));
+
+        guardAjax(glyphicon).selectByIndex(0);
+        WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        List<WebElement> spans = component.findElements(By.tagName("span"));
+        Assert.assertEquals("Find span but span should not been rendered.", 0, spans.size());
+
+        guardAjax(glyphicon).selectByIndex(1);
+        spans = component.findElements(By.tagName("span"));
+        Assert.assertEquals("Could not find span tag in showcase component.", 1, spans.size());
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("glyphicon"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("glyphicon-thumbs-up"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("glyphicon-lg"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("butter-component-glyphicon"));
+
+        guardAjax(glyphicon).selectByIndex(2);
+        spans = component.findElements(By.tagName("span"));
+        Assert.assertEquals("Could not find span tag in showcase component.", 1, spans.size());
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("fa"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("fa-language"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("fa-lg"));
+        Assert.assertTrue(spans.get(0).getAttribute("class").contains("butter-component-glyphicon"));
+    }
+
+    @Test
+    @InSequence(2)
+    public void testClick() throws Exception {
+        browser.get(deploymentUrl + COMPONENT_PAGE);
+
+        Assert.assertEquals("0", this.findWebElementByClassName(CLICKS_SPAN).getText());
+
+        final WebElement link = this.findWebElementByClassName(BUTTER_COMPONENT);
+
+        guardAjax(link).click();
+        Assert.assertEquals("1", this.findWebElementByClassName(CLICKS_SPAN).getText());
+
+        guardAjax(link).click();
+        Assert.assertEquals("2", this.findWebElementByClassName(CLICKS_SPAN).getText());
     }
 }
