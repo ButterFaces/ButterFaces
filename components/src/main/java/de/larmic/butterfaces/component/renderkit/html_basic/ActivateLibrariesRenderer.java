@@ -18,17 +18,19 @@ public class ActivateLibrariesRenderer extends HtmlBasicRenderer {
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
 
-        /*
-        final ResponseWriter writer = context.getResponseWriter();
+        if (!shouldEncode(component)) {
+            return;
+        }
 
-        writer.writeText("\n<!--\n", null);
-        writer.writeText("   ButterFaces information:\n", null);
-        writer.writeText("   tag <l:activateLibraries /> is used to enable Bootstrap and jQuery!\n", null);
-        writer.writeText("-->;\n", null);*/
+        context.getResponseWriter().writeComment("ButterFaces information:\ntag l<:activateLibraries /> is used to enable Bootstrap and jQuery!");
     }
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
     }
 }
