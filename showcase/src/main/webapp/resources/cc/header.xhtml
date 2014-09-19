@@ -16,22 +16,47 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <h:link value="ButterFaces" outcome="/index" styleClass="navbar-brand" />
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><h:link value="ButterFaces" outcome="/index" styleClass="navbar-brand" /></li>
-                        <li id="text"><h:link value="text" outcome="/text" /></li>
-                        <li id="textarea"><h:link value="textarea" outcome="/textarea" /></li>
-                        <li id="secret"><h:link value="secret" outcome="/secret" /></li>
-                        <li id="number"><h:link value="number" outcome="/number" /></li>
-                        <li id="checkbox"><h:link value="checkbox" outcome="/checkbox" /></li>
-                        <li id="combobox"><h:link value="combobox" outcome="/combobox" /></li>
-                        <li id="radiobox"><h:link value="radiobox" outcome="/radiobox" /></li>
-                        <li id="fieldset"><h:link value="fieldset" styleClass="arquillian_fieldset_header" outcome="/fieldset" /></li>
-                        <li id="prettyprint"><h:link value="prettyprint" styleClass="arquillian_prettyprint_header" outcome="/prettyprint" /></li>
-                        <li id="table"><h:link value="table" styleClass="arquillian_table_header experimental" outcome="/table" /></li>
-                        <li id="commandLink"><h:link value="commandLink" styleClass="arquillian_link_header" outcome="/commandLink" /></li>
-                        <li id="activateLibraries"><h:link value="activateLibraries" styleClass="arquillian_activateLibraries_header" outcome="/activateLibraries" /></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Input component <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="text"><h:link value="text" outcome="/text" /></li>
+                                <li id="textarea"><h:link value="textarea" outcome="/textarea" /></li>
+                                <li id="secret"><h:link value="secret" outcome="/secret" /></li>
+                                <li id="number"><h:link value="number" outcome="/number" /></li>
+                                <li id="checkbox"><h:link value="checkbox" outcome="/checkbox" /></li>
+                                <li id="combobox"><h:link value="combobox" outcome="/combobox" /></li>
+                                <li id="radiobox"><h:link value="radiobox" outcome="/radiobox" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Container <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="fieldset"><h:link value="fieldset" styleClass="arquillian_fieldset_header" outcome="/fieldset" /></li>
+                                <li id="prettyprint"><h:link value="prettyprint" styleClass="arquillian_prettyprint_header" outcome="/prettyprint" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data iteration <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="table"><h:link value="table" styleClass="arquillian_table_header experimental" outcome="/table" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="commandLink"><h:link value="commandLink" styleClass="arquillian_link_header" outcome="/commandLink" /></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Miscellaneous <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li id="activateLibraries"><h:link value="activateLibraries" styleClass="arquillian_activateLibraries_header" outcome="/activateLibraries" /></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
