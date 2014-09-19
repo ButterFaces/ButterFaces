@@ -1,15 +1,20 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:l="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
         <strong>l:table</strong> The table tag renders an HTML element of the type "table".
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
-        </h:form>
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+        </showcase:tagsContainer>
+        <showcase:tagsContainer label="HTML5 tag attributes">
+        </showcase:tagsContainer>
+        <showcase:tagsContainer label="Tag controls">
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
@@ -10,22 +10,13 @@
         <p>See <a href="https://google-code-prettify.googlecode.com/svn/trunk/README.html" target="_blank">Google documentation</a> for detailed information.</p>
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseComponent.rendered}"/>
             <showcase:tagEnumControl label="language"
                                      value="#{prettyPrintShowcaseComponent.prettyPrintType}"
                                      values="#{prettyPrintShowcaseComponent.prettyPrintTypes}"/>
-        </h:form>
-    </ui:define>
-
-    <ui:define name="html5attributes">
-    </ui:define>
-
-    <ui:define name="facets">
-    </ui:define>
-
-    <ui:define name="controls">
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

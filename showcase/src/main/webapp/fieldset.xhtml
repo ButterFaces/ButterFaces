@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
@@ -9,11 +9,11 @@
         <strong>l:text</strong> The fieldset tag renders an HTML input element of the type "fieldset".
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{fieldSetShowcaseComponent.label}"/>
             <showcase:tagBooleanControl label="rendered" value="#{fieldSetShowcaseComponent.rendered}"/>
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

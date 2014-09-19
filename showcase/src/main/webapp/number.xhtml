@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
@@ -8,8 +8,8 @@
         <strong>l:number</strong> Experimental: The number tag renders an HTML input element of the type "text".
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{numberShowcaseComponent.label}"/>
             <showcase:tagStringControl label="tooltip" value="#{numberShowcaseComponent.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcaseComponent.hideLabel}"/>
@@ -27,18 +27,14 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{numberShowcaseComponent.labelStyleClass}"
                                      values="#{numberShowcaseComponent.labelStyleClasses}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="html5attributes">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="HTML5 tag attributes">
             <showcase:tagStringControl label="placeholder" value="#{numberShowcaseComponent.placeholder}"/>
             <showcase:tagBooleanControl label="autofocus" value="#{numberShowcaseComponent.autoFocus}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="controls">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
                                      value="#{numberShowcaseComponent.ajaxType}"
                                      values="#{numberShowcaseComponent.ajaxTypes}"
@@ -47,7 +43,7 @@
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <showcase:tagBooleanControl label="validate"
                                         value="#{numberShowcaseComponent.validation}"/>
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

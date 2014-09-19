@@ -15,24 +15,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tag attributes</div>
-                    <div class="panel-body">
-                        <ui:insert name="attributes"/>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">HTML5 tag attributes</div>
-                    <div class="panel-body">
-                        <ui:insert name="html5attributes"/>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tag control</div>
-                    <div class="panel-body">
-                        <ui:insert name="controls"/>
-                    </div>
-                </div>
+                <ui:insert name="tagsContainers" />
             </div>
             <h:form id="output" prependId="true" styleClass="col-md-8">
                 <div class="panel panel-default">

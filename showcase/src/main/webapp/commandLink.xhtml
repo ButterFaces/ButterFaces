@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
@@ -10,21 +10,31 @@
         <p>See <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> for nice glyphicons.</p>
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="value" value="#{linkShowcaseComponent.value}"/>
             <showcase:tagBooleanControl label="rendered" value="#{linkShowcaseComponent.rendered}"/>
             <showcase:tagEnumControl label="glyphicon"
                                      value="#{linkShowcaseComponent.glyphicon}"
                                      values="#{linkShowcaseComponent.glyphicons}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{linkShowcaseComponent.style}"
+                                     values="#{linkShowcaseComponent.styles}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="attributes">
+        <h:form prependId="false">
+
         </h:form>
     </ui:define>
 
     <ui:define name="controls">
         <h:form prependId="false">
-            <showcase:tagEnumControl label="ajax"
-                                     value="#{linkShowcaseComponent.style}"
-                                     values="#{linkShowcaseComponent.styles}"/>
+
         </h:form>
     </ui:define>
 

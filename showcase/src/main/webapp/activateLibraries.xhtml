@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:l="http://butterfaces.larmic.de/components"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>l:table</strong> The table tag renders an HTML element of the type "table".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesComponent.rendered}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <l:activateLibraries id="link"
+                             rendered="#{activateLibrariesComponent.rendered}">
+        </l:activateLibraries>
+    </ui:define>
+
+    <ui:define name="other">
+
+        <showcase:showcaseExampleComponent component="#{activateLibrariesComponent}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('activateLibraries');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

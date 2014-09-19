@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
@@ -9,8 +9,8 @@
         <strong>l:radioBox</strong> The radioBox tag renders an HTML "input" elements of the type "radio". This component is designed for situations where you want to display a mutually exclusive list of options to the user as a set of radio buttons. This tag supports two layout modes:lineDirection (horizontal, the default) and pageDirection (vertical).
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{radioBoxShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcaseComponent.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcaseComponent.hideLabel}"/>
@@ -26,11 +26,9 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{radioBoxShowcaseComponent.labelStyleClass}"
                                      values="#{radioBoxShowcaseComponent.labelStyleClasses}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="controls">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="radio box"
                                      value="#{radioBoxShowcaseComponent.comboBoxValueType}"
                                      values="#{radioBoxShowcaseComponent.comboBoxTypes}"
@@ -49,7 +47,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
