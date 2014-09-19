@@ -14,7 +14,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
 
         if (!component.isReadonly()) {
             final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
-                    Constants.BOOTSTRAP_FORM_CONTROL, !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
+                    !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
 
             uiComponent.getAttributes().put("styleClass", styleClass);
 
