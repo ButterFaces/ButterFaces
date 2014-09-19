@@ -31,6 +31,7 @@ public class PrettyPrintComponentTest extends AbstractComponentTest {
         Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "prettyprint.jsf", browser.getCurrentUrl());
 
         browser.get(deploymentUrl + "index.jsf");
+        this.findWebElementByClassName("arquillian_container").click();
         guardHttp(this.findWebElementByClassName("arquillian_prettyprint_header")).click();
         Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "prettyprint.jsf", browser.getCurrentUrl());
     }

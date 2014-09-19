@@ -35,6 +35,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
         Assert.assertEquals("Link does not redirect to glyphicon link showcase", deploymentUrl + COMPONENT_PAGE, browser.getCurrentUrl());
 
         browser.get(deploymentUrl + "index.jsf");
+        this.findWebElementByClassName("arquillian_action").click();
         guardHttp(this.findWebElementByClassName("arquillian_link_header")).click();
         Assert.assertEquals("Link does not redirect to glyphicon link showcase", deploymentUrl + COMPONENT_PAGE, browser.getCurrentUrl());
     }

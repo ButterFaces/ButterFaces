@@ -28,6 +28,7 @@ public class FieldSetComponentTest extends AbstractComponentTest {
         Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
 
         browser.get(deploymentUrl + "index.jsf");
+        this.findWebElementByClassName("arquillian_container").click();
         guardHttp(this.findWebElementByClassName("arquillian_fieldset_header")).click();
         Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
     }
