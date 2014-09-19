@@ -32,7 +32,7 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <l:number id=\"input\"\n");
+        sb.append("        <b:number id=\"input\"\n");
         sb.append("                  label=\"" + this.getLabel() + "\"\n");
         sb.append("                  value=\"" + this.getValue() + "\"\n");
 
@@ -51,7 +51,7 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
 
         this.createAjaxXhtml(sb, "keyup");
 
-        sb.append("        </l:number>");
+        sb.append("        </b:number>");
 
         this.createOutputXhtml(sb);
 

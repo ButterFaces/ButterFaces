@@ -2,7 +2,7 @@
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
-	id="l">
+	id="b">
 	<namespace>http://butterfaces.larmic.de/components</namespace>
 
 	<tag>

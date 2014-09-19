@@ -50,14 +50,14 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
             this.addXhtmlStart(sb);
         }
 
-        sb.append("        <l:commandLink id=\"input\"\n");
+        sb.append("        <b:commandLink id=\"input\"\n");
 
         this.appendString("value", this.getValue(), sb);
         this.appendString("glyphicon", this.getGlyphicon(), sb);
         this.appendString("styleClass", this.getStyle(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        sb.append("        </l:commandLink>");
+        sb.append("        </b:commandLink>");
 
         this.addXhtmlEnd(sb);
 

@@ -61,12 +61,12 @@ public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <l:prettyprint id=\"input\"\n");
+        sb.append("        <b:prettyprint id=\"input\"\n");
 
         this.appendString("language", this.getLanguage(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        sb.append("        </l:prettyprint>");
+        sb.append("        </b:prettyprint>");
 
         this.createOutputXhtml(sb);
 
@@ -108,7 +108,7 @@ public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent
         html.append("<!DOCTYPE html>\n");
         html.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"\n");
         html.append("      xmlns:h=\"http://java.sun.com/jsf/html\"\n");
-        html.append("      xmlns:l=\"http://butterfaces.larmic.de/components\">\n");
+        html.append("      xmlns:b=\"http://butterfaces.larmic.de/components\">\n");
         html.append("<h:head />\n");
         html.append("<body>\n");
         html.append("   <form>\n");

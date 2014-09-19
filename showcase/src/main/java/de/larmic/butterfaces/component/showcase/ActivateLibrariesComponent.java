@@ -15,9 +15,9 @@ public class ActivateLibrariesComponent extends AbstractShowcaseComponent implem
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <l:activateLibraries id=\"input\"\n");
+        sb.append("        <b:activateLibraries id=\"input\"\n");
         this.appendBoolean("rendered", this.isRendered(), sb, true);
-        sb.append("        </l:activateLibraries>");
+        sb.append("        </b:activateLibraries>");
 
         this.addXhtmlEnd(sb);
 

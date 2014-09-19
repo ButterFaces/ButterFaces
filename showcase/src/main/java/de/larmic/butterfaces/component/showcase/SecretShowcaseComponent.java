@@ -29,7 +29,7 @@ public class SecretShowcaseComponent extends AbstractInputShowcaseComponent impl
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:secret id=\"input\"\n");
+		sb.append("        <b:secret id=\"input\"\n");
 		sb.append("                  label=\"" + this.getLabel() + "\"\n");
 		sb.append("                  value=\"" + this.getValue() + "\"\n");
 
@@ -48,7 +48,7 @@ public class SecretShowcaseComponent extends AbstractInputShowcaseComponent impl
 		if (this.isValidation()) {
 			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
-		sb.append("        </l:secret>");
+		sb.append("        </b:secret>");
 
 		this.createOutputXhtml(sb);
 

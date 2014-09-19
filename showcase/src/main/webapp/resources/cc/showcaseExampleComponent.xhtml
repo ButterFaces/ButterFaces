@@ -2,7 +2,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:l="http://butterfaces.larmic.de/components"
+      xmlns:b="http://butterfaces.larmic.de/components"
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:body>
@@ -16,27 +16,27 @@
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <div class="panel-heading">JSF example</div>
             <div class="row panel-body">
-                <l:prettyprint language="lang-html">
+                <b:prettyprint language="lang-html">
                     #{cc.attrs.component.XHtml}
-                </l:prettyprint>
+                </b:prettyprint>
             </div>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.css}">
             <div class="panel-heading">Custom css</div>
             <div class="row panel-body">
-                <l:prettyprint language="lang-css">
+                <b:prettyprint language="lang-css">
                     #{cc.attrs.component.css}
-                </l:prettyprint>
+                </b:prettyprint>
             </div>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.js}">
             <div class="panel-heading">Custom javascript</div>
             <div class="row panel-body">
-                <l:prettyprint language="lang-js">
+                <b:prettyprint language="lang-js">
                     #{cc.attrs.component.js}
-                </l:prettyprint>
+                </b:prettyprint>
             </div>
         </h:panelGroup>
     </composite:implementation>

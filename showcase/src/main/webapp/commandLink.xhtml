@@ -2,7 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:l="http://butterfaces.larmic.de/components"
+                xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
@@ -39,14 +39,14 @@
     </ui:define>
 
     <ui:define name="output">
-        <l:commandLink id="link"
+        <b:commandLink id="link"
                        glyphicon="#{linkShowcaseComponent.glyphicon}"
                        value="#{linkShowcaseComponent.value}"
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" />
-        </l:commandLink>
+        </b:commandLink>
 
         <hr />
 
