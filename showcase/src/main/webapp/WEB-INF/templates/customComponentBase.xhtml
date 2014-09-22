@@ -1,0 +1,26 @@
+<ui:composition template="/WEB-INF/templates/base.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="siteHeader">
+        <div id="experimentalAttention" class="alert alert-danger hideExperimentalAttention">
+            <strong>Attention:</strong> This component is still under progress and experimental.
+        </div>
+
+        <div class="alert alert-success">
+            <ui:insert name="header" />
+        </div>
+    </ui:define>
+
+    <ui:define name="footer">
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                if (jQuery('.nav li.active .experimental').text() != "") {
+                    jQuery('#experimentalAttention').removeClass('hideExperimentalAttention');
+                }
+            });
+        </script>
+    </ui:define>
+
+</ui:composition>
