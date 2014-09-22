@@ -3,6 +3,7 @@ package de.larmic.butterfaces.test.component;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
@@ -45,6 +46,7 @@ public class ActivateLibrariesTest extends AbstractComponentTest {
     }
 
     @Test
+    @Ignore("BUT-78")
     @InSequence(2)
     public void testRenderedOption() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
