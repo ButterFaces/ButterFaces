@@ -55,6 +55,8 @@ public class ActivateLibrariesTest extends AbstractComponentTest {
         guardAjax(showcaseRenderedOption).click();
         Assert.assertNull("Element should not be rendered but was.", findNullableWebElementByClassName(OUTER_COMPONENT));
 
+        // TODO BUT-78 Find a (graphene) way to check html comment
+
         // test render component again
         guardAjax(showcaseRenderedOption).click();
         //Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(OUTER_COMPONENT));
