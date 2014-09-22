@@ -29,7 +29,7 @@
                   componentStyleClass="#{cc.attrs.component.componentStyleClass}"
                   max="#{numberShowcaseComponent.max}"
                   autoFocus="#{numberShowcaseComponent.autoFocus}">
-            <f:ajax event="keyup"
+            <f:ajax event="change"
                     execute="@this"
                     render="output:outputComponent:outputValues output:other"
                     disabled="#{not cc.attrs.component.ajax}"/>

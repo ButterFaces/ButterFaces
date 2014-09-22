@@ -49,7 +49,7 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        this.createAjaxXhtml(sb, "keyup");
+        this.createAjaxXhtml(sb, "change");
 
         sb.append("        </b:number>");
 
