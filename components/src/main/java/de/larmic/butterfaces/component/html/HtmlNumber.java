@@ -17,7 +17,9 @@ import javax.faces.validator.ValidatorException;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
+        @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head"),
+        @ResourceDependency(library = "external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
+        @ResourceDependency(library = "external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {

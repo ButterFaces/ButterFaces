@@ -48,7 +48,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer, "butter-number-component");
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -62,7 +62,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
             return;
         }
 
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlNumber htmlComponent = (HtmlNumber) component;
         final ResponseWriter writer = context.getResponseWriter();
 
         if (!htmlComponent.isReadonly()) {
@@ -74,6 +74,13 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
 
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+
+        final String min = "".equals(htmlComponent.getMin()) ? "0" : htmlComponent.getMin();
+        final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
+
+        writer.startElement("script", component);
+        writer.writeText("handleTouchPin(" + min + ", " + max + ")", null);
+        writer.endElement("script");
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
