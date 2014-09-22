@@ -34,7 +34,7 @@ public abstract class AbstractShowcaseComponent {
     }
 
     protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb, final boolean isLastValue) {
-        if (value) {
+        if (value || isLastValue) {
             sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
         }
     }
