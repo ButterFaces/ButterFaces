@@ -3,7 +3,6 @@ package de.larmic.butterfaces.test.component;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
@@ -46,21 +45,19 @@ public class ActivateLibrariesTest extends AbstractComponentTest {
     }
 
     @Test
-    @Ignore("BUT-78")
     @InSequence(2)
     public void testRenderedOption() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
 
         final WebElement showcaseRenderedOption = this.findWebElementByClassName(OPTION_RENDERED);
 
+        // test component rendered
+        String[] content = browser.getPageSource().split("arquillian_activateLibraries_selector");
+        Assert.assertTrue(content[1].startsWith("\"><!--ButterFaces information"));
+
         // test component not rendered
         guardAjax(showcaseRenderedOption).click();
-        Assert.assertNull("Element should not be rendered but was.", findNullableWebElementByClassName(OUTER_COMPONENT));
-
-        // TODO BUT-78 Find a (graphene) way to check html comment
-
-        // test render component again
-        guardAjax(showcaseRenderedOption).click();
-        //Assert.assertNotNull("Element should be rendered but was not.", findNullableWebElementByClassName(OUTER_COMPONENT));
+        content = browser.getPageSource().split("arquillian_activateLibraries_selector");
+        Assert.assertFalse(content[1].startsWith("\"><!--ButterFaces information"));
     }
 }
