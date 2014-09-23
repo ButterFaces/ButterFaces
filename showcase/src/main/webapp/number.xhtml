@@ -50,8 +50,10 @@
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="number"
                                          component="#{numberShowcaseComponent}">
-            <showcase:numberShowcase component="#{numberShowcaseComponent}"
-                                     rendered="true"/>
+            <div class="arquillian_component">
+                <showcase:numberShowcase component="#{numberShowcaseComponent}"
+                                         rendered="true"/>
+            </div>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
