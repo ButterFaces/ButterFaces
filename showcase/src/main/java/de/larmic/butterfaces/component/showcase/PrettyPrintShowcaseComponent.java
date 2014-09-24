@@ -65,6 +65,13 @@ public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent
 
         this.appendString("language", this.getLanguage(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
+        if (prettyPrintType == PrettyPrintType.HTML) {
+            sb.append("           #{myBean.htmlContent}\n");
+        } else if (prettyPrintType == PrettyPrintType.JAVA) {
+            sb.append("           #{myBean.javaContent}\n");
+        } else {
+            sb.append("           #{myBean.xmlContent}\n");
+        }
 
         sb.append("        </b:prettyprint>");
 

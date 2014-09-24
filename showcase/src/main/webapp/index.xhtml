@@ -1,14 +1,13 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:b="http://butterfaces.larmic.de/components"
-                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="content">
 
         <div class="jumbotron">
             <h2>ButterFaces showcase</h2>
+
             <div class="row">
                 <div class="col-sm-6">
                     <h4>Input components</h4>
@@ -27,7 +26,8 @@
                     <h4>Container</h4>
                     <ul>
                         <li><h:link value="b:fieldset" outcome="/fieldset" styleClass="arquillian_fieldset"/></li>
-                        <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint"/></li>
+                        <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint"/>
+                        </li>
                     </ul>
                 </div>
 
@@ -48,7 +48,8 @@
                 <div class="col-sm-6">
                     <h4>Miscellaneous</h4>
                     <ul>
-                        <li><h:link value="b:activateLibraries" outcome="/activateLibraries" styleClass="arquillian_activateLibraries"/></li>
+                        <li><h:link value="b:activateLibraries" outcome="/activateLibraries"
+                                    styleClass="arquillian_activateLibraries"/></li>
                     </ul>
                 </div>
             </div>
@@ -56,17 +57,21 @@
 
             </p>
         </div>
-        <span class="experimental pull-right hideExperimentalAttention">* experimental</span>
+        <span class="experimental pull-right hideExperimentalAttention"><span class="fa fa-warning fa-lg"></span> experimental</span>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 if (jQuery('a.experimental').size() != 0) {
                     jQuery('span.experimental').removeClass('hideExperimentalAttention');
+                    jQuery('a.experimental').each(function () {
+                        jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
+                    });
                 }
+
             });
         </script>
 
-        <b:activateLibraries />
+        <b:activateLibraries/>
 
     </ui:define>
 

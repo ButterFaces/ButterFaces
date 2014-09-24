@@ -29,6 +29,7 @@ public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendString("label", this.getLabel(), sb, !this.isRendered());
         this.appendBoolean("rendered", this.isRendered(), sb, true);
+        sb.append("           Lorem ipsum dolor sit amet, consectetuer ...\n");
 
         sb.append("        </b:fieldset>");
 
