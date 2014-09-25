@@ -27,4 +27,5 @@ target/
 # Diverse
 .settings/
 .directory
+*.log
 *~
