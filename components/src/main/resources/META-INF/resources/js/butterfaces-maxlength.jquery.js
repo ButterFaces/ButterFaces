@@ -6,6 +6,8 @@
             throw new Error("no maxLength parameter is given!");
         }
 
+        var ERROR_STYLE_CLASS = "has-error";
+
         return this.each(function () {
             //console.log("initializing max length");
             var root = $(this);
@@ -14,16 +16,20 @@
 
             if (maxLength.length > 0) {
                 //console.log("found max length element");
+                var hasInitialValidationError = root.hasClass(ERROR_STYLE_CLASS);
 
                 var _checkValue = function () {
                     //console.log("checking value");
                     var value = valueElement.val();
                     var freeLetterCount = options.maxLength - value.length;
                     maxLength.text(freeLetterCount + " von " + options.maxLength + " Zeichen");
-                    if (freeLetterCount < 0) {
-                        root.addClass("has-error");
-                    } else {
-                        root.removeClass("has-error");
+
+                    if (!hasInitialValidationError) {
+                        if (freeLetterCount < 0) {
+                            root.addClass(ERROR_STYLE_CLASS);
+                        } else {
+                            root.removeClass(ERROR_STYLE_CLASS);
+                        }
                     }
                 };
 
