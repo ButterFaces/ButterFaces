@@ -1,0 +1,37 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <p><strong>b:prettyprint</strong> The print tag renders an HTML element of the type "div" with included "pre".</p>
+        <p>See <a href="https://google-code-prettify.googlecode.com/svn/trunk/README.html" target="_blank">Google documentation</a> for detailed information.</p>
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseComponent.rendered}"/>
+            <showcase:tagEnumControl label="language"
+                                     value="#{prettyPrintShowcaseComponent.prettyPrintType}"
+                                     values="#{prettyPrintShowcaseComponent.prettyPrintTypes}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:prettyPrintShowcase component="#{prettyPrintShowcaseComponent}" />
+
+        <b:activateLibraries />
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('prettyprint');
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{prettyPrintShowcaseComponent}"/>
+    </ui:define>
+</ui:composition>

@@ -1,22 +1,21 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
-        <strong>l:comboBox</strong> The comboBox tag renders an HTML "select" element with a "size" of 1 without the "multiple" attribute. This component is designed for situations where you want to display a single-select list of options to the user in a menu that displays one item at a time. The main difference between select lists and menus in JSF is the "size" attribute. Menus always have a size of one, while lists can have a variable size.
+        <strong>b:comboBox</strong> The comboBox tag renders an HTML "select" element with a "size" of 1 without the "multiple" attribute. This component is designed for situations where you want to display a single-select list of options to the user in a menu that displays one item at a time. The main difference between select lists and menus in JSF is the "size" attribute. Menus always have a size of one, while lists can have a variable size.
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{comboBoxShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcaseComponent.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcaseComponent.hideLabel}" />
             <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseComponent.rendered}" />
-            <showcase:tagBooleanControl label="floating" value="#{comboBoxShowcaseComponent.floating}" />
             <showcase:tagEnumControl label="componentStyleClass"
                                      value="#{comboBoxShowcaseComponent.componentStyleClass}"
                                      values="#{comboBoxShowcaseComponent.componentStyleClasses}"/>
@@ -26,11 +25,9 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{comboBoxShowcaseComponent.labelStyleClass}"
                                      values="#{comboBoxShowcaseComponent.labelStyleClasses}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="controls">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="combo box"
                                      value="#{comboBoxShowcaseComponent.comboBoxValueType}"
                                      values="#{comboBoxShowcaseComponent.comboBoxTypes}"
@@ -43,7 +40,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

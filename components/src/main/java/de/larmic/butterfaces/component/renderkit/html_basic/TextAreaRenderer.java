@@ -14,7 +14,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/butterfaces/
  * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -26,6 +26,12 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -46,6 +52,8 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -86,12 +94,7 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         }
 
         // *** BEGIN HTML 5 CHANGED **************************
-        if (component instanceof HtmlTextArea) {
-            final HtmlTextArea inputComponent = (HtmlTextArea) component;
-            if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
-                writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
-            }
-        }
+        this.renderHtmlFeatures(component, writer);
         // *** END HTML 5 CHANGED ****************************
 
         // style is rendered as a passthru attribute
@@ -107,5 +110,12 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
 
         writer.endElement("textarea");
 
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlTextArea) {
+            final HtmlTextArea inputComponent = (HtmlTextArea) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+        }
     }
 }

@@ -16,7 +16,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/butterfaces/
  * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -30,6 +30,12 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -42,7 +48,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer, "butter-number-component");
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -50,7 +56,13 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
+        final HtmlNumber htmlComponent = (HtmlNumber) component;
         final ResponseWriter writer = context.getResponseWriter();
 
         if (!htmlComponent.isReadonly()) {
@@ -62,6 +74,13 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
 
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+
+        final String min = "".equals(htmlComponent.getMin()) ? "0" : htmlComponent.getMin();
+        final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
+
+        writer.startElement("script", component);
+        writer.writeText("handleTouchPin(" + min + ", " + max + ")", null);
+        writer.endElement("script");
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
@@ -103,15 +122,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
             // *** END CUSTOM CHANGED ****************************
 
             // *** BEGIN HTML 5 CHANGED **************************
-            if (component instanceof HtmlNumber) {
-                final HtmlNumber inputComponent = (HtmlNumber) component;
-
-                writeHTML5AttributeIfNotEmpty(writer, "placeholder", inputComponent.getPlaceholder());
-
-                if (inputComponent.getAutoFocus()) {
-                    writer.writeAttribute("autofocus", "true", null);
-                }
-            }
+            this.renderHtmlFeatures(component, writer);
             // *** END HTML 5 CHANGED ****************************
 
             // style is rendered as a passthur attribute
@@ -163,23 +174,22 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
         }
     }
 
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlNumber) {
+            final HtmlNumber inputComponent = (HtmlNumber) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+
+            if (inputComponent.getAutoFocus()) {
+                writer.writeAttribute("autofocus", "true", null);
+            }
+        }
+    }
+
     private String convertMinMax(String value) {
         try {
             return "'" + Integer.valueOf(value) + "'";
         } catch (NumberFormatException e) {
             return "null";
-        }
-    }
-
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue) throws IOException {
-        writeHTML5AttributeIfNotEmpty(writer, attributeName, attributeValue, null);
-    }
-
-    private void writeHTML5AttributeIfNotEmpty(ResponseWriter writer, String attributeName, String attributeValue, String alternativeValue) throws IOException {
-        if (attributeValue != null && !"".equals(attributeValue)) {
-            writer.writeAttribute(attributeName, attributeValue, attributeName);
-        } else if (alternativeValue != null && !"".equals(alternativeValue)) {
-            writer.writeAttribute(attributeName, alternativeValue, attributeName);
         }
     }
 }

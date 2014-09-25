@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/templates/customComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:activateLibraries</strong> Add bootstrap css and js and jQuery to head part to activate libraries for sites not containing any other ButterFaces component.
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-4">
+                <showcase:tagsContainer label="Tag attributes">
+                    <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesComponent.rendered}"/>
+                </showcase:tagsContainer>
+            </div>
+
+            <h:form id="output" prependId="true" styleClass="col-md-8">
+                <showcase:showcaseExampleComponent component="#{activateLibrariesComponent}"/>
+
+                <div class="arquillian_activateLibraries_selector">
+                    <b:activateLibraries id="link"
+                                         rendered="#{activateLibrariesComponent.rendered}"/>
+                </div>
+            </h:form>
+        </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('activateLibraries');
+            });
+        </script>
+
+        <b:activateLibraries />
+    </ui:define>
+
+</ui:composition>

@@ -2,12 +2,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://butterfaces.larmic.de/components"
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:body>
     <composite:interface>
         <composite:attribute name="component"
-                             type="de.larmic.butterfaces.component.showcase.AbstractInputShowcaseComponent"
+                             type="de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent"
                              required="true"/>
     </composite:interface>
 
@@ -15,32 +16,29 @@
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <div class="panel-heading">JSF example</div>
             <div class="row panel-body">
-                <pre class="prettyprint lang-html">
-#{cc.attrs.component.XHtml}</pre>
+                <b:prettyprint language="lang-html">
+                    #{cc.attrs.component.XHtml}
+                </b:prettyprint>
             </div>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.css}">
             <div class="panel-heading">Custom css</div>
             <div class="row panel-body">
-                <pre class="prettyprint lang-css">
-#{cc.attrs.component.css}</pre>
+                <b:prettyprint language="lang-css">
+                    #{cc.attrs.component.css}
+                </b:prettyprint>
             </div>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.js}">
             <div class="panel-heading">Custom javascript</div>
             <div class="row panel-body">
-                <pre class="prettyprint lang-css">
-#{cc.attrs.component.js}</pre>
+                <b:prettyprint language="lang-js">
+                    #{cc.attrs.component.js}
+                </b:prettyprint>
             </div>
         </h:panelGroup>
-
-        <script type="text/javascript">
-            jQuery(function () {
-                prettyPrint();
-            });
-        </script>
     </composite:implementation>
 </h:body>
 </html>

@@ -14,7 +14,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private String tooltip = "tooltip";
     private boolean readonly;
     private boolean required;
-    private boolean floating;
     private boolean validation;
     private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
@@ -99,33 +98,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
 
 
-    protected void addXhtmlStart(final StringBuilder sb) {
-        sb.append("<!DOCTYPE html>");
-        sb.append("\n");
-        sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"");
-        sb.append("\n");
-        sb.append("      xmlns:h=\"http://java.sun.com/jsf/html\"");
-        sb.append("\n");
-        sb.append("      xmlns:l=\"http://butterfaces.larmic.de/components\">");
-        sb.append("\n");
-        sb.append("<h:head />");
-        sb.append("\n");
-        sb.append("<body>");
-        sb.append("\n");
-        sb.append("    <form>");
-        sb.append("\n");
-
-    }
-
-    protected void addXhtmlEnd(final StringBuilder sb) {
-        sb.append("\n");
-        sb.append("    </form>");
-        sb.append("\n");
-        sb.append("</body>");
-        sb.append("\n");
-        sb.append("</html>");
-    }
-
     public void createAjaxXhtml(final StringBuilder sb, final String event) {
         if (this.isAjax()) {
             final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
@@ -139,30 +111,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
             sb.append("\n");
             sb.append("        <h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
         }
-    }
-
-    protected void appendString(final String attribute, final String value, final StringBuilder sb, final boolean isLastValue) {
-        if (value != null && !"".equals(value)) {
-            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
-        }
-    }
-
-    protected void appendString(final String attribute, final String value, final StringBuilder sb) {
-        this.appendString(attribute, value, sb, false);
-    }
-
-    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb, final boolean isLastValue) {
-        if (value) {
-            sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
-        }
-    }
-
-    protected String getEmptyDistanceString() {
-        return "                ";
-    }
-
-    protected void appendBoolean(final String attribute, final boolean value, final StringBuilder sb) {
-        this.appendBoolean(attribute, value, sb, false);
     }
 
     @Override
@@ -212,14 +160,6 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setRequired(final boolean required) {
         this.required = required;
-    }
-
-    public boolean isFloating() {
-        return this.floating;
-    }
-
-    public void setFloating(final boolean floating) {
-        this.floating = floating;
     }
 
     public boolean isValidation() {

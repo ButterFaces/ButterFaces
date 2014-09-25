@@ -13,7 +13,8 @@
     <composite:implementation>
         <showcase:tagcontrol label="#{cc.attrs.label}">
             <div class="form-control">
-                <h:selectBooleanCheckbox value="#{cc.attrs.value}" styleClass="checkbox">
+                <h:selectBooleanCheckbox value="#{cc.attrs.value}"
+                                         styleClass="checkbox arquillian_#{cc.attrs.label}">
                     <f:ajax execute="@this" render="output"/>
                 </h:selectBooleanCheckbox>
             </div>

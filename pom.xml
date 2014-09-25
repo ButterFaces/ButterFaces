@@ -4,7 +4,7 @@
 
     <groupId>de.larmic.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>1.5.6-SNAPSHOT</version>
+    <version>1.6.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -16,6 +16,7 @@
     <modules>
         <module>components</module>
         <module>showcase</module>
+        <module>test</module>
     </modules>
 
     <licenses>
@@ -72,6 +73,7 @@
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
+        <junit.version>4.11</junit.version>
     </properties>
 
     <build>
@@ -139,6 +141,19 @@
                 <groupId>de.larmic.butterfaces</groupId>
                 <artifactId>components</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.larmic.butterfaces</groupId>
+                <artifactId>showcase</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <!-- TESTING -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

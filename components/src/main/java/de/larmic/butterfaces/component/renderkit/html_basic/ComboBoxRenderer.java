@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension
- * https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * https://bitbucket.org/larmicBB/butterfaces/
  * 
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -23,6 +23,12 @@ public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRen
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
 		super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -43,6 +49,12 @@ public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRen
 
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
 		final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 

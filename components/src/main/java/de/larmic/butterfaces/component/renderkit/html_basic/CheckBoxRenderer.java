@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension
- * https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * https://bitbucket.org/larmicBB/butterfaces/
  * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -22,7 +22,13 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         super.encodeBegin(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
@@ -42,6 +48,12 @@ public class CheckBoxRenderer extends com.sun.faces.renderkit.html_basic.Checkbo
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 

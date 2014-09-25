@@ -4,7 +4,7 @@
         return this.each(function () {
             //console.log("initializing tooltip");
             var root = $(this);
-            var valueElement = root.find("input, textarea, select, .butterfaces-readonly-value");
+            var valueElement = root.find("input, textarea, select, .butter-readonly-value");
             var tooltip = root.find(".butter-component-tooltip");
 
             if (tooltip.length > 0) {

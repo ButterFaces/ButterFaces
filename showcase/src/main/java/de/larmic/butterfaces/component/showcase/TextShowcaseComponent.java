@@ -34,7 +34,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <l:text id=\"input\"\n");
+        sb.append("        <b:text id=\"input\"\n");
         sb.append("                label=\"" + this.getLabel() + "\"\n");
         sb.append("                value=\"" + this.getValue() + "\"\n");
 
@@ -50,7 +50,6 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
@@ -59,7 +58,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         if (this.isValidation()) {
             sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
         }
-        sb.append("        </l:text>");
+        sb.append("        </b:text>");
 
         this.createOutputXhtml(sb);
 

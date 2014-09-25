@@ -1,22 +1,22 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
-        <strong>l:radioBox</strong> The radioBox tag renders an HTML "input" elements of the type "radio". This component is designed for situations where you want to display a mutually exclusive list of options to the user as a set of radio buttons. This tag supports two layout modes:lineDirection (horizontal, the default) and pageDirection (vertical).
+        <strong>b:radioBox</strong> The radioBox tag renders an HTML "input" elements of the type "radio". This component is designed for situations where you want to display a mutually exclusive list of options to the user as a set of radio buttons. This tag supports two layout modes:lineDirection (horizontal, the default) and pageDirection (vertical).
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{radioBoxShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcaseComponent.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcaseComponent.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{radioBoxShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcaseComponent.rendered}" />
-            <showcase:tagBooleanControl label="floating" value="#{radioBoxShowcaseComponent.floating}" />
             <showcase:tagEnumControl label="componentStyleClass"
                                      value="#{radioBoxShowcaseComponent.componentStyleClass}"
                                      values="#{radioBoxShowcaseComponent.componentStyleClasses}"/>
@@ -26,11 +26,9 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{radioBoxShowcaseComponent.labelStyleClass}"
                                      values="#{radioBoxShowcaseComponent.labelStyleClasses}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="controls">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="radio box"
                                      value="#{radioBoxShowcaseComponent.comboBoxValueType}"
                                      values="#{radioBoxShowcaseComponent.comboBoxTypes}"
@@ -49,7 +47,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -60,6 +58,8 @@
     </ui:define>
 
     <ui:define name="other">
+        <b:activateLibraries />
+
         <showcase:showcaseExampleComponent component="#{radioBoxShowcaseComponent}" />
     </ui:define>
 

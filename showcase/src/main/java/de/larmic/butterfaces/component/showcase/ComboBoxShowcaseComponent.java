@@ -75,7 +75,7 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:comboBox id=\"input\"\n");
+		sb.append("        <b:comboBox id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
 
@@ -86,7 +86,6 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
@@ -107,7 +106,7 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		this.createAjaxXhtml(sb, "change");
 
-		sb.append("        </l:comboBox>");
+		sb.append("        </b:comboBox>");
 
 		this.createOutputXhtml(sb);
 

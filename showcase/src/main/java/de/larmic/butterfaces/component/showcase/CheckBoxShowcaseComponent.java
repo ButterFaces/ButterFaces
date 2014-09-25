@@ -29,7 +29,7 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <l:checkBox id=\"input\"\n");
+        sb.append("        <b:checkBox id=\"input\"\n");
         sb.append("                    label=\"" + this.getLabel() + "\"\n");
         sb.append("                    value=\"" + this.getValue() + "\"\n");
 
@@ -41,12 +41,11 @@ public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         this.createAjaxXhtml(sb, "change");
 
-        sb.append("        </l:checkBox>");
+        sb.append("        </b:checkBox>");
 
         this.createOutputXhtml(sb);
 

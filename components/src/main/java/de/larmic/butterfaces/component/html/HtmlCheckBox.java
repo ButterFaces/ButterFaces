@@ -9,8 +9,9 @@ import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)
@@ -20,7 +21,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CheckBoxRenderer";
 
-    protected static final String PROPERTY_FLOATING = "floating";
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
@@ -81,15 +81,6 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setTooltip(final String tooltip) {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
-    }
-
-    @Override
-    public boolean getFloating() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_FLOATING, false);
-    }
-
-    public void setFloating(final Boolean floating) {
-        this.updateStateHelper(PROPERTY_FLOATING, floating);
     }
 
     public String getDescription() {

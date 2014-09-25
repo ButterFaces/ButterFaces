@@ -76,7 +76,7 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:radioBox id=\"input\"\n");
+		sb.append("        <b:radioBox id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
 
@@ -84,7 +84,6 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
         this.appendString("layout", radioBoxLayoutType.label, sb);
         this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
         this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
@@ -107,7 +106,7 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		this.createAjaxXhtml(sb, "change");
 
-		sb.append("        </l:radioBox>");
+		sb.append("        </b:radioBox>");
 
 		this.createOutputXhtml(sb);
 

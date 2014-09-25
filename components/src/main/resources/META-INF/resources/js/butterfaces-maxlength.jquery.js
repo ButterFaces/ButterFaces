@@ -12,7 +12,7 @@
             //console.log("initializing max length");
             var root = $(this);
             var valueElement = root.find("textarea");
-            var maxLength = root.find(".butterfaces-maxlength-counter");
+            var maxLength = root.find(".butter-component-maxlength-counter");
 
             if (maxLength.length > 0) {
                 //console.log("found max length element");

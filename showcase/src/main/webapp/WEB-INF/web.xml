@@ -9,6 +9,7 @@
 		<param-value>true</param-value>
 	</context-param>
 
+    <!--
     <context-param>
 		<param-name>de.larmic.butterfaces.provideJQuery</param-name>
 		<param-value>false</param-value>
@@ -18,6 +19,12 @@
 		<param-name>de.larmic.butterfaces.provideBootstrap</param-name>
 		<param-value>false</param-value>
 	</context-param>
+
+    <context-param>
+		<param-name>de.larmic.butterfaces.providePrettify</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	-->
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>

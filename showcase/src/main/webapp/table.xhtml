@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>b:table</strong> The table tag renders an HTML element of the type "table".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+        </showcase:tagsContainer>
+        <showcase:tagsContainer label="HTML5 tag attributes">
+        </showcase:tagsContainer>
+        <showcase:tagsContainer label="Tag controls">
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <b:table id="test"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
+            <b:column id="column1"
+                      label="C1">
+                #{rowItem.a}
+            </b:column>
+            <b:column id="column2"
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </b:column>
+        </b:table>
+        <b:table id="testNotRendered"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}"
+                 rendered="false">
+            <b:column id="column1"
+                      label="C1">
+                #{rowItem.a}
+            </b:column>
+            <b:column id="column2"
+                      label="C2">
+                <h:inputText value="#{rowItem.b}"/>
+            </b:column>
+        </b:table>
+        <b:table id="testNoChildren"
+                 var="rowItem"
+                 value="#{tableShowcaseComponent.stringRows}">
+        </b:table>
+    </ui:define>
+
+    <ui:define name="other">
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('table');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

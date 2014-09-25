@@ -14,7 +14,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/butterfaces/
  * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -27,6 +27,12 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -47,6 +53,8 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -104,12 +112,7 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
         }
 
         // *** BEGIN HTML 5 CHANGED **************************
-        if (component instanceof HtmlSecret) {
-            final HtmlSecret inputComponent = (HtmlSecret) component;
-            if (inputComponent.getPlaceholder() != null && !"".equals(inputComponent.getPlaceholder())) {
-                writer.writeAttribute("placeholder", inputComponent.getPlaceholder(), "placeholder");
-            }
-        }
+        this.renderHtmlFeatures(component, writer);
         // *** END HTML 5 CHANGED ****************************
 
         RenderKitUtils.renderPassThruAttributes(context,
@@ -129,5 +132,12 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
 
         writer.endElement("input");
 
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlSecret) {
+            final HtmlSecret inputComponent = (HtmlSecret) component;
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+        }
     }
 }

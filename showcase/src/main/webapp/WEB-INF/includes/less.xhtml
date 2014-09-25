@@ -2,7 +2,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
 
-    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName eq 'localhost'}">
+    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName eq 'localhost' or facesContext.externalContext.request.serverName eq '127.0.0.1'}">
         <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/less/showcase-localhost.less?preventCache=#{environment.resourceVersion}" />
         <script type="text/javascript">
             less = {
@@ -12,7 +12,7 @@
         <h:outputScript library="js" name="less/less-1.7.3.min.js" target="body"/>
     </h:panelGroup>
 
-    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}">
+    <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost' and facesContext.externalContext.request.serverName ne '127.0.0.1'}">
         <link rel="stylesheet" type="text/css"
               href="#{facesContext.externalContext.request.contextPath}/css/showcase.css?preventCache=#{environment.resourceVersion}"/>
     </h:panelGroup>

@@ -1,27 +1,77 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="content">
 
         <div class="jumbotron">
-            <h2>Welcome to ButterFaces</h2>
+            <h2>ButterFaces showcase</h2>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Input components</h4>
+                    <ul>
+                        <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text"/></li>
+                        <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea"/></li>
+                        <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret"/></li>
+                        <li><h:link value="b:number" outcome="/number" styleClass="arquillian_number"/></li>
+                        <li><h:link value="b:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox"/></li>
+                        <li><h:link value="b:combobox" outcome="/combobox" styleClass="arquillian_combobox"/></li>
+                        <li><h:link value="b:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox"/></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Container</h4>
+                    <ul>
+                        <li><h:link value="b:fieldset" outcome="/fieldset" styleClass="arquillian_fieldset"/></li>
+                        <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint"/>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Data iteration</h4>
+                    <ul>
+                        <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table experimental"/></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Actions</h4>
+                    <ul>
+                        <li><h:link value="b:commandLink" outcome="/commandLink" styleClass="arquillian_link"/></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Miscellaneous</h4>
+                    <ul>
+                        <li><h:link value="b:activateLibraries" outcome="/activateLibraries"
+                                    styleClass="arquillian_activateLibraries"/></li>
+                    </ul>
+                </div>
+            </div>
             <p>
-                <ul>
-                    <li><h:link value="l:text" outcome="/text" /></li>
-                    <li><h:link value="l:textarea" outcome="/textarea" /></li>
-                    <li><h:link value="l:secret" outcome="/secret" /></li>
-                    <li><h:link value="l:number" outcome="/number" /></li>
-                    <li><h:link value="l:checkbox" outcome="/checkbox" /></li>
-                    <li><h:link value="l:combobox" outcome="/combobox" /></li>
-                    <li><h:link value="l:radiobox" outcome="/radiobox" /></li>
-                    <li><h:link value="l:fieldset" outcome="/fieldset" /></li>
-                </ul>
+
             </p>
         </div>
+        <span class="experimental pull-right hideExperimentalAttention"><span class="fa fa-warning fa-lg"></span> experimental</span>
 
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                if (jQuery('a.experimental').size() != 0) {
+                    jQuery('span.experimental').removeClass('hideExperimentalAttention');
+                    jQuery('a.experimental').each(function () {
+                        jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
+                    });
+                }
+
+            });
+        </script>
+
+        <b:activateLibraries/>
 
     </ui:define>
 

@@ -1,107 +1,33 @@
-select.butterfaces-input-component {
+select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
 
-.butterfaces-readonly-value {
+.butter-readonly-value {
     white-space: pre-wrap;
 }
 
-.larmic-component-required {
+.butter-component-required {
     color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-.larmic-component-tooltip {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 2px 2px 3px #AAAAAA;
-    -webkit-box-shadow: 2px 2px 3px #AAAAAA;
-    box-shadow: 2px 2px 3px #AAAAAA;
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    width: 200px;
-    z-index: 200;
-    min-height: 25px;
-    margin-left: 10px
-}
-
-.larmic-component-tooltip .noteConnector {
-    height: 17px;
-    left: -11px;
-    position: absolute;
-    top: 2px;
-    width: 11px;
-    border: 0 none;
-    z-index: 201;
-    background: transparent url(#{resource[ 'img:noteConnectorLeft.png' ]}) no-repeat top !important;
-}
-
-.larmic-component-tooltip .noteContent {
-    padding: 5px;
-}
-
-.larmic-component-error-message {
-    background-color: #FFEBDA;
-    border: 1px solid #FF0044;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    margin: 5px;
-}
-
-.larmic-component-error-message li {
-    list-style: disc outside none;
-    margin-left: 20px;
-    color: #555555;
-    font-style: italic;
-}
-
-.larmic-textarea-counter {
-    font-style: italic;
-}
-
-.butterfaces-component .checkbox {
+.butter-component .checkbox {
     margin-top: 0;
 }
 
-.butterfaces-component-floating {
-    display: inline-block;
-}
-
-.larmic-component-toastContainer {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 500;
-}
-
-.larmic-component-toast-error {
-    border: 2px solid #f00;
-    background-color: #ddf;
-    padding: 10px;
-    font-weight: bold;
-}
-
-.larmic-component-fieldset {
+.butter-component-fieldset {
     border-radius: 0;
     border-bottom: none;
     border-left: none;
     border-right: none;
 }
 
-.larmic-component-fieldset legend {
+.butter-component-fieldset legend {
     margin-bottom: 0;
 }
 
-.larmic-component-label {
+.butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -121,14 +47,6 @@ select.butterfaces-input-component {
 .butter-component-tooltip {
     display: inline-block;
 }
-
-/*.butter-component.butter-component-tooltip-shown,
-.butter-component.butter-component-tooltip-hidden {
-    -webkit-transition: 0.5s linear all;
-    -moz-transition: 0.5s linear all;
-    -o-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-}*/
 
 .butter-component-tooltip-hidden {
     visibility: hidden;
@@ -186,11 +104,15 @@ select.butterfaces-input-component {
     z-index: 10;
 }
 
-.butterfaces-maxlength-counter {
+.butter-component-maxlength-counter {
     padding-right: 15px;
     text-align: right;
 }
 
-.has-error .butterfaces-maxlength-counter {
+.has-error .butter-component-maxlength-counter {
     color: #a94442;
+}
+
+.butter-component-glyphicon {
+    margin-right: 5px;
 }

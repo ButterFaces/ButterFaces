@@ -31,7 +31,7 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <l:textArea id=\"input\"\n");
+		sb.append("        <b:textArea id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
 
@@ -43,7 +43,6 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("floating", this.isFloating(), sb);
 
 		if (this.getMaxLength() != null) {
 			sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
@@ -56,7 +55,7 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 		if (this.isValidation()) {
 			sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
 		}
-		sb.append("        </l:textArea>");
+		sb.append("        </b:textArea>");
 
 		this.createOutputXhtml(sb);
 

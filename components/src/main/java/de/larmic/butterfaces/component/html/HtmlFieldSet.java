@@ -9,8 +9,9 @@ import javax.faces.component.UIComponentBase;
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
 		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-reduced-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-1.11.1.min.js", target = "head") })
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head") })
 @FacesComponent(HtmlFieldSet.COMPONENT_TYPE)
 public class HtmlFieldSet extends UIComponentBase {
 
@@ -19,6 +20,8 @@ public class HtmlFieldSet extends UIComponentBase {
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.FieldSetRenderer";
 
     protected static final String PROPERTY_LABEL = "label";
+    protected static final String PROPERTY_STYLE_CLASS = "styleClass";
+    protected static final String PROPERTY_STYLE = "style";
 
 	public HtmlFieldSet() {
 		super();
@@ -36,6 +39,22 @@ public class HtmlFieldSet extends UIComponentBase {
 
     public void setLabel(final String title) {
         this.updateStateHelper(PROPERTY_LABEL, title);
+    }
+
+    public String getStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    }
+
+    public void setStyleClass(final String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
+    }
+
+    public String getStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE);
+    }
+
+    public void setStyle(final String style) {
+        this.updateStateHelper(PROPERTY_STYLE, style);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

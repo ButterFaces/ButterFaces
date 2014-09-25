@@ -1,22 +1,21 @@
-<ui:composition template="/WEB-INF/templates/componentBase.xhtml"
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
-        <strong>l:textArea</strong> The textArea tag renders an HTML "textarea" element.
+        <strong>b:textArea</strong> The textArea tag renders an HTML "textarea" element.
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{textAreaShowcaseComponent.label}" />
             <showcase:tagStringControl label="tooltip" value="#{textAreaShowcaseComponent.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{textAreaShowcaseComponent.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{textAreaShowcaseComponent.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{textAreaShowcaseComponent.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcaseComponent.rendered}" />
-            <showcase:tagBooleanControl label="floating" value="#{textAreaShowcaseComponent.floating}" />
             <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseComponent.maxLength}" />
             <showcase:tagEnumControl label="componentStyleClass"
                                      value="#{textAreaShowcaseComponent.componentStyleClass}"
@@ -27,17 +26,13 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{textAreaShowcaseComponent.labelStyleClass}"
                                      values="#{textAreaShowcaseComponent.labelStyleClasses}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="html5attributes">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="HTML5 tag attributes">
             <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseComponent.placeholder}"/>
-        </h:form>
-    </ui:define>
+        </showcase:tagsContainer>
 
-    <ui:define name="controls">
-        <h:form prependId="false">
+        <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
                                      value="#{textAreaShowcaseComponent.ajaxType}"
                                      values="#{textAreaShowcaseComponent.ajaxTypes}"
@@ -45,7 +40,7 @@
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseComponent.validation}" />
-        </h:form>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

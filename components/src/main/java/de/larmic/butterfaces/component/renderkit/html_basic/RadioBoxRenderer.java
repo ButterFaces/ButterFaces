@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension
- * https://bitbucket.org/larmicBB/larmic-butterfaces-components
+ * https://bitbucket.org/larmicBB/butterfaces/
  * 
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
@@ -22,6 +22,12 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
 		super.encodeBegin(context, component);
 
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
@@ -42,20 +48,24 @@ public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRe
 
 	@Override
 	public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncode(component)) {
+            return;
+        }
+
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
         if (!htmlComponent.isReadonly()) {
             super.encodeEnd(context, component);
 
-            final StringBuffer jsCall = new StringBuffer();
-
             // add bootstrap radio class to component
             // bootstrap radio buttons are using pageDirection as default
             // maybe use radio-inline
             writer.startElement("script", component);
-            writer.writeText("jQuery(\"table.butterfaces-input-component\").find(\"td\").addClass(\"radio\");", null);
-            writer.writeText("jQuery(\"table.butterfaces-input-component\").removeClass(\"form-control\");", null);
+            writer.writeText("jQuery(\"table.butter-input-component\").find(\"td\").addClass(\"radio\");", null);
+            writer.writeText("jQuery(\"table.butter-input-component\").removeClass(\"form-control\");", null);
             writer.endElement("script");
         }
 
