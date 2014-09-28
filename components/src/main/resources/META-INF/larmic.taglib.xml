@@ -256,6 +256,10 @@
 			<type>java.lang.Integer</type>
 		</attribute>
 		<attribute>
+			<name>expandable</name>
+			<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
 			<name>style</name>
 			<type>java.lang.String</type>
 		</attribute>

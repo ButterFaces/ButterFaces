@@ -67,6 +67,9 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
         // Render textarea counter
         new MaxLengthPartRenderer().renderMaxLength(htmlComponent, writer);
 
+        // Render textarea expandable script call
+        new ExpandablePartRenderer().renderExpandable(htmlComponent, writer);
+
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
 

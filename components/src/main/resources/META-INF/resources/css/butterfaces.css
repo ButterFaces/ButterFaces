@@ -116,3 +116,20 @@ select.butter-input-component {
 .butter-component-glyphicon {
     margin-right: 5px;
 }
+
+.butter-component-expandable-original {
+    height: 34px !important;
+    white-space: normal;
+    overflow: hidden;
+    resize: none;
+    background-image: url(#{resource[ 'img:expandable.png' ]}) !important;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+.butter-component-expandable-ghost {
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #999;
+}

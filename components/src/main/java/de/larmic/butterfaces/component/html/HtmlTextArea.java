@@ -13,7 +13,8 @@ import javax.faces.component.html.HtmlInputTextarea;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-tooltip.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-maxlength.jquery.js", target = "head")
+        @ResourceDependency(library = "js", name = "butterfaces-maxlength.jquery.js", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
 public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent {
@@ -29,6 +30,7 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
+    protected static final String PROPERTY_EXPANDABLE = "expandable";
 
     public HtmlTextArea() {
         super();
@@ -99,6 +101,14 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setMaxLength(final Integer maxLength) {
         this.updateStateHelper(PROPERTY_MAXLENGTH, maxLength);
+    }
+
+    public Boolean getExpandable() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_EXPANDABLE);
+    }
+
+    public void setExpandable(final Boolean expandable) {
+        this.updateStateHelper(PROPERTY_EXPANDABLE, expandable);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
