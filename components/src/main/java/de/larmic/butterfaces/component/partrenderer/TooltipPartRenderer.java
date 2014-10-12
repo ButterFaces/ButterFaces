@@ -32,8 +32,12 @@ public class TooltipPartRenderer {
         writer.endElement("div");
         writer.startElement("div", uiComponent);
         writer.writeAttribute("class", "butter-component-tooltip-text", null);
-        writer.writeText(component.getTooltip(), null);
-        renderValidationMessages(uiComponent, writer, !StringUtils.isEmpty(component.getTooltip()));
+        if (!StringUtils.isEmpty(component.getTooltip())) {
+            writer.writeText(component.getTooltip(), null);
+            renderValidationMessages(uiComponent, writer, true);
+        } else {
+            renderValidationMessages(uiComponent, writer, false);
+        }
         writer.endElement("div");
 
 
