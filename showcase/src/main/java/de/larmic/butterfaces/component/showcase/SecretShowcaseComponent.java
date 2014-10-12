@@ -36,7 +36,7 @@ public class SecretShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
         this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
-        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);

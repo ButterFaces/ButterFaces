@@ -86,7 +86,7 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendString("layout", radioBoxLayoutType.label, sb);
         this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
-        this.appendString("inoutStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
