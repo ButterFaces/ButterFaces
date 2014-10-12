@@ -18,7 +18,7 @@ public class TooltipPartRenderer {
         final UIInput uiComponent = (UIInput) component;
         final String outerComponentId = component.getClientId() + Constants.OUTERDIV_POSTFIX;
 
-        if (isTooltipNecessary(component)) {
+        if (calculateShowTooltip(component)) {
             renderTooltipElement(component, writer, uiComponent);
             RenderUtils.renderJQueryPluginCall(outerComponentId, "butterTooltip()", writer, uiComponent);
         }
@@ -33,18 +33,18 @@ public class TooltipPartRenderer {
         writer.startElement("div", uiComponent);
         writer.writeAttribute("class", "butter-component-tooltip-text", null);
         writer.writeText(component.getTooltip(), null);
-        renderValidationMessages(uiComponent, writer);
+        renderValidationMessages(uiComponent, writer, !StringUtils.isEmpty(component.getTooltip()));
         writer.endElement("div");
 
 
         writer.endElement("div");
     }
 
-    private void renderValidationMessages(final UIInput uiComponent, final ResponseWriter writer) throws IOException {
+    private void renderValidationMessages(final UIInput uiComponent, final ResponseWriter writer, final boolean tooltipExists) throws IOException {
         final FacesContext context = FacesContext.getCurrentInstance();
         final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
 
-        if (clientIdsWithMessages.hasNext()) {
+        if (clientIdsWithMessages.hasNext() && tooltipExists) {
             writer.startElement("hr", uiComponent);
             writer.endElement("hr");
         }
@@ -70,13 +70,10 @@ public class TooltipPartRenderer {
         }
     }
 
-    /*private String calculateShowTooltip(final HtmlInputComponent component) {
+    private boolean calculateShowTooltip(final HtmlInputComponent component) {
         final boolean tooltipNecessary = this.isTooltipNecessary(component);
-
-        Boolean showTooltip = (tooltipNecessary || !component.isValid()) && !component.isReadonly();
-
-        return showTooltip.toString();
-    }*/
+        return (tooltipNecessary || !component.isValid()) && !component.isReadonly();
+    }
 
     private boolean isTooltipNecessary(final HtmlInputComponent component) {
         return !StringUtils.isEmpty(component.getTooltip());
