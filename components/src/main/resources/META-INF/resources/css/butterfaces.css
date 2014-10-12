@@ -1,3 +1,5 @@
+select[multiple].butter-input-component,
+select[size].butter-input-component,
 select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
