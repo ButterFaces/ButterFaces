@@ -27,8 +27,12 @@ public class ReadonlyPartRenderer {
         final Object value = component.getValue();
 
         if (readonly) {
+            final String inputStyleClass = component.getInputStyleClass();
+
             responseWriter.startElement("div", uiComponent);
-            responseWriter.writeAttribute("class", Constants.BOOTSTRAP_COL_SM_10 + " butter-readonly-value", null);
+            responseWriter.writeAttribute("class",
+                    StringUtils.isEmpty(inputStyleClass) ? Constants.BOOTSTRAP_COL_SM_10 : inputStyleClass
+                    + " butter-readonly-value", null);
             responseWriter.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             responseWriter.endElement("div");
         }
