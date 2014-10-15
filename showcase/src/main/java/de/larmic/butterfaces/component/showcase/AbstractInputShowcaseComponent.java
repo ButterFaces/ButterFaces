@@ -12,6 +12,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";
+    private String badgeText = null;
     private boolean readonly;
     private boolean required;
     private boolean validation;
@@ -136,6 +137,14 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
 
     public void setLabel(final String label) {
         this.label = label;
+    }
+
+    public String getBadgeText() {
+        return badgeText;
+    }
+
+    public void setBadgeText(String badgeText) {
+        this.badgeText = badgeText;
     }
 
     public String getTooltip() {
