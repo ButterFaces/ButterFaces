@@ -20,6 +20,7 @@ public class HtmlFieldSet extends UIComponentBase {
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.FieldSetRenderer";
 
     protected static final String PROPERTY_LABEL = "label";
+    protected static final String PROPERTY_BADGE_TEXT = "badgeText";
     protected static final String PROPERTY_STYLE_CLASS = "styleClass";
     protected static final String PROPERTY_STYLE = "style";
 
@@ -55,6 +56,14 @@ public class HtmlFieldSet extends UIComponentBase {
 
     public void setStyle(final String style) {
         this.updateStateHelper(PROPERTY_STYLE, style);
+    }
+
+    public String getBadgeText() {
+        return (String) this.getStateHelper().eval(PROPERTY_BADGE_TEXT);
+    }
+
+    public void setBadgeText(final String badgeText) {
+        this.updateStateHelper(PROPERTY_BADGE_TEXT, badgeText);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

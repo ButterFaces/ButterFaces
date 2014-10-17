@@ -12,6 +12,7 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{fieldSetShowcaseComponent.label}"/>
+            <showcase:tagStringControl label="badgeText" value="#{fieldSetShowcaseComponent.badgeText}"/>
             <showcase:tagBooleanControl label="rendered" value="#{fieldSetShowcaseComponent.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
@@ -19,6 +20,7 @@
     <ui:define name="output">
         <b:fieldset label="#{fieldSetShowcaseComponent.label}"
                     rendered="#{fieldSetShowcaseComponent.rendered}"
+                    badgeText="#{fieldSetShowcaseComponent.badgeText}"
                     styleClass="arquillian_component">
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
         </b:fieldset>

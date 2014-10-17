@@ -25,4 +25,7 @@ public class StringUtils {
         return !(value != null && !"".equals(value));
     }
 
+    public static final boolean isNotEmpty(final String value) {
+        return !isEmpty(value);
+    }
 }

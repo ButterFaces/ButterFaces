@@ -29,6 +29,10 @@ select.butter-input-component {
     margin-bottom: 0;
 }
 
+.butter-component-fieldset legend .badge {
+    margin-left: 6px;
+}
+
 .butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;

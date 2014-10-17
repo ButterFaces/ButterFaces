@@ -20,6 +20,7 @@ public class FieldSetComponentTest extends AbstractComponentTest {
     public static final String BUTTER_COMPONENT = "arquillian_component";
     public static final String OPTION_RENDERED = "arquillian_rendered";
     public static final String OPTION_LABEL = "arquillian_label";
+    public static final String OPTION_BADGE_TEXT = "arquillian_badgeText";
 
     @Test
     public void testNavigation() throws Exception {
@@ -43,6 +44,7 @@ public class FieldSetComponentTest extends AbstractComponentTest {
 
         this.findWebElementByClassName(OPTION_RENDERED);
         this.findWebElementByClassName(OPTION_LABEL);
+        this.findWebElementByClassName(OPTION_BADGE_TEXT);
     }
 
     @Test
@@ -83,5 +85,29 @@ public class FieldSetComponentTest extends AbstractComponentTest {
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
         legend = component.findElement(By.tagName("legend"));
         Assert.assertEquals("hello world!", legend.getText());
+    }
+
+    @Test
+    @InSequence(4)
+    public void testBadgeTextOption() throws Exception {
+        browser.get(deploymentUrl + "fieldset.jsf");
+
+        final WebElement showcaseBadgeTextOption = this.findWebElementByClassName(OPTION_BADGE_TEXT);
+
+        // clear label
+        showcaseBadgeTextOption.clear();
+        guardHttp(showcaseBadgeTextOption).submit();
+        WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        Assert.assertTrue(component.findElements(By.cssSelector("legend .badge")).isEmpty());
+
+        guardAjax(showcaseBadgeTextOption).sendKeys("3");
+        component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        WebElement badge = component.findElement(By.cssSelector("legend .badge"));
+        Assert.assertEquals("3", badge.getText());
+
+        guardAjax(showcaseBadgeTextOption).sendKeys("4");
+        component = this.findWebElementByClassName(BUTTER_COMPONENT);
+        badge = component.findElement(By.cssSelector("legend .badge"));
+        Assert.assertEquals("34", badge.getText());
     }
 }

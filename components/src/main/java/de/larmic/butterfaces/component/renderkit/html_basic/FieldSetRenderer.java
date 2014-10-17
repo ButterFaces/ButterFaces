@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlFieldSet;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -12,12 +13,13 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlFieldSet.COMPONENT_FAMILY, rendererType = HtmlFieldSet.RENDERER_TYPE)
-public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicRenderer {
+public class FieldSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicRenderer {
 
     public static final String ELEMENT_FIELDSET = "fieldset";
     public static final String ATTRIBUTE_STYLE = "style";
     public static final String ATTRIBUTE_CLASS = "class";
     public static final String ELEMENT_LEGEND = "legend";
+    public static final String ELEMENT_SPAN = "span";
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -47,9 +49,17 @@ public class FielSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasi
         }
 
 
-        if (fieldSet.getLabel() != null && !"".equals(fieldSet.getLabel())) {
+        if (StringUtils.isNotEmpty(fieldSet.getLabel())) {
             writer.startElement(ELEMENT_LEGEND, component);
             writer.writeText(fieldSet.getLabel(), component, "label");
+
+            if (StringUtils.isNotEmpty(fieldSet.getBadgeText())) {
+                writer.startElement(ELEMENT_SPAN, component);
+                writer.writeAttribute(ATTRIBUTE_CLASS, "badge", null);
+                writer.writeText(fieldSet.getBadgeText(), component, "badgeText");
+                writer.endElement(ELEMENT_SPAN);
+            }
+
             writer.endElement(ELEMENT_LEGEND);
         }
     }
