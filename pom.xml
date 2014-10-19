@@ -67,13 +67,14 @@
 
         <!-- dependency versions -->
         <javax.javaee-api.version>7.0</javax.javaee-api.version>
-        <jsf.version>2.2.5</jsf.version>
+        <jsf.version>2.2.7</jsf.version>
 
         <!-- maven plugin dependency version -->
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <junit.version>4.11</junit.version>
+        <el-api.version>2.2</el-api.version>
     </properties>
 
     <build>
@@ -129,6 +130,18 @@
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javax.javaee-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>el-api</artifactId>
+                <version>${el-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>${jsf.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
