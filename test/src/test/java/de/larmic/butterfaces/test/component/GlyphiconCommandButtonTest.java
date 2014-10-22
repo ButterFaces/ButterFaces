@@ -71,7 +71,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     }
 
     @Test
-    @InSequence(2)
+    @InSequence(3)
     public void testValueOption() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
 
@@ -93,7 +93,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     }
 
     @Test
-    @InSequence(2)
+    @InSequence(4)
     public void testGlyphiconOption() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
 
@@ -122,7 +122,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
     }
 
     @Test
-    @InSequence(2)
+    @InSequence(5)
     public void testClick() throws Exception {
         browser.get(deploymentUrl + COMPONENT_PAGE);
 
