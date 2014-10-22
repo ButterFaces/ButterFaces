@@ -6,6 +6,7 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlSecret;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_additional.PlaceholderRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlSecret.COMPONENT_FAMILY, rendererType = HtmlSecret.RENDERER_TYPE)
-public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRenderer {
+public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRenderer implements PlaceholderRenderer {
 
     private static final Attribute[] ATTRIBUTES =
             AttributeManager.getAttributes(AttributeManager.Key.INPUTSECRET);
@@ -137,7 +138,7 @@ public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRen
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
         if (component instanceof HtmlSecret) {
             final HtmlSecret inputComponent = (HtmlSecret) component;
-            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+            this.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
         }
     }
 }

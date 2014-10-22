@@ -6,6 +6,7 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_additional.PlaceholderRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlTextArea.COMPONENT_FAMILY, rendererType = HtmlTextArea.RENDERER_TYPE)
-public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.TextareaRenderer {
+public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.TextareaRenderer implements PlaceholderRenderer {
 
     private static final Attribute[] ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXTAREA);
 
@@ -118,7 +119,7 @@ public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.Textare
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
         if (component instanceof HtmlTextArea) {
             final HtmlTextArea inputComponent = (HtmlTextArea) component;
-            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+            this.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
         }
     }
 }
