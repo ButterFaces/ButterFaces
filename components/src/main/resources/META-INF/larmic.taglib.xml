@@ -1027,4 +1027,31 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
+
+    <tag>
+        <tag-name>tree</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.tree</component-type>
+        </component>
+        <attribute>
+            <description>
+                The component identifier for this component. This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Tree model value.</description>
+            <name>value</name>
+            <type>de.larmic.butterfaces.model.tree.Node</type>
+            <required>true</required>
+        </attribute>
+    </tag>
 </facelet-taglib>
