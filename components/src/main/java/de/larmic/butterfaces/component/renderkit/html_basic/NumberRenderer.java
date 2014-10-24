@@ -6,7 +6,6 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlNumber;
 import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_additional.PlaceholderRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -23,7 +22,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlNumber.COMPONENT_FAMILY, rendererType = HtmlNumber.RENDERER_TYPE)
-public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer implements PlaceholderRenderer {
+public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
     private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager
@@ -178,7 +177,7 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
         if (component instanceof HtmlNumber) {
             final HtmlNumber inputComponent = (HtmlNumber) component;
-            this.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
 
             if (inputComponent.getAutoFocus()) {
                 writer.writeAttribute("autofocus", "true", null);

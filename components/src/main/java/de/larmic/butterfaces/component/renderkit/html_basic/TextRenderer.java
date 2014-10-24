@@ -6,10 +6,6 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_additional.MinMaxNumberRenderer;
-import de.larmic.butterfaces.component.renderkit.html_additional.PatternRenderer;
-import de.larmic.butterfaces.component.renderkit.html_additional.PlaceholderRenderer;
-import de.larmic.butterfaces.component.renderkit.html_additional.TypeRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -21,13 +17,12 @@ import java.io.IOException;
 
 /**
  * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/butterfaces/
- * <p>
+ * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlText.RENDERER_TYPE)
-public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer
-        implements PlaceholderRenderer, PatternRenderer, MinMaxNumberRenderer, TypeRenderer {
+public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
     private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.OUTPUTTEXT);
@@ -164,11 +159,13 @@ public class TextRenderer extends com.sun.faces.renderkit.html_basic.TextRendere
         if (component instanceof HtmlText) {
             final HtmlText inputComponent = (HtmlText) component;
 
-            this.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
-            this.writePatternAttribute(writer, inputComponent.getPattern());
-            this.writeMinAttribute(writer, inputComponent.getMin());
-            this.writeMaxAttribute(writer, inputComponent.getMax());
-            this.writeTypeAttribute(writer, inputComponent.getType());
+            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
+
+            htmlAttributePartRenderer.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
+            htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
+            htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
+            htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
+            htmlAttributePartRenderer.writeTypeAttribute(writer, inputComponent.getType());
 
             if (inputComponent.getAutoFocus()) {
                 writer.writeAttribute("autofocus", "true", null);
