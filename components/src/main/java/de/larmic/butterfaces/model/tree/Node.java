@@ -8,7 +8,6 @@ import java.util.Collection;
 public interface Node {
 
     String getTitle();
-    boolean isRootNode();
     boolean isLeaf();
     Collection<Node> getSubNodes();
 
