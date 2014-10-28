@@ -21,6 +21,8 @@ public class HtmlTree extends UIComponentBase {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TreeRenderer";
 
     protected static final String PROPERTY_VALUE = "value";
+    protected static final String PROPERTY_EXPANSION_CLASS = "expansionClass";
+    protected static final String PROPERTY_COLLAPSING_CLASS = "collapsingClass";
 
     public HtmlTree() {
         super();
@@ -38,6 +40,22 @@ public class HtmlTree extends UIComponentBase {
 
     public void setValue(final Node value) {
         this.updateStateHelper(PROPERTY_VALUE, value);
+    }
+
+    public String getExpansionClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_EXPANSION_CLASS);
+    }
+
+    public void setExpansionClass(final String expansionClass) {
+        this.updateStateHelper(PROPERTY_EXPANSION_CLASS, expansionClass);
+    }
+
+    public String getCollapsingClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_COLLAPSING_CLASS);
+    }
+
+    public void setCollapsingClass(final String collapsingClass) {
+        this.updateStateHelper(PROPERTY_COLLAPSING_CLASS, collapsingClass);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
