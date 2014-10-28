@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Created by larmic on 24.10.14.
@@ -60,7 +61,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.endElement("span");
 
         if (!node.isLeaf()) {
-            for (Node subNode : node.getSubNodes()) {
+            final Collection<Node> subNodes = node.getSubNodes();
+            for (Node subNode : subNodes) {
                 this.encodeNode(component, writer, subNode);
             }
         }

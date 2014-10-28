@@ -5,9 +5,10 @@ import java.util.Collection;
 /**
  * Created by larmic on 24.10.14.
  */
-public interface Node {
+public interface Node<T> {
 
     String getTitle();
+    T getData();
     boolean isLeaf();
     Collection<Node> getSubNodes();
 
