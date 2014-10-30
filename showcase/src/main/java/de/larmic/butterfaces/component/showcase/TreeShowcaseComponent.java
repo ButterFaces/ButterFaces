@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.showcase;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -11,7 +11,8 @@ import java.io.Serializable;
  * Created by larmic on 11.09.14.
  */
 @Named
-@SessionScoped
+@ViewScoped
+@SuppressWarnings("serial")
 public class TreeShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
     public Node getTree() {

@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@SessionScoped
+@ViewScoped
 @SuppressWarnings("serial")
 public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 

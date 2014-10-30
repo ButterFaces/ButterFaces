@@ -1,11 +1,11 @@
 package de.larmic.butterfaces.component.showcase;
 
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
-@SessionScoped
+@ViewScoped
 @SuppressWarnings("serial")
 public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
