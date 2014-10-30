@@ -2,3 +2,16 @@
 .butter-component-tree ul,  li, ul{
     list-style-type: none;
 }
+
+.butter-component-tree-node,
+.butter-component-tree-leaf {
+    width: 20px;
+}
+
+.butter-component-tree-node.glyphicon {
+    color: #777;
+}
+
+.butter-component-tree-leaf {
+    display: inline-block;
+}

@@ -19,14 +19,14 @@
             }
 
             $originalElement.find('li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-            $originalElement.find('li.parent_li > span.butter-component-tree-collapse').on('click', function (e) {
+            $originalElement.find('li.parent_li > span.butter-component-tree-jquery-marker').on('click', function (e) {
                 var children = $(this).parent('li.parent_li').find(' > ul > li');
                 if (children.is(":visible")) {
                     children.hide('fast');
-                    $(this).attr('title', 'Expand this branch').addClass(data.expansionClass).removeClass(data.collapsingClass);
+                    $(this).attr('title', 'Expand this branch').removeClass(data.collapsingClass).addClass(data.expansionClass);
                 } else {
                     children.show('fast');
-                    $(this).attr('title', 'Collapse this branch').addClass(data.collapsingClass).removeClass(data.expansionClass);
+                    $(this).attr('title', 'Collapse this branch').removeClass(data.expansionClass).addClass(data.collapsingClass);
                 }
                 e.stopPropagation();
             });

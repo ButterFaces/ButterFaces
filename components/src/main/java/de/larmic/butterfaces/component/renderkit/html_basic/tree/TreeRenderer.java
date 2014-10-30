@@ -19,8 +19,8 @@ import java.util.Collection;
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
-    private static final String DEFAULT_COLLAPSING_CLASS = "glyphicon-chevron-up";
-    private static final String DEFAULT_EXPANSION_CLASS = "glyphicon-chevron-down";
+    private static final String DEFAULT_COLLAPSING_CLASS = "glyphicon glyphicon-plus-sign";
+    private static final String DEFAULT_EXPANSION_CLASS = "glyphicon glyphicon-minus-sign";
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -40,22 +40,23 @@ public class TreeRenderer extends HtmlBasicRenderer {
         this.encodeNode(htmlTree, writer, htmlTree.getValue());
     }
 
-    private void encodeNode(final HtmlTree component, final ResponseWriter writer, final Node node) throws IOException {
-        writer.startElement("ul", component);
-        writer.startElement("li", component);
+    private void encodeNode(final HtmlTree tree, final ResponseWriter writer, final Node node) throws IOException {
+        writer.startElement("ul", tree);
+        writer.startElement("li", tree);
 
         // collapse
-        writer.startElement("span", component);
-        writer.writeAttribute("class", "butter-component-tree-collapse glyphicon glyphicon-chevron-down", null);
+        writer.startElement("span", tree);
+        final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + getCollapsingClass(tree);
+        writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
         writer.endElement("span");
 
         // icon
-        writer.startElement("span", component);
+        writer.startElement("span", tree);
         writer.writeAttribute("class", "butter-component-tree-icon", null);
         writer.endElement("span");
 
         // title
-        writer.startElement("span", component);
+        writer.startElement("span", tree);
         writer.writeAttribute("class", "butter-component-tree-title", null);
         writer.writeText(node.getTitle(), null);
         writer.endElement("span");
@@ -63,7 +64,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (!node.isLeaf()) {
             final Collection<Node> subNodes = node.getSubNodes();
             for (Node subNode : subNodes) {
-                this.encodeNode(component, writer, subNode);
+                this.encodeNode(tree, writer, subNode);
             }
         }
 
@@ -90,11 +91,19 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private String createButterTreeJQueryParameter(final HtmlTree htmlTree) {
-        final String expansionClass = StringUtils.isEmpty(htmlTree.getExpansionClass())
-                ? DEFAULT_EXPANSION_CLASS : htmlTree.getExpansionClass();
-        final String collapsingClass = StringUtils.isEmpty(htmlTree.getCollapsingClass())
-                ? DEFAULT_COLLAPSING_CLASS : htmlTree.getExpansionClass();
+        final String expansionClass = getExpansionClass(htmlTree);
+        final String collapsingClass = getCollapsingClass(htmlTree);
 
         return "{expansionClass: '" + expansionClass + "', collapsingClass: '" + collapsingClass + "'}";
+    }
+
+    private String getCollapsingClass(final HtmlTree htmlTree) {
+        return StringUtils.isEmpty(htmlTree.getCollapsingClass())
+                ? DEFAULT_COLLAPSING_CLASS : htmlTree.getExpansionClass();
+    }
+
+    private String getExpansionClass(final HtmlTree htmlTree) {
+        return StringUtils.isEmpty(htmlTree.getExpansionClass())
+                ? DEFAULT_EXPANSION_CLASS : htmlTree.getExpansionClass();
     }
 }
