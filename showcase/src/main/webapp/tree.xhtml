@@ -10,6 +10,7 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{linkShowcaseComponent.rendered}"/>
             <showcase:tagEnumControl label="collapse/expand"
                                      value="#{treeShowcaseComponent.glyphicon}"
                                      values="#{treeShowcaseComponent.glyphicons}"/>
@@ -26,5 +27,12 @@
     </ui:define>
 
     <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{treeShowcaseComponent}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('tree');
+            });
+        </script>
     </ui:define>
 </ui:composition>

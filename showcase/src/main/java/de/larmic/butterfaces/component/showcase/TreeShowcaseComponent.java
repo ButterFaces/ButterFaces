@@ -18,6 +18,8 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TreeShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
+    public static final String FONT_AWESOME_MARKER = "font-awesome";
+
     private String glyphicon;
     private String collapsingClass;
     private String expansionClass;
@@ -52,14 +54,38 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
         items.add(new SelectItem("bootstrap", "Butterfaces default"));
         items.add(new SelectItem("other-bootstrap", "other Bootstrap example"));
-        items.add(new SelectItem("font-awesome", "Font-Awesome example"));
+        items.add(new SelectItem(FONT_AWESOME_MARKER, "Font-Awesome example"));
 
         return items;
     }
 
     @Override
     public String getXHtml() {
-        return null;
+        final StringBuilder sb = new StringBuilder();
+
+        if (this.getGlyphicon() != null && FONT_AWESOME_MARKER.equals(this.getGlyphicon())) {
+            this.addXhtmlStart(sb, "<h:head>\n    <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\"\n          rel=\"stylesheet\">\n</h:head>");
+        } else {
+            this.addXhtmlStart(sb);
+        }
+
+        sb.append("        <b:tree id=\"input\"\n");
+
+        this.appendString("value", "#{myBean.treeModel}", sb);
+        this.appendString("collapsingClass", this.getCollapsingClass(), sb);
+        this.appendString("expansionClass", this.getExpansionClass(), sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
+
+        sb.append("        </b:tree>");
+
+        this.addXhtmlEnd(sb);
+
+        return sb.toString();
+    }
+
+    @Override
+    protected String getEmptyDistanceString() {
+        return "                ";
     }
 
     public String getCollapsingClass() {
@@ -86,7 +112,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
                 collapsingClass = "glyphicon glyphicon-resize-small";
                 expansionClass = "glyphicon glyphicon-resize-full";
                 break;
-            case "font-awesome":
+            case FONT_AWESOME_MARKER:
                 collapsingClass = "fa fa-minus-square-o";
                 expansionClass = "fa fa-plus-square-o";
                 break;
