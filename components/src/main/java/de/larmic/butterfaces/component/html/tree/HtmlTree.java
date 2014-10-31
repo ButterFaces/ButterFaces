@@ -23,6 +23,7 @@ public class HtmlTree extends UIComponentBase {
     protected static final String PROPERTY_VALUE = "value";
     protected static final String PROPERTY_EXPANSION_CLASS = "expansionClass";
     protected static final String PROPERTY_COLLAPSING_CLASS = "collapsingClass";
+    protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
 
     public HtmlTree() {
         super();
@@ -56,6 +57,14 @@ public class HtmlTree extends UIComponentBase {
 
     public void setCollapsingClass(final String collapsingClass) {
         this.updateStateHelper(PROPERTY_COLLAPSING_CLASS, collapsingClass);
+    }
+
+    public boolean isHideRootNode() {
+        return Boolean.valueOf(getStateHelper().eval(PROPERTY_HIDE_ROOT_NODE, Boolean.TRUE).toString());
+    }
+
+    public void setHideRootNode(final boolean hideRootNode) {
+        getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

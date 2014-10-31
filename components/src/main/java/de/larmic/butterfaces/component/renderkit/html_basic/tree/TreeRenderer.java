@@ -37,34 +37,39 @@ public class TreeRenderer extends HtmlBasicRenderer {
         this.writeIdAttributeIfNecessary(context, writer, component);
         writer.writeAttribute("class", "butter-component-tree", null);
 
-        this.encodeNode(htmlTree, writer, htmlTree.getValue());
+        this.encodeNode(htmlTree, writer, htmlTree.getValue(), !htmlTree.isHideRootNode());
     }
 
-    private void encodeNode(final HtmlTree tree, final ResponseWriter writer, final Node node) throws IOException {
-        writer.startElement("ul", tree);
-        writer.startElement("li", tree);
+    private void encodeNode(final HtmlTree tree,
+                            final ResponseWriter writer,
+                            final Node node,
+                            final boolean renderNode) throws IOException {
+        if (renderNode) {
+            writer.startElement("ul", tree);
+            writer.startElement("li", tree);
 
-        // collapse
-        writer.startElement("span", tree);
-        final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + getCollapsingClass(tree);
-        writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
-        writer.endElement("span");
+            // collapse
+            writer.startElement("span", tree);
+            final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + getCollapsingClass(tree);
+            writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
+            writer.endElement("span");
 
-        // icon
-        writer.startElement("span", tree);
-        writer.writeAttribute("class", "butter-component-tree-icon", null);
-        writer.endElement("span");
+            // icon
+            writer.startElement("span", tree);
+            writer.writeAttribute("class", "butter-component-tree-icon", null);
+            writer.endElement("span");
 
-        // title
-        writer.startElement("span", tree);
-        writer.writeAttribute("class", "butter-component-tree-title", null);
-        writer.writeText(node.getTitle(), null);
-        writer.endElement("span");
+            // title
+            writer.startElement("span", tree);
+            writer.writeAttribute("class", "butter-component-tree-title", null);
+            writer.writeText(node.getTitle(), null);
+            writer.endElement("span");
+        }
 
         if (!node.isLeaf()) {
             final Collection<Node> subNodes = node.getSubNodes();
             for (Node subNode : subNodes) {
-                this.encodeNode(tree, writer, subNode);
+                this.encodeNode(tree, writer, subNode, true);
             }
         }
 

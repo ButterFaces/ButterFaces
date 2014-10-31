@@ -20,6 +20,8 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 
+    private boolean hideRootNode = false;
+
     private String glyphicon;
     private String collapsingClass;
     private String expansionClass;
@@ -98,6 +100,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("value", "#{myBean.treeModel}", sb);
         this.appendString("collapsingClass", this.getCollapsingClass(), sb);
         this.appendString("expansionClass", this.getExpansionClass(), sb);
+        this.appendBoolean("hideRootNode", this.isHideRootNode(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         sb.append("        </b:tree>");
@@ -141,5 +144,13 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
                 expansionClass = "fa fa-plus-square-o";
                 break;
         }
+    }
+
+    public boolean isHideRootNode() {
+        return hideRootNode;
+    }
+
+    public void setHideRootNode(boolean hideRootNode) {
+        this.hideRootNode = hideRootNode;
     }
 }

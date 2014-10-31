@@ -11,6 +11,7 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagBooleanControl label="rendered" value="#{treeShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="hideRootNode" value="#{treeShowcaseComponent.hideRootNode}"/>
             <showcase:tagEnumControl label="collapse/expand"
                                      value="#{treeShowcaseComponent.glyphicon}"
                                      values="#{treeShowcaseComponent.glyphicons}"/>
@@ -22,6 +23,7 @@
                 value="#{treeShowcaseComponent.tree}"
                 collapsingClass="#{treeShowcaseComponent.collapsingClass}"
                 expansionClass="#{treeShowcaseComponent.expansionClass}"
+                hideRootNode="#{treeShowcaseComponent.hideRootNode}"
                 rendered="#{treeShowcaseComponent.rendered}" />
 
         <b:activateLibraries />
