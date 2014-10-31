@@ -23,6 +23,13 @@ public abstract class AbstractShowcaseComponent {
 
     }
 
+    /**
+     * Is called by getJavaCode() and can be used to add custom java code output.
+     */
+    protected void addJavaCode(final StringBuilder sb) {
+
+    }
+
     protected void appendString(final String attribute, final String value, final StringBuilder sb, final boolean isLastValue) {
         if (value != null && !"".equals(value)) {
             sb.append(getEmptyDistanceString() + attribute + "=\"" + value + "\"" + (isLastValue ? ">" : "") + " \n");
@@ -75,6 +82,14 @@ public abstract class AbstractShowcaseComponent {
         sb.append("</body>");
         sb.append("\n");
         sb.append("</html>");
+    }
+
+    public String getJavaCode() {
+        final StringBuilder sb = new StringBuilder();
+
+        this.addJavaCode(sb);
+
+        return sb.toString();
     }
 
     public String getCss() {

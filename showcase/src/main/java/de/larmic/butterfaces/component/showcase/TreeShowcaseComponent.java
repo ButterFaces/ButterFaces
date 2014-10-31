@@ -48,6 +48,31 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         return rootNode;
     }
 
+    @Override
+    protected void addJavaCode(final StringBuilder sb) {
+        sb.append("package de.larmic.demo;\n\n");
+
+        sb.append("import de.larmic.butterfaces.model.tree.Node;\n");
+        sb.append("import de.larmic.butterfaces.model.tree.DefaultNodeImpl;\n\n");
+        sb.append("import javax.faces.view.ViewScoped;\n");
+        sb.append("import javax.inject.Named;\n\n");
+
+        sb.append("@ViewScoped\n");
+        sb.append("@Named\n");
+        sb.append("public class MyBean implements Serializable {\n\n");
+        sb.append("    public Node getTreeModel() {\n");
+        sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
+        sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
+        sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
+        sb.append("        ...\n");
+        sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        sb.append("        rootNode.getSubNodes().add(firstChild);\n");
+        sb.append("        rootNode.getSubNodes().add(secondChild);\n");
+        sb.append("        return rootNode;\n");
+        sb.append("    }\n\n");
+        sb.append("}");
+    }
+
     public List<SelectItem> getGlyphicons() {
         final List<SelectItem> items = new ArrayList<>();
 

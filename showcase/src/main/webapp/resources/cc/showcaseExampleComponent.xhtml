@@ -14,7 +14,7 @@
 
     <composite:implementation>
         <h:panelGroup layout="block" styleClass="panel panel-default">
-            <div class="panel-heading">JSF example</div>
+            <div class="panel-heading">xhtml code</div>
             <div class="row panel-body">
                 <b:prettyprint language="lang-html">
                     #{cc.attrs.component.XHtml}
@@ -22,8 +22,17 @@
             </div>
         </h:panelGroup>
 
+        <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.javaCode}">
+            <div class="panel-heading">java code</div>
+            <div class="row panel-body">
+                <b:prettyprint language="lang-java">
+                    #{cc.attrs.component.javaCode}
+                </b:prettyprint>
+            </div>
+        </h:panelGroup>
+
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.css}">
-            <div class="panel-heading">Custom css</div>
+            <div class="panel-heading">custom css</div>
             <div class="row panel-body">
                 <b:prettyprint language="lang-css">
                     #{cc.attrs.component.css}
@@ -32,7 +41,7 @@
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="panel panel-default" rendered="#{not empty cc.attrs.component.js}">
-            <div class="panel-heading">Custom javascript</div>
+            <div class="panel-heading">custom javascript</div>
             <div class="row panel-body">
                 <b:prettyprint language="lang-js">
                     #{cc.attrs.component.js}
