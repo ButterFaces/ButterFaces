@@ -99,7 +99,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     private String getCollapsingClass(final HtmlTree htmlTree) {
         return StringUtils.isEmpty(htmlTree.getCollapsingClass())
-                ? DEFAULT_COLLAPSING_CLASS : htmlTree.getExpansionClass();
+                ? DEFAULT_COLLAPSING_CLASS : htmlTree.getCollapsingClass();
     }
 
     private String getExpansionClass(final HtmlTree htmlTree) {

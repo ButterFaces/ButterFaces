@@ -9,11 +9,18 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagEnumControl label="collapse/expand"
+                                     value="#{treeShowcaseComponent.glyphicon}"
+                                     values="#{treeShowcaseComponent.glyphicons}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:tree id="tree"
-                value="#{treeShowcaseComponent.tree}" />
+                value="#{treeShowcaseComponent.tree}"
+                collapsingClass="#{treeShowcaseComponent.collapsingClass}"
+                expansionClass="#{treeShowcaseComponent.expansionClass}" />
 
         <b:activateLibraries />
     </ui:define>
