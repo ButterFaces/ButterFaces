@@ -10,7 +10,7 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{linkShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{treeShowcaseComponent.rendered}"/>
             <showcase:tagEnumControl label="collapse/expand"
                                      value="#{treeShowcaseComponent.glyphicon}"
                                      values="#{treeShowcaseComponent.glyphicons}"/>
@@ -21,7 +21,8 @@
         <b:tree id="tree"
                 value="#{treeShowcaseComponent.tree}"
                 collapsingClass="#{treeShowcaseComponent.collapsingClass}"
-                expansionClass="#{treeShowcaseComponent.expansionClass}" />
+                expansionClass="#{treeShowcaseComponent.expansionClass}"
+                rendered="#{treeShowcaseComponent.rendered}" />
 
         <b:activateLibraries />
     </ui:define>
