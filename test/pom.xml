@@ -11,8 +11,6 @@
     <name>ButterFaces showcase integration test</name>
 
     <properties>
-        <version.jbossas>8.1.0.Final</version.jbossas>
-
         <!-- Other props -->
         <jbossHome>${project.build.directory}/wildfly-${version.jbossas}</jbossHome>
         <test.container>standalone</test.container>

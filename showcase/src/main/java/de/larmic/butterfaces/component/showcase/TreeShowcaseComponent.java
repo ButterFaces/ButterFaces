@@ -25,7 +25,6 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     private String expansionClass;
 
     public Node getTree() {
-
         final Node secondFirstChild = new DefaultNodeImpl("secondFirstChild");
         secondFirstChild.getSubNodes().add(new DefaultNodeImpl("secondFirstFirstChild"));
 

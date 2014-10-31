@@ -75,6 +75,8 @@
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <junit.version>4.11</junit.version>
         <el-api.version>2.2</el-api.version>
+
+        <version.jbossas>8.1.0.Final</version.jbossas>
     </properties>
 
     <build>
