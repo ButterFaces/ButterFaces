@@ -23,22 +23,26 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     private String expansionClass;
 
     public Node getTree() {
-        final Node secondFirstFirstChild = new DefaultNodeImpl("secondFirstFirstChild");
 
         final Node secondFirstChild = new DefaultNodeImpl("secondFirstChild");
-        secondFirstChild.getSubNodes().add(secondFirstFirstChild);
-        final Node secondSecondChild = new DefaultNodeImpl("secondSecondChild");
+        secondFirstChild.getSubNodes().add(new DefaultNodeImpl("secondFirstFirstChild"));
 
         final Node firstChild = new DefaultNodeImpl("firstChild");
         final Node secondChild = new DefaultNodeImpl("secondChild");
+        final Node secondThirdChild = new DefaultNodeImpl("secondThirdChild");
+        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdFirstChild"));
+        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdSecondChild"));
+        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdThirdChild"));
         secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(secondSecondChild);
-        final Node thirdChild = new DefaultNodeImpl("thirdChild");
+        secondChild.getSubNodes().add(new DefaultNodeImpl("secondSecondChild"));
+        secondChild.getSubNodes().add(secondThirdChild);
+        secondChild.getSubNodes().add(new DefaultNodeImpl("secondFourthChild"));
+        secondChild.getSubNodes().add(new DefaultNodeImpl("secondFifthChild"));
 
         final Node rootNode = new DefaultNodeImpl("rootNode");
         rootNode.getSubNodes().add(firstChild);
         rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(thirdChild);
+        rootNode.getSubNodes().add(new DefaultNodeImpl("thirdChild"));
 
         return rootNode;
     }
