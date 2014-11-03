@@ -16,7 +16,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/larmicBB/butterfaces/
+ * larmic butterfaces components - An jsf 2 component extension https://bitbucket.org/butterfaces/butterfaces/
  * <p/>
  * Copyright 2013 by Lars Michaelis <br/>
  * Released under the MIT license http://opensource.org/licenses/mit-license.php

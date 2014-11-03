@@ -11,7 +11,7 @@
 
     <description>ButterFaces is a JSF2 component library.</description>
 
-    <url>https://bitbucket.org/larmicBB/butterfaces</url>
+    <url>https://bitbucket.org/butterfaces/butterfaces</url>
 
     <modules>
         <module>components</module>
@@ -38,9 +38,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</connection>
-        <url>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</url>
-        <developerConnection>scm:git:git@bitbucket.org:larmicBB/butterfaces.git</developerConnection>
+        <connection>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</connection>
+        <url>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</url>
+        <developerConnection>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
