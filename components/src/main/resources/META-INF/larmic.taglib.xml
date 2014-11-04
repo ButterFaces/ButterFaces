@@ -1074,4 +1074,33 @@
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>
+
+    <tag>
+        <tag-name>waitingPanel</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.waitingPanel</component-type>
+        </component>
+        <attribute>
+            <description>
+                The component identifier for this component. This value must be
+                unique within the closest parent component that is a naming
+                container.
+            </description>
+            <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 </facelet-taglib>

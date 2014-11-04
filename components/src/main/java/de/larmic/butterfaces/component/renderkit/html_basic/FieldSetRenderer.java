@@ -13,7 +13,7 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlFieldSet.COMPONENT_FAMILY, rendererType = HtmlFieldSet.RENDERER_TYPE)
-public class FieldSetRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicRenderer {
+public class FieldSetRenderer extends HtmlBasicRenderer {
 
     public static final String ELEMENT_FIELDSET = "fieldset";
     public static final String ATTRIBUTE_STYLE = "style";

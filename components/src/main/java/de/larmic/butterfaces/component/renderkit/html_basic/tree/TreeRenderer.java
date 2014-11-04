@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.tree;
 
-import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.component.UIComponent;

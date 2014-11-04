@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlPrettyPrint.COMPONENT_FAMILY, rendererType = HtmlPrettyPrint.RENDERER_TYPE)
-public class PrettyPrintRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicRenderer {
+public class PrettyPrintRenderer extends HtmlBasicRenderer {
 
     public static final String ELEMENT_DIV = "div";
     public static final String ELEMENT_PRE = "pre";
