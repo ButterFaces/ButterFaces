@@ -1102,5 +1102,13 @@
             <name>styleClass</name>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description>
+                Delay to open waiting panel. Short ajax request should not trigger a waiting panel.
+                Default is 500 ms.
+            </description>
+            <name>delay</name>
+            <type>java.lang.Integer</type>
+        </attribute>
     </tag>
 </facelet-taglib>

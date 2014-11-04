@@ -7,17 +7,47 @@
  */
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
-    $.fn.waitingPanel = function () {
+    var EVENT_REGISTERED = false;
+    var INTERVAL_TRIGGER = null;
+
+    $.fn.waitingPanel = function (data) {
 
         function processAjaxUpdate(mggId) {
+            var msg = document.getElementById(mggId);
+            var $modalComponent = $(msg);
+            var $modalComponentInterval = $modalComponent.find('.butter-component-waitingPanel-processing');
+            var ajaxRequestRunning = false;
+            var waitingPanelDelay = data.waitingPanelDelay;
+
+            function showWaitingPanel() {
+                $modalComponent.modal({show: true, keyboard: false, backdrop: 'static'});
+                INTERVAL_TRIGGER = setInterval(function () {
+                    $modalComponentInterval.append('.');
+
+                    if ($modalComponentInterval.html().length > 5) {
+                        $modalComponentInterval.html('');
+                    }
+                }, 200);
+            }
+
             function processEvent(data) {
-                var msg = document.getElementById(mggId);
                 if (data.status == 'begin') {
                     console.log('Begin ajax event');
-                    msg.style.display = '';
+                    ajaxRequestRunning = true;
+                    setTimeout(function () {
+                        console.log('Ajax request running: ' + ajaxRequestRunning);
+                        if (ajaxRequestRunning) {
+                            showWaitingPanel();
+                        }
+
+                    }, waitingPanelDelay);
+
                 } else if (data.status == 'success') {
                     console.log('End ajax event');
-                    msg.style.display = 'none';
+                    ajaxRequestRunning = false;
+                    $modalComponent.modal('hide');
+                    window.clearInterval(INTERVAL_TRIGGER);
+                    $modalComponentInterval.html('');
                 }
             }
 
@@ -28,9 +58,12 @@
             var $originalElement = $(this);
             var _elementId = $originalElement.attr('id')
 
-            console.log('Register: ' + _elementId);
+            if (!EVENT_REGISTERED) {
+                console.log('Register: ' + _elementId);
 
-            jsf.ajax.addOnEvent(processAjaxUpdate(_elementId));
+                jsf.ajax.addOnEvent(processAjaxUpdate(_elementId));
+                EVENT_REGISTERED = true;
+            }
         });
 
     };

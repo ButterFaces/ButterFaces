@@ -15,6 +15,9 @@ import java.io.IOException;
  */
 public class HtmlBasicRenderer extends Renderer {
 
+    public static final String ELEMENT_DIV = "div";
+    public static final String ELEMENT_SPAN = "span";
+
     protected void rendererParamsNotNull(final FacesContext context, final UIComponent component) {
         Util.notNull("context", context);
         Util.notNull("component", component);

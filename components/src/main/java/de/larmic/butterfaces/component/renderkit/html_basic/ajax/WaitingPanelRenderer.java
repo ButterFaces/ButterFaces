@@ -17,6 +17,7 @@ import java.io.IOException;
 @FacesRenderer(componentFamily = WaitingPanel.COMPONENT_FAMILY, rendererType = WaitingPanel.RENDERER_TYPE)
 public class WaitingPanelRenderer extends HtmlBasicRenderer {
 
+    public static final int DEFAULT_WAITING_PANEL_DELAY = 500;
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -32,21 +33,37 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         final String style = waitingPanel.getStyle();
         final String styleClass = waitingPanel.getStyleClass();
 
-        writer.startElement("div", component);
+        writer.startElement(ELEMENT_DIV, component);
 
         this.writeIdAttribute(context, writer, component);
 
         if (StringUtils.isNotEmpty(style)) {
-            writer.writeAttribute("style", "display:none" + style, null);
-        } else {
-            writer.writeAttribute("style", "display:none", null);
+            writer.writeAttribute("style", style, null);
         }
 
         if (StringUtils.isNotEmpty(styleClass)) {
-            writer.writeAttribute("class", "butter-component-waitingPanel " + styleClass, null);
+            writer.writeAttribute("class", "modal butter-component-waitingPanel " + styleClass, null);
         } else {
-            writer.writeAttribute("class", "butter-component-waitingPanel", null);
+            writer.writeAttribute("class", "modal butter-component-waitingPanel", null);
         }
+
+        writer.writeAttribute("tabindex", "-1", null);
+        writer.writeAttribute("role", "dialog", null);
+        writer.writeAttribute("aria-hidden", "true", null);
+
+        writer.startElement(ELEMENT_DIV, component);
+        writer.writeAttribute("class", "modal-dialog", null);
+        writer.startElement(ELEMENT_DIV, component);
+        writer.writeAttribute("class", "modal-content", null);
+        writer.startElement(ELEMENT_DIV, component);
+        writer.writeAttribute("class", "modal-body", null);
+        writer.writeText("Processing", component, null);
+        writer.startElement(ELEMENT_SPAN, component);
+        writer.writeAttribute("class", "butter-component-waitingPanel-processing", null);
+        writer.endElement(ELEMENT_SPAN);
+        writer.endElement(ELEMENT_DIV);
+        writer.endElement(ELEMENT_DIV);
+        writer.endElement(ELEMENT_DIV);
     }
 
     @Override
@@ -58,10 +75,25 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
+        final WaitingPanel waitingPanel = (WaitingPanel) component;
 
-        writer.endElement("div");
+        writer.endElement(ELEMENT_DIV);
 
-        RenderUtils.renderJQueryPluginCall(component.getClientId(), "waitingPanel()", writer, component);
+        final String pluginFunctionCall = "waitingPanel(" + createButterTreeJQueryParameter(waitingPanel) + ")";
+        RenderUtils.renderJQueryPluginCall(component.getClientId(), pluginFunctionCall, writer, component);
     }
 
+    private String createButterTreeJQueryParameter(final WaitingPanel waitingPanel) {
+        final int waitingPanelDelay = getWaitingPanelDelay(waitingPanel);
+
+        return "{waitingPanelDelay: '" + waitingPanelDelay + "'}";
+    }
+
+    private int getWaitingPanelDelay(final WaitingPanel waitingPanel) {
+        if (waitingPanel.getDelay() != null) {
+            return waitingPanel.getDelay() > 0 ? waitingPanel.getDelay() : 0;
+        }
+
+        return DEFAULT_WAITING_PANEL_DELAY;
+    }
 }

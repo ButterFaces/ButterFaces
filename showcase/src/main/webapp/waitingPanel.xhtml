@@ -11,13 +11,16 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcaseComponent.delayInMillis}" />
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <b:waitingPanel />
+        <b:waitingPanel id="test"
+                        delay="#{waitingPanelShowcaseComponent.delayInMillis}"/>
 
         <h:commandLink value="5 second click"
+                       styleClass="btn btn-success"
                        action="#{waitingPanelShowcaseComponent.doWaitingClick}">
             <f:ajax />
         </h:commandLink>

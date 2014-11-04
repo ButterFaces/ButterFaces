@@ -34,7 +34,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("div", htmlTree);
-        this.writeIdAttributeIfNecessary(context, writer, component);
+        this.writeIdAttribute(context, writer, component);
         writer.writeAttribute("class", "butter-component-tree", null);
 
         this.encodeNode(htmlTree, writer, htmlTree.getValue(), !htmlTree.isHideRootNode());
@@ -88,7 +88,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final HtmlTree htmlTree = (HtmlTree) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        // TODO [larmic] check client id not existing
         final String pluginFunctionCall = "butterTree(" + createButterTreeJQueryParameter(htmlTree) + ")";
         RenderUtils.renderJQueryPluginCall(htmlTree.getClientId(), pluginFunctionCall, writer, component);
 

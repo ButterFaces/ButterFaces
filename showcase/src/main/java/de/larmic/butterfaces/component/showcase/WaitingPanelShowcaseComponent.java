@@ -12,6 +12,8 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
+    private int delayInMillis = 500;
+
     public void doWaitingClick() {
         try {
             Thread.sleep(5000);
@@ -25,4 +27,11 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
         return null;
     }
 
+    public int getDelayInMillis() {
+        return delayInMillis;
+    }
+
+    public void setDelayInMillis(int delayInMillis) {
+        this.delayInMillis = delayInMillis;
+    }
 }
