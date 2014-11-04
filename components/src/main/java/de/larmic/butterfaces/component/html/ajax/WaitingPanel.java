@@ -8,8 +8,8 @@ import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head"),
         @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-waitingpanel.jquery.js", target = "head") })
 @FacesComponent(WaitingPanel.COMPONENT_TYPE)

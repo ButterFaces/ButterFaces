@@ -11,8 +11,8 @@ import javax.faces.component.UIData;
  */
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.2.0.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
 public class HtmlTable extends UIData {
