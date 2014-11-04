@@ -1,8 +1,9 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.renderkit.html_basic.ajax;
 
-import de.larmic.butterfaces.component.html.WaitingPanel;
+import de.larmic.butterfaces.component.html.ajax.WaitingPanel;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,14 +33,19 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         final String styleClass = waitingPanel.getStyleClass();
 
         writer.startElement("div", component);
-        this.writeIdAttributeIfNecessary(context, writer, component);
+
+        this.writeIdAttribute(context, writer, component);
+
         if (StringUtils.isNotEmpty(style)) {
             writer.writeAttribute("style", "display:none" + style, null);
         } else {
             writer.writeAttribute("style", "display:none", null);
         }
+
         if (StringUtils.isNotEmpty(styleClass)) {
-            writer.writeAttribute("class", styleClass, null);
+            writer.writeAttribute("class", "butter-component-waitingPanel " + styleClass, null);
+        } else {
+            writer.writeAttribute("class", "butter-component-waitingPanel", null);
         }
     }
 

@@ -1,0 +1,37 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>b:waitingPanel</strong> The tree tag renders an HTML element ...
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <b:waitingPanel />
+
+        <h:commandLink value="5 second click"
+                       action="#{waitingPanelShowcaseComponent.doWaitingClick}">
+            <f:ajax />
+        </h:commandLink>
+
+        <b:activateLibraries />
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{waitingPanelShowcaseComponent}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('waitingPanel');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

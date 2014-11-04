@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.html;
+package de.larmic.butterfaces.component.html.ajax;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -7,6 +7,8 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
+        @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-waitingpanel.jquery.js", target = "head") })
 @FacesComponent(WaitingPanel.COMPONENT_TYPE)
 public class WaitingPanel extends UIComponentBase {

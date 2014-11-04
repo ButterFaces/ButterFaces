@@ -41,19 +41,27 @@ public class HtmlBasicRenderer extends Renderer {
                                                  final UIComponent component) {
         String id = null;
         if (shouldWriteIdAttribute(component)) {
-            try {
-                writer.writeAttribute("id", id = component.getClientId(context), "id");
-            } catch (IOException e) {
+            this.writeIdAttribute(context, writer, component);
+        }
+        return id;
+    }
+
+    protected String writeIdAttribute(final FacesContext context,
+                                      final ResponseWriter writer,
+                                      final UIComponent component) {
+        String id = null;
+        try {
+            writer.writeAttribute("id", id = component.getClientId(context), "id");
+        } catch (IOException e) {
 //                if (logger.isLoggable(Level.WARNING)) {
 //                    String message = MessageUtils.getExceptionMessageString
 //                            (MessageUtils.CANT_WRITE_ID_ATTRIBUTE_ERROR_MESSAGE_ID,
 //                                    e.getMessage());
 //                    logger.warning(message);
 //                }
-            }
         }
-        return id;
 
+        return id;
     }
 
     /**
