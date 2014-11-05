@@ -52,7 +52,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     @Override
     protected void addJavaCode(final StringBuilder sb) {
-        sb.append("package de.larmic.demo;\n\n");
+        sb.append("package de.larmic.tree,demo;\n\n");
 
         sb.append("import de.larmic.butterfaces.model.tree.Node;\n");
         sb.append("import de.larmic.butterfaces.model.tree.DefaultNodeImpl;\n\n");
