@@ -9,23 +9,24 @@
     // extend jQuery --------------------------------------------------------------------
     var EVENT_REGISTERED = false;
     var INTERVAL_TRIGGER = null;
+    var MODAL_DIALOG = null;
+    var WAITING_PANEL_DELAY = null;
+    var WAITING_PANEL_INTERVAL_ELEMENT = null;
 
     $.fn.waitingPanel = function (data) {
 
-        function processAjaxUpdate(mggId) {
-            var msg = document.getElementById(mggId);
-            var $modalComponent = $(msg);
-            var $modalComponentInterval = $modalComponent.find('.butter-component-waitingPanel-processing');
+        function processAjaxUpdate() {
             var ajaxRequestRunning = false;
-            var waitingPanelDelay = data.waitingPanelDelay;
+
+            console.log('Setting waiting panel delay to ' + WAITING_PANEL_DELAY);
 
             function showWaitingPanel() {
-                $modalComponent.modal({show: true, keyboard: false, backdrop: 'static'});
+                MODAL_DIALOG.modal({show: true, keyboard: false, backdrop: 'static'});
                 INTERVAL_TRIGGER = setInterval(function () {
-                    $modalComponentInterval.append('.');
+                    WAITING_PANEL_INTERVAL_ELEMENT.append('.');
 
-                    if ($modalComponentInterval.html().length > 5) {
-                        $modalComponentInterval.html('');
+                    if (WAITING_PANEL_INTERVAL_ELEMENT.html().length > 5) {
+                        WAITING_PANEL_INTERVAL_ELEMENT.html('');
                     }
                 }, 200);
             }
@@ -37,17 +38,20 @@
                     setTimeout(function () {
                         console.log('Ajax request running: ' + ajaxRequestRunning);
                         if (ajaxRequestRunning) {
+                            console.log('Ajax request is running. Showing modal panel');
                             showWaitingPanel();
+                        } else {
+                            console.log('Ajax request is not running. Not showing modal panel');
                         }
 
-                    }, waitingPanelDelay);
+                    }, WAITING_PANEL_DELAY);
 
                 } else if (data.status == 'success') {
                     console.log('End ajax event');
                     ajaxRequestRunning = false;
-                    $modalComponent.modal('hide');
+                    MODAL_DIALOG.modal('hide');
                     window.clearInterval(INTERVAL_TRIGGER);
-                    $modalComponentInterval.html('');
+                    WAITING_PANEL_INTERVAL_ELEMENT.html('');
                 }
             }
 
@@ -57,11 +61,20 @@
         return this.each(function () {
             var $originalElement = $(this);
             var _elementId = $originalElement.attr('id')
+            var _msg = document.getElementById(_elementId);
 
+            MODAL_DIALOG = $(_msg);
+            WAITING_PANEL_INTERVAL_ELEMENT = MODAL_DIALOG.find('.butter-component-waitingPanel-processing');
+            WAITING_PANEL_DELAY = data.waitingPanelDelay;
+
+            // I found no way to remove event listener from jsf js.
+            // I tried to register a callback once and change it on render waiting panel but after this
+            // no waiting panel appears anymore.
+            // Actually on each rendering of this component a new callback is put on event listener collection.
             if (!EVENT_REGISTERED) {
                 console.log('Register: ' + _elementId);
 
-                jsf.ajax.addOnEvent(processAjaxUpdate(_elementId));
+                jsf.ajax.addOnEvent(processAjaxUpdate());
                 EVENT_REGISTERED = true;
             }
         });
