@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.html.tree;
 
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 
 import javax.el.ValueExpression;
@@ -7,6 +8,9 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import java.util.Arrays;
+import java.util.Collection;
 
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces-tree.css", target = "head"),
@@ -14,7 +18,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "js", name = "butterfaces-tree.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTree.COMPONENT_TYPE)
-public class HtmlTree extends UIComponentBase {
+public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.tree";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -24,10 +28,21 @@ public class HtmlTree extends UIComponentBase {
     protected static final String PROPERTY_EXPANSION_CLASS = "expansionClass";
     protected static final String PROPERTY_COLLAPSING_CLASS = "collapsingClass";
     protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
+    protected static final String PROPERTY_NODE_SELECTION_LISTENER = "nodeSelectionListener";
 
     public HtmlTree() {
         super();
         this.setRendererType(RENDERER_TYPE);
+    }
+
+    @Override
+    public Collection<String> getEventNames() {
+        return Arrays.asList("click");
+    }
+
+    @Override
+    public String getDefaultEventName() {
+        return "click";
     }
 
     @Override
@@ -41,6 +56,14 @@ public class HtmlTree extends UIComponentBase {
 
     public void setValue(final Node value) {
         this.updateStateHelper(PROPERTY_VALUE, value);
+    }
+
+    public TreeNodeSelectionListener getNodeSelectionListener() {
+        return (TreeNodeSelectionListener) this.getStateHelper().eval(PROPERTY_NODE_SELECTION_LISTENER);
+    }
+
+    public void setNodeSelectionListener(final TreeNodeSelectionListener nodeSelectionListener) {
+        this.updateStateHelper(PROPERTY_NODE_SELECTION_LISTENER, nodeSelectionListener);
     }
 
     public String getExpansionClass() {

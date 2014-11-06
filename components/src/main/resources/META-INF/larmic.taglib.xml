@@ -1054,6 +1054,11 @@
             <required>true</required>
         </attribute>
         <attribute>
+            <description>Selection listener called on selection changed.</description>
+            <name>nodeSelectionListener</name>
+            <type>de.larmic.butterfaces.event.TreeNodeSelectionListener</type>
+        </attribute>
+        <attribute>
             <description>
                 Alternative glyphicon class rendered on openend nodes. Default is 'glyphicon glyphicon-plus-sign'.
             </description>

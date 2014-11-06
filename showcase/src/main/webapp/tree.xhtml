@@ -1,7 +1,8 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
@@ -16,17 +17,51 @@
                                      value="#{treeShowcaseComponent.glyphicon}"
                                      values="#{treeShowcaseComponent.glyphicons}"/>
         </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax selection"
+                                     value="#{treeShowcaseComponent.selectionAjaxType}"
+                                     values="#{treeShowcaseComponent.ajaxSelectionTypes}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:tree id="tree"
                 value="#{treeShowcaseComponent.tree}"
+                nodeSelectionListener="#{treeShowcaseComponent}"
                 collapsingClass="#{treeShowcaseComponent.collapsingClass}"
                 expansionClass="#{treeShowcaseComponent.expansionClass}"
                 hideRootNode="#{treeShowcaseComponent.hideRootNode}"
-                rendered="#{treeShowcaseComponent.rendered}" />
+                rendered="#{treeShowcaseComponent.rendered and not treeShowcaseComponent.ajaxRendered}"/>
 
-        <b:activateLibraries />
+        <b:tree id="treeWithAjax"
+                value="#{treeShowcaseComponent.tree}"
+                nodeSelectionListener="#{treeShowcaseComponent}"
+                collapsingClass="#{treeShowcaseComponent.collapsingClass}"
+                expansionClass="#{treeShowcaseComponent.expansionClass}"
+                hideRootNode="#{treeShowcaseComponent.hideRootNode}"
+                rendered="#{treeShowcaseComponent.rendered and treeShowcaseComponent.ajaxRendered}">
+            <f:ajax render="nodeTitle" disabled="#{treeShowcaseComponent.ajaxDisabled}"/>
+        </b:tree>
+
+        <h:panelGroup rendered="#{treeShowcaseComponent.ajaxRendered}">
+            <hr/>
+
+            <div class="input-group">
+                <span class="input-group-addon">Selected value:</span>
+                <h:panelGroup id="nodeTitle" layout="block">
+                    <h:outputText value="#{treeShowcaseComponent.selectedNode.title}"
+                                  rendered="#{not empty treeShowcaseComponent.selectedNode}"
+                                  styleClass="form-control arquillian_output_value"/>
+                    <h:outputText value="-"
+                                  rendered="#{empty treeShowcaseComponent.selectedNode}"
+                                  styleClass="form-control arquillian_output_value"/>
+                </h:panelGroup>
+            </div>
+        </h:panelGroup>
+
+
+        <b:activateLibraries/>
     </ui:define>
 
     <ui:define name="other">

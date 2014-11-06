@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 
@@ -16,11 +18,14 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TreeShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class TreeShowcaseComponent extends AbstractShowcaseComponent implements Serializable, TreeNodeSelectionListener {
 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 
     private boolean hideRootNode = false;
+    private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.NONE;
+
+    private Node selectedNode;
 
     private String glyphicon;
     private String collapsingClass;
@@ -51,9 +56,16 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     }
 
     @Override
+    public void processValueChange(final TreeNodeSelectionEvent event) {
+        selectedNode = event.getNewValue();
+    }
+
+    @Override
     protected void addJavaCode(final StringBuilder sb) {
         sb.append("package de.larmic.tree,demo;\n\n");
 
+        sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionEvent;\n");
+        sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionListener;\n");
         sb.append("import de.larmic.butterfaces.model.tree.Node;\n");
         sb.append("import de.larmic.butterfaces.model.tree.DefaultNodeImpl;\n\n");
         sb.append("import javax.faces.view.ViewScoped;\n");
@@ -61,7 +73,10 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
         sb.append("@ViewScoped\n");
         sb.append("@Named\n");
-        sb.append("public class MyBean implements Serializable {\n\n");
+        sb.append("public class MyBean implements Serializable, TreeNodeSelectionListener {\n\n");
+        if (isAjaxRendered()) {
+            sb.append("    private Node selectedNode;\n\n");
+        }
         sb.append("    public Node getTreeModel() {\n");
         sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
         sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
@@ -72,7 +87,25 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("        rootNode.getSubNodes().add(secondChild);\n");
         sb.append("        return rootNode;\n");
         sb.append("    }\n\n");
+        if (isAjaxRendered()) {
+            sb.append("    @Override\n");
+            sb.append("    public void processValueChange(final TreeNodeSelectionEvent event) {\n");
+            sb.append("        selectedNode = event.getNewValue();\n");
+            sb.append("    }\n\n");
+            sb.append("    public Node getSelectedNode() {\n");
+            sb.append("        return selectedNode;\n");
+            sb.append("    }\n\n");
+        }
         sb.append("}");
+    }
+
+    public List<SelectItem> getAjaxSelectionTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TreeSelectionAjaxType type : TreeSelectionAjaxType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public List<SelectItem> getGlyphicons() {
@@ -98,12 +131,30 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("        <b:tree id=\"input\"\n");
 
         this.appendString("value", "#{myBean.treeModel}", sb);
+        if (isAjaxRendered()) {
+            this.appendString("nodeSelectionListener", "#{myBean}", sb);
+        }
         this.appendString("collapsingClass", this.getCollapsingClass(), sb);
         this.appendString("expansionClass", this.getExpansionClass(), sb);
         this.appendBoolean("hideRootNode", this.isHideRootNode(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
+        if (isAjaxRendered()) {
+            if (isAjaxDisabled()) {
+                sb.append("            <f:ajax render=\"nodeTitle\" disabled=\"true\"/>\n");
+            } else {
+                sb.append("            <f:ajax render=\"nodeTitle\"/>\n");
+            }
+        }
+
         sb.append("        </b:tree>");
+
+        if (isAjaxRendered()) {
+            sb.append("\n\n        <h:panelGroup id=\"nodeTitle\">\n");
+            sb.append("            <h:output value=\"#{myBean.selectedNode.title}\"\n");
+            sb.append("                      rendered=\"#{not empty myBean.selectedNode}\"/>\n");
+            sb.append("        <h:panelGroup/>");
+        }
 
         this.addXhtmlEnd(sb);
 
@@ -152,5 +203,25 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setHideRootNode(boolean hideRootNode) {
         this.hideRootNode = hideRootNode;
+    }
+
+    public boolean isAjaxRendered() {
+        return TreeSelectionAjaxType.NONE != selectionAjaxType;
+    }
+
+    public boolean isAjaxDisabled() {
+        return TreeSelectionAjaxType.AJAX_DISABLED == selectionAjaxType;
+    }
+
+    public TreeSelectionAjaxType getSelectionAjaxType() {
+        return selectionAjaxType;
+    }
+
+    public void setSelectionAjaxType(TreeSelectionAjaxType selectionAjaxType) {
+        this.selectionAjaxType = selectionAjaxType;
+    }
+
+    public Node getSelectedNode() {
+        return selectedNode;
     }
 }
