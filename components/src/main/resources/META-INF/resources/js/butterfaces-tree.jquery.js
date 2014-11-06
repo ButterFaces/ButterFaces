@@ -36,6 +36,29 @@
                 e.stopPropagation();
             });
         });
+    };
+}(jQuery));
 
+/**
+ * jQuery-Plugin to handle selection style classes on JSF-Component "b:tree".
+ * Works with at least jQuery 1.3.2.
+ *
+ * How to use:
+ * jQuery("#someTreeSelector").selectTreeNode( {nodeNumber: '6'} );
+ */
+(function ($) {
+    // extend jQuery --------------------------------------------------------------------
+    $.fn.selectTreeNode = function (data) {
+
+        return this.each(function () {
+            var $originalElement = $(this);
+
+            // console.log('Selected node: ' + data.nodeNumber);
+            // console.log($originalElement.find('li:has(span[treenode=' + data.nodeNumber + '])'));
+
+            $originalElement.find('li').removeClass('butter-component-tree-node-selected');
+            var listItems = $originalElement.find('li:has(span[treenode=' + data.nodeNumber + '])');
+            $(listItems[listItems.length-1]).addClass('butter-component-tree-node-selected');
+        });
     };
 }(jQuery));

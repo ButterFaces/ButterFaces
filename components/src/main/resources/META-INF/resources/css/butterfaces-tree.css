@@ -15,3 +15,7 @@
 .butter-component-tree-leaf {
     display: inline-block;
 }
+
+.butter-component-tree-node-selected {
+    background-color: blue;
+}

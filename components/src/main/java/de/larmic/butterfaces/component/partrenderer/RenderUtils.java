@@ -17,6 +17,14 @@ public class RenderUtils {
     public static final void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
                                                     final ResponseWriter writer, final UIComponent uiComponent)
             throws IOException {
+        final String jsCall = createJQueryPluginCall(elementId, pluginFunctionCall);
+
+        writer.startElement("script", uiComponent);
+        writer.writeText(jsCall, null);
+        writer.endElement("script");
+    }
+
+    public static String createJQueryPluginCall(final String elementId, final String pluginFunctionCall) {
         final StringBuilder jsCall = new StringBuilder();
 
         jsCall.append("jQuery(function () {");
@@ -29,9 +37,7 @@ public class RenderUtils {
         jsCall.append(";");
         jsCall.append("});");
 
-        writer.startElement("script", uiComponent);
-        writer.writeText(jsCall.toString(), null);
-        writer.endElement("script");
+        return jsCall.toString();
     }
 
 }

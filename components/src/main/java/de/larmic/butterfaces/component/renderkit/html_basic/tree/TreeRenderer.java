@@ -90,7 +90,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
                     final String nodeNumber = "" + nodes.size();
                     nodes.put(nodeNumber, node);
                     final String s = click.replace(",'click',", ",'click_" + nodeNumber + "',");
-                    writer.writeAttribute("onclick", s, null);
+                    final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(tree.getClientId(), "selectTreeNode({nodeNumber:'" + nodeNumber + "'})");
+                    writer.writeAttribute("onclick", s + ";" + jQueryPluginCall, null);
+                    writer.writeAttribute("treenode", nodeNumber, null);
                 }
             }
             writer.writeText(node.getTitle(), null);
