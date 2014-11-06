@@ -11,21 +11,23 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcaseComponent.delayInMillis}" />
+            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcaseComponent.rendered}"/>
+            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcaseComponent.delayInMillis}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:waitingPanel id="test"
-                        delay="#{waitingPanelShowcaseComponent.delayInMillis}"/>
+                        delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        rendered="#{waitingPanelShowcaseComponent.rendered}"/>
 
         <h:commandLink value="5 second click"
                        styleClass="btn btn-success"
                        action="#{waitingPanelShowcaseComponent.doWaitingClick}">
-            <f:ajax />
+            <f:ajax/>
         </h:commandLink>
 
-        <b:activateLibraries />
+        <b:activateLibraries/>
     </ui:define>
 
     <ui:define name="other">

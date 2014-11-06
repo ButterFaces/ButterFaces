@@ -50,14 +50,24 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
 
         sb.append("        <b:waitingPanel id=\"input\"\n");
 
-        this.appendString("delay", this.delayInMillis + "", sb);
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
+        this.appendString(" delay", this.delayInMillis + "", sb);
+        this.appendBoolean(" rendered", this.isRendered(), sb, true);
 
-        sb.append("        </b:waitingPanel>");
+        sb.append("        </b:waitingPanel>\n\n");
+
+        sb.append("        <h:commandLink styleClass=\"btn btn-success\"\n");
+        this.appendString("action", "#{waitingPanelShowcaseComponent.waitForFiveSeconds}>", sb);
+        sb.append("            <f:ajax />\n");
+        sb.append("        </h:commandLink>");
 
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    @Override
+    protected String getEmptyDistanceString() {
+        return "                       ";
     }
 
     public int getDelayInMillis() {
