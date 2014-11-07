@@ -17,6 +17,10 @@ public class HtmlBasicRenderer extends Renderer {
 
     public static final String ELEMENT_DIV = "div";
     public static final String ELEMENT_SPAN = "span";
+    public static final String ELEMENT_SECTION = "section";
+
+    public static final String ATTRIBUTE_STYLE = "style";
+    public static final String ATTRIBUTE_CLASS = "class";
 
     protected void rendererParamsNotNull(final FacesContext context, final UIComponent component) {
         Util.notNull("context", context);

@@ -9,6 +9,7 @@ public interface Node<T> {
 
     String getTitle();
     T getData();
+    String getIconPath();
     boolean isLeaf();
     Collection<Node> getSubNodes();
 

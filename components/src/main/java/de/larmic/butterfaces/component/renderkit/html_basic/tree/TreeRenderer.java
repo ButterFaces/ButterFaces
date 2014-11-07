@@ -32,6 +32,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     private final Map<String, Node> nodes = new HashMap<>();
     private Node selectedNode = null;
+    private boolean nodeIconsFound = false;
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -44,7 +45,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final HtmlTree htmlTree = (HtmlTree) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        writer.startElement("div", htmlTree);
+        writer.startElement(ELEMENT_DIV, htmlTree);
         this.writeIdAttribute(context, writer, component);
         writer.writeAttribute("class", "butter-component-tree", null);
 
@@ -66,19 +67,25 @@ public class TreeRenderer extends HtmlBasicRenderer {
             writer.startElement("ul", tree);
             writer.startElement("li", tree);
 
+            writer.startElement(ELEMENT_DIV, tree);
+            writer.writeAttribute("class", "butter-component-tree-row", null);
+
             // collapse
-            writer.startElement("span", tree);
+            writer.startElement(ELEMENT_SPAN, tree);
             final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + getCollapsingClass(tree);
             writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
-            writer.endElement("span");
+            writer.endElement(ELEMENT_SPAN);
 
             // icon
-            writer.startElement("span", tree);
+            writer.startElement(ELEMENT_SPAN, tree);
             writer.writeAttribute("class", "butter-component-tree-icon", null);
-            writer.endElement("span");
+            if (StringUtils.isNotEmpty(node.getIconPath())) {
+                nodeIconsFound = true;
+            }
+            writer.endElement(ELEMENT_SPAN);
 
             // title
-            writer.startElement("span", tree);
+            writer.startElement(ELEMENT_SPAN, tree);
             writer.writeAttribute("id", tree.getClientId() + "_" + depth + "_" + childNumber, null);
             writer.writeAttribute("class", "butter-component-tree-title", null);
             final Map<String, List<ClientBehavior>> behaviors = tree.getClientBehaviors();
@@ -96,7 +103,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 }
             }
             writer.writeText(node.getTitle(), null);
-            writer.endElement("span");
+            writer.endElement(ELEMENT_SPAN);
+
+            writer.endElement(ELEMENT_DIV);
         }
 
         if (!node.isLeaf()) {
@@ -126,7 +135,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String pluginFunctionCall = "butterTree(" + createButterTreeJQueryParameter(htmlTree) + ")";
         RenderUtils.renderJQueryPluginCall(htmlTree.getClientId(), pluginFunctionCall, writer, component);
 
-        writer.endElement("div");
+        writer.endElement(ELEMENT_DIV);
     }
 
     @Override
@@ -155,21 +164,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
             nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
             selectedNode = node;
-
-            //LOG.debug("Clicked node depth {} and child {}", depth, child);
-
-            // default event way
-            //final List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
-
-//            if (behaviors.size() > 0) {
-//                final String behaviorSource = params.get("javax.faces.source");
-//                final String clientId = component.getClientId(context);
-//                if (behaviorSource != null && behaviorSource.equals(clientId)) {
-//                    for (ClientBehavior behavior : behaviorsForEvent) {
-//                        behavior.decode(context, component);
-//                    }
-//                }
-//            }
         }
     }
 
@@ -177,7 +171,13 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String expansionClass = getExpansionClass(htmlTree);
         final String collapsingClass = getCollapsingClass(htmlTree);
 
-        return "{expansionClass: '" + expansionClass + "', collapsingClass: '" + collapsingClass + "'}";
+        final Map<String, List<ClientBehavior>> behaviors = htmlTree.getClientBehaviors();
+        final boolean treeIconsEnabled = behaviors.containsKey("click");
+
+        return "{expansionClass: '" + expansionClass +
+                "', collapsingClass: '" + collapsingClass +
+                "', treeSelectionEnabled: '" + treeIconsEnabled +
+                "', treeIconsEnabled: '" + nodeIconsFound + "'}";
     }
 
     private String getCollapsingClass(final HtmlTree htmlTree) {

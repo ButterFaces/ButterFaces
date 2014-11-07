@@ -5,7 +5,7 @@
 
 .butter-component-tree-node,
 .butter-component-tree-leaf {
-    width: 20px;
+    width: 16px;
 }
 
 .butter-component-tree-node.glyphicon {
@@ -16,6 +16,41 @@
     display: inline-block;
 }
 
-.butter-component-tree-node-selected {
-    background-color: blue;
+.butter-component-tree-title {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.butter-component-tree-node,
+.butter-component-tree-icon {
+    width: 16px;
+    display: inline-block;
+}
+
+.butter-component-tree-no-icons .butter-component-tree-icon {
+    display: none;
+}
+
+.butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title,
+.butter-component-tree-title:hover {
+    display: inline-block;
+    width: calc(100% - 32px);
+    border-radius: 4px;
+}
+
+.butter-component-tree-no-icons .butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title,
+.butter-component-tree-no-icons .butter-component-tree-title:hover {
+    width: calc(100% - 16px);
+}
+
+.butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title {
+    background: #D1E3FF;
+}
+
+.butter-component-tree-row:hover > .butter-component-tree-title {
+    background: #E8F1FF;
+}
+
+.butter-component-tree-no-selection .butter-component-tree-row:hover > .butter-component-tree-title {
+    background: none;
 }

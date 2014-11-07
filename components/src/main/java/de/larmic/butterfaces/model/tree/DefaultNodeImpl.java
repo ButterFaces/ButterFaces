@@ -12,14 +12,20 @@ public class DefaultNodeImpl<T> implements Node<T> {
     private final List<Node> subNodes = new ArrayList<>();
     private final String title;
     private final T data;
+    private final String iconPath;
 
     public DefaultNodeImpl(final String title) {
-        this(title, null);
+        this(title, null, null);
     }
 
     public DefaultNodeImpl(final String title, final T data) {
+        this(title, data, null);
+    }
+
+    public DefaultNodeImpl(final String title, final T data, final String iconPath) {
         this.title = title;
         this.data = data;
+        this.iconPath = iconPath;
     }
 
     @Override
@@ -30,6 +36,11 @@ public class DefaultNodeImpl<T> implements Node<T> {
     @Override
     public T getData() {
         return data;
+    }
+
+    @Override
+    public String getIconPath() {
+        return iconPath;
     }
 
     @Override

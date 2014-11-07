@@ -3,7 +3,7 @@
  * Works with at least jQuery 1.3.2.
  *
  * How to use:
- * jQuery("#someTreeSelector").butterTree({expansionClass: 'glyphicon-chevron-down', collapsingClass: 'glyphicon-chevron-up'});
+ * jQuery("#someTreeSelector").butterTree({expansionClass: 'glyphicon-chevron-down', collapsingClass: 'glyphicon-chevron-up', treeIconsEnabled: 'true', treeSelectionEnabled: 'true'});
  */
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
@@ -18,12 +18,22 @@
                 return;
             }
 
+            // console.log("treeSelectionEnabled: " + data.treeSelectionEnabled);
+            // console.log("treeIconsEnabled: " + data.treeIconsEnabled);
             // console.log("Collapsing class: "+ data.collapsingClass);
             // console.log("Expansion class: "+ data.expansionClass);
 
+            if (data.treeIconsEnabled === 'false') {
+                $originalElement.addClass("butter-component-tree-no-icons");
+            }
+
+            if (data.treeSelectionEnabled === 'false') {
+                $originalElement.addClass("butter-component-tree-no-selection");
+            }
+
             $originalElement.find('li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-            $originalElement.find('li.parent_li > span.butter-component-tree-jquery-marker').on('click', function (e) {
-                var children = $(this).parent('li.parent_li').find(' > ul > li');
+            $originalElement.find('li.parent_li > .butter-component-tree-row span.butter-component-tree-jquery-marker').on('click', function (e) {
+                var children = $(this).parent().parent('li.parent_li').find(' > ul > li');
                 if (children.is(":visible")) {
                     children.hide('fast');
                     // console.log("Collapsing branch");
