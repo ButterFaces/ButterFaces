@@ -15,7 +15,7 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
  * Created by larmic on 04.09.14.
  */
 @RunWith(Arquillian.class)
-public class FieldSetComponentTest extends AbstractComponentTest {
+public class SectionComponentTest extends AbstractComponentTest {
 
     public static final String BUTTER_COMPONENT = "arquillian_component";
     public static final String OPTION_RENDERED = "arquillian_rendered";
@@ -25,22 +25,22 @@ public class FieldSetComponentTest extends AbstractComponentTest {
     @Test
     public void testNavigation() throws Exception {
         browser.get(deploymentUrl + "index.jsf");
-        guardHttp(this.findWebElementByClassName("arquillian_fieldset")).click();
-        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
+        guardHttp(this.findWebElementByClassName("arquillian_section")).click();
+        Assert.assertEquals("Link does not redirect to section showcase", deploymentUrl + "section.jsf", browser.getCurrentUrl());
 
         browser.get(deploymentUrl + "index.jsf");
         this.findWebElementByClassName("arquillian_container").click();
-        guardHttp(this.findWebElementByClassName("arquillian_fieldset_header")).click();
-        Assert.assertEquals("Link does not redirect to pretty print showcase", deploymentUrl + "fieldset.jsf", browser.getCurrentUrl());
+        guardHttp(this.findWebElementByClassName("arquillian_section_header")).click();
+        Assert.assertEquals("Link does not redirect to section showcase", deploymentUrl + "section.jsf", browser.getCurrentUrl());
     }
 
     @Test
     @InSequence(1)
     public void testElementsExists() {
-        browser.get(deploymentUrl + "fieldset.jsf");
+        browser.get(deploymentUrl + "section.jsf");
 
         final WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        Assert.assertEquals("Wrong tag name", "fieldset", component.getTagName());
+        Assert.assertEquals("Wrong tag name", "section", component.getTagName());
 
         this.findWebElementByClassName(OPTION_RENDERED);
         this.findWebElementByClassName(OPTION_LABEL);
@@ -50,7 +50,7 @@ public class FieldSetComponentTest extends AbstractComponentTest {
     @Test
     @InSequence(2)
     public void testRenderedOption() throws Exception {
-        browser.get(deploymentUrl + "fieldset.jsf");
+        browser.get(deploymentUrl + "section.jsf");
 
         final WebElement showcaseRenderedOption = this.findWebElementByClassName(OPTION_RENDERED);
 
@@ -66,7 +66,7 @@ public class FieldSetComponentTest extends AbstractComponentTest {
     @Test
     @InSequence(3)
     public void testLabelOption() throws Exception {
-        browser.get(deploymentUrl + "fieldset.jsf");
+        browser.get(deploymentUrl + "section.jsf");
 
         final WebElement showcaseLabelOption = this.findWebElementByClassName(OPTION_LABEL);
 
@@ -74,23 +74,23 @@ public class FieldSetComponentTest extends AbstractComponentTest {
         showcaseLabelOption.clear();
         guardHttp(showcaseLabelOption).submit();
         WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        Assert.assertTrue(component.findElements(By.tagName("legend")).isEmpty());
+        Assert.assertTrue(component.findElements(By.className("butter-component-section-title")).isEmpty());
 
         guardAjax(showcaseLabelOption).sendKeys("hello");
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        WebElement legend = component.findElement(By.tagName("legend"));
+        WebElement legend = component.findElement(By.className("butter-component-section-title"));
         Assert.assertEquals("hello", legend.getText());
 
         guardAjax(showcaseLabelOption).sendKeys(" world!");
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        legend = component.findElement(By.tagName("legend"));
+        legend = component.findElement(By.className("butter-component-section-title"));
         Assert.assertEquals("hello world!", legend.getText());
     }
 
     @Test
     @InSequence(4)
     public void testBadgeTextOption() throws Exception {
-        browser.get(deploymentUrl + "fieldset.jsf");
+        browser.get(deploymentUrl + "section.jsf");
 
         final WebElement showcaseBadgeTextOption = this.findWebElementByClassName(OPTION_BADGE_TEXT);
 
@@ -98,16 +98,16 @@ public class FieldSetComponentTest extends AbstractComponentTest {
         showcaseBadgeTextOption.clear();
         guardHttp(showcaseBadgeTextOption).submit();
         WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        Assert.assertTrue(component.findElements(By.cssSelector("legend .badge")).isEmpty());
+        Assert.assertTrue(component.findElements(By.cssSelector(".butter-component-section-title .badge")).isEmpty());
 
         guardAjax(showcaseBadgeTextOption).sendKeys("3");
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        WebElement badge = component.findElement(By.cssSelector("legend .badge"));
+        WebElement badge = component.findElement(By.cssSelector(".butter-component-section-title .badge"));
         Assert.assertEquals("3", badge.getText());
 
         guardAjax(showcaseBadgeTextOption).sendKeys("4");
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        badge = component.findElement(By.cssSelector("legend .badge"));
+        badge = component.findElement(By.cssSelector(".butter-component-section-title .badge"));
         Assert.assertEquals("34", badge.getText());
     }
 }

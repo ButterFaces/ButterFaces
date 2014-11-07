@@ -6,33 +6,35 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
-        <strong>b:text</strong> The fieldset tag renders an HTML input element of the type "fieldset".
+        <strong>b:text</strong> The section tag renders an HTML input element of the type "section".
     </ui:define>
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{fieldSetShowcaseComponent.label}"/>
-            <showcase:tagStringControl label="badgeText" value="#{fieldSetShowcaseComponent.badgeText}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{fieldSetShowcaseComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{sectionShowcaseComponent.label}"/>
+            <showcase:tagStringControl label="badgeText" value="#{sectionShowcaseComponent.badgeText}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{sectionShowcaseComponent.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <b:fieldset label="#{fieldSetShowcaseComponent.label}"
-                    rendered="#{fieldSetShowcaseComponent.rendered}"
-                    badgeText="#{fieldSetShowcaseComponent.badgeText}"
-                    styleClass="arquillian_component">
+        <b:section label="#{sectionShowcaseComponent.label}"
+                   rendered="#{sectionShowcaseComponent.rendered}"
+                   badgeText="#{sectionShowcaseComponent.badgeText}"
+                   styleClass="arquillian_component">
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-        </b:fieldset>
+        </b:section>
+
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{fieldSetShowcaseComponent}"/>
+        <showcase:showcaseExampleComponent component="#{sectionShowcaseComponent}"/>
+        <b:activateLibraries />
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
-                setActiveNavigation('fieldset');
+                setActiveNavigation('section');
             });
         </script>
     </ui:define>

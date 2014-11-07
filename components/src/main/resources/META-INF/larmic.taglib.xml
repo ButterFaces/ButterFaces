@@ -462,9 +462,9 @@
 	</tag>
 
     <tag>
-        <tag-name>fieldset</tag-name>
+        <tag-name>section</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.fieldSet</component-type>
+            <component-type>de.larmic.butterfaces.component.section</component-type>
         </component>
         <attribute>
             <name>label</name>

@@ -18,21 +18,6 @@ select.butter-input-component {
     margin-top: 0;
 }
 
-.butter-component-fieldset {
-    border-radius: 0;
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
-}
-
-.butter-component-fieldset legend {
-    margin-bottom: 0;
-}
-
-.butter-component-fieldset legend .badge {
-    margin-left: 6px;
-}
-
 .butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;

@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlFieldSet;
+import de.larmic.butterfaces.component.html.HtmlSection;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -12,14 +12,8 @@ import java.io.IOException;
 /**
  * Created by larmic on 31.07.14.
  */
-@FacesRenderer(componentFamily = HtmlFieldSet.COMPONENT_FAMILY, rendererType = HtmlFieldSet.RENDERER_TYPE)
-public class FieldSetRenderer extends HtmlBasicRenderer {
-
-    public static final String ELEMENT_FIELDSET = "fieldset";
-    public static final String ATTRIBUTE_STYLE = "style";
-    public static final String ATTRIBUTE_CLASS = "class";
-    public static final String ELEMENT_LEGEND = "legend";
-    public static final String ELEMENT_SPAN = "span";
+@FacesRenderer(componentFamily = HtmlSection.COMPONENT_FAMILY, rendererType = HtmlSection.RENDERER_TYPE)
+public class SectionRenderer extends HtmlBasicRenderer {
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -30,27 +24,28 @@ public class FieldSetRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-        final HtmlFieldSet fieldSet = (HtmlFieldSet) component;
+        final HtmlSection fieldSet = (HtmlSection) component;
 
         final String style = fieldSet.getStyle();
         final String styleClass = fieldSet.getStyleClass();
 
-        writer.startElement(ELEMENT_FIELDSET, component);
+        writer.startElement(ELEMENT_SECTION, component);
 
-        this.writeIdAttributeIfNecessary(context, writer, component);
+        this.writeIdAttribute(context, writer, component);
 
         if (null != style) {
             writer.writeAttribute(ATTRIBUTE_STYLE, style, "style");
         }
         if (null != styleClass) {
-            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset " + styleClass, "styleClass");
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section " + styleClass, "styleClass");
         } else {
-            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-fieldset", "styleClass");
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section", "styleClass");
         }
 
 
         if (StringUtils.isNotEmpty(fieldSet.getLabel())) {
-            writer.startElement(ELEMENT_LEGEND, component);
+            writer.startElement(ELEMENT_DIV, component);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title", null);
             writer.writeText(fieldSet.getLabel(), component, "label");
 
             if (StringUtils.isNotEmpty(fieldSet.getBadgeText())) {
@@ -60,7 +55,7 @@ public class FieldSetRenderer extends HtmlBasicRenderer {
                 writer.endElement(ELEMENT_SPAN);
             }
 
-            writer.endElement(ELEMENT_LEGEND);
+            writer.endElement(ELEMENT_DIV);
         }
     }
 
@@ -72,7 +67,7 @@ public class FieldSetRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        context.getResponseWriter().endElement(ELEMENT_FIELDSET);
+        context.getResponseWriter().endElement(ELEMENT_SECTION);
     }
 
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class SectionShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
 
     @Override
     protected Object initValue() {
@@ -25,13 +25,13 @@ public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <b:fieldset id=\"input\"\n");
+        sb.append("        <b:section id=\"input\"\n");
 
         this.appendString("label", this.getLabel(), sb);
         this.appendString("badgeText", this.getBadgeText(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
         sb.append("           Lorem ipsum dolor sit amet, consectetuer ...\n");
-        sb.append("        </b:fieldset>\n");
+        sb.append("        </b:section>\n");
         sb.append("    Lorem ipsum dolor sit amet, consectetuer ...");
 
         this.createOutputXhtml(sb);
@@ -43,6 +43,6 @@ public class FieldSetShowcaseComponent extends AbstractInputShowcaseComponent im
 
     @Override
     protected String getEmptyDistanceString() {
-        return "                    ";
+        return "                   ";
     }
 }

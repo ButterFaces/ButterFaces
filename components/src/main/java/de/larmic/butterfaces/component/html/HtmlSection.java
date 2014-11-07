@@ -7,15 +7,12 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
-		@ResourceDependency(library = "js", name = "butterfaces.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head") })
-@FacesComponent(HtmlFieldSet.COMPONENT_TYPE)
-public class HtmlFieldSet extends UIComponentBase {
+        @ResourceDependency(library = "css", name = "butterfaces-section.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head") })
+@FacesComponent(HtmlSection.COMPONENT_TYPE)
+public class HtmlSection extends UIComponentBase {
 
-	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.fieldSet";
+	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.section";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.FieldSetRenderer";
 
@@ -24,7 +21,7 @@ public class HtmlFieldSet extends UIComponentBase {
     protected static final String PROPERTY_STYLE_CLASS = "styleClass";
     protected static final String PROPERTY_STYLE = "style";
 
-	public HtmlFieldSet() {
+	public HtmlSection() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
 	}

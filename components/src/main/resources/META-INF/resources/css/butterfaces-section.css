@@ -1,0 +1,15 @@
+.butter-component-section-title {
+    border-bottom: solid #ddd 1px;
+}
+
+.butter-component-section-title .badge {
+    margin-left: 6px;
+}
+
+.butter-component-section p {
+    padding-top: 8px;
+}
+
+.butter-component-section-title {
+    font-size: 20px;
+}
