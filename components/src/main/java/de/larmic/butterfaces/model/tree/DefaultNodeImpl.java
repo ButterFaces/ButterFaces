@@ -39,7 +39,7 @@ public class DefaultNodeImpl<T> implements Node<T> {
     }
 
     @Override
-    public String getIconPath() {
+    public String getIcon() {
         return iconPath;
     }
 

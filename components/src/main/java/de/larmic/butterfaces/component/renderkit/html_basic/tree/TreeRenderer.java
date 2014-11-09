@@ -79,7 +79,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
             // icon
             writer.startElement(ELEMENT_SPAN, tree);
             writer.writeAttribute("class", "butter-component-tree-icon", null);
-            if (StringUtils.isNotEmpty(node.getIconPath())) {
+            if (StringUtils.isNotEmpty(node.getIcon())) {
+                writer.writeAttribute("style", "background-image:url(" + node.getIcon() + ")", null);
                 nodeIconsFound = true;
             }
             writer.endElement(ELEMENT_SPAN);
@@ -88,6 +89,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             writer.startElement(ELEMENT_SPAN, tree);
             writer.writeAttribute("id", tree.getClientId() + "_" + depth + "_" + childNumber, null);
             writer.writeAttribute("class", "butter-component-tree-title", null);
+
             final Map<String, List<ClientBehavior>> behaviors = tree.getClientBehaviors();
             if (behaviors.containsKey("click")) {
                 final String click = behaviors.get("click").get(0).getScript(behaviorContext);

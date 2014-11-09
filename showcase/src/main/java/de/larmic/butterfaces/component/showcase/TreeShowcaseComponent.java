@@ -23,7 +23,8 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 
     private boolean hideRootNode = false;
-    private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.NONE;
+    private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.AJAX;
+    private boolean useIcons = true;
 
     private Node selectedNode;
 
@@ -32,28 +33,29 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     private String expansionClass;
 
     public Node getTree() {
-        final Node secondFirstChild = new DefaultNodeImpl("secondFirstChild");
-        secondFirstChild.getSubNodes().add(new DefaultNodeImpl("secondFirstFirstChild"));
+        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder-16.png");
+        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/excel-16.png"));
 
-        final Node firstChild = new DefaultNodeImpl("firstChild");
-        final Node secondChild = new DefaultNodeImpl("secondChild");
-        final Node secondThirdChild = new DefaultNodeImpl("secondThirdChild");
-        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdFirstChild"));
-        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdSecondChild"));
-        secondThirdChild.getSubNodes().add(new DefaultNodeImpl("thirdThirdChild"));
+        final Node firstChild = createNode("firstChild", "resources/images/excel-16.png");
+        final Node secondChild = createNode("secondChild", "resources/images/folder-16.png");
+        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder-16.png");
+        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/excel-16.png"));
+        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/word-16.png"));
+        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/ppt-16.png"));
         secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(new DefaultNodeImpl("secondSecondChild"));
+        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/excel-16.png"));
         secondChild.getSubNodes().add(secondThirdChild);
-        secondChild.getSubNodes().add(new DefaultNodeImpl("secondFourthChild"));
-        secondChild.getSubNodes().add(new DefaultNodeImpl("secondFifthChild"));
+        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/excel-16.png"));
+        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/excel-16.png"));
 
-        final Node rootNode = new DefaultNodeImpl("rootNode");
+        final Node rootNode = createNode("rootNode", "resources/images/folder-16.png");
         rootNode.getSubNodes().add(firstChild);
         rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(new DefaultNodeImpl("thirdChild"));
+        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/excel-16.png"));
 
         return rootNode;
     }
+
 
     @Override
     public void processValueChange(final TreeNodeSelectionEvent event) {
@@ -78,11 +80,21 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
             sb.append("    private Node selectedNode;\n\n");
         }
         sb.append("    public Node getTreeModel() {\n");
-        sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
-        sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
-        sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
+        if (useIcons) {
+            sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\", \"some/path/16.png\");\n");
+            sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\", \"some/path/16.png\");\n");
+            sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\", \"...\"))\n");
+        } else {
+            sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
+            sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
+            sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
+        }
         sb.append("        ...\n");
-        sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        if (useIcons) {
+            sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\", \"some/path/16.png\");\n");
+        } else {
+            sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        }
         sb.append("        rootNode.getSubNodes().add(firstChild);\n");
         sb.append("        rootNode.getSubNodes().add(secondChild);\n");
         sb.append("        return rootNode;\n");
@@ -166,6 +178,14 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         return "                ";
     }
 
+    private DefaultNodeImpl createNode(final String title, final String icon) {
+        if (useIcons) {
+            return new DefaultNodeImpl(title, null, icon);
+        }
+
+        return new DefaultNodeImpl(title);
+    }
+
     public String getCollapsingClass() {
         return collapsingClass;
     }
@@ -223,5 +243,13 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public Node getSelectedNode() {
         return selectedNode;
+    }
+
+    public boolean isUseIcons() {
+        return useIcons;
+    }
+
+    public void setUseIcons(boolean useIcons) {
+        this.useIcons = useIcons;
     }
 }

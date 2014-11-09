@@ -25,6 +25,8 @@
 .butter-component-tree-icon {
     width: 16px;
     display: inline-block;
+    height: 16px;
+    background-repeat: no-repeat;
 }
 
 .butter-component-tree-no-icons .butter-component-tree-icon {
