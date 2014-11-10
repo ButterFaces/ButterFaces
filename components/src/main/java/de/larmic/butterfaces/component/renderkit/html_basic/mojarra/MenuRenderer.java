@@ -91,7 +91,7 @@ import java.util.logging.Level;
 
 /**
  * <B>MenuRenderer</B> is a class that renders the current value of
- * <code>UISelectOne<code> or <code>UISelectMany<code> component as a list of
+ * {@link javax.faces.component.UISelectOne} or {@link javax.faces.component.UISelectMany} component as a list of
  * menu options.
  */
 
@@ -895,7 +895,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
     /**
      * @param collection a Collection instance
      *
-     * @return a new <code>Collection</code> instance or null if the instance
+     * @return a new {@link java.util.Collection}instance or null if the instance
      *         cannot be created
      */
     protected Collection createCollection(Collection collection,

@@ -11,8 +11,9 @@ public class RenderUtils {
      *
      * @param elementId          the html id of the element without leading # (e.g. 'myElementId')
      * @param pluginFunctionCall the plugin function call (e.g. 'tooltip()')
-     * @param writer
-     * @param uiComponent
+     * @param writer             component writer
+     * @param uiComponent        component to add script
+     * @throws java.io.IOException
      */
     public static final void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
                                                     final ResponseWriter writer, final UIComponent uiComponent)

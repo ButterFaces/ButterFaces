@@ -12,13 +12,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
-/**
- * larmic butterfaces components - An jsf 2 component extension
- * https://bitbucket.org/butterfaces/butterfaces/
- * 
- * Copyright 2013 by Lars Michaelis <br/>
- * Released under the MIT license http://opensource.org/licenses/mit-license.php
- */
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
 

@@ -8,12 +8,9 @@ import javax.faces.application.ResourceHandlerWrapper;
  * Adds a timestamp parameter to each (javascript and css) resource if resource handler is enabled. Resource browser
  * cache will be ignored on this resources until server will be redeployed. In case of this manual browser cache delete
  * is no longer needed.
- * <p/>
  * Usage:
  * Add following code to your faces-config.xml
- * <code>
- * <resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler>
- * </code>
+ * {@code <resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler>}
  */
 public class ButterFacesResourceHandler extends ResourceHandlerWrapper {
 

@@ -64,9 +64,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <B>ReadoRenderer</B> is a class that renders the current value of
- * <code>UISelectOne<code> or <code>UISelectMany<code> component as a list of
- * radio buttons
+ * <B>ReadoRenderer</B> is a class that renders the current value of {@link javax.faces.component.UISelectOne} or
+ * {@link javax.faces.component.UISelectMany} component as a list of radio buttons
  */
 
 public class RadioRenderer extends SelectManyCheckboxListRenderer {
