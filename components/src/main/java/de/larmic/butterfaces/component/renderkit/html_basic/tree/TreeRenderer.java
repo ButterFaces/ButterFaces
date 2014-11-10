@@ -47,13 +47,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.startElement(ELEMENT_DIV, htmlTree);
         this.writeIdAttribute(context, writer, component);
-        writer.writeAttribute("class", "butter-component-tree", null);
+        writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree", null);
 
         final ClientBehaviorContext behaviorContext =
                 ClientBehaviorContext.createClientBehaviorContext(context,
                         htmlTree, "click", component.getClientId(context), null);
 
-        this.encodeNode(htmlTree, writer, behaviorContext, htmlTree.getValue(), 0, 0, !htmlTree.isHideRootNode());
+        final Node root = htmlTree.getValue();
+
+        nodeIconsFound = false;
+
+        this.encodeNode(htmlTree, writer, behaviorContext, root, 0, 0, false, !htmlTree.isHideRootNode());
     }
 
     private void encodeNode(final HtmlTree tree,
@@ -62,18 +66,38 @@ public class TreeRenderer extends HtmlBasicRenderer {
                             final Node node,
                             final int depth,
                             final int childNumber,
+                            final boolean collapsed,
                             final boolean renderNode) throws IOException {
         if (renderNode) {
             writer.startElement("ul", tree);
             writer.startElement("li", tree);
+
+            final String nodeNumber = "" + nodes.size();
+            nodes.put(nodeNumber, node);
+
+            if (collapsed) {
+                writer.writeAttribute(ATTRIBUTE_STYLE, "display: none;", null);
+            }
 
             writer.startElement(ELEMENT_DIV, tree);
             writer.writeAttribute("class", "butter-component-tree-row", null);
 
             // collapse
             writer.startElement(ELEMENT_SPAN, tree);
-            final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + getCollapsingClass(tree);
+            final String collapsingClass = collapsed ? getExpansionClass(tree) : getCollapsingClass(tree);
+            final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + collapsingClass;
             writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
+
+            final Map<String, List<ClientBehavior>> behaviors = tree.getClientBehaviors();
+            if (behaviors.containsKey("click")) {
+                final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+
+                if (StringUtils.isNotEmpty(click)) {
+                    final String s = click.replace(",'click',", ",'collapse_" + nodeNumber + "',");
+                    writer.writeAttribute("onclick", s, null);
+                }
+            }
+
             writer.endElement(ELEMENT_SPAN);
 
             // icon
@@ -88,16 +112,13 @@ public class TreeRenderer extends HtmlBasicRenderer {
             // title
             writer.startElement(ELEMENT_SPAN, tree);
             writer.writeAttribute("id", tree.getClientId() + "_" + depth + "_" + childNumber, null);
-            writer.writeAttribute("class", "butter-component-tree-title", null);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-title", null);
 
-            final Map<String, List<ClientBehavior>> behaviors = tree.getClientBehaviors();
             if (behaviors.containsKey("click")) {
                 final String click = behaviors.get("click").get(0).getScript(behaviorContext);
 
                 // could be empty if ajax tag is disabled
                 if (StringUtils.isNotEmpty(click)) {
-                    final String nodeNumber = "" + nodes.size();
-                    nodes.put(nodeNumber, node);
                     final String s = click.replace(",'click',", ",'click_" + nodeNumber + "',");
                     final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(tree.getClientId(), "selectTreeNode({nodeNumber:'" + nodeNumber + "'})");
                     writer.writeAttribute("onclick", s + ";" + jQueryPluginCall, null);
@@ -115,7 +136,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             int i = 0;
 
             for (Node subNode : subNodes) {
-                this.encodeNode(tree, writer, behaviorContext, subNode, depth + 1, i++, true);
+                this.encodeNode(tree, writer, behaviorContext, subNode, depth + 1, i++, isCollapsed(node) || collapsed, true);
             }
         }
 
@@ -160,12 +181,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         if (behaviorEvent != null) {
             final String[] split = behaviorEvent.split("_");
+            final String event = split[0];
             final String nodeNumber = split[1];
 
             final Node node = nodes.get(nodeNumber);
 
-            nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
-            selectedNode = node;
+            if ("click".equals(event)) {
+                nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                selectedNode = node;
+            } else if ("collapse".equals(event)) {
+                node.setCollapsed(!node.isCollapsed());
+            }
         }
     }
 
@@ -180,6 +206,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 "', collapsingClass: '" + collapsingClass +
                 "', treeSelectionEnabled: '" + treeIconsEnabled +
                 "', treeIconsEnabled: '" + nodeIconsFound + "'}";
+    }
+
+    private boolean isCollapsed(final Node node) {
+        return !node.getSubNodes().isEmpty() && node.isCollapsed();
     }
 
     private String getCollapsingClass(final HtmlTree htmlTree) {

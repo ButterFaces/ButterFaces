@@ -11,6 +11,13 @@ public interface Node<T> {
     T getData();
     String getIcon();
     boolean isLeaf();
+
+    /**
+     * @return true if node and all sub nodes are collapsed.
+     */
+    boolean isCollapsed();
+
+    void setCollapsed(final boolean collapsed);
     Collection<Node> getSubNodes();
 
 }

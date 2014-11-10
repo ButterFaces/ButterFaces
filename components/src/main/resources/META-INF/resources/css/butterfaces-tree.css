@@ -33,16 +33,21 @@
     display: none;
 }
 
-.butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title,
-.butter-component-tree-title:hover {
+.butter-component-tree-row .butter-component-tree-title {
     display: inline-block;
     width: calc(100% - 32px);
+}
+
+.butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title,
+.butter-component-tree-title:hover {
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .butter-component-tree-no-icons .butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title,
 .butter-component-tree-no-icons .butter-component-tree-title:hover {
     width: calc(100% - 16px);
+    cursor: pointer;
 }
 
 .butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title {

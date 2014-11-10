@@ -25,6 +25,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     private boolean hideRootNode = false;
     private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.AJAX;
     private boolean useIcons = true;
+    private boolean allExpanded = true;
 
     private Node selectedNode;
 
@@ -38,6 +39,9 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
         final Node firstChild = createNode("firstChild", "resources/images/excel-16.png");
         final Node secondChild = createNode("secondChild", "resources/images/folder-16.png");
+        if (!allExpanded) {
+            secondChild.setCollapsed(true);
+        }
         final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder-16.png");
         secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/excel-16.png"));
         secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/word-16.png"));
@@ -83,10 +87,16 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         if (useIcons) {
             sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\", \"some/path/16.png\");\n");
             sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\", \"some/path/16.png\");\n");
+            if (!allExpanded) {
+                sb.append("        secondChild.setCollapsed(true);\n");
+            }
             sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\", \"...\"))\n");
         } else {
             sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
             sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
+            if (!allExpanded) {
+                sb.append("        secondChild.setCollapsed(true);\n");
+            }
             sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
         }
         sb.append("        ...\n");
@@ -251,5 +261,13 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setUseIcons(boolean useIcons) {
         this.useIcons = useIcons;
+    }
+
+    public boolean isAllExpanded() {
+        return allExpanded;
+    }
+
+    public void setAllExpanded(boolean allExpanded) {
+        this.allExpanded = allExpanded;
     }
 }
