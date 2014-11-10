@@ -27,7 +27,7 @@
                     componentStyleClass="#{cc.attrs.component.componentStyleClass}">
 			<f:ajax event="keyup" 
 					execute="textArea"
-					render="output:outputValues output:other"
+					render="output:outputComponent:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
 			<f:validateLength minimum="2" 
 							  maximum="10"

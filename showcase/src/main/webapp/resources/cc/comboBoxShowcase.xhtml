@@ -25,7 +25,7 @@
 			<f:selectItems value="#{cc.attrs.component.values}" />
 			<f:ajax event="change" 
 					execute="@this"
-					render="output:outputValues output:other"
+					render="output:outputComponent:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
 			<c:if test="#{cc.attrs.component.converterActive}">
 				<f:converter converterId="fooConverter"/>

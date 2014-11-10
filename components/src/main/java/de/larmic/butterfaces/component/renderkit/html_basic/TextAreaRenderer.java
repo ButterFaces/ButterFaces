@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
+import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.partrenderer.*;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlTextArea.COMPONENT_FAMILY, rendererType = HtmlTextArea.RENDERER_TYPE)
-public class TextAreaRenderer extends com.sun.faces.renderkit.html_basic.TextareaRenderer {
+public class TextAreaRenderer extends HtmlBasicInputRenderer {
 
     private static final Attribute[] ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXTAREA);
 

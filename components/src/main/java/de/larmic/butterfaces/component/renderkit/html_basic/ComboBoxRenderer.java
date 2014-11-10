@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,7 +20,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
-public class ComboBoxRenderer extends com.sun.faces.renderkit.html_basic.MenuRenderer {
+public class ComboBoxRenderer extends MenuRenderer {
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {

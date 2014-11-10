@@ -1,8 +1,10 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
+import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
+import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlNumber;
 import de.larmic.butterfaces.component.partrenderer.*;
@@ -22,7 +24,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlNumber.COMPONENT_FAMILY, rendererType = HtmlNumber.RENDERER_TYPE)
-public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRenderer {
+public class NumberRenderer extends HtmlBasicInputRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
     private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager
@@ -172,6 +174,31 @@ public class NumberRenderer extends com.sun.faces.renderkit.html_basic.TextRende
                 && (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
             writer.endElement("span");
         }
+    }
+
+    @Override
+    public void encodeChildren(FacesContext context, UIComponent component)
+            throws IOException {
+
+        boolean renderChildren = WebConfiguration.getInstance()
+                .isOptionEnabled(WebConfiguration.BooleanWebContextInitParameter.AllowTextChildren);
+
+        if (!renderChildren) {
+            return;
+        }
+
+        rendererParamsNotNull(context, component);
+
+        if (!shouldEncodeChildren(component)) {
+            return;
+        }
+
+        if (component.getChildCount() > 0) {
+            for (UIComponent kid : component.getChildren()) {
+                encodeRecursive(context, kid);
+            }
+        }
+
     }
 
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {

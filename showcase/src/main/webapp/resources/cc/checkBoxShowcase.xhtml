@@ -25,7 +25,7 @@
                     componentStyleClass="#{cc.attrs.component.componentStyleClass}">
 			<f:ajax event="change"
 					execute="@this"
-					render="output:outputValues output:other"
+					render="output:outputComponent:outputValues output:other"
 					disabled="#{not cc.attrs.component.ajax}" />
 		</b:checkBox>
 	</composite:implementation>

@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
+import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlSecret;
 import de.larmic.butterfaces.component.partrenderer.*;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlSecret.COMPONENT_FAMILY, rendererType = HtmlSecret.RENDERER_TYPE)
-public class SecretRenderer extends com.sun.faces.renderkit.html_basic.SecretRenderer {
+public class SecretRenderer extends HtmlBasicInputRenderer {
 
     private static final Attribute[] ATTRIBUTES =
             AttributeManager.getAttributes(AttributeManager.Key.INPUTSECRET);

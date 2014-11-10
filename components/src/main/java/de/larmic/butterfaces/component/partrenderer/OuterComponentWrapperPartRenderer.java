@@ -16,7 +16,7 @@ public class OuterComponentWrapperPartRenderer {
         final boolean valid = component.isValid();
 
         writer.startElement("div", uiComponent);
-        writer.writeAttribute("id", component.getClientId() + Constants.COMPONENT_ID_POSTFIX, null);
+        writer.writeAttribute("id", component.getClientId(), null);
 
         final String validationClass = valid ? null : Constants.BOOTSTRAP_ERROR;
         final String styleClass = StringUtils.concatWithSpace(Constants.COMPONENT_STYLE_CLASS, Constants.BOOTSTRAP_CONTAINER,
