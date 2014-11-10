@@ -11,7 +11,6 @@ import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -27,7 +26,6 @@ import java.io.IOException;
 public class TextRenderer extends HtmlBasicInputRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
-    private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.OUTPUTTEXT);
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -89,14 +87,7 @@ public class TextRenderer extends HtmlBasicInputRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
         assert (writer != null);
-        boolean shouldWriteIdAttribute = false;
-        boolean isOutput = false;
 
-        final String style = (String) component.getAttributes().get("style");
-        final String styleClass = (String) component.getAttributes().get("styleClass");
-        final String dir = (String) component.getAttributes().get("dir");
-        final String lang = (String) component.getAttributes().get("lang");
-        final String title = (String) component.getAttributes().get("title");
         if (component instanceof UIInput) {
             writer.startElement("input", component);
 
@@ -113,7 +104,12 @@ public class TextRenderer extends HtmlBasicInputRenderer {
             if (currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");
             }
-            if (null != styleClass) {
+
+            final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                    Constants.BOOTSTRAP_FORM_CONTROL,
+                    !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+            if (StringUtils.isNotEmpty(styleClass)) {
                 writer.writeAttribute("class", styleClass, "styleClass");
             }
 
@@ -129,31 +125,6 @@ public class TextRenderer extends HtmlBasicInputRenderer {
             RenderKitUtils.renderOnchange(context, component, false);
 
             writer.endElement("input");
-
-        } else if (isOutput = (component instanceof UIOutput)) {
-            if (styleClass != null || style != null || dir != null || lang != null || title != null
-                    || (shouldWriteIdAttribute = this.shouldWriteIdAttribute(component))) {
-                writer.startElement("span", component);
-                this.writeIdAttributeIfNecessary(context, writer, component);
-                if (null != styleClass) {
-                    writer.writeAttribute("class", styleClass, "styleClass");
-                }
-                // style is rendered as a passthru attribute
-                RenderKitUtils.renderPassThruAttributes(context, writer, component, OUTPUT_ATTRIBUTES);
-
-            }
-            if (currentValue != null) {
-                final Object val = component.getAttributes().get("escape");
-                if ((val != null) && Boolean.valueOf(val.toString())) {
-                    writer.writeText(currentValue, component, "value");
-                } else {
-                    writer.write(currentValue);
-                }
-            }
-        }
-        if (isOutput
-                && (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
-            writer.endElement("span");
         }
     }
 

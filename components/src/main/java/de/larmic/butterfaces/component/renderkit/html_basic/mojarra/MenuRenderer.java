@@ -64,6 +64,9 @@ import com.sun.faces.util.MessageUtils;
 import com.sun.faces.util.ReflectionUtils;
 import com.sun.faces.util.RequestStateManager;
 import com.sun.faces.util.Util;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.partrenderer.Constants;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -819,13 +822,15 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         //writeIdAttributeIfNecessary(context, writer, component);
         writer.writeAttribute("name", component.getClientId(context),
                 "clientId");
-        // render styleClass attribute if present.
-        String styleClass;
-        if (null !=
-                (styleClass =
-                        (String) component.getAttributes().get("styleClass"))) {
+
+        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                Constants.BOOTSTRAP_FORM_CONTROL,
+                !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+        if (StringUtils.isNotEmpty(styleClass)) {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
+
         if (!getMultipleText(component).equals("")) {
             writer.writeAttribute("multiple", true, "multiple");
         }

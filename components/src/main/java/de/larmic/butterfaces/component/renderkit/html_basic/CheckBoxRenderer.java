@@ -119,7 +119,6 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
                                       final String currentValue) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         assert (writer != null);
-        String styleClass;
 
         writer.startElement("input", component);
         writeIdAttributeIfNecessary(context, writer, component);
@@ -128,10 +127,14 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         if (Boolean.valueOf(currentValue)) {
             writer.writeAttribute("checked", Boolean.TRUE, "value");
         }
-        if (null != (styleClass = (String)
-                component.getAttributes().get("styleClass"))) {
+
+        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+        if (StringUtils.isNotEmpty(styleClass)) {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
+
         RenderKitUtils.renderPassThruAttributes(context, writer, component, ATTRIBUTES, getNonOnClickSelectBehaviors(component));
         RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
 

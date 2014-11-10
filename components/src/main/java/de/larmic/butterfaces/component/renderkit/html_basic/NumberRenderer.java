@@ -11,7 +11,6 @@ import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -50,7 +49,7 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer, "butter-number-component");
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -97,26 +96,24 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
         assert (writer != null);
-        boolean shouldWriteIdAttribute = false;
-        boolean isOutput = false;
 
-        final String style = (String) component.getAttributes().get("style");
-        final String styleClass = (String) component.getAttributes().get("styleClass");
-        final String dir = (String) component.getAttributes().get("dir");
-        final String lang = (String) component.getAttributes().get("lang");
-        final String title = (String) component.getAttributes().get("title");
         if (component instanceof UIInput) {
             writer.startElement("input", component);
             this.writeIdAttributeIfNecessary(context, writer, component);
             writer.writeAttribute("name", (component.getClientId(context)), "clientId");
             writer.writeAttribute("type", "text", null);
 
+            final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                    Constants.BOOTSTRAP_FORM_CONTROL, "butter-number-component",
+                    !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+            if (StringUtils.isNotEmpty(styleClass)) {
+                writer.writeAttribute("class", styleClass, "styleClass");
+            }
+
             // render default text specified
             if (currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");
-            }
-            if (null != styleClass) {
-                writer.writeAttribute("class", styleClass, "styleClass");
             }
 
             // *** BEGIN CUSTOM CHANGED **************************
@@ -149,30 +146,6 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
             }
             // *** END CUSTOM CHANGED ****************************
 
-        } else if (isOutput = (component instanceof UIOutput)) {
-            if (styleClass != null || style != null || dir != null || lang != null || title != null
-                    || (shouldWriteIdAttribute = this.shouldWriteIdAttribute(component))) {
-                writer.startElement("span", component);
-                this.writeIdAttributeIfNecessary(context, writer, component);
-                if (null != styleClass) {
-                    writer.writeAttribute("class", styleClass, "styleClass");
-                }
-                // style is rendered as a passthru attribute
-                RenderKitUtils.renderPassThruAttributes(context, writer, component, OUTPUT_ATTRIBUTES);
-
-            }
-            if (currentValue != null) {
-                final Object val = component.getAttributes().get("escape");
-                if ((val != null) && Boolean.valueOf(val.toString())) {
-                    writer.writeText(currentValue, component, "value");
-                } else {
-                    writer.write(currentValue);
-                }
-            }
-        }
-        if (isOutput
-                && (styleClass != null || style != null || dir != null || lang != null || title != null || (shouldWriteIdAttribute))) {
-            writer.endElement("span");
         }
     }
 

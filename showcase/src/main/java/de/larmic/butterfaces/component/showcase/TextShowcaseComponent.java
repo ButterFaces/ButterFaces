@@ -44,7 +44,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         this.appendString("pattern", this.getPattern(), sb);
         this.appendString("min", this.getMin(), sb);
         this.appendString("max", this.getMax(), sb);
-        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("styleClass", this.getStyleClass(), sb);
         this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
@@ -69,7 +69,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
     @Override
     protected void addCss(StringBuilder sb) {
-        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+        if (!StringUtils.isEmpty(this.getStyleClass())) {
             sb.append(".some-demo-class {\n");
             sb.append("    background-color: red;\n");
             sb.append("}");

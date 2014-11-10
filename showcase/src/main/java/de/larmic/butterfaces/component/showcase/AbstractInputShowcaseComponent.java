@@ -20,7 +20,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private AjaxType ajaxType = AjaxType.NONE;
     private String inputStyleClass = null;
     private String labelStyleClass = null;
-    private String componentStyleClass = null;
+    private String styleClass = null;
 
     public AbstractInputShowcaseComponent() {
         this.value = this.initValue();
@@ -88,7 +88,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         return items;
     }
 
-    public List<SelectItem> getComponentStyleClasses() {
+    public List<SelectItem> getStyleClasses() {
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem(null, "default (null)"));
@@ -211,11 +211,11 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
         this.labelStyleClass = labelStyleClass;
     }
 
-    public String getComponentStyleClass() {
-        return componentStyleClass;
+    public String getStyleClass() {
+        return styleClass;
     }
 
-    public void setComponentStyleClass(String styleClass) {
-        this.componentStyleClass = styleClass;
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 }

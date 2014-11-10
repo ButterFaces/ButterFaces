@@ -11,10 +11,8 @@ public class Constants {
     public static final String TOOLTIP_LABEL_CLASS = "butter-component-label-tooltip";
     public static final String REQUIRED_SPAN_CLASS = "butter-component-required";
     public static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "butter-component-maxlength-counter";
-    public static final String OUTERDIV_POSTFIX = "_outerComponentDiv";
 
     public static final String COMPONENT_STYLE_CLASS = "butter-component";
-    public static final String COMPONENT_ID_POSTFIX = "_outerComponentDiv";
 
     public static final String BOOTSTRAP_FORM_CONTROL = "form-control";
     public static final String BOOTSTRAP_CONTROL_LABEL = "control-label";

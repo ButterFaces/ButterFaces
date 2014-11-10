@@ -23,7 +23,6 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_STYLE_CLASS = "componentStyleClass";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
 	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
@@ -107,15 +106,6 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
     public void setAutoFocus(final Boolean autoFocus) {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
-    }
-
-    @Override
-    public String getComponentStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
-    }
-
-    public void setComponentStyleClass(final String styleClass) {
-        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
     }
 
     @Override

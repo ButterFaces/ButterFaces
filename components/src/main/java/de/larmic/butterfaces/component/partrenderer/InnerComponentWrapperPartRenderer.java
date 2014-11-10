@@ -13,21 +13,9 @@ public class InnerComponentWrapperPartRenderer {
 
     public void renderInnerWrapperBegin(final HtmlInputComponent component,
                                         final ResponseWriter writer) throws IOException {
-        this.renderInnerWrapperBegin(component, writer, null);
-    }
-
-    public void renderInnerWrapperBegin(final HtmlInputComponent component,
-                                        final ResponseWriter writer,
-                                        final String additionStyleClass) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
         if (!component.isReadonly()) {
-            final String styleClass = StringUtils.concatWithSpace(additionStyleClass,
-                    Constants.INPUT_COMPONENT_MARKER,
-                    Constants.BOOTSTRAP_FORM_CONTROL,
-                    !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
-
-            uiComponent.getAttributes().put("styleClass", styleClass);
 
             final StringBuffer defaultStyleClass = new StringBuffer();
             if (component.getHideLabel()) {

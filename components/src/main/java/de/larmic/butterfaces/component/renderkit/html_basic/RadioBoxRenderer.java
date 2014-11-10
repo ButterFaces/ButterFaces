@@ -18,7 +18,7 @@ import java.io.IOException;
  * Released under the MIT license http://opensource.org/licenses/mit-license.php
  */
 @FacesRenderer(componentFamily = HtmlRadioBox.COMPONENT_FAMILY, rendererType = HtmlRadioBox.RENDERER_TYPE)
-public class RadioBoxRenderer extends com.sun.faces.renderkit.html_basic.RadioRenderer {
+public class RadioBoxRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.mojarra.RadioRenderer {
 
 	@Override
 	public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {

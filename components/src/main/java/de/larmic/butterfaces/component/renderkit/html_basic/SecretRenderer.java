@@ -89,10 +89,17 @@ public class SecretRenderer extends HtmlBasicInputRenderer {
         }
 
         writer.startElement("input", component);
-        writeIdAttributeIfNecessary(context, writer, component);
         writer.writeAttribute("type", "password", "type");
         writer.writeAttribute("name", component.getClientId(context),
                 "clientId");
+
+        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                Constants.BOOTSTRAP_FORM_CONTROL,
+                !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+        if (StringUtils.isNotEmpty(styleClass)) {
+            writer.writeAttribute("class", styleClass, "styleClass");
+        }
 
         String autoComplete = (String)
                 component.getAttributes().get("autocomplete");
@@ -124,12 +131,6 @@ public class SecretRenderer extends HtmlBasicInputRenderer {
         RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
 
         RenderKitUtils.renderOnchange(context, component, false);
-
-        String styleClass;
-        if (null != (styleClass = (String)
-                component.getAttributes().get("styleClass"))) {
-            writer.writeAttribute("class", styleClass, "styleClass");
-        }
 
         writer.endElement("input");
 

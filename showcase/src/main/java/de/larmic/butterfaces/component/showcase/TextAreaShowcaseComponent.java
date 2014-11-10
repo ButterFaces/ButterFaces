@@ -38,7 +38,7 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
-        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("styleClass", this.getStyleClass(), sb);
         this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
@@ -71,7 +71,7 @@ public class TextAreaShowcaseComponent extends AbstractInputShowcaseComponent im
 
     @Override
     protected void addCss(StringBuilder sb) {
-        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+        if (!StringUtils.isEmpty(this.getStyleClass())) {
             sb.append(".some-demo-class {\n");
             sb.append("    background-color: red;\n");
             sb.append("}");

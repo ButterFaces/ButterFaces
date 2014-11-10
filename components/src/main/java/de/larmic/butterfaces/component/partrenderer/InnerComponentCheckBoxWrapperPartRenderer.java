@@ -13,11 +13,6 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
         final HtmlCheckBox uiComponent = (HtmlCheckBox) component;
 
         if (!component.isReadonly()) {
-            final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
-                    !uiComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null);
-
-            uiComponent.getAttributes().put("styleClass", styleClass);
-
             final StringBuffer defaultStyleClass = new StringBuffer();
             if (component.getHideLabel()) {
                 defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);

@@ -20,7 +20,7 @@ public class OuterComponentWrapperPartRenderer {
 
         final String validationClass = valid ? null : Constants.BOOTSTRAP_ERROR;
         final String styleClass = StringUtils.concatWithSpace(Constants.COMPONENT_STYLE_CLASS, Constants.BOOTSTRAP_CONTAINER,
-                component.getComponentStyleClass(), validationClass);
+                component.getStyleClass(), validationClass);
 
         writer.writeAttribute("class", styleClass, null);
     }

@@ -11,7 +11,7 @@ public class ExpandablePartRenderer {
 
     public void renderExpandable(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
         final UIInput uiComponent = (UIInput) component;
-        final String outerComponentId = component.getClientId() + Constants.OUTERDIV_POSTFIX;
+        final String outerComponentId = component.getClientId();
 
         if (isExpandableNecessary(component)) {
             RenderUtils.renderJQueryPluginCall(outerComponentId, "butterExpandable()", writer, uiComponent);

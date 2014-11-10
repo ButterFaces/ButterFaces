@@ -85,7 +85,7 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendString("layout", radioBoxLayoutType.label, sb);
-        this.appendString("componentStyleClass", this.getComponentStyleClass(), sb);
+        this.appendString("styleClass", this.getStyleClass(), sb);
         this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
@@ -117,7 +117,7 @@ public class RadioBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
     @Override
     protected void addCss(StringBuilder sb) {
-        if (!StringUtils.isEmpty(this.getComponentStyleClass())) {
+        if (!StringUtils.isEmpty(this.getStyleClass())) {
             sb.append(".some-demo-class {\n");
             sb.append("    background-color: red;\n");
             sb.append("}");

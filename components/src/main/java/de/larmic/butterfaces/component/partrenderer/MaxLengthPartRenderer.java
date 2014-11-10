@@ -11,7 +11,7 @@ public class MaxLengthPartRenderer {
 
     public void renderMaxLength(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
         final UIInput uiComponent = (UIInput) component;
-        final String outerComponentId = component.getClientId() + Constants.OUTERDIV_POSTFIX;
+        final String outerComponentId = component.getClientId();
 
         if (isMaxLengthNecessary(component)) {
             renderMaxLengthElement(writer, uiComponent);

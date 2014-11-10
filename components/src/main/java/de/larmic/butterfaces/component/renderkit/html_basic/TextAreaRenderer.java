@@ -88,12 +88,15 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
         assert (writer != null);
 
-        final String styleClass = (String) component.getAttributes().get("styleClass");
-
         writer.startElement("textarea", component);
         this.writeIdAttributeIfNecessary(context, writer, component);
         writer.writeAttribute("name", component.getClientId(context), "clientId");
-        if (null != styleClass) {
+
+        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                Constants.BOOTSTRAP_FORM_CONTROL,
+                !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+
+        if (StringUtils.isNotEmpty(styleClass)) {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
 
@@ -116,7 +119,7 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
 
     }
 
-    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+    protected void renderHtmlFeatures(final UIComponent component, final ResponseWriter writer) throws IOException {
         if (component instanceof HtmlTextArea) {
             final HtmlTextArea inputComponent = (HtmlTextArea) component;
             new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
