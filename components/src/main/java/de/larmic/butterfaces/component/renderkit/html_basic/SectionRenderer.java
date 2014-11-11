@@ -57,6 +57,9 @@ public class SectionRenderer extends HtmlBasicRenderer {
 
             writer.endElement(ELEMENT_DIV);
         }
+
+        writer.startElement(ELEMENT_DIV, component);
+        writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-content", null);
     }
 
     @Override
@@ -67,7 +70,10 @@ public class SectionRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        context.getResponseWriter().endElement(ELEMENT_SECTION);
+        final ResponseWriter writer = context.getResponseWriter();
+
+        writer.endElement(ELEMENT_SECTION); // inner content
+        writer.endElement(ELEMENT_SECTION); // component
     }
 
 }

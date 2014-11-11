@@ -6,8 +6,12 @@
     margin-left: 6px;
 }
 
-.butter-component-section p {
+.butter-component-section .butter-component-section-content {
     padding-top: 8px;
+}
+
+.butter-component-section {
+    margin-bottom: 15px;
 }
 
 .butter-component-section-title {
