@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.tree;
 
 public enum TreeSelectionAjaxType {
 	NONE("No ajax selection"), AJAX("ajax enabled"), AJAX_DISABLED("ajax disabled");

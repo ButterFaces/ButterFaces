@@ -102,11 +102,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
             // icon
             writer.startElement(ELEMENT_SPAN, tree);
-            writer.writeAttribute("class", "butter-component-tree-icon", null);
-            if (StringUtils.isNotEmpty(node.getIcon())) {
-                writer.writeAttribute("style", "background-image:url(" + node.getIcon() + ")", null);
+            if (StringUtils.isNotEmpty(node.getImageIcon())) {
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-icon", null);
+                writer.writeAttribute(ATTRIBUTE_STYLE, "background-image:url(" + node.getImageIcon() + ")", null);
                 nodeIconsFound = true;
+            } else if (StringUtils.isNotEmpty(node.getGlyphiconIcon())) {
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-icon " + node.getGlyphiconIcon(), null);
+                nodeIconsFound = true;
+            } else {
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-icon", null);
             }
+
             writer.endElement(ELEMENT_SPAN);
 
             // title

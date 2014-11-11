@@ -12,7 +12,8 @@ public class DefaultNodeImpl<T> implements Node<T> {
     private final List<Node> subNodes = new ArrayList<>();
     private final String title;
     private final T data;
-    private final String icon;
+    private String imageIcon;
+    private String glyphiconIcon;
     private boolean isCollapsed;
 
     public DefaultNodeImpl(final String title) {
@@ -26,7 +27,7 @@ public class DefaultNodeImpl<T> implements Node<T> {
     public DefaultNodeImpl(final String title, final T data, final String iconPath) {
         this.title = title;
         this.data = data;
-        this.icon = iconPath;
+        this.imageIcon = iconPath;
     }
 
     @Override
@@ -40,8 +41,22 @@ public class DefaultNodeImpl<T> implements Node<T> {
     }
 
     @Override
-    public String getIcon() {
-        return icon;
+    public String getImageIcon() {
+        return imageIcon;
+    }
+
+    @Override
+    public String getGlyphiconIcon() {
+        return glyphiconIcon;
+    }
+
+    public void setImageIcon(String imageIcon) {
+        this.imageIcon = imageIcon;
+    }
+
+
+    public void setGlyphiconIcon(String glyphiconIcon) {
+        this.glyphiconIcon = glyphiconIcon;
     }
 
     @Override

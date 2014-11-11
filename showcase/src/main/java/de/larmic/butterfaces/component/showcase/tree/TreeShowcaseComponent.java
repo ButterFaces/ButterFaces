@@ -1,5 +1,6 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.tree;
 
+import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
@@ -24,7 +25,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
     private boolean hideRootNode = false;
     private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.AJAX;
-    private boolean useIcons = true;
+    private TreeIconType selectedIconType = TreeIconType.IMAGE;
     private boolean allExpanded = true;
 
     private Node selectedNode;
@@ -34,28 +35,28 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     private String expansionClass;
 
     public Node getTree() {
-        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder-16.png");
-        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/excel-16.png"));
+        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder-16.png", "glyphicon-folder-open");
+        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/excel-16.png", "glyphicon-film"));
 
-        final Node firstChild = createNode("firstChild", "resources/images/excel-16.png");
-        final Node secondChild = createNode("secondChild", "resources/images/folder-16.png");
+        final Node firstChild = createNode("firstChild", "resources/images/excel-16.png", "glyphicon-film");
+        final Node secondChild = createNode("secondChild", "resources/images/folder-16.png", "glyphicon-folder-open");
         if (!allExpanded) {
             secondChild.setCollapsed(true);
         }
-        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder-16.png");
-        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/excel-16.png"));
-        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/word-16.png"));
-        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/ppt-16.png"));
+        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder-16.png", "glyphicon-folder-open");
+        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/excel-16.png", "glyphicon-film"));
+        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/word-16.png", "glyphicon-file"));
+        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/ppt-16.png", "glyphicon-signal"));
         secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/excel-16.png"));
+        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/excel-16.png", "glyphicon-film"));
         secondChild.getSubNodes().add(secondThirdChild);
-        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/excel-16.png"));
-        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/excel-16.png"));
+        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/excel-16.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/excel-16.png", "glyphicon-film"));
 
-        final Node rootNode = createNode("rootNode", "resources/images/folder-16.png");
+        final Node rootNode = createNode("rootNode", "resources/images/folder-16.png", "glyphicon-folder-open");
         rootNode.getSubNodes().add(firstChild);
         rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/excel-16.png"));
+        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/excel-16.png", "glyphicon-film"));
 
         return rootNode;
     }
@@ -84,26 +85,29 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
             sb.append("    private Node selectedNode;\n\n");
         }
         sb.append("    public Node getTreeModel() {\n");
-        if (useIcons) {
-            sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\", \"some/path/16.png\");\n");
-            sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\", \"some/path/16.png\");\n");
-            if (!allExpanded) {
-                sb.append("        secondChild.setCollapsed(true);\n");
-            }
-            sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\", \"...\"))\n");
-        } else {
-            sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
-            sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
-            if (!allExpanded) {
-                sb.append("        secondChild.setCollapsed(true);\n");
-            }
-            sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
+
+        sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
+        if (selectedIconType == TreeIconType.GLYPHICON) {
+            sb.append("        firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
+        } else if (selectedIconType == TreeIconType.IMAGE) {
+            sb.append("        firstChild.setImageIcon(\"some/path/16.png\");\n");
         }
+        sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
+        if (!allExpanded) {
+            sb.append("        secondChild.setCollapsed(true);\n");
+        }
+        if (selectedIconType == TreeIconType.GLYPHICON) {
+            sb.append("        secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
+        } else if (selectedIconType == TreeIconType.IMAGE) {
+            sb.append("        secondChild.setImageIcon(\"some/path/16.png\");\n");
+        }
+        sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
         sb.append("        ...\n");
-        if (useIcons) {
-            sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\", \"some/path/16.png\");\n");
-        } else {
-            sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        if (selectedIconType == TreeIconType.IMAGE) {
+            sb.append("        rootNode.setImageIcon(\"some/path/16.png\");\n");
+        } else if (selectedIconType == TreeIconType.GLYPHICON) {
+            sb.append("        rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
         }
         sb.append("        rootNode.getSubNodes().add(firstChild);\n");
         sb.append("        rootNode.getSubNodes().add(secondChild);\n");
@@ -125,6 +129,15 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         final List<SelectItem> items = new ArrayList<>();
 
         for (final TreeSelectionAjaxType type : TreeSelectionAjaxType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List<SelectItem> getIconTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TreeIconType type : TreeIconType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -188,9 +201,13 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         return "                ";
     }
 
-    private DefaultNodeImpl createNode(final String title, final String icon) {
-        if (useIcons) {
+    private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon) {
+        if (selectedIconType == TreeIconType.IMAGE) {
             return new DefaultNodeImpl(title, null, icon);
+        } else if (selectedIconType == TreeIconType.GLYPHICON) {
+            final DefaultNodeImpl node = new DefaultNodeImpl(title);
+            node.setGlyphiconIcon("glyphicon " + glyphicon);
+            return node;
         }
 
         return new DefaultNodeImpl(title);
@@ -255,19 +272,19 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
         return selectedNode;
     }
 
-    public boolean isUseIcons() {
-        return useIcons;
-    }
-
-    public void setUseIcons(boolean useIcons) {
-        this.useIcons = useIcons;
-    }
-
     public boolean isAllExpanded() {
         return allExpanded;
     }
 
     public void setAllExpanded(boolean allExpanded) {
         this.allExpanded = allExpanded;
+    }
+
+    public TreeIconType getSelectedIconType() {
+        return selectedIconType;
+    }
+
+    public void setSelectedIconType(TreeIconType selectedIconType) {
+        this.selectedIconType = selectedIconType;
     }
 }

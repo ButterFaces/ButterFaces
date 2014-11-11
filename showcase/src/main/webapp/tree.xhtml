@@ -22,7 +22,9 @@
             <showcase:tagEnumControl label="ajax selection"
                                      value="#{treeShowcaseComponent.selectionAjaxType}"
                                      values="#{treeShowcaseComponent.ajaxSelectionTypes}"/>
-            <showcase:tagBooleanControl label="use icons" value="#{treeShowcaseComponent.useIcons}"/>
+            <showcase:tagEnumControl label="icons"
+                                     value="#{treeShowcaseComponent.selectedIconType}"
+                                     values="#{treeShowcaseComponent.iconTypes}"/>
             <showcase:tagBooleanControl label="nodes expanded" value="#{treeShowcaseComponent.allExpanded}"/>
         </showcase:tagsContainer>
     </ui:define>
