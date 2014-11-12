@@ -17,9 +17,9 @@
     </ui:define>
 
     <ui:define name="output">
-        <b:waitingPanel id="test"
-                        delay="#{waitingPanelShowcaseComponent.delayInMillis}"
-                        rendered="#{waitingPanelShowcaseComponent.rendered}"/>
+        <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        rendered="#{waitingPanelShowcaseComponent.rendered}">
+        </b:waitingPanel>
 
         <h:commandLink value="5 second click"
                        styleClass="btn btn-success"
