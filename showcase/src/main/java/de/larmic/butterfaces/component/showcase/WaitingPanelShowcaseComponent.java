@@ -56,7 +56,7 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
         sb.append("        </b:waitingPanel>\n\n");
 
         sb.append("        <h:commandLink styleClass=\"btn btn-success\"\n");
-        this.appendString("action", "#{waitingPanelShowcaseComponent.waitForFiveSeconds}>", sb);
+        this.appendString("action", "#{myBean.waitForFiveSeconds}>", sb);
         sb.append("            <f:ajax />\n");
         sb.append("        </h:commandLink>");
 

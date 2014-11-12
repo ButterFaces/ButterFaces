@@ -3,7 +3,7 @@
  * Works with at least jQuery 1.3.2.
  *
  * How to use:
- * jQuery("#someTreeSelector").butterTree({expansionClass: 'glyphicon-chevron-down', collapsingClass: 'glyphicon-chevron-up'});
+ * jQuery("#someTreeSelector").waitingPanel();
  */
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
