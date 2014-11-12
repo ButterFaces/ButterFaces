@@ -21,7 +21,7 @@
             console.log('Setting waiting panel delay to ' + WAITING_PANEL_DELAY);
 
             function showWaitingPanel() {
-                MODAL_DIALOG.modal({show: true, keyboard: false, backdrop: 'static'});
+                MODAL_DIALOG.removeClass('butter-component-waitingPanel-hide');
                 INTERVAL_TRIGGER = setInterval(function () {
                     WAITING_PANEL_INTERVAL_ELEMENT.append('.');
 
@@ -49,7 +49,7 @@
                 } else if (data.status == 'success') {
                     console.log('End ajax event');
                     ajaxRequestRunning = false;
-                    MODAL_DIALOG.modal('hide');
+                    MODAL_DIALOG.addClass('butter-component-waitingPanel-hide');
                     window.clearInterval(INTERVAL_TRIGGER);
                     WAITING_PANEL_INTERVAL_ELEMENT.html('');
                 }

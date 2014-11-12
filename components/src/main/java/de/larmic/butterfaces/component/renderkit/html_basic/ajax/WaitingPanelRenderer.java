@@ -42,27 +42,17 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         }
 
         if (StringUtils.isNotEmpty(styleClass)) {
-            writer.writeAttribute("class", "modal butter-component-waitingPanel " + styleClass, null);
+            writer.writeAttribute("class", "butter-component-waitingPanel butter-component-waitingPanel-hide " + styleClass, null);
         } else {
-            writer.writeAttribute("class", "modal butter-component-waitingPanel", null);
+            writer.writeAttribute("class", "butter-component-waitingPanel butter-component-waitingPanel-hide", null);
         }
 
-        writer.writeAttribute("tabindex", "-1", null);
-        writer.writeAttribute("role", "dialog", null);
-        writer.writeAttribute("aria-hidden", "true", null);
-
         writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute("class", "modal-dialog", null);
-        writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute("class", "modal-content", null);
-        writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute("class", "modal-body", null);
+        writer.writeAttribute("class", "butter-component-waitingPanel-body", null);
         writer.writeText("Processing", component, null);
         writer.startElement(ELEMENT_SPAN, component);
         writer.writeAttribute("class", "butter-component-waitingPanel-processing", null);
         writer.endElement(ELEMENT_SPAN);
-        writer.endElement(ELEMENT_DIV);
-        writer.endElement(ELEMENT_DIV);
         writer.endElement(ELEMENT_DIV);
     }
 
