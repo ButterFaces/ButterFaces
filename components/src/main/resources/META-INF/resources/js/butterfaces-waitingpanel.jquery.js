@@ -7,51 +7,51 @@
  */
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
-    var EVENT_REGISTERED = false;
-    var INTERVAL_TRIGGER = null;
-    var MODAL_DIALOG = null;
-    var WAITING_PANEL_DELAY = null;
-    var WAITING_PANEL_INTERVAL_ELEMENT = null;
+    var $waitingPanelDialog = null;
+    var $waitingPanelDotSelector = null;
+    var eventRegistered = false;
+    var waitingPanelOpeningDelay = null;
 
     $.fn.waitingPanel = function (data) {
 
         function processAjaxUpdate() {
             var ajaxRequestRunning = false;
+            var intervallTrigger = null;
 
-            console.log('Setting waiting panel delay to ' + WAITING_PANEL_DELAY);
+            // console.log('Setting waiting panel delay to ' + waitingPanelOpeningDelay);
 
             function showWaitingPanel() {
-                MODAL_DIALOG.removeClass('butter-component-waitingPanel-hide');
-                INTERVAL_TRIGGER = setInterval(function () {
-                    WAITING_PANEL_INTERVAL_ELEMENT.append('.');
+                $waitingPanelDialog.removeClass('butter-component-waitingPanel-hide');
+                intervallTrigger = setInterval(function () {
+                    $waitingPanelDotSelector.append('.');
 
-                    if (WAITING_PANEL_INTERVAL_ELEMENT.html().length > 5) {
-                        WAITING_PANEL_INTERVAL_ELEMENT.html('');
+                    if ($waitingPanelDotSelector.html().length > 5) {
+                        $waitingPanelDotSelector.html('');
                     }
                 }, 200);
             }
 
             function processEvent(data) {
                 if (data.status == 'begin') {
-                    console.log('Begin ajax event');
+                    // console.log('Begin ajax event');
                     ajaxRequestRunning = true;
                     setTimeout(function () {
-                        console.log('Ajax request running: ' + ajaxRequestRunning);
+                        // console.log('Ajax request running: ' + ajaxRequestRunning);
                         if (ajaxRequestRunning) {
-                            console.log('Ajax request is running. Showing modal panel');
+                            // console.log('Ajax request is running. Showing modal panel');
                             showWaitingPanel();
                         } else {
-                            console.log('Ajax request is not running. Not showing modal panel');
+                            // console.log('Ajax request is not running. Not showing modal panel');
                         }
 
-                    }, WAITING_PANEL_DELAY);
+                    }, waitingPanelOpeningDelay);
 
                 } else if (data.status == 'success') {
-                    console.log('End ajax event');
+                    // console.log('End ajax event');
                     ajaxRequestRunning = false;
-                    MODAL_DIALOG.addClass('butter-component-waitingPanel-hide');
-                    window.clearInterval(INTERVAL_TRIGGER);
-                    WAITING_PANEL_INTERVAL_ELEMENT.html('');
+                    $waitingPanelDialog.addClass('butter-component-waitingPanel-hide');
+                    window.clearInterval(intervallTrigger);
+                    $waitingPanelDotSelector.html('');
                 }
             }
 
@@ -63,19 +63,19 @@
             var _elementId = $originalElement.attr('id')
             var _msg = document.getElementById(_elementId);
 
-            MODAL_DIALOG = $(_msg);
-            WAITING_PANEL_INTERVAL_ELEMENT = MODAL_DIALOG.find('.butter-component-waitingPanel-processing');
-            WAITING_PANEL_DELAY = data.waitingPanelDelay;
+            $waitingPanelDialog = $(_msg);
+            $waitingPanelDotSelector = $waitingPanelDialog.find('.butter-component-waitingPanel-processing');
+            waitingPanelOpeningDelay = data.waitingPanelDelay;
 
             // I found no way to remove event listener from jsf js.
             // I tried to register a callback once and change it on render waiting panel but after this
             // no waiting panel appears anymore.
             // Actually on each rendering of this component a new callback is put on event listener collection.
-            if (!EVENT_REGISTERED) {
-                console.log('Register: ' + _elementId);
+            if (!eventRegistered) {
+                // console.log('Register: ' + _elementId);
 
                 jsf.ajax.addOnEvent(processAjaxUpdate());
-                EVENT_REGISTERED = true;
+                eventRegistered = true;
             }
         });
 

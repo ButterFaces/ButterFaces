@@ -14,11 +14,26 @@
             <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcaseComponent.rendered}"/>
             <showcase:tagStringControl label="delay" value="#{waitingPanelShowcaseComponent.delayInMillis}"/>
         </showcase:tagsContainer>
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax selection"
+                                     value="#{waitingPanelShowcaseComponent.childrenType}"
+                                     values="#{waitingPanelShowcaseComponent.childrenTypes}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
-                        rendered="#{waitingPanelShowcaseComponent.rendered}">
+                        rendered="#{waitingPanelShowcaseComponent.rendered and waitingPanelShowcaseComponent.renderNoChildren}">
+        </b:waitingPanel>
+
+        <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        rendered="#{waitingPanelShowcaseComponent.rendered and waitingPanelShowcaseComponent.renderChildrenExample1}">
+            Example 1
+        </b:waitingPanel>
+
+        <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        rendered="#{waitingPanelShowcaseComponent.rendered and waitingPanelShowcaseComponent.renderChildrenExample2}">
+            Example 2
         </b:waitingPanel>
 
         <h:commandLink value="5 second click"

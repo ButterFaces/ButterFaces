@@ -1,8 +1,14 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.waitingpanel;
 
+import de.larmic.butterfaces.component.renderkit.html_basic.ajax.WaitingPanelRenderer;
+import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
+
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by larmic on 11.09.14.
@@ -12,6 +18,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
+    private WaitingPanelChildrenType waitingPanelChildrenType = WaitingPanelChildrenType.NONE;
     private int delayInMillis = 500;
 
     public void doWaitingClick() {
@@ -48,11 +55,18 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <b:waitingPanel id=\"input\"\n");
+        sb.append("        <b:waitingPanel id=\"waiting\"\n");
 
-        this.appendString(" delay", this.delayInMillis + "", sb);
+        if (this.delayInMillis != WaitingPanelRenderer.DEFAULT_WAITING_PANEL_DELAY) {
+            this.appendString(" delay", this.delayInMillis + "", sb);
+        }
         this.appendBoolean(" rendered", this.isRendered(), sb, true);
 
+        if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_1) {
+            sb.append("            Example 1\n");
+        } else if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_2) {
+            sb.append("            Example 2\n");
+        }
         sb.append("        </b:waitingPanel>\n\n");
 
         sb.append("        <h:commandLink styleClass=\"btn btn-success\"\n");
@@ -63,6 +77,15 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    public List<SelectItem> getChildrenTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final WaitingPanelChildrenType type : WaitingPanelChildrenType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     @Override
@@ -76,5 +99,25 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
 
     public void setDelayInMillis(int delayInMillis) {
         this.delayInMillis = delayInMillis;
+    }
+
+    public WaitingPanelChildrenType getChildrenType() {
+        return waitingPanelChildrenType;
+    }
+
+    public void setChildrenType(WaitingPanelChildrenType childrenType) {
+        this.waitingPanelChildrenType = childrenType;
+    }
+
+    public boolean isRenderChildrenExample1() {
+        return this.waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_1;
+    }
+
+    public boolean isRenderChildrenExample2() {
+        return this.waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_2;
+    }
+
+    public boolean isRenderNoChildren() {
+        return this.waitingPanelChildrenType == WaitingPanelChildrenType.NONE;
     }
 }

@@ -71,8 +71,10 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     protected void addJavaCode(final StringBuilder sb) {
         sb.append("package de.larmic.tree,demo;\n\n");
 
-        sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionEvent;\n");
-        sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionListener;\n");
+        if (selectionAjaxType != TreeSelectionAjaxType.NONE) {
+            sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionEvent;\n");
+            sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionListener;\n");
+        }
         sb.append("import de.larmic.butterfaces.model.tree.Node;\n");
         sb.append("import de.larmic.butterfaces.model.tree.DefaultNodeImpl;\n\n");
         sb.append("import javax.faces.view.ViewScoped;\n");
@@ -80,7 +82,11 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
         sb.append("@ViewScoped\n");
         sb.append("@Named\n");
-        sb.append("public class MyBean implements Serializable, TreeNodeSelectionListener {\n\n");
+        if (selectionAjaxType != TreeSelectionAjaxType.NONE) {
+            sb.append("public class MyBean implements Serializable, TreeNodeSelectionListener {\n\n");
+        } else {
+            sb.append("public class MyBean implements Serializable {\n\n");
+        }
         if (isAjaxRendered()) {
             sb.append("    private Node selectedNode;\n\n");
         }
