@@ -1,9 +1,10 @@
 /**
- * jQuery-Plugin "Animate Tree" for tree animation. It is used for the JSF-Component "b:tree".
+ * jQuery-Plugin "Waiting panel popup" for ajax popup animation. If registered an waiting panel popup will be rendered
+ * as long as ajax request is running.
  * Works with at least jQuery 1.3.2.
  *
  * How to use:
- * jQuery("#someTreeSelector").waitingPanel();
+ * jQuery("#someSelector").waitingPanel();
  */
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
@@ -16,19 +17,12 @@
 
         function processAjaxUpdate() {
             var ajaxRequestRunning = false;
-            var intervallTrigger = null;
 
             // console.log('Setting waiting panel delay to ' + waitingPanelOpeningDelay);
 
             function showWaitingPanel() {
                 $waitingPanelDialog.removeClass('butter-component-waitingPanel-hide');
-                intervallTrigger = setInterval(function () {
-                    $waitingPanelDotSelector.append('.');
-
-                    if ($waitingPanelDotSelector.html().length > 5) {
-                        $waitingPanelDotSelector.html('');
-                    }
-                }, 200);
+                $waitingPanelDotSelector.startDots();
             }
 
             function processEvent(data) {
@@ -50,8 +44,7 @@
                     // console.log('End ajax event');
                     ajaxRequestRunning = false;
                     $waitingPanelDialog.addClass('butter-component-waitingPanel-hide');
-                    window.clearInterval(intervallTrigger);
-                    $waitingPanelDotSelector.html('');
+                    $waitingPanelDotSelector.stopDots();
                 }
             }
 
@@ -60,7 +53,7 @@
 
         return this.each(function () {
             var $originalElement = $(this);
-            var _elementId = $originalElement.attr('id')
+            var _elementId = $originalElement.attr('id');
             var _msg = document.getElementById(_elementId);
 
             $waitingPanelDialog = $(_msg);

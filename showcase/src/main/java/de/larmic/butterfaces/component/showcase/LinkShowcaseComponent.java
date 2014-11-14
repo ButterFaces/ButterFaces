@@ -14,7 +14,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     private String value = "click me";
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
-    private String style = null;
+    private String style = "btn btn-primary";
     private int clicks = 0;
 
     public void increaseClick() {

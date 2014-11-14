@@ -4,6 +4,7 @@ import com.sun.faces.renderkit.html_basic.CommandLinkRenderer;
 import de.larmic.butterfaces.component.html.HtmlGlyphiconCommandLink;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
@@ -13,6 +14,13 @@ import java.io.IOException;
  */
 @FacesRenderer(componentFamily = HtmlGlyphiconCommandLink.COMPONENT_FAMILY, rendererType = HtmlGlyphiconCommandLink.RENDERER_TYPE)
 public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
+
+    @Override
+    public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        super.encodeEnd(context, component);
+
+        // TODO write jquery plugin
+    }
 
     @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
