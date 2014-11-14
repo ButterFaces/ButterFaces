@@ -56,7 +56,8 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     }
 
     public boolean isDisableOnClick() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_ON_CLICK);
+        final Object eval = this.getStateHelper().eval(PROPERTY_DISABLE_ON_CLICK);
+        return eval == null ? true : (Boolean) eval;
     }
 
     public void setDisableOnClick(final boolean deactivateOnClick) {
