@@ -7,7 +7,8 @@
 
     <ui:define name="header">
         <strong>b:table</strong> The table tag renders an HTML element of the type "table".
-        <p>See <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">Font Awesome Icons</a> for nice glyphicons.</p>
+        <p>See <a href="http://fortawesome.github.io/Font-Awesome/icons/"
+                  target="_blank">Font Awesome Icons</a> for nice glyphicons.</p>
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -23,31 +24,27 @@
             <showcase:tagEnumControl label="link type"
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
+            <showcase:tagBooleanControl label="disableOnClick" value="#{linkShowcaseComponent.disableOnClick}"/>
         </showcase:tagsContainer>
     </ui:define>
 
-    <ui:define name="attributes">
-        <h:form prependId="false">
-
-        </h:form>
-    </ui:define>
-
-    <ui:define name="controls">
-        <h:form prependId="false">
-
-        </h:form>
-    </ui:define>
-
     <ui:define name="output">
+        <h:panelGroup layout="block"
+                      rendered="#{linkShowcaseComponent.disableOnClick}"
+                      styleClass="alert alert-warning">
+            <strong>Attention</strong> To show attribute <l>disableOnClick</l> action method will wait 2 seconds.
+        </h:panelGroup>
+
         <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
                        value="#{linkShowcaseComponent.value}"
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
+                       disableOnClick="#{linkShowcaseComponent.disableOnClick}"
                        rendered="#{linkShowcaseComponent.rendered}">
-            <f:ajax render="clicks" />
+            <f:ajax render="clicks" onevent="logTest"/>
         </b:commandLink>
 
-        <hr />
+        <hr/>
 
         <h:panelGroup id="clicks" layout="block">
             <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
@@ -62,6 +59,10 @@
             jQuery(document).ready(function () {
                 setActiveNavigation('commandLink');
             });
+
+            function logTest(data) {
+                console.log('showcase log: onevent is called with data ' + data);
+            }
         </script>
     </ui:define>
 </ui:composition>

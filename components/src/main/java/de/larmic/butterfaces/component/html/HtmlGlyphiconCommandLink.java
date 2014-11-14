@@ -11,6 +11,7 @@ import javax.faces.component.html.HtmlCommandLink;
  */
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head")})
@@ -22,13 +23,11 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.GlyphiconCommandLinkRenderer";
 
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
-    protected static final String PROPERTY_DEACTIVATE_ON_CLICK = "deactivateOnClick";
-
+    protected static final String PROPERTY_DISABLE_ON_CLICK = "disableOnClick";
 
     public HtmlGlyphiconCommandLink() {
         super();
         this.setRendererType(RENDERER_TYPE);
-        this.setDeactivateOnClick(true);
     }
 
     @Override
@@ -55,12 +54,12 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
         this.updateStateHelper(PROPERTY_GLYPHICON, glyphicon);
     }
 
-    public boolean isDeactivateOnClick() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_DEACTIVATE_ON_CLICK);
+    public boolean isDisableOnClick() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_DISABLE_ON_CLICK);
     }
 
-    public void setDeactivateOnClick(final boolean deactivateOnClick) {
-        this.updateStateHelper(PROPERTY_DEACTIVATE_ON_CLICK, deactivateOnClick);
+    public void setDisableOnClick(final boolean deactivateOnClick) {
+        this.updateStateHelper(PROPERTY_DISABLE_ON_CLICK, deactivateOnClick);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
