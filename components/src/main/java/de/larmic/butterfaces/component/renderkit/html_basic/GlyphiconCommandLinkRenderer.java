@@ -32,7 +32,6 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
         final ResponseWriter responseWriter = context.getResponseWriter();
 
-        // TODO write jquery plugin
         responseWriter.startElement("script", component);
         responseWriter.writeText("function glyphiconLinkListener(data) {", null);
         if (StringUtils.isNotEmpty(onEventCallback)) {
@@ -45,9 +44,13 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
     @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
-        writeGlyphiconIfNecessary(component, writer);
+        final HtmlGlyphiconCommandLink commandLink = (HtmlGlyphiconCommandLink) component;
+
+        this.writeGlyphiconIfNecessary(commandLink, writer);
 
         super.writeValue(component, writer);
+
+        this.writeWaitingDotsIfNecessary(commandLink, writer);
     }
 
     @Override
@@ -84,13 +87,21 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
         }
     }
 
-    protected void writeGlyphiconIfNecessary(final UIComponent component,
+    protected void writeWaitingDotsIfNecessary(final HtmlGlyphiconCommandLink commandLink,
+                                               final ResponseWriter writer) throws IOException {
+        if (commandLink.isDisableOnClick()) {
+            writer.startElement("span", commandLink);
+            writer.writeAttribute("class", "butter-component-glyphicon-processing", null);
+            writer.endElement("span");
+        }
+    }
+
+    protected void writeGlyphiconIfNecessary(final HtmlGlyphiconCommandLink commandLink,
                                              final ResponseWriter writer) throws IOException {
-        final HtmlGlyphiconCommandLink commandLink = (HtmlGlyphiconCommandLink) component;
         final String glyphicon = commandLink.getGlyphicon();
 
         if (glyphicon != null && !"".equals(glyphicon)) {
-            writer.startElement("span", component);
+            writer.startElement("span", commandLink);
             writer.writeAttribute("class", "butter-component-glyphicon " + glyphicon, null);
             writer.endElement("span");
         }
