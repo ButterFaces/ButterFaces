@@ -103,11 +103,11 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
 
         guardAjax(glyphicon).selectByIndex(0);
         WebElement component = this.findWebElementByClassName(BUTTER_COMPONENT);
-        List<WebElement> spans = component.findElements(By.tagName("span"));
+        List<WebElement> spans = component.findElements(By.cssSelector("span.butter-component-glyphicon"));
         Assert.assertEquals("Find span but span should not been rendered.", 0, spans.size());
 
         guardAjax(glyphicon).selectByIndex(1);
-        spans = component.findElements(By.tagName("span"));
+        spans = component.findElements(By.cssSelector("span.butter-component-glyphicon"));
         Assert.assertEquals("Could not find span tag in showcase component.", 1, spans.size());
         Assert.assertTrue(spans.get(0).getAttribute("class").contains("glyphicon"));
         Assert.assertTrue(spans.get(0).getAttribute("class").contains("glyphicon-thumbs-up"));
@@ -115,7 +115,7 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
         Assert.assertTrue(spans.get(0).getAttribute("class").contains("butter-component-glyphicon"));
 
         guardAjax(glyphicon).selectByIndex(2);
-        spans = component.findElements(By.tagName("span"));
+        spans = component.findElements(By.cssSelector("span.butter-component-glyphicon"));
         Assert.assertEquals("Could not find span tag in showcase component.", 1, spans.size());
         Assert.assertTrue(spans.get(0).getAttribute("class").contains("fa"));
         Assert.assertTrue(spans.get(0).getAttribute("class").contains("fa-language"));
@@ -131,6 +131,9 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
         Assert.assertEquals("0", this.findWebElementByClassName(CLICKS_SPAN).getText());
 
         final WebElement link = this.findWebElementByClassName(BUTTER_COMPONENT);
+
+        // disable feature ajaxDisableLinkOnRequest becauser otherwise clicking link will be waiting severel seconds (see showcase)
+        guardAjax(this.findWebElementByClassName("arquillian_ajaxDisableLinkOnRequest")).click();
 
         guardAjax(link).click();
         Assert.assertEquals("1", this.findWebElementByClassName(CLICKS_SPAN).getText());
