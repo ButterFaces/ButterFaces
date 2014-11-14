@@ -16,11 +16,11 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
     private String style = "btn btn-primary";
     private int clicks = 0;
-    private boolean disableOnClick = true;
-    private boolean showWaitingDotsOnClick = true;
+    private boolean ajaxDisableLinkOnRequest = true;
+    private boolean ajaxShowWaitingDotsOnRequest = true;
 
     public void increaseClick() {
-        if (disableOnClick) {
+        if (ajaxDisableLinkOnRequest) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -62,7 +62,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("public class MyBean implements Serializable {\n\n");
         sb.append("    private int clicks = 0;\n\n");
         sb.append("    public void increaseClick() {\n");
-        if(disableOnClick) {
+        if(ajaxDisableLinkOnRequest) {
             sb.append("        try {\n");
             sb.append("            Thread.sleep(2000);\n");
             sb.append("        } catch (InterruptedException e) {\n");
@@ -92,7 +92,8 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("value", this.getValue(), sb);
         this.appendString("glyphicon", this.getGlyphicon(), sb);
         this.appendString("styleClass", this.getStyle(), sb);
-        this.appendString("disableOnClick", this.isDisableOnClick() + "", sb);
+        this.appendString("ajaxDisableLinkOnRequest", this.isAjaxDisableLinkOnRequest() + "", sb);
+        this.appendString("ajaxShowWaitingDotsOnRequest", this.isAjaxShowWaitingDotsOnRequest() + "", sb);
 
         sb.append(getEmptyDistanceString() + "action=#{myBean.increaseClick}\n");
 
@@ -143,19 +144,19 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         return clicks;
     }
 
-    public boolean isDisableOnClick() {
-        return disableOnClick;
+    public boolean isAjaxDisableLinkOnRequest() {
+        return ajaxDisableLinkOnRequest;
     }
 
-    public void setDisableOnClick(boolean disableOnClick) {
-        this.disableOnClick = disableOnClick;
+    public void setAjaxDisableLinkOnRequest(boolean ajaxDisableLinkOnRequest) {
+        this.ajaxDisableLinkOnRequest = ajaxDisableLinkOnRequest;
     }
 
-    public boolean isShowWaitingDotsOnClick() {
-        return showWaitingDotsOnClick;
+    public boolean isAjaxShowWaitingDotsOnRequest() {
+        return ajaxShowWaitingDotsOnRequest;
     }
 
-    public void setShowWaitingDotsOnClick(boolean showWaitingDotsOnClick) {
-        this.showWaitingDotsOnClick = showWaitingDotsOnClick;
+    public void setAjaxShowWaitingDotsOnRequest(boolean ajaxShowWaitingDotsOnRequest) {
+        this.ajaxShowWaitingDotsOnRequest = ajaxShowWaitingDotsOnRequest;
     }
 }

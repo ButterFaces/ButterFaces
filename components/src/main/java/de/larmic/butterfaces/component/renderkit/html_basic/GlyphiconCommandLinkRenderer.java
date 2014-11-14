@@ -33,13 +33,13 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
         final HtmlGlyphiconCommandLink link = (HtmlGlyphiconCommandLink) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
-        if (link.isDisableOnClick()) {
+        if (link.isAjaxDisableLinkOnRequest()) {
             responseWriter.startElement("script", component);
             responseWriter.writeText("function glyphiconLinkListener(data) {", null);
             if (StringUtils.isNotEmpty(onEventCallback)) {
                 responseWriter.writeText("    " + onEventCallback + "(data);", null);
             }
-            responseWriter.writeText("    disableOnClick(data, " + link.isShowWaitingDotsOnClick() + ");", null);
+            responseWriter.writeText("    disableOnClick(data, " + link.isAjaxShowWaitingDotsOnRequest() + ");", null);
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
@@ -60,7 +60,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
     protected void renderAsActive(FacesContext context, UIComponent component) throws IOException {
         AjaxBehavior ajaxBehavior = null;
 
-        if (((HtmlGlyphiconCommandLink) component).isDisableOnClick()) {
+        if (((HtmlGlyphiconCommandLink) component).isAjaxDisableLinkOnRequest()) {
             final Map behaviors = (AbstractMap) ((ClientBehaviorHolder) component).getClientBehaviors();
 
             final List<AjaxBehavior> actionBehaviours = (List<AjaxBehavior>) behaviors.get("action");
@@ -92,7 +92,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
     protected void writeWaitingDotsIfNecessary(final HtmlGlyphiconCommandLink commandLink,
                                                final ResponseWriter writer) throws IOException {
-        if (commandLink.isDisableOnClick()) {
+        if (commandLink.isAjaxDisableLinkOnRequest()) {
             writer.startElement("span", commandLink);
             writer.writeAttribute("class", "butter-component-glyphicon-processing", null);
             writer.endElement("span");

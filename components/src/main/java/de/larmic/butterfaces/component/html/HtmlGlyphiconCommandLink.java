@@ -25,9 +25,8 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.GlyphiconCommandLinkRenderer";
 
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
-    protected static final String PROPERTY_DISABLE_ON_CLICK = "disableOnClick";
-    protected static final String PROPERTY_SHOW_WAITING_DOTS_ON_CLICK = "showWaitingDotsOnClick";
-
+    protected static final String PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST = "ajaxDisableLinkOnRequest";
+    protected static final String PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST = "ajaxShowWaitingDotsOnRequest";
 
     public HtmlGlyphiconCommandLink() {
         super();
@@ -58,22 +57,22 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
         this.updateStateHelper(PROPERTY_GLYPHICON, glyphicon);
     }
 
-    public boolean isDisableOnClick() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_DISABLE_ON_CLICK);
+    public boolean isAjaxDisableLinkOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST);
         return eval == null ? true : (Boolean) eval;
     }
 
-    public void setDisableOnClick(final boolean deactivateOnClick) {
-        this.updateStateHelper(PROPERTY_DISABLE_ON_CLICK, deactivateOnClick);
+    public void setAjaxDisableLinkOnRequest(boolean ajaxDisableLinkOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST, ajaxDisableLinkOnRequest);
     }
 
-    public boolean isShowWaitingDotsOnClick() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_SHOW_WAITING_DOTS_ON_CLICK);
+    public boolean isAjaxShowWaitingDotsOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST);
         return eval == null ? true : (Boolean) eval;
     }
 
-    public void setShowWaitingDotsOnClick(boolean showWaitingDotsOnClick) {
-        this.updateStateHelper(PROPERTY_SHOW_WAITING_DOTS_ON_CLICK, showWaitingDotsOnClick);
+    public void setAjaxShowWaitingDotsOnRequest(boolean ajaxShowWaitingDotsOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST, ajaxShowWaitingDotsOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

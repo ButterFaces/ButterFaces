@@ -1007,14 +1007,14 @@
         </attribute>
         <attribute>
             <description>Disables link on click. Enables link on ajax complete. Default is true</description>
-            <name>disableOnClick</name>
+            <name>ajaxDisableLinkOnRequest</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
             <description>Show waiting panel dots if (ajax) request is running. Needs disableOnClick to be true. Default
                 is true
             </description>
-            <name>showWaitingDotsOnClick</name>
+            <name>ajaxShowWaitingDotsOnRequest</name>
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>

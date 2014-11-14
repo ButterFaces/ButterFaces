@@ -24,24 +24,24 @@
             <showcase:tagEnumControl label="link type"
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
-            <showcase:tagBooleanControl label="disableOnClick" value="#{linkShowcaseComponent.disableOnClick}"/>
-            <showcase:tagBooleanControl label="showWaitingDotsOnClick" value="#{linkShowcaseComponent.showWaitingDotsOnClick}"/>
+            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest" value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"/>
+            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest" value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <h:panelGroup layout="block"
-                      rendered="#{linkShowcaseComponent.disableOnClick}"
+                      rendered="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
                       styleClass="alert alert-warning">
-            <strong>Attention</strong> To show attribute <l>disableOnClick</l> action method will wait 2 seconds.
+            <strong>Attention</strong> To show attribute <l>ajaxDisableLinkOnRequest</l> action method will wait 2 seconds.
         </h:panelGroup>
 
         <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
                        value="#{linkShowcaseComponent.value}"
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
-                       disableOnClick="#{linkShowcaseComponent.disableOnClick}"
-                       showWaitingDotsOnClick="#{linkShowcaseComponent.showWaitingDotsOnClick}"
+                       ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" onevent="logTest"/>
         </b:commandLink>
