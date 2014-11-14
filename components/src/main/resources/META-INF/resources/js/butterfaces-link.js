@@ -1,4 +1,4 @@
-function disableOnClick(data) {
+function disableOnClick(data, showDots) {
     var status = data.status;
 
     console.log(data.source.id);
@@ -9,13 +9,19 @@ function disableOnClick(data) {
         case "begin": // Before the ajax request is sent.
             console.log('ajax request begin');
             $commandLink.addClass("disabled");
-            $commandLink.find('.butter-component-glyphicon-processing').startDots();
+            if (showDots) {
+                $commandLink.find('.butter-component-glyphicon-processing').startDots();
+                $commandLink.find('.butter-component-glyphicon-processing').css('display', 'inline-block');
+            }
             break;
 
         case "complete": // After the ajax response is arrived.
             console.log('ajax request complete');
             $commandLink.removeClass("disabled");
-            $commandLink.find('.butter-component-glyphicon-processing').stopDots();
+            if (showDots) {
+                $commandLink.find('.butter-component-glyphicon-processing').stopDots();
+                $commandLink.find('.butter-component-glyphicon-processing').css('display', 'none');
+            }
             break;
 
         case "success": // After update of HTML DOM based on ajax response..

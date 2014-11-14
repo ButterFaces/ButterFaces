@@ -25,6 +25,7 @@
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
             <showcase:tagBooleanControl label="disableOnClick" value="#{linkShowcaseComponent.disableOnClick}"/>
+            <showcase:tagBooleanControl label="showWaitingDotsOnClick" value="#{linkShowcaseComponent.showWaitingDotsOnClick}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -40,6 +41,7 @@
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
                        disableOnClick="#{linkShowcaseComponent.disableOnClick}"
+                       showWaitingDotsOnClick="#{linkShowcaseComponent.showWaitingDotsOnClick}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" onevent="logTest"/>
         </b:commandLink>

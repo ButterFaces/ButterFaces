@@ -30,16 +30,19 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
+        final HtmlGlyphiconCommandLink link = (HtmlGlyphiconCommandLink) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
-        responseWriter.startElement("script", component);
-        responseWriter.writeText("function glyphiconLinkListener(data) {", null);
-        if (StringUtils.isNotEmpty(onEventCallback)) {
-            responseWriter.writeText("    " + onEventCallback + "(data);", null);
+        if (link.isDisableOnClick()) {
+            responseWriter.startElement("script", component);
+            responseWriter.writeText("function glyphiconLinkListener(data) {", null);
+            if (StringUtils.isNotEmpty(onEventCallback)) {
+                responseWriter.writeText("    " + onEventCallback + "(data);", null);
+            }
+            responseWriter.writeText("    disableOnClick(data, " + link.isShowWaitingDotsOnClick() + ");", null);
+            responseWriter.writeText("}", null);
+            responseWriter.endElement("script");
         }
-        responseWriter.writeText("    disableOnClick(data);", null);
-        responseWriter.writeText("}", null);
-        responseWriter.endElement("script");
     }
 
     @Override

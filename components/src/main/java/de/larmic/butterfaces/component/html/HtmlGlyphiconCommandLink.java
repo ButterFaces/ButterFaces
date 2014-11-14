@@ -11,6 +11,7 @@ import javax.faces.component.html.HtmlCommandLink;
  */
 @ResourceDependencies({
         @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
+        @ResourceDependency(library = "css", name = "butterfaces-link.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-dots.jquery.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-link.js", target = "head"),
@@ -25,6 +26,8 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
 
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
     protected static final String PROPERTY_DISABLE_ON_CLICK = "disableOnClick";
+    protected static final String PROPERTY_SHOW_WAITING_DOTS_ON_CLICK = "showWaitingDotsOnClick";
+
 
     public HtmlGlyphiconCommandLink() {
         super();
@@ -62,6 +65,15 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
 
     public void setDisableOnClick(final boolean deactivateOnClick) {
         this.updateStateHelper(PROPERTY_DISABLE_ON_CLICK, deactivateOnClick);
+    }
+
+    public boolean isShowWaitingDotsOnClick() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_SHOW_WAITING_DOTS_ON_CLICK);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setShowWaitingDotsOnClick(boolean showWaitingDotsOnClick) {
+        this.updateStateHelper(PROPERTY_SHOW_WAITING_DOTS_ON_CLICK, showWaitingDotsOnClick);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

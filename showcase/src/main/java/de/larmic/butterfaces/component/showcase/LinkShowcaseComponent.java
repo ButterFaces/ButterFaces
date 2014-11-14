@@ -17,6 +17,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private String style = "btn btn-primary";
     private int clicks = 0;
     private boolean disableOnClick = true;
+    private boolean showWaitingDotsOnClick = true;
 
     public void increaseClick() {
         if (disableOnClick) {
@@ -148,5 +149,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setDisableOnClick(boolean disableOnClick) {
         this.disableOnClick = disableOnClick;
+    }
+
+    public boolean isShowWaitingDotsOnClick() {
+        return showWaitingDotsOnClick;
+    }
+
+    public void setShowWaitingDotsOnClick(boolean showWaitingDotsOnClick) {
+        this.showWaitingDotsOnClick = showWaitingDotsOnClick;
     }
 }

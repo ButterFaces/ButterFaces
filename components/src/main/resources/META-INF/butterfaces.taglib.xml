@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
-	id="b">
-	<namespace>http://butterfaces.larmic.de/components</namespace>
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+                id="b">
+    <namespace>http://butterfaces.larmic.de/components</namespace>
 
-	<tag>
-		<tag-name>text</tag-name>
-		<component>
-			<component-type>de.larmic.butterfaces.component.text</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
+    <tag>
+        <tag-name>text</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.text</component-type>
+        </component>
         <attribute>
-			<name>hideLabel</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
         <attribute>
             <name>type</name>
             <type>java.lang.String</type>
@@ -47,14 +48,14 @@
             <name>autoFocus</name>
             <type>java.lang.Boolean</type>
         </attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>labelStyleClass</name>
             <type>java.lang.String</type>
@@ -63,23 +64,23 @@
             <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
-		<attribute>
-			<name>placeholder</name>
-			<type>java.lang.String</type>
-		</attribute>
         <attribute>
-			<name>pattern</name>
-			<type>java.lang.String</type>
-		</attribute>
+            <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
-			<name>min</name>
-			<type>java.lang.String</type>
-		</attribute>
+            <name>pattern</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
-			<name>max</name>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
+            <name>min</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>max</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 
     <tag>
         <tag-name>number</tag-name>
@@ -89,7 +90,8 @@
         <attribute>
             <name>label</name>
             <type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
         </attribute>
         <attribute>
             <name>value</name>
@@ -157,7 +159,8 @@
         <attribute>
             <name>label</name>
             <type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
         </attribute>
         <attribute>
             <name>value</name>
@@ -205,56 +208,57 @@
         </attribute>
     </tag>
 
-	<tag>
-		<tag-name>textArea</tag-name>
-		<component>
-			<component-type>de.larmic.butterfaces.component.textArea</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
+    <tag>
+        <tag-name>textArea</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.textArea</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>maxLength</name>
-			<type>java.lang.Integer</type>
-		</attribute>
-		<attribute>
-			<name>expandable</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>maxLength</name>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <name>expandable</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>labelStyleClass</name>
             <type>java.lang.String</type>
@@ -263,58 +267,59 @@
             <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
-		<attribute>
-			<name>placeholder</name>
-			<type>java.lang.String</type>
-		</attribute>
-	</tag>
+        <attribute>
+            <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
 
-	<tag>
-		<tag-name>comboBox</tag-name>
-		<component>
-			<component-type>de.larmic.butterfaces.component.comboBox</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
+    <tag>
+        <tag-name>comboBox</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.comboBox</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
         <attribute>
             <name>layout</name>
             <type>java.lang.String</type>
         </attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>labelStyleClass</name>
             <type>java.lang.String</type>
@@ -323,50 +328,51 @@
             <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
-	</tag>
+    </tag>
 
     <tag>
-		<tag-name>radioBox</tag-name>
-		<component>
-			<component-type>de.larmic.butterfaces.component.radioBox</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <tag-name>radioBox</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.radioBox</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>labelStyleClass</name>
             <type>java.lang.String</type>
@@ -375,54 +381,55 @@
             <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
-	</tag>
+    </tag>
 
-	<tag>
-		<tag-name>checkBox</tag-name>
-		<component>
-			<component-type>de.larmic.butterfaces.component.checkBox</component-type>
-		</component>
-		<attribute>
-			<name>label</name>
-			<type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>tooltip</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>description</name>
-			<type>java.lang.String</type>
-		</attribute>
+    <tag>
+        <tag-name>checkBox</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.checkBox</component-type>
+        </component>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.String</type>
+            <description>Renders a label in front of input component and adds label attribute to input component.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>tooltip</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>description</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>
-		<attribute>
-			<name>readonly</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>rendered</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>required</name>
-			<type>java.lang.Boolean</type>
-		</attribute>
-		<attribute>
-			<name>style</name>
-			<type>java.lang.String</type>
-		</attribute>
-		<attribute>
-			<name>styleClass</name>
-			<type>java.lang.String</type>
-		</attribute>
+        <attribute>
+            <name>readonly</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>required</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>labelStyleClass</name>
             <type>java.lang.String</type>
@@ -431,7 +438,7 @@
             <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
-	</tag>
+    </tag>
 
     <tag>
         <tag-name>section</tag-name>
@@ -1001,6 +1008,13 @@
         <attribute>
             <description>Disables link on click. Enables link on ajax complete. Default is true</description>
             <name>disableOnClick</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Show waiting panel dots if (ajax) request is running. Needs disableOnClick to be true. Default
+                is true
+            </description>
+            <name>showWaitingDotsOnClick</name>
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>
