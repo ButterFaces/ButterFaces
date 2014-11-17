@@ -1020,8 +1020,14 @@
         <attribute>
             <description>Displayed processing text while (ajax) request is running Default is 'Processing'.
             </description>
-            <name>ajaxProcessingText</name>
+            <name>ajaxProcessingTextOnRequest</name>
             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Hides glyphicon while (ajax) request is running Default is 'true'.
+            </description>
+            <name>ajaxHideGlyphiconOnRequest</name>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
 

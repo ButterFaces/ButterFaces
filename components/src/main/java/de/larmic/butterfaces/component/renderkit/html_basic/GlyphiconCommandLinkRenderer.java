@@ -39,12 +39,14 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
             if (StringUtils.isNotEmpty(onEventCallback)) {
                 responseWriter.writeText("    " + onEventCallback + "(data);", null);
             }
-            final String processingText = StringUtils.isEmpty(link.getAjaxProcessingText()) ? "Processing" : link.getAjaxProcessingText();
+            final String processingText = StringUtils.isEmpty(link.getAjaxProcessingTextOnRequest())
+                    ? "Processing" : link.getAjaxProcessingTextOnRequest();
 
             responseWriter.writeText("    disableOnClick(data, " +
                     link.isAjaxShowWaitingDotsOnRequest() + ",'" +
                     link.getValue() + "','" +
-                    processingText + "');", null);
+                    processingText + "'," +
+                    link.isAjaxHideGlyphiconOnRequest() + ");", null);
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }

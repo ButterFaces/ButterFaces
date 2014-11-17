@@ -18,15 +18,16 @@
             <showcase:tagEnumControl label="glyphicon"
                                      value="#{linkShowcaseComponent.glyphicon}"
                                      values="#{linkShowcaseComponent.glyphicons}"/>
+            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest" value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"/>
+            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest" value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"/>
+            <showcase:tagBooleanControl label="ajaxHideGlyphiconOnRequest" value="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"/>
+            <showcase:tagStringControl label="ajaxProcessingTextOnRequest" value="#{linkShowcaseComponent.ajaxProcessingText}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="link type"
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
-            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest" value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest" value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"/>
-            <showcase:tagStringControl label="ajaxProcessingText" value="#{linkShowcaseComponent.ajaxProcessingText}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -42,7 +43,8 @@
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
                        ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
-                       ajaxProcessingText="#{linkShowcaseComponent.ajaxProcessingText}"
+                       ajaxProcessingTextOnRequest="#{linkShowcaseComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" onevent="logTest"/>

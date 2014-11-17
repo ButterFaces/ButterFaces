@@ -18,6 +18,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private int clicks = 0;
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
+    private boolean ajaxHideGlyphiconOnRequest = true;
     private String ajaxProcessingText = "Processing";
 
     public void increaseClick() {
@@ -95,6 +96,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("styleClass", this.getStyle(), sb);
         this.appendString("ajaxDisableLinkOnRequest", this.isAjaxDisableLinkOnRequest() + "", sb);
         this.appendString("ajaxShowWaitingDotsOnRequest", this.isAjaxShowWaitingDotsOnRequest() + "", sb);
+        this.appendString("ajaxHideGlyphiconOnRequest", this.isAjaxHideGlyphiconOnRequest() + "", sb);
 
         if (!"Processing".equals(this.getAjaxProcessingText())) {
             this.appendString("ajaxProcessingText", this.getAjaxProcessingText() + "", sb);
@@ -171,5 +173,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setAjaxProcessingText(String ajaxProcessingText) {
         this.ajaxProcessingText = ajaxProcessingText;
+    }
+
+    public boolean isAjaxHideGlyphiconOnRequest() {
+        return ajaxHideGlyphiconOnRequest;
+    }
+
+    public void setAjaxHideGlyphiconOnRequest(boolean ajaxHideGlyphiconOnRequest) {
+        this.ajaxHideGlyphiconOnRequest = ajaxHideGlyphiconOnRequest;
     }
 }

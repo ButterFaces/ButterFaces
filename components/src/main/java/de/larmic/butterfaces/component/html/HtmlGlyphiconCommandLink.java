@@ -27,8 +27,8 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
     protected static final String PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST = "ajaxDisableLinkOnRequest";
     protected static final String PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST = "ajaxShowWaitingDotsOnRequest";
-    protected static final String PROPERTY_AJAX_PROCESSING_TEXT = "ajaxProcessingText";
-
+    protected static final String PROPERTY_AJAX_PROCESSING_TEXT_ON_REQUEST = "ajaxProcessingTextOnRequest";
+    protected static final String PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST = "ajaxHideGlyphiconOnRequest";
 
     public HtmlGlyphiconCommandLink() {
         super();
@@ -77,12 +77,21 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
         this.updateStateHelper(PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST, ajaxShowWaitingDotsOnRequest);
     }
 
-    public String getAjaxProcessingText() {
-        return (String) this.getStateHelper().eval(PROPERTY_AJAX_PROCESSING_TEXT);
+    public String getAjaxProcessingTextOnRequest() {
+        return (String) this.getStateHelper().eval(PROPERTY_AJAX_PROCESSING_TEXT_ON_REQUEST);
     }
 
-    public void setAjaxProcessingText(String ajaxProcessingText) {
-        this.updateStateHelper(PROPERTY_AJAX_PROCESSING_TEXT, ajaxProcessingText);
+    public void setAjaxProcessingTextOnRequest(String ajaxProcessingTextOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_PROCESSING_TEXT_ON_REQUEST, ajaxProcessingTextOnRequest);
+    }
+
+    public boolean isAjaxHideGlyphiconOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setAjaxHideGlyphiconOnRequest(boolean ajaxHideGlyphiconOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST, ajaxHideGlyphiconOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
