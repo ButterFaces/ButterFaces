@@ -1018,15 +1018,24 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <description>Displayed processing text while (ajax) request is running Default is 'Processing'.
+            <description>Displayed processing text while (ajax) request is running. Needs disableOnClick to be true.
+                Default is 'Processing'.
             </description>
             <name>ajaxProcessingTextOnRequest</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description>Hides glyphicon while (ajax) request is running Default is 'true'.
+            <description>Hides glyphicon while (ajax) request is running. Needs disableOnClick to be true. Default is
+                'true'.
             </description>
             <name>ajaxHideGlyphiconOnRequest</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Disables regions to render after request while (ajax) request is running. Needs disableOnClick
+                to be true. Default is true.
+            </description>
+            <name>ajaxDisableRenderRegionsOnRequest</name>
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>

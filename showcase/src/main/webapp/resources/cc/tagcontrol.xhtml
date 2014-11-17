@@ -7,11 +7,12 @@
 <h:body>
 	<composite:interface>
 		<composite:attribute name="label" type="java.lang.String" required="true" />
+		<composite:attribute name="styleClass" type="java.lang.String" required="false"/>
 	</composite:interface>
 
 	<composite:implementation>
         <div class="input-group">
-            <span class="input-group-addon">#{cc.attrs.label}</span>
+            <span class="input-group-addon #{cc.attrs.styleClass}">#{cc.attrs.label}</span>
             <composite:insertChildren />
         </div>
 	</composite:implementation>

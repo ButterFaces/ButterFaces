@@ -19,6 +19,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
     private boolean ajaxHideGlyphiconOnRequest = true;
+    private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String ajaxProcessingText = "Processing";
 
     public void increaseClick() {
@@ -97,6 +98,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("ajaxDisableLinkOnRequest", this.isAjaxDisableLinkOnRequest() + "", sb);
         this.appendString("ajaxShowWaitingDotsOnRequest", this.isAjaxShowWaitingDotsOnRequest() + "", sb);
         this.appendString("ajaxHideGlyphiconOnRequest", this.isAjaxHideGlyphiconOnRequest() + "", sb);
+        this.appendString("ajaxDisableRenderRegionsOnRequest", this.isAjaxDisableRenderRegionsOnRequest() + "", sb);
 
         if (!"Processing".equals(this.getAjaxProcessingText())) {
             this.appendString("ajaxProcessingText", this.getAjaxProcessingText() + "", sb);
@@ -181,5 +183,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setAjaxHideGlyphiconOnRequest(boolean ajaxHideGlyphiconOnRequest) {
         this.ajaxHideGlyphiconOnRequest = ajaxHideGlyphiconOnRequest;
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        return ajaxDisableRenderRegionsOnRequest;
+    }
+
+    public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
+        this.ajaxDisableRenderRegionsOnRequest = ajaxDisableRenderRegionsOnRequest;
     }
 }

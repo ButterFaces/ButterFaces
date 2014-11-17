@@ -18,10 +18,20 @@
             <showcase:tagEnumControl label="glyphicon"
                                      value="#{linkShowcaseComponent.glyphicon}"
                                      values="#{linkShowcaseComponent.glyphicons}"/>
-            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest" value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest" value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxHideGlyphiconOnRequest" value="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"/>
-            <showcase:tagStringControl label="ajaxProcessingTextOnRequest" value="#{linkShowcaseComponent.ajaxProcessingText}"/>
+            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest"
+                                        value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                                        labelStyleClass="linkTagMinWidth"/>
+            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
+                                        value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
+                                        labelStyleClass="linkTagMinWidth"/>
+            <showcase:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
+                                        value="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
+                                        labelStyleClass="linkTagMinWidth"/>
+            <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+                                        value="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
+                                        labelStyleClass="linkTagMinWidth"/>
+            <showcase:tagStringControl label="ajaxProcessingTextOnRequest"
+                                       value="#{linkShowcaseComponent.ajaxProcessingText}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -35,7 +45,9 @@
         <h:panelGroup layout="block"
                       rendered="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
                       styleClass="alert alert-warning">
-            <strong>Attention</strong> To show attribute <l>ajaxDisableLinkOnRequest</l> action method will wait 2 seconds.
+            <strong>Attention</strong> To show attribute
+            <l>ajaxDisableLinkOnRequest</l>
+            action method will wait 2 seconds.
         </h:panelGroup>
 
         <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
@@ -45,15 +57,45 @@
                        ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
                        ajaxProcessingTextOnRequest="#{linkShowcaseComponent.ajaxProcessingText}"
                        ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
-            <f:ajax render="clicks" onevent="logTest"/>
+            <f:ajax render="clicks clicksDisabledOnRequest" onevent="logTest"/>
         </b:commandLink>
 
         <hr/>
 
-        <h:panelGroup id="clicks" layout="block">
-            <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
+        <h:panelGroup layout="block">
+            <h:panelGroup layout="block"
+                          rendered="#{linkShowcaseComponent.ajaxDisableLinkOnRequest and linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <b:section id="clicksDisabledOnRequest"
+                                   label="disabled on request">
+                            <div class="alert alert-info">
+                                This section will be rendered after click action is finished.
+                            </div>
+                            <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
+                        </b:section>
+                    </div>
+                    <div class="col-md-6">
+                        <b:section label="not disabled on request">
+                            <div class="alert alert-info">
+                                This section will not be rendered after click action is finished.
+                            </div>
+                            <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
+                        </b:section>
+                    </div>
+                </div>
+
+            </h:panelGroup>
+            <h:panelGroup id="clicks" layout="block">
+                <h:panelGroup styleClass="arquillian_component_clicks"
+                              rendered="#{!(linkShowcaseComponent.ajaxDisableLinkOnRequest and linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest)}">
+                    #{linkShowcaseComponent.clicks} clicks
+                </h:panelGroup>
+            </h:panelGroup>
         </h:panelGroup>
     </ui:define>
 
