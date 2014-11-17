@@ -1,4 +1,4 @@
-function disableOnClick(data, showDots) {
+function disableOnClick(data, showDots, linkText, linkProcessingText) {
     var status = data.status;
 
     // console.log(data.source.id);
@@ -12,6 +12,7 @@ function disableOnClick(data, showDots) {
             if (showDots) {
                 $commandLink.find('.butter-component-glyphicon-processing').startDots();
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'inline-block');
+                $commandLink.find('.butter-component-glyphicon-text').html(linkProcessingText);
             }
             break;
 
@@ -21,6 +22,7 @@ function disableOnClick(data, showDots) {
             if (showDots) {
                 $commandLink.find('.butter-component-glyphicon-processing').stopDots();
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'none');
+                $commandLink.find('.butter-component-glyphicon-text').html(linkText);
             }
             break;
 

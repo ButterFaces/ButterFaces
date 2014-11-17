@@ -39,7 +39,12 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
             if (StringUtils.isNotEmpty(onEventCallback)) {
                 responseWriter.writeText("    " + onEventCallback + "(data);", null);
             }
-            responseWriter.writeText("    disableOnClick(data, " + link.isAjaxShowWaitingDotsOnRequest() + ");", null);
+            final String processingText = StringUtils.isEmpty(link.getAjaxProcessingText()) ? "Processing" : link.getAjaxProcessingText();
+
+            responseWriter.writeText("    disableOnClick(data, " +
+                    link.isAjaxShowWaitingDotsOnRequest() + ",'" +
+                    link.getValue() + "','" +
+                    processingText + "');", null);
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
@@ -51,7 +56,10 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
         this.writeGlyphiconIfNecessary(commandLink, writer);
 
+        writer.startElement("span", component);
+        writer.writeAttribute("class", "butter-component-glyphicon-text", null);
         super.writeValue(component, writer);
+        writer.endElement("span");
 
         this.writeWaitingDotsIfNecessary(commandLink, writer);
     }

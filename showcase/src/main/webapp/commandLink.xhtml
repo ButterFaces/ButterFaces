@@ -26,6 +26,7 @@
                                      values="#{linkShowcaseComponent.styles}"/>
             <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest" value="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"/>
             <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest" value="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"/>
+            <showcase:tagStringControl label="ajaxProcessingText" value="#{linkShowcaseComponent.ajaxProcessingText}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -41,6 +42,7 @@
                        action="#{linkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{linkShowcaseComponent.style}"
                        ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingText="#{linkShowcaseComponent.ajaxProcessingText}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
             <f:ajax render="clicks" onevent="logTest"/>

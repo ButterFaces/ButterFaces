@@ -27,6 +27,8 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
     protected static final String PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST = "ajaxDisableLinkOnRequest";
     protected static final String PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST = "ajaxShowWaitingDotsOnRequest";
+    protected static final String PROPERTY_AJAX_PROCESSING_TEXT = "ajaxProcessingText";
+
 
     public HtmlGlyphiconCommandLink() {
         super();
@@ -73,6 +75,14 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
 
     public void setAjaxShowWaitingDotsOnRequest(boolean ajaxShowWaitingDotsOnRequest) {
         this.updateStateHelper(PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST, ajaxShowWaitingDotsOnRequest);
+    }
+
+    public String getAjaxProcessingText() {
+        return (String) this.getStateHelper().eval(PROPERTY_AJAX_PROCESSING_TEXT);
+    }
+
+    public void setAjaxProcessingText(String ajaxProcessingText) {
+        this.updateStateHelper(PROPERTY_AJAX_PROCESSING_TEXT, ajaxProcessingText);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

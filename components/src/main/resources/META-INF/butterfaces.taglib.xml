@@ -1011,11 +1011,17 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <description>Show waiting panel dots if (ajax) request is running. Needs disableOnClick to be true. Default
+            <description>Show processing dots if (ajax) request is running. Needs disableOnClick to be true. Default
                 is true
             </description>
             <name>ajaxShowWaitingDotsOnRequest</name>
             <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Displayed processing text while (ajax) request is running Default is 'Processing'.
+            </description>
+            <name>ajaxProcessingText</name>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
 

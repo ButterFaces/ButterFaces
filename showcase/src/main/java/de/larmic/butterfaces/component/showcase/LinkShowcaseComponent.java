@@ -18,6 +18,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private int clicks = 0;
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
+    private String ajaxProcessingText = "Processing";
 
     public void increaseClick() {
         if (ajaxDisableLinkOnRequest) {
@@ -95,6 +96,10 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         this.appendString("ajaxDisableLinkOnRequest", this.isAjaxDisableLinkOnRequest() + "", sb);
         this.appendString("ajaxShowWaitingDotsOnRequest", this.isAjaxShowWaitingDotsOnRequest() + "", sb);
 
+        if (!"Processing".equals(this.getAjaxProcessingText())) {
+            this.appendString("ajaxProcessingText", this.getAjaxProcessingText() + "", sb);
+        }
+
         sb.append(getEmptyDistanceString() + "action=#{myBean.increaseClick}\n");
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
@@ -158,5 +163,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setAjaxShowWaitingDotsOnRequest(boolean ajaxShowWaitingDotsOnRequest) {
         this.ajaxShowWaitingDotsOnRequest = ajaxShowWaitingDotsOnRequest;
+    }
+
+    public String getAjaxProcessingText() {
+        return ajaxProcessingText;
+    }
+
+    public void setAjaxProcessingText(String ajaxProcessingText) {
+        this.ajaxProcessingText = ajaxProcessingText;
     }
 }
