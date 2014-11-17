@@ -6,7 +6,7 @@ public interface HtmlInputComponent {
 
     boolean isReadonly();
 
-    boolean getHideLabel();
+    boolean isHideLabel();
 
     String getStyleClass();
 

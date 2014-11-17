@@ -18,7 +18,7 @@ public class InnerComponentWrapperPartRenderer {
         if (!component.isReadonly()) {
 
             final StringBuffer defaultStyleClass = new StringBuffer();
-            if (component.getHideLabel()) {
+            if (component.isHideLabel()) {
                 defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);
             } else {
                 defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_10);

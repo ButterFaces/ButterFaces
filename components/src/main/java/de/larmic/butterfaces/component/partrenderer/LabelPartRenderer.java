@@ -22,7 +22,7 @@ public class LabelPartRenderer {
 
     private void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
                                        final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (!StringUtils.isEmpty(label) && !component.getHideLabel()) {
+        if (!StringUtils.isEmpty(label) && !component.isHideLabel()) {
             final UIInput uiComponent = (UIInput) component;
 
             writer.startElement("label", uiComponent);

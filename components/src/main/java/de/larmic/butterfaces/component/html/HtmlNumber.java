@@ -76,11 +76,12 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
     }
 
     @Override
-    public boolean getHideLabel() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_HIDE_LABEL, false);
+    public boolean isHideLabel() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HIDE_LABEL);
+        return eval == null ? false : (Boolean) eval;
     }
 
-    public void setHideLabel(final String hideLabel) {
+    public void setHideLabel(final boolean hideLabel) {
         this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
     }
 
