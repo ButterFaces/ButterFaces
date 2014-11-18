@@ -1,4 +1,4 @@
-function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphicon) {
+function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphicon, disableRenderRegionsIds) {
     var status = data.status;
 
     // console.log(data.source.id);
@@ -17,6 +17,10 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
                     $commandLink.find('.butter-component-glyphicon ').hide();
                 }
             }
+            if (disableRenderRegionsIds != 'undefined') {
+                // console.log('Disable field');
+                $(disableRenderRegionsIds).butterDisableElements();
+            }
             break;
 
         case "complete": // After the ajax response is arrived.
@@ -28,6 +32,10 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
                 $commandLink.find('.butter-component-glyphicon-text').html(linkText);
                 if (hideGlyphicon) {
                     $commandLink.find('.butter-component-glyphicon ').show();
+                }
+                if (disableRenderRegionsIds != 'undefined') {
+                    // console.log('Enable field');
+                    $(disableRenderRegionsIds).butterEnableElements();
                 }
             }
             break;

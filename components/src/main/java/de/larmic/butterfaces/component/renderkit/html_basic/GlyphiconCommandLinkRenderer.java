@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 import com.sun.faces.renderkit.html_basic.CommandLinkRenderer;
 import de.larmic.butterfaces.component.html.HtmlGlyphiconCommandLink;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -11,9 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by larmic on 16.09.14.
@@ -42,16 +41,47 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
             final String processingText = StringUtils.isEmpty(link.getAjaxProcessingTextOnRequest())
                     ? "Processing" : link.getAjaxProcessingTextOnRequest();
 
+            final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
+            final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
+                    ? this.createJQueryIDSelector(ajaxClientIdResolver.getResolvedAjaxRenderJQueryClientIds())
+                    : "undefined";
+
             responseWriter.writeText("    disableOnClick(data, " +
                     link.isAjaxShowWaitingDotsOnRequest() + ",'" +
                     link.getValue() + "','" +
                     processingText + "'," +
-                    link.isAjaxHideGlyphiconOnRequest() + ");", null);
+                    link.isAjaxHideGlyphiconOnRequest() + ",'" +
+                    jQueryIDSelector + "');", null);
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
     }
 
+    private String createJQueryIDSelector(final Collection<String> jQueryReadableClientIds) {
+        if ((null == jQueryReadableClientIds) || jQueryReadableClientIds.isEmpty()) {
+            return "undefined";
+        }
+
+        final StringBuilder builder = new StringBuilder();
+
+        final Iterator<String> iterator = jQueryReadableClientIds.iterator();
+
+        while (iterator.hasNext()) {
+            final String jQueryReadableClientId = iterator.next();
+
+            if (jQueryReadableClientId.equals("@all") || jQueryReadableClientId.equals("@form")) {
+                builder.append("html");
+            } else {
+                builder.append(jQueryReadableClientId);
+            }
+
+            if (iterator.hasNext()) {
+                builder.append(", ");
+            }
+        }
+
+        return builder.toString();
+    }
     @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
         final HtmlGlyphiconCommandLink commandLink = (HtmlGlyphiconCommandLink) component;
