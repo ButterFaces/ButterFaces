@@ -3,3 +3,8 @@
     width: 20px;
     display: none;
 }
+
+.butter-component-link.disabled {
+    pointer-events: none;
+    cursor: default;
+}
