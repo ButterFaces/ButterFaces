@@ -60,7 +60,7 @@
                        ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
-            <f:ajax render="clicks clicksDisabledOnRequest" onevent="logTest"/>
+            <f:ajax render="clicks clicksDisabledOnRequest anotherClicksDisabledOnRequest" onevent="logTest"/>
         </b:commandLink>
 
         <hr/>
@@ -83,6 +83,18 @@
                         <b:section label="not disabled on request">
                             <div class="alert alert-info">
                                 This section will not be rendered after click action is finished.
+                            </div>
+                            <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
+                        </b:section>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <b:section id="anotherClicksDisabledOnRequest"
+                                   label="another disabled on request">
+                            <div class="alert alert-info">
+                                This section will be rendered after click action is finished.
                             </div>
                             <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
                         </b:section>
