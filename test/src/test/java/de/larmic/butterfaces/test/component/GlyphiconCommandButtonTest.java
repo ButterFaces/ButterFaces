@@ -136,9 +136,9 @@ public class GlyphiconCommandButtonTest extends AbstractComponentTest {
         guardAjax(this.findWebElementByClassName("arquillian_ajaxDisableLinkOnRequest")).click();
 
         guardAjax(link).click();
-        Assert.assertEquals("1", this.findWebElementByClassName(CLICKS_SPAN).getText());
+        Assert.assertEquals("1 clicks", this.findWebElementByClassName(CLICKS_SPAN).getText());
 
         guardAjax(link).click();
-        Assert.assertEquals("2", this.findWebElementByClassName(CLICKS_SPAN).getText());
+        Assert.assertEquals("2 clicks", this.findWebElementByClassName(CLICKS_SPAN).getText());
     }
 }
