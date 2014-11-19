@@ -16,8 +16,8 @@ import javax.faces.component.html.HtmlCommandLink;
         @ResourceDependency(library = "js", name = "butterfaces-dots.jquery.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-link.jquery.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-link.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head")})
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")})
 @FacesComponent(HtmlGlyphiconCommandLink.COMPONENT_TYPE)
 public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
 

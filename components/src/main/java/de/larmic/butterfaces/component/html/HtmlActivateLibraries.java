@@ -10,8 +10,8 @@ import javax.faces.component.UIComponentBase;
  */
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap-3.3.0.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {
