@@ -63,6 +63,20 @@
             <f:ajax render="clicks clicksDisabledOnRequest anotherClicksDisabledOnRequest" onevent="logTest"/>
         </b:commandLink>
 
+        <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
+                       value="render@Form"
+                       action="#{linkShowcaseComponent.increaseClick}"
+                       styleClass="#{linkShowcaseComponent.style}"
+                       style="margin-left:10px"
+                       ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingTextOnRequest="#{linkShowcaseComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
+                       rendered="#{linkShowcaseComponent.rendered}">
+            <f:ajax render="@form" onevent="logTest"/>
+        </b:commandLink>
+
         <hr/>
 
         <h:panelGroup layout="block">

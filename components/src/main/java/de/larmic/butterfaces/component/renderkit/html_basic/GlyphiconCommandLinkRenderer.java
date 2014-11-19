@@ -34,7 +34,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
         if (link.isAjaxDisableLinkOnRequest()) {
             responseWriter.startElement("script", component);
-            responseWriter.writeText("function glyphiconLinkListener(data) {", null);
+            responseWriter.writeText("function " + getOnEventListenerName(component) + "(data) {", null);
             if (StringUtils.isNotEmpty(onEventCallback)) {
                 responseWriter.writeText("    " + onEventCallback + "(data);", null);
             }
@@ -82,6 +82,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
         return builder.toString();
     }
+
     @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
         final HtmlGlyphiconCommandLink commandLink = (HtmlGlyphiconCommandLink) component;
@@ -112,7 +113,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
                         onEventCallback = ajaxBehavior.getOnevent();
                     }
 
-                    ajaxBehavior.setOnevent("glyphiconLinkListener");
+                    ajaxBehavior.setOnevent(getOnEventListenerName(component));
                 }
             } else {
                 ajaxBehavior = new AjaxBehavior();
@@ -128,6 +129,10 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
         if (ajaxBehavior != null) {
             ajaxBehavior.setOnevent(onEventCallback);
         }
+    }
+
+    private String getOnEventListenerName(final UIComponent component) {
+        return "glyphiconLinkListener" + "_" + component.getClientId().replace(":", "_");
     }
 
     protected void writeWaitingDotsIfNecessary(final HtmlGlyphiconCommandLink commandLink,
