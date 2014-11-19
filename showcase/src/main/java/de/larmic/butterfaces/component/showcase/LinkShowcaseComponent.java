@@ -21,6 +21,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private boolean ajaxHideGlyphiconOnRequest = true;
     private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String ajaxProcessingText = "Processing";
+    private String render = "clicks disabledOnRequest otherDisabledOnRequest";
 
     public void increaseClick() {
         if (ajaxDisableLinkOnRequest) {
@@ -53,6 +54,18 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         return items;
     }
 
+    public List<SelectItem> getRenders() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem("clicks disabledOnRequest otherDisabledOnRequest", "some sections"));
+        items.add(new SelectItem("@form", "@form"));
+        items.add(new SelectItem("@this", "@this"));
+        items.add(new SelectItem("@none", "@none"));
+        items.add(new SelectItem("@form", "@form"));
+
+        return items;
+    }
+
     @Override
     protected void addJavaCode(final StringBuilder sb) {
         sb.append("package de.larmic.link,demo;\n\n");
@@ -65,7 +78,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("public class MyBean implements Serializable {\n\n");
         sb.append("    private int clicks = 0;\n\n");
         sb.append("    public void increaseClick() {\n");
-        if(ajaxDisableLinkOnRequest) {
+        if (ajaxDisableLinkOnRequest) {
             sb.append("        try {\n");
             sb.append("            Thread.sleep(2000);\n");
             sb.append("        } catch (InterruptedException e) {\n");
@@ -108,7 +121,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        sb.append("            <f:ajax render=\"clicks\" />\n");
+        sb.append("            <f:ajax render=\"" + render + "\" />\n");
         sb.append("        </b:commandLink>\n\n");
         sb.append("        <hr />\n\n");
         sb.append("        <h:panelGroup id=\"clicks\" layout=\"block\">\n");
@@ -191,5 +204,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
         this.ajaxDisableRenderRegionsOnRequest = ajaxDisableRenderRegionsOnRequest;
+    }
+
+    public String getRender() {
+        return render;
+    }
+
+    public void setRender(String render) {
+        this.render = render;
     }
 }

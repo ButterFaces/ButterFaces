@@ -71,6 +71,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
             if (jQueryReadableClientId.equals("@all") || jQueryReadableClientId.equals("@form")) {
                 builder.append("html");
+            } else if (jQueryReadableClientId.equals("@this") || jQueryReadableClientId.equals("@none")) {
             } else {
                 builder.append(jQueryReadableClientId);
             }

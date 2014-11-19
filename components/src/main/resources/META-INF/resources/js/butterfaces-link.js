@@ -30,13 +30,13 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
                 $commandLink.find('.butter-component-glyphicon-processing').stopDots();
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'none');
                 $commandLink.find('.butter-component-glyphicon-text').html(linkText);
-                if (hideGlyphicon) {
-                    $commandLink.find('.butter-component-glyphicon ').show();
-                }
-                if (disableRenderRegionsIds != 'undefined') {
-                    // console.log('Enable field');
-                    $(disableRenderRegionsIds).butterEnableElements();
-                }
+            }
+            if (hideGlyphicon) {
+                $commandLink.find('.butter-component-glyphicon ').show();
+            }
+            if (disableRenderRegionsIds != 'undefined') {
+                // console.log('Enable field');
+                $(disableRenderRegionsIds).butterEnableElements();
             }
             break;
 

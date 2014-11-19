@@ -38,6 +38,9 @@
             <showcase:tagEnumControl label="link type"
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
+            <showcase:tagEnumControl label="ajax rendering"
+                                     value="#{linkShowcaseComponent.render}"
+                                     values="#{linkShowcaseComponent.renders}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -60,21 +63,7 @@
                        ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
                        rendered="#{linkShowcaseComponent.rendered}">
-            <f:ajax render="clicks clicksDisabledOnRequest anotherClicksDisabledOnRequest" onevent="logTest"/>
-        </b:commandLink>
-
-        <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
-                       value="render@Form"
-                       action="#{linkShowcaseComponent.increaseClick}"
-                       styleClass="#{linkShowcaseComponent.style}"
-                       style="margin-left:10px"
-                       ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
-                       ajaxProcessingTextOnRequest="#{linkShowcaseComponent.ajaxProcessingText}"
-                       ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
-                       ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
-                       ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
-                       rendered="#{linkShowcaseComponent.rendered}">
-            <f:ajax render="@form" onevent="logTest"/>
+            <f:ajax render="#{linkShowcaseComponent.render}" onevent="logTest"/>
         </b:commandLink>
 
         <hr/>
@@ -85,10 +74,11 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <b:section id="clicksDisabledOnRequest"
+                        <b:section id="disabledOnRequest"
                                    label="disabled on request">
                             <div class="alert alert-info">
-                                This section will be rendered after click action is finished.
+                                This section will be updated after click action is finished. While ajax request is running
+                                this section will be disabled.
                             </div>
                             <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
                         </b:section>
@@ -96,7 +86,8 @@
                     <div class="col-md-6">
                         <b:section label="not disabled on request">
                             <div class="alert alert-info">
-                                This section will not be rendered after click action is finished.
+                                This section will not be updated after click action is finished. While ajax request this
+                                section is still available.
                             </div>
                             <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
                         </b:section>
@@ -105,10 +96,11 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <b:section id="anotherClicksDisabledOnRequest"
+                        <b:section id="otherDisabledOnRequest"
                                    label="another disabled on request">
                             <div class="alert alert-info">
-                                This section will be rendered after click action is finished.
+                                This section will be updated after click action is finished. While ajax request is running
+                                this section will be disabled.
                             </div>
                             <span class="arquillian_component_clicks">#{linkShowcaseComponent.clicks}</span> clicks
                         </b:section>
