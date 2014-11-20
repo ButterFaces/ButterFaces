@@ -58,11 +58,3 @@ function handlePrettyPrint() {
         }
     });
 }
-
-function handleTouchPin(/*int*/ min, /*int*/ max) {
-    jQuery("input.butter-number-component").TouchSpin({
-        verticalbuttons: true,
-        min: min,
-        max: max
-    });
-}

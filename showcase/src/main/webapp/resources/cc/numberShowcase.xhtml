@@ -12,8 +12,7 @@
     </composite:interface>
 
     <composite:implementation>
-        <b:number id="text"
-                  label="#{cc.attrs.component.label}"
+        <b:number label="#{cc.attrs.component.label}"
                   hideLabel="#{cc.attrs.component.hideLabel}"
                   value="#{cc.attrs.component.value}"
                   tooltip="#{cc.attrs.component.tooltip}"
@@ -31,9 +30,12 @@
                   autoFocus="#{numberShowcaseComponent.autoFocus}">
             <f:ajax event="change"
                     execute="@this"
-                    render="output:outputComponent:outputValues output:other"
+                    render="output:outputComponent:outputValues output:other testNumberReadonly testNumberNotReadonly"
                     disabled="#{not cc.attrs.component.ajax}"/>
         </b:number>
+
+        <b:number id="testNumberReadonly" value="#{cc.attrs.component.value}" readonly="true" />
+        <b:number id="testNumberNotReadonly" value="#{cc.attrs.component.value}" readonly="false" />
     </composite:implementation>
 </h:body>
 </html>

@@ -74,7 +74,8 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
         final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
 
         writer.startElement("script", component);
-        writer.writeText("handleTouchPin(" + min + ", " + max + ")", null);
+        //writer.writeText("jQuery(document.getElementById('" + component.getClientId() + "')).find('input.butter-number-component').TouchSpin({ verticalbuttons: true, min:" + min + ", max:" + max + " });", null);
+        writer.writeText("jQuery(document.getElementById('" + component.getClientId() + "')).find('input.butter-number-component').TouchSpin({ verticalbuttons: true });", null);
         writer.endElement("script");
 
         // Open outer component wrapper div
