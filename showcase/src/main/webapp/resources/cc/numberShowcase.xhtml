@@ -30,12 +30,9 @@
                   autoFocus="#{numberShowcaseComponent.autoFocus}">
             <f:ajax event="change"
                     execute="@this"
-                    render="output:outputComponent:outputValues output:other testNumberReadonly testNumberNotReadonly"
+                    render="output:outputComponent:outputValues output:other"
                     disabled="#{not cc.attrs.component.ajax}"/>
         </b:number>
-
-        <b:number id="testNumberReadonly" value="#{cc.attrs.component.value}" readonly="true" />
-        <b:number id="testNumberNotReadonly" value="#{cc.attrs.component.value}" readonly="false" />
     </composite:implementation>
 </h:body>
 </html>
