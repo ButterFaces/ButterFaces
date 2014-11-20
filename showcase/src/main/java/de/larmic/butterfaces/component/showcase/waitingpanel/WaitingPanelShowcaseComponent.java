@@ -60,12 +60,17 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
         if (this.delayInMillis != WaitingPanelRenderer.DEFAULT_WAITING_PANEL_DELAY) {
             this.appendString(" delay", this.delayInMillis + "", sb);
         }
+        if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_1) {
+            this.appendString(" styleClass", "bigWaitingContent", sb);
+        } else if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_2) {
+            this.appendString(" styleClass", "smallWaitingContent", sb);
+        }
         this.appendBoolean(" rendered", this.isRendered(), sb, true);
 
         if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_1) {
-            sb.append("            Example 1\n");
+            sb.append("            Big waiting example\n");
         } else if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_2) {
-            sb.append("            Example 2\n");
+            sb.append("           Small waiting example\n");
         }
         sb.append("        </b:waitingPanel>\n\n");
 
@@ -77,6 +82,25 @@ public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent imp
         this.addXhtmlEnd(sb);
 
         return sb.toString();
+    }
+
+    @Override
+    protected void addCss(final StringBuilder sb) {
+        if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_1) {
+            sb.append(".bigWaitingContent .butter-component-waitingPanel-body {\n");
+            sb.append("    height: 150px;\n");
+            sb.append("    font-size: 25px;\n");
+            sb.append("    background-color: lightcoral;\n");
+            sb.append("}");
+        } else if (waitingPanelChildrenType == WaitingPanelChildrenType.EXAMPLE_2) {
+            sb.append(".smallWaitingContent .butter-component-waitingPanel-body {\n");
+            sb.append("    height: 30px;\n");
+            sb.append("    font-size: 10px;\n");
+            sb.append("    top: 50%;\n");
+            sb.append("    padding: 8px;\n");
+            sb.append("}");
+        }
+
     }
 
     public List<SelectItem> getChildrenTypes() {

@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.showcase.waitingpanel;
 
 public enum WaitingPanelChildrenType {
-	NONE("Default (no children)"), EXAMPLE_1("Custom example 1"), EXAMPLE_2("Custom example 2");
+	NONE("Default (no children)"), EXAMPLE_1("Big example"), EXAMPLE_2("Small example");
 	public final String label;
 
 	private WaitingPanelChildrenType(final String label) {

@@ -27,13 +27,15 @@
         </b:waitingPanel>
 
         <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        styleClass="bigWaitingContent"
                         rendered="#{waitingPanelShowcaseComponent.rendered and waitingPanelShowcaseComponent.renderChildrenExample1}">
-            Example 1
+            Big waiting example
         </b:waitingPanel>
 
         <b:waitingPanel delay="#{waitingPanelShowcaseComponent.delayInMillis}"
+                        styleClass="smallWaitingContent"
                         rendered="#{waitingPanelShowcaseComponent.rendered and waitingPanelShowcaseComponent.renderChildrenExample2}">
-            Example 2
+            Small waiting example
         </b:waitingPanel>
 
         <h:commandLink value="5 second click"
