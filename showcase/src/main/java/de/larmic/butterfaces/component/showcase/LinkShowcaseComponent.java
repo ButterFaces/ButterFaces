@@ -16,6 +16,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
     private String style = "btn btn-primary";
     private int clicks = 0;
+    private boolean ajaxSubmit = true;
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
     private boolean ajaxHideGlyphiconOnRequest = true;
@@ -212,5 +213,13 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
     public void setRender(String render) {
         this.render = render;
+    }
+
+    public boolean isAjaxSubmit() {
+        return ajaxSubmit;
+    }
+
+    public void setAjaxSubmit(boolean ajaxSubmit) {
+        this.ajaxSubmit = ajaxSubmit;
     }
 }

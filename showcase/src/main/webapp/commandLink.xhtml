@@ -35,6 +35,8 @@
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
+            <showcase:tagBooleanControl label="ajax submit"
+                                        value="#{linkShowcaseComponent.ajaxSubmit}" />
             <showcase:tagEnumControl label="link type"
                                      value="#{linkShowcaseComponent.style}"
                                      values="#{linkShowcaseComponent.styles}"/>
@@ -62,8 +64,20 @@
                        ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
                        ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
                        ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
-                       rendered="#{linkShowcaseComponent.rendered}">
+                       rendered="#{linkShowcaseComponent.rendered and linkShowcaseComponent.ajaxSubmit}">
             <f:ajax render="#{linkShowcaseComponent.render}" onevent="logTest"/>
+        </b:commandLink>
+
+        <b:commandLink glyphicon="#{linkShowcaseComponent.glyphicon}"
+                       value="#{linkShowcaseComponent.value}"
+                       action="#{linkShowcaseComponent.increaseClick}"
+                       styleClass="arquillian_component #{linkShowcaseComponent.style}"
+                       ajaxDisableLinkOnRequest="#{linkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingTextOnRequest="#{linkShowcaseComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{linkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{linkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{linkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
+                       rendered="#{linkShowcaseComponent.rendered and not linkShowcaseComponent.ajaxSubmit}">
         </b:commandLink>
 
         <hr/>

@@ -116,10 +116,6 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
                     ajaxBehavior.setOnevent(getOnEventListenerName(component));
                 }
-            } else {
-                ajaxBehavior = new AjaxBehavior();
-                ajaxBehavior.setOnevent("listener");
-                ((ClientBehaviorHolder) component).addClientBehavior("action", ajaxBehavior);
             }
         }
 
