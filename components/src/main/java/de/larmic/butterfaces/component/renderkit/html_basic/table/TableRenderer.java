@@ -2,21 +2,21 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by larmic on 10.09.14.
@@ -97,7 +97,7 @@ public class TableRenderer extends HtmlBasicRenderer {
             }
 
             // Render the beginning of this row
-            renderRowStart(component, writer);
+            renderRowStart(component, rowIndex, writer);
 
             // Render the row content
             renderRow(context, component, writer);
@@ -110,6 +110,26 @@ public class TableRenderer extends HtmlBasicRenderer {
 
         // Clean up after ourselves
         data.setRowIndex(-1);
+    }
+
+    @Override
+    public void decode(final FacesContext context, final UIComponent component) {
+        final HtmlTable htmlTable = (HtmlTable) component;
+        final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
+
+        if (behaviors.isEmpty()) {
+            return;
+        }
+
+        final ExternalContext external = context.getExternalContext();
+        final Map<String, String> params = external.getRequestParameterMap();
+        final String behaviorEvent = params.get("javax.faces.behavior.event");
+
+        if (behaviorEvent != null) {
+            final String[] split = behaviorEvent.split("_");
+            final String event = split[0];
+            final String nodeNumber = split[1];
+        }
     }
 
     protected void renderHeader(final HtmlTable table, final ResponseWriter writer) throws IOException {
@@ -137,7 +157,7 @@ public class TableRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("class", "table table-striped table-hover", "styleClass");
         }
 
-        RenderKitUtils.renderPassThruAttributes(context, writer, table, attributes);
+        // RenderKitUtils.renderPassThruAttributes(context, writer, table, attributes);
         writer.writeText("\n", table, null);
 
     }
@@ -147,9 +167,30 @@ public class TableRenderer extends HtmlBasicRenderer {
         writer.writeText("\n", table, null);
     }
 
-    protected void renderRowStart(final UIComponent table, final ResponseWriter writer) throws IOException {
-        writer.startElement("tr", table);
-        writer.writeText("\n", table, null);
+    protected void renderRowStart(final UIComponent component, final int rowIndex, final ResponseWriter writer) throws IOException {
+        final HtmlTable htmlTable = (HtmlTable) component;
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final ClientBehaviorContext behaviorContext =
+                ClientBehaviorContext.createClientBehaviorContext(context,
+                        htmlTable, "click", component.getClientId(context), null);
+
+        final String clientId = htmlTable.getClientId();
+        final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex+"").length() - 1);
+
+        writer.startElement("tr", htmlTable);
+
+        final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
+        if (behaviors.containsKey("click")) {
+            final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+
+            if (StringUtils.isNotEmpty(click)) {
+                final String correctedEventName = click.replace(",'click',", ",'click_" + rowIndex + "',");
+                final String correctedClientId = correctedEventName.replaceFirst(clientId, baseClientId);
+                writer.writeAttribute("onclick", correctedClientId, null);
+            }
+        }
+
+        writer.writeText("\n", htmlTable, null);
     }
 
     protected void renderRowEnd(final UIComponent table, final ResponseWriter writer) throws IOException {

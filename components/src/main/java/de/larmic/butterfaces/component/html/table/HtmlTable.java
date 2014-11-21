@@ -5,6 +5,9 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIData;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by larmic on 10.09.14.
@@ -15,7 +18,7 @@ import javax.faces.component.UIData;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
-public class HtmlTable extends UIData {
+public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -24,6 +27,16 @@ public class HtmlTable extends UIData {
     public HtmlTable() {
         super();
         this.setRendererType(RENDERER_TYPE);
+    }
+
+    @Override
+    public Collection<String> getEventNames() {
+        return Arrays.asList("click");
+    }
+
+    @Override
+    public String getDefaultEventName() {
+        return "click";
     }
 
     @Override
