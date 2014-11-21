@@ -7,7 +7,6 @@ import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.TableSingleSelection;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -250,8 +249,6 @@ public class TableRenderer extends HtmlBasicRenderer {
     protected void renderRow(final FacesContext context,
                              final UIComponent table,
                              final ResponseWriter writer) throws IOException {
-        final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(table);
-
         // Iterate over the child HtmlColumn components for each row
         for (HtmlColumn column : getColumns(table)) {
             writer.startElement("td", table);
