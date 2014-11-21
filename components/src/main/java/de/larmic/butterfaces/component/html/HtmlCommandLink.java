@@ -4,7 +4,6 @@ import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlCommandLink;
 
 /**
  * Created by larmic on 16.09.14.
@@ -18,12 +17,12 @@ import javax.faces.component.html.HtmlCommandLink;
         @ResourceDependency(library = "js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")})
-@FacesComponent(HtmlGlyphiconCommandLink.COMPONENT_TYPE)
-public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
+@FacesComponent(HtmlCommandLink.COMPONENT_TYPE)
+public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.glyphiconCommandLink";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.commandLink";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.GlyphiconCommandLinkRenderer";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.commandLinkRenderer";
 
     protected static final String PROPERTY_GLYPHICON = "glyphicon";
     protected static final String PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST = "ajaxDisableLinkOnRequest";
@@ -32,7 +31,7 @@ public class HtmlGlyphiconCommandLink extends HtmlCommandLink {
     protected static final String PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST = "ajaxHideGlyphiconOnRequest";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
 
-    public HtmlGlyphiconCommandLink() {
+    public HtmlCommandLink() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }

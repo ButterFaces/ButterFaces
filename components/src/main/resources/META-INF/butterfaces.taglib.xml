@@ -653,7 +653,7 @@
         </description>
         <tag-name>commandLink</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.glyphiconCommandLink</component-type>
+            <component-type>de.larmic.butterfaces.component.commandLink</component-type>
         </component>
         <attribute>
             <description>

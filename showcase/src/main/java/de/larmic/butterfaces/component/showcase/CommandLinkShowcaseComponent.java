@@ -10,7 +10,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class LinkShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class CommandLinkShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
 
     private String value = "click me";
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
@@ -79,7 +79,7 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
         sb.append("public class MyBean implements Serializable {\n\n");
         sb.append("    private int clicks = 0;\n\n");
         sb.append("    public void increaseClick() {\n");
-        if (ajaxDisableLinkOnRequest) {
+        if (ajaxDisableLinkOnRequest && ajaxSubmit) {
             sb.append("        try {\n");
             sb.append("            Thread.sleep(2000);\n");
             sb.append("        } catch (InterruptedException e) {\n");
@@ -122,7 +122,9 @@ public class LinkShowcaseComponent extends AbstractShowcaseComponent implements 
 
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        sb.append("            <f:ajax render=\"" + render + "\" />\n");
+        if (this.ajaxSubmit) {
+            sb.append("            <f:ajax render=\"" + render + "\" />\n");
+        }
         sb.append("        </b:commandLink>\n\n");
         sb.append("        <hr />\n\n");
         sb.append("        <h:panelGroup id=\"clicks\" layout=\"block\">\n");

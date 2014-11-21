@@ -19,7 +19,7 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
  * Created by larmic on 17.09.14.
  */
 @RunWith(Arquillian.class)
-public class GlyphiconCommandButtonTest extends AbstractComponentTest {
+public class CommandButtonTest extends AbstractComponentTest {
 
     public static final String COMPONENT_PAGE = "commandLink.jsf";
 

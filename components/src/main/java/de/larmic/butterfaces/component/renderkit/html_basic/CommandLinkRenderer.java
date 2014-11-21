@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import com.sun.faces.renderkit.html_basic.CommandLinkRenderer;
-import de.larmic.butterfaces.component.html.HtmlGlyphiconCommandLink;
+import de.larmic.butterfaces.component.html.HtmlCommandLink;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
@@ -17,8 +16,8 @@ import java.util.*;
 /**
  * Created by larmic on 16.09.14.
  */
-@FacesRenderer(componentFamily = HtmlGlyphiconCommandLink.COMPONENT_FAMILY, rendererType = HtmlGlyphiconCommandLink.RENDERER_TYPE)
-public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
+@FacesRenderer(componentFamily = HtmlCommandLink.COMPONENT_FAMILY, rendererType = HtmlCommandLink.RENDERER_TYPE)
+public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.CommandLinkRenderer {
 
     /**
      * Will be set in renderAsActive if f:ajax child with onevent attribute exists.
@@ -29,7 +28,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
-        final HtmlGlyphiconCommandLink link = (HtmlGlyphiconCommandLink) component;
+        final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
         if (link.isAjaxDisableLinkOnRequest()) {
@@ -86,7 +85,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
 
     @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
-        final HtmlGlyphiconCommandLink commandLink = (HtmlGlyphiconCommandLink) component;
+        final HtmlCommandLink commandLink = (HtmlCommandLink) component;
 
         this.writeGlyphiconIfNecessary(commandLink, writer);
 
@@ -102,7 +101,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
     protected void renderAsActive(FacesContext context, UIComponent component) throws IOException {
         AjaxBehavior ajaxBehavior = null;
 
-        if (((HtmlGlyphiconCommandLink) component).isAjaxDisableLinkOnRequest()) {
+        if (((HtmlCommandLink) component).isAjaxDisableLinkOnRequest()) {
             final Map behaviors = (AbstractMap) ((ClientBehaviorHolder) component).getClientBehaviors();
 
             final List<AjaxBehavior> actionBehaviours = (List<AjaxBehavior>) behaviors.get("action");
@@ -132,7 +131,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
         return "glyphiconLinkListener" + "_" + component.getClientId().replace(":", "_");
     }
 
-    protected void writeWaitingDotsIfNecessary(final HtmlGlyphiconCommandLink commandLink,
+    protected void writeWaitingDotsIfNecessary(final HtmlCommandLink commandLink,
                                                final ResponseWriter writer) throws IOException {
         if (commandLink.isAjaxDisableLinkOnRequest()) {
             writer.startElement("span", commandLink);
@@ -141,7 +140,7 @@ public class GlyphiconCommandLinkRenderer extends CommandLinkRenderer {
         }
     }
 
-    protected void writeGlyphiconIfNecessary(final HtmlGlyphiconCommandLink commandLink,
+    protected void writeGlyphiconIfNecessary(final HtmlCommandLink commandLink,
                                              final ResponseWriter writer) throws IOException {
         final String glyphicon = commandLink.getGlyphicon();
 
