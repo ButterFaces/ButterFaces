@@ -93,7 +93,12 @@ public class AjaxClientIdResolver {
 
     private String getResolvedId(final UIComponent component, final String clientIdToResolve) {
 
-        final UIComponent resolvedComponent = component.findComponent(clientIdToResolve);
+        UIComponent resolvedComponent = component.findComponent(clientIdToResolve);
+
+        // some component does not return correct client id (i.e. table) so try it by using parent component
+        if (resolvedComponent == null && component.getParent() != null) {
+            resolvedComponent = component.getParent().findComponent(clientIdToResolve);
+        }
 
         if (resolvedComponent == null) {
             if (clientIdToResolve.charAt(0) == UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {

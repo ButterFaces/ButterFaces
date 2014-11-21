@@ -5,7 +5,9 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
+import de.larmic.butterfaces.component.html.table.TableSingleSelection;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -121,6 +123,19 @@ public class TableRenderer extends HtmlBasicRenderer {
             return;
         }
 
+        final Object untypedTableValue = ((HtmlTable) component).getValue();
+
+        if (!(untypedTableValue instanceof TableSingleSelection)) {
+            return;
+        }
+
+        if (!(untypedTableValue instanceof Iterable)) {
+            return;
+        }
+
+        final Iterable tableValues = (Iterable) untypedTableValue;
+        final TableSingleSelection tableSingleSelection = (TableSingleSelection) untypedTableValue;
+
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
@@ -129,7 +144,30 @@ public class TableRenderer extends HtmlBasicRenderer {
             final String[] split = behaviorEvent.split("_");
             final String event = split[0];
             final String nodeNumber = split[1];
+
+            final Object rowObject = findRowObject(tableValues, Integer.valueOf(nodeNumber));
+
+            if (rowObject != null) {
+                tableSingleSelection.updateSelection(rowObject);
+            }
         }
+    }
+
+    private Object findRowObject(final Iterable tableValues, final int row) {
+        final Iterator iterator = tableValues.iterator();
+        int actualRow = 0;
+
+        while (iterator.hasNext()) {
+            final Object value = iterator.next();
+
+            if (actualRow == row) {
+                return value;
+            }
+
+            actualRow++;
+        }
+
+        return null;
     }
 
     protected void renderHeader(final HtmlTable table, final ResponseWriter writer) throws IOException {
@@ -178,6 +216,7 @@ public class TableRenderer extends HtmlBasicRenderer {
         final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex+"").length() - 1);
 
         writer.startElement("tr", htmlTable);
+        writer.writeAttribute("rowIndex", rowIndex, null);
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
         if (behaviors.containsKey("click")) {
@@ -211,6 +250,8 @@ public class TableRenderer extends HtmlBasicRenderer {
     protected void renderRow(final FacesContext context,
                              final UIComponent table,
                              final ResponseWriter writer) throws IOException {
+        final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(table);
+
         // Iterate over the child HtmlColumn components for each row
         for (HtmlColumn column : getColumns(table)) {
             writer.startElement("td", table);

@@ -18,7 +18,7 @@
         <b:table id="test"
                  var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}">
-            <f:ajax />
+            <f:ajax render="output:nodeTitle" />
             <b:column id="column1"
                       label="C1">
                 #{rowItem.a}
@@ -45,6 +45,20 @@
                  var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}">
         </b:table>
+
+        <hr />
+
+        <div class="input-group">
+            <span class="input-group-addon">Selected value:</span>
+            <h:panelGroup id="nodeTitle" layout="block">
+                <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
+                              rendered="#{not empty tableShowcaseComponent.selectedValue}"
+                              styleClass="form-control arquillian_output_value"/>
+                <h:outputText value="-"
+                              rendered="#{empty tableShowcaseComponent.selectedValue}"
+                              styleClass="form-control arquillian_output_value"/>
+            </h:panelGroup>
+        </div>
     </ui:define>
 
     <ui:define name="other">
