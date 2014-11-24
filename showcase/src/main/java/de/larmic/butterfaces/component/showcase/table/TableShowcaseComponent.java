@@ -43,6 +43,26 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     @Override
     public String getXHtml() {
-        return null;
+        final StringBuilder sb = new StringBuilder();
+
+        this.addXhtmlStart(sb);
+
+        sb.append("        <b:table id=\"input\"\n");
+
+        this.appendString("var", "rowItem", sb);
+        this.appendString("value", "#{myBean.value}", sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
+
+        sb.append("        </b:table>");
+
+        this.addXhtmlEnd(sb);
+
+        return sb.toString();
+    }
+
+    @Override
+    protected String getEmptyDistanceString() {
+        return "                 ";
     }
 }
+
