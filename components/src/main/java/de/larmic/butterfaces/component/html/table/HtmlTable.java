@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.event.TableSingleSelectionListener;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

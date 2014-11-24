@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.html.table;
+package de.larmic.butterfaces.event;
 
 /**
  * Created by larmic on 21.11.14.

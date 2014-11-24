@@ -511,7 +511,7 @@
         </attribute>
         <attribute>
             <name>singleSelectionListener</name>
-            <type>de.larmic.butterfaces.component.html.table.TableSingleSelectionListener</type>
+            <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
             <required>false</required>
         </attribute>
     </tag>

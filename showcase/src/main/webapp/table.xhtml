@@ -13,6 +13,12 @@
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}" />
         </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax selection"
+                                     value="#{tableShowcaseComponent.selectionAjaxType}"
+                                     values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">

@@ -5,7 +5,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.component.html.table.TableSingleSelectionListener;
+import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;

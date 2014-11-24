@@ -24,7 +24,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 
     private boolean hideRootNode = false;
-    private TreeSelectionAjaxType selectionAjaxType = TreeSelectionAjaxType.AJAX;
+    private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
     private boolean allExpanded = true;
 
@@ -71,7 +71,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     protected void addJavaCode(final StringBuilder sb) {
         sb.append("package de.larmic.tree,demo;\n\n");
 
-        if (selectionAjaxType != TreeSelectionAjaxType.NONE) {
+        if (selectionAjaxType != SelectionAjaxType.NONE) {
             sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionEvent;\n");
             sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionListener;\n");
         }
@@ -82,7 +82,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
 
         sb.append("@ViewScoped\n");
         sb.append("@Named\n");
-        if (selectionAjaxType != TreeSelectionAjaxType.NONE) {
+        if (selectionAjaxType != SelectionAjaxType.NONE) {
             sb.append("public class MyBean implements Serializable, TreeNodeSelectionListener {\n\n");
         } else {
             sb.append("public class MyBean implements Serializable {\n\n");
@@ -134,7 +134,7 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     public List<SelectItem> getAjaxSelectionTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
-        for (final TreeSelectionAjaxType type : TreeSelectionAjaxType.values()) {
+        for (final SelectionAjaxType type : SelectionAjaxType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -259,18 +259,18 @@ public class TreeShowcaseComponent extends AbstractShowcaseComponent implements 
     }
 
     public boolean isAjaxRendered() {
-        return TreeSelectionAjaxType.NONE != selectionAjaxType;
+        return SelectionAjaxType.NONE != selectionAjaxType;
     }
 
     public boolean isAjaxDisabled() {
-        return TreeSelectionAjaxType.AJAX_DISABLED == selectionAjaxType;
+        return SelectionAjaxType.AJAX_DISABLED == selectionAjaxType;
     }
 
-    public TreeSelectionAjaxType getSelectionAjaxType() {
+    public SelectionAjaxType getSelectionAjaxType() {
         return selectionAjaxType;
     }
 
-    public void setSelectionAjaxType(TreeSelectionAjaxType selectionAjaxType) {
+    public void setSelectionAjaxType(SelectionAjaxType selectionAjaxType) {
         this.selectionAjaxType = selectionAjaxType;
     }
 
