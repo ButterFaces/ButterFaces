@@ -5,6 +5,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
@@ -216,6 +217,7 @@ public class TableRenderer extends HtmlBasicRenderer {
 
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
+        writer.writeAttribute("class", "butter-component-table-row", null);
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
         if (behaviors.containsKey("click")) {
@@ -224,7 +226,8 @@ public class TableRenderer extends HtmlBasicRenderer {
             if (StringUtils.isNotEmpty(click)) {
                 final String correctedEventName = click.replace(",'click',", ",'click_" + rowIndex + "',");
                 final String correctedClientId = correctedEventName.replaceFirst(clientId, baseClientId);
-                writer.writeAttribute("onclick", correctedClientId, null);
+                final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectRow({rowIndex:'" + rowIndex + "'})");
+                writer.writeAttribute("onclick", correctedClientId + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
             }
         }
 

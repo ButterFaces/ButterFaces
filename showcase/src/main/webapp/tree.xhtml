@@ -30,6 +30,13 @@
     </ui:define>
 
     <ui:define name="output">
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{!(treeShowcaseComponent.selectionAjaxType eq 'AJAX')}">
+            <strong>Attention:</strong> Tree selection will only work in ajax mode.
+        </h:panelGroup>
+
         <b:tree id="tree"
                 value="#{treeShowcaseComponent.tree}"
                 nodeSelectionListener="#{treeShowcaseComponent}"

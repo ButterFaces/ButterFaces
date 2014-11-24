@@ -1,0 +1,7 @@
+.table-striped>tbody>tr.butter-component-table-row-selected {
+    background: #D1E3FF;
+}
+
+.table-striped>tbody>tr.butter-component-table-row:hover {
+    background: #E8F1FF;
+}

@@ -11,7 +11,7 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}" />
+            <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -22,12 +22,18 @@
     </ui:define>
 
     <ui:define name="output">
-        <b:table id="test"
-                 var="rowItem"
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{!(tableShowcaseComponent.selectionAjaxType eq 'AJAX')}">
+            <strong>Attention:</strong> Table selection will only work in ajax mode.
+        </h:panelGroup>
+
+        <b:table var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}"
                  singleSelectionListener="#{tableShowcaseComponent}"
-                 rendered="#{tableShowcaseComponent.rendered}">
-            <f:ajax render="output:nodeTitle"/>
+                 rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
+            <f:ajax render="output:nodeTitle" disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
                       label="C1">
                 #{rowItem.a}
@@ -37,10 +43,11 @@
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
         </b:table>
-        <b:table id="testNotRendered"
-                 var="rowItem"
+
+        <b:table var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}"
-                 rendered="false">
+                 singleSelectionListener="#{tableShowcaseComponent}"
+                 rendered="#{tableShowcaseComponent.rendered and tableShowcaseComponent.selectionAjaxType eq 'NONE'}">
             <b:column id="column1"
                       label="C1">
                 #{rowItem.a}
@@ -50,24 +57,23 @@
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
         </b:table>
-        <b:table id="testNoChildren"
-                 var="rowItem"
-                 value="#{tableShowcaseComponent.stringRows}">
-        </b:table>
 
-        <hr/>
+        <h:panelGroup layout="block"
+                      rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+            <hr/>
 
-        <div class="input-group">
-            <span class="input-group-addon">Selected value:</span>
-            <h:panelGroup id="nodeTitle" layout="block">
-                <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
-                              rendered="#{not empty tableShowcaseComponent.selectedValue}"
-                              styleClass="form-control arquillian_output_value"/>
-                <h:outputText value="-"
-                              rendered="#{empty tableShowcaseComponent.selectedValue}"
-                              styleClass="form-control arquillian_output_value"/>
-            </h:panelGroup>
-        </div>
+            <div class="input-group">
+                <span class="input-group-addon">Selected value:</span>
+                <h:panelGroup id="nodeTitle" layout="block">
+                    <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
+                                  rendered="#{not empty tableShowcaseComponent.selectedValue}"
+                                  styleClass="form-control arquillian_output_value"/>
+                    <h:outputText value="-"
+                                  rendered="#{empty tableShowcaseComponent.selectedValue}"
+                                  styleClass="form-control arquillian_output_value"/>
+                </h:panelGroup>
+            </div>
+        </h:panelGroup>
     </ui:define>
 
     <ui:define name="other">
