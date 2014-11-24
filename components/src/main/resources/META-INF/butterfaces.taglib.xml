@@ -509,6 +509,11 @@
             <type>java.lang.Object</type>
             <required>true</required>
         </attribute>
+        <attribute>
+            <name>singleSelectionListener</name>
+            <type>de.larmic.butterfaces.component.html.table.TableSingleSelectionListener</type>
+            <required>false</required>
+        </attribute>
     </tag>
 
     <tag>

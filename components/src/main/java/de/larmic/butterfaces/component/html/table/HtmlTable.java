@@ -24,6 +24,9 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer";
 
+    protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
+
+
     public HtmlTable() {
         super();
         this.setRendererType(RENDERER_TYPE);
@@ -42,6 +45,14 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public TableSingleSelectionListener getSingleSelectionListener() {
+        return (TableSingleSelectionListener) this.getStateHelper().eval(PROPERTY_SINGLE_SELECTION_LISTENER);
+    }
+
+    public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
+        this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

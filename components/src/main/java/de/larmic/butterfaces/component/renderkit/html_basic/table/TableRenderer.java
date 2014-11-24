@@ -5,7 +5,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.component.html.table.TableSingleSelection;
+import de.larmic.butterfaces.component.html.table.TableSingleSelectionListener;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -123,8 +123,9 @@ public class TableRenderer extends HtmlBasicRenderer {
         }
 
         final Object untypedTableValue = ((HtmlTable) component).getValue();
+        final TableSingleSelectionListener listener = ((HtmlTable) component).getSingleSelectionListener();
 
-        if (!(untypedTableValue instanceof TableSingleSelection)) {
+        if (listener == null) {
             return;
         }
 
@@ -133,7 +134,6 @@ public class TableRenderer extends HtmlBasicRenderer {
         }
 
         final Iterable tableValues = (Iterable) untypedTableValue;
-        final TableSingleSelection tableSingleSelection = (TableSingleSelection) untypedTableValue;
 
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
@@ -147,7 +147,7 @@ public class TableRenderer extends HtmlBasicRenderer {
             final Object rowObject = findRowObject(tableValues, Integer.valueOf(nodeNumber));
 
             if (rowObject != null) {
-                tableSingleSelection.updateSelection(rowObject);
+                listener.processValueChange(rowObject);
             }
         }
     }

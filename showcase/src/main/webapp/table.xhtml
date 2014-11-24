@@ -11,14 +11,17 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}" />
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:table id="test"
                  var="rowItem"
-                 value="#{tableShowcaseComponent.stringRows}">
-            <f:ajax render="output:nodeTitle" />
+                 value="#{tableShowcaseComponent.stringRows}"
+                 singleSelectionListener="#{tableShowcaseComponent}"
+                 rendered="#{tableShowcaseComponent.rendered}">
+            <f:ajax render="output:nodeTitle"/>
             <b:column id="column1"
                       label="C1">
                 #{rowItem.a}
@@ -46,7 +49,7 @@
                  value="#{tableShowcaseComponent.stringRows}">
         </b:table>
 
-        <hr />
+        <hr/>
 
         <div class="input-group">
             <span class="input-group-addon">Selected value:</span>

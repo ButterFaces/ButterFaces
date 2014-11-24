@@ -1,10 +1,12 @@
 package de.larmic.butterfaces.component.showcase.table;
 
+import de.larmic.butterfaces.component.html.table.TableSingleSelectionListener;
 import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +14,10 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class TableShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class TableShowcaseComponent extends AbstractShowcaseComponent implements Serializable, TableSingleSelectionListener<StringPair> {
 
-    private final StringPairList<StringPair> stringPairs = new StringPairList();
+    private final List<StringPair> stringPairs = new ArrayList<>();
+    private StringPair selectedValue = null;
 
     public List<StringPair> getStringRows() {
         if (stringPairs.isEmpty()) {
@@ -29,8 +32,13 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         return stringPairs;
     }
 
+    @Override
+    public void processValueChange(final StringPair data) {
+        this.selectedValue = data;
+    }
+
     public StringPair getSelectedValue() {
-        return stringPairs.getSelectedValue();
+        return this.selectedValue;
     }
 
     @Override
