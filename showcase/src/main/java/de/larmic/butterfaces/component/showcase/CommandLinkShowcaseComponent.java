@@ -62,7 +62,6 @@ public class CommandLinkShowcaseComponent extends AbstractShowcaseComponent impl
         items.add(new SelectItem("@form", "@form"));
         items.add(new SelectItem("@this", "@this"));
         items.add(new SelectItem("@none", "@none"));
-        items.add(new SelectItem("@form", "@form"));
 
         return items;
     }

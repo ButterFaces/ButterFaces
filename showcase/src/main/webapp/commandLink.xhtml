@@ -15,6 +15,7 @@
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="value" value="#{commandLinkShowcaseComponent.value}"/>
             <showcase:tagBooleanControl label="rendered" value="#{commandLinkShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{commandLinkShowcaseComponent.disabled}"/>
             <showcase:tagEnumControl label="glyphicon"
                                      value="#{commandLinkShowcaseComponent.glyphicon}"
                                      values="#{commandLinkShowcaseComponent.glyphicons}"/>
@@ -59,6 +60,7 @@
                        value="#{commandLinkShowcaseComponent.value}"
                        action="#{commandLinkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{commandLinkShowcaseComponent.style}"
+                       disabled="#{commandLinkShowcaseComponent.disabled}"
                        ajaxDisableLinkOnRequest="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
                        ajaxProcessingTextOnRequest="#{commandLinkShowcaseComponent.ajaxProcessingText}"
                        ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
@@ -72,6 +74,7 @@
                        value="#{commandLinkShowcaseComponent.value}"
                        action="#{commandLinkShowcaseComponent.increaseClick}"
                        styleClass="arquillian_component #{commandLinkShowcaseComponent.style}"
+                       disabled="#{commandLinkShowcaseComponent.disabled}"
                        ajaxDisableLinkOnRequest="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
                        ajaxProcessingTextOnRequest="#{commandLinkShowcaseComponent.ajaxProcessingText}"
                        ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"

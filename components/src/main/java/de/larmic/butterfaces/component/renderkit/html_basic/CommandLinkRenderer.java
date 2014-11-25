@@ -25,6 +25,22 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     private String onEventCallback = null;
 
     @Override
+    protected void writeCommonLinkAttributes(final ResponseWriter writer, final UIComponent component) throws IOException {
+        final HtmlCommandLink link = (HtmlCommandLink) component;
+        final String styleClass = (String) component.getAttributes().get("styleClass");
+
+        final StringBuilder generatedStyleClass = new StringBuilder(StringUtils.isEmpty(styleClass) ? "" : styleClass);
+
+        if (link.isDisabled()) {
+            generatedStyleClass.append(" disabled");
+        }
+
+        if (generatedStyleClass.length() > 0) {
+            writer.writeAttribute("class", generatedStyleClass.toString(), "styleClass");
+        }
+    }
+
+    @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
