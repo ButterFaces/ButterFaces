@@ -6,6 +6,7 @@ package de.larmic.butterfaces.component.showcase;
 public abstract class AbstractShowcaseComponent {
 
     private boolean rendered = true;
+    private boolean disabled = false;
 
     public abstract String getXHtml();
 
@@ -116,5 +117,13 @@ public abstract class AbstractShowcaseComponent {
 
     public void setRendered(final boolean rendered) {
         this.rendered = rendered;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }

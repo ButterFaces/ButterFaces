@@ -514,6 +514,29 @@
             <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
             <required>false</required>
         </attribute>
+        <attribute>
+            <description>Set tableCondensed to true to make table more compact by cutting cell padding in half. Default
+                is false.
+            </description>
+            <name>tableCondensed</name>
+            <type>java.lang.Boolean</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <description>Set tableBordered to true for borders on all sides of the table and cells. Default is false.
+            </description>
+            <name>tableBordered</name>
+            <type>java.lang.Boolean</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <description>Set tableBordered to true to add zebra-striping to any table row within the table body. Default
+                is true.
+            </description>
+            <name>tableStriped</name>
+            <type>java.lang.Boolean</type>
+            <required>false</required>
+        </attribute>
     </tag>
 
     <tag>
@@ -528,6 +551,11 @@
         <attribute>
             <name>rendered</name>
             <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>HTML table colgroup column width. Could be in px, percent or relative.</description>
+            <name>colWidth</name>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
 

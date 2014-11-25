@@ -12,6 +12,12 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcaseComponent.tableBordered}"/>
+            <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseComponent.tableCondensed}"/>
+            <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseComponent.tableStriped}"/>
+            <showcase:tagEnumControl label="column width"
+                                     value="#{tableShowcaseComponent.twoColumnWidthType}"
+                                     values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -32,13 +38,18 @@
         <b:table var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}"
                  singleSelectionListener="#{tableShowcaseComponent}"
+                 tableCondensed="#{tableShowcaseComponent.tableCondensed}"
+                 tableStriped="#{tableShowcaseComponent.tableStriped}"
+                 tableBordered="#{tableShowcaseComponent.tableBordered}"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle" disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn1}"
                       label="C1">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn2}"
                       label="C2">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>

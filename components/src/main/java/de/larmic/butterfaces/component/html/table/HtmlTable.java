@@ -29,7 +29,9 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
-
+    protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
+    protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
+    protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
 
     public HtmlTable() {
         super();
@@ -57,6 +59,33 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
         this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
+    }
+
+    public boolean isTableCondensed() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_CONDENSED);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setTableCondensed(boolean tableCondensed) {
+        this.updateStateHelper(PROPERTY_TABLE_CONDENSED, tableCondensed);
+    }
+
+    public boolean isTableBordered() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_BORDERED);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setTableBordered(boolean tableBordered) {
+        this.updateStateHelper(PROPERTY_TABLE_BORDERED, tableBordered);
+    }
+
+    public boolean isTableStriped() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_STRIPED);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setTableStriped(boolean tableStriped) {
+        this.updateStateHelper(PROPERTY_TABLE_STRIPED, tableStriped);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

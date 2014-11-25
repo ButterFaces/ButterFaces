@@ -1,13 +1,11 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.event.TableSingleSelectionListener;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -26,8 +24,8 @@ import java.util.*;
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRenderer extends HtmlBasicRenderer {
 
-    private static final Attribute[] ATTRIBUTES =
-            AttributeManager.getAttributes(AttributeManager.Key.DATATABLE);
+    private List<HtmlColumn> cachedColumns;
+    private boolean hasColumnWidthSet;
 
     @Override
     protected boolean shouldEncode(UIComponent component) {
@@ -42,14 +40,17 @@ public class TableRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        HtmlTable table = (HtmlTable) component;
+        final HtmlTable table = (HtmlTable) component;
         table.setRowIndex(-1);
 
         // Render the beginning of the table
-        ResponseWriter writer = context.getResponseWriter();
+        final ResponseWriter writer = context.getResponseWriter();
 
-        renderTableStart(context, component, writer, ATTRIBUTES);
-        renderHeader(table, writer);
+        this.cachedColumns = getColumns(table);
+        this.hasColumnWidthSet = hasColumnWidthSet(this.cachedColumns);
+
+        renderTableStart(context, table, writer);
+        renderHeader(table, writer, hasColumnWidthSet);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class TableRenderer extends HtmlBasicRenderer {
         ((UIData) component).setRowIndex(-1);
 
         // Render the ending of this table
-        renderTableEnd(component, context.getResponseWriter());
+        renderTableEnd(context.getResponseWriter());
     }
 
     @Override
@@ -78,7 +79,7 @@ public class TableRenderer extends HtmlBasicRenderer {
 
         final UIData data = (UIData) component;
 
-        ResponseWriter writer = context.getResponseWriter();
+        final ResponseWriter writer = context.getResponseWriter();
 
         renderTableBodyStart(component, writer);
 
@@ -142,7 +143,7 @@ public class TableRenderer extends HtmlBasicRenderer {
 
         if (behaviorEvent != null) {
             final String[] split = behaviorEvent.split("_");
-            final String event = split[0];
+            // final String event = split[0];
             final String nodeNumber = split[1];
 
             final Object rowObject = findRowObject(tableValues, Integer.valueOf(nodeNumber));
@@ -170,12 +171,24 @@ public class TableRenderer extends HtmlBasicRenderer {
         return null;
     }
 
-    protected void renderHeader(final HtmlTable table, final ResponseWriter writer) throws IOException {
-        final List<HtmlColumn> columns = getColumns(table);
+    protected void renderHeader(final HtmlTable table,
+                                final ResponseWriter writer,
+                                final boolean hasColumnWidthSet) throws IOException {
+        if (hasColumnWidthSet) {
+            writer.startElement("colgroup", table);
+            for (HtmlColumn column : this.cachedColumns) {
+                writer.startElement("col", table);
+                if (StringUtils.isNotEmpty(column.getColWidth())) {
+                    writer.writeAttribute("style", "width: " + column.getColWidth(), null);
+                }
+                writer.endElement("col");
+            }
+            writer.endElement("colgroup");
+        }
 
         writer.startElement("thead", table);
         writer.startElement("tr", table);
-        for (HtmlColumn column : columns) {
+        for (HtmlColumn column : this.cachedColumns) {
             writer.startElement("th", table);
             writer.writeAttribute("id", column.getClientId(), null);
             writer.writeText(column.getLabel(), null);
@@ -185,24 +198,41 @@ public class TableRenderer extends HtmlBasicRenderer {
         writer.endElement("thead");
     }
 
-    protected void renderTableStart(final FacesContext context, final UIComponent table, final ResponseWriter writer, final Attribute[] attributes) throws IOException {
-        writer.startElement("table", table);
+    protected void renderTableStart(final FacesContext context, final HtmlTable table, final ResponseWriter writer) throws IOException {
+        writer.startElement("div", table);
         writeIdAttributeIfNecessary(context, writer, table);
         final String styleClass = (String) table.getAttributes().get("styleClass");
         if (styleClass != null) {
-            writer.writeAttribute("class", "table table-striped table-hover " + styleClass, "styleClass");
+            writer.writeAttribute("class", "table-responsive " + styleClass, "styleClass");
         } else {
-            writer.writeAttribute("class", "table table-striped table-hover", "styleClass");
+            writer.writeAttribute("class", "table-responsive", "styleClass");
         }
+
+        writer.startElement("table", table);
+        final StringBuilder tableStyleClass = new StringBuilder("table table-hover");
+
+        if (this.hasColumnWidthSet) {
+            tableStyleClass.append(" table-fixed");
+        }
+        if (table.isTableCondensed()) {
+            tableStyleClass.append(" table-condensed");
+        }
+        if (table.isTableBordered()) {
+            tableStyleClass.append(" table-bordered");
+        }
+        if (table.isTableStriped()) {
+            tableStyleClass.append(" table-striped");
+        }
+
+        writer.writeAttribute("class", tableStyleClass.toString(), "styleClass");
 
         // RenderKitUtils.renderPassThruAttributes(context, writer, table, attributes);
         writer.writeText("\n", table, null);
-
     }
 
-    protected void renderTableEnd(final UIComponent table, final ResponseWriter writer) throws IOException {
+    protected void renderTableEnd(final ResponseWriter writer) throws IOException {
         writer.endElement("table");
-        writer.writeText("\n", table, null);
+        writer.endElement("div");
     }
 
     protected void renderRowStart(final UIComponent component, final int rowIndex, final ResponseWriter writer) throws IOException {
@@ -213,7 +243,7 @@ public class TableRenderer extends HtmlBasicRenderer {
                         htmlTable, "click", component.getClientId(context), null);
 
         final String clientId = htmlTable.getClientId();
-        final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex+"").length() - 1);
+        final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex + "").length() - 1);
 
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
@@ -253,7 +283,7 @@ public class TableRenderer extends HtmlBasicRenderer {
                              final UIComponent table,
                              final ResponseWriter writer) throws IOException {
         // Iterate over the child HtmlColumn components for each row
-        for (HtmlColumn column : getColumns(table)) {
+        for (HtmlColumn column : this.cachedColumns) {
             writer.startElement("td", table);
             // Render the contents of this cell by iterating over
             // the kids of our kids
@@ -264,6 +294,16 @@ public class TableRenderer extends HtmlBasicRenderer {
             writer.writeText("\n", table, null);
             writer.endElement("td");
         }
+    }
+
+    private boolean hasColumnWidthSet(final List<HtmlColumn> columns) {
+        for (HtmlColumn column : columns) {
+            if (StringUtils.isNotEmpty(column.getColWidth())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
