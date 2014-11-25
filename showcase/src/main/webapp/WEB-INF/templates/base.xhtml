@@ -9,11 +9,18 @@
 <h:head>
     <title>ButterFaces</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="Demonstrates ButterFaces"/>
-    <meta name="keywords" content="JSF, JSF2, larmic, showcase, components, ButterFaces"/>
+    <meta name="description" content="ButterFaces is a lightweight and modern JSF framework that takes the best from Twitters Bootstrap and HTML 5 to develop fast, easy and modern web applications using Mojarra JSF 2."/>
+    <meta name="keywords" content="jsf, jsf2, faces, mojarra, bootstrap, jquery, framework, java, enterprise, server, usability, web, html5, easy, modern, website"/>
     <meta name="author" content="Lars Michaelis, Stephan Zerhusen"/>
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="DISTRIBUTION" content="GLOBAL" />
+    <meta http-equiv="PRAGMA" content="NO-CACHE" />
+    <link rel="shortcut icon"
+          href="data:image/x-icon;base64,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"
+          type="image/x-icon"/>
 
     <ui:include src="../includes/less.xhtml" />
     <h:outputScript library="js" name="global.js" target="body"/>

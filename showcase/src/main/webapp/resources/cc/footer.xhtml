@@ -18,20 +18,18 @@
                 <div class="versionInformation">
                     <strong>ButterFaces #{version.version}</strong> @ Wildfly #{version.getJBossVersion()} <br/>
                     <div class="revision">GIT-Revision: <a href="https://bitbucket.org/butterfaces/butterfaces/commits/#{version.revision}" target="_blank">#{version.revision}</a></div>
-                    <span class="experimental hideExperimentalAttention"><span class="fa fa-warning fa-lg"></span> means experimental</span>
-
-                    <script type="text/javascript">
-                        jQuery(document).ready(function () {
-                            if (jQuery('a.experimental').size() != 0) {
-                                jQuery('span.experimental').removeClass('hideExperimentalAttention');
-                                jQuery('a.experimental').each(function () {
-                                    jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
-                                });
-                            }
-
-                        });
-                    </script>
                 </div>
+                <script type="text/javascript">
+                    jQuery(document).ready(function () {
+                        if (jQuery('a.experimental').size() != 0) {
+                            jQuery('span.experimental').removeClass('hideExperimentalAttention');
+                            jQuery('a.experimental').each(function () {
+                                jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
+                            });
+                        }
+
+                    });
+                </script>
             </footer>
         </div>
     </composite:implementation>
