@@ -15,15 +15,15 @@
             <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcaseComponent.tableBordered}"/>
             <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseComponent.tableCondensed}"/>
             <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseComponent.tableStriped}"/>
-            <showcase:tagEnumControl label="column width"
-                                     value="#{tableShowcaseComponent.twoColumnWidthType}"
-                                     values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax selection"
                                      value="#{tableShowcaseComponent.selectionAjaxType}"
                                      values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
+            <showcase:tagEnumControl label="column width"
+                                     value="#{tableShowcaseComponent.twoColumnWidthType}"
+                                     values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 

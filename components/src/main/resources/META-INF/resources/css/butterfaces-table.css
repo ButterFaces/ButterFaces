@@ -4,4 +4,5 @@
 
 .table-striped>tbody>tr.butter-component-table-row:hover {
     background: #E8F1FF;
+    cursor: pointer;
 }
