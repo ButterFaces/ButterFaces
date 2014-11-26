@@ -8,6 +8,8 @@
             $overlay.offset($originalElement.offset());
             $overlay.width($originalElement.outerWidth());
             $overlay.height($originalElement.outerHeight());
+            // IE overrides css position so set it here
+            $overlay.css({'position':'absolute'});
 
             if ($overlay.height() > 0 && $overlay.width() > 0) {
                 $("body").append($overlay);
