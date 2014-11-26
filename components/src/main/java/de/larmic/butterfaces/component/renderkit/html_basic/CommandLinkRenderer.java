@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
@@ -144,7 +145,8 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     }
 
     private String getOnEventListenerName(final UIComponent component) {
-        return "glyphiconLinkListener" + "_" + component.getClientId().replace(":", "_");
+        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        return "glyphiconLinkListener" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 
     protected void writeWaitingDotsIfNecessary(final HtmlCommandLink commandLink,
