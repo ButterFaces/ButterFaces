@@ -93,7 +93,8 @@ public class AjaxClientIdResolver {
 
     private String getResolvedId(final UIComponent component, final String clientIdToResolve) {
 
-        final UIComponent resolvedComponent = component.findComponent(clientIdToResolve);
+        // some component does not return correct client id (i.e. table) so try it by using parent component
+        final UIComponent resolvedComponent = this.resolveComponent(component, clientIdToResolve);
 
         if (resolvedComponent == null) {
             if (clientIdToResolve.charAt(0) == UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
@@ -103,6 +104,17 @@ public class AjaxClientIdResolver {
         }
 
         return resolvedComponent.getClientId();
+    }
+
+    private UIComponent resolveComponent(final UIComponent component, final String clientIdToResolve) {
+        if (component == null) {
+            return null;
+        }
+
+        final UIComponent resolvedComponent = component.findComponent(clientIdToResolve);
+
+        // recursive call
+        return resolvedComponent != null ? resolvedComponent : this.resolveComponent(component.getParent(), clientIdToResolve);
     }
 
     public Set<String> getResolvedAjaxRenderClientIds() {
