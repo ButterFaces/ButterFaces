@@ -19,16 +19,19 @@
                 var hasInitialValidationError = root.hasClass(ERROR_STYLE_CLASS);
 
                 var _checkValue = function () {
-                    //console.log("checking value");
                     var value = valueElement.val();
-                    var freeLetterCount = options.maxLength - value.length;
-                    maxLength.text(freeLetterCount + " von " + options.maxLength + " Zeichen");
+                    // console.log("checking value");
+                    // console.log(value);
+                    if (typeof value !== 'undefined') {
+                        var freeLetterCount = options.maxLength - value.length;
+                        maxLength.text(freeLetterCount + " von " + options.maxLength + " Zeichen");
 
-                    if (!hasInitialValidationError) {
-                        if (freeLetterCount < 0) {
-                            root.addClass(ERROR_STYLE_CLASS);
-                        } else {
-                            root.removeClass(ERROR_STYLE_CLASS);
+                        if (!hasInitialValidationError) {
+                            if (freeLetterCount < 0) {
+                                root.addClass(ERROR_STYLE_CLASS);
+                            } else {
+                                root.removeClass(ERROR_STYLE_CLASS);
+                            }
                         }
                     }
                 };
