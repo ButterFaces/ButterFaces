@@ -60,7 +60,7 @@
                 <h:commandButton value="doSomething"
                                  styleClass="btn btn-warning btn-xs"
                                  action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
-                    <f:ajax execute="@this"/>
+                    <f:ajax execute="@this" render="output:nodeTitle"/>
                 </h:commandButton>
             </b:column>
         </b:table>
@@ -85,17 +85,16 @@
                 <h:commandButton value="doSomething"
                                  styleClass="btn btn-warning btn-xs"
                                  action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
-                    <f:ajax execute="@this"/>
+                    <f:ajax execute="@this" render="output:nodeTitle"/>
                 </h:commandButton>
             </b:column>
         </b:table>
 
         <h:panelGroup id="nodeTitle"
-                      layout="block"
-                      rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+                      layout="block">
             <hr/>
 
-            <div class="input-group">
+            <h:panelGroup layout="block" styleClass="input-group" rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
                 <span class="input-group-addon">Table selected value:</span>
                 <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
                               rendered="#{not empty tableShowcaseComponent.selectedValue}"
@@ -103,7 +102,7 @@
                 <h:outputText value="-"
                               rendered="#{empty tableShowcaseComponent.selectedValue}"
                               styleClass="form-control arquillian_output_value"/>
-            </div>
+            </h:panelGroup>
             <div class="input-group">
                 <span class="input-group-addon">Button selected value:</span>
                 <h:outputText value="#{tableShowcaseComponent.doSomethingWithRow}"
