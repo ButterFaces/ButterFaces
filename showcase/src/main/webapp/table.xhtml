@@ -22,7 +22,7 @@
                                      value="#{tableShowcaseComponent.selectionAjaxType}"
                                      values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
             <showcase:tagEnumControl label="column width"
-                                     value="#{tableShowcaseComponent.twoColumnWidthType}"
+                                     value="#{tableShowcaseComponent.threeColumnWidthType}"
                                      values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
@@ -55,8 +55,10 @@
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn3}"
                       label="C3">
                 <h:commandButton value="selectRow"
+                                 styleClass="btn btn-warning btn-xs"
                                  action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this"/>
                 </h:commandButton>
@@ -68,16 +70,20 @@
                  singleSelectionListener="#{tableShowcaseComponent}"
                  rendered="#{tableShowcaseComponent.rendered and tableShowcaseComponent.selectionAjaxType eq 'NONE'}">
             <b:column id="column1"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn1}"
                       label="C1">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn2}"
                       label="C2">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn3}"
                       label="C3">
                 <h:commandButton value="selectRow"
+                                 styleClass="btn btn-warning btn-xs"
                                  action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this"/>
                 </h:commandButton>
@@ -89,7 +95,7 @@
             <hr/>
 
             <div class="input-group">
-                <span class="input-group-addon">Selected value:</span>
+                <span class="input-group-addon">Table selected value:</span>
                 <h:panelGroup id="nodeTitle" layout="block">
                     <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
                                   rendered="#{not empty tableShowcaseComponent.selectedValue}"

@@ -21,13 +21,14 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private final List<StringPair> stringPairs = new ArrayList<>();
     private StringPair selectedValue = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
-    private TwoColumnWidthType twoColumnWidthType = TwoColumnWidthType.NONE;
+    private ThreeColumnWidthType threeColumnWidthType = ThreeColumnWidthType.NONE;
 
     private boolean tableCondensed;
     private boolean tableBordered;
     private boolean tableStriped = true;
     private String colWidthColumn1;
     private String colWidthColumn2;
+    private String colWidthColumn3;
 
     public List<StringPair> getStringRows() {
         if (stringPairs.isEmpty()) {
@@ -59,7 +60,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     public List<SelectItem> getTwoColumnWidthTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
-        for (final TwoColumnWidthType type : TwoColumnWidthType.values()) {
+        for (final ThreeColumnWidthType type : ThreeColumnWidthType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -145,25 +146,39 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         }
 
         sb.append("            <column id=\"column1\"\n");
-        if (twoColumnWidthType == TwoColumnWidthType.PERCENT) {
+        if (threeColumnWidthType == ThreeColumnWidthType.PERCENT) {
             sb.append("                    colWidth=\"10%\"\n");
-        } else if (twoColumnWidthType == TwoColumnWidthType.PX) {
+        } else if (threeColumnWidthType == ThreeColumnWidthType.PX) {
             sb.append("                    colWidth=\"50px\"\n");
-        } else if (twoColumnWidthType == TwoColumnWidthType.RELATIVE) {
+        } else if (threeColumnWidthType == ThreeColumnWidthType.RELATIVE) {
             sb.append("                    colWidth=\"5*\"\n");
         }
         sb.append("                    label=\"C1\">\n");
+        sb.append("                /* input text */\n");
         sb.append("            </column>\n");
 
         sb.append("            <column id=\"column2\"\n");
-        if (twoColumnWidthType == TwoColumnWidthType.PERCENT) {
-            sb.append("                    colWidth=\"90%\"\n");
-        } else if (twoColumnWidthType == TwoColumnWidthType.PX) {
-            sb.append("                    colWidth=\"50px\"\n");
-        } else if (twoColumnWidthType == TwoColumnWidthType.RELATIVE) {
+        if (threeColumnWidthType == ThreeColumnWidthType.PERCENT) {
+            sb.append("                    colWidth=\"80%\"\n");
+        } else if (threeColumnWidthType == ThreeColumnWidthType.PX) {
+            sb.append("                    colWidth=\"30px\"\n");
+        } else if (threeColumnWidthType == ThreeColumnWidthType.RELATIVE) {
             sb.append("                    colWidth=\"1*\"\n");
         }
         sb.append("                    label=\"C2\">\n");
+        sb.append("                /* input text */\n");
+        sb.append("            </column>\n");
+
+        sb.append("            <column id=\"column3\"\n");
+        if (threeColumnWidthType == ThreeColumnWidthType.PERCENT) {
+            sb.append("                    colWidth=\"10%\"\n");
+        } else if (threeColumnWidthType == ThreeColumnWidthType.PX) {
+            sb.append("                    colWidth=\"20px\"\n");
+        } else if (threeColumnWidthType == ThreeColumnWidthType.RELATIVE) {
+            sb.append("                    colWidth=\"7*\"\n");
+        }
+        sb.append("                    label=\"C3\">\n");
+        sb.append("                /* action */\n");
         sb.append("            </column>\n");
 
         sb.append("        </b:table>");
@@ -221,29 +236,33 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         this.tableStriped = tableStriped;
     }
 
-    public TwoColumnWidthType getTwoColumnWidthType() {
-        return twoColumnWidthType;
+    public ThreeColumnWidthType getThreeColumnWidthType() {
+        return threeColumnWidthType;
     }
 
-    public void setTwoColumnWidthType(TwoColumnWidthType twoColumnWidthType) {
-        this.twoColumnWidthType = twoColumnWidthType;
+    public void setThreeColumnWidthType(ThreeColumnWidthType threeColumnWidthType) {
+        this.threeColumnWidthType = threeColumnWidthType;
 
-        switch (this.twoColumnWidthType) {
+        switch (this.threeColumnWidthType) {
             case NONE:
                 colWidthColumn1 = null;
                 colWidthColumn2 = null;
+                colWidthColumn3 = null;
                 break;
             case PERCENT:
                 colWidthColumn1 = "10%";
-                colWidthColumn2 = "90%";
+                colWidthColumn2 = "80%";
+                colWidthColumn3 = "10%";
                 break;
             case PX:
                 colWidthColumn1 = "50px";
-                colWidthColumn2 = "50px";
+                colWidthColumn2 = "30px";
+                colWidthColumn3 = "20px";
                 break;
             case RELATIVE:
                 colWidthColumn1 = "5*";
                 colWidthColumn2 = "1*";
+                colWidthColumn3 = "7*";
                 break;
         }
     }
@@ -254,6 +273,10 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     public String getColWidthColumn2() {
         return colWidthColumn2;
+    }
+
+    public String getColWidthColumn3() {
+        return colWidthColumn3;
     }
 }
 
