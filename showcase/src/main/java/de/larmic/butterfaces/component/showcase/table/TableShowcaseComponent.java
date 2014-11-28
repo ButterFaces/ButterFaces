@@ -65,6 +65,10 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         return items;
     }
 
+    public void doSomethingWithRow(final StringPair selectedValue) {
+
+    }
+
     @Override
     protected void addJavaCode(final StringBuilder sb) {
         sb.append("package de.larmic.table.demo;\n\n");

@@ -110,10 +110,11 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
     }
 
     public boolean getAutoFocus() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS, false);
+        final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
+        return eval == null ? false : (Boolean) eval;
     }
 
-    public void setAutoFocus(final Boolean autoFocus) {
+    public void setAutoFocus(final boolean autoFocus) {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 

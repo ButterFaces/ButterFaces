@@ -9,11 +9,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by larmic on 03.11.14.
  */
 public class HtmlBasicRenderer extends Renderer {
+
+    private static final Logger LOGGER = Logger.getLogger(HtmlBasicRenderer.class.getName());
 
     public static final String ELEMENT_DIV = "div";
     public static final String ELEMENT_SPAN = "span";
@@ -28,19 +32,15 @@ public class HtmlBasicRenderer extends Renderer {
     }
 
     protected boolean shouldEncode(final UIComponent component) {
-
         // suppress rendering if "rendered" property on the component is
         // false.
         if (!component.isRendered()) {
-//            if (logger.isLoggable(Level.FINE)) {
-//                logger.log(Level.FINE,
-//                        "End encoding component {0} since rendered attribute is set to false",
-//                        component.getId());
-//            }
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, "End encoding component {0} since rendered attribute is set to false", component.getId());
+            }
             return false;
         }
         return true;
-
     }
 
     protected String writeIdAttributeIfNecessary(final FacesContext context,

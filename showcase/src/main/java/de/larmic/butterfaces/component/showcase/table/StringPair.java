@@ -5,8 +5,8 @@ package de.larmic.butterfaces.component.showcase.table;
  */
 public class StringPair {
 
-    private final String a;
-    private final String b;
+    private String a;
+    private String b;
 
     public StringPair(final String a, final String b) {
         this.a = a;
@@ -17,8 +17,15 @@ public class StringPair {
         return a;
     }
 
+    public void setA(String a) {
+        this.a = a;
+    }
+
     public String getB() {
         return b;
     }
 
+    public void setB(String b) {
+        this.b = b;
+    }
 }

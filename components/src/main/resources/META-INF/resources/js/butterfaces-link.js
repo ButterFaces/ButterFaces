@@ -25,6 +25,10 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
 
         case "complete": // After the ajax response is arrived.
             // console.log('ajax request complete');
+            break;
+
+        case "success": // After update of HTML DOM based on ajax response..
+            // console.log('ajax request success');
             $commandLink.removeClass("disabled");
             if (showDots) {
                 $commandLink.find('.butter-component-glyphicon-processing').stopDots();
@@ -38,10 +42,6 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
                 // console.log('Enable field');
                 $(disableRenderRegionsIds).butterEnableElements();
             }
-            break;
-
-        case "success": // After update of HTML DOM based on ajax response..
-            // console.log('ajax request success');
             break;
     }
 }

@@ -42,7 +42,8 @@
                  tableStriped="#{tableShowcaseComponent.tableStriped}"
                  tableBordered="#{tableShowcaseComponent.tableBordered}"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
-            <f:ajax render="output:nodeTitle" disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
+            <f:ajax render="output:nodeTitle"
+                    disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
                       colWidth="#{tableShowcaseComponent.colWidthColumn1}"
                       label="C1">
@@ -52,6 +53,13 @@
                       colWidth="#{tableShowcaseComponent.colWidthColumn2}"
                       label="C2">
                 <h:inputText value="#{rowItem.b}"/>
+            </b:column>
+            <b:column id="column3"
+                      label="C3">
+                <h:commandButton value="selectRow"
+                                 action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                    <f:ajax execute="@this"/>
+                </h:commandButton>
             </b:column>
         </b:table>
 
@@ -66,6 +74,13 @@
             <b:column id="column2"
                       label="C2">
                 <h:inputText value="#{rowItem.b}"/>
+            </b:column>
+            <b:column id="column3"
+                      label="C3">
+                <h:commandButton value="selectRow"
+                                 action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                    <f:ajax execute="@this"/>
+                </h:commandButton>
             </b:column>
         </b:table>
 
