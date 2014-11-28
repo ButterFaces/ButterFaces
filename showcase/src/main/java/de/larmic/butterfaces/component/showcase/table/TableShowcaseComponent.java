@@ -20,6 +20,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     private final List<StringPair> stringPairs = new ArrayList<>();
     private StringPair selectedValue = null;
+    private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private ThreeColumnWidthType threeColumnWidthType = ThreeColumnWidthType.NONE;
 
@@ -67,7 +68,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     }
 
     public void doSomethingWithRow(final StringPair selectedValue) {
-
+        this.doSomethingWithRow = "I have done something with " + (selectedValue == null ? "null" : selectedValue.getA());
     }
 
     @Override
@@ -210,6 +211,10 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     public StringPair getSelectedValue() {
         return this.selectedValue;
+    }
+
+    public String getDoSomethingWithRow() {
+        return doSomethingWithRow;
     }
 
     public boolean isTableCondensed() {
