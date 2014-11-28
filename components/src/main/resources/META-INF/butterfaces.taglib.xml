@@ -1161,4 +1161,15 @@
             <type>java.lang.Integer</type>
         </attribute>
     </tag>
+
+    <tag>
+        <tag-name>defaultAction</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.defaultAction</component-type>
+        </component>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
 </facelet-taglib>

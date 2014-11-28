@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.html;
+package de.larmic.butterfaces.component.html.action;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;

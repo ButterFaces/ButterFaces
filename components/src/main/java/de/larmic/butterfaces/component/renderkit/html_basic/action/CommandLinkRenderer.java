@@ -1,6 +1,6 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
-import de.larmic.butterfaces.component.html.HtmlCommandLink;
+import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 

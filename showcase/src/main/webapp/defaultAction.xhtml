@@ -1,0 +1,82 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>b:defaultAction</strong> The default action tag renders an HTML script element after component that contains
+        default action tag. It is necessary to add an id to ambient form.
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{defaultActionShowcaseComponent.rendered}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+
+        <b:text hideLabel="true"
+                value="#{defaultActionShowcaseComponent.value}"
+                autoFocus="true"/>
+
+        <div class="clearfix">
+            <h:panelGroup styleClass="pull-right" layout="block">
+                <b:commandLink value="click first button"
+                               style="margin-right: 10px"
+                               styleClass="btn btn-primary"
+                               action="#{defaultActionShowcaseComponent.clickFirst}">
+                    <f:ajax execute="@form" render="outputValues"/>
+                </b:commandLink>
+                <b:commandLink value="click default button"
+                               style="margin-right: 10px"
+                               styleClass="btn btn-success"
+                               action="#{defaultActionShowcaseComponent.clickDefault}">
+                    <f:ajax execute="@form" render="outputValues"/>
+                    <b:defaultAction rendered="#{defaultActionShowcaseComponent.rendered}"/>
+                </b:commandLink>
+                <b:commandLink value="click last button"
+                               style="margin-right: 15px"
+                               styleClass="btn btn-primary"
+                               action="#{defaultActionShowcaseComponent.clickLast}">
+                    <f:ajax execute="@form" render="outputValues"/>
+                </b:commandLink>
+            </h:panelGroup>
+        </div>
+
+        <hr/>
+
+        <h:panelGroup id="outputValues" layout="block">
+            <div class="input-group">
+                <span class="input-group-addon">Text value:</span>
+                <h:outputText value="#{defaultActionShowcaseComponent.value}"
+                              rendered="#{not empty defaultActionShowcaseComponent.value}"
+                              styleClass="form-control arquillian_text_output_value"/>
+                <h:outputText value="-"
+                              rendered="#{empty defaultActionShowcaseComponent.value}"
+                              styleClass="form-control arquillian_text_output_value"/>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Button value:</span>
+                <h:outputText value="#{defaultActionShowcaseComponent.buttonClick}"
+                              rendered="#{not empty defaultActionShowcaseComponent.buttonClick}"
+                              styleClass="form-control arquillian_button_output_value"/>
+                <h:outputText value="-"
+                              rendered="#{empty defaultActionShowcaseComponent.buttonClick}"
+                              styleClass="form-control arquillian_button_output_value"/>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:showcaseExampleComponent component="#{defaultActionShowcaseComponent}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('defaultAction');
+            });
+        </script>
+    </ui:define>
+</ui:composition>
