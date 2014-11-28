@@ -30,7 +30,26 @@ public class DefaultActionShowcaseComponent extends AbstractShowcaseComponent im
 
     @Override
     public String getXHtml() {
-        return null;
+        final StringBuilder sb = new StringBuilder();
+
+        this.addXhtmlStart(sb);
+
+        sb.append("        <b:commandLink id=\"input\"\n");
+
+        this.appendString("value", "click me", sb);
+        this.appendString("styleClass", "btn btn-primary", sb);
+        this.appendBoolean("rendered", this.isRendered(), sb, true);
+        sb.append("            <b:defaultAction rendered=\"" + this.isRendered() + "\"/>\n");
+        sb.append("        </b:commandLink>");
+
+        this.addXhtmlEnd(sb);
+
+        return sb.toString();
+    }
+
+    @Override
+    protected String getEmptyDistanceString() {
+        return "                       ";
     }
 
     public String getButtonClick() {

@@ -18,9 +18,13 @@
 
     <ui:define name="output">
 
-        <b:text hideLabel="true"
+        <b:text id="inputValues"
+                hideLabel="true"
+                placeholder="press enter..."
                 value="#{defaultActionShowcaseComponent.value}"
-                autoFocus="true"/>
+                autoFocus="true">
+            <f:validateLength maximum="50"/>
+        </b:text>
 
         <div class="clearfix">
             <h:panelGroup styleClass="pull-right" layout="block">
@@ -28,20 +32,20 @@
                                style="margin-right: 10px"
                                styleClass="btn btn-primary"
                                action="#{defaultActionShowcaseComponent.clickFirst}">
-                    <f:ajax execute="@form" render="outputValues"/>
+                    <f:ajax execute="@form" render="inputValues outputValues"/>
                 </b:commandLink>
                 <b:commandLink value="click default button"
                                style="margin-right: 10px"
                                styleClass="btn btn-success"
                                action="#{defaultActionShowcaseComponent.clickDefault}">
-                    <f:ajax execute="@form" render="outputValues"/>
+                    <f:ajax execute="@form" render="inputValues outputValues"/>
                     <b:defaultAction rendered="#{defaultActionShowcaseComponent.rendered}"/>
                 </b:commandLink>
                 <b:commandLink value="click last button"
                                style="margin-right: 15px"
                                styleClass="btn btn-primary"
                                action="#{defaultActionShowcaseComponent.clickLast}">
-                    <f:ajax execute="@form" render="outputValues"/>
+                    <f:ajax execute="@form" render="inputValues outputValues"/>
                 </b:commandLink>
             </h:panelGroup>
         </div>
