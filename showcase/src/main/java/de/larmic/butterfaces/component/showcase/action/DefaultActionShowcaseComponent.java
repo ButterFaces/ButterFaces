@@ -29,16 +29,36 @@ public class DefaultActionShowcaseComponent extends AbstractShowcaseComponent im
     }
 
     @Override
+    protected void addJavaCode(final StringBuilder sb) {
+        sb.append("package de.larmic.defaultaction.demo;\n\n");
+        sb.append("import javax.faces.view.ViewScoped;\n");
+        sb.append("import javax.inject.Named;\n\n");
+
+        sb.append("@ViewScoped\n");
+        sb.append("@Named\n");
+        sb.append("public class MyBean implements Serializable {\n\n");
+        sb.append("    private String value;\n\n");
+        sb.append("    public void submit() {\n");
+        sb.append("        // implement me\n");
+        sb.append("    }\n\n");
+        sb.append("    // getter and setter\n\n");
+        sb.append("}\n\n");
+    }
+
+    @Override
     public String getXHtml() {
         final StringBuilder sb = new StringBuilder();
 
         this.addXhtmlStart(sb);
 
+        sb.append("        <b:test value=\"#{myBean.value}\" />\n\n");
         sb.append("        <b:commandLink id=\"input\"\n");
 
+        this.appendString("action", "#{myBean.submit}", sb);
         this.appendString("value", "click me", sb);
         this.appendString("styleClass", "btn btn-primary", sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
+        sb.append("            <f:ajax execute=\"@form\" render=\"@form\"/>\n");
         sb.append("            <b:defaultAction rendered=\"" + this.isRendered() + "\"/>\n");
         sb.append("        </b:commandLink>");
 
