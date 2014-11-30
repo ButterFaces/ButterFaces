@@ -16,7 +16,6 @@ import javax.faces.component.FacesComponent;
 
 /**
  * A concrete implementation of {@link AbstractKeyCodeAction}.
- * <p/>
  * The enter button (key code 13) is the listing key code that will be fire a
  * click event on ambient component.
  */

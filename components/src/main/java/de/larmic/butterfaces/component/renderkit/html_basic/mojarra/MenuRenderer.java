@@ -131,16 +131,16 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
             // If it could not be converted, as a fall back try the type of
             // the valueExpression's current value covering some edge cases such
             // as where the current value came from a Map.
-            if(result == null) {
+            if (result == null) {
                 Object value = valueExpression.getValue(context.getELContext());
-                if(value != null) {
+                if (value != null) {
                     result = convertSelectManyValuesForModel(context,
                             uiSelectMany,
                             value.getClass(),
                             newValues);
                 }
             }
-            if(result == null) {
+            if (result == null) {
                 throwException = true;
             }
         } else {
@@ -220,7 +220,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         if (clientId == null) {
             clientId = component.getClientId(context);
         }
-        assert(clientId != null);
+        assert (clientId != null);
         // currently we assume the model type to be of type string or
         // convertible to string and localized by the application.
         if (component instanceof UISelectMany) {
@@ -392,8 +392,6 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
     }
 
 
-
-
     protected Object convertSelectManyValues(FacesContext context,
                                              UISelectMany uiSelectMany,
                                              Class arrayClass,
@@ -454,7 +452,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
             }
         }
 
-        assert(null != result);
+        assert (null != result);
         if (elementType.isPrimitive()) {
             for (int i = 0; i < len; i++) {
                 if (elementType.equals(Boolean.TYPE)) {
@@ -645,7 +643,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         UISelectOne select = (UISelectOne) component;
         Object val = select.getValue();
         if (val != null) {
-            return new Object[] { val };
+            return new Object[]{val};
         }
         return null;
 
@@ -673,7 +671,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         UISelectOne select = (UISelectOne) component;
         Object val = select.getSubmittedValue();
         if (val != null) {
-            return new Object[] { val };
+            return new Object[]{val};
         }
         return null;
 
@@ -737,16 +735,16 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
             throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
-        assert(writer != null);
+        assert (writer != null);
 
         Converter converter = null;
-        if(component instanceof ValueHolder) {
-            converter = ((ValueHolder)component).getConverter();
+        if (component instanceof ValueHolder) {
+            converter = ((ValueHolder) component).getConverter();
         }
         int count = 0;
         Object currentSelections = getCurrentSelectedValues(component);
         Object[] submittedValues = getSubmittedSelectedValues(component);
-        Map<String,Object> attributes = component.getAttributes();
+        Map<String, Object> attributes = component.getAttributes();
         boolean componentDisabled = Util.componentIsDisabled(component);
 
         OptionComponentInfo optionInfo =
@@ -797,7 +795,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
                         currentSelections,
                         submittedValues,
                         optionInfo)) {
-                    count ++;
+                    count++;
                 }
             }
         }
@@ -813,7 +811,7 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
                                 UIComponent component) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
-        assert(writer != null);
+        assert (writer != null);
 
         if (logger.isLoggable(Level.FINER)) {
             logger.log(Level.FINER, "Rendering 'select'");
@@ -893,13 +891,13 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
 
 
     /**
-     * @param collection a Collection instance
-     *
+     * @param collection   a Collection instance
+     * @param fallBackType a fallback tyoe
      * @return a new {@link java.util.Collection}instance or null if the instance
-     *         cannot be created
+     * cannot be created
      */
-    protected Collection createCollection(Collection collection,
-                                          Class<? extends Collection> fallBackType) {
+    protected Collection createCollection(final Collection collection,
+                                          final Class<? extends Collection> fallBackType) {
 
         Class<? extends Collection> lookupClass =
                 ((collection != null) ? collection.getClass() : fallBackType);
@@ -927,12 +925,11 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
      * <p>
      * Utility method to invoke the the <code>clone</code> method on the provided
      * value.
-     * </p>
      *
      * @param value the value to clone
      * @return the result of invoking <code>clone()</code> or <code>null</code>
-     *  if the value could not be cloned or does not implement the
-     *  {@link Cloneable} interface
+     * if the value could not be cloned or does not implement the
+     * {@link Cloneable} interface
      */
     protected Collection cloneValue(Object value) {
 
@@ -973,10 +970,10 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
 
 
     /**
-     * @param type the target model type
+     * @param type        the target model type
      * @param initialSize the initial size of the <code>Collection</code>
      * @return a <code>Collection</code> instance that best matches
-     *  <code>type</code>
+     * <code>type</code>
      */
     protected Collection bestGuess(Class<? extends Collection> type,
                                    int initialSize) {
@@ -996,8 +993,8 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
 
 
     /**
-     * <p>
      * Create a collection from the provided hint.
+     *
      * @param collectionTypeHint the Collection type as either a String or Class
      * @return a new Collection instance
      */

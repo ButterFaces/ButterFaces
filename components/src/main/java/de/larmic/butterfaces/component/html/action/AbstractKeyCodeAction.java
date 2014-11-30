@@ -26,7 +26,6 @@ import java.util.logging.Logger;
  * Action is used to set a onKeyPress event on ambient form. A click-event will
  * be invoked on key code action ambient component. Note that not all jsf
  * components support click event.
- * <p/>
  * The concrete implementation of this class has to define on which key code the
  * click event will be fired.
  */

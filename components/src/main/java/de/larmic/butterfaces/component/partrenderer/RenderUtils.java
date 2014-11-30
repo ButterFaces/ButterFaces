@@ -13,7 +13,7 @@ public class RenderUtils {
      * @param pluginFunctionCall the plugin function call (e.g. 'tooltip()')
      * @param writer             component writer
      * @param uiComponent        component to add script
-     * @throws java.io.IOException
+     * @throws java.io.IOException if writer throws an error
      */
     public static final void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
                                                     final ResponseWriter writer, final UIComponent uiComponent)
