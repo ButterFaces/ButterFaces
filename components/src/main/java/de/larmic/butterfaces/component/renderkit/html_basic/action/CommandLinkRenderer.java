@@ -27,6 +27,13 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     private String onEventCallback = null;
 
     @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        this.onEventCallback = null;
+
+        super.encodeBegin(context, component);
+    }
+
+    @Override
     protected void writeCommonLinkAttributes(final ResponseWriter writer, final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final String styleClass = (String) component.getAttributes().get("styleClass");
