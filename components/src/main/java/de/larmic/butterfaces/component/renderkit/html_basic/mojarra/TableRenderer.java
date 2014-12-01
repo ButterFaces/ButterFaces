@@ -48,6 +48,7 @@ import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
 import com.sun.faces.util.Util;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -375,6 +376,10 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.startElement("td", column);
                 writer.writeAttribute("class", "butter-component-table-column", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
+                if (column instanceof HtmlColumn && ((HtmlColumn) column).isHideColumn()) {
+                    writer.writeAttribute("style", "display:none", null);
+                }
             }
 
             String columnClass = info.getCurrentColumnClass();

@@ -84,6 +84,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeAttribute("class", "butter-component-table-column-header", null);
             writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
+            if (column.isHideColumn()) {
+                writer.writeAttribute("style", "display:none", null);
+            }
+
             // render header label
             writer.startElement("span", table);
             writer.writeAttribute("class", "butter-component-table-column-label", null);

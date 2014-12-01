@@ -22,7 +22,7 @@
                                      value="#{tableShowcaseComponent.selectionAjaxType}"
                                      values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
             <showcase:tagEnumControl label="column width"
-                                     value="#{tableShowcaseComponent.threeColumnWidthType}"
+                                     value="#{tableShowcaseComponent.fourthColumnWidthType}"
                                      values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
@@ -46,22 +46,28 @@
                     disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
                       colWidth="#{tableShowcaseComponent.colWidthColumn1}"
-                      label="C1">
+                      label="Readonly text">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
                       colWidth="#{tableShowcaseComponent.colWidthColumn2}"
-                      label="C2">
+                      label="Input text">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
                       colWidth="#{tableShowcaseComponent.colWidthColumn3}"
-                      label="C3">
+                      label="Action">
                 <h:commandButton value="doSomething"
                                  styleClass="btn btn-warning btn-xs"
                                  action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </h:commandButton>
+            </b:column>
+            <b:column id="column4"
+                      colWidth="#{tableShowcaseComponent.colWidthColumn4}"
+                      hideColumn="true"
+                      label="Readonly text (default hide)">
+                #{rowItem.a}
             </b:column>
         </b:table>
 
