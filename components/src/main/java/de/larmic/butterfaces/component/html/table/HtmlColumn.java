@@ -16,6 +16,7 @@ public class HtmlColumn extends UIColumn {
 
     protected static final String PROPERTY_LABEL = "label";
     protected static final String PROPERTY_COL_WIDTH = "colWidth";
+    protected static final String PROPERTY_HIDE_COLUMN = "hideColumn";
 
     public HtmlColumn() {
         super();
@@ -41,6 +42,15 @@ public class HtmlColumn extends UIColumn {
 
     public void setColWidth(String colWidth) {
         this.updateStateHelper(PROPERTY_COL_WIDTH, colWidth);
+    }
+
+    public boolean isHideColumn() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HIDE_COLUMN);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setHideColumn(boolean hideColumn) {
+        this.updateStateHelper(PROPERTY_HIDE_COLUMN, hideColumn);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

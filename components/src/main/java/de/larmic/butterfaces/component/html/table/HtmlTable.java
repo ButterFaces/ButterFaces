@@ -19,6 +19,7 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "js", name = "butterfaces-table.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)

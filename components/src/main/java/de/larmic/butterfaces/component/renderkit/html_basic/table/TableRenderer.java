@@ -22,7 +22,7 @@ import java.util.*;
  * Created by larmic on 10.09.14.
  */
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
-public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRenderer {
+public class TableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.mojarra.TableRenderer {
 
     private List<HtmlColumn> cachedColumns;
     private boolean hasColumnWidthSet;
@@ -49,6 +49,15 @@ public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRende
     }
 
     @Override
+    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+        super.encodeEnd(context, component);
+
+        final ResponseWriter responseWriter = context.getResponseWriter();
+
+        RenderUtils.renderJQueryPluginCall(component.getClientId(), "fixBootstrapDropDown()", responseWriter, component);
+    }
+
+    @Override
     protected void renderHeader(final FacesContext context,
                                 final UIComponent table,
                                 final ResponseWriter writer) throws IOException {
@@ -66,11 +75,24 @@ public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRende
 
         writer.startElement("thead", table);
         writer.startElement("tr", table);
+
+        int columnNumber = 0;
+
         for (HtmlColumn column : this.cachedColumns) {
             writer.startElement("th", table);
             writer.writeAttribute("id", column.getClientId(), null);
+            writer.writeAttribute("class", "butter-component-table-column-header", null);
+            writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
+            // render header label
+            writer.startElement("span", table);
+            writer.writeAttribute("class", "butter-component-table-column-label", null);
             writer.writeText(column.getLabel(), null);
+            writer.endElement("span");
+
             writer.endElement("th");
+
+            columnNumber++;
         }
         writer.endElement("tr");
         writer.endElement("thead");
@@ -85,6 +107,11 @@ public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRende
 
         writer.startElement("div", table);
         writeIdAttributeIfNecessary(context, writer, table);
+
+        this.renderTableToolbar(writer, table);
+
+        writer.startElement("div", table);
+
         final String styleClass = (String) table.getAttributes().get("styleClass");
         if (styleClass != null) {
             writer.writeAttribute("class", "table-responsive " + styleClass, "styleClass");
@@ -114,11 +141,72 @@ public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRende
         writer.writeText("\n", table, null);
     }
 
+    private void renderTableToolbar(ResponseWriter writer, HtmlTable table) throws IOException {
+        writer.startElement("div", table);
+        writer.writeAttribute("class", "butter-table-toolbar clearfix", null);
+
+        writer.startElement("div", table);
+        writer.writeAttribute("class", "btn-group pull-right", null);
+
+        // refresh button
+        writer.startElement("button", table);
+        writer.writeAttribute("class", "btn btn-default", null);
+        writer.writeAttribute("role", "button", null);
+        writer.startElement("i", table);
+        writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
+        writer.endElement("i");
+        writer.endElement("button");
+
+        // show and hide option toggle
+        writer.startElement("button", table);
+        writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
+        writer.writeAttribute("data-toggle", "dropdown", null);
+        writer.writeAttribute("role", "button", null);
+        writer.startElement("i", table);
+        writer.writeAttribute("class", "glyphicon glyphicon-th", null);
+        writer.endElement("i");
+        writer.startElement("span", table);
+        writer.writeAttribute("class", "caret", null);
+        writer.endElement("span");
+        writer.endElement("button");
+
+        // show and hide option content
+        writer.startElement("ul", table);
+        writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
+        writer.writeAttribute("role", "menu", null);
+
+        int columnNumber = 0;
+        for (HtmlColumn cachedColumn : this.cachedColumns) {
+            writer.startElement("li", table);
+            writer.startElement("label", table);
+            writer.writeAttribute("class", "checkbox", null);
+            writer.startElement("input", table);
+            writer.writeAttribute("type", "checkbox", null);
+            writer.writeAttribute("columnNumber", "" + columnNumber, null);
+            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
+            writer.writeAttribute("onclick", jQueryPluginCall, null);
+            if (!cachedColumn.isHideColumn()) {
+                writer.writeAttribute("checked", "checked", null);
+            }
+            writer.endElement("input");
+            writer.writeText(cachedColumn.getLabel(), null);
+            writer.endElement("label");
+            writer.endElement("li");
+            columnNumber++;
+        }
+        writer.endElement("ul");
+
+        writer.endElement("div"); // end button group
+
+        writer.endElement("div");
+    }
+
     @Override
     protected void renderTableEnd(final FacesContext context,
                                   final UIComponent table,
                                   final ResponseWriter writer) throws IOException {
         super.renderTableEnd(context, table, writer);
+        writer.endElement("div");
         writer.endElement("div");
     }
 
@@ -136,7 +224,7 @@ public class TableRenderer extends com.sun.faces.renderkit.html_basic.TableRende
 
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
-        writer.writeAttribute("class", "butter-component-table-row", null);
+        writer.writeAttribute("class", "butter-table-row", null);
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
         if (behaviors.containsKey("click")) {

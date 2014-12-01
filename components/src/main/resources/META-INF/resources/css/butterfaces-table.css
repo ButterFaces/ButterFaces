@@ -1,8 +1,13 @@
-.table-striped>tbody>tr.butter-component-table-row-selected {
+.table-striped>tbody>tr.butter-table-row-selected {
     background: #D1E3FF;
 }
 
-.table-striped>tbody>tr.butter-component-table-row:hover {
+.table-striped>tbody>tr.butter-table-row:hover {
     background: #E8F1FF;
     cursor: pointer;
+}
+
+.butter-table-toolbar ul.dropdown-menu-form {
+    padding: 5px 30px 0;
+    max-height: 300px;
 }
