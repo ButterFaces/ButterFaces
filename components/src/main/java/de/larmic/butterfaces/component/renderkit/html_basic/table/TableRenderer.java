@@ -9,6 +9,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
@@ -180,7 +181,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.startElement("a", table);
         writer.writeAttribute("class", "btn btn-default", null);
         writer.writeAttribute("role", "button", null);
-        writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "'});", null);
+        writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
         writer.startElement("i", table);
         writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
         writer.endElement("i");
@@ -248,11 +249,23 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     @Override
     protected void renderTableEnd(final FacesContext context,
-                                  final UIComponent table,
+                                  final UIComponent component,
                                   final ResponseWriter writer) throws IOException {
-        super.renderTableEnd(context, table, writer);
+        final HtmlTable table = (HtmlTable) component;
+        super.renderTableEnd(context, component, writer);
         writer.endElement("div");
         writer.endElement("div");
+
+        final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
+
+        if (!behaviors.isEmpty()) {
+            writer.startElement("script", component);
+            writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
+            writer.writeText("    toggleColumn(data, '" + component.getClientId() + "');", null);
+            writer.writeText("}", null);
+            writer.endElement("script");
+
+        }
     }
 
     @Override
@@ -329,6 +342,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 toggledColumn.setHideColumn(!toggledColumn.isHideColumn());
             }
         }
+    }
+
+    private String getOnEventListenerName(final UIComponent component) {
+        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        return "toggleColumn" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 
     private Object findRowObject(final Iterable tableValues, final int row) {

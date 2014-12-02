@@ -8,12 +8,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by larmic on 16.09.14.
@@ -67,8 +68,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
             final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
             final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
-                    ? this.createJQueryIDSelector(ajaxClientIdResolver.getResolvedAjaxRenderJQueryClientIds(), component)
-                    : "undefined";
+                    ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
 
             responseWriter.writeText("    disableOnClick(data, " +
                     link.isAjaxShowWaitingDotsOnRequest() + ",'" +
@@ -79,38 +79,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
-    }
-
-    private String createJQueryIDSelector(final Collection<String> jQueryReadableClientIds, final UIComponent component) {
-        if ((null == jQueryReadableClientIds) || jQueryReadableClientIds.isEmpty()) {
-            return "undefined";
-        }
-
-        final StringBuilder builder = new StringBuilder();
-
-        final Iterator<String> iterator = jQueryReadableClientIds.iterator();
-
-        while (iterator.hasNext()) {
-            final String jQueryReadableClientId = iterator.next();
-
-            if (jQueryReadableClientId.equals("@all")) {
-                builder.append("html");
-            } else if (jQueryReadableClientId.equals("@form")) {
-                final String clientIdOfSurroundingFormClientId = this.findClientIdOfSurroundingFormClientId(component);
-                if (StringUtils.isNotEmpty(clientIdOfSurroundingFormClientId)) {
-                    builder.append("#" + clientIdOfSurroundingFormClientId);
-                }
-            } else if (jQueryReadableClientId.equals("@this") || jQueryReadableClientId.equals("@none")) {
-            } else {
-                builder.append(jQueryReadableClientId);
-            }
-
-            if (iterator.hasNext()) {
-                builder.append(", ");
-            }
-        }
-
-        return builder.toString();
     }
 
     @Override
@@ -155,18 +123,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         if (ajaxBehavior != null) {
             ajaxBehavior.setOnevent(onEventCallback);
         }
-    }
-
-    private String findClientIdOfSurroundingFormClientId(final UIComponent component) {
-        if (component instanceof HtmlForm) {
-            return component.getClientId();
-        }
-
-        if (component.getParent() == null) {
-            return null;
-        }
-
-        return findClientIdOfSurroundingFormClientId(component.getParent());
     }
 
     private String getOnEventListenerName(final UIComponent component) {

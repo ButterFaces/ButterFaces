@@ -7,11 +7,9 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by larmic on 18.11.14.
@@ -21,6 +19,7 @@ public class AjaxClientIdResolver {
     private final Set<String> ajaxRenderClientIds = new HashSet<>();
     private final Set<String> resolvedAjaxRenderClientIds = new HashSet<>();
     private final Set<String> resolvedAjaxRenderJQueryClientIds = new HashSet<>();
+    private final String jQueryRenderIDSelector;
 
     public AjaxClientIdResolver(final UIComponent component) {
         if (!(component instanceof ClientBehaviorHolder)) {
@@ -30,6 +29,39 @@ public class AjaxClientIdResolver {
         ajaxRenderClientIds.addAll(this.findClientIdsToDisableOnRequest((ClientBehaviorHolder) component));
         resolvedAjaxRenderClientIds.addAll(this.resolveClientIds(component, ajaxRenderClientIds));
         resolvedAjaxRenderJQueryClientIds.addAll(this.convertClientIdsToJQuerySelectorIds(resolvedAjaxRenderClientIds));
+        jQueryRenderIDSelector = this.createJQueryIDSelector(resolvedAjaxRenderJQueryClientIds, component);
+    }
+
+    private String createJQueryIDSelector(final Collection<String> jQueryReadableClientIds, final UIComponent component) {
+        if ((null == jQueryReadableClientIds) || jQueryReadableClientIds.isEmpty()) {
+            return "undefined";
+        }
+
+        final StringBuilder builder = new StringBuilder();
+
+        final Iterator<String> iterator = jQueryReadableClientIds.iterator();
+
+        while (iterator.hasNext()) {
+            final String jQueryReadableClientId = iterator.next();
+
+            if (jQueryReadableClientId.equals("@all")) {
+                builder.append("html");
+            } else if (jQueryReadableClientId.equals("@form")) {
+                final String clientIdOfSurroundingFormClientId = this.findClientIdOfSurroundingFormClientId(component);
+                if (StringUtils.isNotEmpty(clientIdOfSurroundingFormClientId)) {
+                    builder.append("#" + clientIdOfSurroundingFormClientId);
+                }
+            } else if (jQueryReadableClientId.equals("@this") || jQueryReadableClientId.equals("@none")) {
+            } else {
+                builder.append(jQueryReadableClientId);
+            }
+
+            if (iterator.hasNext()) {
+                builder.append(", ");
+            }
+        }
+
+        return builder.toString();
     }
 
     private Set<String> findClientIdsToDisableOnRequest(final ClientBehaviorHolder clientBehaviorHolder) {
@@ -117,6 +149,18 @@ public class AjaxClientIdResolver {
         return resolvedComponent != null ? resolvedComponent : this.resolveComponent(component.getParent(), clientIdToResolve);
     }
 
+    private String findClientIdOfSurroundingFormClientId(final UIComponent component) {
+        if (component instanceof HtmlForm) {
+            return component.getClientId();
+        }
+
+        if (component.getParent() == null) {
+            return null;
+        }
+
+        return findClientIdOfSurroundingFormClientId(component.getParent());
+    }
+
     public Set<String> getResolvedAjaxRenderClientIds() {
         return resolvedAjaxRenderClientIds;
     }
@@ -127,5 +171,9 @@ public class AjaxClientIdResolver {
 
     public Set<String> getResolvedAjaxRenderJQueryClientIds() {
         return resolvedAjaxRenderJQueryClientIds;
+    }
+
+    public String getjQueryRenderIDSelector() {
+        return jQueryRenderIDSelector;
     }
 }

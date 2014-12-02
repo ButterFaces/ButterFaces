@@ -13,7 +13,7 @@
 
             if ($overlay.height() > 0 && $overlay.width() > 0) {
                 $("body").append($overlay);
-                $overlay.show('fast');
+                $overlay.show();
             }
         });
     };
