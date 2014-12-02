@@ -57,11 +57,11 @@
             <b:column id="column3"
                       colWidth="#{tableShowcaseComponent.colWidthColumn3}"
                       label="Action">
-                <h:commandButton value="doSomething"
-                                 styleClass="btn btn-warning btn-xs"
-                                 action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                <b:commandLink value="doSomething"
+                               styleClass="btn btn-warning btn-xs"
+                               action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
-                </h:commandButton>
+                </b:commandLink>
             </b:column>
             <b:column id="column4"
                       colWidth="#{tableShowcaseComponent.colWidthColumn4}"
@@ -100,7 +100,8 @@
                       layout="block">
             <hr/>
 
-            <h:panelGroup layout="block" styleClass="input-group" rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+            <h:panelGroup layout="block" styleClass="input-group"
+                          rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
                 <span class="input-group-addon">Table selected value:</span>
                 <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
                               rendered="#{not empty tableShowcaseComponent.selectedValue}"
@@ -109,6 +110,7 @@
                               rendered="#{empty tableShowcaseComponent.selectedValue}"
                               styleClass="form-control arquillian_output_value"/>
             </h:panelGroup>
+
             <div class="input-group">
                 <span class="input-group-addon">Button selected value:</span>
                 <h:outputText value="#{tableShowcaseComponent.doSomethingWithRow}"

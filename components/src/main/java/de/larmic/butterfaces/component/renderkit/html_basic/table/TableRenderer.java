@@ -134,7 +134,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writeIdAttributeIfNecessary(context, writer, table);
         writer.writeAttribute("class", "butter-table", null);
 
-        this.renderTableToolbar(writer, table);
+        this.renderTableToolbar(context, writer, table);
 
         writer.startElement("div", table);
 
@@ -167,7 +167,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeText("\n", table, null);
     }
 
-    private void renderTableToolbar(ResponseWriter writer, HtmlTable table) throws IOException {
+    private void renderTableToolbar(final FacesContext context,
+                                    final ResponseWriter writer,
+                                    final HtmlTable table) throws IOException {
         writer.startElement("div", table);
         writer.writeAttribute("class", "butter-table-toolbar clearfix", null);
 
@@ -175,13 +177,14 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("class", "btn-group pull-right", null);
 
         // refresh button
-        writer.startElement("button", table);
+        writer.startElement("a", table);
         writer.writeAttribute("class", "btn btn-default", null);
         writer.writeAttribute("role", "button", null);
+        writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "'});", null);
         writer.startElement("i", table);
         writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
         writer.endElement("i");
-        writer.endElement("button");
+        writer.endElement("a");
 
         // show and hide option toggle
         writer.startElement("button", table);
@@ -201,6 +204,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
         writer.writeAttribute("role", "menu", null);
 
+        final ClientBehaviorContext behaviorContext =
+                ClientBehaviorContext.createClientBehaviorContext(context,
+                        table, "click", table.getClientId(context), null);
+
         int columnNumber = 0;
         for (HtmlColumn cachedColumn : this.cachedColumns) {
             writer.startElement("li", table);
@@ -209,8 +216,20 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.startElement("input", table);
             writer.writeAttribute("type", "checkbox", null);
             writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
             final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
-            writer.writeAttribute("onclick", jQueryPluginCall, null);
+
+            final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
+            if (behaviors.containsKey("click")) {
+                final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+
+                if (StringUtils.isNotEmpty(click)) {
+                    final String correctedEventName = click.replace(",'click',", ",'toggle_" + columnNumber + "',");
+                    writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
+                }
+            } else {
+                writer.writeAttribute("onclick", jQueryPluginCall, null);
+            }
             if (!cachedColumn.isHideColumn()) {
                 writer.writeAttribute("checked", "checked", null);
             }
@@ -297,13 +316,17 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         if (behaviorEvent != null) {
             final String[] split = behaviorEvent.split("_");
-            // final String event = split[0];
-            final String nodeNumber = split[1];
+            final String event = split[0];
+            final int eventNumber = Integer.valueOf(split[1]);
+            if ("click".equals(event)) {
+                final Object rowObject = findRowObject(tableValues, eventNumber);
 
-            final Object rowObject = findRowObject(tableValues, Integer.valueOf(nodeNumber));
-
-            if (rowObject != null) {
-                listener.processValueChange(rowObject);
+                if (rowObject != null) {
+                    listener.processValueChange(rowObject);
+                }
+            } else if ("toggle".equals(event)) {
+                final HtmlColumn toggledColumn = cachedColumns.get(eventNumber);
+                toggledColumn.setHideColumn(!toggledColumn.isHideColumn());
             }
         }
     }
