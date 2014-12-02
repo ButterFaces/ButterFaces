@@ -63,12 +63,33 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                 final ResponseWriter writer) throws IOException {
         if (hasColumnWidthSet) {
             writer.startElement("colgroup", table);
+
+            int columnNumber = 0;
+
             for (HtmlColumn column : this.cachedColumns) {
                 writer.startElement("col", table);
+                writer.writeAttribute("class", "butter-table-colgroup", null);
+                writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
+                final StringBuilder style = new StringBuilder();
+
                 if (StringUtils.isNotEmpty(column.getColWidth())) {
-                    writer.writeAttribute("style", "width: " + column.getColWidth(), null);
+                    style.append("width: ");
+                    style.append(column.getColWidth());
+                }
+                if (column.isHideColumn()) {
+                    if (style.length() > 0) {
+                        style.append("; ");
+                    }
+                    style.append("display: none");
+                }
+
+                if (style.length() > 0) {
+                    writer.writeAttribute("style", style.toString(), null);
                 }
                 writer.endElement("col");
+
+                columnNumber++;
             }
             writer.endElement("colgroup");
         }
@@ -111,6 +132,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         writer.startElement("div", table);
         writeIdAttributeIfNecessary(context, writer, table);
+        writer.writeAttribute("class", "butter-table", null);
 
         this.renderTableToolbar(writer, table);
 

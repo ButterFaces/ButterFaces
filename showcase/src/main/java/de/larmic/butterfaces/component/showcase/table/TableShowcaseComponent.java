@@ -278,7 +278,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
                 colWidthColumn1 = "50px";
                 colWidthColumn2 = "30px";
                 colWidthColumn3 = "10px";
-                colWidthColumn3 = "10px";
+                colWidthColumn4 = "10px";
                 break;
             case RELATIVE:
                 colWidthColumn1 = "5*";

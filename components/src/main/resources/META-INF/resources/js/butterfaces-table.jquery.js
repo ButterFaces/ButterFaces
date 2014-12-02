@@ -31,6 +31,7 @@
             var $toolbarColumn = $originalElement.find('.butter-table-toolbar').find('.butter-table-toolbar-columns').find("input[columnnumber='" + data.columnIndex + "']");
             var $columnHeader = $originalElement.find(".butter-component-table-column-header[columnnumber='" + data.columnIndex + "']");
             var $columnBody = $originalElement.find(".butter-component-table-column[columnnumber='" + data.columnIndex + "']");
+            var $colGroup = $originalElement.find(".butter-table-colgroup[columnnumber='" + data.columnIndex + "']");
 
             var checked = $toolbarColumn.attr('checked');
 
@@ -40,10 +41,12 @@
                 $toolbarColumn.removeAttr('checked');
                 $columnHeader.css('display', 'none');
                 $columnBody.css('display', 'none');
+                $colGroup.css('display', 'none');
             } else {
                 $toolbarColumn.attr('checked', 'checked');
                 $columnHeader.css('display', '');
                 $columnBody.css('display', '');
+                $colGroup.css('display', '');
             }
 
             // console.log($originalElement.find('tr[rowindex=' + data.rowIndex + ']'));
