@@ -174,77 +174,87 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.startElement("div", table);
         writer.writeAttribute("class", "butter-table-toolbar clearfix", null);
 
-        writer.startElement("div", table);
+        writer.startElement("div", table); // start button group
         writer.writeAttribute("class", "btn-group pull-right", null);
 
-        // refresh button
-        writer.startElement("a", table);
-        writer.writeAttribute("class", "btn btn-default", null);
-        writer.writeAttribute("role", "button", null);
-        writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
-        writer.startElement("i", table);
-        writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
-        writer.endElement("i");
-        writer.endElement("a");
-
-        // show and hide option toggle
-        writer.startElement("button", table);
-        writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
-        writer.writeAttribute("data-toggle", "dropdown", null);
-        writer.writeAttribute("role", "button", null);
-        writer.startElement("i", table);
-        writer.writeAttribute("class", "glyphicon glyphicon-th", null);
-        writer.endElement("i");
-        writer.startElement("span", table);
-        writer.writeAttribute("class", "caret", null);
-        writer.endElement("span");
-        writer.endElement("button");
-
-        // show and hide option content
-        writer.startElement("ul", table);
-        writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
-        writer.writeAttribute("role", "menu", null);
-
-        final ClientBehaviorContext behaviorContext =
-                ClientBehaviorContext.createClientBehaviorContext(context,
-                        table, "click", table.getClientId(context), null);
-
-        int columnNumber = 0;
-        for (HtmlColumn cachedColumn : this.cachedColumns) {
-            writer.startElement("li", table);
-            writer.startElement("label", table);
-            writer.writeAttribute("class", "checkbox", null);
-            writer.startElement("input", table);
-            writer.writeAttribute("type", "checkbox", null);
-            writer.writeAttribute("columnNumber", "" + columnNumber, null);
-
-            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
-
-            final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
-            if (behaviors.containsKey("click")) {
-                final String click = behaviors.get("click").get(0).getScript(behaviorContext);
-
-                if (StringUtils.isNotEmpty(click)) {
-                    final String correctedEventName = click.replace(",'click',", ",'toggle_" + columnNumber + "',");
-                    writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
-                }
-            } else {
-                writer.writeAttribute("onclick", jQueryPluginCall, null);
-            }
-            if (!cachedColumn.isHideColumn()) {
-                writer.writeAttribute("checked", "checked", null);
-            }
-            writer.endElement("input");
-            writer.writeText(cachedColumn.getLabel(), null);
-            writer.endElement("label");
-            writer.endElement("li");
-            columnNumber++;
-        }
-        writer.endElement("ul");
+        this.renderTableToolbarRefreshButton(writer, table);
+        this.renderTableToolbarToogleColumnButton(context, writer, table);
 
         writer.endElement("div"); // end button group
 
         writer.endElement("div");
+    }
+
+    private void renderTableToolbarToogleColumnButton(FacesContext context, ResponseWriter writer, HtmlTable table) throws IOException {
+        if (table.isShowToggleColumnButton()) {
+            // show and hide option toggle
+            writer.startElement("a", table);
+            writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
+            writer.writeAttribute("data-toggle", "dropdown", null);
+            writer.writeAttribute("role", "button", null);
+            writer.startElement("i", table);
+            writer.writeAttribute("class", "glyphicon glyphicon-th", null);
+            writer.endElement("i");
+            writer.startElement("span", table);
+            writer.writeAttribute("class", "caret", null);
+            writer.endElement("span");
+            writer.endElement("a");
+
+            // show and hide option content
+            writer.startElement("ul", table);
+            writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
+            writer.writeAttribute("role", "menu", null);
+
+            final ClientBehaviorContext behaviorContext =
+                    ClientBehaviorContext.createClientBehaviorContext(context,
+                            table, "click", table.getClientId(context), null);
+
+            int columnNumber = 0;
+            for (HtmlColumn cachedColumn : this.cachedColumns) {
+                writer.startElement("li", table);
+                writer.startElement("label", table);
+                writer.writeAttribute("class", "checkbox", null);
+                writer.startElement("input", table);
+                writer.writeAttribute("type", "checkbox", null);
+                writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
+                final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
+
+                final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
+                if (behaviors.containsKey("click")) {
+                    final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+
+                    if (StringUtils.isNotEmpty(click)) {
+                        final String correctedEventName = click.replace(",'click',", ",'toggle_" + columnNumber + "',");
+                        writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
+                    }
+                } else {
+                    writer.writeAttribute("onclick", jQueryPluginCall, null);
+                }
+                if (!cachedColumn.isHideColumn()) {
+                    writer.writeAttribute("checked", "checked", null);
+                }
+                writer.endElement("input");
+                writer.writeText(cachedColumn.getLabel(), null);
+                writer.endElement("label");
+                writer.endElement("li");
+                columnNumber++;
+            }
+            writer.endElement("ul");
+        }
+    }
+
+    private void renderTableToolbarRefreshButton(ResponseWriter writer, HtmlTable table) throws IOException {
+        if (table.isShowRefreshButton()) {
+            writer.startElement("a", table);
+            writer.writeAttribute("class", "btn btn-default", null);
+            writer.writeAttribute("role", "button", null);
+            writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
+            writer.startElement("i", table);
+            writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
+            writer.endElement("i");
+            writer.endElement("a");
+        }
     }
 
     @Override

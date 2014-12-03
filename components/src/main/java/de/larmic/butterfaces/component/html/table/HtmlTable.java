@@ -34,6 +34,8 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
+    protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
+    protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
 
     public HtmlTable() {
         super();
@@ -88,6 +90,24 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setTableStriped(boolean tableStriped) {
         this.updateStateHelper(PROPERTY_TABLE_STRIPED, tableStriped);
+    }
+
+    public boolean isShowRefreshButton() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_REFRESH_BUTTON);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setShowRefreshButton(boolean showRefreshButton) {
+        this.updateStateHelper(PROPERTY_TABLE_SHOW_REFRESH_BUTTON, showRefreshButton);
+    }
+
+    public boolean isShowToggleColumnButton() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setShowToggleColumnButton(boolean showToggleColumnButton) {
+        this.updateStateHelper(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON, showToggleColumnButton);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
