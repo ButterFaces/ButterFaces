@@ -141,6 +141,8 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         this.appendBoolean("tableBordered", this.tableBordered, sb);
         this.appendBoolean("tableCondensed", this.tableCondensed, sb);
         this.appendBoolean("tableStriped", this.tableStriped, sb);
+        this.appendBoolean("showRefreshButton", this.showRefreshButton, sb);
+        this.appendBoolean("showToggleColumnButton", this.showToggleColumnButton, sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
