@@ -16,7 +16,8 @@
             <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseComponent.tableCondensed}"/>
             <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseComponent.tableStriped}"/>
             <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcaseComponent.showRefreshButton}"/>
-            <showcase:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcaseComponent.showToggleColumnButton}"/>
+            <showcase:tagBooleanControl label="showToggleColumnButton"
+                                        value="#{tableShowcaseComponent.showToggleColumnButton}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -26,6 +27,9 @@
             <showcase:tagEnumControl label="column width"
                                      value="#{tableShowcaseComponent.fourthColumnWidthType}"
                                      values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
+            <showcase:tagEnumControl label="table model"
+                                     value="#{tableShowcaseComponent.tableModelType}"
+                                     values="#{tableShowcaseComponent.tableModelTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -35,6 +39,21 @@
                       styleClass="alert alert-warning"
                       rendered="#{!(tableShowcaseComponent.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Table selection will only work in ajax mode.
+        </h:panelGroup>
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{tableShowcaseComponent.tableModelType eq 'NONE'}">
+            <strong>Attention:</strong> Column show and hide information will not be stored when not using a table model.
+            Try toggling columns and and press refresh button. In this case column hide information will be used by checking
+            hideColumn attribute.
+        </h:panelGroup>
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE')}">
+            <strong>Attention:</strong> Column show and hide information will be stored when using a table model. When
+            using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
         </h:panelGroup>
 
         <b:table var="rowItem"
@@ -68,8 +87,7 @@
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column id="column4"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn4}"
+            <b:column colWidth="#{tableShowcaseComponent.colWidthColumn4}"
                       hideColumn="true"
                       label="Readonly text (default hide)">
                 #{rowItem.a}
@@ -93,11 +111,16 @@
             <b:column id="column3"
                       colWidth="#{tableShowcaseComponent.colWidthColumn3}"
                       label="C3">
-                <h:commandButton value="doSomething"
-                                 styleClass="btn btn-warning btn-xs"
-                                 action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                <b:commandLink value="doSomething"
+                               styleClass="btn btn-warning btn-xs"
+                               action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
-                </h:commandButton>
+                </b:commandLink>
+            </b:column>
+            <b:column colWidth="#{tableShowcaseComponent.colWidthColumn4}"
+                      hideColumn="true"
+                      label="Readonly text (default hide)">
+                #{rowItem.a}
             </b:column>
         </b:table>
 

@@ -62,7 +62,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     protected void renderHeader(final FacesContext context,
                                 final UIComponent table,
                                 final ResponseWriter writer) throws IOException {
+        final HtmlTable htmlTable = (HtmlTable) table;
+
         if (hasColumnWidthSet) {
+
             writer.startElement("colgroup", table);
 
             int columnNumber = 0;
@@ -78,7 +81,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     style.append("width: ");
                     style.append(column.getColWidth());
                 }
-                if (column.isHideColumn()) {
+                if (this.isHideColumn(htmlTable, column)) {
                     if (style.length() > 0) {
                         style.append("; ");
                     }
@@ -106,7 +109,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeAttribute("class", "butter-component-table-column-header", null);
             writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
-            if (column.isHideColumn()) {
+            if (this.isHideColumn(htmlTable, column)) {
                 writer.writeAttribute("style", "display:none", null);
             }
 
@@ -122,6 +125,16 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
         writer.endElement("tr");
         writer.endElement("thead");
+    }
+
+    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
+        if (table.getModel() != null) {
+            final Boolean hideColumn = table.getModel().isHideColumn(column.getId());
+            if (hideColumn != null) {
+                return hideColumn;
+            }
+        }
+        return column.isHideColumn();
     }
 
     @Override
@@ -178,19 +191,22 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("class", "btn-group pull-right", null);
 
         this.renderTableToolbarRefreshButton(writer, table);
-        this.renderTableToolbarToogleColumnButton(context, writer, table);
+        this.renderTableToolbarToggleColumnButton(context, writer, table);
 
         writer.endElement("div"); // end button group
 
         writer.endElement("div");
     }
 
-    private void renderTableToolbarToogleColumnButton(FacesContext context, ResponseWriter writer, HtmlTable table) throws IOException {
+    private void renderTableToolbarToggleColumnButton(final FacesContext context,
+                                                      final ResponseWriter writer,
+                                                      final HtmlTable table) throws IOException {
         if (table.isShowToggleColumnButton()) {
             // show and hide option toggle
             writer.startElement("a", table);
             writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
             writer.writeAttribute("data-toggle", "dropdown", null);
+            writer.writeAttribute("title", "Column options", null);
             writer.writeAttribute("role", "button", null);
             writer.startElement("i", table);
             writer.writeAttribute("class", "glyphicon glyphicon-th", null);
@@ -231,7 +247,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 } else {
                     writer.writeAttribute("onclick", jQueryPluginCall, null);
                 }
-                if (!cachedColumn.isHideColumn()) {
+                if (!this.isHideColumn(table, cachedColumn)) {
                     writer.writeAttribute("checked", "checked", null);
                 }
                 writer.endElement("input");
@@ -249,6 +265,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.startElement("a", table);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
+            writer.writeAttribute("title", "Refresh table", null);
             writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
             writer.startElement("i", table);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
@@ -349,10 +366,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 }
             } else if ("toggle".equals(event) && htmlTable.getModel() != null) {
                 final HtmlColumn toggledColumn = cachedColumns.get(eventNumber);
-                if (toggledColumn.isHideColumn()) {
-                    htmlTable.getModel().showColumn(toggledColumn.getClientId());
+                if (this.isHideColumn(htmlTable, toggledColumn)) {
+                    htmlTable.getModel().showColumn(toggledColumn.getId());
                 } else {
-                    htmlTable.getModel().hideColumn(toggledColumn.getClientId());
+                    htmlTable.getModel().hideColumn(toggledColumn.getId());
                 }
             }
         }

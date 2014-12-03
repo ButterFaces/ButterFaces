@@ -7,6 +7,10 @@ public interface TableModel {
 
     void showColumn(final String columnClientId);
     void hideColumn(final String columnClientId);
-    boolean isHideColumn(final String columnClientId);
+
+    /**
+     * @return null if column client id is not known.
+     */
+    Boolean isHideColumn(final String columnClientId);
 
 }

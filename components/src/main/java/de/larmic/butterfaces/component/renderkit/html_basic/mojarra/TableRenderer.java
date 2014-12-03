@@ -49,6 +49,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
 import com.sun.faces.util.Util;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -377,7 +378,7 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.writeAttribute("class", "butter-component-table-column", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
-                if (column instanceof HtmlColumn && ((HtmlColumn) column).isHideColumn()) {
+                if (column instanceof HtmlColumn && table instanceof HtmlTable && this.isHideColumn((HtmlTable) table, (HtmlColumn)column)) {
                     writer.writeAttribute("style", "display:none", null);
                 }
             }
@@ -407,6 +408,16 @@ public class TableRenderer extends BaseTableRenderer {
             columnNumber++;
         }
 
+    }
+
+    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
+        if (table.getModel() != null) {
+            final Boolean hideColumn = table.getModel().isHideColumn(column.getId());
+            if (hideColumn != null) {
+                return hideColumn;
+            }
+        }
+        return column.isHideColumn();
     }
 
 

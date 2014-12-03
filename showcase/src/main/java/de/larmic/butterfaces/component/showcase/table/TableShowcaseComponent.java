@@ -24,6 +24,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
+    private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     private boolean tableCondensed;
@@ -72,6 +73,15 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         return items;
     }
 
+    public List<SelectItem> getTableModelTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TableModelType type : TableModelType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
     public void doSomethingWithRow(final StringPair selectedValue) {
         this.doSomethingWithRow = "I have done something with " + (selectedValue == null ? "null" : selectedValue.getA());
     }
@@ -86,12 +96,21 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         sb.append("import javax.faces.view.ViewScoped;\n");
         sb.append("import javax.inject.Named;\n\n");
 
+        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+            sb.append("import de.larmic.butterfaces.model.table.TableModel;\n");
+            sb.append("import de.larmic.butterfaces.model.table.DefaultTableModel;\n\n");
+        }
+
         sb.append("@ViewScoped\n");
         sb.append("@Named\n");
         if (this.selectionAjaxType == SelectionAjaxType.AJAX) {
             sb.append("public class MyBean implements Serializable, TableSingleSelectionListener {\n\n");
         } else {
             sb.append("public class MyBean implements Serializable {\n\n");
+        }
+
+        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+            sb.append("    private TableModel tableModel = new DefaultTableModel();\n\n");
         }
 
         sb.append("    public List<StringPair> getValue() {\n");
@@ -114,6 +133,12 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
             sb.append("    }\n\n");
             sb.append("    public StringPair getSelectedRow() {\n");
             sb.append("        return selectedRow;\n");
+            sb.append("    }\n\n");
+        }
+
+        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+            sb.append("    public TableModel getTableModel() {\n");
+            sb.append("        return this.tableModel;\n");
             sb.append("    }\n\n");
         }
 
@@ -140,6 +165,9 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
         this.appendString("var", "rowItem", sb);
         this.appendString("value", "#{myBean.value}", sb);
+        if (tableModelType == TableModelType.DEFAULT_MODEL) {
+            this.appendString("model", "#{myBean.tableModel}", sb);
+        }
         this.appendBoolean("tableBordered", this.tableBordered, sb);
         this.appendBoolean("tableCondensed", this.tableCondensed, sb);
         this.appendBoolean("tableStriped", this.tableStriped, sb);
@@ -328,7 +356,19 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     }
 
     public DefaultTableModel getTableModel() {
-        return tableModel;
+        if (tableModelType == TableModelType.DEFAULT_MODEL) {
+            return tableModel;
+        }
+
+        return null;
+    }
+
+    public TableModelType getTableModelType() {
+        return tableModelType;
+    }
+
+    public void setTableModelType(TableModelType tableModelType) {
+        this.tableModelType = tableModelType;
     }
 }
 

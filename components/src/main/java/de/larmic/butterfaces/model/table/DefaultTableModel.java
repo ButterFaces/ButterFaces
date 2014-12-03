@@ -15,17 +15,17 @@ public class DefaultTableModel implements TableModel {
 
     @Override
     public void showColumn(final String columnClientId) {
-        columnInformation.put(columnClientId, true);
-    }
-
-    @Override
-    public void hideColumn(final String columnClientId) {
         columnInformation.put(columnClientId, false);
     }
 
     @Override
-    public boolean isHideColumn(final String columnClientId) {
+    public void hideColumn(final String columnClientId) {
+        columnInformation.put(columnClientId, true);
+    }
+
+    @Override
+    public Boolean isHideColumn(final String columnClientId) {
         final Boolean hideColumn = columnInformation.get(columnClientId);
-        return hideColumn == null ? false : hideColumn;
+        return hideColumn == null ? null : hideColumn;
     }
 }
