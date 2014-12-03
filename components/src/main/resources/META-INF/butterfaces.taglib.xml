@@ -515,6 +515,11 @@
             <required>false</required>
         </attribute>
         <attribute>
+            <name>model</name>
+            <type>de.larmic.butterfaces.model.table.TableModel</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
             <description>Set tableCondensed to true to make table more compact by cutting cell padding in half. Default
                 is false.
             </description>

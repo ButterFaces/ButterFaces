@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.TableModel;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -31,6 +32,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
+    protected static final String PROPERTY_MODEL = "model";
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
@@ -63,6 +65,14 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
         this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
+    }
+
+    public TableModel getModel() {
+        return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
+    }
+
+    public void setModel(TableModel tableModel) {
+        this.updateStateHelper(PROPERTY_MODEL, tableModel);
     }
 
     public boolean isTableCondensed() {

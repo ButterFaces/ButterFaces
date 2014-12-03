@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.table;
 import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.DefaultTableModel;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -23,6 +24,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
+    private DefaultTableModel tableModel = new DefaultTableModel();
 
     private boolean tableCondensed;
     private boolean tableBordered;
@@ -323,6 +325,10 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     public String getColWidthColumn4() {
         return colWidthColumn4;
+    }
+
+    public DefaultTableModel getTableModel() {
+        return tableModel;
     }
 }
 
