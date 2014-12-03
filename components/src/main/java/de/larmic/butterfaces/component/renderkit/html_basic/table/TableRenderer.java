@@ -278,21 +278,15 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     protected void renderTableEnd(final FacesContext context,
                                   final UIComponent component,
                                   final ResponseWriter writer) throws IOException {
-        final HtmlTable table = (HtmlTable) component;
         super.renderTableEnd(context, component, writer);
         writer.endElement("div");
         writer.endElement("div");
 
-        final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
-
-        if (!behaviors.isEmpty()) {
-            writer.startElement("script", component);
-            writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
-            writer.writeText("    toggleColumn(data, '" + component.getClientId() + "');", null);
-            writer.writeText("}", null);
-            writer.endElement("script");
-
-        }
+        writer.startElement("script", component);
+        writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
+        writer.writeText("    refreshTable(data, '" + component.getClientId() + "');", null);
+        writer.writeText("}", null);
+        writer.endElement("script");
     }
 
     @Override
@@ -377,7 +371,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private String getOnEventListenerName(final UIComponent component) {
         final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        return "toggleColumn" + "_" + component.getClientId().replace(separatorChar + "", "_");
+        return "refreshTable" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 
     private Object findRowObject(final Iterable tableValues, final int row) {

@@ -1,8 +1,10 @@
-function toggleColumn(data, tableId) {
+function refreshTable(data, tableId) {
     var status = data.status;
 
     var $table = $(document.getElementById(tableId));
 
+    console.log("Table id: " + tableId);
+    console.log(status = data.status);
     // console.log($table);
 
     switch (status) {
