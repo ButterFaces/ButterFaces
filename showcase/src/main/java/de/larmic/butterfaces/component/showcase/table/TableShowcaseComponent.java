@@ -27,6 +27,8 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private boolean tableCondensed;
     private boolean tableBordered;
     private boolean tableStriped = true;
+    private boolean showRefreshButton = true;
+    private boolean showToggleColumnButton = true;
     private String colWidthColumn1;
     private String colWidthColumn2;
     private String colWidthColumn3;
@@ -252,6 +254,22 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     public void setTableStriped(boolean tableStriped) {
         this.tableStriped = tableStriped;
+    }
+
+    public boolean isShowRefreshButton() {
+        return showRefreshButton;
+    }
+
+    public void setShowRefreshButton(boolean showRefreshButton) {
+        this.showRefreshButton = showRefreshButton;
+    }
+
+    public boolean isShowToggleColumnButton() {
+        return showToggleColumnButton;
+    }
+
+    public void setShowToggleColumnButton(boolean showToggleColumnButton) {
+        this.showToggleColumnButton = showToggleColumnButton;
     }
 
     public FourthColumnWidthType getFourthColumnWidthType() {

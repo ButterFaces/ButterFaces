@@ -15,6 +15,8 @@
             <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcaseComponent.tableBordered}"/>
             <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseComponent.tableCondensed}"/>
             <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseComponent.tableStriped}"/>
+            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcaseComponent.showRefreshButton}"/>
+            <showcase:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcaseComponent.showToggleColumnButton}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -41,6 +43,8 @@
                  tableCondensed="#{tableShowcaseComponent.tableCondensed}"
                  tableStriped="#{tableShowcaseComponent.tableStriped}"
                  tableBordered="#{tableShowcaseComponent.tableBordered}"
+                 showRefreshButton="#{tableShowcaseComponent.showRefreshButton}"
+                 showToggleColumnButton="#{tableShowcaseComponent.showToggleColumnButton}"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
