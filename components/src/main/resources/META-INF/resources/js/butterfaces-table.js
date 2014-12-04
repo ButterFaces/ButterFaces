@@ -3,8 +3,8 @@ function refreshTable(data, tableId) {
 
     var $table = $(document.getElementById(tableId));
 
-    console.log("Table id: " + tableId);
-    console.log(status = data.status);
+    // console.log(data);
+    // console.log("Table id: " + tableId);
     // console.log($table);
 
     switch (status) {

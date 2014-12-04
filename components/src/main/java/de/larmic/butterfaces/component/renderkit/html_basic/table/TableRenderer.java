@@ -145,7 +145,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         final HtmlTable table = (HtmlTable) component;
 
         writer.startElement("div", table);
-        writeIdAttributeIfNecessary(context, writer, table);
+        writer.writeAttribute("id", component.getClientId(context), "id");
         writer.writeAttribute("class", "butter-table", null);
 
         this.renderTableToolbar(context, writer, table);
