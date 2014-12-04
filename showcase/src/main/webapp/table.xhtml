@@ -39,11 +39,13 @@
                       styleClass="alert alert-warning"
                       rendered="#{!(tableShowcaseComponent.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Table selection will only work in ajax mode.
+            <h:panelGroup rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE')}">Table model will only work
+            in ajax mode.</h:panelGroup>
         </h:panelGroup>
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{tableShowcaseComponent.tableModelType eq 'NONE'}">
+                      rendered="#{tableShowcaseComponent.tableModelType eq 'NONE' and tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will not be stored when not using a table model.
             Try toggling columns and and press refresh button. In this case column hide information will be used by checking
             hideColumn attribute.
@@ -51,7 +53,7 @@
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE')}">
+                      rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE') and tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will be stored when using a table model. When
             using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
         </h:panelGroup>
