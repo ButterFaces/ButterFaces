@@ -68,6 +68,9 @@
                  showRefreshButton="#{tableShowcaseComponent.showRefreshButton}"
                  showToggleColumnButton="#{tableShowcaseComponent.showToggleColumnButton}"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
+            <f:facet name="toolbar">
+                Custom toolbar...
+            </f:facet>
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"

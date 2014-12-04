@@ -11,6 +11,10 @@
     max-height: 300px;
 }
 
+.butter-table-toolbar-columns label {
+    font-weight: normal;
+}
+
 .butter-table-toolbar-columns li {
     margin-left: 30px;
     margin-top: 10px;

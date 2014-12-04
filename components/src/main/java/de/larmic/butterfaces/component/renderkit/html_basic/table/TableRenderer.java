@@ -151,6 +151,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         this.renderTableToolbar(context, writer, table);
 
         writer.startElement("div", table);
+        writer.writeAttribute("id", this.getInnerTableId(table), "id");
 
         final String styleClass = (String) table.getAttributes().get("styleClass");
         if (styleClass != null) {
@@ -186,6 +187,15 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                     final HtmlTable table) throws IOException {
         writer.startElement("div", table);
         writer.writeAttribute("class", "butter-table-toolbar clearfix", null);
+
+        final UIComponent toolbar = getFacet(table, "toolbar");
+
+        if (toolbar != null) {
+            writer.startElement("div", table);
+            writer.writeAttribute("class", "butter-table-toolbar-custom pull-left", null);
+            this.encodeRecursive(context, toolbar);
+            writer.endElement("div");
+        }
 
         writer.startElement("div", table); // start button group
         writer.writeAttribute("class", "btn-group pull-right", null);
@@ -271,7 +281,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
-            writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + table.getClientId() + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
+            writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.getInnerTableId(table) + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
             writer.startElement("i", table);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
             writer.endElement("i");
@@ -289,7 +299,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         writer.startElement("script", component);
         writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
-        writer.writeText("    refreshTable(data, '" + component.getClientId() + "');", null);
+        writer.writeText("    refreshTable(data, '" + this.getInnerTableId(component) + "');", null);
         writer.writeText("}", null);
         writer.endElement("script");
     }
@@ -404,6 +414,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         return false;
+    }
+
+    private String getInnerTableId(final UIComponent table) {
+        return table.getClientId() + "_table";
     }
 
     /**
