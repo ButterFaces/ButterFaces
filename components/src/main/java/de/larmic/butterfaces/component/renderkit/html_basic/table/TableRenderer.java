@@ -241,10 +241,15 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     final String click = behaviors.get("click").get(0).getScript(behaviorContext);
 
                     if (StringUtils.isNotEmpty(click)) {
+                        // ajax tag is enabled
                         final String correctedEventName = click.replace(",'click',", ",'toggle_" + columnNumber + "',");
                         writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
+                    } else {
+                        // ajax tag is disabled
+                        writer.writeAttribute("onclick", jQueryPluginCall, null);
                     }
                 } else {
+                    // no ajax tag is used
                     writer.writeAttribute("onclick", jQueryPluginCall, null);
                 }
                 if (!this.isHideColumn(table, cachedColumn)) {
