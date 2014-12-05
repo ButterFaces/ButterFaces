@@ -21,7 +21,7 @@
     $.fn.butterEnableElements = function () {
 
         return this.each(function () {
-            $('.butter-component-link-overlay').hide('fast', function () {
+            $(".butter-component-link-overlay").fadeOut(300, function() {
                 $(this).remove();
             });
         });

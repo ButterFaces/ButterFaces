@@ -129,7 +129,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getModel() != null) {
-            final Boolean hideColumn = table.getModel().isHideColumn(column.getId());
+            final Boolean hideColumn = table.getModel().isColumnHidden(column.getId());
             if (hideColumn != null) {
                 return hideColumn;
             }
@@ -186,17 +186,19 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                     final ResponseWriter writer,
                                     final HtmlTable table) throws IOException {
         writer.startElement("div", table);
-        writer.writeAttribute("class", "butter-table-toolbar clearfix", null);
+        writer.writeAttribute("class", "butter-table-toolbar row", null);
 
         final UIComponent toolbar = getFacet(table, "toolbar");
 
         if (toolbar != null) {
             writer.startElement("div", table);
-            writer.writeAttribute("class", "butter-table-toolbar-custom pull-left", null);
+            writer.writeAttribute("class", "butter-table-toolbar-custom col-sm-9 pull-left", null);
             this.encodeRecursive(context, toolbar);
             writer.endElement("div");
         }
 
+        writer.startElement("div", table); // start right toolbar
+        writer.writeAttribute("class", "col-sm-3", null);
         writer.startElement("div", table); // start button group
         writer.writeAttribute("class", "btn-group pull-right", null);
 
@@ -204,6 +206,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         this.renderTableToolbarToggleColumnButton(context, writer, table);
 
         writer.endElement("div"); // end button group
+        writer.endElement("div"); // end right toolbar
 
         writer.endElement("div");
     }
@@ -417,7 +420,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private String getInnerTableId(final UIComponent table) {
-        return table.getClientId() + "_table";
+        // TODO at this time it is not possible to render inner table.
+        //return table.getClientId() + "_table";
+        return table.getClientId();
     }
 
     /**

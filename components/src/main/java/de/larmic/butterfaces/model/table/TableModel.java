@@ -11,6 +11,6 @@ public interface TableModel {
     /**
      * @return null if column client id is not known.
      */
-    Boolean isHideColumn(final String columnClientId);
+    Boolean isColumnHidden(final String columnClientId);
 
 }

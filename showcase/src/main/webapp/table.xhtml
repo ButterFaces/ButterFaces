@@ -24,6 +24,9 @@
             <showcase:tagEnumControl label="ajax selection"
                                      value="#{tableShowcaseComponent.selectionAjaxType}"
                                      values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
+            <showcase:tagEnumControl label="custom toolbar"
+                                     value="#{tableShowcaseComponent.toolBarType}"
+                                     values="#{tableShowcaseComponent.toolBarTypes}"/>
             <showcase:tagEnumControl label="column width"
                                      value="#{tableShowcaseComponent.fourthColumnWidthType}"
                                      values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
@@ -40,7 +43,7 @@
                       rendered="#{!(tableShowcaseComponent.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Table selection will only work in ajax mode.
             <h:panelGroup rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE')}">Table model will only work
-            in ajax mode.</h:panelGroup>
+                in ajax mode.</h:panelGroup>
         </h:panelGroup>
 
         <h:panelGroup layout="block"
@@ -58,7 +61,16 @@
             using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
         </h:panelGroup>
 
-        <b:table var="rowItem"
+        <h:panelGroup layout="block" rendered="#{tableShowcaseComponent.toolBarType eq 'TEXT'}">
+            <style>
+                .butter-table-toolbar-custom {
+                    margin-top: 10px;
+                }
+            </style>
+        </h:panelGroup>
+
+        <b:table id="filterTable"
+                 var="rowItem"
                  value="#{tableShowcaseComponent.stringRows}"
                  singleSelectionListener="#{tableShowcaseComponent}"
                  model="#{tableShowcaseComponent.tableModel}"
@@ -69,7 +81,18 @@
                  showToggleColumnButton="#{tableShowcaseComponent.showToggleColumnButton}"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
             <f:facet name="toolbar">
-                Custom toolbar...
+                <h:panelGroup rendered="#{tableShowcaseComponent.toolBarType eq 'TEXT'}">
+                    Custom toolbar text...
+                </h:panelGroup>
+                <h:panelGroup rendered="#{tableShowcaseComponent.toolBarType eq 'INPUT'}">
+                    <b:text value="#{tableShowcaseComponent.filterValue}"
+                            placeholder="Enter text and blur field..."
+                            hideLabel="true"
+                            autoFocus="true"
+                            inputStyleClass="col-sm-6">
+                        <f:ajax event="blur" render="filterTable"/>
+                    </b:text>
+                </h:panelGroup>
             </f:facet>
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>

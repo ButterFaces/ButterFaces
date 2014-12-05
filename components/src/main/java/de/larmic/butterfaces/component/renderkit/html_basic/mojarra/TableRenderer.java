@@ -412,7 +412,7 @@ public class TableRenderer extends BaseTableRenderer {
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getModel() != null) {
-            final Boolean hideColumn = table.getModel().isHideColumn(column.getId());
+            final Boolean hideColumn = table.getModel().isColumnHidden(column.getId());
             if (hideColumn != null) {
                 return hideColumn;
             }

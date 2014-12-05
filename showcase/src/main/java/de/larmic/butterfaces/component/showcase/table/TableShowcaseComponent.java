@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -25,6 +26,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
     private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
+    private ToolBarType toolBarType = ToolBarType.INPUT;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     private boolean tableCondensed;
@@ -32,6 +34,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     private boolean tableStriped = true;
     private boolean showRefreshButton = true;
     private boolean showToggleColumnButton = true;
+    private String filterValue;
     private String colWidthColumn1;
     private String colWidthColumn2;
     private String colWidthColumn3;
@@ -47,6 +50,20 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
             stringPairs.add(new StringPair("r6c1", "r6c2"));
             stringPairs.add(new StringPair("r7c1", "r7c2"));
         }
+
+        if (toolBarType == ToolBarType.INPUT && StringUtils.isNotEmpty(filterValue)) {
+            final List<StringPair> filteredStringPairs = new ArrayList<>();
+
+            for (StringPair stringPair : stringPairs) {
+                if (StringUtils.containsIgnoreCase(stringPair.getA(), filterValue)
+                        || StringUtils.containsIgnoreCase(stringPair.getB(), filterValue)) {
+                    filteredStringPairs.add(stringPair);
+                }
+            }
+
+            return filteredStringPairs;
+        }
+
         return stringPairs;
     }
 
@@ -59,6 +76,15 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         final List<SelectItem> items = new ArrayList<>();
 
         for (final SelectionAjaxType type : SelectionAjaxType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List<SelectItem> getToolBarTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final ToolBarType type : ToolBarType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -112,6 +138,9 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
             sb.append("    private TableModel tableModel = new DefaultTableModel();\n\n");
         }
+        if (this.toolBarType == ToolBarType.INPUT) {
+            sb.append("    private String filterValue;\n\n");
+        }
 
         sb.append("    public List<StringPair> getValue() {\n");
         sb.append("        final List<StringPair> pairs = new ArrayList<StringPair>();\n");
@@ -122,15 +151,36 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         sb.append("        pairs.add(new StringPair(\"r5c1\", \"r5c2\"));\n");
         sb.append("        pairs.add(new StringPair(\"r6c1\", \"r6c2\"));\n");
         sb.append("        pairs.add(new StringPair(\"r7c1\", \"r7c2\"));\n");
-        sb.append("        return pairs;\n");
+        if (this.toolBarType == ToolBarType.INPUT) {
+            sb.append("        return this.filterByValue(pairs, this.filterValue);\n");
+        } else {
+            sb.append("        return pairs;\n");
+        }
         sb.append("    }\n\n");
 
-        if (selectionAjaxType != SelectionAjaxType.NONE) {
+        if (selectionAjaxType == SelectionAjaxType.AJAX) {
             sb.append("    private StringPair selectedRow;\n\n");
             sb.append("    @Override\n");
             sb.append("    public void processValueChange(final StringPair data) {\n");
             sb.append("        this.selectedRow = data;\n");
             sb.append("    }\n\n");
+        }
+
+        if (this.toolBarType == ToolBarType.INPUT) {
+            sb.append("    public List<StringPair> filterByValue(final List<StringPair> pairs,\n");
+            sb.append("                                          final String filterValue) {\n");
+            sb.append("        // TODO implement me\n");
+            sb.append("        return pairs;\n");
+            sb.append("    }\n\n");
+            sb.append("    public String getFilterValue() {\n");
+            sb.append("        return this.filterValue;\n");
+            sb.append("    }\n\n");
+            sb.append("    public void setFilterValue(final String filterValue) {\n");
+            sb.append("        this.filterValue = filterValue;\n");
+            sb.append("    }\n\n");
+        }
+
+        if (selectionAjaxType == SelectionAjaxType.AJAX) {
             sb.append("    public StringPair getSelectedRow() {\n");
             sb.append("        return selectedRow;\n");
             sb.append("    }\n\n");
@@ -156,6 +206,15 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
     }
 
     @Override
+    protected void addCss(final StringBuilder sb) {
+        if (this.toolBarType == ToolBarType.TEXT) {
+            sb.append(".butter-table-toolbar-custom {\n");
+            sb.append("    margin-top: 10px;\n");
+            sb.append("}");
+        }
+    }
+
+    @Override
     public String getXHtml() {
         final StringBuilder sb = new StringBuilder();
 
@@ -168,12 +227,31 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         if (tableModelType == TableModelType.DEFAULT_MODEL) {
             this.appendString("model", "#{myBean.tableModel}", sb);
         }
+        if (selectionAjaxType == SelectionAjaxType.AJAX) {
+            this.appendString("singleSelectionListener", "#{myBean}", sb);
+        }
         this.appendBoolean("tableBordered", this.tableBordered, sb);
         this.appendBoolean("tableCondensed", this.tableCondensed, sb);
         this.appendBoolean("tableStriped", this.tableStriped, sb);
         this.appendBoolean("showRefreshButton", this.showRefreshButton, sb);
         this.appendBoolean("showToggleColumnButton", this.showToggleColumnButton, sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
+
+        if (this.toolBarType == ToolBarType.TEXT) {
+            sb.append("            <f:facet name=\"toolbar\">\n");
+            sb.append("                Custom toolbar text...\n");
+            sb.append("            </f:facet>\n");
+        } else if (this.toolBarType == ToolBarType.INPUT) {
+            sb.append("            <f:facet name=\"toolbar\">\n");
+            sb.append("                <b:text value=\"#{myBean.filterValue}\"\n");
+            sb.append("                        placeholder=\"Enter text and blur field...\"\n");
+            sb.append("                        inputStyleClass=\"col-sm-6\"\n");
+            sb.append("                        autoFocus=\"true\"\n");
+            sb.append("                        hideLabel=\"true\">\n");
+            sb.append("                    <f:ajax event=\"blur\" render=\"input\"/>\n");
+            sb.append("                </b:text>\n");
+            sb.append("            </f:facet>\n");
+        }
 
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
             sb.append("            <f:ajax render=\"selectedRow\"/>\n");
@@ -369,6 +447,22 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
 
     public void setTableModelType(TableModelType tableModelType) {
         this.tableModelType = tableModelType;
+    }
+
+    public ToolBarType getToolBarType() {
+        return toolBarType;
+    }
+
+    public void setToolBarType(ToolBarType toolBarType) {
+        this.toolBarType = toolBarType;
+    }
+
+    public String getFilterValue() {
+        return filterValue;
+    }
+
+    public void setFilterValue(String filterValue) {
+        this.filterValue = filterValue;
     }
 }
 

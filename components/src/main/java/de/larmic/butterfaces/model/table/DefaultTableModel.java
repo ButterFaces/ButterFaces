@@ -24,7 +24,7 @@ public class DefaultTableModel implements TableModel {
     }
 
     @Override
-    public Boolean isHideColumn(final String columnClientId) {
+    public Boolean isColumnHidden(final String columnClientId) {
         final Boolean hideColumn = columnInformation.get(columnClientId);
         return hideColumn == null ? null : hideColumn;
     }
