@@ -197,8 +197,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.endElement("div");
         }
 
+        final String toolbarColumnSize = toolbar != null ? "col-sm-3" : "col-sm-12";
+
         writer.startElement("div", table); // start right toolbar
-        writer.writeAttribute("class", "col-sm-3", null);
+        writer.writeAttribute("class", toolbarColumnSize, null);
         writer.startElement("div", table); // start button group
         writer.writeAttribute("class", "btn-group pull-right", null);
 
