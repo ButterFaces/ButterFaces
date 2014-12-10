@@ -293,11 +293,17 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
                 final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
                 if (behaviors.containsKey("click")) {
-                    final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+                    final AjaxBehavior clientBehavior = (AjaxBehavior) behaviors.get("click").get(0);
+                    final String click = clientBehavior.getScript(behaviorContext);
 
                     if (StringUtils.isNotEmpty(click)) {
                         // ajax tag is enabled
-                        final String correctedEventName = click.replace(",'click',", ",'toggle_" + columnNumber + "',");
+                        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
+                        ajaxBehavior.setRender(clientBehavior.getRender());
+                        ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
+                        final String ajaxBehaviorScript = ajaxBehavior.getScript(behaviorContext);
+
+                        final String correctedEventName = ajaxBehaviorScript.replace(",'click',", ",'toggle_" + columnNumber + "',");
                         writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
                     } else {
                         // ajax tag is disabled
