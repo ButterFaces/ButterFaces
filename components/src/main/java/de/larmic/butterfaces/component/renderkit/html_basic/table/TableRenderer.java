@@ -127,6 +127,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     if (StringUtils.isNotEmpty(click)) {
                         final AjaxBehavior ajaxBehavior = new AjaxBehavior();
                         ajaxBehavior.setRender(Arrays.asList(table.getClientId()));
+                        ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
                         final String script = ajaxBehavior.getScript(behaviorContext);
                         final String correctedScript = script.replace(",'click',", ",'sort_" + columnNumber + "',");
                         writer.writeAttribute("onclick", correctedScript + ";", null);
