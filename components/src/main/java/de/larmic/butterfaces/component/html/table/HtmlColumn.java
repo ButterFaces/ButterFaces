@@ -17,6 +17,7 @@ public class HtmlColumn extends UIColumn {
     protected static final String PROPERTY_LABEL = "label";
     protected static final String PROPERTY_COL_WIDTH = "colWidth";
     protected static final String PROPERTY_HIDE_COLUMN = "hideColumn";
+    protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
 
     public HtmlColumn() {
         super();
@@ -51,6 +52,15 @@ public class HtmlColumn extends UIColumn {
 
     public void setHideColumn(boolean hideColumn) {
         this.updateStateHelper(PROPERTY_HIDE_COLUMN, hideColumn);
+    }
+
+    public boolean isSortColumnEnabled() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_SORT_COLUMN_ENABLED);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setSortColumnEnabled(boolean sortColumnEnabled) {
+        this.updateStateHelper(PROPERTY_SORT_COLUMN_ENABLED, sortColumnEnabled);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

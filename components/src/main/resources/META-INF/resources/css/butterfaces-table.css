@@ -25,3 +25,7 @@
     background: #E8F1FF;
     cursor: pointer;
 }
+
+.butter-component-table-column-sort {
+    margin-left: 5px;
+}

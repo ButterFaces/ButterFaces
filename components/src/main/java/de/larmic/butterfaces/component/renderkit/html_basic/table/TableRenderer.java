@@ -7,9 +7,11 @@ import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.SortType;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
@@ -113,11 +115,48 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("style", "display:none", null);
             }
 
+            if (column.isSortColumnEnabled() && ((HtmlTable) table).getModel() != null) {
+                final ClientBehaviorContext behaviorContext =
+                        ClientBehaviorContext.createClientBehaviorContext(context,
+                                table, "click", table.getClientId(context), null);
+
+                final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
+                if (behaviors.containsKey("click")) {
+                    final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+
+                    if (StringUtils.isNotEmpty(click)) {
+                        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
+                        ajaxBehavior.setRender(Arrays.asList(table.getClientId()));
+                        final String script = ajaxBehavior.getScript(behaviorContext);
+                        final String correctedScript = script.replace(",'click',", ",'sort_" + columnNumber + "',");
+                        writer.writeAttribute("onclick", correctedScript + ";", null);
+                    }
+                }
+            }
+
             // render header label
             writer.startElement("span", table);
             writer.writeAttribute("class", "butter-component-table-column-label", null);
             writer.writeText(column.getLabel(), null);
             writer.endElement("span");
+
+            if (column.isSortColumnEnabled() && ((HtmlTable) table).getModel() != null) {
+                writer.startElement("span", table);
+                final SortType sortType = ((HtmlTable) table).getModel().getSortType(column.getId());
+
+                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort");
+
+                if (sortType == SortType.ASCENDING) {
+                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-down");
+                } else if (sortType == SortType.DESCENDING) {
+                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-up");
+                } else {
+                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-right");
+                }
+
+                writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
+                writer.endElement("span");
+            }
 
             writer.endElement("th");
 
@@ -384,6 +423,13 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     htmlTable.getModel().showColumn(toggledColumn.getId());
                 } else {
                     htmlTable.getModel().hideColumn(toggledColumn.getId());
+                }
+            } else if ("sort".equals(event) && htmlTable.getModel() != null) {
+                final HtmlColumn sortedColumn = cachedColumns.get(eventNumber);
+                if (htmlTable.getModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
+                    htmlTable.getModel().sortColumn(sortedColumn.getId(), SortType.DESCENDING);
+                } else {
+                    htmlTable.getModel().sortColumn(sortedColumn.getId(), SortType.ASCENDING);
                 }
             }
         }

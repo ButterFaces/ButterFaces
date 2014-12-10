@@ -4,14 +4,14 @@ import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
+import de.larmic.butterfaces.model.table.SortType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by larmic on 11.09.14.
@@ -62,6 +62,22 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
             }
 
             return filteredStringPairs;
+        }
+
+        if (this.tableModel.getSortType("column1") == SortType.ASCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o1.getA().compareTo(o2.getA());
+                }
+            });
+        } else if (this.tableModel.getSortType("column1") == SortType.DESCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o2.getA().compareTo(o1.getA());
+                }
+            });
         }
 
         return stringPairs;
