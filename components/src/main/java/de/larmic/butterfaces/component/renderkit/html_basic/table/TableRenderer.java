@@ -27,6 +27,10 @@ import java.util.*;
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.mojarra.TableRenderer {
 
+    private final String DEFAULT_PROPERTY_TABLE_SORT_UNDEFINED_CLASS = " glyphicon glyphicon-chevron-right";
+    private final String DEFAULT_PROPERTY_TABLE_SORT_ASCENDING_CLASS = " glyphicon glyphicon-chevron-down";
+    private final String DEFAULT_PROPERTY_TABLE_SORT_DESCENDING_CLASS = " glyphicon glyphicon-chevron-up";
+
     private List<HtmlColumn> cachedColumns;
     private boolean hasColumnWidthSet;
     // dirty: method renderRowStart does not have a rowIndex parameter but it should.
@@ -115,7 +119,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("style", "display:none", null);
             }
 
-            if (column.isSortColumnEnabled() && ((HtmlTable) table).getModel() != null) {
+            if (column.isSortColumnEnabled() && htmlTable.getModel() != null) {
                 final ClientBehaviorContext behaviorContext =
                         ClientBehaviorContext.createClientBehaviorContext(context,
                                 table, "click", table.getClientId(context), null);
@@ -141,18 +145,18 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeText(column.getLabel(), null);
             writer.endElement("span");
 
-            if (column.isSortColumnEnabled() && ((HtmlTable) table).getModel() != null) {
+            if (column.isSortColumnEnabled() && htmlTable.getModel() != null) {
                 writer.startElement("span", table);
-                final SortType sortType = ((HtmlTable) table).getModel().getSortType(column.getId());
+                final SortType sortType = htmlTable.getModel().getSortType(column.getId());
 
-                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort");
+                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort ");
 
                 if (sortType == SortType.ASCENDING) {
-                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-down");
+                    sortSpanStyleClass.append(getSortAscendingClass(htmlTable));
                 } else if (sortType == SortType.DESCENDING) {
-                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-up");
+                    sortSpanStyleClass.append(getSortDescendingClass(htmlTable));
                 } else {
-                    sortSpanStyleClass.append(" glyphicon glyphicon-chevron-right");
+                    sortSpanStyleClass.append(getSortUndefinedClass(htmlTable));
                 }
 
                 writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
@@ -165,6 +169,21 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
         writer.endElement("tr");
         writer.endElement("thead");
+    }
+
+    private String getSortAscendingClass(final HtmlTable table) {
+        final String sortingClass = table.getSortAscendingClass();
+        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_ASCENDING_CLASS;
+    }
+
+    private String getSortDescendingClass(final HtmlTable table) {
+        final String sortingClass = table.getSortDescendingClass();
+        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_DESCENDING_CLASS;
+    }
+
+    private String getSortUndefinedClass(final HtmlTable table) {
+        final String sortingClass = table.getSortUndefinedClass();
+        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_UNDEFINED_CLASS;
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {

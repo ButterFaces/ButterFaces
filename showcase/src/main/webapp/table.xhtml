@@ -79,6 +79,9 @@
                  tableBordered="#{tableShowcaseComponent.tableBordered}"
                  showRefreshButton="#{tableShowcaseComponent.showRefreshButton}"
                  showToggleColumnButton="#{tableShowcaseComponent.showToggleColumnButton}"
+                 sortAscendingClass="fa fa-sort-down"
+                 sortDescendingClass="fa fa-sort-up"
+                 sortUndefinedClass="fa fa-sort"
                  rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
             <f:facet name="toolbar">
                 <h:panelGroup rendered="#{tableShowcaseComponent.toolBarType eq 'TEXT'}">

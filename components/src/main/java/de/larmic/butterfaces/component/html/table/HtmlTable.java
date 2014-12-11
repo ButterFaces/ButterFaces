@@ -39,6 +39,9 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
     protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
     protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
+    protected static final String PROPERTY_TABLE_SORT_UNDEFINED_CLASS = "sortUndefinedClass";
+    protected static final String PROPERTY_TABLE_SORT_ASCENDING_CLASS = "sortAscendingClass";
+    protected static final String PROPERTY_TABLE_SORT_DESCENDING_CLASS  = "sortDescendingClass";
 
     public HtmlTable() {
         super();
@@ -119,6 +122,30 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setShowToggleColumnButton(boolean showToggleColumnButton) {
         this.updateStateHelper(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON, showToggleColumnButton);
+    }
+
+    public String getSortUndefinedClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_TABLE_SORT_UNDEFINED_CLASS);
+    }
+
+    public void setSortUndefinedClass(String sortUndefinedClass) {
+        this.updateStateHelper(PROPERTY_TABLE_SORT_UNDEFINED_CLASS, sortUndefinedClass);
+    }
+
+    public String getSortAscendingClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_TABLE_SORT_ASCENDING_CLASS);
+    }
+
+    public void setSortAscendingClass(String sortAscendingClass) {
+        this.updateStateHelper(PROPERTY_TABLE_SORT_ASCENDING_CLASS, sortAscendingClass);
+    }
+
+    public String getSortDescendingClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_TABLE_SORT_DESCENDING_CLASS);
+    }
+
+    public void setSortDescendingClass(String sortDescendingClass) {
+        this.updateStateHelper(PROPERTY_TABLE_SORT_DESCENDING_CLASS, sortDescendingClass);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

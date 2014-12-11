@@ -307,6 +307,7 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
             sb.append("                    colWidth=\"7*\"\n");
         }
+        sb.append("                    sortColumnEnabled=\"false\"\n");
         sb.append("                    label=\"C3\">\n");
         sb.append("                /* action */\n");
         sb.append("            </column>\n");
