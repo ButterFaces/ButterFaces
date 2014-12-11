@@ -11,7 +11,8 @@ import javax.faces.event.SystemEventListener;
 import java.util.ArrayList;
 
 /**
- * Created by larmic on 28.08.14.
+ * Removes web.xml configurable resources (jquery, bootstrap and prettyprint). Provides a compresses and minified
+ * resource if it is defined in web.xml.
  */
 public class HandleResourceListener implements SystemEventListener {
 
