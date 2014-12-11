@@ -64,14 +64,14 @@ public class TableShowcaseComponent extends AbstractShowcaseComponent implements
             return filteredStringPairs;
         }
 
-        if (this.tableModel.getSortType("column1") == SortType.ASCENDING) {
+        if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING) {
             Collections.sort(stringPairs, new Comparator<StringPair>() {
                 @Override
                 public int compare(StringPair o1, StringPair o2) {
                     return o1.getA().compareTo(o2.getA());
                 }
             });
-        } else if (this.tableModel.getSortType("column1") == SortType.DESCENDING) {
+        } else if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING) {
             Collections.sort(stringPairs, new Comparator<StringPair>() {
                 @Override
                 public int compare(StringPair o1, StringPair o2) {

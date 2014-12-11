@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.TableModel;
+import de.larmic.butterfaces.model.table.TableSortModel;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -16,14 +17,14 @@ import java.util.Collection;
  * Created by larmic on 10.09.14.
  */
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "css", name = "butterfaces-table.css", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-disableElements.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-table.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-table.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
 public class HtmlTable extends UIData implements ClientBehaviorHolder {
@@ -73,6 +74,11 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public TableModel getModel() {
         return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
+    }
+
+    public TableSortModel getTableSortModel() {
+        final TableModel tableModel = getModel();
+        return tableModel != null ? tableModel.getTableSortModel() : null;
     }
 
     public void setModel(TableModel tableModel) {

@@ -8,11 +8,17 @@ import java.util.Map;
  */
 public class DefaultTableModel implements TableModel {
 
+    private TableSortModel tableSortModel = new DefaultTableSortModel();
+
     /**
      * Map if column client id and hide information.
      */
     private final Map<String, Boolean> columnInformation = new HashMap<>();
-    private final Map<String, SortType> columnSortTypes = new HashMap<>();
+
+    @Override
+    public TableSortModel getTableSortModel() {
+        return tableSortModel;
+    }
 
     @Override
     public void showColumn(final String columnClientId) {
@@ -24,19 +30,10 @@ public class DefaultTableModel implements TableModel {
         columnInformation.put(columnClientId, true);
     }
 
-    @Override
-    public void sortColumn(final String columnClientId, final SortType sortType) {
-        columnSortTypes.put(columnClientId, sortType);
-    }
 
     @Override
     public Boolean isColumnHidden(final String columnClientId) {
         final Boolean hideColumn = columnInformation.get(columnClientId);
         return hideColumn == null ? null : hideColumn;
-    }
-
-    @Override
-    public SortType getSortType(final String columnClientId) {
-        return columnSortTypes.get(columnClientId);
     }
 }

@@ -145,9 +145,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeText(column.getLabel(), null);
             writer.endElement("span");
 
-            if (column.isSortColumnEnabled() && htmlTable.getModel() != null) {
+            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null) {
                 writer.startElement("span", table);
-                final SortType sortType = htmlTable.getModel().getSortType(column.getId());
+                final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(column.getId());
 
                 final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort ");
 
@@ -452,10 +452,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 }
             } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                 final HtmlColumn sortedColumn = cachedColumns.get(eventNumber);
-                if (htmlTable.getModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
-                    htmlTable.getModel().sortColumn(sortedColumn.getId(), SortType.DESCENDING);
+                if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
+                    htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.DESCENDING);
                 } else {
-                    htmlTable.getModel().sortColumn(sortedColumn.getId(), SortType.ASCENDING);
+                    htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.ASCENDING);
                 }
             }
         }
