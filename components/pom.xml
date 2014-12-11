@@ -20,18 +20,20 @@
 				<version>1.7.4</version>
 				<executions>
 					<execution>
-						<id>butterfaces-minify</id>
+						<id>butterfaces-minify-butterfaces-only</id>
 						<phase>compile</phase><!-- When omitted defaults to 'process-resources' -->
 						<configuration>
 							<charset>UTF-8</charset>
 							<cssSourceDir>.</cssSourceDir>
 							<cssSourceIncludes>
 								<cssSourceInclude>butterfaces-css/**</cssSourceInclude>
+								<cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 							<cssFinalFile>butterfaces-only.css</cssFinalFile>
 							<jsSourceDir>.</jsSourceDir>
 							<jsSourceIncludes>
 								<jsSourceInclude>butterfaces-js/**</jsSourceInclude>
+								<jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
 							</jsSourceIncludes>
 							<jsFinalFile>butterfaces-only.js</jsFinalFile>
 							<jsEngine>CLOSURE</jsEngine>
@@ -50,6 +52,7 @@
 							<cssSourceDir>.</cssSourceDir>
 							<cssSourceIncludes>
 								<cssSourceInclude>butterfaces-css/**</cssSourceInclude>
+								<cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 							<cssFinalFile>butterfaces-jquery.css</cssFinalFile>
 							<jsSourceDir>.</jsSourceDir>
@@ -58,6 +61,7 @@
 							</jsSourceFiles>
 							<jsSourceIncludes>
 								<jsSourceInclude>butterfaces-js/**</jsSourceInclude>
+								<jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
 							</jsSourceIncludes>
 							<jsFinalFile>butterfaces-jquery.js</jsFinalFile>
 							<jsEngine>CLOSURE</jsEngine>
@@ -79,6 +83,7 @@
 							</cssSourceFiles>
 							<cssSourceIncludes>
 								<cssSourceInclude>butterfaces-css/**</cssSourceInclude>
+								<cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 							<cssFinalFile>butterfaces-jquery-bootstrap.css</cssFinalFile>
 							<jsSourceDir>.</jsSourceDir>
@@ -88,6 +93,7 @@
 							</jsSourceFiles>
 							<jsSourceIncludes>
 								<jsSourceInclude>butterfaces-js/**</jsSourceInclude>
+								<jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
 							</jsSourceIncludes>
 							<jsFinalFile>butterfaces-jquery-bootstrap.js</jsFinalFile>
 							<jsEngine>CLOSURE</jsEngine>
@@ -110,6 +116,7 @@
 							</cssSourceFiles>
 							<cssSourceIncludes>
 								<cssSourceInclude>butterfaces-css/**</cssSourceInclude>
+								<cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
 							</cssSourceIncludes>
 							<cssFinalFile>butterfaces-all.css</cssFinalFile>
 							<jsSourceDir>.</jsSourceDir>
@@ -120,6 +127,7 @@
 							</jsSourceFiles>
 							<jsSourceIncludes>
 								<jsSourceInclude>butterfaces-js/**</jsSourceInclude>
+								<jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
 							</jsSourceIncludes>
 							<jsFinalFile>butterfaces-all.js</jsFinalFile>
 							<jsEngine>CLOSURE</jsEngine>
