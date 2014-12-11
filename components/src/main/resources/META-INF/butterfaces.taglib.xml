@@ -601,6 +601,11 @@
             <name>sortColumnEnabled</name>
             <type>java.lang.Boolean</type>
         </attribute>
+        <attribute>
+            <description>Optional parameter will be assigned to table sort model if set.</description>
+            <name>sortBy</name>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
 
     <tag>

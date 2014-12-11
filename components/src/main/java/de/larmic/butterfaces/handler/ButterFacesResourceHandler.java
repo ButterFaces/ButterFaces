@@ -14,10 +14,6 @@ import javax.faces.application.ResourceHandlerWrapper;
  */
 public class ButterFacesResourceHandler extends ResourceHandlerWrapper {
 
-
-    private static final String LIBRARY_CSS_NAME = "css";
-    private static final String LIBRARY_JS_NAME = "js";
-
     private ResourceHandler wrapped;
 
     public ButterFacesResourceHandler(ResourceHandler wrapped) {
@@ -34,7 +30,7 @@ public class ButterFacesResourceHandler extends ResourceHandlerWrapper {
         final Resource resource = super.createResource(resourceName, libraryName);
 
         // here a check of library name could be necessary, etc.
-        if (LIBRARY_CSS_NAME.equals(libraryName) || LIBRARY_JS_NAME.equals(libraryName)) {
+        if (libraryName.startsWith("butterfaces")) {
             return new ButterFacesResource(resource);
         }
 

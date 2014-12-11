@@ -9,12 +9,12 @@ import javax.faces.component.FacesComponent;
  * Created by larmic on 16.09.14.
  */
 @ResourceDependencies({
-        @ResourceDependency(library = "css", name = "butterfaces.css", target = "head"),
-        @ResourceDependency(library = "css", name = "butterfaces-link.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-dots.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-disableElements.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-link.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-link.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")})
 @FacesComponent(HtmlCommandLink.COMPONENT_TYPE)

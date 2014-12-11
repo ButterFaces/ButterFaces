@@ -18,7 +18,7 @@
         <!--resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler-->
 
         <system-event-listener>
-            <system-event-listener-class>de.larmic.butterfaces.event.RemoveResourceListener</system-event-listener-class>
+            <system-event-listener-class>de.larmic.butterfaces.event.HandleResourceListener</system-event-listener-class>
             <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
         </system-event-listener>
     </application>

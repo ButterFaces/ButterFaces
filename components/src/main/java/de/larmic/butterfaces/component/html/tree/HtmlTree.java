@@ -13,9 +13,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "css", name = "butterfaces-tree.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-tree.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-tree.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tree.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTree.COMPONENT_TYPE)
 public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {

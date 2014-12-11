@@ -7,13 +7,13 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery-2.1.1.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
-        @ResourceDependency(library = "css", name = "butterfaces-waiting.css", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-dots.jquery.js", target = "head"),
-        @ResourceDependency(library = "js", name = "butterfaces-waitingpanel.jquery.js", target = "head") })
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-waiting.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-waitingpanel.jquery.js", target = "head") })
 @FacesComponent(WaitingPanel.COMPONENT_TYPE)
 public class WaitingPanel extends UIComponentBase {
 
