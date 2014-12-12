@@ -112,7 +112,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         for (HtmlColumn column : this.cachedColumns) {
             writer.startElement("th", table);
             writer.writeAttribute("id", column.getClientId(), null);
-            writer.writeAttribute("class", "butter-component-table-column-header", null);
+            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null) {
+                writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
+            } else {
+                writer.writeAttribute("class", "butter-component-table-column-header", null);
+            }
             writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
             if (this.isHideColumn(htmlTable, column)) {
@@ -149,7 +153,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.startElement("span", table);
                 final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(column.getId());
 
-                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort ");
+                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
 
                 if (sortType == SortType.ASCENDING) {
                     sortSpanStyleClass.append(getSortAscendingClass(htmlTable));
@@ -187,8 +191,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getModel() != null) {
-            final Boolean hideColumn = table.getModel().isColumnHidden(column.getId());
+        if (table.getTableColumnDisplayModel() != null) {
+            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(column.getId());
             if (hideColumn != null) {
                 return hideColumn;
             }
@@ -443,12 +447,12 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 if (rowObject != null) {
                     listener.processValueChange(rowObject);
                 }
-            } else if ("toggle".equals(event) && htmlTable.getModel() != null) {
+            } else if ("toggle".equals(event) && htmlTable.getTableColumnDisplayModel() != null) {
                 final HtmlColumn toggledColumn = cachedColumns.get(eventNumber);
                 if (this.isHideColumn(htmlTable, toggledColumn)) {
-                    htmlTable.getModel().showColumn(toggledColumn.getId());
+                    htmlTable.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
                 } else {
-                    htmlTable.getModel().hideColumn(toggledColumn.getId());
+                    htmlTable.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
                 }
             } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                 final HtmlColumn sortedColumn = cachedColumns.get(eventNumber);

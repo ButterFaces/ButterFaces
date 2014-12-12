@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.TableColumnDisplayModel;
 import de.larmic.butterfaces.model.table.TableModel;
 import de.larmic.butterfaces.model.table.TableSortModel;
 
@@ -77,8 +78,13 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     }
 
     public TableSortModel getTableSortModel() {
-        final TableModel tableModel = getModel();
+        final TableModel tableModel = this.getModel();
         return tableModel != null ? tableModel.getTableSortModel() : null;
+    }
+
+    public TableColumnDisplayModel getTableColumnDisplayModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableColumnDisplaxModel() : null;
     }
 
     public void setModel(TableModel tableModel) {

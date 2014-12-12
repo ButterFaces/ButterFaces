@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
-.butter-component-table-column-sort {
+.butter-component-table-column-sort-spinner {
     margin-left: 5px;
+}
+
+.butter-component-table-column-sort:hover {
+    cursor: pointer;
 }

@@ -5,16 +5,14 @@ package de.larmic.butterfaces.model.table;
  */
 public interface TableModel {
 
-    void showColumn(final String columnClientId);
-    void hideColumn(final String columnClientId);
-
     /**
      * @return null if no sort model is used. This means sort columns is not available.
      */
     TableSortModel getTableSortModel();
 
     /**
-     * @return null if column client id is not known.
+     * @return null if no column display (show and hide) is used. In this case column information will be lost if table is rerendered.
      */
-    Boolean isColumnHidden(final String columnClientId);
+    TableColumnDisplayModel getTableColumnDisplaxModel();
+
 }

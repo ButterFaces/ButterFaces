@@ -1,19 +1,12 @@
 package de.larmic.butterfaces.model.table;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by larmic on 03.12.14.
  */
 public class DefaultTableModel implements TableModel {
 
-    private TableSortModel tableSortModel = new DefaultTableSortModel();
-
-    /**
-     * Map if column client id and hide information.
-     */
-    private final Map<String, Boolean> columnInformation = new HashMap<>();
+    private final TableSortModel tableSortModel = new DefaultTableSortModel();
+    private final DefaultColumnDisplayTableModel columnDisplayTableModel = new DefaultColumnDisplayTableModel();
 
     @Override
     public TableSortModel getTableSortModel() {
@@ -21,19 +14,8 @@ public class DefaultTableModel implements TableModel {
     }
 
     @Override
-    public void showColumn(final String columnClientId) {
-        columnInformation.put(columnClientId, false);
+    public TableColumnDisplayModel getTableColumnDisplaxModel() {
+        return columnDisplayTableModel;
     }
 
-    @Override
-    public void hideColumn(final String columnClientId) {
-        columnInformation.put(columnClientId, true);
-    }
-
-
-    @Override
-    public Boolean isColumnHidden(final String columnClientId) {
-        final Boolean hideColumn = columnInformation.get(columnClientId);
-        return hideColumn == null ? null : hideColumn;
-    }
 }
