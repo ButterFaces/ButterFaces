@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
 /**
- * Created by larmic on 31.07.14.
+ * @deprecated use {@link de.larmic.butterfaces.component.showcase.AbstractCodeShowcase} instead.
  */
 @Deprecated
 public abstract class AbstractShowcaseSingleCodeComponent {

@@ -11,16 +11,16 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{sectionShowcaseSingleCodeComponent.label}"/>
-            <showcase:tagStringControl label="badgeText" value="#{sectionShowcaseSingleCodeComponent.badgeText}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{sectionShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{sectionShowcase.label}"/>
+            <showcase:tagStringControl label="badgeText" value="#{sectionShowcase.badgeText}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{sectionShowcase.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <b:section label="#{sectionShowcaseSingleCodeComponent.label}"
-                   rendered="#{sectionShowcaseSingleCodeComponent.rendered}"
-                   badgeText="#{sectionShowcaseSingleCodeComponent.badgeText}"
+        <b:section label="#{sectionShowcase.label}"
+                   rendered="#{sectionShowcase.rendered}"
+                   badgeText="#{sectionShowcase.badgeText}"
                    styleClass="arquillian_component">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
         </b:section>
@@ -29,7 +29,7 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{sectionShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{sectionShowcase}"/>
         <b:activateLibraries />
 
         <script type="text/javascript">
