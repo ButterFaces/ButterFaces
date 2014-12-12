@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class TableShowcaseSingleCodeComponent extends AbstractShowcaseMultiCodeComponent implements Serializable, TableSingleSelectionListener<StringPair> {
+public class TableShowcase extends AbstractShowcaseMultiCodeComponent implements Serializable, TableSingleSelectionListener<StringPair> {
 
     private final List<StringPair> stringPairs = new ArrayList<>();
     private StringPair selectedValue = null;
