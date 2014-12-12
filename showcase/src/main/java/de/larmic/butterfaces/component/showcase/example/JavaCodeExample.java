@@ -50,7 +50,15 @@ public class JavaCodeExample extends AbstractCodeExample {
     }
 
     public StringBuilder appendInnerContent(final String content) {
-        return innerContent.append(content).append("\n");
+        return this.appendInnerContent(content, true);
+    }
+
+    public StringBuilder appendInnerContent(final String content, final boolean lineBreak) {
+        if (lineBreak) {
+            return innerContent.append(content).append("\n");
+        } else {
+            return innerContent.append(content);
+        }
     }
 
     public String toString() {

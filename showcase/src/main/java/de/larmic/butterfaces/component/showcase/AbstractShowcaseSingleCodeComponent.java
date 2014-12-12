@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase;
 /**
  * Created by larmic on 31.07.14.
  */
+@Deprecated
 public abstract class AbstractShowcaseSingleCodeComponent {
 
     private boolean rendered = true;

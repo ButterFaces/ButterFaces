@@ -6,23 +6,23 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="header">
-        <strong>b:activateLibraries</strong> Add bootstrap css and js and jQuery to head part to activate libraries for sites not containing any other ButterFaces component.
+        <strong>b:activateLibraries</strong> Add bootstrap css and js, jQuery and pretty print to head part to activate libraries for sites not containing any other ButterFaces component.
     </ui:define>
 
     <ui:define name="content">
         <div class="row">
             <div class="col-md-4">
                 <showcase:tagsContainer label="Tag attributes">
-                    <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesSingleCodeComponent.rendered}"/>
+                    <showcase:tagBooleanControl label="rendered" value="#{activateLibraries.rendered}"/>
                 </showcase:tagsContainer>
             </div>
 
             <h:form id="output" prependId="true" styleClass="col-md-8">
-                <showcase:showcaseComplexExampleComponent component="#{activateLibrariesSingleCodeComponent}"/>
+                <showcase:showcaseComplexExampleComponent component="#{activateLibraries}"/>
 
                 <div class="arquillian_activateLibraries_selector">
                     <b:activateLibraries id="link"
-                                         rendered="#{activateLibrariesSingleCodeComponent.rendered}"/>
+                                         rendered="#{activateLibraries.rendered}"/>
                 </div>
             </h:form>
         </div>
