@@ -61,6 +61,54 @@ public class TableShowcaseSingleCodeComponent extends AbstractShowcaseMultiCodeC
 
     }
 
+    public List<StringPair> getStringRows() {
+        if (stringPairs.isEmpty()) {
+            stringPairs.add(new StringPair("r1c1", "r1c2"));
+            stringPairs.add(new StringPair("r2c1", "r2c2"));
+            stringPairs.add(new StringPair("r3c1", "r3c2"));
+            stringPairs.add(new StringPair("r4c1", "r4c2"));
+            stringPairs.add(new StringPair("r5c1", "r5c2"));
+            stringPairs.add(new StringPair("r6c1", "r6c2"));
+            stringPairs.add(new StringPair("r7c1", "r7c2"));
+        }
+
+        if (toolBarType == ToolBarType.INPUT && StringUtils.isNotEmpty(filterValue)) {
+            final List<StringPair> filteredStringPairs = new ArrayList<>();
+
+            for (StringPair stringPair : stringPairs) {
+                if (StringUtils.containsIgnoreCase(stringPair.getA(), filterValue)
+                        || StringUtils.containsIgnoreCase(stringPair.getB(), filterValue)) {
+                    filteredStringPairs.add(stringPair);
+                }
+            }
+
+            return filteredStringPairs;
+        }
+
+        if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o1.getA().compareTo(o2.getA());
+                }
+            });
+        } else if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o2.getA().compareTo(o1.getA());
+                }
+            });
+        }
+
+        return stringPairs;
+    }
+
+    @Override
+    public void processValueChange(final StringPair data) {
+        this.selectedValue = data;
+    }
+
     private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(true);
         xhtmlCodeExample.appendInnerContent("        <b:table id=\"input\"");
@@ -251,54 +299,6 @@ public class TableShowcaseSingleCodeComponent extends AbstractShowcaseMultiCodeC
         stringPair.appendInnerContent("        // getter\n");
         stringPair.appendInnerContent("    }");
         return stringPair;
-    }
-
-    public List<StringPair> getStringRows() {
-        if (stringPairs.isEmpty()) {
-            stringPairs.add(new StringPair("r1c1", "r1c2"));
-            stringPairs.add(new StringPair("r2c1", "r2c2"));
-            stringPairs.add(new StringPair("r3c1", "r3c2"));
-            stringPairs.add(new StringPair("r4c1", "r4c2"));
-            stringPairs.add(new StringPair("r5c1", "r5c2"));
-            stringPairs.add(new StringPair("r6c1", "r6c2"));
-            stringPairs.add(new StringPair("r7c1", "r7c2"));
-        }
-
-        if (toolBarType == ToolBarType.INPUT && StringUtils.isNotEmpty(filterValue)) {
-            final List<StringPair> filteredStringPairs = new ArrayList<>();
-
-            for (StringPair stringPair : stringPairs) {
-                if (StringUtils.containsIgnoreCase(stringPair.getA(), filterValue)
-                        || StringUtils.containsIgnoreCase(stringPair.getB(), filterValue)) {
-                    filteredStringPairs.add(stringPair);
-                }
-            }
-
-            return filteredStringPairs;
-        }
-
-        if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o1.getA().compareTo(o2.getA());
-                }
-            });
-        } else if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o2.getA().compareTo(o1.getA());
-                }
-            });
-        }
-
-        return stringPairs;
-    }
-
-    @Override
-    public void processValueChange(final StringPair data) {
-        this.selectedValue = data;
     }
 
     public List<SelectItem> getAjaxSelectionTypes() {

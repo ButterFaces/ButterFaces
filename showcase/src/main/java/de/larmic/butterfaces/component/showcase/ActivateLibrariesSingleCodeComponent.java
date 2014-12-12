@@ -1,31 +1,26 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class ActivateLibrariesSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
+public class ActivateLibrariesSingleCodeComponent extends AbstractShowcaseMultiCodeComponent implements Serializable {
 
     @Override
-    public String getXHtml() {
-        final StringBuilder sb = new StringBuilder();
+    public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
-        this.addXhtmlStart(sb);
+        xhtmlCodeExample.appendInnerContent("        <b:activateLibraries id=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                             rendered=\"" + this.isRendered() + "\">");
+        xhtmlCodeExample.appendInnerContent("        </b:activateLibraries>", false);
 
-        sb.append("        <b:activateLibraries id=\"input\"\n");
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
-        sb.append("        </b:activateLibraries>");
-
-        this.addXhtmlEnd(sb);
-
-        return sb.toString();
-    }
-
-    @Override
-    protected String getEmptyDistanceString() {
-        return "                             ";
+        codeExamples.add(xhtmlCodeExample);
     }
 }
