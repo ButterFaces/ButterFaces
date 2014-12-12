@@ -35,9 +35,11 @@ public class HandleResourceListener implements SystemEventListener {
         final boolean providePrettyPrint = this.readContextParameter(externalContext, CTX_PARAM_PRETTYPRINT);
         final boolean useCompressedResources = this.readContextParameter(externalContext, CTX_PARAM_USE_COMPRESSED_RESOURCES);
 
+        final boolean localhost = "localhost".equals(context.getExternalContext().getRequestServerName());
+
         final ArrayList<UIComponent> resources = new ArrayList<>(context.getViewRoot().getComponentResources(context, HEAD));
 
-        if (useCompressedResources) {
+        if (useCompressedResources && !localhost) {
             for (UIComponent resource : resources) {
                 final String resourceLibrary = (String) resource.getAttributes().get("library");
                 final String resourceName = (String) resource.getAttributes().get("name");
