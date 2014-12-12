@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.type;
 
 public enum PrettyPrintType {
 	HTML("html/xhtml"), XML("xml"), JAVA("java");

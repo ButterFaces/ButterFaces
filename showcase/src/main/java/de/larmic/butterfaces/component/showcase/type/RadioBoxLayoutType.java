@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.type;
 
 public enum RadioBoxLayoutType {
 	LINE_DIRECTION("lineDirection"), PAGE_DIRECTION("pageDirection");

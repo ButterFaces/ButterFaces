@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.type.AjaxType;
+
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;

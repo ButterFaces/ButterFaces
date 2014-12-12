@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.type;
 
 public enum AjaxType {
 	NONE("No ajax"), THIS("@this"), COMPONENT("component");

@@ -4,6 +4,8 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
+import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
+import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
 
 import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;

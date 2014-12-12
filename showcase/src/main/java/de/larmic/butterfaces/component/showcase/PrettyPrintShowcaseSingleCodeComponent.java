@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.type.PrettyPrintType;
+
 import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
