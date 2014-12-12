@@ -1,17 +1,21 @@
 package de.larmic.butterfaces.component.showcase.action;
 
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseSingleCodeComponent;
+import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by larmic on 11.09.14.
  */
 @Named
 @ViewScoped
-public class DefaultActionShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
+public class DefaultActionShowcaseSingleCodeComponent extends AbstractCodeShowcase implements Serializable {
 
     private String buttonClick;
     private String value;
@@ -29,47 +33,30 @@ public class DefaultActionShowcaseSingleCodeComponent extends AbstractShowcaseSi
     }
 
     @Override
-    protected void addJavaCode(final StringBuilder sb) {
-        sb.append("package de.larmic.defaultaction.demo;\n\n");
-        sb.append("import javax.faces.view.ViewScoped;\n");
-        sb.append("import javax.inject.Named;\n\n");
+    public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
-        sb.append("@ViewScoped\n");
-        sb.append("@Named\n");
-        sb.append("public class MyBean implements Serializable {\n\n");
-        sb.append("    private String value;\n\n");
-        sb.append("    public void submit() {\n");
-        sb.append("        // implement me\n");
-        sb.append("    }\n\n");
-        sb.append("    // getter and setter\n\n");
-        sb.append("}\n\n");
-    }
+        xhtmlCodeExample.appendInnerContent("        <b:text value=\"#{myBean.value}\" />\n");
+        xhtmlCodeExample.appendInnerContent("        <b:commandLink id=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                       action=\"#{myBean.submit}\"");
+        xhtmlCodeExample.appendInnerContent("                       value=\"click me\"");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-primary\">");
+        xhtmlCodeExample.appendInnerContent("            <f:ajax execute=\"@form\" render=\"@form\"/>");
+        xhtmlCodeExample.appendInnerContent("            <b:defaultAction rendered=\"" + this.isRendered() + "\"/>");
+        xhtmlCodeExample.appendInnerContent("        </b:commandLink>", false);
 
-    @Override
-    public String getXHtml() {
-        final StringBuilder sb = new StringBuilder();
+        codeExamples.add(xhtmlCodeExample);
 
-        this.addXhtmlStart(sb);
+        final JavaCodeExample myBean = new JavaCodeExample("defaultaction.demo", "MyBean", true);
 
-        sb.append("        <b:test value=\"#{myBean.value}\" />\n\n");
-        sb.append("        <b:commandLink id=\"input\"\n");
+        myBean.appendInnerContent("    private String value;\n");
+        myBean.appendInnerContent("    public void submit() {");
+        myBean.appendInnerContent("        // implement me");
+        myBean.appendInnerContent("    }\n");
+        myBean.appendInnerContent("    // getter and setter");
 
-        this.appendString("action", "#{myBean.submit}", sb);
-        this.appendString("value", "click me", sb);
-        this.appendString("styleClass", "btn btn-primary", sb);
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
-        sb.append("            <f:ajax execute=\"@form\" render=\"@form\"/>\n");
-        sb.append("            <b:defaultAction rendered=\"" + this.isRendered() + "\"/>\n");
-        sb.append("        </b:commandLink>");
+        codeExamples.add(myBean);
 
-        this.addXhtmlEnd(sb);
-
-        return sb.toString();
-    }
-
-    @Override
-    protected String getEmptyDistanceString() {
-        return "                       ";
     }
 
     public String getButtonClick() {
