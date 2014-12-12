@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class SecretShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class SecretShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
 	private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
 

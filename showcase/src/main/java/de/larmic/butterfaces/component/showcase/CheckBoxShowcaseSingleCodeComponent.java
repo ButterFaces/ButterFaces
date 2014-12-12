@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class CheckBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class CheckBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
     private String description = "some description";
 

@@ -11,28 +11,28 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseComponent.rendered}"/>
-            <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcaseComponent.tableBordered}"/>
-            <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseComponent.tableCondensed}"/>
-            <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseComponent.tableStriped}"/>
-            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcaseComponent.showRefreshButton}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{tableShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcaseSingleCodeComponent.tableBordered}"/>
+            <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcaseSingleCodeComponent.tableCondensed}"/>
+            <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcaseSingleCodeComponent.tableStriped}"/>
+            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcaseSingleCodeComponent.showRefreshButton}"/>
             <showcase:tagBooleanControl label="showToggleColumnButton"
-                                        value="#{tableShowcaseComponent.showToggleColumnButton}"/>
+                                        value="#{tableShowcaseSingleCodeComponent.showToggleColumnButton}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax selection"
-                                     value="#{tableShowcaseComponent.selectionAjaxType}"
-                                     values="#{tableShowcaseComponent.ajaxSelectionTypes}"/>
+                                     value="#{tableShowcaseSingleCodeComponent.selectionAjaxType}"
+                                     values="#{tableShowcaseSingleCodeComponent.ajaxSelectionTypes}"/>
             <showcase:tagEnumControl label="custom toolbar"
-                                     value="#{tableShowcaseComponent.toolBarType}"
-                                     values="#{tableShowcaseComponent.toolBarTypes}"/>
+                                     value="#{tableShowcaseSingleCodeComponent.toolBarType}"
+                                     values="#{tableShowcaseSingleCodeComponent.toolBarTypes}"/>
             <showcase:tagEnumControl label="column width"
-                                     value="#{tableShowcaseComponent.fourthColumnWidthType}"
-                                     values="#{tableShowcaseComponent.twoColumnWidthTypes}"/>
+                                     value="#{tableShowcaseSingleCodeComponent.fourthColumnWidthType}"
+                                     values="#{tableShowcaseSingleCodeComponent.twoColumnWidthTypes}"/>
             <showcase:tagEnumControl label="table model"
-                                     value="#{tableShowcaseComponent.tableModelType}"
-                                     values="#{tableShowcaseComponent.tableModelTypes}"/>
+                                     value="#{tableShowcaseSingleCodeComponent.tableModelType}"
+                                     values="#{tableShowcaseSingleCodeComponent.tableModelTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -40,15 +40,15 @@
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{!(tableShowcaseComponent.selectionAjaxType eq 'AJAX')}">
+                      rendered="#{!(tableShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Table selection will only work in ajax mode.
-            <h:panelGroup rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE')}">Table model will only work
+            <h:panelGroup rendered="#{!(tableShowcaseSingleCodeComponent.tableModelType eq 'NONE')}">Table model will only work
                 in ajax mode.</h:panelGroup>
         </h:panelGroup>
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{tableShowcaseComponent.tableModelType eq 'NONE' and tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+                      rendered="#{tableShowcaseSingleCodeComponent.tableModelType eq 'NONE' and tableShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will not be stored when not using a table model.
             Try toggling columns and and press refresh button. In this case column hide information will be used by checking
             hideColumn attribute.
@@ -56,12 +56,12 @@
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{!(tableShowcaseComponent.tableModelType eq 'NONE') and tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+                      rendered="#{!(tableShowcaseSingleCodeComponent.tableModelType eq 'NONE') and tableShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will be stored when using a table model. When
             using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
         </h:panelGroup>
 
-        <h:panelGroup layout="block" rendered="#{tableShowcaseComponent.toolBarType eq 'TEXT'}">
+        <h:panelGroup layout="block" rendered="#{tableShowcaseSingleCodeComponent.toolBarType eq 'TEXT'}">
             <style>
                 .butter-table-toolbar-custom {
                     margin-top: 10px;
@@ -71,24 +71,24 @@
 
         <b:table id="filterTable"
                  var="rowItem"
-                 value="#{tableShowcaseComponent.stringRows}"
-                 singleSelectionListener="#{tableShowcaseComponent}"
-                 model="#{tableShowcaseComponent.tableModel}"
-                 tableCondensed="#{tableShowcaseComponent.tableCondensed}"
-                 tableStriped="#{tableShowcaseComponent.tableStriped}"
-                 tableBordered="#{tableShowcaseComponent.tableBordered}"
-                 showRefreshButton="#{tableShowcaseComponent.showRefreshButton}"
-                 showToggleColumnButton="#{tableShowcaseComponent.showToggleColumnButton}"
+                 value="#{tableShowcaseSingleCodeComponent.stringRows}"
+                 singleSelectionListener="#{tableShowcaseSingleCodeComponent}"
+                 model="#{tableShowcaseSingleCodeComponent.tableModel}"
+                 tableCondensed="#{tableShowcaseSingleCodeComponent.tableCondensed}"
+                 tableStriped="#{tableShowcaseSingleCodeComponent.tableStriped}"
+                 tableBordered="#{tableShowcaseSingleCodeComponent.tableBordered}"
+                 showRefreshButton="#{tableShowcaseSingleCodeComponent.showRefreshButton}"
+                 showToggleColumnButton="#{tableShowcaseSingleCodeComponent.showToggleColumnButton}"
                  sortAscendingClass="fa fa-sort-down"
                  sortDescendingClass="fa fa-sort-up"
                  sortUndefinedClass="fa fa-sort"
-                 rendered="#{tableShowcaseComponent.rendered and !(tableShowcaseComponent.selectionAjaxType eq 'NONE')}">
+                 rendered="#{tableShowcaseSingleCodeComponent.rendered and !(tableShowcaseSingleCodeComponent.selectionAjaxType eq 'NONE')}">
             <f:facet name="toolbar">
-                <h:panelGroup rendered="#{tableShowcaseComponent.toolBarType eq 'TEXT'}">
+                <h:panelGroup rendered="#{tableShowcaseSingleCodeComponent.toolBarType eq 'TEXT'}">
                     Custom toolbar text...
                 </h:panelGroup>
-                <h:panelGroup rendered="#{tableShowcaseComponent.toolBarType eq 'INPUT'}">
-                    <b:text value="#{tableShowcaseComponent.filterValue}"
+                <h:panelGroup rendered="#{tableShowcaseSingleCodeComponent.toolBarType eq 'INPUT'}">
+                    <b:text value="#{tableShowcaseSingleCodeComponent.filterValue}"
                             placeholder="Enter text and blur field..."
                             hideLabel="true"
                             autoFocus="true"
@@ -98,28 +98,28 @@
                 </h:panelGroup>
             </f:facet>
             <f:ajax render="output:nodeTitle"
-                    disabled="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
+                    disabled="#{tableShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn1}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn1}"
                       label="Readonly text">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn2}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn2}"
                       label="Input text">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn3}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn3}"
                       sortColumnEnabled="false"
                       label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                               action="#{tableShowcaseSingleCodeComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column colWidth="#{tableShowcaseComponent.colWidthColumn4}"
+            <b:column colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn4}"
                       hideColumn="true"
                       label="Readonly text (default hide)">
                 #{rowItem.a}
@@ -127,29 +127,29 @@
         </b:table>
 
         <b:table var="rowItem"
-                 value="#{tableShowcaseComponent.stringRows}"
-                 singleSelectionListener="#{tableShowcaseComponent}"
-                 rendered="#{tableShowcaseComponent.rendered and tableShowcaseComponent.selectionAjaxType eq 'NONE'}">
+                 value="#{tableShowcaseSingleCodeComponent.stringRows}"
+                 singleSelectionListener="#{tableShowcaseSingleCodeComponent}"
+                 rendered="#{tableShowcaseSingleCodeComponent.rendered and tableShowcaseSingleCodeComponent.selectionAjaxType eq 'NONE'}">
             <b:column id="column1"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn1}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn1}"
                       label="C1">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn2}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn2}"
                       label="C2">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
-                      colWidth="#{tableShowcaseComponent.colWidthColumn3}"
+                      colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn3}"
                       label="C3">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcaseComponent.doSomethingWithRow(rowItem)}">
+                               action="#{tableShowcaseSingleCodeComponent.doSomethingWithRow(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column colWidth="#{tableShowcaseComponent.colWidthColumn4}"
+            <b:column colWidth="#{tableShowcaseSingleCodeComponent.colWidthColumn4}"
                       hideColumn="true"
                       label="Readonly text (default hide)">
                 #{rowItem.a}
@@ -161,30 +161,30 @@
             <hr/>
 
             <h:panelGroup layout="block" styleClass="input-group"
-                          rendered="#{tableShowcaseComponent.selectionAjaxType eq 'AJAX'}">
+                          rendered="#{tableShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX'}">
                 <span class="input-group-addon">Table selected value:</span>
-                <h:outputText value="#{tableShowcaseComponent.selectedValue.a}"
-                              rendered="#{not empty tableShowcaseComponent.selectedValue}"
+                <h:outputText value="#{tableShowcaseSingleCodeComponent.selectedValue.a}"
+                              rendered="#{not empty tableShowcaseSingleCodeComponent.selectedValue}"
                               styleClass="form-control arquillian_output_value"/>
                 <h:outputText value="-"
-                              rendered="#{empty tableShowcaseComponent.selectedValue}"
+                              rendered="#{empty tableShowcaseSingleCodeComponent.selectedValue}"
                               styleClass="form-control arquillian_output_value"/>
             </h:panelGroup>
 
             <div class="input-group">
                 <span class="input-group-addon">Button selected value:</span>
-                <h:outputText value="#{tableShowcaseComponent.doSomethingWithRow}"
-                              rendered="#{not empty tableShowcaseComponent.doSomethingWithRow}"
+                <h:outputText value="#{tableShowcaseSingleCodeComponent.doSomethingWithRow}"
+                              rendered="#{not empty tableShowcaseSingleCodeComponent.doSomethingWithRow}"
                               styleClass="form-control arquillian_output_value"/>
                 <h:outputText value="-"
-                              rendered="#{empty tableShowcaseComponent.doSomethingWithRow}"
+                              rendered="#{empty tableShowcaseSingleCodeComponent.doSomethingWithRow}"
                               styleClass="form-control arquillian_output_value"/>
             </div>
         </h:panelGroup>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{tableShowcaseComponent}"/>
+        <showcase:showcaseComplexExampleComponent component="#{tableShowcaseSingleCodeComponent}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

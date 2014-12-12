@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
+import de.larmic.butterfaces.component.showcase.AbstractShowcaseSingleCodeComponent;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
@@ -19,7 +19,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TreeShowcaseComponent extends AbstractShowcaseComponent implements Serializable, TreeNodeSelectionListener {
+public class TreeShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable, TreeNodeSelectionListener {
 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 

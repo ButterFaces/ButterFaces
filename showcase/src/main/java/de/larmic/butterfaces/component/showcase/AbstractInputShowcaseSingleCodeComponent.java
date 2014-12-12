@@ -4,7 +4,7 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseComponent {
+public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent {
 
     protected static final String DEFAULT_NUMBER_PLACEHOLDER = "Enter number...";
     protected static final String DEFAULT_TEXT_PLACEHOLDER = "Enter text...";
@@ -22,7 +22,7 @@ public abstract class AbstractInputShowcaseComponent extends AbstractShowcaseCom
     private String labelStyleClass = null;
     private String styleClass = null;
 
-    public AbstractInputShowcaseComponent() {
+    public AbstractInputShowcaseSingleCodeComponent() {
         this.value = this.initValue();
     }
 

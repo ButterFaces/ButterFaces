@@ -10,7 +10,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class CommandLinkShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class CommandLinkShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
 
     private String value = "click me";
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";

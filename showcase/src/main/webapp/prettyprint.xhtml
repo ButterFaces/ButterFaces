@@ -12,15 +12,15 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseComponent.rendered}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseSingleCodeComponent.rendered}"/>
             <showcase:tagEnumControl label="language"
-                                     value="#{prettyPrintShowcaseComponent.prettyPrintType}"
-                                     values="#{prettyPrintShowcaseComponent.prettyPrintTypes}"/>
+                                     value="#{prettyPrintShowcaseSingleCodeComponent.prettyPrintType}"
+                                     values="#{prettyPrintShowcaseSingleCodeComponent.prettyPrintTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:prettyPrintShowcase component="#{prettyPrintShowcaseComponent}" />
+        <showcase:prettyPrintShowcase component="#{prettyPrintShowcaseSingleCodeComponent}" />
 
         <b:activateLibraries />
 
@@ -32,6 +32,6 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{prettyPrintShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{prettyPrintShowcaseSingleCodeComponent}"/>
     </ui:define>
 </ui:composition>

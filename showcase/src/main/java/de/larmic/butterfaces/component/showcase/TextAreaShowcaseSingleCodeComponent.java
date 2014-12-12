@@ -9,14 +9,12 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TextShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class TextAreaShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
+
+    private Integer maxLength;
+    private Boolean expandable;
 
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
-    private String type;
-    private String pattern;
-    private String min;
-    private String max;
-    private boolean autoFocus;
 
     @Override
     protected Object initValue() {
@@ -34,23 +32,27 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <b:text id=\"input\"\n");
-        sb.append("                label=\"" + this.getLabel() + "\"\n");
-        sb.append("                value=\"" + this.getValue() + "\"\n");
+        sb.append("        <b:textArea id=\"input\"\n");
+        sb.append("                    label=\"" + this.getLabel() + "\"\n");
+        sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
-        this.appendString("type", this.getType(), sb);
-        this.appendString("pattern", this.getPattern(), sb);
-        this.appendString("min", this.getMin(), sb);
-        this.appendString("max", this.getMax(), sb);
         this.appendString("styleClass", this.getStyleClass(), sb);
         this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
         this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
-        this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
+
+        if (this.getMaxLength() != null) {
+            sb.append("                    maxLength=\"" + this.getMaxLength() + "\"\n");
+        }
+
+        if (Boolean.TRUE.equals(this.getExpandable())) {
+            sb.append("                    expandable=\"" + this.getExpandable() + "\"\n");
+        }
+
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
         this.createAjaxXhtml(sb, "keyup");
@@ -58,7 +60,7 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         if (this.isValidation()) {
             sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
         }
-        sb.append("        </b:text>");
+        sb.append("        </b:textArea>");
 
         this.createOutputXhtml(sb);
 
@@ -76,51 +78,31 @@ public class TextShowcaseComponent extends AbstractInputShowcaseComponent implem
         }
     }
 
+    protected String getEmptyDistanceString() {
+        return "                    ";
+    }
+
+    public Integer getMaxLength() {
+        return this.maxLength;
+    }
+
+    public void setMaxLength(final Integer maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public Boolean getExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(Boolean expandable) {
+        this.expandable = expandable;
+    }
+
     public String getPlaceholder() {
         return this.placeholder;
     }
 
     public void setPlaceholder(final String placeholder) {
         this.placeholder = placeholder;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public boolean isAutoFocus() {
-        return autoFocus;
-    }
-
-    public void setAutoFocus(boolean autoFocus) {
-        this.autoFocus = autoFocus;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public String getMin() {
-        return min;
-    }
-
-    public void setMin(String min) {
-        this.min = min;
-    }
-
-    public String getMax() {
-        return max;
-    }
-
-    public void setMax(String max) {
-        this.max = max;
     }
 }

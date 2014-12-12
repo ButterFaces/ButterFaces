@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class ActivateLibrariesComponent extends AbstractShowcaseComponent implements Serializable {
+public class ActivateLibrariesSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
 
     @Override
     public String getXHtml() {

@@ -7,7 +7,7 @@
 
 <h:body>
     <composite:interface>
-        <composite:attribute name="component" type="de.larmic.butterfaces.component.showcase.AbstractInputShowcaseComponent"
+        <composite:attribute name="component" type="de.larmic.butterfaces.component.showcase.AbstractInputShowcaseSingleCodeComponent"
                              required="true"/>
     </composite:interface>
 
@@ -19,15 +19,15 @@
                   readonly="#{cc.attrs.component.readonly}"
                   required="#{cc.attrs.component.required}"
                   rendered="#{cc.attrs.component.rendered}"
-                  placeholder="#{numberShowcaseComponent.placeholder}"
-                  type="#{numberShowcaseComponent.type}"
-                  pattern="#{numberShowcaseComponent.pattern}"
-                  min="#{numberShowcaseComponent.min}"
+                  placeholder="#{numberShowcaseSingleCodeComponent.placeholder}"
+                  type="#{numberShowcaseSingleCodeComponent.type}"
+                  pattern="#{numberShowcaseSingleCodeComponent.pattern}"
+                  min="#{numberShowcaseSingleCodeComponent.min}"
                   inputStyleClass="#{cc.attrs.component.inputStyleClass}"
                   labelStyleClass="#{cc.attrs.component.labelStyleClass}"
                   styleClass="#{cc.attrs.component.styleClass}"
-                  max="#{numberShowcaseComponent.max}"
-                  autoFocus="#{numberShowcaseComponent.autoFocus}">
+                  max="#{numberShowcaseSingleCodeComponent.max}"
+                  autoFocus="#{numberShowcaseSingleCodeComponent.autoFocus}">
             <f:ajax event="change"
                     execute="@this"
                     render="output:outputComponent:outputValues output:other"

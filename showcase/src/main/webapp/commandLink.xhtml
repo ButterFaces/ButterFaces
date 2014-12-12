@@ -13,96 +13,96 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="value" value="#{commandLinkShowcaseComponent.value}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{commandLinkShowcaseComponent.rendered}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{commandLinkShowcaseComponent.disabled}"/>
+            <showcase:tagStringControl label="value" value="#{commandLinkShowcaseSingleCodeComponent.value}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{commandLinkShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{commandLinkShowcaseSingleCodeComponent.disabled}"/>
             <showcase:tagEnumControl label="glyphicon"
-                                     value="#{commandLinkShowcaseComponent.glyphicon}"
-                                     values="#{commandLinkShowcaseComponent.glyphicons}"/>
+                                     value="#{commandLinkShowcaseSingleCodeComponent.glyphicon}"
+                                     values="#{commandLinkShowcaseSingleCodeComponent.glyphicons}"/>
             <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest"
-                                        value="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                                        value="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}"
                                         labelStyleClass="linkTagMinWidth"/>
             <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
-                                        value="#{commandLinkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
+                                        value="#{commandLinkShowcaseSingleCodeComponent.ajaxShowWaitingDotsOnRequest}"
                                         labelStyleClass="linkTagMinWidth"/>
             <showcase:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
-                                        value="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
+                                        value="#{commandLinkShowcaseSingleCodeComponent.ajaxHideGlyphiconOnRequest}"
                                         labelStyleClass="linkTagMinWidth"/>
             <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
-                                        value="#{commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
+                                        value="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest}"
                                         labelStyleClass="linkTagMinWidth"/>
             <showcase:tagStringControl label="ajaxProcessingTextOnRequest"
-                                       value="#{commandLinkShowcaseComponent.ajaxProcessingText}"/>
+                                       value="#{commandLinkShowcaseSingleCodeComponent.ajaxProcessingText}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagBooleanControl label="ajax submit"
-                                        value="#{commandLinkShowcaseComponent.ajaxSubmit}" />
+                                        value="#{commandLinkShowcaseSingleCodeComponent.ajaxSubmit}" />
             <showcase:tagEnumControl label="link type"
-                                     value="#{commandLinkShowcaseComponent.style}"
-                                     values="#{commandLinkShowcaseComponent.styles}"/>
+                                     value="#{commandLinkShowcaseSingleCodeComponent.style}"
+                                     values="#{commandLinkShowcaseSingleCodeComponent.styles}"/>
             <showcase:tagEnumControl label="ajax rendering"
-                                     value="#{commandLinkShowcaseComponent.render}"
-                                     values="#{commandLinkShowcaseComponent.renders}"/>
+                                     value="#{commandLinkShowcaseSingleCodeComponent.render}"
+                                     values="#{commandLinkShowcaseSingleCodeComponent.renders}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <h:panelGroup layout="block"
-                      rendered="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
+                      rendered="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}"
                       styleClass="alert alert-warning">
             <strong>Attention</strong> To show attribute
             <l>ajaxDisableLinkOnRequest</l>
             action method will wait 2 seconds.
         </h:panelGroup>
 
-        <b:commandLink glyphicon="#{commandLinkShowcaseComponent.glyphicon}"
-                       value="#{commandLinkShowcaseComponent.value}"
-                       action="#{commandLinkShowcaseComponent.increaseClick}"
-                       styleClass="arquillian_component #{commandLinkShowcaseComponent.style}"
-                       disabled="#{commandLinkShowcaseComponent.disabled}"
-                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
-                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseComponent.ajaxProcessingText}"
-                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
-                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
-                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
-                       rendered="#{commandLinkShowcaseComponent.rendered and commandLinkShowcaseComponent.ajaxSubmit}">
-            <f:ajax render="#{commandLinkShowcaseComponent.render}" onevent="logTest"/>
+        <b:commandLink glyphicon="#{commandLinkShowcaseSingleCodeComponent.glyphicon}"
+                       value="#{commandLinkShowcaseSingleCodeComponent.value}"
+                       action="#{commandLinkShowcaseSingleCodeComponent.increaseClick}"
+                       styleClass="arquillian_component #{commandLinkShowcaseSingleCodeComponent.style}"
+                       disabled="#{commandLinkShowcaseSingleCodeComponent.disabled}"
+                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxShowWaitingDotsOnRequest}"
+                       rendered="#{commandLinkShowcaseSingleCodeComponent.rendered and commandLinkShowcaseSingleCodeComponent.ajaxSubmit}">
+            <f:ajax render="#{commandLinkShowcaseSingleCodeComponent.render}" onevent="logTest"/>
         </b:commandLink>
 
-        <b:commandLink glyphicon="#{commandLinkShowcaseComponent.glyphicon}"
+        <b:commandLink glyphicon="#{commandLinkShowcaseSingleCodeComponent.glyphicon}"
                        value="other link"
-                       action="#{commandLinkShowcaseComponent.increaseClick()}"
-                       styleClass="#{commandLinkShowcaseComponent.style}"
+                       action="#{commandLinkShowcaseSingleCodeComponent.increaseClick()}"
+                       styleClass="#{commandLinkShowcaseSingleCodeComponent.style}"
                        style="margin-left: 20px"
-                       disabled="#{commandLinkShowcaseComponent.disabled}"
-                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
-                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseComponent.ajaxProcessingText}"
-                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
-                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
-                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
-                       rendered="#{commandLinkShowcaseComponent.rendered and commandLinkShowcaseComponent.ajaxSubmit and commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}">
+                       disabled="#{commandLinkShowcaseSingleCodeComponent.disabled}"
+                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxShowWaitingDotsOnRequest}"
+                       rendered="#{commandLinkShowcaseSingleCodeComponent.rendered and commandLinkShowcaseSingleCodeComponent.ajaxSubmit and commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}">
             <f:ajax render="disableOnOtherRequest" execute="@this" />
         </b:commandLink>
 
-        <b:commandLink glyphicon="#{commandLinkShowcaseComponent.glyphicon}"
-                       value="#{commandLinkShowcaseComponent.value}"
-                       action="#{commandLinkShowcaseComponent.increaseClick}"
-                       styleClass="arquillian_component #{commandLinkShowcaseComponent.style}"
-                       disabled="#{commandLinkShowcaseComponent.disabled}"
-                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest}"
-                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseComponent.ajaxProcessingText}"
-                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseComponent.ajaxHideGlyphiconOnRequest}"
-                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest}"
-                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseComponent.ajaxShowWaitingDotsOnRequest}"
-                       rendered="#{commandLinkShowcaseComponent.rendered and not commandLinkShowcaseComponent.ajaxSubmit}">
+        <b:commandLink glyphicon="#{commandLinkShowcaseSingleCodeComponent.glyphicon}"
+                       value="#{commandLinkShowcaseSingleCodeComponent.value}"
+                       action="#{commandLinkShowcaseSingleCodeComponent.increaseClick}"
+                       styleClass="arquillian_component #{commandLinkShowcaseSingleCodeComponent.style}"
+                       disabled="#{commandLinkShowcaseSingleCodeComponent.disabled}"
+                       ajaxDisableLinkOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest}"
+                       ajaxProcessingTextOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxProcessingText}"
+                       ajaxHideGlyphiconOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxHideGlyphiconOnRequest}"
+                       ajaxDisableRenderRegionsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest}"
+                       ajaxShowWaitingDotsOnRequest="#{commandLinkShowcaseSingleCodeComponent.ajaxShowWaitingDotsOnRequest}"
+                       rendered="#{commandLinkShowcaseSingleCodeComponent.rendered and not commandLinkShowcaseSingleCodeComponent.ajaxSubmit}">
         </b:commandLink>
 
         <hr/>
 
         <h:panelGroup layout="block">
             <h:panelGroup layout="block"
-                          rendered="#{commandLinkShowcaseComponent.ajaxDisableLinkOnRequest and commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseComponent.ajaxSubmit}">
+                          rendered="#{commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest and commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseSingleCodeComponent.ajaxSubmit}">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -112,7 +112,7 @@
                                 This section will be updated after click action is finished. While ajax request is running
                                 this section will be disabled.
                             </div>
-                            <span class="arquillian_component_clicks">#{commandLinkShowcaseComponent.clicks}</span> clicks
+                            <span class="arquillian_component_clicks">#{commandLinkShowcaseSingleCodeComponent.clicks}</span> clicks
                         </b:section>
                     </div>
                     <div class="col-md-6">
@@ -122,7 +122,7 @@
                                 This section will be updated after other click action is finished. While ajax request this
                                 section will be disabled.
                             </div>
-                            <span class="arquillian_component_clicks">#{commandLinkShowcaseComponent.clicks}</span> clicks
+                            <span class="arquillian_component_clicks">#{commandLinkShowcaseSingleCodeComponent.clicks}</span> clicks
                         </b:section>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                                 This section will be updated after click action is finished. While ajax request is running
                                 this section will be disabled.
                             </div>
-                            <span class="arquillian_component_clicks">#{commandLinkShowcaseComponent.clicks}</span> clicks
+                            <span class="arquillian_component_clicks">#{commandLinkShowcaseSingleCodeComponent.clicks}</span> clicks
                         </b:section>
                     </div>
                 </div>
@@ -143,8 +143,8 @@
             </h:panelGroup>
             <h:panelGroup id="clicks" layout="block">
                 <h:panelGroup styleClass="arquillian_component_clicks"
-                              rendered="#{!(commandLinkShowcaseComponent.ajaxDisableLinkOnRequest and commandLinkShowcaseComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseComponent.ajaxSubmit)}">
-                    #{commandLinkShowcaseComponent.clicks} clicks
+                              rendered="#{!(commandLinkShowcaseSingleCodeComponent.ajaxDisableLinkOnRequest and commandLinkShowcaseSingleCodeComponent.ajaxDisableRenderRegionsOnRequest and commandLinkShowcaseSingleCodeComponent.ajaxSubmit)}">
+                    #{commandLinkShowcaseSingleCodeComponent.clicks} clicks
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
@@ -152,7 +152,7 @@
 
     <ui:define name="other">
 
-        <showcase:showcaseExampleComponent component="#{commandLinkShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{commandLinkShowcaseSingleCodeComponent}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

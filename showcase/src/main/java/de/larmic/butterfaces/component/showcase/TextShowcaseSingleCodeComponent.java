@@ -9,9 +9,11 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class NumberShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class TextShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
-    private String placeholder = DEFAULT_NUMBER_PLACEHOLDER;
+    private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
+    private String type;
+    private String pattern;
     private String min;
     private String max;
     private boolean autoFocus;
@@ -32,12 +34,14 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
 
         this.addXhtmlStart(sb);
 
-        sb.append("        <b:number id=\"input\"\n");
-        sb.append("                  label=\"" + this.getLabel() + "\"\n");
-        sb.append("                  value=\"" + this.getValue() + "\"\n");
+        sb.append("        <b:text id=\"input\"\n");
+        sb.append("                label=\"" + this.getLabel() + "\"\n");
+        sb.append("                value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
         this.appendString("placeholder", this.getPlaceholder(), sb);
+        this.appendString("type", this.getType(), sb);
+        this.appendString("pattern", this.getPattern(), sb);
         this.appendString("min", this.getMin(), sb);
         this.appendString("max", this.getMax(), sb);
         this.appendString("styleClass", this.getStyleClass(), sb);
@@ -49,9 +53,12 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.appendBoolean("autoFocus", this.isAutoFocus(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
-        this.createAjaxXhtml(sb, "change");
+        this.createAjaxXhtml(sb, "keyup");
 
-        sb.append("        </b:number>");
+        if (this.isValidation()) {
+            sb.append("            <f:validateLength minimum=\"2\" maximum=\"10\"/>\n");
+        }
+        sb.append("        </b:text>");
 
         this.createOutputXhtml(sb);
 
@@ -69,10 +76,6 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         }
     }
 
-    protected String getEmptyDistanceString() {
-        return "                  ";
-    }
-
     public String getPlaceholder() {
         return this.placeholder;
     }
@@ -81,12 +84,28 @@ public class NumberShowcaseComponent extends AbstractInputShowcaseComponent impl
         this.placeholder = placeholder;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public boolean isAutoFocus() {
         return autoFocus;
     }
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 
     public String getMin() {

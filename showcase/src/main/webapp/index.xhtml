@@ -17,28 +17,68 @@
                 web applications using <a href="https://javaserverfaces.java.net/" target="_blank">Mojarra JSF 2</a>.
             </p>
 
-            <p>
-                <a class="btn btn-success"
+            <div>
+                <a class="btn btn-success hidden-sm hidden-xs"
                    href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.7/components-1.6.7.jar">
                     <i class="fa fa-download"></i> Download ButterFaces library
                 </a>
-                <a class="btn btn-success"
+                <a class="btn btn-success hidden-sm hidden-xs"
                    href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.7/components-1.6.7-sources.jar">
                     <i class="fa fa-download"></i> Download ButterFaces source
                 </a>
-                <a type="button"
-                   class="btn btn-primary"
+                <div class="btn-group hidden-md hidden-lg">
+                    <button type="button" class="btn btn-success">Download</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Menü ein-/ausblenden</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.7/components-1.6.7.jar">
+                                <i class="fa fa-download"></i> Download ButterFaces library
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.7/components-1.6.7-sources.jar">
+                                <i class="fa fa-download"></i> Download ButterFaces source
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="btn btn-primary hidden-xs"
                    target="_blank"
                    href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
                     <i class="fa fa-external-link"></i> View issue tracker
                 </a>
-                <a type="button"
-                   class="btn btn-primary"
+                <a class="btn btn-primary hidden-xs"
                    target="_blank"
                    href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
                     <i class="fa fa-external-link"></i> View getting started
                 </a>
-            </p>
+                <div class="btn-group hidden-sm hidden-md hidden-lg">
+                    <button type="button" class="btn btn-primary">Help</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Menü ein-/ausblenden</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a target="_blank"
+                               href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
+                                <i class="fa fa-external-link"></i> View issue tracker
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank"
+                               href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
+                                <i class="fa fa-external-link"></i> View getting started
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
 
@@ -102,9 +142,10 @@
                             <small>There is only one dependency you need. Just add one jar to your project.</small>
                         </h5>
                         <h5>
-                            <small>You can easily use maven to add ButterFaces to your application as it is available in <a
-                                    href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
-                                    target="_blank">maven central respository</a>.
+                            <small>You can easily use maven to add ButterFaces to your application as it is available in
+                                <a
+                                        href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
+                                        target="_blank">maven central respository</a>.
                             </small>
                         </h5>
 
@@ -161,8 +202,10 @@
                             <div class="col-sm-6">
                                 <ul class="nav navList componentsNavList">
                                     <li class="dropdown-header" role="presentation">Container</li>
-                                    <li><h:link value="b:section" outcome="/section" styleClass="arquillian_section"/></li>
-                                    <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint"/>
+                                    <li><h:link value="b:section" outcome="/section" styleClass="arquillian_section"/>
+                                    </li>
+                                    <li><h:link value="b:prettyprint" outcome="/prettyprint"
+                                                styleClass="arquillian_prettyprint"/>
                                     </li>
                                     <hr/>
                                     <li class="dropdown-header" role="presentation">Data iteration</li>

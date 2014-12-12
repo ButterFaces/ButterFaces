@@ -11,21 +11,21 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{treeShowcaseComponent.rendered}"/>
-            <showcase:tagBooleanControl label="hideRootNode" value="#{treeShowcaseComponent.hideRootNode}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{treeShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagBooleanControl label="hideRootNode" value="#{treeShowcaseSingleCodeComponent.hideRootNode}"/>
             <showcase:tagEnumControl label="collapse/expand"
-                                     value="#{treeShowcaseComponent.glyphicon}"
-                                     values="#{treeShowcaseComponent.glyphicons}"/>
+                                     value="#{treeShowcaseSingleCodeComponent.glyphicon}"
+                                     values="#{treeShowcaseSingleCodeComponent.glyphicons}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax selection"
-                                     value="#{treeShowcaseComponent.selectionAjaxType}"
-                                     values="#{treeShowcaseComponent.ajaxSelectionTypes}"/>
+                                     value="#{treeShowcaseSingleCodeComponent.selectionAjaxType}"
+                                     values="#{treeShowcaseSingleCodeComponent.ajaxSelectionTypes}"/>
             <showcase:tagEnumControl label="icons"
-                                     value="#{treeShowcaseComponent.selectedIconType}"
-                                     values="#{treeShowcaseComponent.iconTypes}"/>
-            <showcase:tagBooleanControl label="nodes expanded" value="#{treeShowcaseComponent.allExpanded}"/>
+                                     value="#{treeShowcaseSingleCodeComponent.selectedIconType}"
+                                     values="#{treeShowcaseSingleCodeComponent.iconTypes}"/>
+            <showcase:tagBooleanControl label="nodes expanded" value="#{treeShowcaseSingleCodeComponent.allExpanded}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -33,39 +33,39 @@
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{!(treeShowcaseComponent.selectionAjaxType eq 'AJAX')}">
+                      rendered="#{!(treeShowcaseSingleCodeComponent.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Tree selection will only work in ajax mode.
         </h:panelGroup>
 
         <b:tree id="tree"
-                value="#{treeShowcaseComponent.tree}"
-                nodeSelectionListener="#{treeShowcaseComponent}"
-                collapsingClass="#{treeShowcaseComponent.collapsingClass}"
-                expansionClass="#{treeShowcaseComponent.expansionClass}"
-                hideRootNode="#{treeShowcaseComponent.hideRootNode}"
-                rendered="#{treeShowcaseComponent.rendered and not treeShowcaseComponent.ajaxRendered}"/>
+                value="#{treeShowcaseSingleCodeComponent.tree}"
+                nodeSelectionListener="#{treeShowcaseSingleCodeComponent}"
+                collapsingClass="#{treeShowcaseSingleCodeComponent.collapsingClass}"
+                expansionClass="#{treeShowcaseSingleCodeComponent.expansionClass}"
+                hideRootNode="#{treeShowcaseSingleCodeComponent.hideRootNode}"
+                rendered="#{treeShowcaseSingleCodeComponent.rendered and not treeShowcaseSingleCodeComponent.ajaxRendered}"/>
 
         <b:tree id="treeWithAjax"
-                value="#{treeShowcaseComponent.tree}"
-                nodeSelectionListener="#{treeShowcaseComponent}"
-                collapsingClass="#{treeShowcaseComponent.collapsingClass}"
-                expansionClass="#{treeShowcaseComponent.expansionClass}"
-                hideRootNode="#{treeShowcaseComponent.hideRootNode}"
-                rendered="#{treeShowcaseComponent.rendered and treeShowcaseComponent.ajaxRendered}">
-            <f:ajax render="nodeTitle" disabled="#{treeShowcaseComponent.ajaxDisabled}"/>
+                value="#{treeShowcaseSingleCodeComponent.tree}"
+                nodeSelectionListener="#{treeShowcaseSingleCodeComponent}"
+                collapsingClass="#{treeShowcaseSingleCodeComponent.collapsingClass}"
+                expansionClass="#{treeShowcaseSingleCodeComponent.expansionClass}"
+                hideRootNode="#{treeShowcaseSingleCodeComponent.hideRootNode}"
+                rendered="#{treeShowcaseSingleCodeComponent.rendered and treeShowcaseSingleCodeComponent.ajaxRendered}">
+            <f:ajax render="nodeTitle" disabled="#{treeShowcaseSingleCodeComponent.ajaxDisabled}"/>
         </b:tree>
 
-        <h:panelGroup rendered="#{treeShowcaseComponent.ajaxRendered}">
+        <h:panelGroup rendered="#{treeShowcaseSingleCodeComponent.ajaxRendered}">
             <hr/>
 
             <div class="input-group">
                 <span class="input-group-addon">Selected value:</span>
                 <h:panelGroup id="nodeTitle" layout="block">
-                    <h:outputText value="#{treeShowcaseComponent.selectedNode.title}"
-                                  rendered="#{not empty treeShowcaseComponent.selectedNode}"
+                    <h:outputText value="#{treeShowcaseSingleCodeComponent.selectedNode.title}"
+                                  rendered="#{not empty treeShowcaseSingleCodeComponent.selectedNode}"
                                   styleClass="form-control arquillian_output_value"/>
                     <h:outputText value="-"
-                                  rendered="#{empty treeShowcaseComponent.selectedNode}"
+                                  rendered="#{empty treeShowcaseSingleCodeComponent.selectedNode}"
                                   styleClass="form-control arquillian_output_value"/>
                 </h:panelGroup>
             </div>
@@ -76,7 +76,7 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{treeShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{treeShowcaseSingleCodeComponent}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

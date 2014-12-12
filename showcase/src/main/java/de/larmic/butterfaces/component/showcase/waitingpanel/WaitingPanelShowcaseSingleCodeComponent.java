@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.showcase.waitingpanel;
 
 import de.larmic.butterfaces.component.renderkit.html_basic.ajax.WaitingPanelRenderer;
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
+import de.larmic.butterfaces.component.showcase.AbstractShowcaseSingleCodeComponent;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -16,7 +16,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class WaitingPanelShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class WaitingPanelShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
 
     private WaitingPanelChildrenType waitingPanelChildrenType = WaitingPanelChildrenType.NONE;
     private int delayInMillis = 500;

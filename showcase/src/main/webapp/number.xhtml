@@ -10,34 +10,34 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{numberShowcaseComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{numberShowcaseComponent.tooltip}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcaseComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{numberShowcaseComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{numberShowcaseComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{numberShowcaseComponent.rendered}"/>
-            <showcase:tagStringControl label="min" value="#{numberShowcaseComponent.min}"/>
-            <showcase:tagStringControl label="max" value="#{numberShowcaseComponent.max}"/>
+            <showcase:tagStringControl label="label" value="#{numberShowcaseSingleCodeComponent.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{numberShowcaseSingleCodeComponent.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcaseSingleCodeComponent.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{numberShowcaseSingleCodeComponent.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{numberShowcaseSingleCodeComponent.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{numberShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagStringControl label="min" value="#{numberShowcaseSingleCodeComponent.min}"/>
+            <showcase:tagStringControl label="max" value="#{numberShowcaseSingleCodeComponent.max}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{numberShowcaseComponent.styleClass}"
-                                     values="#{numberShowcaseComponent.styleClasses}"/>
+                                     value="#{numberShowcaseSingleCodeComponent.styleClass}"
+                                     values="#{numberShowcaseSingleCodeComponent.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{numberShowcaseComponent.inputStyleClass}"
-                                     values="#{numberShowcaseComponent.inputStyleClasses}"/>
+                                     value="#{numberShowcaseSingleCodeComponent.inputStyleClass}"
+                                     values="#{numberShowcaseSingleCodeComponent.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{numberShowcaseComponent.labelStyleClass}"
-                                     values="#{numberShowcaseComponent.labelStyleClasses}"/>
+                                     value="#{numberShowcaseSingleCodeComponent.labelStyleClass}"
+                                     values="#{numberShowcaseSingleCodeComponent.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{numberShowcaseComponent.placeholder}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcaseComponent.autoFocus}"/>
+            <showcase:tagStringControl label="placeholder" value="#{numberShowcaseSingleCodeComponent.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcaseSingleCodeComponent.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{numberShowcaseComponent.ajaxType}"
-                                     values="#{numberShowcaseComponent.ajaxTypes}"
+                                     value="#{numberShowcaseSingleCodeComponent.ajaxType}"
+                                     values="#{numberShowcaseSingleCodeComponent.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
@@ -47,15 +47,15 @@
     <ui:define name="output">
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="number"
-                                         component="#{numberShowcaseComponent}">
+                                         component="#{numberShowcaseSingleCodeComponent}">
             <div class="arquillian_component">
-                <showcase:numberShowcase component="#{numberShowcaseComponent}"
+                <showcase:numberShowcase component="#{numberShowcaseSingleCodeComponent}"
                                          rendered="true"/>
             </div>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{numberShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{numberShowcaseSingleCodeComponent}"/>
     </ui:define>
 </ui:composition>

@@ -10,33 +10,33 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{comboBoxShowcaseComponent.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcaseComponent.tooltip}" />
-            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcaseComponent.hideLabel}" />
-            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcaseComponent.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseComponent.required}" />
-            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseComponent.rendered}" />
+            <showcase:tagStringControl label="label" value="#{comboBoxShowcaseSingleCodeComponent.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcaseSingleCodeComponent.tooltip}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcaseSingleCodeComponent.hideLabel}" />
+            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcaseSingleCodeComponent.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcaseSingleCodeComponent.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcaseSingleCodeComponent.rendered}" />
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{comboBoxShowcaseComponent.styleClass}"
-                                     values="#{comboBoxShowcaseComponent.styleClasses}"/>
+                                     value="#{comboBoxShowcaseSingleCodeComponent.styleClass}"
+                                     values="#{comboBoxShowcaseSingleCodeComponent.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{comboBoxShowcaseComponent.inputStyleClass}"
-                                     values="#{comboBoxShowcaseComponent.inputStyleClasses}"/>
+                                     value="#{comboBoxShowcaseSingleCodeComponent.inputStyleClass}"
+                                     values="#{comboBoxShowcaseSingleCodeComponent.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{comboBoxShowcaseComponent.labelStyleClass}"
-                                     values="#{comboBoxShowcaseComponent.labelStyleClasses}"/>
+                                     value="#{comboBoxShowcaseSingleCodeComponent.labelStyleClass}"
+                                     values="#{comboBoxShowcaseSingleCodeComponent.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="combo box"
-                                     value="#{comboBoxShowcaseComponent.comboBoxValueType}"
-                                     values="#{comboBoxShowcaseComponent.comboBoxTypes}"
+                                     value="#{comboBoxShowcaseSingleCodeComponent.comboBoxValueType}"
+                                     values="#{comboBoxShowcaseSingleCodeComponent.comboBoxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="comboboxPopoverContent"/>
             <showcase:tagEnumControl label="ajax"
-                                     value="#{comboBoxShowcaseComponent.ajaxType}"
-                                     values="#{comboBoxShowcaseComponent.ajaxTypes}"
+                                     value="#{comboBoxShowcaseSingleCodeComponent.ajaxType}"
+                                     values="#{comboBoxShowcaseSingleCodeComponent.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
@@ -44,14 +44,14 @@
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox" component="#{comboBoxShowcaseComponent}">
-            <showcase:comboBoxShowcase component="#{comboBoxShowcaseComponent}"
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox" component="#{comboBoxShowcaseSingleCodeComponent}">
+            <showcase:comboBoxShowcase component="#{comboBoxShowcaseSingleCodeComponent}"
                                        rendered="true"/>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{comboBoxShowcaseComponent}" />
+        <showcase:showcaseSimpleExampleComponent component="#{comboBoxShowcaseSingleCodeComponent}" />
     </ui:define>
 
 </ui:composition>

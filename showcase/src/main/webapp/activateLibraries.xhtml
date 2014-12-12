@@ -13,16 +13,16 @@
         <div class="row">
             <div class="col-md-4">
                 <showcase:tagsContainer label="Tag attributes">
-                    <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesComponent.rendered}"/>
+                    <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesSingleCodeComponent.rendered}"/>
                 </showcase:tagsContainer>
             </div>
 
             <h:form id="output" prependId="true" styleClass="col-md-8">
-                <showcase:showcaseExampleComponent component="#{activateLibrariesComponent}"/>
+                <showcase:showcaseSimpleExampleComponent component="#{activateLibrariesSingleCodeComponent}"/>
 
                 <div class="arquillian_activateLibraries_selector">
                     <b:activateLibraries id="link"
-                                         rendered="#{activateLibrariesComponent.rendered}"/>
+                                         rendered="#{activateLibrariesSingleCodeComponent.rendered}"/>
                 </div>
             </h:form>
         </div>

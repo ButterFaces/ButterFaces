@@ -10,54 +10,54 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{textShowcaseComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{textShowcaseComponent.tooltip}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{textShowcaseComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{textShowcaseComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{textShowcaseComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{textShowcaseComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{textShowcaseSingleCodeComponent.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{textShowcaseSingleCodeComponent.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{textShowcaseSingleCodeComponent.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{textShowcaseSingleCodeComponent.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{textShowcaseSingleCodeComponent.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{textShowcaseSingleCodeComponent.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{textShowcaseComponent.styleClass}"
-                                     values="#{textShowcaseComponent.styleClasses}"/>
+                                     value="#{textShowcaseSingleCodeComponent.styleClass}"
+                                     values="#{textShowcaseSingleCodeComponent.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{textShowcaseComponent.inputStyleClass}"
-                                     values="#{textShowcaseComponent.inputStyleClasses}"/>
+                                     value="#{textShowcaseSingleCodeComponent.inputStyleClass}"
+                                     values="#{textShowcaseSingleCodeComponent.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{textShowcaseComponent.labelStyleClass}"
-                                     values="#{textShowcaseComponent.labelStyleClasses}"/>
+                                     value="#{textShowcaseSingleCodeComponent.labelStyleClass}"
+                                     values="#{textShowcaseSingleCodeComponent.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{textShowcaseComponent.placeholder}"/>
-            <showcase:tagStringControl label="type" value="#{textShowcaseComponent.type}"/>
-            <showcase:tagStringControl label="pattern" value="#{textShowcaseComponent.pattern}"/>
-            <showcase:tagStringControl label="min" value="#{textShowcaseComponent.min}"/>
-            <showcase:tagStringControl label="max" value="#{textShowcaseComponent.max}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{textShowcaseComponent.autoFocus}"/>
+            <showcase:tagStringControl label="placeholder" value="#{textShowcaseSingleCodeComponent.placeholder}"/>
+            <showcase:tagStringControl label="type" value="#{textShowcaseSingleCodeComponent.type}"/>
+            <showcase:tagStringControl label="pattern" value="#{textShowcaseSingleCodeComponent.pattern}"/>
+            <showcase:tagStringControl label="min" value="#{textShowcaseSingleCodeComponent.min}"/>
+            <showcase:tagStringControl label="max" value="#{textShowcaseSingleCodeComponent.max}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{textShowcaseSingleCodeComponent.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{textShowcaseComponent.ajaxType}"
-                                     values="#{textShowcaseComponent.ajaxTypes}"
+                                     value="#{textShowcaseSingleCodeComponent.ajaxType}"
+                                     values="#{textShowcaseSingleCodeComponent.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <showcase:tagBooleanControl label="validate"
-                                        value="#{textShowcaseComponent.validation}"/>
+                                        value="#{textShowcaseSingleCodeComponent.validation}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="text"
-                                         component="#{textShowcaseComponent}">
-            <showcase:textShowcase component="#{textShowcaseComponent}"
+                                         component="#{textShowcaseSingleCodeComponent}">
+            <showcase:textShowcase component="#{textShowcaseSingleCodeComponent}"
                                    rendered="true"/>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{textShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{textShowcaseSingleCodeComponent}"/>
     </ui:define>
 </ui:composition>

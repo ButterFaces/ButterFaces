@@ -10,28 +10,28 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseComponent.tooltip}"/>
-            <showcase:tagStringControl label="description" value="#{checkBoxShowcaseComponent.description}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcaseComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseSingleCodeComponent.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseSingleCodeComponent.tooltip}"/>
+            <showcase:tagStringControl label="description" value="#{checkBoxShowcaseSingleCodeComponent.description}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcaseSingleCodeComponent.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseSingleCodeComponent.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseSingleCodeComponent.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseSingleCodeComponent.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{checkBoxShowcaseComponent.styleClass}"
-                                     values="#{checkBoxShowcaseComponent.styleClasses}"/>
+                                     value="#{checkBoxShowcaseSingleCodeComponent.styleClass}"
+                                     values="#{checkBoxShowcaseSingleCodeComponent.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{checkBoxShowcaseComponent.inputStyleClass}"
-                                     values="#{checkBoxShowcaseComponent.inputStyleClasses}"/>
+                                     value="#{checkBoxShowcaseSingleCodeComponent.inputStyleClass}"
+                                     values="#{checkBoxShowcaseSingleCodeComponent.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{checkBoxShowcaseComponent.labelStyleClass}"
-                                     values="#{checkBoxShowcaseComponent.labelStyleClasses}"/>
+                                     value="#{checkBoxShowcaseSingleCodeComponent.labelStyleClass}"
+                                     values="#{checkBoxShowcaseSingleCodeComponent.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag control">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{checkBoxShowcaseComponent.ajaxType}"
-                                     values="#{checkBoxShowcaseComponent.ajaxTypes}"
+                                     value="#{checkBoxShowcaseSingleCodeComponent.ajaxType}"
+                                     values="#{checkBoxShowcaseSingleCodeComponent.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
@@ -40,14 +40,14 @@
 
     <ui:define name="output">
         <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
-                                         component="#{checkBoxShowcaseComponent}">
-            <showcase:checkBoxShowcase component="#{checkBoxShowcaseComponent}"
+                                         component="#{checkBoxShowcaseSingleCodeComponent}">
+            <showcase:checkBoxShowcase component="#{checkBoxShowcaseSingleCodeComponent}"
                                        rendered="true"/>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseExampleComponent component="#{checkBoxShowcaseComponent}"/>
+        <showcase:showcaseSimpleExampleComponent component="#{checkBoxShowcaseSingleCodeComponent}"/>
     </ui:define>
 
 </ui:composition>

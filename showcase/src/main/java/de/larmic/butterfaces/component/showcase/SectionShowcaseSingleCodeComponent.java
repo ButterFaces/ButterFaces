@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class SectionShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class SectionShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
     @Override
     protected Object initValue() {

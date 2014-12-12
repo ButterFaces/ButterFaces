@@ -10,7 +10,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class PrettyPrintShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class PrettyPrintShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
     private PrettyPrintType prettyPrintType = PrettyPrintType.HTML;
 

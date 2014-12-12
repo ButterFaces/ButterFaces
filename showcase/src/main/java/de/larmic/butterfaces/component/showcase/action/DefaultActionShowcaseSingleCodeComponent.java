@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase.action;
 
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseComponent;
+import de.larmic.butterfaces.component.showcase.AbstractShowcaseSingleCodeComponent;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Named
 @ViewScoped
-public class DefaultActionShowcaseComponent extends AbstractShowcaseComponent implements Serializable {
+public class DefaultActionShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable {
 
     private String buttonClick;
     private String value;

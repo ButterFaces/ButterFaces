@@ -15,15 +15,16 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent implements Serializable {
+public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
+    private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
 
 	private final List<SelectItem> foos = new ArrayList<SelectItem>();
 	private final List<SelectItem> enums = new ArrayList<SelectItem>();
 	private final List<SelectItem> strings = new ArrayList<SelectItem>();
 
-	public ComboBoxShowcaseComponent() {
+	public RadioBoxShowcaseSingleCodeComponent() {
 		this.initFoos();
 		this.initStrings();
 		this.initEnums();
@@ -75,22 +76,21 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
         this.addXhtmlStart(sb);
 
-		sb.append("        <b:comboBox id=\"input\"\n");
+		sb.append("        <b:radioBox id=\"input\"\n");
 		sb.append("                    label=\"" + this.getLabel() + "\"\n");
 		sb.append("                    value=\"" + this.getValue() + "\"\n");
 
         this.appendString("tooltip", this.getTooltip(), sb);
-        this.appendString("styleClass", this.getStyleClass(), sb);
-        this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
-        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
+        this.appendString("layout", radioBoxLayoutType.label, sb);
+        this.appendString("styleClass", this.getStyleClass(), sb);
+        this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
+        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
-			sb.append("            <f:selectItem itemValue=\"#{null}\" \n");
-			sb.append("                          itemLabel=\"Choose one...\"/>\n");
 			sb.append("            <f:selectItem itemValue=\"2000\" \n");
 			sb.append("                          itemLabel=\"Year 2000\"/>\n");
 			sb.append("            <f:selectItem itemValue=\"2010\" \n");
@@ -106,7 +106,7 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 
 		this.createAjaxXhtml(sb, "change");
 
-		sb.append("        </b:comboBox>");
+		sb.append("        </b:radioBox>");
 
 		this.createOutputXhtml(sb);
 
@@ -141,6 +141,15 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 		return items;
 	}
 
+    public List<SelectItem> getRadioLayoutTypes() {
+		final List<SelectItem> items = new ArrayList<SelectItem>();
+
+		for (final RadioBoxLayoutType type : RadioBoxLayoutType.values()) {
+			items.add(new SelectItem(type, type.label));
+		}
+		return items;
+	}
+
 	public ComboBoxValueType getComboBoxValueType() {
 		return this.comboBoxValueType;
 	}
@@ -149,9 +158,15 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 		this.comboBoxValueType = comboBoxValueType;
 	}
 
-	private void initFoos() {
-		this.foos.add(new SelectItem(null, "Choose one..."));
+    public RadioBoxLayoutType getRadioBoxLayoutType() {
+        return radioBoxLayoutType;
+    }
 
+    public void setRadioBoxLayoutType(RadioBoxLayoutType radioBoxLayoutType) {
+        this.radioBoxLayoutType = radioBoxLayoutType;
+    }
+
+    private void initFoos() {
 		for (final String key : FooConverter.fooMap.keySet()) {
 			final Foo foo = FooConverter.fooMap.get(key);
 			this.foos.add(new SelectItem(foo, foo.getKey()));
@@ -159,15 +174,12 @@ public class ComboBoxShowcaseComponent extends AbstractInputShowcaseComponent im
 	}
 
 	private void initEnums() {
-		this.enums.add(new SelectItem(null, "Choose one..."));
-
 		for (final FooType fooType : FooType.values()) {
 			this.enums.add(new SelectItem(fooType.label));
 		}
 	}
 
 	private void initStrings() {
-		this.strings.add(new SelectItem(null, "Choose one..."));
 		this.strings.add(new SelectItem("2000", "Year 2000"));
 		this.strings.add(new SelectItem("2010", "Year 2010"));
 		this.strings.add(new SelectItem("2020", "Year 2020"));
