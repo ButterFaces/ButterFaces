@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class DefaultActionShowcaseSingleCodeComponent extends AbstractCodeShowcase implements Serializable {
+public class DefaultActionShowcase extends AbstractCodeShowcase implements Serializable {
 
     private String buttonClick;
     private String value;

@@ -12,7 +12,7 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{defaultActionShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{defaultActionShowcase.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -21,7 +21,7 @@
         <b:text id="inputValues"
                 hideLabel="true"
                 placeholder="press enter..."
-                value="#{defaultActionShowcaseSingleCodeComponent.value}"
+                value="#{defaultActionShowcase.value}"
                 autoFocus="true">
             <f:validateLength maximum="50"/>
         </b:text>
@@ -31,20 +31,20 @@
                 <b:commandLink value="click first button"
                                style="margin-right: 10px"
                                styleClass="btn btn-primary"
-                               action="#{defaultActionShowcaseSingleCodeComponent.clickFirst}">
+                               action="#{defaultActionShowcase.clickFirst}">
                     <f:ajax execute="@form" render="inputValues outputValues"/>
                 </b:commandLink>
                 <b:commandLink value="click default button"
                                style="margin-right: 10px"
                                styleClass="btn btn-success"
-                               action="#{defaultActionShowcaseSingleCodeComponent.clickDefault}">
+                               action="#{defaultActionShowcase.clickDefault}">
                     <f:ajax execute="@form" render="inputValues outputValues"/>
-                    <b:defaultAction rendered="#{defaultActionShowcaseSingleCodeComponent.rendered}"/>
+                    <b:defaultAction rendered="#{defaultActionShowcase.rendered}"/>
                 </b:commandLink>
                 <b:commandLink value="click last button"
                                style="margin-right: 15px"
                                styleClass="btn btn-primary"
-                               action="#{defaultActionShowcaseSingleCodeComponent.clickLast}">
+                               action="#{defaultActionShowcase.clickLast}">
                     <f:ajax execute="@form" render="inputValues outputValues"/>
                 </b:commandLink>
             </h:panelGroup>
@@ -55,27 +55,27 @@
         <h:panelGroup id="outputValues" layout="block">
             <div class="input-group">
                 <span class="input-group-addon">Text value:</span>
-                <h:outputText value="#{defaultActionShowcaseSingleCodeComponent.value}"
-                              rendered="#{not empty defaultActionShowcaseSingleCodeComponent.value}"
+                <h:outputText value="#{defaultActionShowcase.value}"
+                              rendered="#{not empty defaultActionShowcase.value}"
                               styleClass="form-control arquillian_text_output_value"/>
                 <h:outputText value="-"
-                              rendered="#{empty defaultActionShowcaseSingleCodeComponent.value}"
+                              rendered="#{empty defaultActionShowcase.value}"
                               styleClass="form-control arquillian_text_output_value"/>
             </div>
             <div class="input-group">
                 <span class="input-group-addon">Button value:</span>
-                <h:outputText value="#{defaultActionShowcaseSingleCodeComponent.buttonClick}"
-                              rendered="#{not empty defaultActionShowcaseSingleCodeComponent.buttonClick}"
+                <h:outputText value="#{defaultActionShowcase.buttonClick}"
+                              rendered="#{not empty defaultActionShowcase.buttonClick}"
                               styleClass="form-control arquillian_button_output_value"/>
                 <h:outputText value="-"
-                              rendered="#{empty defaultActionShowcaseSingleCodeComponent.buttonClick}"
+                              rendered="#{empty defaultActionShowcase.buttonClick}"
                               styleClass="form-control arquillian_button_output_value"/>
             </div>
         </h:panelGroup>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{defaultActionShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{defaultActionShowcase}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
