@@ -11,7 +11,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class ActivateLibrariesShowcase extends AbstractShowcaseMultiCodeComponent implements Serializable {
+public class ActivateLibrariesShowcase extends AbstractCodeShowcase implements Serializable {
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {

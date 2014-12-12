@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase.table;
 
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseMultiCodeComponent;
+import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class TableShowcase extends AbstractShowcaseMultiCodeComponent implements Serializable, TableSingleSelectionListener<StringPair> {
+public class TableShowcase extends AbstractCodeShowcase implements Serializable, TableSingleSelectionListener<StringPair> {
 
     private final List<StringPair> stringPairs = new ArrayList<>();
     private StringPair selectedValue = null;

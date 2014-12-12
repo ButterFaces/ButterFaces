@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by larmic on 12.12.14.
+ * Abstract showcase class allows to build code examples (java, css, xhtml, ...) and show it generic by using
+ * codeExamples.xhtml component.
  */
-public abstract class AbstractShowcaseMultiCodeComponent {
+public abstract class AbstractCodeShowcase {
 
     private boolean rendered = true;
     private boolean disabled = false;
