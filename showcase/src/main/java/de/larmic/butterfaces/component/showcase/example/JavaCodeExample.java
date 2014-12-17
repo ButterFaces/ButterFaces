@@ -86,7 +86,7 @@ public class JavaCodeExample extends AbstractCodeExample {
             stringBuilder.append(" Serializable");
         }
         if (cdiBean && !interfaces.isEmpty()) {
-            stringBuilder.append(",");
+            stringBuilder.append(", ");
         }
 
         final Iterator<String> iterator = interfaces.iterator();

@@ -41,7 +41,7 @@
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
                       rendered="#{!(tableShowcase.selectionAjaxType eq 'AJAX')}">
-            <strong>Attention:</strong> Table selection will only work in ajax mode.
+            <strong>Attention:</strong> Table selection will only work in ajax mode. Column sorting will only work in ajax mode.
             <h:panelGroup rendered="#{!(tableShowcase.tableModelType eq 'NONE')}">Table model will only work
                 in ajax mode.</h:panelGroup>
         </h:panelGroup>
@@ -121,6 +121,7 @@
             </b:column>
             <b:column colWidth="#{tableShowcase.colWidthColumn4}"
                       hideColumn="true"
+                      sortColumnEnabled="false"
                       label="Readonly text (default hide)">
                 #{rowItem.a}
             </b:column>
@@ -132,17 +133,17 @@
                  rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
             <b:column id="column1"
                       colWidth="#{tableShowcase.colWidthColumn1}"
-                      label="C1">
+                      label="Readonly text">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
                       colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="C2">
+                      label="Input text">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
                       colWidth="#{tableShowcase.colWidthColumn3}"
-                      label="C3">
+                      label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWithRow(rowItem)}">

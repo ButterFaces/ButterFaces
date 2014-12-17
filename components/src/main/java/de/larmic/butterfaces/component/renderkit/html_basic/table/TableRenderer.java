@@ -123,6 +123,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("style", "display:none", null);
             }
 
+            boolean sortingSupportedByAjaxTag = false;
+
             if (column.isSortColumnEnabled() && htmlTable.getModel() != null) {
                 final ClientBehaviorContext behaviorContext =
                         ClientBehaviorContext.createClientBehaviorContext(context,
@@ -132,7 +134,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 if (behaviors.containsKey("click")) {
                     final String click = behaviors.get("click").get(0).getScript(behaviorContext);
 
-                    if (StringUtils.isNotEmpty(click)) {
+                    sortingSupportedByAjaxTag = StringUtils.isNotEmpty(click);
+
+                    if (sortingSupportedByAjaxTag) {
                         final AjaxBehavior ajaxBehavior = new AjaxBehavior();
                         ajaxBehavior.setRender(Arrays.asList(table.getClientId()));
                         ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
@@ -149,7 +153,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeText(column.getLabel(), null);
             writer.endElement("span");
 
-            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null) {
+            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null && sortingSupportedByAjaxTag) {
                 writer.startElement("span", table);
                 final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(column.getId());
 

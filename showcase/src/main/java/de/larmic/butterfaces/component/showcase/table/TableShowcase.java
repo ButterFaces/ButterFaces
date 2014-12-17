@@ -100,6 +100,21 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
                 }
             });
         }
+        if (this.tableModel.getTableSortModel().getSortType("column2") == SortType.ASCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o1.getB().compareTo(o2.getB());
+                }
+            });
+        } else if (this.tableModel.getTableSortModel().getSortType("column2") == SortType.DESCENDING) {
+            Collections.sort(stringPairs, new Comparator<StringPair>() {
+                @Override
+                public int compare(StringPair o1, StringPair o2) {
+                    return o2.getB().compareTo(o1.getB());
+                }
+            });
+        }
 
         return stringPairs;
     }
@@ -115,7 +130,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                 var=\"rowItem\"");
         xhtmlCodeExample.appendInnerContent("                 value=\"#{myBean.value}\"");
         if (tableModelType == TableModelType.DEFAULT_MODEL) {
-            xhtmlCodeExample.appendInnerContent("                 value=\"#{myBean.tableModel}\"");
+            xhtmlCodeExample.appendInnerContent("                 model=\"#{myBean.tableModel}\"");
         }
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
             xhtmlCodeExample.appendInnerContent("                 singleSelectionListener=\"#{myBean}\"");
@@ -194,6 +209,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
         }
+        xhtmlCodeExample.appendInnerContent("                    sortColumnEnabled=\"false\"");
         xhtmlCodeExample.appendInnerContent("                    label=\"C4\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
         xhtmlCodeExample.appendInnerContent("            </column>");
@@ -244,6 +260,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         myBean.appendInnerContent("        pairs.add(new StringPair(\"r5c1\", \"r5c2\"));");
         myBean.appendInnerContent("        pairs.add(new StringPair(\"r6c1\", \"r6c2\"));");
         myBean.appendInnerContent("        pairs.add(new StringPair(\"r7c1\", \"r7c2\"));");
+        if (this.selectionAjaxType == SelectionAjaxType.AJAX && this.tableModelType == TableModelType.DEFAULT_MODEL) {
+            myBean.appendInnerContent("        // TODO sort by table model");
+        }
         if (this.toolBarType == ToolBarType.INPUT) {
             myBean.appendInnerContent("        return this.filterByValue(pairs, this.filterValue);");
         } else {
