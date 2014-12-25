@@ -3,6 +3,10 @@
     list-style-type: none;
 }
 
+.butter-component-tree > ul {
+    padding-left: 0;
+}
+
 .butter-component-tree-node,
 .butter-component-tree-leaf {
     width: 16px;

@@ -1,6 +1,9 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
-import de.larmic.butterfaces.component.showcase.AbstractShowcaseSingleCodeComponent;
+import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
@@ -19,7 +22,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TreeShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent implements Serializable, TreeNodeSelectionListener {
+public class TreeShowcase extends AbstractCodeShowcase implements Serializable, TreeNodeSelectionListener {
 
     public static final String FONT_AWESOME_MARKER = "font-awesome";
 
@@ -68,67 +71,70 @@ public class TreeShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeC
     }
 
     @Override
-    protected void addJavaCode(final StringBuilder sb) {
-        sb.append("package de.larmic.tree.demo;\n\n");
+    public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        codeExamples.add(this.createXhtmlCodeExample());
+        codeExamples.add(this.createMyBeanCodeExample());
+    }
+
+    private JavaCodeExample createMyBeanCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
 
         if (selectionAjaxType != SelectionAjaxType.NONE) {
-            sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionEvent;\n");
-            sb.append("import de.larmic.butterfaces.event.TreeNodeSelectionListener;\n");
+            myBean.addImport("import de.larmic.butterfaces.event.TreeNodeSelectionEvent");
+            myBean.addImport("import de.larmic.butterfaces.event.TreeNodeSelectionListener");
         }
-        sb.append("import de.larmic.butterfaces.model.tree.Node;\n");
-        sb.append("import de.larmic.butterfaces.model.tree.DefaultNodeImpl;\n\n");
-        sb.append("import javax.faces.view.ViewScoped;\n");
-        sb.append("import javax.inject.Named;\n\n");
+        myBean.addImport("import de.larmic.butterfaces.model.tree.Node");
+        myBean.addImport("import de.larmic.butterfaces.model.tree.DefaultNodeImpl");
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
 
-        sb.append("@ViewScoped\n");
-        sb.append("@Named\n");
         if (selectionAjaxType != SelectionAjaxType.NONE) {
-            sb.append("public class MyBean implements Serializable, TreeNodeSelectionListener {\n\n");
-        } else {
-            sb.append("public class MyBean implements Serializable {\n\n");
+            myBean.addInterfaces("TreeNodeSelectionListener");
         }
+
         if (isAjaxRendered()) {
-            sb.append("    private Node selectedNode;\n\n");
+            myBean.appendInnerContent("    private Node selectedNode;\n");
         }
-        sb.append("    public Node getTreeModel() {\n");
+        myBean.appendInnerContent("    public Node getTreeModel() {");
 
-        sb.append("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");\n");
+        myBean.appendInnerContent("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
         if (selectedIconType == TreeIconType.GLYPHICON) {
-            sb.append("        firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
+            myBean.appendInnerContent("        firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
-            sb.append("        firstChild.setImageIcon(\"some/path/16.png\");\n");
+            myBean.appendInnerContent("        firstChild.setImageIcon(\"some/path/16.png\");");
         }
-        sb.append("        final Node secondChild = new DefaultNodeImpl(\"second\");\n");
+        myBean.appendInnerContent("        final Node secondChild = new DefaultNodeImpl(\"second\");");
         if (!allExpanded) {
-            sb.append("        secondChild.setCollapsed(true);\n");
+            myBean.appendInnerContent("        secondChild.setCollapsed(true);");
         }
         if (selectedIconType == TreeIconType.GLYPHICON) {
-            sb.append("        secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
+            myBean.appendInnerContent("        secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
-            sb.append("        secondChild.setImageIcon(\"some/path/16.png\");\n");
+            myBean.appendInnerContent("        secondChild.setImageIcon(\"some/path/16.png\");");
         }
-        sb.append("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))\n");
-        sb.append("        ...\n");
-        sb.append("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");\n");
+        myBean.appendInnerContent("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
+        myBean.appendInnerContent("        ...");
+        myBean.appendInnerContent("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");");
         if (selectedIconType == TreeIconType.IMAGE) {
-            sb.append("        rootNode.setImageIcon(\"some/path/16.png\");\n");
+            myBean.appendInnerContent("        rootNode.setImageIcon(\"some/path/16.png\");");
         } else if (selectedIconType == TreeIconType.GLYPHICON) {
-            sb.append("        rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");\n");
+            myBean.appendInnerContent("        rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         }
-        sb.append("        rootNode.getSubNodes().add(firstChild);\n");
-        sb.append("        rootNode.getSubNodes().add(secondChild);\n");
-        sb.append("        return rootNode;\n");
-        sb.append("    }\n\n");
+        myBean.appendInnerContent("        rootNode.getSubNodes().add(firstChild);");
+        myBean.appendInnerContent("        rootNode.getSubNodes().add(secondChild);");
+        myBean.appendInnerContent("        return rootNode;");
+        myBean.appendInnerContent("    }\n");
         if (isAjaxRendered()) {
-            sb.append("    @Override\n");
-            sb.append("    public void processValueChange(final TreeNodeSelectionEvent event) {\n");
-            sb.append("        selectedNode = event.getNewValue();\n");
-            sb.append("    }\n\n");
-            sb.append("    public Node getSelectedNode() {\n");
-            sb.append("        return selectedNode;\n");
-            sb.append("    }\n\n");
+            myBean.appendInnerContent("    @Override");
+            myBean.appendInnerContent("    public void processValueChange(final TreeNodeSelectionEvent event) {");
+            myBean.appendInnerContent("        selectedNode = event.getNewValue();");
+            myBean.appendInnerContent("    }\n");
+            myBean.appendInnerContent("    public Node getSelectedNode() {");
+            myBean.appendInnerContent("        return selectedNode;");
+            myBean.appendInnerContent("    }");
         }
-        sb.append("}");
+
+        return myBean;
     }
 
     public List<SelectItem> getAjaxSelectionTypes() {
@@ -159,52 +165,39 @@ public class TreeShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeC
         return items;
     }
 
-    @Override
-    public String getXHtml() {
-        final StringBuilder sb = new StringBuilder();
+    private XhtmlCodeExample createXhtmlCodeExample() {
+        final boolean useFontAwesome = this.getGlyphicon() != null && FONT_AWESOME_MARKER.equals(this.getGlyphicon());
 
-        if (this.getGlyphicon() != null && FONT_AWESOME_MARKER.equals(this.getGlyphicon())) {
-            this.addXhtmlStart(sb, "<h:head>\n    <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\"\n          rel=\"stylesheet\">\n</h:head>");
-        } else {
-            this.addXhtmlStart(sb);
-        }
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
-        sb.append("        <b:tree id=\"input\"\n");
-
-        this.appendString("value", "#{myBean.treeModel}", sb);
+        xhtmlCodeExample.appendInnerContent("        <b:tree id=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                value=\"#{myBean.treeModel}\"");
         if (isAjaxRendered()) {
-            this.appendString("nodeSelectionListener", "#{myBean}", sb);
+            xhtmlCodeExample.appendInnerContent("                nodeSelectionListener=\"#{myBean}\"");
         }
-        this.appendString("collapsingClass", this.getCollapsingClass(), sb);
-        this.appendString("expansionClass", this.getExpansionClass(), sb);
-        this.appendBoolean("hideRootNode", this.isHideRootNode(), sb);
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
+        xhtmlCodeExample.appendInnerContent("                collapsingClass=\"" + this.getExpansionClass() + "\"");
+        xhtmlCodeExample.appendInnerContent("                expansionClass=\"" + this.getCollapsingClass() + "\"");
+        xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + this.isHideRootNode() + "\"");
+        xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (isAjaxRendered()) {
             if (isAjaxDisabled()) {
-                sb.append("            <f:ajax render=\"nodeTitle\" disabled=\"true\"/>\n");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"nodeTitle\" disabled=\"true\"/>");
             } else {
-                sb.append("            <f:ajax render=\"nodeTitle\"/>\n");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"nodeTitle\"/>");
             }
         }
 
-        sb.append("        </b:tree>");
+        xhtmlCodeExample.appendInnerContent("        </b:tree>");
 
         if (isAjaxRendered()) {
-            sb.append("\n\n        <h:panelGroup id=\"nodeTitle\">\n");
-            sb.append("            <h:output value=\"#{myBean.selectedNode.title}\"\n");
-            sb.append("                      rendered=\"#{not empty myBean.selectedNode}\"/>\n");
-            sb.append("        <h:panelGroup/>");
+            xhtmlCodeExample.appendInnerContent("\n    <h:panelGroup id=\"nodeTitle\">");
+            xhtmlCodeExample.appendInnerContent("            <h:output value=\"#{myBean.selectedNode.title}\"");
+            xhtmlCodeExample.appendInnerContent("                      rendered=\"#{not empty myBean.selectedNode}\"/>");
+            xhtmlCodeExample.appendInnerContent("    <h:panelGroup/>");
         }
 
-        this.addXhtmlEnd(sb);
-
-        return sb.toString();
-    }
-
-    @Override
-    protected String getEmptyDistanceString() {
-        return "                ";
+        return xhtmlCodeExample;
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon) {
