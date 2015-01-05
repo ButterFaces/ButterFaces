@@ -69,6 +69,25 @@
             </style>
         </h:panelGroup>
 
+        <b:tableHeader tableId="filterTable"
+                       showRefreshButton="#{tableShowcase.showRefreshButton}"
+                       showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
+                       rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+            <f:ajax />
+            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
+                Custom toolbar text...
+            </h:panelGroup>
+            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'INPUT'}">
+                <b:text value="#{tableShowcase.filterValue}"
+                        placeholder="Enter text and blur field..."
+                        hideLabel="true"
+                        autoFocus="true"
+                        inputStyleClass="col-sm-6">
+                    <f:ajax event="keyup" render="filterTable"/>
+                </b:text>
+            </h:panelGroup>
+        </b:tableHeader>
+
         <b:table id="filterTable"
                  var="rowItem"
                  value="#{tableShowcase.stringRows}"
@@ -77,26 +96,10 @@
                  tableCondensed="#{tableShowcase.tableCondensed}"
                  tableStriped="#{tableShowcase.tableStriped}"
                  tableBordered="#{tableShowcase.tableBordered}"
-                 showRefreshButton="#{tableShowcase.showRefreshButton}"
-                 showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
                  sortAscendingClass="fa fa-sort-down"
                  sortDescendingClass="fa fa-sort-up"
                  sortUndefinedClass="fa fa-sort"
                  rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
-            <f:facet name="toolbar">
-                <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
-                    Custom toolbar text...
-                </h:panelGroup>
-                <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'INPUT'}">
-                    <b:text value="#{tableShowcase.filterValue}"
-                            placeholder="Enter text and blur field..."
-                            hideLabel="true"
-                            autoFocus="true"
-                            inputStyleClass="col-sm-6">
-                        <f:ajax event="blur" render="filterTable"/>
-                    </b:text>
-                </h:panelGroup>
-            </f:facet>
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"

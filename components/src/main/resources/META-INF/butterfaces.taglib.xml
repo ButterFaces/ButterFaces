@@ -543,19 +543,6 @@
             <required>false</required>
         </attribute>
         <attribute>
-            <description>Renders toggle column (show and hide functionality) in table toolbar. Default is true.
-            </description>
-            <name>showToggleColumnButton</name>
-            <type>java.lang.Boolean</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
-            <description>Renders refresh button in table toolbar. Default is true.</description>
-            <name>showRefreshButton</name>
-            <type>java.lang.Boolean</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
             <description>Override sorting undefined glyphicon class. Default is glyphicon glyphicon-chevron-right</description>
             <name>sortUndefinedClass</name>
             <type>java.lang.String</type>
@@ -571,6 +558,35 @@
             <description>Override sorting descending glyphicon class. Default is glyphicon glyphicon-chevron-up</description>
             <name>sortDescendingClass</name>
             <type>java.lang.String</type>
+            <required>false</required>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>tableHeader</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.table.header</component-type>
+        </component>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Table client id the table header belongs to.</description>
+            <name>tableId</name>
+            <type>java.lang.Boolean</type>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <description>Renders toggle column (show and hide functionality) in table toolbar. Default is true.
+            </description>
+            <name>showToggleColumnButton</name>
+            <type>java.lang.Boolean</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <description>Renders refresh button in table toolbar. Default is true.</description>
+            <name>showRefreshButton</name>
+            <type>java.lang.Boolean</type>
             <required>false</required>
         </attribute>
     </tag>

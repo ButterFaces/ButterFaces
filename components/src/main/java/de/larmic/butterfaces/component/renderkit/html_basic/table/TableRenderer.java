@@ -31,7 +31,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     private final String DEFAULT_PROPERTY_TABLE_SORT_ASCENDING_CLASS = " glyphicon glyphicon-chevron-down";
     private final String DEFAULT_PROPERTY_TABLE_SORT_DESCENDING_CLASS = " glyphicon glyphicon-chevron-up";
 
-    private List<HtmlColumn> cachedColumns;
     private boolean hasColumnWidthSet;
     // dirty: method renderRowStart does not have a rowIndex parameter but it should.
     // alternative: copy encode children but this means coping a lot of private methods... :(
@@ -48,8 +47,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         final HtmlTable table = (HtmlTable) component;
-        this.cachedColumns = getColumns(table);
-        this.hasColumnWidthSet = hasColumnWidthSet(this.cachedColumns);
+        this.hasColumnWidthSet = hasColumnWidthSet(table.getCachedColumns());
         this.rowIndex = 0;
 
         super.encodeBegin(context, component);
@@ -76,7 +74,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
             int columnNumber = 0;
 
-            for (HtmlColumn column : this.cachedColumns) {
+            for (HtmlColumn column : htmlTable.getCachedColumns()) {
                 writer.startElement("col", table);
                 writer.writeAttribute("class", "butter-table-colgroup", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
@@ -109,7 +107,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         int columnNumber = 0;
 
-        for (HtmlColumn column : this.cachedColumns) {
+        for (HtmlColumn column : htmlTable.getCachedColumns()) {
             writer.startElement("th", table);
             writer.writeAttribute("id", column.getClientId(), null);
             if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null) {
@@ -215,8 +213,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("id", component.getClientId(context), "id");
         writer.writeAttribute("class", "butter-table", null);
 
-        this.renderTableToolbar(context, writer, table);
-
         writer.startElement("div", table);
         writer.writeAttribute("id", this.getInnerTableId(table), "id");
 
@@ -247,124 +243,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         RenderKitUtils.renderPassThruAttributes(context, writer, table, attributes);
         writer.writeText("\n", table, null);
-    }
-
-    private void renderTableToolbar(final FacesContext context,
-                                    final ResponseWriter writer,
-                                    final HtmlTable table) throws IOException {
-        writer.startElement("div", table);
-        writer.writeAttribute("class", "butter-table-toolbar row", null);
-
-        final UIComponent toolbar = getFacet(table, "toolbar");
-
-        if (toolbar != null) {
-            writer.startElement("div", table);
-            writer.writeAttribute("class", "butter-table-toolbar-custom col-sm-9 pull-left", null);
-            this.encodeRecursive(context, toolbar);
-            writer.endElement("div");
-        }
-
-        final String toolbarColumnSize = toolbar != null ? "col-sm-3" : "col-sm-12";
-
-        writer.startElement("div", table); // start right toolbar
-        writer.writeAttribute("class", toolbarColumnSize, null);
-        writer.startElement("div", table); // start button group
-        writer.writeAttribute("class", "btn-group pull-right", null);
-
-        this.renderTableToolbarRefreshButton(writer, table);
-        this.renderTableToolbarToggleColumnButton(context, writer, table);
-
-        writer.endElement("div"); // end button group
-        writer.endElement("div"); // end right toolbar
-
-        writer.endElement("div");
-    }
-
-    private void renderTableToolbarToggleColumnButton(final FacesContext context,
-                                                      final ResponseWriter writer,
-                                                      final HtmlTable table) throws IOException {
-        if (table.isShowToggleColumnButton()) {
-            // show and hide option toggle
-            writer.startElement("a", table);
-            writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
-            writer.writeAttribute("data-toggle", "dropdown", null);
-            writer.writeAttribute("title", "Column options", null);
-            writer.writeAttribute("role", "button", null);
-            writer.startElement("i", table);
-            writer.writeAttribute("class", "glyphicon glyphicon-th", null);
-            writer.endElement("i");
-            writer.startElement("span", table);
-            writer.writeAttribute("class", "caret", null);
-            writer.endElement("span");
-            writer.endElement("a");
-
-            // show and hide option content
-            writer.startElement("ul", table);
-            writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
-            writer.writeAttribute("role", "menu", null);
-
-            final ClientBehaviorContext behaviorContext =
-                    ClientBehaviorContext.createClientBehaviorContext(context,
-                            table, "click", table.getClientId(context), null);
-
-            int columnNumber = 0;
-            for (HtmlColumn cachedColumn : this.cachedColumns) {
-                writer.startElement("li", table);
-                writer.startElement("label", table);
-                writer.writeAttribute("class", "checkbox", null);
-                writer.startElement("input", table);
-                writer.writeAttribute("type", "checkbox", null);
-                writer.writeAttribute("columnNumber", "" + columnNumber, null);
-
-                final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
-
-                final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
-                if (behaviors.containsKey("click")) {
-                    final AjaxBehavior clientBehavior = (AjaxBehavior) behaviors.get("click").get(0);
-                    final String click = clientBehavior.getScript(behaviorContext);
-
-                    if (StringUtils.isNotEmpty(click)) {
-                        // ajax tag is enabled
-                        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
-                        ajaxBehavior.setRender(clientBehavior.getRender());
-                        ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
-                        final String ajaxBehaviorScript = ajaxBehavior.getScript(behaviorContext);
-
-                        final String correctedEventName = ajaxBehaviorScript.replace(",'click',", ",'toggle_" + columnNumber + "',");
-                        writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
-                    } else {
-                        // ajax tag is disabled
-                        writer.writeAttribute("onclick", jQueryPluginCall, null);
-                    }
-                } else {
-                    // no ajax tag is used
-                    writer.writeAttribute("onclick", jQueryPluginCall, null);
-                }
-                if (!this.isHideColumn(table, cachedColumn)) {
-                    writer.writeAttribute("checked", "checked", null);
-                }
-                writer.endElement("input");
-                writer.writeText(cachedColumn.getLabel(), null);
-                writer.endElement("label");
-                writer.endElement("li");
-                columnNumber++;
-            }
-            writer.endElement("ul");
-        }
-    }
-
-    private void renderTableToolbarRefreshButton(ResponseWriter writer, HtmlTable table) throws IOException {
-        if (table.isShowRefreshButton()) {
-            writer.startElement("a", table);
-            writer.writeAttribute("class", "btn btn-default", null);
-            writer.writeAttribute("role", "button", null);
-            writer.writeAttribute("title", "Refresh table", null);
-            writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.getInnerTableId(table) + "', onevent:" + this.getOnEventListenerName(table) + "});", null);
-            writer.startElement("i", table);
-            writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
-            writer.endElement("i");
-            writer.endElement("a");
-        }
     }
 
     @Override
@@ -452,14 +330,14 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     listener.processValueChange(rowObject);
                 }
             } else if ("toggle".equals(event) && htmlTable.getTableColumnDisplayModel() != null) {
-                final HtmlColumn toggledColumn = cachedColumns.get(eventNumber);
+                final HtmlColumn toggledColumn = htmlTable.getCachedColumns().get(eventNumber);
                 if (this.isHideColumn(htmlTable, toggledColumn)) {
                     htmlTable.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
                 } else {
                     htmlTable.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
                 }
             } else if ("sort".equals(event) && htmlTable.getModel() != null) {
-                final HtmlColumn sortedColumn = cachedColumns.get(eventNumber);
+                final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
                 if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
                     htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.DESCENDING);
                 } else {
@@ -505,28 +383,5 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         // TODO at this time it is not possible to render inner table.
         //return table.getClientId() + "_table";
         return table.getClientId();
-    }
-
-    /**
-     * <p>Return an Iterator over the <code>HtmlColumn</code> children of the
-     * specified <code>UIData</code> that have a <code>rendered</code> property
-     * of <code>true</code>.</p>
-     *
-     * @param table the table from which to extract children
-     * @return the List of all HtmlColumn children
-     */
-    private List<HtmlColumn> getColumns(final UIComponent table) {
-        final int childCount = table.getChildCount();
-        if (childCount > 0) {
-            final List<HtmlColumn> results = new ArrayList<>(childCount);
-            for (UIComponent kid : table.getChildren()) {
-                if ((kid instanceof HtmlColumn) && kid.isRendered()) {
-                    results.add((HtmlColumn) kid);
-                }
-            }
-            return results;
-        } else {
-            return Collections.emptyList();
-        }
     }
 }

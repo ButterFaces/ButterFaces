@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,5 +92,76 @@ public class HtmlBasicRenderer extends Renderer {
                 (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
                         ((component instanceof ClientBehaviorHolder) &&
                                 !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
+    }
+
+    /**
+     * <p>Render nested child components by invoking the encode methods
+     * on those components, but only when the <code>rendered</code>
+     * property is <code>true</code>.</p>
+     *
+     * @param context   FacesContext for the current request
+     * @param component the component to recursively encode
+     * @throws IOException if an error occurrs during the encode process
+     */
+    protected void encodeRecursive(FacesContext context, UIComponent component)
+            throws IOException {
+
+        // suppress rendering if "rendered" property on the component is
+        // false.
+        if (!component.isRendered()) {
+            return;
+        }
+
+        // Render this component and its children recursively
+        component.encodeBegin(context);
+        if (component.getRendersChildren()) {
+            component.encodeChildren(context);
+        } else {
+            Iterator<UIComponent> kids = getChildren(component);
+            while (kids.hasNext()) {
+                UIComponent kid = kids.next();
+                encodeRecursive(context, kid);
+            }
+        }
+        component.encodeEnd(context);
+
+    }
+
+    /**
+     * @param component <code>UIComponent</code> for which to extract children
+     * @return an Iterator over the children of the specified
+     * component, selecting only those that have a
+     * <code>rendered</code> property of <code>true</code>.
+     */
+    protected Iterator<UIComponent> getChildren(UIComponent component) {
+
+        int childCount = component.getChildCount();
+        if (childCount > 0) {
+            return component.getChildren().iterator();
+        } else {
+            return Collections.<UIComponent>emptyList().iterator();
+        }
+
+    }
+
+    /**
+     * @param component Component from which to return a facet
+     * @param name      Name of the desired facet
+     *
+     * @return the specified facet from the specified component, but
+     *  <strong>only</strong> if its <code>rendered</code> property is
+     *  set to <code>true</code>.
+     */
+    protected UIComponent getFacet(UIComponent component, String name) {
+
+        UIComponent facet = null;
+        if (component.getFacetCount() > 0) {
+            facet = component.getFacet(name);
+            if ((facet != null) && !facet.isRendered()) {
+                facet = null;
+            }
+        }
+        return (facet);
+
     }
 }

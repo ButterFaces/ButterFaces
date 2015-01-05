@@ -26,24 +26,21 @@
         return this.each(function () {
             var $originalElement = $(this);
 
-            // console.log('Toggle column: ' + data.columnIndex);
+            console.log('Toggle column: ' + data.columnIndex);
 
-            var $toolbarColumn = $originalElement.find('.butter-table-toolbar').find('.butter-table-toolbar-columns').find("input[columnnumber='" + data.columnIndex + "']");
             var $columnHeader = $originalElement.find(".butter-component-table-column-header[columnnumber='" + data.columnIndex + "']");
             var $columnBody = $originalElement.find(".butter-component-table-column[columnnumber='" + data.columnIndex + "']");
             var $colGroup = $originalElement.find(".butter-table-colgroup[columnnumber='" + data.columnIndex + "']");
 
-            var checked = $toolbarColumn.attr('checked');
+            var checked = $columnHeader.css('display') != 'none';
 
-            // console.log('Column checked: ' + checked);
+            console.log('Column checked: ' + checked);
 
             if (checked) {
-                $toolbarColumn.removeAttr('checked');
                 $columnHeader.css('display', 'none');
                 $columnBody.css('display', 'none');
                 $colGroup.css('display', 'none');
             } else {
-                $toolbarColumn.attr('checked', 'checked');
                 $columnHeader.css('display', '');
                 $columnBody.css('display', '');
                 $colGroup.css('display', '');

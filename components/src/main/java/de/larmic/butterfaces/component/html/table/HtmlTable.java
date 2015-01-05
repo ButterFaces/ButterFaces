@@ -9,10 +9,10 @@ import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Created by larmic on 10.09.14.
@@ -22,7 +22,6 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.jquery.js", target = "head")
@@ -39,11 +38,11 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
-    protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
-    protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
     protected static final String PROPERTY_TABLE_SORT_UNDEFINED_CLASS = "sortUndefinedClass";
     protected static final String PROPERTY_TABLE_SORT_ASCENDING_CLASS = "sortAscendingClass";
     protected static final String PROPERTY_TABLE_SORT_DESCENDING_CLASS  = "sortDescendingClass";
+
+    private final List<HtmlColumn> cachedColumns = new ArrayList<>();
 
     public HtmlTable() {
         super();
@@ -63,6 +62,20 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public List<HtmlColumn> getCachedColumns() {
+        final int childCount = this.getChildCount();
+        if (childCount > 0 && this.cachedColumns.isEmpty()) {
+            for (UIComponent kid : this.getChildren()) {
+                if ((kid instanceof HtmlColumn) && kid.isRendered()) {
+                    this.cachedColumns.add((HtmlColumn) kid);
+                }
+            }
+            return this.cachedColumns;
+        }
+
+        return this.cachedColumns;
     }
 
     public TableSingleSelectionListener getSingleSelectionListener() {
@@ -116,24 +129,6 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setTableStriped(boolean tableStriped) {
         this.updateStateHelper(PROPERTY_TABLE_STRIPED, tableStriped);
-    }
-
-    public boolean isShowRefreshButton() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_REFRESH_BUTTON);
-        return eval == null ? true : (Boolean) eval;
-    }
-
-    public void setShowRefreshButton(boolean showRefreshButton) {
-        this.updateStateHelper(PROPERTY_TABLE_SHOW_REFRESH_BUTTON, showRefreshButton);
-    }
-
-    public boolean isShowToggleColumnButton() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON);
-        return eval == null ? true : (Boolean) eval;
-    }
-
-    public void setShowToggleColumnButton(boolean showToggleColumnButton) {
-        this.updateStateHelper(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON, showToggleColumnButton);
     }
 
     public String getSortUndefinedClass() {
