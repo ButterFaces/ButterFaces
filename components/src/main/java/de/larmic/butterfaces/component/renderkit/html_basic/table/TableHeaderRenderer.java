@@ -13,6 +13,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -85,6 +86,34 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
         responseWriter.endElement("div");
 
         RenderUtils.renderJQueryPluginCall(component.getClientId(), "fixBootstrapDropDown()", responseWriter, component);
+    }
+
+    @Override
+    public void decode(FacesContext context, UIComponent component) {
+        final HtmlTableHeader htmlTableHeader = (HtmlTableHeader) component;
+        final Map<String, List<ClientBehavior>> behaviors = htmlTableHeader.getClientBehaviors();
+
+        if (behaviors.isEmpty()) {
+            return;
+        }
+
+        final ExternalContext external = context.getExternalContext();
+        final Map<String, String> params = external.getRequestParameterMap();
+        final String behaviorEvent = params.get("javax.faces.behavior.event");
+
+        if (behaviorEvent != null) {
+            final String[] split = behaviorEvent.split("_");
+            final String event = split[0];
+            final int eventNumber = Integer.valueOf(split[1]);
+            if ("toggle".equals(event) && this.cachedTableComponent.getTableColumnDisplayModel() != null) {
+                final HtmlColumn toggledColumn = this.cachedTableComponent.getCachedColumns().get(eventNumber);
+                if (this.isHideColumn(this.cachedTableComponent, toggledColumn)) {
+                    this.cachedTableComponent.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
+                } else {
+                    this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
+                }
+            }
+        }
     }
 
     @Override

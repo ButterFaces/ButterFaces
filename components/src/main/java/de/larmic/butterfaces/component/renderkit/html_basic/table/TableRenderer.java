@@ -329,13 +329,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 if (rowObject != null) {
                     listener.processValueChange(rowObject);
                 }
-            } else if ("toggle".equals(event) && htmlTable.getTableColumnDisplayModel() != null) {
-                final HtmlColumn toggledColumn = htmlTable.getCachedColumns().get(eventNumber);
-                if (this.isHideColumn(htmlTable, toggledColumn)) {
-                    htmlTable.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
-                } else {
-                    htmlTable.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
-                }
             } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                 final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
                 if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
