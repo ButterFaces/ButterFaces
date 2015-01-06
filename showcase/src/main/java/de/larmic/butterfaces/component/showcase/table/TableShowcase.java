@@ -126,6 +126,25 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(true);
+        xhtmlCodeExample.appendInnerContent("        <b:tableHeader tableId=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                       showRefreshButton=\"" + this.showRefreshButton + "\"");
+        xhtmlCodeExample.appendInnerContent("                       showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
+        xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + ">");
+        xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
+        xhtmlCodeExample.appendInnerContent("            <f:ajax />");
+        if (this.toolBarType == ToolBarType.TEXT) {
+            xhtmlCodeExample.appendInnerContent("            Custom toolbar text...");
+        } else if (this.toolBarType == ToolBarType.INPUT) {
+            xhtmlCodeExample.appendInnerContent("            <b:text value=\"#{myBean.filterValue}\"");
+            xhtmlCodeExample.appendInnerContent("                    placeholder=\"Enter text...\"");
+            xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"col-sm-6\"");
+            xhtmlCodeExample.appendInnerContent("                    autoFocus=\"true\"");
+            xhtmlCodeExample.appendInnerContent("                    hideLabel=\"true\">");
+            xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"input\"/>");
+            xhtmlCodeExample.appendInnerContent("            </b:text>");
+        }
+        xhtmlCodeExample.appendInnerContent("        </b:tableHeader>\n");
+
         xhtmlCodeExample.appendInnerContent("        <b:table id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                 var=\"rowItem\"");
         xhtmlCodeExample.appendInnerContent("                 value=\"#{myBean.value}\"");
@@ -138,26 +157,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                 tableBordered=\"" + this.tableBordered + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableCondensed=\"" + this.tableCondensed + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableStriped=\"" + this.tableStriped + "\"");
-        xhtmlCodeExample.appendInnerContent("                 showRefreshButton=\"" + this.showRefreshButton + "\"");
-        xhtmlCodeExample.appendInnerContent("                 showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
-        xhtmlCodeExample.appendInnerContent("                 rendered=\"" + this.isRendered() + ">\"");
+        xhtmlCodeExample.appendInnerContent("                 rendered=\"" + this.isRendered() + ">");
 
-        if (this.toolBarType == ToolBarType.TEXT) {
-            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"toolbar\">");
-            xhtmlCodeExample.appendInnerContent("                Custom toolbar text...");
-            xhtmlCodeExample.appendInnerContent("            </f:facet>\n");
-        } else if (this.toolBarType == ToolBarType.INPUT) {
-            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"toolbar\">");
-            xhtmlCodeExample.appendInnerContent("                <b:text value=\"#{myBean.filterValue}\"");
-            xhtmlCodeExample.appendInnerContent("                        placeholder=\"Enter text and blur field...\"");
-            xhtmlCodeExample.appendInnerContent("                        inputStyleClass=\"col-sm-6\"");
-            xhtmlCodeExample.appendInnerContent("                        autoFocus=\"true\"");
-            xhtmlCodeExample.appendInnerContent("                        hideLabel=\"true\">");
-            xhtmlCodeExample.appendInnerContent("                    <f:ajax event=\"blur\" render=\"input\"/>");
-            xhtmlCodeExample.appendInnerContent("                </b:text>");
-            xhtmlCodeExample.appendInnerContent("            </f:facet>");
-        }
-
+        xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
             xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"selectedRow\"/>");
         } else if (selectionAjaxType == SelectionAjaxType.AJAX_DISABLED) {
