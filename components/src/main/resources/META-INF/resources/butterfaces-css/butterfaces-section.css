@@ -17,3 +17,7 @@
 .butter-component-section-title {
     font-size: 20px;
 }
+
+.butter-component-section-additional-header {
+    float: right;
+}

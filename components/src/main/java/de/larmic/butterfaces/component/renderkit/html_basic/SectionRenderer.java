@@ -42,24 +42,40 @@ public class SectionRenderer extends HtmlBasicRenderer {
             writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section", "styleClass");
         }
 
+        this.encodeHeader(component, writer, fieldSet);
 
-        if (StringUtils.isNotEmpty(fieldSet.getLabel())) {
+        writer.startElement(ELEMENT_DIV, component);
+        writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-content", null);
+    }
+
+    private void encodeHeader(UIComponent component, ResponseWriter writer, HtmlSection section) throws IOException {
+        final UIComponent additionalHeader = this.getFacet(component, "additional-header");
+        final boolean labelNotEmpty = StringUtils.isNotEmpty(section.getLabel());
+
+        if (labelNotEmpty || additionalHeader != null) {
             writer.startElement(ELEMENT_DIV, component);
             writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title", null);
-            writer.writeText(fieldSet.getLabel(), component, "label");
 
-            if (StringUtils.isNotEmpty(fieldSet.getBadgeText())) {
+            if (labelNotEmpty) {
+                writer.writeText(section.getLabel(), component, "label");
+            }
+
+            if (StringUtils.isNotEmpty(section.getBadgeText())) {
                 writer.startElement(ELEMENT_SPAN, component);
                 writer.writeAttribute(ATTRIBUTE_CLASS, "badge", null);
-                writer.writeText(fieldSet.getBadgeText(), component, "badgeText");
+                writer.writeText(section.getBadgeText(), component, "badgeText");
+                writer.endElement(ELEMENT_SPAN);
+            }
+
+            if (additionalHeader != null) {
+                writer.startElement(ELEMENT_SPAN, component);
+                writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-additional-header", null);
+                additionalHeader.encodeAll(FacesContext.getCurrentInstance());
                 writer.endElement(ELEMENT_SPAN);
             }
 
             writer.endElement(ELEMENT_DIV);
         }
-
-        writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-content", null);
     }
 
     @Override

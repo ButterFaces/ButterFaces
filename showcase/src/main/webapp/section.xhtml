@@ -15,6 +15,12 @@
             <showcase:tagStringControl label="badgeText" value="#{sectionShowcase.badgeText}"/>
             <showcase:tagBooleanControl label="rendered" value="#{sectionShowcase.rendered}"/>
         </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="additional header"
+                                     value="#{sectionShowcase.selectedAdditionalHeaderType}"
+                                     values="#{sectionShowcase.additionalHeaderTypes}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -22,6 +28,14 @@
                    rendered="#{sectionShowcase.rendered}"
                    badgeText="#{sectionShowcase.badgeText}"
                    styleClass="arquillian_component">
+            <f:facet name="additional-header">
+                <h:panelGroup rendered="#{sectionShowcase.selectedAdditionalHeaderType eq 'TEXT'}">
+                    additional text
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sectionShowcase.selectedAdditionalHeaderType eq 'BUTTON'}" styleClass="btn btn-danger btn-xs">
+                    additional button
+                </h:panelGroup>
+            </f:facet>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
         </b:section>
 
