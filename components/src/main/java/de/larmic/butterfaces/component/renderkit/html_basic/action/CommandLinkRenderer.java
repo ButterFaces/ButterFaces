@@ -22,6 +22,8 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlCommandLink.COMPONENT_FAMILY, rendererType = HtmlCommandLink.RENDERER_TYPE)
 public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.CommandLinkRenderer {
 
+    private static final String WEB_XML_AJAX_PROCESSING_TEXT = "de.larmic.butterfaces.ajaxProcessingTextOnRequest";
+
     /**
      * Will be set in renderAsActive if f:ajax child with onevent attribute exists.
      */
@@ -63,8 +65,8 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             if (StringUtils.isNotEmpty(onEventCallback)) {
                 responseWriter.writeText("    " + onEventCallback + "(data);", null);
             }
-            final String processingText = StringUtils.isEmpty(link.getAjaxProcessingTextOnRequest())
-                    ? "Processing" : link.getAjaxProcessingTextOnRequest();
+
+            final String processingText = createAjaxProcessingText(link);
 
             final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
             final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
@@ -79,6 +81,16 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
+    }
+
+    private String createAjaxProcessingText(final HtmlCommandLink link) {
+        if (StringUtils.isNotEmpty(link.getAjaxProcessingTextOnRequest())) {
+            return link.getAjaxProcessingTextOnRequest();
+        }
+
+        final String ajaxProcessingTextByWebXml = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(WEB_XML_AJAX_PROCESSING_TEXT);
+
+        return StringUtils.isEmpty(ajaxProcessingTextByWebXml)  ? "Processing" : ajaxProcessingTextByWebXml;
     }
 
     @Override

@@ -35,6 +35,11 @@
 		<param-name>de.larmic.butterfaces.useCompressedResources</param-name>
 		<param-value>true</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>
+		<param-value>Processing</param-value>
+	</context-param>
 	-->
 
 	<servlet>
