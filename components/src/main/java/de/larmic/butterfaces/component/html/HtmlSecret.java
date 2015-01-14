@@ -33,6 +33,11 @@ public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
     }
 
     @Override
+    public boolean supportInputGroupAddon() {
+        return false;
+    }
+
+    @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }

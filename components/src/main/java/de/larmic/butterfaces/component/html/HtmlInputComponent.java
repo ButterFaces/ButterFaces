@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
+import javax.faces.component.UIComponent;
+
 public interface HtmlInputComponent {
 
     String getTooltip();
@@ -23,4 +25,8 @@ public interface HtmlInputComponent {
     Object getValue();
 
     String getClientId();
+
+    UIComponent getFacet(final String name);
+
+    boolean supportInputGroupAddon();
 }

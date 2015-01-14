@@ -59,7 +59,21 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         if (!htmlComponent.isReadonly()) {
+            final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
+            final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
+            if (htmlComponent.supportInputGroupAddon() && inputGroupAddonLeftFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-addon", null);
+                inputGroupAddonLeftFacet.encodeAll(context);
+                writer.endElement("span");
+            }
             super.encodeEnd(context, component);
+            if (htmlComponent.supportInputGroupAddon() && inputGroupAddonRightFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-addon", null);
+                inputGroupAddonRightFacet.encodeAll(context);
+                writer.endElement("span");
+            }
         }
 
         // Close inner component wrapper div

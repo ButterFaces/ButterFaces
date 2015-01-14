@@ -31,6 +31,11 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
 		this.setRendererType(RENDERER_TYPE);
 	}
 
+    @Override
+    public boolean supportInputGroupAddon() {
+        return false;
+    }
+
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;

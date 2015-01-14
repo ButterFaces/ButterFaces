@@ -38,6 +38,11 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	}
 
 	@Override
+	public boolean supportInputGroupAddon() {
+		return true;
+	}
+
+	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}

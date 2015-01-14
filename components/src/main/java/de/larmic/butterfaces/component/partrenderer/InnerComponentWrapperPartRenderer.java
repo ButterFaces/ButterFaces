@@ -11,31 +11,51 @@ import java.io.IOException;
  */
 public class InnerComponentWrapperPartRenderer {
 
+    public static final String INPUT_GROUP_ADDON_LEFT = "input-group-addon-left";
+    public static final String INPUT_GROUP_ADDON_RIGHT = "input-group-addon-right";
+
     public void renderInnerWrapperBegin(final HtmlInputComponent component,
                                         final ResponseWriter writer) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
         if (!component.isReadonly()) {
-
-            final StringBuffer defaultStyleClass = new StringBuffer();
-            if (component.isHideLabel()) {
-                defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);
-            } else {
-                defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_10);
-
-                if (StringUtils.isEmpty(component.getLabel())) {
-                    defaultStyleClass
-                            .append(StringUtils.SPACE)
-                            .append(Constants.BOOTSTRAP_COL_SM_OFFSET_2);
-                }
-            }
-
-            final String inputStyleClass = component.getInputStyleClass();
-
             writer.startElement("div", uiComponent);
-            writer.writeAttribute("class",
-                    StringUtils.isEmpty(inputStyleClass) ? defaultStyleClass.toString() : inputStyleClass, null);
+            writer.writeAttribute("class", this.createComponentStyleClass(component), null);
         }
+    }
+
+    private String createComponentStyleClass(final HtmlInputComponent component) {
+        final String inputStyleClass = component.getInputStyleClass();
+
+        final StringBuilder componentStyleClass = new StringBuilder();
+
+        if (StringUtils.isEmpty(component.getInputStyleClass())) {
+            componentStyleClass.append(this.createDefaultStyleClass(component));
+        } else {
+            componentStyleClass.append(inputStyleClass);
+        }
+
+        if (component.supportInputGroupAddon() && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)) {
+            componentStyleClass.append(" input-group");
+        }
+
+        return componentStyleClass.toString();
+    }
+
+    private String createDefaultStyleClass(HtmlInputComponent component) {
+        final StringBuilder defaultStyleClass = new StringBuilder();
+        if (component.isHideLabel()) {
+            defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);
+        } else {
+            defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_10);
+
+            if (StringUtils.isEmpty(component.getLabel())) {
+                defaultStyleClass
+                        .append(StringUtils.SPACE)
+                        .append(Constants.BOOTSTRAP_COL_SM_OFFSET_2);
+            }
+        }
+        return defaultStyleClass.toString();
     }
 
     public void renderInnerWrapperEnd(final HtmlInputComponent component, final ResponseWriter writer)
@@ -43,12 +63,13 @@ public class InnerComponentWrapperPartRenderer {
         if (!component.isReadonly()) {
             final UIInput uiComponent = (UIInput) component;
 
+            writer.endElement("div");
+
             writer.startElement("script", uiComponent);
             writer.writeText("addLabelAttributeToInnerComponent('" + component.getClientId() + "', '"
                     + component.getLabel() + "');", null);
             writer.endElement("script");
 
-            writer.endElement("div");
         }
     }
 }

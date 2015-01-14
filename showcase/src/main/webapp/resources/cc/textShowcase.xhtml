@@ -34,6 +34,12 @@
 			<f:validateLength minimum="2"
 							  maximum="10"
 							  disabled="#{not cc.attrs.component.validation}" />
+			<f:facet name="input-group-addon-left">
+				some stuff
+			</f:facet>
+			<f:facet name="input-group-addon-right">
+				some other stuff
+			</f:facet>
 		</b:text>
 	</composite:implementation>
 </h:body>

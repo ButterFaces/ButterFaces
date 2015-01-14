@@ -33,6 +33,11 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     }
 
     @Override
+    public boolean supportInputGroupAddon() {
+        return false;
+    }
+
+    @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }

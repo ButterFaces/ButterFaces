@@ -37,6 +37,11 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     }
 
     @Override
+    public boolean supportInputGroupAddon() {
+        return false;
+    }
+
+    @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
