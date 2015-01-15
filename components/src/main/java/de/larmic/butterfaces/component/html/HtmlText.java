@@ -5,6 +5,8 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
+import java.util.Arrays;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -38,8 +40,8 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 	}
 
 	@Override
-	public boolean supportInputGroupAddon() {
-		return true;
+	public List<InputComponentFacet> getSupportedFacets() {
+		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON);
 	}
 
 	@Override

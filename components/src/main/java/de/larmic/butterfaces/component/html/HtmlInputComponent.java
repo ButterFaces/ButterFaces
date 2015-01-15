@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
 import javax.faces.component.UIComponent;
+import java.util.List;
 
 public interface HtmlInputComponent {
 
@@ -28,5 +29,5 @@ public interface HtmlInputComponent {
 
     UIComponent getFacet(final String name);
 
-    boolean supportInputGroupAddon();
+    List<InputComponentFacet> getSupportedFacets();
 }

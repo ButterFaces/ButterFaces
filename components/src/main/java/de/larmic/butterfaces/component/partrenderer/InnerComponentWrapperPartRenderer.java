@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
@@ -35,7 +36,8 @@ public class InnerComponentWrapperPartRenderer {
             componentStyleClass.append(inputStyleClass);
         }
 
-        if (component.supportInputGroupAddon() && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)) {
+        if (component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
+                && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)) {
             componentStyleClass.append(" input-group");
         }
 

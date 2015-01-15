@@ -10,6 +10,8 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import java.util.Collections;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -62,8 +64,8 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
     }
 
     @Override
-    public boolean supportInputGroupAddon() {
-        return false;
+    public List<InputComponentFacet> getSupportedFacets() {
+        return Collections.emptyList();
     }
 
     @Override

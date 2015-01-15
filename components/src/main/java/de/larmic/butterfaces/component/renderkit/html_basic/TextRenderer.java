@@ -7,6 +7,7 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlText;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -61,14 +62,14 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         if (!htmlComponent.isReadonly()) {
             final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
             final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
-            if (htmlComponent.supportInputGroupAddon() && inputGroupAddonLeftFacet != null) {
+            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonLeftFacet != null) {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon", null);
                 inputGroupAddonLeftFacet.encodeAll(context);
                 writer.endElement("span");
             }
             super.encodeEnd(context, component);
-            if (htmlComponent.supportInputGroupAddon() && inputGroupAddonRightFacet != null) {
+            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonRightFacet != null) {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon", null);
                 inputGroupAddonRightFacet.encodeAll(context);
