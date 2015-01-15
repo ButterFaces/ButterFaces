@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.type.AjaxType;
 
@@ -7,11 +8,7 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @deprecated Use {@link de.larmic.butterfaces.component.showcase.AbstractInputShowcase} instead.
- */
-@Deprecated
-public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractShowcaseSingleCodeComponent {
+public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
     protected static final String DEFAULT_NUMBER_PLACEHOLDER = "Enter number...";
     protected static final String DEFAULT_TEXT_PLACEHOLDER = "Enter text...";
@@ -19,7 +16,6 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";
-    private String badgeText = null;
     private boolean readonly;
     private boolean required;
     private boolean validation;
@@ -29,7 +25,7 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
     private String labelStyleClass = null;
     private String styleClass = null;
 
-    public AbstractInputShowcaseSingleCodeComponent() {
+    public AbstractInputShowcase() {
         this.value = this.initValue();
     }
 
@@ -113,26 +109,17 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
         return items;
     }
 
-
-
-    public void createAjaxXhtml(final StringBuilder sb, final String event) {
+    public void addAjaxTag(final XhtmlCodeExample codeExample, final String event) {
         if (this.isAjax()) {
             final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
-            sb.append("            <f:ajax event=\"" + event + "\"  execute=\"" + execute + "\" render=\"output\"/>\n");
+            codeExample.appendInnerContent("            <f:ajax event=\"" + event + "\"  execute=\"" + execute + "\" render=\"output\"/>");
         }
     }
 
-    public void createOutputXhtml(final StringBuilder sb) {
+    public void addOutputExample(final XhtmlCodeExample codeExample) {
         if (this.isAjax()) {
-            sb.append("\n");
-            sb.append("\n");
-            sb.append("        <h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
+            codeExample.appendInnerContent("\n        <h:outputText id=\"output\" value=\"" + this.getValue() + "\"/>");
         }
-    }
-
-    @Override
-    public String getCss() {
-        return super.getCss();
     }
 
     public void submit() {
@@ -153,14 +140,6 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
 
     public void setLabel(final String label) {
         this.label = label;
-    }
-
-    public String getBadgeText() {
-        return badgeText;
-    }
-
-    public void setBadgeText(String badgeText) {
-        this.badgeText = badgeText;
     }
 
     public String getTooltip() {

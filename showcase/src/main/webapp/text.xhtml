@@ -11,102 +11,102 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{textShowcaseSingleCodeComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{textShowcaseSingleCodeComponent.tooltip}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{textShowcaseSingleCodeComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{textShowcaseSingleCodeComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{textShowcaseSingleCodeComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{textShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{textShowcase.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{textShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{textShowcaseSingleCodeComponent.styleClass}"
-                                     values="#{textShowcaseSingleCodeComponent.styleClasses}"/>
+                                     value="#{textShowcase.styleClass}"
+                                     values="#{textShowcase.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{textShowcaseSingleCodeComponent.inputStyleClass}"
-                                     values="#{textShowcaseSingleCodeComponent.inputStyleClasses}"/>
+                                     value="#{textShowcase.inputStyleClass}"
+                                     values="#{textShowcase.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{textShowcaseSingleCodeComponent.labelStyleClass}"
-                                     values="#{textShowcaseSingleCodeComponent.labelStyleClasses}"/>
+                                     value="#{textShowcase.labelStyleClass}"
+                                     values="#{textShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{textShowcaseSingleCodeComponent.placeholder}"/>
-            <showcase:tagStringControl label="type" value="#{textShowcaseSingleCodeComponent.type}"/>
-            <showcase:tagStringControl label="pattern" value="#{textShowcaseSingleCodeComponent.pattern}"/>
-            <showcase:tagStringControl label="min" value="#{textShowcaseSingleCodeComponent.min}"/>
-            <showcase:tagStringControl label="max" value="#{textShowcaseSingleCodeComponent.max}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{textShowcaseSingleCodeComponent.autoFocus}"/>
+            <showcase:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
+            <showcase:tagStringControl label="type" value="#{textShowcase.type}"/>
+            <showcase:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
+            <showcase:tagStringControl label="min" value="#{textShowcase.min}"/>
+            <showcase:tagStringControl label="max" value="#{textShowcase.max}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{textShowcaseSingleCodeComponent.ajaxType}"
-                                     values="#{textShowcaseSingleCodeComponent.ajaxTypes}"
+                                     value="#{textShowcase.ajaxType}"
+                                     values="#{textShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
             <showcase:tagEnumControl label="facets"
-                                     value="#{textShowcaseSingleCodeComponent.selectedFacetType}"
-                                     values="#{textShowcaseSingleCodeComponent.availableFacetTypes}"
+                                     value="#{textShowcase.selectedFacetType}"
+                                     values="#{textShowcase.availableFacetTypes}"
                                      renderChildrenPopover="false" />
             <showcase:tagBooleanControl label="validate"
-                                        value="#{textShowcaseSingleCodeComponent.validation}"/>
+                                        value="#{textShowcase.validation}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="text"
-                                         component="#{textShowcaseSingleCodeComponent}">
+                                         component="#{textShowcase}">
             <b:text id="text"
-                    label="#{textShowcaseSingleCodeComponent.label}"
-                    hideLabel="#{textShowcaseSingleCodeComponent.hideLabel}"
-                    value="#{textShowcaseSingleCodeComponent.value}"
-                    tooltip="#{textShowcaseSingleCodeComponent.tooltip}"
-                    readonly="#{textShowcaseSingleCodeComponent.readonly}"
-                    required="#{textShowcaseSingleCodeComponent.required}"
-                    rendered="#{textShowcaseSingleCodeComponent.rendered and textShowcaseSingleCodeComponent.selectedFacetType != 'INPUT_GROUP_ADDON'}"
-                    placeholder="#{textShowcaseSingleCodeComponent.placeholder}"
-                    type="#{textShowcaseSingleCodeComponent.type}"
-                    pattern="#{textShowcaseSingleCodeComponent.pattern}"
-                    min="#{textShowcaseSingleCodeComponent.min}"
-                    max="#{textShowcaseSingleCodeComponent.max}"
-                    autoFocus="#{textShowcaseSingleCodeComponent.autoFocus}"
-                    inputStyleClass="#{textShowcaseSingleCodeComponent.inputStyleClass}"
-                    labelStyleClass="#{textShowcaseSingleCodeComponent.labelStyleClass}"
-                    styleClass="#{textShowcaseSingleCodeComponent.styleClass}">
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    tooltip="#{textShowcase.tooltip}"
+                    readonly="#{textShowcase.readonly}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON'}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    inputStyleClass="#{textShowcase.inputStyleClass}"
+                    labelStyleClass="#{textShowcase.labelStyleClass}"
+                    styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not textShowcaseSingleCodeComponent.ajax}" />
+                        disabled="#{not textShowcase.ajax}" />
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcaseSingleCodeComponent.validation}" />
+                                  disabled="#{not textShowcase.validation}" />
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
-                    label="#{textShowcaseSingleCodeComponent.label}"
-                    hideLabel="#{textShowcaseSingleCodeComponent.hideLabel}"
-                    value="#{textShowcaseSingleCodeComponent.value}"
-                    tooltip="#{textShowcaseSingleCodeComponent.tooltip}"
-                    readonly="#{textShowcaseSingleCodeComponent.readonly}"
-                    required="#{textShowcaseSingleCodeComponent.required}"
-                    rendered="#{textShowcaseSingleCodeComponent.rendered and textShowcaseSingleCodeComponent.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
-                    placeholder="#{textShowcaseSingleCodeComponent.placeholder}"
-                    type="#{textShowcaseSingleCodeComponent.type}"
-                    pattern="#{textShowcaseSingleCodeComponent.pattern}"
-                    min="#{textShowcaseSingleCodeComponent.min}"
-                    max="#{textShowcaseSingleCodeComponent.max}"
-                    autoFocus="#{textShowcaseSingleCodeComponent.autoFocus}"
-                    inputStyleClass="#{textShowcaseSingleCodeComponent.inputStyleClass}"
-                    labelStyleClass="#{textShowcaseSingleCodeComponent.labelStyleClass}"
-                    styleClass="#{textShowcaseSingleCodeComponent.styleClass}">
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    tooltip="#{textShowcase.tooltip}"
+                    readonly="#{textShowcase.readonly}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    inputStyleClass="#{textShowcase.inputStyleClass}"
+                    labelStyleClass="#{textShowcase.labelStyleClass}"
+                    styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not textShowcaseSingleCodeComponent.ajax}"/>
+                        disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcaseSingleCodeComponent.validation}"/>
+                                  disabled="#{not textShowcase.validation}"/>
                 <f:facet name="input-group-addon-left">
                     Left input-group-addon
                 </f:facet>
@@ -118,6 +118,13 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{textShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{textShowcase}"/>
+        <b:activateLibraries />
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('text');
+            });
+        </script>
     </ui:define>
 </ui:composition>
