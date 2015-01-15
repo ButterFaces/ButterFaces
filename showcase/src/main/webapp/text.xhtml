@@ -43,7 +43,11 @@
                                      values="#{textShowcaseSingleCodeComponent.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagEnumControl label="facets"
+                                     value="#{textShowcaseSingleCodeComponent.selectedFacetType}"
+                                     values="#{textShowcaseSingleCodeComponent.availableFacetTypes}"
+                                     renderChildrenPopover="false" />
             <showcase:tagBooleanControl label="validate"
                                         value="#{textShowcaseSingleCodeComponent.validation}"/>
         </showcase:tagsContainer>
@@ -60,7 +64,7 @@
                     tooltip="#{textShowcaseSingleCodeComponent.tooltip}"
                     readonly="#{textShowcaseSingleCodeComponent.readonly}"
                     required="#{textShowcaseSingleCodeComponent.required}"
-                    rendered="#{textShowcaseSingleCodeComponent.rendered}"
+                    rendered="#{textShowcaseSingleCodeComponent.rendered and textShowcaseSingleCodeComponent.selectedFacetType != 'INPUT_GROUP_ADDON'}"
                     placeholder="#{textShowcaseSingleCodeComponent.placeholder}"
                     type="#{textShowcaseSingleCodeComponent.type}"
                     pattern="#{textShowcaseSingleCodeComponent.pattern}"
@@ -77,11 +81,37 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcaseSingleCodeComponent.validation}" />
+            </b:text>
+
+            <b:text id="textWithInputGroupAddon"
+                    label="#{textShowcaseSingleCodeComponent.label}"
+                    hideLabel="#{textShowcaseSingleCodeComponent.hideLabel}"
+                    value="#{textShowcaseSingleCodeComponent.value}"
+                    tooltip="#{textShowcaseSingleCodeComponent.tooltip}"
+                    readonly="#{textShowcaseSingleCodeComponent.readonly}"
+                    required="#{textShowcaseSingleCodeComponent.required}"
+                    rendered="#{textShowcaseSingleCodeComponent.rendered and textShowcaseSingleCodeComponent.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
+                    placeholder="#{textShowcaseSingleCodeComponent.placeholder}"
+                    type="#{textShowcaseSingleCodeComponent.type}"
+                    pattern="#{textShowcaseSingleCodeComponent.pattern}"
+                    min="#{textShowcaseSingleCodeComponent.min}"
+                    max="#{textShowcaseSingleCodeComponent.max}"
+                    autoFocus="#{textShowcaseSingleCodeComponent.autoFocus}"
+                    inputStyleClass="#{textShowcaseSingleCodeComponent.inputStyleClass}"
+                    labelStyleClass="#{textShowcaseSingleCodeComponent.labelStyleClass}"
+                    styleClass="#{textShowcaseSingleCodeComponent.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not textShowcaseSingleCodeComponent.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcaseSingleCodeComponent.validation}"/>
                 <f:facet name="input-group-addon-left">
-                    some stuff
+                    Left input-group-addon
                 </f:facet>
                 <f:facet name="input-group-addon-right">
-                    some other stuff
+                    Right input-group-addon
                 </f:facet>
             </b:text>
         </showcase:showcaseOuputComponent>

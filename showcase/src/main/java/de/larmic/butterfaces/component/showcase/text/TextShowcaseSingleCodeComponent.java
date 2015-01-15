@@ -1,6 +1,7 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.text;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcaseSingleCodeComponent;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;

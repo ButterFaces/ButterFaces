@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.type.AjaxType;
 
 import javax.faces.model.SelectItem;
@@ -20,6 +21,7 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
     private boolean validation;
     private boolean hideLabel;
     private AjaxType ajaxType = AjaxType.NONE;
+    private FacetType selectedFacetType = FacetType.NONE;
     private String inputStyleClass = null;
     private String labelStyleClass = null;
     private String styleClass = null;
@@ -48,6 +50,15 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
         final List<SelectItem> items = new ArrayList<>();
 
         for (final AjaxType type : AjaxType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List<SelectItem> getAvailableFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final FacetType type : FacetType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -219,5 +230,13 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public FacetType getSelectedFacetType() {
+        return selectedFacetType;
+    }
+
+    public void setSelectedFacetType(FacetType selectedFacetType) {
+        this.selectedFacetType = selectedFacetType;
     }
 }
