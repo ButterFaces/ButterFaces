@@ -62,10 +62,18 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         if (!htmlComponent.isReadonly()) {
             final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
             final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
+            final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
+            final UIComponent inputGroupBtnRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_RIGHT);
             if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonLeftFacet != null) {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon", null);
                 inputGroupAddonLeftFacet.encodeAll(context);
+                writer.endElement("span");
+            }
+            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnLeftFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-btn", null);
+                inputGroupBtnLeftFacet.encodeAll(context);
                 writer.endElement("span");
             }
             super.encodeEnd(context, component);
@@ -73,6 +81,12 @@ public class TextRenderer extends HtmlBasicInputRenderer {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon", null);
                 inputGroupAddonRightFacet.encodeAll(context);
+                writer.endElement("span");
+            }
+            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnRightFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-btn", null);
+                inputGroupBtnRightFacet.encodeAll(context);
                 writer.endElement("span");
             }
         }

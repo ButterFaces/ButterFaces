@@ -41,7 +41,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent {
 
 	@Override
 	public List<InputComponentFacet> getSupportedFacets() {
-		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON);
+		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON, InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN);
 	}
 
 	@Override

@@ -64,7 +64,7 @@
                     tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
-                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON'}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
                     placeholder="#{textShowcase.placeholder}"
                     type="#{textShowcase.type}"
                     pattern="#{textShowcase.pattern}"
@@ -111,6 +111,38 @@
                     Left input-group-addon
                 </f:facet>
                 <f:facet name="input-group-addon-right">
+                    Right input-group-addon
+                </f:facet>
+            </b:text>
+
+            <b:text id="textWithInputGroupBtn"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    tooltip="#{textShowcase.tooltip}"
+                    readonly="#{textShowcase.readonly}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    inputStyleClass="#{textShowcase.inputStyleClass}"
+                    labelStyleClass="#{textShowcase.labelStyleClass}"
+                    styleClass="#{textShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not textShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}"/>
+                <f:facet name="input-group-btn-left">
+                    Left input-group-addon
+                </f:facet>
+                <f:facet name="input-group-btn-right">
                     Right input-group-addon
                 </f:facet>
             </b:text>

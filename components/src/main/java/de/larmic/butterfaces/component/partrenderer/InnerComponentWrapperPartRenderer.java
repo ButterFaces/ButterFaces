@@ -14,6 +14,8 @@ public class InnerComponentWrapperPartRenderer {
 
     public static final String INPUT_GROUP_ADDON_LEFT = "input-group-addon-left";
     public static final String INPUT_GROUP_ADDON_RIGHT = "input-group-addon-right";
+    public static final String INPUT_GROUP_BTN_LEFT = "input-group-btn-left";
+    public static final String INPUT_GROUP_BTN_RIGHT = "input-group-btn-right";
 
     public void renderInnerWrapperBegin(final HtmlInputComponent component,
                                         final ResponseWriter writer) throws IOException {
