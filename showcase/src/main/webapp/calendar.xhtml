@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:text</strong> The calendar tag renders an HTML input element of the type "text".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="label" value="#{calendarShowcase.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{calendarShowcase.styleClass}"
+                                     values="#{calendarShowcase.styleClasses}"/>
+            <showcase:tagEnumControl label="inputStyleClass"
+                                     value="#{calendarShowcase.inputStyleClass}"
+                                     values="#{calendarShowcase.inputStyleClasses}"/>
+            <showcase:tagEnumControl label="labelStyleClass"
+                                     value="#{calendarShowcase.labelStyleClass}"
+                                     values="#{calendarShowcase.labelStyleClasses}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="HTML5 tag attributes">
+            <showcase:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{calendarShowcase.autoFocus}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{calendarShowcase.ajaxType}"
+                                     values="#{calendarShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="calendar"
+                                         component="#{calendarShowcase}">
+            <b:calendar id="calendar"
+                        label="#{calendarShowcase.label}"
+                        hideLabel="#{calendarShowcase.hideLabel}"
+                        value="#{calendarShowcase.value}"
+                        tooltip="#{calendarShowcase.tooltip}"
+                        readonly="#{calendarShowcase.readonly}"
+                        required="#{calendarShowcase.required}"
+                        rendered="#{calendarShowcase.rendered}"
+                        placeholder="#{calendarShowcase.placeholder}"
+                        autoFocus="#{calendarShowcase.autoFocus}"
+                        inputStyleClass="#{calendarShowcase.inputStyleClass}"
+                        labelStyleClass="#{calendarShowcase.labelStyleClass}"
+                        styleClass="#{calendarShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not calendarShowcase.ajax}"/>
+            </b:calendar>
+
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{calendarShowcase}"/>
+        <b:activateLibraries />
+    </ui:define>
+</ui:composition>

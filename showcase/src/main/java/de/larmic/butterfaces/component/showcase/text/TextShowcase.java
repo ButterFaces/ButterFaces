@@ -6,9 +6,11 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -102,6 +104,15 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
             cssCodeExample.addCss(".some-demo-class", "background-color: red;");
             codeExamples.add(cssCodeExample);
         }
+    }
+
+    public List<SelectItem> getAvailableFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final FacetType type : FacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public String getPlaceholder() {

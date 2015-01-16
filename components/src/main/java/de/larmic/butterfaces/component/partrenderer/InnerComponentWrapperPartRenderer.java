@@ -41,7 +41,8 @@ public class InnerComponentWrapperPartRenderer {
         if (component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
                 && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)
                 || component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN)
-                && (component.getFacet(INPUT_GROUP_BTN_LEFT) != null || component.getFacet(INPUT_GROUP_BTN_RIGHT) != null)) {
+                && (component.getFacet(INPUT_GROUP_BTN_LEFT) != null || component.getFacet(INPUT_GROUP_BTN_RIGHT) != null)
+                || component.getSupportedFacets().contains(InputComponentFacet.CALENDAR)) {
             componentStyleClass.append(" input-group");
         }
 

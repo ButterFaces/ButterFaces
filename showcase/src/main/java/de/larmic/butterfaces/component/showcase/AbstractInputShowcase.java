@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.type.AjaxType;
 
 import javax.faces.model.SelectItem;
@@ -49,15 +48,6 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         final List<SelectItem> items = new ArrayList<>();
 
         for (final AjaxType type : AjaxType.values()) {
-            items.add(new SelectItem(type, type.label));
-        }
-        return items;
-    }
-
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        for (final FacetType type : FacetType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
