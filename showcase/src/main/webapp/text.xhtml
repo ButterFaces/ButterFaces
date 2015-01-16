@@ -140,10 +140,17 @@
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
                 <f:facet name="input-group-btn-left">
-                    Left input-group-addon
+                    <button class="btn btn-default" type="button">Go!</button>
                 </f:facet>
                 <f:facet name="input-group-btn-right">
-                    Right input-group-addon
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
                 </f:facet>
             </b:text>
         </showcase:showcaseOuputComponent>

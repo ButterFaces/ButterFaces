@@ -68,6 +68,27 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-addon-right\">");
             xhtmlCodeExample.appendInnerContent("                Right input-group-addon");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        } else if (selectedFacetType == FacetType.INPUT_GROUP_BTN) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-left\">");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                     Go!");
+            xhtmlCodeExample.appendInnerContent("                 </button>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-right\">");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\"");
+            xhtmlCodeExample.appendInnerContent("                        dropdown-toggle\"");
+            xhtmlCodeExample.appendInnerContent("                        data-toggle=\"dropdown\"");
+            xhtmlCodeExample.appendInnerContent("                        aria-expanded=\"false\">");
+            xhtmlCodeExample.appendInnerContent("                     Action <span class=\"caret\"></span>");
+            xhtmlCodeExample.appendInnerContent("                 </button>");
+            xhtmlCodeExample.appendInnerContent("                 <ul class=\"dropdown-menu dropdown-menu-right\" role=\"menu\">");
+            xhtmlCodeExample.appendInnerContent("                     <li><a href=\"#\">Action</a></li>");
+            xhtmlCodeExample.appendInnerContent("                     <li><a href=\"#\">Another action</a></li>");
+            xhtmlCodeExample.appendInnerContent("                     <li><a href=\"#\">Something else here</a></li>");
+            xhtmlCodeExample.appendInnerContent("                     <li class=\"divider\"></li>");
+            xhtmlCodeExample.appendInnerContent("                     <li><a href=\"#\">Separated link</a></li>");
+            xhtmlCodeExample.appendInnerContent("                 </ul>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:text>", false);
