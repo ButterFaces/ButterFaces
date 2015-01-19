@@ -55,10 +55,10 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
             return;
         }
 
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlCalendar calendar = (HtmlCalendar) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        if (!htmlComponent.isReadonly()) {
+        if (!calendar.isReadonly()) {
             super.encodeEnd(context, component);
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
@@ -69,15 +69,19 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
         }
 
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(calendar, writer);
 
         // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+        new TooltipPartRenderer().renderTooltip(calendar, writer);
 
-        RenderUtils.renderJQueryPluginCall(component.getClientId(), ".input-group", "datetimepicker()", writer, component);
+        RenderUtils.renderJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar), writer, component);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    private String createJQueryPluginCall(HtmlCalendar calendar) {
+        return "datetimepicker({pickTime: " + calendar.isPickTime() + ", pickDate: " + calendar.isPickDate() + ", language: \"" + calendar.getLanguage() + "\"})";
     }
 
     /**

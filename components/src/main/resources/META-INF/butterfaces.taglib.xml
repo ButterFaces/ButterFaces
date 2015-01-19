@@ -101,7 +101,19 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>language</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>hideLabel</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>pickDate</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>pickTime</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>

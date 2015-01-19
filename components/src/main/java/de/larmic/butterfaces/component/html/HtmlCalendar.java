@@ -32,6 +32,9 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
+	protected static final String PROPERTY_PICK_DATE = "pickDate";
+	protected static final String PROPERTY_PICK_TIME = "pickTime";
+	protected static final String PROPERTY_LANGUAGE = "language";
 
 	public HtmlCalendar() {
 		super();
@@ -84,7 +87,31 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 
-    @Override
+	public boolean isPickDate() {
+		return Boolean.valueOf(getStateHelper().eval(PROPERTY_PICK_DATE, Boolean.TRUE).toString());
+	}
+
+	public void setPickDate(boolean pickDate) {
+		getStateHelper().put(PROPERTY_PICK_DATE, pickDate);;
+	}
+
+	public boolean isPickTime() {
+		return Boolean.valueOf(getStateHelper().eval(PROPERTY_PICK_TIME, Boolean.TRUE).toString());
+	}
+
+	public void setPickTime(boolean pickTime) {
+		getStateHelper().put(PROPERTY_PICK_TIME, pickTime);;
+	}
+
+	public String getLanguage() {
+		return (String) this.getStateHelper().eval(PROPERTY_LANGUAGE);
+	}
+
+	public void setLanguage(String language) {
+		this.updateStateHelper(PROPERTY_LANGUAGE, language);;
+	}
+
+	@Override
     public String getInputStyleClass() {
         return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
     }

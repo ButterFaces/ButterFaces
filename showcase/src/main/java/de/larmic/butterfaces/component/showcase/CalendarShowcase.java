@@ -17,6 +17,9 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private boolean autoFocus;
+    private boolean pickDate = true;
+    private boolean pickTime = true;
+    private String language = "en";
 
     @Override
     protected Object initValue() {
@@ -78,5 +81,29 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public boolean isPickDate() {
+        return pickDate;
+    }
+
+    public void setPickDate(boolean pickDate) {
+        this.pickDate = pickDate;
+    }
+
+    public boolean isPickTime() {
+        return pickTime;
+    }
+
+    public void setPickTime(boolean pickTime) {
+        this.pickTime = pickTime;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

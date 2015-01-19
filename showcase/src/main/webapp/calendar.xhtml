@@ -17,6 +17,9 @@
             <showcase:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
             <showcase:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
+            <showcase:tagBooleanControl label="pickDate" value="#{calendarShowcase.pickDate}"/>
+            <showcase:tagBooleanControl label="pickTime" value="#{calendarShowcase.pickTime}"/>
+            <showcase:tagStringControl label="language" value="#{calendarShowcase.language}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{calendarShowcase.styleClass}"
                                      values="#{calendarShowcase.styleClasses}"/>
@@ -49,6 +52,9 @@
                                          component="#{calendarShowcase}">
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
+                        language="#{calendarShowcase.language}"
+                        pickDate="#{calendarShowcase.pickDate}"
+                        pickTime="#{calendarShowcase.pickTime}"
                         hideLabel="#{calendarShowcase.hideLabel}"
                         value="#{calendarShowcase.value}"
                         tooltip="#{calendarShowcase.tooltip}"
