@@ -74,14 +74,31 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(calendar, writer);
 
-        RenderUtils.renderJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar), writer, component);
+        writer.startElement("script", calendar);
+        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
+        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
+        writer.endElement("script");
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
     private String createJQueryPluginCall(HtmlCalendar calendar) {
-        return "datetimepicker({pickTime: " + calendar.isPickTime() + ", pickDate: " + calendar.isPickDate() + ", language: \"" + calendar.getLanguage() + "\"})";
+        final StringBuilder jQueryPluginCall = new StringBuilder();
+        jQueryPluginCall.append("datetimepicker({");
+        jQueryPluginCall.append("pickTime: " + calendar.isPickTime() + ",");
+        jQueryPluginCall.append("pickDate: " + calendar.isPickDate() + ",");
+        jQueryPluginCall.append("language: \"" + calendar.getLanguage() + "\"");
+        jQueryPluginCall.append("})");
+        return jQueryPluginCall.toString();
+    }
+
+    private String createJQueryPluginCallback(HtmlCalendar calendar) {
+        final StringBuilder jQueryPluginCall = new StringBuilder();
+        jQueryPluginCall.append("on(\"dp.change\", function (e) {");
+        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(calendar.getClientId(), ".butter-input-component") + "trigger('keyup');");
+        jQueryPluginCall.append("})");
+        return jQueryPluginCall.toString();
     }
 
     /**

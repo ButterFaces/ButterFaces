@@ -27,8 +27,7 @@ public class RenderUtils {
 
     public static final void renderJQueryPluginCall(final String elementId, final String childSelector,
                                                     final String pluginFunctionCall, final ResponseWriter writer,
-                                                    final UIComponent uiComponent)
-            throws IOException {
+                                                    final UIComponent uiComponent) throws IOException {
         final String jsCall = createJQueryPluginCall(elementId, childSelector, pluginFunctionCall);
 
         writer.startElement("script", uiComponent);
@@ -45,6 +44,18 @@ public class RenderUtils {
         final StringBuilder jsCall = new StringBuilder();
 
         jsCall.append("jQuery(function () {");
+        jsCall.append(createJQueryBySelector(elementId, childSelector));
+
+        jsCall.append(pluginFunctionCall);
+        jsCall.append(";");
+        jsCall.append("});");
+
+        return jsCall.toString();
+    }
+
+    public static String createJQueryBySelector(String elementId, String childSelector) {
+        final StringBuilder jsCall = new StringBuilder();
+
         jsCall.append("jQuery(");
         jsCall.append("document.getElementById('");
         jsCall.append(elementId);
@@ -56,10 +67,6 @@ public class RenderUtils {
             jsCall.append(childSelector);
             jsCall.append("').");
         }
-
-        jsCall.append(pluginFunctionCall);
-        jsCall.append(";");
-        jsCall.append("});");
 
         return jsCall.toString();
     }
