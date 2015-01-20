@@ -63,7 +63,11 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
             writer.startElement("span", component);
-            writer.writeAttribute("class", "glyphicon glyphicon-calendar", null);
+            if (StringUtils.isEmpty(calendar.getGlyphicon())) {
+                writer.writeAttribute("class", "glyphicon glyphicon-calendar", null);
+            } else {
+                writer.writeAttribute("class", calendar.getGlyphicon(), null);
+            }
             writer.endElement("span");
             writer.endElement("span");
         }

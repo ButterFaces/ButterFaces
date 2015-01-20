@@ -5,9 +5,11 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -15,6 +17,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class CalendarShowcase extends AbstractInputShowcase implements Serializable {
 
+    private String glyphicon = null;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private boolean autoFocus;
     private boolean pickDate = true;
@@ -39,6 +42,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    glyphicon=\"" + this.getGlyphicon() + "\"");
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"" + this.getInputStyleClass() + "\"");
@@ -65,6 +69,15 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
             cssCodeExample.addCss(".some-demo-class", "background-color: red;");
             codeExamples.add(cssCodeExample);
         }
+    }
+
+    public List<SelectItem> getGlyphicons() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem(null, "No glyphicon"));
+        items.add(new SelectItem("glyphicon glyphicon-time", "Bootstrap time example"));
+
+        return items;
     }
 
     public String getPlaceholder() {
@@ -105,5 +118,13 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getGlyphicon() {
+        return glyphicon;
+    }
+
+    public void setGlyphicon(String glyphicon) {
+        this.glyphicon = glyphicon;
     }
 }

@@ -26,6 +26,7 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CalendarRenderer";
 
+	protected static final String PROPERTY_GLYPHICON = "glyphicon";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
@@ -128,6 +129,14 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
     public void setLabelStyleClass(final String labelStyleClass) {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
+
+	public String getGlyphicon() {
+		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON);
+	}
+
+	public void setGlyphicon(final String glyphicon) {
+		this.updateStateHelper(PROPERTY_GLYPHICON, glyphicon);
+	}
 
 	private void updateStateHelper(final String propertyName, final Object value) {
 		this.getStateHelper().put(propertyName, value);
