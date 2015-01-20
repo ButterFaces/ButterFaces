@@ -28,6 +28,15 @@
                         }
 
                     });
+                    jQuery(document).ready(function () {
+                        if (jQuery('a.newFeature').size() != 0) {
+                            jQuery('span.newFeature').removeClass('hideNewFeatureAttention');
+                            jQuery('a.newFeature').each(function () {
+                                jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
+                            });
+                        }
+
+                    });
                 </script>
             </footer>
         </div>
