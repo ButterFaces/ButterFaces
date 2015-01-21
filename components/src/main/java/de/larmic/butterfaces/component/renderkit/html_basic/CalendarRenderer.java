@@ -60,12 +60,14 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
 
         if (!calendar.isReadonly()) {
             super.encodeEnd(context, component);
-            writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-addon", null);
-            writer.startElement("span", component);
-            // jquery plugin will add icon here
-            writer.endElement("span");
-            writer.endElement("span");
+            if (calendar.isPickDate() || calendar.isPickTime()) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-addon", null);
+                writer.startElement("span", component);
+                // jquery plugin will add icon here
+                writer.endElement("span");
+                writer.endElement("span");
+            }
         }
 
         // Close inner component wrapper div
@@ -74,10 +76,12 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(calendar, writer);
 
-        writer.startElement("script", calendar);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
-        writer.endElement("script");
+        if (calendar.isPickDate() || calendar.isPickTime()) {
+            writer.startElement("script", calendar);
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
+            writer.endElement("script");
+        }
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
