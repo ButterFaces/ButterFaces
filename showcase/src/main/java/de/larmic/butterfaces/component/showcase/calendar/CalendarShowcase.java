@@ -41,7 +41,9 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
-        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+        final boolean useFontAwesome = selectedIconType == CalendarIconType.AWESOME;
+
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
         xhtmlCodeExample.appendInnerContent("        <b:calendar id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
@@ -143,6 +145,20 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     public void setSelectedIconType(CalendarIconType selectedIconType) {
         this.selectedIconType = selectedIconType;
+        switch (selectedIconType) {
+            case DEFAULT:
+                glyphiconDate = null;
+                glyphiconTime = null;
+                glyphiconUp = null;
+                glyphiconDown = null;
+                break;
+            case AWESOME:
+                glyphiconDate = "fa fa-calendar";
+                glyphiconTime = "fa fa-clock-o";
+                glyphiconUp = "fa fa-chevron-up";
+                glyphiconDown = "fa fa-chevron-down";
+                break;
+        }
     }
 
     public String getGlyphiconTime() {
