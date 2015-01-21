@@ -63,7 +63,7 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
             writer.startElement("span", component);
-            // TODO remove span
+            // jquery plugin will add icon here
             writer.endElement("span");
             writer.endElement("span");
         }

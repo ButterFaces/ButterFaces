@@ -23,7 +23,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private String glyphiconTime = null;
     private String glyphiconUp = null;
     private String glyphiconDown = null;
-    private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
+    private String placeholder = "Enter date or click icon...";
     private boolean autoFocus;
     private boolean pickDate = true;
     private boolean pickTime = true;
@@ -87,15 +87,6 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         for (final CalendarIconType type : CalendarIconType.values()) {
             items.add(new SelectItem(type, type.label));
         }
-        return items;
-    }
-
-    public List<SelectItem> getGlyphicons() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        items.add(new SelectItem(null, "No glyphicon"));
-        items.add(new SelectItem("glyphicon glyphicon-time", "Bootstrap time example"));
-
         return items;
     }
 
