@@ -28,4 +28,8 @@ public class StringUtils {
     public static final boolean isNotEmpty(final String value) {
         return !isEmpty(value);
     }
+
+    public static final String getNotNullValue(final String value, final String alternative) {
+        return isNotEmpty(value) ? value : alternative;
+    }
 }

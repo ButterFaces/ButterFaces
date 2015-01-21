@@ -26,7 +26,10 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CalendarRenderer";
 
-	protected static final String PROPERTY_GLYPHICON = "glyphicon";
+	protected static final String PROPERTY_GLYPHICON_TIME = "glyphiconTime";
+	protected static final String PROPERTY_GLYPHICON_DATE = "glyphiconDate";
+	protected static final String PROPERTY_GLYPHICON_UP = "glyphiconUp";
+	protected static final String PROPERTY_GLYPHICON_DOWN = "glyphiconDown";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
@@ -130,12 +133,36 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
 
-	public String getGlyphicon() {
-		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON);
+	public String getGlyphiconTime() {
+		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_TIME);
 	}
 
-	public void setGlyphicon(final String glyphicon) {
-		this.updateStateHelper(PROPERTY_GLYPHICON, glyphicon);
+	public void setGlyphiconTime(final String glyphicon) {
+		this.updateStateHelper(PROPERTY_GLYPHICON_TIME, glyphicon);
+	}
+
+	public String getGlyphiconDate() {
+		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_DATE);
+	}
+
+	public void setGlyphiconDate(final String glyphicon) {
+		this.updateStateHelper(PROPERTY_GLYPHICON_DATE, glyphicon);
+	}
+
+	public String getGlyphiconUp() {
+		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_UP);
+	}
+
+	public void setGlyphiconUp(final String glyphicon) {
+		this.updateStateHelper(PROPERTY_GLYPHICON_UP, glyphicon);
+	}
+
+	public String getGlyphiconDown() {
+		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_DOWN);
+	}
+
+	public void setGlyphiconDown(final String glyphicon) {
+		this.updateStateHelper(PROPERTY_GLYPHICON_DOWN, glyphicon);
 	}
 
 	private void updateStateHelper(final String propertyName, final Object value) {

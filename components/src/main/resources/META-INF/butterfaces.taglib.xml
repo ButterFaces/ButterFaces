@@ -101,7 +101,19 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>glyphicon</name>
+            <name>glyphiconTime</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>glyphiconDate</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>glyphiconUp</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>glyphiconDown</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>

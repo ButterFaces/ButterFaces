@@ -30,8 +30,8 @@
                                      value="#{calendarShowcase.labelStyleClass}"
                                      values="#{calendarShowcase.labelStyleClasses}"/>
             <showcase:tagEnumControl label="glyphicon"
-                                     value="#{calendarShowcase.glyphicon}"
-                                     values="#{calendarShowcase.glyphicons}"/>
+                                     value="#{calendarShowcase.selectedIconType}"
+                                     values="#{calendarShowcase.calendarIconTypes}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -56,7 +56,7 @@
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
                         language="#{calendarShowcase.language}"
-                        glyphicon="#{calendarShowcase.glyphicon}"
+                        glyphiconTime="#{calendarShowcase.glyphiconTime}"
                         pickDate="#{calendarShowcase.pickDate}"
                         pickTime="#{calendarShowcase.pickTime}"
                         hideLabel="#{calendarShowcase.hideLabel}"

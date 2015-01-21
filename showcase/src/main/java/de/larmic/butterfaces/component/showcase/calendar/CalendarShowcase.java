@@ -1,6 +1,7 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.calendar;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -17,7 +18,11 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class CalendarShowcase extends AbstractInputShowcase implements Serializable {
 
-    private String glyphicon = null;
+    private CalendarIconType selectedIconType = CalendarIconType.DEFAULT;
+    private String glyphiconDate = null;
+    private String glyphiconTime = null;
+    private String glyphiconUp = null;
+    private String glyphiconDown = null;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private boolean autoFocus;
     private boolean pickDate = true;
@@ -42,7 +47,10 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    glyphicon=\"" + this.getGlyphicon() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
+        xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
+        xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
+        xhtmlCodeExample.appendInnerContent("                    glyphiconDown=\"" + glyphiconDown + "\"");
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"" + this.getInputStyleClass() + "\"");
@@ -69,6 +77,15 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
             cssCodeExample.addCss(".some-demo-class", "background-color: red;");
             codeExamples.add(cssCodeExample);
         }
+    }
+
+    public List<SelectItem> getCalendarIconTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final CalendarIconType type : CalendarIconType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public List<SelectItem> getGlyphicons() {
@@ -120,11 +137,27 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.language = language;
     }
 
-    public String getGlyphicon() {
-        return glyphicon;
+    public CalendarIconType getSelectedIconType() {
+        return selectedIconType;
     }
 
-    public void setGlyphicon(String glyphicon) {
-        this.glyphicon = glyphicon;
+    public void setSelectedIconType(CalendarIconType selectedIconType) {
+        this.selectedIconType = selectedIconType;
+    }
+
+    public String getGlyphiconTime() {
+        return glyphiconTime;
+    }
+
+    public String getGlyphiconDate() {
+        return glyphiconDate;
+    }
+
+    public String getGlyphiconUp() {
+        return glyphiconUp;
+    }
+
+    public String getGlyphiconDown() {
+        return glyphiconDown;
     }
 }
