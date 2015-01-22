@@ -55,6 +55,11 @@
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="calendar"
                                          component="#{calendarShowcase}">
+
+            <h:panelGroup layout="block" styleClass="alert alert-warning" rendered="#{not calendarShowcase.pickDate and not calendarShowcase.pickTime}">
+                Bootstrap Datetimepicker plugin is disabled if you would not select a date or a time.
+            </h:panelGroup>
+
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
                         language="#{calendarShowcase.language}"
