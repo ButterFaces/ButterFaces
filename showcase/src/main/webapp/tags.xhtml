@@ -1,0 +1,82 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:tags</strong> The tags tag renders a HTML input element of the type "text" using <a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/" target="_blank">Bootstrap Tags input</a> as JQuery plugin
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="label" value="#{tagsShowcase.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{tagsShowcase.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{tagsShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{tagsShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{tagsShowcase.rendered}"/>
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{tagsShowcase.styleClass}"
+                                     values="#{tagsShowcase.styleClasses}"/>
+            <showcase:tagEnumControl label="inputStyleClass"
+                                     value="#{tagsShowcase.inputStyleClass}"
+                                     values="#{tagsShowcase.inputStyleClasses}"/>
+            <showcase:tagEnumControl label="labelStyleClass"
+                                     value="#{tagsShowcase.labelStyleClass}"
+                                     values="#{tagsShowcase.labelStyleClasses}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="HTML5 tag attributes">
+            <showcase:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{tagsShowcase.autoFocus}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{tagsShowcase.ajaxType}"
+                                     values="#{tagsShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="calendar"
+                                         component="#{tagsShowcase}">
+            <b:tags id="tags"
+                    label="#{tagsShowcase.label}"
+                    hideLabel="#{tagsShowcase.hideLabel}"
+                    value="#{tagsShowcase.value}"
+                    tooltip="#{tagsShowcase.tooltip}"
+                    readonly="#{tagsShowcase.readonly}"
+                    required="#{tagsShowcase.required}"
+                    rendered="#{tagsShowcase.rendered}"
+                    placeholder="#{tagsShowcase.placeholder}"
+                    autoFocus="#{tagsShowcase.autoFocus}"
+                    inputStyleClass="#{tagsShowcase.inputStyleClass}"
+                    labelStyleClass="#{tagsShowcase.labelStyleClass}"
+                    styleClass="#{tagsShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not tagsShowcase.ajax}"/>
+            </b:tags>
+
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{tagsShowcase}"/>
+        <b:activateLibraries />
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('tags');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

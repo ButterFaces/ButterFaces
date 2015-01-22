@@ -52,7 +52,7 @@ public class SectionRenderer extends HtmlBasicRenderer {
         final UIComponent additionalHeader = this.getFacet(component, "additional-header");
         final boolean labelNotEmpty = StringUtils.isNotEmpty(section.getLabel());
 
-        if (labelNotEmpty || additionalHeader != null) {
+        if (labelNotEmpty) {
             writer.startElement(ELEMENT_DIV, component);
             writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title", null);
 

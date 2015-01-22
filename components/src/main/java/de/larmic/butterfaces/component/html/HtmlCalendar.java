@@ -1,5 +1,8 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -20,7 +23,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlCalendar.COMPONENT_TYPE)
-public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
+public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder {
 
 	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.calendar";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -75,19 +78,23 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
         this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
     }
 
+	@Override
 	public String getPlaceholder() {
 		return (String) this.getStateHelper().eval(PROPERTY_HTML5_PLACEHOLDER);
 	}
 
+	@Override
 	public void setPlaceholder(final String placeholder) {
 		this.updateStateHelper(PROPERTY_HTML5_PLACEHOLDER, placeholder);
 	}
 
+	@Override
     public boolean getAutoFocus() {
 		final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
 		return eval == null ? false : (Boolean) eval;
     }
 
+	@Override
     public void setAutoFocus(final boolean autoFocus) {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }

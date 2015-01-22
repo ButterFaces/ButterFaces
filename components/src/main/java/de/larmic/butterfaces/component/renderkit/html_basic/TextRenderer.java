@@ -8,6 +8,8 @@ import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlText;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -97,8 +99,22 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         // render tooltip elements if necessary
         new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
 
+        this.encodeEnd(component, writer);
+
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
+        // override me
+    }
+
+    /**
+     * Helper to call super end from sub classes without calling encodeEnd of this class. This is not nice but is works at this time.
+     * TODO fix it.
+     */
+    protected void encodeSuperEnd(final FacesContext context, final UIComponent component) throws IOException {
+        super.encodeEnd(context, component);
     }
 
     /**
@@ -177,23 +193,32 @@ public class TextRenderer extends HtmlBasicInputRenderer {
     }
 
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof AutoFocus) {
+            final AutoFocus autoFocus = (AutoFocus) component;
+
+            if (autoFocus.getAutoFocus()) {
+                writer.writeAttribute("autofocus", "true", null);
+            }
+        }
+
+        if (component instanceof Placeholder) {
+            final Placeholder placeholder = (Placeholder) component;
+
+            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
+            htmlAttributePartRenderer.writePlaceholderAttribute(writer, placeholder.getPlaceholder());
+        }
+
         if (component instanceof HtmlText) {
             final HtmlText inputComponent = (HtmlText) component;
 
             final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
-
-            htmlAttributePartRenderer.writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
             htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
             htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
             htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
             htmlAttributePartRenderer.writeTypeAttribute(writer, inputComponent.getType());
-
-            if (inputComponent.getAutoFocus()) {
-                writer.writeAttribute("autofocus", "true", null);
-            }
-        } else {
-            writer.writeAttribute("type", "text", null);
         }
+
+        writer.writeAttribute("type", "text", null);
     }
 
 
