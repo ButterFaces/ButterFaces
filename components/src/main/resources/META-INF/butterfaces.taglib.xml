@@ -121,6 +121,10 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>sideBySide</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>

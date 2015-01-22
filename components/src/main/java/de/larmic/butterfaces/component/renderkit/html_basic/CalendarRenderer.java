@@ -98,6 +98,7 @@ public class CalendarRenderer extends HtmlBasicInputRenderer {
         jQueryPluginCall.append("datetimepicker({");
         jQueryPluginCall.append("pickTime: " + calendar.isPickTime() + ",");
         jQueryPluginCall.append("pickDate: " + calendar.isPickDate() + ",");
+        jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
         jQueryPluginCall.append("date: '" + calendarDate + "',");

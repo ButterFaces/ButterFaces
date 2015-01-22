@@ -27,6 +27,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private boolean autoFocus;
     private boolean pickDate = true;
     private boolean pickTime = true;
+    private boolean sideBySise = false;
     private String language = "en";
 
     @Override
@@ -49,6 +50,9 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
+        xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
+        xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
@@ -166,5 +170,13 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     public String getGlyphiconDown() {
         return glyphiconDown;
+    }
+
+    public boolean isSideBySise() {
+        return sideBySise;
+    }
+
+    public void setSideBySise(boolean sideBySise) {
+        this.sideBySise = sideBySise;
     }
 }

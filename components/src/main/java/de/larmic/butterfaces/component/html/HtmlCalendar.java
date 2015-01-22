@@ -39,6 +39,7 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
 	protected static final String PROPERTY_PICK_DATE = "pickDate";
 	protected static final String PROPERTY_PICK_TIME = "pickTime";
 	protected static final String PROPERTY_LANGUAGE = "language";
+	protected static final String PROPERTY_SIDE_BY_SIDE = "sideBySide";
 
 	public HtmlCalendar() {
 		super();
@@ -105,6 +106,14 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent {
 
 	public void setPickTime(boolean pickTime) {
 		getStateHelper().put(PROPERTY_PICK_TIME, pickTime);;
+	}
+
+	public boolean isSideBySide() {
+		return Boolean.valueOf(getStateHelper().eval(PROPERTY_SIDE_BY_SIDE, Boolean.FALSE).toString());
+	}
+
+	public void setSideBySide(boolean sideBySide) {
+		getStateHelper().put(PROPERTY_SIDE_BY_SIDE, sideBySide);
 	}
 
 	public String getLanguage() {
