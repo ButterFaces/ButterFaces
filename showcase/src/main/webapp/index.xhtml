@@ -5,6 +5,14 @@
 
     <ui:define name="content">
 
+        <ui:remove>
+            <!--
+                use style class newFeature to mark a component as new feature
+                use style class experimental to mark a component as experimental (or in progress)
+                don't forget to mark element in header component too
+            -->
+        </ui:remove>
+
         <div class="jumbotron">
             <h2>ButterFaces
                 <small>a smart JSF framework</small>
@@ -202,7 +210,7 @@
                                     </li>
                                     <hr/>
                                     <li class="dropdown-header" role="presentation">Data iteration</li>
-                                    <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table experimental" title="Butterfaces table component"/></li>
+                                    <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table newFeature" title="Butterfaces table component"/></li>
                                     <li><h:link value="b:tree" outcome="/tree" styleClass="arquillian_tree" title="Butterfaces tree component"/></li>
                                     <hr/>
                                     <li class="dropdown-header" role="presentation">Actions</li>
