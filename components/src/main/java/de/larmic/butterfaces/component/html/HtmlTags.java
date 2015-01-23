@@ -36,6 +36,11 @@ public class HtmlTags extends HtmlInputText implements HtmlInputComponent, AutoF
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
+	protected static final String PROPERTY_MAX_TAGS = "maxTags";
+	protected static final String PROPERTY_MAX_CHARS = "maxChars";
+	protected static final String PROPERTY_TRIM_VALUE = "trimValue";
+	protected static final String PROPERTY_ALLOW_DUPLICATES = "allowDuplicates";
+
 	public HtmlTags() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
@@ -108,6 +113,40 @@ public class HtmlTags extends HtmlInputText implements HtmlInputComponent, AutoF
     public void setLabelStyleClass(final String labelStyleClass) {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
+
+	public Integer getMaxTags() {
+		return (Integer) this.getStateHelper().eval(PROPERTY_MAX_TAGS);
+	}
+
+	public void setMaxTags(Integer maxTags) {
+		this.updateStateHelper(PROPERTY_MAX_TAGS, maxTags);
+	}
+
+	public Integer getMaxChars() {
+		return (Integer) this.getStateHelper().eval(PROPERTY_MAX_CHARS);
+	}
+
+	public void setMaxChars(Integer maxChars) {
+		this.updateStateHelper(PROPERTY_MAX_CHARS, maxChars);
+	}
+
+	public boolean isTrimValue() {
+		final Object eval = this.getStateHelper().eval(PROPERTY_TRIM_VALUE);
+		return eval == null ? false : (Boolean) eval;
+	}
+
+	public void setTrimValue(boolean trimValue) {
+		this.updateStateHelper(PROPERTY_TRIM_VALUE, trimValue);
+	}
+
+	public boolean isAllowDuplicates() {
+		final Object eval = this.getStateHelper().eval(PROPERTY_ALLOW_DUPLICATES);
+		return eval == null ? false : (Boolean) eval;
+	}
+
+	public void setAllowDuplicates(boolean allowDuplicates) {
+		this.updateStateHelper(PROPERTY_ALLOW_DUPLICATES, allowDuplicates);
+	}
 
 	private void updateStateHelper(final String propertyName, final Object value) {
 		this.getStateHelper().put(propertyName, value);

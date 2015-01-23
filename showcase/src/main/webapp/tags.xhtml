@@ -26,6 +26,11 @@
             <showcase:tagEnumControl label="labelStyleClass"
                                      value="#{tagsShowcase.labelStyleClass}"
                                      values="#{tagsShowcase.labelStyleClasses}"/>
+            <showcase:tagBooleanControl label="allowDuplicates" value="#{tagsShowcase.allowDuplicates}"/>
+            <!-- plugin error trim value does not work correclty -->
+            <!--showcase:tagBooleanControl label="trimValue" value="#{tagsShowcase.trimValue}"/-->
+            <showcase:tagStringControl label="maxChars" value="#{tagsShowcase.maxChars}"/>
+            <showcase:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -51,6 +56,10 @@
                     label="#{tagsShowcase.label}"
                     hideLabel="#{tagsShowcase.hideLabel}"
                     value="#{tagsShowcase.value}"
+                    allowDuplicates="#{tagsShowcase.allowDuplicates}"
+                    trimValue="#{tagsShowcase.trimValue}"
+                    maxChars="#{tagsShowcase.maxChars}"
+                    maxTags="#{tagsShowcase.maxTags}"
                     tooltip="#{tagsShowcase.tooltip}"
                     readonly="#{tagsShowcase.readonly}"
                     required="#{tagsShowcase.required}"

@@ -17,6 +17,10 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     private String placeholder = "Enter text...";
     private boolean autoFocus;
+    private boolean allowDuplicates;
+    private boolean trimValue;
+    private Integer maxTags;
+    private Integer maxChars;
 
     @Override
     protected Object initValue() {
@@ -35,6 +39,11 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("        <b:tags id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                allowDuplicates=\"" + allowDuplicates + "\"");
+        //  plugin error trim value does not work correclty
+        //xhtmlCodeExample.appendInnerContent("                trimValue=\"" + trimValue + "\"");
+        xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
+        xhtmlCodeExample.appendInnerContent("                maxChars=\"" + maxChars + "\"");
         xhtmlCodeExample.appendInnerContent("                tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
@@ -78,5 +87,37 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public boolean isAllowDuplicates() {
+        return allowDuplicates;
+    }
+
+    public void setAllowDuplicates(boolean allowDuplicates) {
+        this.allowDuplicates = allowDuplicates;
+    }
+
+    public boolean isTrimValue() {
+        return trimValue;
+    }
+
+    public void setTrimValue(boolean trimValue) {
+        this.trimValue = trimValue;
+    }
+
+    public Integer getMaxTags() {
+        return maxTags;
+    }
+
+    public void setMaxTags(Integer maxTags) {
+        this.maxTags = maxTags;
+    }
+
+    public Integer getMaxChars() {
+        return maxChars;
+    }
+
+    public void setMaxChars(Integer maxChars) {
+        this.maxChars = maxChars;
     }
 }

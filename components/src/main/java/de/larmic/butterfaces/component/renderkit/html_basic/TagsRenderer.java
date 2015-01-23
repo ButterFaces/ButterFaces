@@ -35,7 +35,18 @@ public class TagsRenderer extends TextRenderer {
     private String createJQueryPluginCall(HtmlTags tags) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        jQueryPluginCall.append("tagsinput()");
+        jQueryPluginCall.append("tagsinput({");
+
+        if (tags.getMaxChars() != null) {
+            jQueryPluginCall.append("maxChars: " + tags.getMaxChars() + ",");
+        }
+        if (tags.getMaxTags() != null) {
+            jQueryPluginCall.append("maxTags: " + tags.getMaxChars() + ",");
+        }
+
+        jQueryPluginCall.append("trimValue: " + tags.isTrimValue() + ",");
+        jQueryPluginCall.append("allowDuplicates: " + tags.isAllowDuplicates() + ",");
+        jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }
 }
