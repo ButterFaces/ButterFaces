@@ -19,6 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.js", target = "head"),
+		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-tags.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)
