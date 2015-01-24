@@ -88,6 +88,32 @@
                 </div>
             </div>
 
+            <div class="socialNetwork">
+                <div class="googleplus">
+                    <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
+                    <script src="https://apis.google.com/js/platform.js"></script>
+
+                    <!-- Fügen Sie dieses Tag an der Stelle ein, an der die Widget erscheinen soll. -->
+                    <div class="g-follow" data-annotation="bubble" data-height="20"
+                         data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
+                </div>
+
+                <div class="facebook">
+                    <div id="fb-root"></div>
+                    <script>(function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&amp;version=v2.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+
+                    <div class="fb-like" data-href="https://www.facebook.com/ButterfacesJSF" data-layout="button_count"
+                         data-action="like" data-show-faces="true" data-share="true"></div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
