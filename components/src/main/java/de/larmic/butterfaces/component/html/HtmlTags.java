@@ -20,7 +20,8 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-tags.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tagsinput.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)
 public class HtmlTags extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder {

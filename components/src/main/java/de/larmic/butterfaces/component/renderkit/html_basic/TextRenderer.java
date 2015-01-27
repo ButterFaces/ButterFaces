@@ -43,11 +43,8 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         // Render label if components label attribute is set
         new LabelPartRenderer().renderLabel(htmlComponent, writer);
 
-        // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
-
-        // Render readonly span if components readonly attribute is set
-        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+        this.encodeBeginInnerWrapper(htmlComponent, writer);
+        this.encodeReadonly(htmlComponent, writer);
     }
 
     @Override
@@ -61,7 +58,22 @@ public class TextRenderer extends HtmlBasicInputRenderer {
         final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        if (!htmlComponent.isReadonly()) {
+        encodeEndContent(context, component, htmlComponent, writer, htmlComponent.isReadonly());
+
+        this.encodeEndInnerWrapper(htmlComponent, writer);
+
+
+        // render tooltip elements if necessary
+        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+
+        this.encodeEnd(component, writer);
+
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer, boolean readonly) throws IOException {
+        if (!readonly) {
             final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
             final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
             final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
@@ -92,17 +104,21 @@ public class TextRenderer extends HtmlBasicInputRenderer {
                 writer.endElement("span");
             }
         }
+    }
 
+    protected void encodeReadonly(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+        // Render readonly span if components readonly attribute is set
+        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+    }
+
+    protected void encodeEndInnerWrapper(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
         // Close inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+    }
 
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
-
-        this.encodeEnd(component, writer);
-
-        // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    protected void encodeBeginInnerWrapper(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+        // Open inner component wrapper div
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
     }
 
     protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
