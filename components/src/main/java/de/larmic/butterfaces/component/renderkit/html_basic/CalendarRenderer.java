@@ -10,7 +10,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
-public class CalendarRenderer extends TextRenderer {
+public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {

@@ -12,15 +12,15 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
-public class TagsRenderer extends TextRenderer {
+public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
 
     @Override
-    protected void encodeEndInnerWrapper(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+    protected void encodeEndInnerWrapper(HtmlTags htmlComponent, ResponseWriter writer) throws IOException {
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer, false);
     }
 
     @Override
-    protected void encodeBeginInnerWrapper(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+    protected void encodeBeginInnerWrapper(HtmlTags htmlComponent, ResponseWriter writer) throws IOException {
         new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer, false);
     }
 
@@ -30,10 +30,9 @@ public class TagsRenderer extends TextRenderer {
     }
 
     @Override
-    protected void encodeReadonly(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
-        // do nothing
+    protected boolean encodeReadonly() {
+        return false;
     }
-
 
     @Override
     protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
