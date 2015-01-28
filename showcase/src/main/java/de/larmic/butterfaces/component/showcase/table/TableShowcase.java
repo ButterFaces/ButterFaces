@@ -17,7 +17,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -85,38 +84,26 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             return filteredStringPairs;
         }
 
-        if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o1.getA().compareTo(o2.getA());
-                }
-            });
-        } else if (this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o2.getA().compareTo(o1.getA());
-                }
-            });
-        }
-        if (this.tableModel.getTableSortModel().getSortType("column2") == SortType.ASCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o1.getB().compareTo(o2.getB());
-                }
-            });
-        } else if (this.tableModel.getTableSortModel().getSortType("column2") == SortType.DESCENDING) {
-            Collections.sort(stringPairs, new Comparator<StringPair>() {
-                @Override
-                public int compare(StringPair o1, StringPair o2) {
-                    return o2.getB().compareTo(o1.getB());
-                }
-            });
+        if (this.shouldReverseRows()) {
+            Collections.reverse(stringPairs);
         }
 
         return stringPairs;
+    }
+
+    private boolean shouldReverseRows() {
+        if ((this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING
+                || this.tableModel.getTableSortModel().getSortType("column2") == SortType.ASCENDING)
+                && !stringPairs.get(0).getA().equals("r1c1")) {
+            return true;
+        } else if ((this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING
+                || this.tableModel.getTableSortModel().getSortType("column2") == SortType.DESCENDING)
+                && stringPairs.get(0).getA().equals("r1c1")) {
+            return true;
+        }
+
+
+        return false;
     }
 
     @Override
