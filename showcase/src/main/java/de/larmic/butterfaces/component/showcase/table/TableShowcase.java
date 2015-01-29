@@ -129,6 +129,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             xhtmlCodeExample.appendInnerContent("                    hideLabel=\"true\">");
             xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"input\"/>");
             xhtmlCodeExample.appendInnerContent("            </b:text>");
+        } else if (toolBarType == ToolBarType.CLIENT_FILTER) {
+            xhtmlCodeExample.appendInnerContent("            <div class=\"form-inline pull-left\" role=\"form\">");
+            xhtmlCodeExample.appendInnerContent("                <div class=\"form-group\">");
+            xhtmlCodeExample.appendInnerContent("                    <input type=\"text\"");
+            xhtmlCodeExample.appendInnerContent("                           class=\"form-control jQueryPluginSelector\"");
+            xhtmlCodeExample.appendInnerContent("                           placeholder=\"Enter text...\"");
+            xhtmlCodeExample.appendInnerContent("                           data-filterable-item-container=\".butter-table\"/>");
+            xhtmlCodeExample.appendInnerContent("                </div>");
+            xhtmlCodeExample.appendInnerContent("            </div>");
         }
         xhtmlCodeExample.appendInnerContent("        </b:tableToolbar>\n");
 
@@ -140,6 +149,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         }
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
             xhtmlCodeExample.appendInnerContent("                 singleSelectionListener=\"#{myBean}\"");
+        }
+        if (toolBarType == ToolBarType.CLIENT_FILTER) {
+            xhtmlCodeExample.appendInnerContent("                 rowClass=\"filterable-item\"");
         }
         xhtmlCodeExample.appendInnerContent("                 tableBordered=\"" + this.tableBordered + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableCondensed=\"" + this.tableCondensed + "\"");
@@ -210,6 +222,14 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             xhtmlCodeExample.appendInnerContent("            <h:output value=\"#{myBean.selectedRow.a}\"");
             xhtmlCodeExample.appendInnerContent("                      rendered=\"#{not empty myBean.selectedRow}\"/>");
             xhtmlCodeExample.appendInnerContent("        <h:panelGroup/>");
+        }
+
+        if (toolBarType == ToolBarType.CLIENT_FILTER) {
+            xhtmlCodeExample.appendInnerContent("\n        /* activate client side filter jquery plugin */");
+            xhtmlCodeExample.appendInnerContent("        <b:activateLibraries>");
+            xhtmlCodeExample.appendInnerContent("        <script type=\"text/javascript\">");
+            xhtmlCodeExample.appendInnerContent("            jQuery('.jQueryPluginSelector').itemFilterField();");
+            xhtmlCodeExample.appendInnerContent("        </script>");
         }
 
         return xhtmlCodeExample;
