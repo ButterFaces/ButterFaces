@@ -69,11 +69,11 @@
             </style>
         </h:panelGroup>
 
-        <b:tableHeader tableId="filterTable"
-                       showRefreshButton="#{tableShowcase.showRefreshButton}"
-                       showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
-                       rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
-            <f:ajax />
+        <b:tableToolbar tableId="filterTable"
+                        showRefreshButton="#{tableShowcase.showRefreshButton}"
+                        showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
+                        rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+            <f:ajax/>
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...
             </h:panelGroup>
@@ -86,7 +86,7 @@
                     <f:ajax event="keyup" render="filterTable"/>
                 </b:text>
             </h:panelGroup>
-        </b:tableHeader>
+        </b:tableToolbar>
 
         <b:table id="filterTable"
                  var="rowItem"

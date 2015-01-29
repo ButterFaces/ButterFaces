@@ -733,9 +733,9 @@
         </attribute>
     </tag>
     <tag>
-        <tag-name>tableHeader</tag-name>
+        <tag-name>tableToolbar</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.table.header</component-type>
+            <component-type>de.larmic.butterfaces.component.table.toolbar</component-type>
         </component>
         <attribute>
             <name>rendered</name>

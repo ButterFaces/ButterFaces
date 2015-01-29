@@ -113,10 +113,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(true);
-        xhtmlCodeExample.appendInnerContent("        <b:tableHeader tableId=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                       showRefreshButton=\"" + this.showRefreshButton + "\"");
-        xhtmlCodeExample.appendInnerContent("                       showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
-        xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + ">");
+        xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                        showRefreshButton=\"" + this.showRefreshButton + "\"");
+        xhtmlCodeExample.appendInnerContent("                        showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
+        xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
         if (this.toolBarType == ToolBarType.TEXT) {
@@ -130,7 +130,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"input\"/>");
             xhtmlCodeExample.appendInnerContent("            </b:text>");
         }
-        xhtmlCodeExample.appendInnerContent("        </b:tableHeader>\n");
+        xhtmlCodeExample.appendInnerContent("        </b:tableToolbar>\n");
 
         xhtmlCodeExample.appendInnerContent("        <b:table id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                 var=\"rowItem\"");

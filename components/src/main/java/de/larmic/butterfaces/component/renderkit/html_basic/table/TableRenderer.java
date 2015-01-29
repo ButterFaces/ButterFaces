@@ -19,7 +19,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by larmic on 10.09.14.
@@ -140,7 +143,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                         ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
                         final String script = ajaxBehavior.getScript(behaviorContext);
                         final String correctedScript = script.replace(",'click',", ",'sort_" + columnNumber + "',");
-                        writer.writeAttribute("onclick", correctedScript + ";", null);
+                        writer.writeAttribute("onclick", this.removeExecutePart(correctedScript, htmlTable) + ";", null);
                     }
                 }
             }
@@ -175,6 +178,17 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
         writer.endElement("tr");
         writer.endElement("thead");
+    }
+
+    private String removeExecutePart(final String script, final HtmlTable table) {
+        final String clientId = table.getClientId();
+        final int indexRemoveBegin = script.lastIndexOf(clientId);
+        final int indexRemoveEnd = indexRemoveBegin + clientId.length();
+
+        final String firstPart = script.substring(0, indexRemoveBegin);
+        final String lastPart = script.substring(indexRemoveEnd);
+
+        return firstPart + "@this" + lastPart;
     }
 
     private String getSortAscendingClass(final HtmlTable table) {
