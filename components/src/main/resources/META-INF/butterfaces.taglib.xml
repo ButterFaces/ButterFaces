@@ -731,6 +731,12 @@
             <type>java.lang.String</type>
             <required>false</required>
         </attribute>
+        <attribute>
+            <description>Optional row style class</description>
+            <name>rowClass</name>
+            <type>java.lang.String</type>
+            <required>false</required>
+        </attribute>
     </tag>
     <tag>
         <tag-name>tableToolbar</tag-name>

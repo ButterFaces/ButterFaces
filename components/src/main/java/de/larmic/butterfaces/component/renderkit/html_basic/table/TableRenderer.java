@@ -288,7 +288,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
-        writer.writeAttribute("class", "butter-table-row", null);
+        final String rowClass = StringUtils.isNotEmpty(htmlTable.getRowClass()) ? "butter-table-row " + htmlTable.getRowClass() : "butter-table-row";
+        writer.writeAttribute("class", rowClass, null);
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
         if (behaviors.containsKey("click")) {

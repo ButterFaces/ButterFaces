@@ -77,7 +77,7 @@
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...
             </h:panelGroup>
-            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'INPUT'}">
+            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'SERVER_FILTER'}">
                 <b:text value="#{tableShowcase.filterValue}"
                         placeholder="Enter text..."
                         hideLabel="true"
@@ -85,6 +85,16 @@
                         inputStyleClass="col-sm-6">
                     <f:ajax event="keyup" render="filterTable"/>
                 </b:text>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'CLIENT_FILTER'}">
+                <div class="form-inline pull-left" role="form">
+                    <div class="form-group">
+                        <input type="text"
+                               class="form-control jQueryPluginSelector"
+                               placeholder="Enter text..."
+                               data-filterable-item-container=".butter-table"/>
+                    </div>
+                </div>
             </h:panelGroup>
         </b:tableToolbar>
 
@@ -96,6 +106,7 @@
                  tableCondensed="#{tableShowcase.tableCondensed}"
                  tableStriped="#{tableShowcase.tableStriped}"
                  tableBordered="#{tableShowcase.tableBordered}"
+                 rowClass="#{tableShowcase.rowClass}"
                  sortAscendingClass="fa fa-sort-down"
                  sortDescendingClass="fa fa-sort-up"
                  sortUndefinedClass="fa fa-sort"
@@ -118,7 +129,7 @@
                       label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcase.doSomethingWithRow(rowItem)}">
+                               action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
@@ -149,7 +160,7 @@
                       label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcase.doSomethingWithRow(rowItem)}">
+                               action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
@@ -194,6 +205,9 @@
             jQuery(document).ready(function () {
                 setActiveNavigation('table');
             });
+            jQuery('.jQueryPluginSelector').itemFilterField();
         </script>
+
+        <b:activateLibraries />
     </ui:define>
 </ui:composition>

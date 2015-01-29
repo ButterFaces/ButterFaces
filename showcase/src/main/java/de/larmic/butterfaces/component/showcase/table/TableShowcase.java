@@ -32,7 +32,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
     private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
-    private ToolBarType toolBarType = ToolBarType.INPUT;
+    private ToolBarType toolBarType = ToolBarType.SERVER_FILTER;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     private boolean tableCondensed;
@@ -71,7 +71,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             stringPairs.add(new StringPair("r7c1", "r7c2"));
         }
 
-        if (toolBarType == ToolBarType.INPUT && StringUtils.isNotEmpty(filterValue)) {
+        if (toolBarType == ToolBarType.SERVER_FILTER && StringUtils.isNotEmpty(filterValue)) {
             final List<StringPair> filteredStringPairs = new ArrayList<>();
 
             for (StringPair stringPair : stringPairs) {
@@ -121,7 +121,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
         if (this.toolBarType == ToolBarType.TEXT) {
             xhtmlCodeExample.appendInnerContent("            Custom toolbar text...");
-        } else if (this.toolBarType == ToolBarType.INPUT) {
+        } else if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             xhtmlCodeExample.appendInnerContent("            <b:text value=\"#{myBean.filterValue}\"");
             xhtmlCodeExample.appendInnerContent("                    placeholder=\"Enter text...\"");
             xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"col-sm-6\"");
@@ -236,7 +236,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
             myBean.appendInnerContent("    private TableModel tableModel = new DefaultTableModel();\n");
         }
-        if (this.toolBarType == ToolBarType.INPUT) {
+        if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             myBean.appendInnerContent("    private String filterValue;\n");
         }
 
@@ -252,7 +252,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         if (this.selectionAjaxType == SelectionAjaxType.AJAX && this.tableModelType == TableModelType.DEFAULT_MODEL) {
             myBean.appendInnerContent("        // TODO sort by table model");
         }
-        if (this.toolBarType == ToolBarType.INPUT) {
+        if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             myBean.appendInnerContent("        return this.filterByValue(pairs, this.filterValue);");
         } else {
             myBean.appendInnerContent("        return pairs;");
@@ -267,7 +267,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.appendInnerContent("    }\n");
         }
 
-        if (this.toolBarType == ToolBarType.INPUT) {
+        if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             myBean.appendInnerContent("    public List<StringPair> filterByValue(final List<StringPair> pairs,");
             myBean.appendInnerContent("                                          final String filterValue) {");
             myBean.appendInnerContent("        // TODO implement me");
@@ -345,7 +345,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         return items;
     }
 
-    public void doSomethingWithRow(final StringPair selectedValue) {
+    public void doSomethingWith(final StringPair selectedValue) {
         this.doSomethingWithRow = "I have done something with " + (selectedValue == null ? "null" : selectedValue.getA());
     }
 
@@ -486,6 +486,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public void setFilterValue(String filterValue) {
         this.filterValue = filterValue;
+    }
+
+    public String getRowClass() {
+        return toolBarType == ToolBarType.CLIENT_FILTER ? "filterable-item" : null;
     }
 }
 
