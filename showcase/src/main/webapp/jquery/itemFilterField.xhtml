@@ -1,0 +1,17 @@
+<ui:composition template="/WEB-INF/templates/defaultJQueryBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>b:table</strong> The table tag renders an HTML element of the type "table".
+    </ui:define>
+
+
+    <ui:define name="other">
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('itemFilterField');
+            });
+        </script>
+    </ui:define>
+</ui:composition>
