@@ -1,17 +1,47 @@
 <ui:composition template="/WEB-INF/templates/defaultJQueryBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
-        <strong>b:table</strong> The table tag renders an HTML element of the type "table".
+        <strong>itemFilterField</strong> is a jQuery plugin that filters html element with the css class <code>filterable-item</code>.
+        It is applied to the search field.<br/>
+        If no filter text is entered, then all filterable-items are displayed. Else the search field value is matched against <b>all</b> text contained by a filterable-item.
     </ui:define>
 
+    <ui:define name="example">
+        <div class="form-inline small-margin-bottom">
+            <div class="form-group">
+                <label for="myItemFilterField" class="control-label">Filter:</label>
+                <input type="text" id="myItemFilterField" class="form-control" data-filterable-item-container="#itemContainer"/>
+            </div>
+        </div>
+        <div class="well" id="itemContainer">
+            <div class="filterable-item">
+                Some filterable item...
+            </div>
+            <div class="filterable-item">
+                Another <b>one</b>.
+            </div>
+            <div class="filterable-item">
+                And yet another one with slightly more text.
+            </div>
+            <div>
+                <i>This one will not get filtered out because it does not have the class <code>filterable-item</code>.</i>
+            </div>
+        </div>
+    </ui:define>
+
+    <ui:define name="codeExample">
+        <showcase:codeExamples component="#{itemFilterFieldShowcase}"/>
+    </ui:define>
 
     <ui:define name="other">
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 setActiveNavigation('itemFilterField');
             });
+            jQuery('#myItemFilterField').itemFilterField();
         </script>
     </ui:define>
 </ui:composition>

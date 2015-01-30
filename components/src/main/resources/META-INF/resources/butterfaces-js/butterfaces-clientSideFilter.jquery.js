@@ -1,3 +1,13 @@
+/**
+ * itemFilterField is a jQuery plugin that filters html element with the css class <code>filterable-item</code>.
+ * It is applied to the search field.<br/>
+ * If no filter text is entered, then all filterable-items are displayed. Else the search field value is matched against <b>all</b> text contained by a filterable-item.
+ *
+ * How to use:
+ * jQuery("#someInputSelector").itemFilterField();
+ *
+ * Author: Yann Massard
+ */
 (function ($) {
     var delay = (function () {
         var timer = 0;
