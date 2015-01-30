@@ -228,7 +228,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             xhtmlCodeExample.appendInnerContent("\n        /* activate client side filter jquery plugin */");
             xhtmlCodeExample.appendInnerContent("        <b:activateLibraries>");
             xhtmlCodeExample.appendInnerContent("        <script type=\"text/javascript\">");
-            xhtmlCodeExample.appendInnerContent("            jQuery('.jQueryPluginSelector').itemFilterField();");
+            xhtmlCodeExample.appendInnerContent("            jQuery('.jQueryPluginSelector').butterItemFilterField();");
             xhtmlCodeExample.appendInnerContent("        </script>");
         }
 
