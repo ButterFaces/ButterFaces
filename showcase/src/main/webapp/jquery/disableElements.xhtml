@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/templates/defaultJQueryBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>itemFilterField</strong> is a jQuery plugin that filters html element with the css class <code>filterable-item</code>.
+        It is applied to the search field.<br/>
+        If no filter text is entered, then all filterable-items are displayed. Else the search field value is matched against <b>all</b> text contained by a filterable-item.
+    </ui:define>
+
+    <ui:define name="example">
+        <span id="disableBtn" class="btn btn-default" onclick="jQuery('.disableElementsContainer').butterDisableElements();">Disable</span>
+        <span id="enableBtn" class="btn btn-default" onclick="jQuery('.disableElementsContainer').butterEnableElements()">Enable</span>
+
+        <div class="alert alert-info disableElementsContainer">
+            <div>Some text...</div>
+            <div>Some other text...</div>
+            <div><input value="An input field"></input></div>
+        </div>
+    </ui:define>
+
+    <ui:define name="codeExample">
+        <showcase:codeExamples component="#{disableElementsShowcase}"/>
+    </ui:define>
+
+    <ui:define name="other">
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('disableElements');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

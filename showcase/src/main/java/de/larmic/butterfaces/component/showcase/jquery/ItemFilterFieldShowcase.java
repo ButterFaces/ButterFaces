@@ -44,7 +44,7 @@ public class ItemFilterFieldShowcase extends AbstractCodeShowcase implements Ser
         xhtmlCodeExample.appendInnerContent("            jQuery('#myItemFilterField').itemFilterField();");
         xhtmlCodeExample.appendInnerContent("        </script>");
 
-        xhtmlCodeExample.appendInnerContent("\n        /* add jquery plugins to html head part */");
+        xhtmlCodeExample.appendInnerContent("\n        /* add jQuery and jQuery plugins to html head part */");
         xhtmlCodeExample.appendInnerContent("        <b:activateLibraries />", false);
 
         codeExamples.add(xhtmlCodeExample);
