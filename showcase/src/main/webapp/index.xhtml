@@ -14,24 +14,24 @@
         </ui:remove>
 
         <div class="jumbotron">
-            <h2>ButterFaces
+            <h2><div class="logo" /> ButterFaces
                 <small>a smart JSF framework</small>
             </h2>
 
             <p>
                 Welcome to ButterFaces, a lightweight and modern JSF framework that combines the advantages from
                 <a href="http://getbootstrap.com/" target="_blank">Twitters Bootstrap</a>,
-                <a href="http://jquery.com/" target="_blank">JQuery</a> and HTML 5 to develop fast, easy and modern
+                <a href="http://jquery.com/" target="_blank">jQuery</a> and HTML 5 to develop fast, easy and modern
                 web applications using <a href="https://javaserverfaces.java.net/" target="_blank">Mojarra JSF 2</a>.
             </p>
 
             <div>
                 <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.8.jar">
+                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.9.jar">
                     <i class="fa fa-download"></i> Download ButterFaces library
                 </a>
                 <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.8-sources.jar">
+                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.9-sources.jar">
                     <i class="fa fa-download"></i> Download ButterFaces source
                 </a>
                 <div class="btn-group hidden-md hidden-lg">
@@ -43,12 +43,12 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.8.jar">
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.9/components-1.6.8.jar">
                                 <i class="fa fa-download"></i> Download ButterFaces library
                             </a>
                         </li>
                         <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.8/components-1.6.8-sources.jar">
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.9/components-1.6.8-sources.jar">
                                 <i class="fa fa-download"></i> Download ButterFaces source
                             </a>
                         </li>
@@ -88,6 +88,17 @@
                 </div>
             </div>
 
+            <div class="socialNetwork">
+                <div class="googleplus">
+                    <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
+                    <script src="https://apis.google.com/js/platform.js"></script>
+
+                    <!-- Fügen Sie dieses Tag an der Stelle ein, an der die Widget erscheinen soll. -->
+                    <div class="g-follow" data-annotation="bubble" data-height="20"
+                         data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -121,10 +132,10 @@
 
                         <p>
                             <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Based on Twitters Bootstrap and JQuery</b>
+                            <b>Based on Twitters Bootstrap and jQuery</b>
                         </p>
                         <h5>
-                            <small>The responsive design and JQuery plugins help to build great and smart applications with being browser independent at the same time.</small>
+                            <small>Bootstraps responsive design and jQuery plugins help to build great and smart applications with being browser independent at the same time.</small>
                         </h5>
 
                         <p>
@@ -162,7 +173,7 @@
                             <b>No additional css and js library</b>
                         </p>
                         <h5>
-                            <small>ButterFaces comes up with Bootstrap and JQuery. No need to add it to your application by yourself (but of course you can).</small>
+                            <small>ButterFaces comes up with Bootstrap and jQuery. No need to add it to your application by yourself (but of course you can).</small>
                         </h5>
 
                         <p>
@@ -200,6 +211,9 @@
                                     <li><h:link value="b:activateLibraries" outcome="/activateLibraries" styleClass="arquillian_activateLibraries" title="Butterfaces active libraries component"/></li>
                                     <li><h:link value="b:defaultAction" outcome="/defaultAction" styleClass="arquillian_defaultAction" title="Butterfaces default action component"/></li>
                                     <li><h:link value="b:waitingPanel" outcome="/waitingPanel" styleClass="arquillian_waitingPanel" title="Butterfaces waiting panel component"/></li>
+                                    <hr />
+                                    <li class="dropdown-header" role="presentation">Actions</li>
+                                    <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link" title="Butterfaces command link and button component"/></li>
                                 </ul>
                             </div>
                             <div class="col-sm-6">
@@ -214,8 +228,9 @@
                                     <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table newFeature" title="Butterfaces table component"/></li>
                                     <li><h:link value="b:tree" outcome="/tree" styleClass="arquillian_tree" title="Butterfaces tree component"/></li>
                                     <hr/>
-                                    <li class="dropdown-header" role="presentation">Actions</li>
-                                    <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link" title="Butterfaces command link and button component"/></li>
+                                    <li class="dropdown-header" role="presentation">jQuery Plugins</li>
+                                    <li><h:link value="$.itemFilterField" outcome="/jquery/itemFilterField" title="Butterfaces JQuery client side filtering component"/></li>
+                                    <li><h:link value="$.disableElements" outcome="/jquery/disableElements" title="Butterfaces JQuery disable and enable elements component"/></li>
                                 </ul>
                             </div>
                         </div>

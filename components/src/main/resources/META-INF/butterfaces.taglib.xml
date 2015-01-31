@@ -735,11 +735,17 @@
             <type>java.lang.String</type>
             <required>false</required>
         </attribute>
+        <attribute>
+            <description>Optional row style class</description>
+            <name>rowClass</name>
+            <type>java.lang.String</type>
+            <required>false</required>
+        </attribute>
     </tag>
     <tag>
-        <tag-name>tableHeader</tag-name>
+        <tag-name>tableToolbar</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.table.header</component-type>
+            <component-type>de.larmic.butterfaces.component.table.toolbar</component-type>
         </component>
         <attribute>
             <name>rendered</name>

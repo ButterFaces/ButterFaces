@@ -19,9 +19,15 @@ public class InnerComponentWrapperPartRenderer {
 
     public void renderInnerWrapperBegin(final HtmlInputComponent component,
                                         final ResponseWriter writer) throws IOException {
+        this.renderInnerWrapperBegin(component, writer, component.isReadonly());
+    }
+
+    public void renderInnerWrapperBegin(final HtmlInputComponent component,
+                                        final ResponseWriter writer,
+                                        final boolean readonly) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
-        if (!component.isReadonly()) {
+        if (!readonly) {
             writer.startElement("div", uiComponent);
             writer.writeAttribute("class", this.createComponentStyleClass(component), null);
         }
@@ -65,9 +71,15 @@ public class InnerComponentWrapperPartRenderer {
         return defaultStyleClass.toString();
     }
 
-    public void renderInnerWrapperEnd(final HtmlInputComponent component, final ResponseWriter writer)
-            throws IOException {
-        if (!component.isReadonly()) {
+    public void renderInnerWrapperEnd(final HtmlInputComponent component,
+                                      final ResponseWriter writer) throws IOException {
+        this.renderInnerWrapperEnd(component, writer, component.isReadonly());
+    }
+
+    public void renderInnerWrapperEnd(final HtmlInputComponent component,
+                                      final ResponseWriter writer,
+                                      final boolean readonly) throws IOException {
+        if (!readonly) {
             final UIInput uiComponent = (UIInput) component;
 
             writer.endElement("div");

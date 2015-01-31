@@ -20,10 +20,10 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head")
 })
-@FacesComponent(HtmlTableHeader.COMPONENT_TYPE)
-public class HtmlTableHeader extends UIComponentBase implements ClientBehaviorHolder {
+@FacesComponent(HtmlTableToolbar.COMPONENT_TYPE)
+public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table.header";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table.toolbar";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableHeaderRenderer";
 
@@ -32,7 +32,7 @@ public class HtmlTableHeader extends UIComponentBase implements ClientBehaviorHo
     protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
 
 
-    public HtmlTableHeader() {
+    public HtmlTableToolbar() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }

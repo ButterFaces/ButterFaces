@@ -2,7 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.component.html.table.HtmlTableHeader;
+import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
@@ -24,8 +24,8 @@ import java.util.Map;
 /**
  * Created by larmic on 10.09.14.
  */
-@FacesRenderer(componentFamily = HtmlTableHeader.COMPONENT_FAMILY, rendererType = HtmlTableHeader.RENDERER_TYPE)
-public class TableHeaderRenderer extends HtmlBasicRenderer {
+@FacesRenderer(componentFamily = HtmlTableToolbar.COMPONENT_FAMILY, rendererType = HtmlTableToolbar.RENDERER_TYPE)
+public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private HtmlTable cachedTableComponent;
 
@@ -40,7 +40,7 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
 
         super.encodeBegin(context, component);
 
-        final HtmlTableHeader tableHeader = (HtmlTableHeader) component;
+        final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
         this.cachedTableComponent = new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTable.class);
 
@@ -67,7 +67,7 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
                           final UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
-        final HtmlTableHeader tableHeader = (HtmlTableHeader) component;
+        final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
         final String toolbarColumnSize = component.getChildCount() > 0 ? "col-sm-3" : "col-sm-12";
@@ -90,7 +90,7 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
-        final HtmlTableHeader htmlTableHeader = (HtmlTableHeader) component;
+        final HtmlTableToolbar htmlTableHeader = (HtmlTableToolbar) component;
         final Map<String, List<ClientBehavior>> behaviors = htmlTableHeader.getClientBehaviors();
 
         if (behaviors.isEmpty()) {
@@ -123,7 +123,7 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarToggleColumnButton(final FacesContext context,
                                                       final ResponseWriter writer,
-                                                      final HtmlTableHeader tableHeader) throws IOException {
+                                                      final HtmlTableToolbar tableHeader) throws IOException {
         if (tableHeader.isShowToggleColumnButton()) {
             // show and hide option toggle
             writer.startElement("a", tableHeader);
@@ -207,7 +207,7 @@ public class TableHeaderRenderer extends HtmlBasicRenderer {
     }
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
-                                                 final HtmlTableHeader tableHeader) throws IOException {
+                                                 final HtmlTableToolbar tableHeader) throws IOException {
         if (tableHeader.isShowRefreshButton()) {
             writer.startElement("a", tableHeader);
             writer.writeAttribute("class", "btn btn-default", null);
