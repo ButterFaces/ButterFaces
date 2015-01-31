@@ -1,0 +1,31 @@
+.filterableSelect-resultContainer {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    max-height: 400px;
+    max-width: 900px;
+    overflow: auto;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+.filterableSelect-resultListContainer {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.filterableSelect-resultItem,
+.filterableSelect-noResultItems {
+    padding: 3px 5px;
+}
+
+.filterableSelect-resultItem {
+    cursor: pointer;
+}
+
+.filterableSelect-resultItem:nth-child(odd) {
+    background-color: #f6f6f6;
+}
+
+.filterableSelect-resultItem:hover {
+    background-color: #eee;
+}

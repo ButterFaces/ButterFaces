@@ -20,6 +20,8 @@ public class ComboBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 
+	private Boolean filterable;
+
 	private final List<SelectItem> foos = new ArrayList<SelectItem>();
 	private final List<SelectItem> enums = new ArrayList<SelectItem>();
 	private final List<SelectItem> strings = new ArrayList<SelectItem>();
@@ -87,6 +89,11 @@ public class ComboBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
         this.appendBoolean("readonly", this.isReadonly(), sb);
         this.appendBoolean("required", this.isRequired(), sb);
+
+		if (Boolean.TRUE.equals(this.getFilterable())) {
+			sb.append("                    filterable=\"" + this.getFilterable() + "\"\n");
+		}
+
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
@@ -148,6 +155,14 @@ public class ComboBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
 	public void setComboBoxValueType(final ComboBoxValueType comboBoxValueType) {
 		this.comboBoxValueType = comboBoxValueType;
+	}
+
+	public Boolean getFilterable() {
+		return filterable;
+	}
+
+	public void setFilterable(Boolean filterable) {
+		this.filterable = filterable;
 	}
 
 	private void initFoos() {

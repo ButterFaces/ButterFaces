@@ -472,6 +472,10 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>filterable</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
             <name>rendered</name>
             <type>java.lang.Boolean</type>
         </attribute>
