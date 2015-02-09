@@ -37,7 +37,7 @@
                                 <jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
                             </jsSourceIncludes>
                             <jsFinalFile>butterfaces-only.js</jsFinalFile>
-                            <jsEngine>CLOSURE</jsEngine>
+                            <jsEngine>YUI</jsEngine>
                             <closureCompilationLevel>ADVANCED_OPTIMIZATIONS</closureCompilationLevel>
                             <webappSourceDir>${basedir}/src/main/resources/META-INF/resources</webappSourceDir>
                             <webappTargetDir>
@@ -69,7 +69,7 @@
                                 <jsSourceInclude>butterfaces-external/*.js</jsSourceInclude>
                             </jsSourceIncludes>
                             <jsFinalFile>butterfaces-jquery.js</jsFinalFile>
-                            <jsEngine>CLOSURE</jsEngine>
+                            <jsEngine>YUI</jsEngine>
                             <closureCompilationLevel>ADVANCED_OPTIMIZATIONS</closureCompilationLevel>
                             <webappSourceDir>${basedir}/src/main/resources/META-INF/resources</webappSourceDir>
                             <webappTargetDir>
