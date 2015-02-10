@@ -1,5 +1,8 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -17,7 +20,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlSecret.COMPONENT_TYPE)
-public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
+public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent, AutoFocus, Placeholder {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.secret";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -26,6 +29,7 @@ public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
+    protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 
@@ -69,6 +73,17 @@ public class HtmlSecret extends HtmlInputSecret implements HtmlInputComponent {
 
     public void setTooltip(final String tooltip) {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+    }
+
+    @Override
+    public boolean isAutoFocus() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    @Override
+    public void setAutoFocus(final boolean autoFocus) {
+        this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 
     @Override

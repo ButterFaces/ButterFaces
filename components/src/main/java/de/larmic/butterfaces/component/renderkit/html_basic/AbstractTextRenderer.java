@@ -8,8 +8,6 @@ import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlText;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -215,20 +213,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     }
 
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
-        if (component instanceof AutoFocus) {
-            final AutoFocus autoFocus = (AutoFocus) component;
-
-            if (autoFocus.getAutoFocus()) {
-                writer.writeAttribute("autofocus", "true", null);
-            }
-        }
-
-        if (component instanceof Placeholder) {
-            final Placeholder placeholder = (Placeholder) component;
-
-            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
-            htmlAttributePartRenderer.writePlaceholderAttribute(writer, placeholder.getPlaceholder());
-        }
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
 
         if (component instanceof HtmlText) {
             final HtmlText inputComponent = (HtmlText) component;

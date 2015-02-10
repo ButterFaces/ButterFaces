@@ -131,6 +131,8 @@ public class SecretRenderer extends HtmlBasicInputRenderer {
     }
 
     protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
+
         if (component instanceof HtmlSecret) {
             final HtmlSecret inputComponent = (HtmlSecret) component;
             new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());

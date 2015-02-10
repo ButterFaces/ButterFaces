@@ -89,7 +89,7 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 	}
 
 	@Override
-    public boolean getAutoFocus() {
+    public boolean isAutoFocus() {
 		final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
 		return eval == null ? false : (Boolean) eval;
     }

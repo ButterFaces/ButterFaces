@@ -5,7 +5,7 @@ package de.larmic.butterfaces.component.html.feature;
  */
 public interface AutoFocus {
 
-    boolean getAutoFocus();
+    boolean isAutoFocus();
     void setAutoFocus(final boolean autoFocus);
 
 }

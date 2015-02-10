@@ -24,6 +24,7 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
     private boolean required;
     private boolean validation;
     private boolean hideLabel;
+    private boolean autoFocus;
     private AjaxType ajaxType = AjaxType.NONE;
     private String inputStyleClass = null;
     private String labelStyleClass = null;
@@ -233,5 +234,13 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public boolean isAutoFocus() {
+        return autoFocus;
+    }
+
+    public void setAutoFocus(boolean autoFocus) {
+        this.autoFocus = autoFocus;
     }
 }

@@ -114,7 +114,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 	}
 
 	@Override
-    public boolean getAutoFocus() {
+    public boolean isAutoFocus() {
 		final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
 		return eval == null ? false : (Boolean) eval;
     }
