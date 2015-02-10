@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -17,7 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)
-public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent {
+public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent, AutoFocus {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.checkBox";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -28,6 +30,7 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
     protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
     protected static final String PROPERTY_DESCRIPTION = "description";
+    protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
     public HtmlCheckBox() {
         super();
@@ -60,6 +63,17 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setLabelStyleClass(final String labelStyleClass) {
         this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
+    }
+
+    @Override
+    public boolean isAutoFocus() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    @Override
+    public void setAutoFocus(final boolean autoFocus) {
+        this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 
     @Override

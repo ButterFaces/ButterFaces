@@ -594,6 +594,10 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>autoFocus</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
             <name>rendered</name>
             <type>java.lang.Boolean</type>
         </attribute>

@@ -135,6 +135,10 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
 
+        // *** BEGIN HTML 5 CHANGED **************************
+        this.renderHtmlFeatures(component, writer);
+        // *** END HTML 5 CHANGED ****************************
+
         RenderKitUtils.renderPassThruAttributes(context, writer, component, ATTRIBUTES, getNonOnClickSelectBehaviors(component));
         RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
 
@@ -142,6 +146,10 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
 
         writer.endElement("input");
 
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
     }
 
     /**

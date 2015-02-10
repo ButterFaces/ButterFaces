@@ -1,6 +1,7 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
@@ -28,6 +29,10 @@
                                      values="#{checkBoxShowcaseSingleCodeComponent.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
+        <showcase:tagsContainer label="HTML5 tag attributes">
+            <showcase:tagBooleanControl label="autofocus" value="#{checkBoxShowcaseSingleCodeComponent.autoFocus}"/>
+        </showcase:tagsContainer>
+
         <showcase:tagsContainer label="Tag control">
             <showcase:tagEnumControl label="ajax"
                                      value="#{checkBoxShowcaseSingleCodeComponent.ajaxType}"
@@ -41,8 +46,23 @@
     <ui:define name="output">
         <showcase:showcaseOuputComponentDeprecated id="outputComponent" activeComponentNavigationId="checkbox"
                                          component="#{checkBoxShowcaseSingleCodeComponent}">
-            <showcase:checkBoxShowcase component="#{checkBoxShowcaseSingleCodeComponent}"
-                                       rendered="true"/>
+            <b:checkBox label="#{checkBoxShowcaseSingleCodeComponent.label}"
+                        value="#{checkBoxShowcaseSingleCodeComponent.value}"
+                        hideLabel="#{checkBoxShowcaseSingleCodeComponent.hideLabel}"
+                        tooltip="#{checkBoxShowcaseSingleCodeComponent.tooltip}"
+                        description="#{checkBoxShowcaseSingleCodeComponent.description}"
+                        readonly="#{checkBoxShowcaseSingleCodeComponent.readonly}"
+                        required="#{checkBoxShowcaseSingleCodeComponent.required}"
+                        rendered="#{checkBoxShowcaseSingleCodeComponent.rendered}"
+                        autoFocus="#{checkBoxShowcaseSingleCodeComponent.autoFocus}"
+                        inputStyleClass="#{checkBoxShowcaseSingleCodeComponent.inputStyleClass}"
+                        labelStyleClass="#{checkBoxShowcaseSingleCodeComponent.labelStyleClass}"
+                        styleClass="#{checkBoxShowcaseSingleCodeComponent.styleClass}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not checkBoxShowcaseSingleCodeComponent.ajax}" />
+            </b:checkBox>
         </showcase:showcaseOuputComponentDeprecated>
     </ui:define>
 

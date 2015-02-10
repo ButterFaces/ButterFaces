@@ -13,6 +13,8 @@ public class CheckBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
     private String description = "some description";
 
+    private boolean autoFocus;
+
     @Override
     protected Object initValue() {
         return false;
@@ -73,5 +75,15 @@ public class CheckBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
     protected String getEmptyDistanceString() {
         return "                    ";
+    }
+
+    @Override
+    public boolean isAutoFocus() {
+        return autoFocus;
+    }
+
+    @Override
+    public void setAutoFocus(boolean autoFocus) {
+        this.autoFocus = autoFocus;
     }
 }
