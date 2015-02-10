@@ -7,5 +7,4 @@ import javax.faces.render.FacesRenderer;
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlText.RENDERER_TYPE)
 public class TextRenderer extends AbstractTextRenderer<HtmlText> {
 
-
 }

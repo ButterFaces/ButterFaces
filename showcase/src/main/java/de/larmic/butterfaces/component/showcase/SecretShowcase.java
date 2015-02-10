@@ -104,10 +104,6 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
         this.autoFocus = autoFocus;
     }
 
-    protected String getEmptyDistanceString() {
-        return "                  ";
-    }
-
 	public String getPlaceholder() {
 		return this.placeholder;
 	}
