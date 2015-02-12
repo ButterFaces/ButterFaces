@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -19,7 +21,7 @@ import java.util.List;
       @ResourceDependency(library = "butterfaces-js", name = "butterfaces-filterableSelect.jquery.js", target = "head")
 })
 @FacesComponent(HtmlComboBox.COMPONENT_TYPE)
-public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent {
+public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent, AutoFocus {
 
    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.comboBox";
    public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -30,6 +32,7 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
    protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
    protected static final String PROPERTY_FILTERABLE = "filterable";
+    protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
    public HtmlComboBox() {
       super();
@@ -72,6 +75,17 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
    public void setTooltip(final String tooltip) {
       this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
    }
+
+    @Override
+    public boolean isAutoFocus() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    @Override
+    public void setAutoFocus(final boolean autoFocus) {
+        this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
+    }
 
    @Override
    public boolean isHideLabel() {

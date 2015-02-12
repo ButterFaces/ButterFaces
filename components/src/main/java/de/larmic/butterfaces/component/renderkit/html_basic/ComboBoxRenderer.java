@@ -1,22 +1,16 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlText;
+import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.FilterableSelectPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
-import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
@@ -74,4 +68,9 @@ public class ComboBoxRenderer extends MenuRenderer {
       // Open outer component wrapper div
       new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
    }
+
+    @Override
+    protected void renderHtmlFeatures(final UIComponent component, final ResponseWriter writer) throws IOException {
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
+    }
 }
