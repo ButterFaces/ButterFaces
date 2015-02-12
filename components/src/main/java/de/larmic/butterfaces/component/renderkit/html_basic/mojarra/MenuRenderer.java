@@ -851,6 +851,10 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         }
         writeDefaultSize(writer, size);
 
+        // *** BEGIN HTML 5 CHANGED **************************
+        this.renderHtmlFeatures(component, writer);
+        // *** END HTML 5 CHANGED ****************************
+
         RenderKitUtils.renderPassThruAttributes(context,
                 writer,
                 component,
@@ -865,6 +869,10 @@ public class MenuRenderer extends HtmlBasicInputRenderer {
         writer.write(bufferedWriter.toString());
 
         writer.endElement("select");
+
+    }
+
+    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
 
     }
 

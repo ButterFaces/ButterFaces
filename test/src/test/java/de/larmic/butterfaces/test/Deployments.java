@@ -36,7 +36,7 @@ public class Deployments {
                 showcase = new File(new URI(absoluteTestExecutionPath + "../" + SHOWCASE_PATH));
 
                 if (!showcase.exists()) {
-                    Assert.fail("Could not find showcase.war");
+                    Assert.fail("Could not find showcase.war in " + showcase.getAbsolutePath());
                     return null;
                 }
             }

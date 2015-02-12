@@ -11,32 +11,32 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{checkBoxShowcaseSingleCodeComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcaseSingleCodeComponent.tooltip}"/>
-            <showcase:tagStringControl label="description" value="#{checkBoxShowcaseSingleCodeComponent.description}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcaseSingleCodeComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcaseSingleCodeComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcaseSingleCodeComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
+            <showcase:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{checkBoxShowcaseSingleCodeComponent.styleClass}"
-                                     values="#{checkBoxShowcaseSingleCodeComponent.styleClasses}"/>
+                                     value="#{checkBoxShowcase.styleClass}"
+                                     values="#{checkBoxShowcase.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{checkBoxShowcaseSingleCodeComponent.inputStyleClass}"
-                                     values="#{checkBoxShowcaseSingleCodeComponent.inputStyleClasses}"/>
+                                     value="#{checkBoxShowcase.inputStyleClass}"
+                                     values="#{checkBoxShowcase.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{checkBoxShowcaseSingleCodeComponent.labelStyleClass}"
-                                     values="#{checkBoxShowcaseSingleCodeComponent.labelStyleClasses}"/>
+                                     value="#{checkBoxShowcase.labelStyleClass}"
+                                     values="#{checkBoxShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagBooleanControl label="autofocus" value="#{checkBoxShowcaseSingleCodeComponent.autoFocus}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{checkBoxShowcase.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag control">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{checkBoxShowcaseSingleCodeComponent.ajaxType}"
-                                     values="#{checkBoxShowcaseSingleCodeComponent.ajaxTypes}"
+                                     value="#{checkBoxShowcase.ajaxType}"
+                                     values="#{checkBoxShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
@@ -44,30 +44,31 @@
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponentDeprecated id="outputComponent" activeComponentNavigationId="checkbox"
-                                         component="#{checkBoxShowcaseSingleCodeComponent}">
-            <b:checkBox label="#{checkBoxShowcaseSingleCodeComponent.label}"
-                        value="#{checkBoxShowcaseSingleCodeComponent.value}"
-                        hideLabel="#{checkBoxShowcaseSingleCodeComponent.hideLabel}"
-                        tooltip="#{checkBoxShowcaseSingleCodeComponent.tooltip}"
-                        description="#{checkBoxShowcaseSingleCodeComponent.description}"
-                        readonly="#{checkBoxShowcaseSingleCodeComponent.readonly}"
-                        required="#{checkBoxShowcaseSingleCodeComponent.required}"
-                        rendered="#{checkBoxShowcaseSingleCodeComponent.rendered}"
-                        autoFocus="#{checkBoxShowcaseSingleCodeComponent.autoFocus}"
-                        inputStyleClass="#{checkBoxShowcaseSingleCodeComponent.inputStyleClass}"
-                        labelStyleClass="#{checkBoxShowcaseSingleCodeComponent.labelStyleClass}"
-                        styleClass="#{checkBoxShowcaseSingleCodeComponent.styleClass}">
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
+                                         component="#{checkBoxShowcase}">
+            <b:checkBox label="#{checkBoxShowcase.label}"
+                        value="#{checkBoxShowcase.value}"
+                        hideLabel="#{checkBoxShowcase.hideLabel}"
+                        tooltip="#{checkBoxShowcase.tooltip}"
+                        description="#{checkBoxShowcase.description}"
+                        readonly="#{checkBoxShowcase.readonly}"
+                        required="#{checkBoxShowcase.required}"
+                        rendered="#{checkBoxShowcase.rendered}"
+                        autoFocus="#{checkBoxShowcase.autoFocus}"
+                        inputStyleClass="#{checkBoxShowcase.inputStyleClass}"
+                        labelStyleClass="#{checkBoxShowcase.labelStyleClass}"
+                        styleClass="#{checkBoxShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not checkBoxShowcaseSingleCodeComponent.ajax}" />
+                        disabled="#{not checkBoxShowcase.ajax}" />
             </b:checkBox>
-        </showcase:showcaseOuputComponentDeprecated>
+        </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{checkBoxShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{checkBoxShowcase}"/>
+        <b:activateLibraries />
     </ui:define>
 
 </ui:composition>
