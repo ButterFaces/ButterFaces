@@ -1,13 +1,16 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.text;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -15,6 +18,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class SecretShowcase extends AbstractInputShowcase implements Serializable {
 
+    private FacetType selectedFacetType = FacetType.NONE;
 	private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
 
     private boolean autoFocus;
@@ -52,7 +56,6 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
         }
 
-        /*
         if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-addon-left\">");
             xhtmlCodeExample.appendInnerContent("                Left input-group-addon");
@@ -81,7 +84,7 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("                     <li><a href=\"#\">Separated link</a></li>");
             xhtmlCodeExample.appendInnerContent("                 </ul>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
-        }*/
+        }
 
         xhtmlCodeExample.appendInnerContent("        </b:secret>", false);
 
@@ -94,6 +97,15 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
             cssCodeExample.addCss(".some-demo-class", "background-color: red;");
             codeExamples.add(cssCodeExample);
         }
+    }
+
+    public List<SelectItem> getAvailableFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final FacetType type : FacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public boolean isAutoFocus() {
@@ -112,4 +124,11 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
 		this.placeholder = placeholder;
 	}
 
+    public FacetType getSelectedFacetType() {
+        return selectedFacetType;
+    }
+
+    public void setSelectedFacetType(FacetType selectedFacetType) {
+        this.selectedFacetType = selectedFacetType;
+    }
 }
