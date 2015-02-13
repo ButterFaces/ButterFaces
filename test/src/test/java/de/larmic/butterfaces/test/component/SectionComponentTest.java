@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.jboss.arquillian.graphene.Graphene.*;
 
 /**
  * Created by larmic on 04.09.14.
@@ -77,11 +76,13 @@ public class SectionComponentTest extends AbstractComponentTest {
         Assert.assertTrue(component.findElements(By.className("butter-component-section-title")).isEmpty());
 
         guardAjax(showcaseLabelOption).sendKeys("hello");
+        guardHttp(showcaseLabelOption).submit();
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
         WebElement legend = component.findElement(By.className("butter-component-section-title"));
         Assert.assertEquals("hello", legend.getText());
 
         guardAjax(showcaseLabelOption).sendKeys(" world!");
+        guardHttp(showcaseLabelOption).submit();
         component = this.findWebElementByClassName(BUTTER_COMPONENT);
         legend = component.findElement(By.className("butter-component-section-title"));
         Assert.assertEquals("hello world!", legend.getText());
