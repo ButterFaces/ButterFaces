@@ -16,7 +16,6 @@
     <modules>
         <module>components</module>
         <module>showcase</module>
-        <module>test</module>
     </modules>
 
     <licenses>
@@ -97,6 +96,14 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>ci</id>
+            <modules>
+                <module>components</module>
+                <module>showcase</module>
+                <module>test</module>
+            </modules>
+        </profile>
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
