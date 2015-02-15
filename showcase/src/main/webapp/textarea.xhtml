@@ -1,6 +1,7 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:f="http://java.sun.com/jsf/core">
 
@@ -10,49 +11,72 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{textAreaShowcaseSingleCodeComponent.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{textAreaShowcaseSingleCodeComponent.tooltip}" />
-            <showcase:tagBooleanControl label="hideLabel" value="#{textAreaShowcaseSingleCodeComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{textAreaShowcaseSingleCodeComponent.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{textAreaShowcaseSingleCodeComponent.required}" />
-            <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcaseSingleCodeComponent.rendered}" />
-            <showcase:tagStringControl label="maxLength" value="#{textAreaShowcaseSingleCodeComponent.maxLength}" />
-            <showcase:tagBooleanControl label="expandable" value="#{textAreaShowcaseSingleCodeComponent.expandable}" />
+            <showcase:tagStringControl label="label" value="#{textAreaShowcase.label}" />
+            <showcase:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{textAreaShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{textAreaShowcase.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{textAreaShowcase.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{textAreaShowcase.rendered}" />
+            <showcase:tagStringControl label="maxLength" value="#{textAreaShowcase.maxLength}" />
+            <showcase:tagBooleanControl label="expandable" value="#{textAreaShowcase.expandable}" />
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{textAreaShowcaseSingleCodeComponent.styleClass}"
-                                     values="#{textAreaShowcaseSingleCodeComponent.styleClasses}"/>
+                                     value="#{textAreaShowcase.styleClass}"
+                                     values="#{textAreaShowcase.styleClasses}"/>
             <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{textAreaShowcaseSingleCodeComponent.inputStyleClass}"
-                                     values="#{textAreaShowcaseSingleCodeComponent.inputStyleClasses}"/>
+                                     value="#{textAreaShowcase.inputStyleClass}"
+                                     values="#{textAreaShowcase.inputStyleClasses}"/>
             <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{textAreaShowcaseSingleCodeComponent.labelStyleClass}"
-                                     values="#{textAreaShowcaseSingleCodeComponent.labelStyleClasses}"/>
+                                     value="#{textAreaShowcase.labelStyleClass}"
+                                     values="#{textAreaShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{textAreaShowcaseSingleCodeComponent.placeholder}"/>
+            <showcase:tagStringControl label="placeholder" value="#{textAreaShowcase.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{textAreaShowcase.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{textAreaShowcaseSingleCodeComponent.ajaxType}"
-                                     values="#{textAreaShowcaseSingleCodeComponent.ajaxTypes}"
+                                     value="#{textAreaShowcase.ajaxType}"
+                                     values="#{textAreaShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagBooleanControl label="validate" value="#{textAreaShowcaseSingleCodeComponent.validation}" />
+            <showcase:tagBooleanControl label="validate" value="#{textAreaShowcase.validation}" />
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponentDeprecated id="outputComponent" activeComponentNavigationId="textarea" component="#{textAreaShowcaseSingleCodeComponent}">
-            <showcase:textAreaShowcase component="#{textAreaShowcaseSingleCodeComponent}"
-                                       rendered="true"/>
-        </showcase:showcaseOuputComponentDeprecated>
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="textarea" component="#{textAreaShowcase}">
+            <b:textArea id="textArea"
+                        label="#{textAreaShowcase.label}"
+                        hideLabel="#{textAreaShowcase.hideLabel}"
+                        value="#{textAreaShowcase.value}"
+                        tooltip="#{textAreaShowcase.tooltip}"
+                        readonly="#{textAreaShowcase.readonly}"
+                        required="#{textAreaShowcase.required}"
+                        rendered="#{textAreaShowcase.rendered}"
+                        maxLength="#{textAreaShowcase.maxLength}"
+                        expandable="#{textAreaShowcase.expandable}"
+                        placeholder="#{textAreaShowcase.placeholder}"
+                        autoFocus="#{textAreaShowcase.autoFocus}"
+                        inputStyleClass="#{textAreaShowcase.inputStyleClass}"
+                        labelStyleClass="#{textAreaShowcase.labelStyleClass}"
+                        styleClass="#{textAreaShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="textArea"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not textAreaShowcase.ajax}" />
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textAreaShowcase.validation}" />
+            </b:textArea>
+        </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{textAreaShowcaseSingleCodeComponent}" />
+        <showcase:codeExamples component="#{textAreaShowcase}" />
+        <b:activateLibraries />
     </ui:define>
 
 </ui:composition>

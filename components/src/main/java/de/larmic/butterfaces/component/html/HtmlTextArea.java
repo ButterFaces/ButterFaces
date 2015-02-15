@@ -1,5 +1,8 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -19,7 +22,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
-public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent {
+public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.textArea";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -32,6 +35,7 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_EXPANDABLE = "expandable";
+    protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
     public HtmlTextArea() {
         super();
@@ -73,6 +77,17 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setTooltip(final String tooltip) {
         this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
+    }
+
+    @Override
+    public boolean isAutoFocus() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    @Override
+    public void setAutoFocus(final boolean autoFocus) {
+        this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 
     @Override

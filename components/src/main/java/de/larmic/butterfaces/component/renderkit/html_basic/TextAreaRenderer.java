@@ -114,9 +114,6 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
     }
 
     protected void renderHtmlFeatures(final UIComponent component, final ResponseWriter writer) throws IOException {
-        if (component instanceof HtmlTextArea) {
-            final HtmlTextArea inputComponent = (HtmlTextArea) component;
-            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
-        }
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
     }
 }
