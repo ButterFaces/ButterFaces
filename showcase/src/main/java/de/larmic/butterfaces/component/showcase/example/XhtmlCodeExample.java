@@ -54,7 +54,7 @@ public class XhtmlCodeExample extends AbstractCodeExample {
         }
         stringBuilder.append("<body>");
         stringBuilder.append("\n");
-        stringBuilder.append("    <form>");
+        stringBuilder.append("    <form id=\"formId\">");
         stringBuilder.append("\n");
         stringBuilder.append(innerContent.toString());
         stringBuilder.append("\n");

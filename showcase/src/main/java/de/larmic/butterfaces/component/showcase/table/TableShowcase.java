@@ -160,9 +160,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
-            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"selectedRow\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"formId:selectedRow\"/>");
         } else if (selectionAjaxType == SelectionAjaxType.AJAX_DISABLED) {
-            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"selectedRow\" disabled=\"true\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"formId:selectedRow\" disabled=\"true\"/>");
         }
 
         xhtmlCodeExample.appendInnerContent("            <column id=\"column1\"");
