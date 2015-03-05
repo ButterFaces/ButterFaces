@@ -54,8 +54,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        super.encodeEnd(context, component);
-
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
@@ -81,6 +79,8 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             responseWriter.writeText("}", null);
             responseWriter.endElement("script");
         }
+
+        super.encodeEnd(context, component);
     }
 
     private String createAjaxProcessingText(final HtmlCommandLink link) {
