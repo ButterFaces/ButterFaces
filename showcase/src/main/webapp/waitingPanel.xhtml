@@ -6,41 +6,24 @@
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
-        <strong>b:waitingPanel</strong> TODO ...
+        <strong>b:waitingPanel</strong> Adds a hidden overlay div to body end and openes waiting panel overlay when ajax request is running.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcaseSingleCodeComponent.rendered}"/>
-            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcaseSingleCodeComponent.delayInMillis}"/>
-        </showcase:tagsContainer>
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax selection"
-                                     value="#{waitingPanelShowcaseSingleCodeComponent.childrenType}"
-                                     values="#{waitingPanelShowcaseSingleCodeComponent.childrenTypes}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
+            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <b:waitingPanel delay="#{waitingPanelShowcaseSingleCodeComponent.delayInMillis}"
-                        rendered="#{waitingPanelShowcaseSingleCodeComponent.rendered and waitingPanelShowcaseSingleCodeComponent.renderNoChildren}">
-        </b:waitingPanel>
-
-        <b:waitingPanel delay="#{waitingPanelShowcaseSingleCodeComponent.delayInMillis}"
-                        styleClass="bigWaitingContent"
-                        rendered="#{waitingPanelShowcaseSingleCodeComponent.rendered and waitingPanelShowcaseSingleCodeComponent.renderChildrenExample1}">
-            Big waiting example
-        </b:waitingPanel>
-
-        <b:waitingPanel delay="#{waitingPanelShowcaseSingleCodeComponent.delayInMillis}"
-                        styleClass="smallWaitingContent"
-                        rendered="#{waitingPanelShowcaseSingleCodeComponent.rendered and waitingPanelShowcaseSingleCodeComponent.renderChildrenExample2}">
-            Small waiting example
+        <b:waitingPanel delay="#{waitingPanelShowcase.delayInMillis}"
+                        rendered="#{waitingPanelShowcase.rendered}">
         </b:waitingPanel>
 
         <h:commandLink value="5 second click"
                        styleClass="btn btn-success"
-                       action="#{waitingPanelShowcaseSingleCodeComponent.doWaitingClick}">
+                       action="#{waitingPanelShowcase.doWaitingClick}">
             <f:ajax/>
         </h:commandLink>
 
@@ -48,7 +31,8 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{waitingPanelShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{waitingPanelShowcase}"/>
+        <b:activateLibraries />
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
