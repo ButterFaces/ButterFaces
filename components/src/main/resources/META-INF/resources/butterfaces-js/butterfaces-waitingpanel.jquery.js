@@ -9,7 +9,6 @@
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
     var $waitingPanelDialog = null;
-    var $waitingPanelDotSelector = null;
     var eventRegistered = false;
     var waitingPanelOpeningDelay = null;
 
@@ -20,11 +19,6 @@
 
             // console.log('Setting waiting panel delay to ' + waitingPanelOpeningDelay);
 
-            function showWaitingPanel() {
-                $waitingPanelDialog.removeClass('butter-component-waitingPanel-hide');
-                $waitingPanelDotSelector.startDots();
-            }
-
             function processEvent(data) {
                 if (data.status == 'begin') {
                     // console.log('Begin ajax event');
@@ -33,7 +27,9 @@
                         // console.log('Ajax request running: ' + ajaxRequestRunning);
                         if (ajaxRequestRunning) {
                             // console.log('Ajax request is running. Showing modal panel');
-                            showWaitingPanel();
+                            $waitingPanelDialog.css({'display':'inline-block'});
+                            $waitingPanelDialog.butterDisableElements();
+                            $waitingPanelDialog.css({'display':'none'});
                         } else {
                             // console.log('Ajax request is not running. Not showing modal panel');
                         }
@@ -43,8 +39,7 @@
                 } else if (data.status == 'success') {
                     // console.log('End ajax event');
                     ajaxRequestRunning = false;
-                    $waitingPanelDialog.addClass('butter-component-waitingPanel-hide');
-                    $waitingPanelDotSelector.stopDots();
+                    $waitingPanelDialog.butterEnableElements();
                 }
             }
 
@@ -57,7 +52,6 @@
             var _msg = document.getElementById(_elementId);
 
             $waitingPanelDialog = $(_msg);
-            $waitingPanelDotSelector = $waitingPanelDialog.find('.butter-component-waitingPanel-processing');
             waitingPanelOpeningDelay = data.waitingPanelDelay;
 
             // I found no way to remove event listener from jsf js.

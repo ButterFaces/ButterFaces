@@ -42,20 +42,10 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         }
 
         if (StringUtils.isNotEmpty(styleClass)) {
-            writer.writeAttribute("class", "butter-component-waitingPanel butter-component-waitingPanel-hide " + styleClass, null);
+            writer.writeAttribute("class", "butter-component-waitingPanel " + styleClass, null);
         } else {
-            writer.writeAttribute("class", "butter-component-waitingPanel butter-component-waitingPanel-hide", null);
+            writer.writeAttribute("class", "butter-component-waitingPanel", null);
         }
-
-        writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute("class", "butter-component-waitingPanel-body", null);
-        if (component.getChildren().isEmpty()) {
-            writer.writeText("Processing", component, null);
-            writer.startElement(ELEMENT_SPAN, component);
-            writer.writeAttribute("class", "butter-component-waitingPanel-processing", null);
-            writer.endElement(ELEMENT_SPAN);
-        }
-
     }
 
     @Override
@@ -69,7 +59,6 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
         final WaitingPanel waitingPanel = (WaitingPanel) component;
 
-        writer.endElement(ELEMENT_DIV); // body div
         writer.endElement(ELEMENT_DIV); // component div
 
         final String pluginFunctionCall = "waitingPanel(" + createButterTreeJQueryParameter(waitingPanel) + ")";
