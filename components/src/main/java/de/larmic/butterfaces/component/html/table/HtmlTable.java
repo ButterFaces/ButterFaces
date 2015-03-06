@@ -43,6 +43,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_SORT_ASCENDING_CLASS = "sortAscendingClass";
     protected static final String PROPERTY_TABLE_SORT_DESCENDING_CLASS  = "sortDescendingClass";
     protected static final String PROPERTY_TABLE_ROW_CLASS  = "rowClass";
+    protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY  = "rowIdentifierProperty";
 
     private final List<HtmlColumn> cachedColumns = new ArrayList<>();
 
@@ -99,7 +100,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public TableColumnDisplayModel getTableColumnDisplayModel() {
         final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableColumnDisplaxModel() : null;
+        return tableModel != null ? tableModel.getTableColumnDisplayModel() : null;
     }
 
     public void setModel(TableModel tableModel) {
@@ -163,6 +164,14 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setRowClass(String rowClass) {
         this.updateStateHelper(PROPERTY_TABLE_ROW_CLASS, rowClass);
+    }
+
+    public String getRowIdentifierProperty() {
+        return (String) this.getStateHelper().eval(PROPERTY_ROW_IDENTIFIER_PROPERTY);
+    }
+
+    public void setRowIdentifierProperty(String rowIdentifierProperty) {
+        this.updateStateHelper(PROPERTY_ROW_IDENTIFIER_PROPERTY, rowIdentifierProperty);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

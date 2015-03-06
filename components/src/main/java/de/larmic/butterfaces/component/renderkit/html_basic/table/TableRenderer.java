@@ -9,6 +9,8 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -19,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +42,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     // alternative: copy encode children but this means coping a lot of private methods... :(
     // we will try this way... maybe migrating later...
     private int rowIndex;
+
+    private String cachedRowIdentifier;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -289,7 +294,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
         final String rowClass = StringUtils.isNotEmpty(htmlTable.getRowClass()) ? "butter-table-row " + htmlTable.getRowClass() : "butter-table-row";
-        writer.writeAttribute("class", rowClass, null);
+        if (isRowSelected(context, htmlTable.getVar(), htmlTable.getRowIdentifierProperty())) {
+            writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
+        } else {
+            writer.writeAttribute("class", rowClass, null);
+        }
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
         if (behaviors.containsKey("click")) {
@@ -306,6 +315,18 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeText("\n", htmlTable, null);
 
         rowIndex++;
+    }
+
+    private boolean isRowSelected(final FacesContext context, final String htmlTableVar, final String rowIdentifierProperty) {
+        if (StringUtils.isNotEmpty(cachedRowIdentifier) && StringUtils.isNotEmpty(rowIdentifierProperty)) {
+            final ELContext elContext = context.getELContext();
+
+            final ValueExpression valueExpression = context.getApplication().getExpressionFactory().createValueExpression(elContext, "#{" + htmlTableVar + "." + rowIdentifierProperty + "}", Object.class);
+            final Object value = valueExpression.getValue(elContext);
+            return cachedRowIdentifier.equals(value.toString());
+        }
+
+        return false;
     }
 
     @Override
@@ -341,8 +362,13 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             if ("click".equals(event)) {
                 final Object rowObject = findRowObject(tableValues, eventNumber);
 
+                cachedRowIdentifier = null;
+
                 if (rowObject != null) {
                     listener.processValueChange(rowObject);
+                    final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
+                    cachedRowIdentifier = rowIdentifier;
+
                 }
             } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                 final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
@@ -353,6 +379,34 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 }
             }
         }
+    }
+
+    private String getRowIdentifierProperty(final Object rowObject, final String rowIdentifierProperty) {
+        if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
+            try {
+                final Field declaredField = rowObject.getClass().getDeclaredField(rowIdentifierProperty);
+                declaredField.setAccessible(true);
+                return convertRowIdentifierToString(rowObject, declaredField);
+            } catch (NoSuchFieldException e) {
+            } catch (IllegalAccessException e) {
+            }
+        }
+
+        return null;
+    }
+
+    private String convertRowIdentifierToString(final Object rowObject, final Field declaredField) throws IllegalAccessException {
+        final Object rowIdentifier = declaredField.get(rowObject);
+
+        if (rowIdentifier != null) {
+            final String rowIdentifierAsString = rowIdentifier.toString();
+
+            if (StringUtils.isNotEmpty(rowIdentifierAsString)) {
+                return rowIdentifierAsString;
+            }
+        }
+
+        return null;
     }
 
     private String getOnEventListenerName(final UIComponent component) {

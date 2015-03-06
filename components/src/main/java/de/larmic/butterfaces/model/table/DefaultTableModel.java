@@ -14,7 +14,7 @@ public class DefaultTableModel implements TableModel {
     }
 
     @Override
-    public TableColumnDisplayModel getTableColumnDisplaxModel() {
+    public TableColumnDisplayModel getTableColumnDisplayModel() {
         return columnDisplayTableModel;
     }
 

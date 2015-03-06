@@ -5,10 +5,12 @@ package de.larmic.butterfaces.component.showcase.table;
  */
 public class StringPair {
 
+    private final long id;
     private String a;
     private String b;
 
-    public StringPair(final String a, final String b) {
+    public StringPair(final long id, final String a, final String b) {
+        this.id = id;
         this.a = a;
         this.b = b;
     }
@@ -27,5 +29,9 @@ public class StringPair {
 
     public void setB(String b) {
         this.b = b;
+    }
+
+    public long getId() {
+        return id;
     }
 }

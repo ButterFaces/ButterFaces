@@ -734,6 +734,12 @@
             <required>false</required>
         </attribute>
         <attribute>
+            <description>Unique row object identifier. If no identifier is set system hashcode will be used as fallback. Unique identifier is used to update table selection after render table.</description>
+            <name>rowIdentifierProperty</name>
+            <type>java.lang.String</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
             <description>Override sorting undefined glyphicon class. Default is glyphicon glyphicon-chevron-right</description>
             <name>sortUndefinedClass</name>
             <type>java.lang.String</type>

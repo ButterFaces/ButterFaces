@@ -110,6 +110,7 @@
                  sortAscendingClass="fa fa-sort-down"
                  sortDescendingClass="fa fa-sort-up"
                  sortUndefinedClass="fa fa-sort"
+                 rowIdentifierProperty="id"
                  rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>

@@ -62,13 +62,13 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public List<StringPair> getStringRows() {
         if (stringPairs.isEmpty()) {
-            stringPairs.add(new StringPair("r1c1", "r1c2"));
-            stringPairs.add(new StringPair("r2c1", "r2c2"));
-            stringPairs.add(new StringPair("r3c1", "r3c2"));
-            stringPairs.add(new StringPair("r4c1", "r4c2"));
-            stringPairs.add(new StringPair("r5c1", "r5c2"));
-            stringPairs.add(new StringPair("r6c1", "r6c2"));
-            stringPairs.add(new StringPair("r7c1", "r7c2"));
+            stringPairs.add(new StringPair(1L, "r1c1", "r1c2"));
+            stringPairs.add(new StringPair(2L, "r2c1", "r2c2"));
+            stringPairs.add(new StringPair(3L, "r3c1", "r3c2"));
+            stringPairs.add(new StringPair(4L, "r4c1", "r4c2"));
+            stringPairs.add(new StringPair(5L, "r5c1", "r5c2"));
+            stringPairs.add(new StringPair(6L, "r6c1", "r6c2"));
+            stringPairs.add(new StringPair(7L, "r7c1", "r7c2"));
         }
 
         if (toolBarType == ToolBarType.SERVER_FILTER && StringUtils.isNotEmpty(filterValue)) {
