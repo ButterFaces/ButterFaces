@@ -43,6 +43,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     // we will try this way... maybe migrating later...
     private int rowIndex;
 
+    private boolean systemIdentifierHashcodeIsUsedAsCachedRowIdentifier;
     private String cachedRowIdentifier;
 
     @Override
@@ -318,15 +319,25 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private boolean isRowSelected(final FacesContext context, final String htmlTableVar, final String rowIdentifierProperty) {
-        if (StringUtils.isNotEmpty(cachedRowIdentifier) && StringUtils.isNotEmpty(rowIdentifierProperty)) {
-            final ELContext elContext = context.getELContext();
-
-            final ValueExpression valueExpression = context.getApplication().getExpressionFactory().createValueExpression(elContext, "#{" + htmlTableVar + "." + rowIdentifierProperty + "}", Object.class);
-            final Object value = valueExpression.getValue(elContext);
-            return cachedRowIdentifier.equals(value.toString());
+        if (StringUtils.isNotEmpty(cachedRowIdentifier)) {
+            final String value = this.createRowIdentifierValueExpression(context, htmlTableVar, rowIdentifierProperty);
+            return cachedRowIdentifier.equals(value);
         }
 
         return false;
+    }
+
+    private String createRowIdentifierValueExpression(final FacesContext context, String htmlTableVar, String rowIdentifierProperty) {
+        final ELContext elContext = context.getELContext();
+        final String valueExpressionString = systemIdentifierHashcodeIsUsedAsCachedRowIdentifier ? "#{" + htmlTableVar + "}" : "#{" + htmlTableVar + "." + rowIdentifierProperty + "}";
+        final ValueExpression valueExpression = this.createRowIdentifierValueExpression(context, valueExpressionString);
+        final Object value = valueExpression.getValue(elContext);
+        return systemIdentifierHashcodeIsUsedAsCachedRowIdentifier ? System.identityHashCode(value) + "" : value.toString();
+    }
+
+    private ValueExpression createRowIdentifierValueExpression(final FacesContext context, final String valueExpression) {
+        final ELContext elContext = context.getELContext();
+        return context.getApplication().getExpressionFactory().createValueExpression(elContext, valueExpression, Object.class);
     }
 
     @Override
@@ -382,6 +393,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private String getRowIdentifierProperty(final Object rowObject, final String rowIdentifierProperty) {
+        systemIdentifierHashcodeIsUsedAsCachedRowIdentifier = false;
+
         if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
             try {
                 final Field declaredField = rowObject.getClass().getDeclaredField(rowIdentifierProperty);
@@ -392,7 +405,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             }
         }
 
-        return null;
+        systemIdentifierHashcodeIsUsedAsCachedRowIdentifier = true;
+        return System.identityHashCode(rowObject) + "";
     }
 
     private String convertRowIdentifierToString(final Object rowObject, final Field declaredField) throws IllegalAccessException {
