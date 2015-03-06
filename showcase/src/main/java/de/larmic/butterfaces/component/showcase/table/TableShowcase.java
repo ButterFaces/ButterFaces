@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.tree.RowIdentifierType;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
@@ -31,10 +32,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
+    private RowIdentifierType rowIdentifierType = RowIdentifierType.ID;
     private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
     private ToolBarType toolBarType = ToolBarType.SERVER_FILTER;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
+    private String rowIdentifierProperty;
     private boolean tableCondensed;
     private boolean tableBordered;
     private boolean tableStriped = true;
@@ -156,7 +159,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                 tableBordered=\"" + this.tableBordered + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableCondensed=\"" + this.tableCondensed + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableStriped=\"" + this.tableStriped + "\"");
-        xhtmlCodeExample.appendInnerContent("                 rendered=\"" + this.isRendered() + ">");
+        if (rowIdentifierType == RowIdentifierType.ID) {
+            xhtmlCodeExample.appendInnerContent("                 rowIdentifierProperty=\"id\"");
+        }
+        xhtmlCodeExample.appendInnerContent("                 rendered=\"" + this.isRendered() + "\">");
 
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
@@ -262,13 +268,23 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
         myBean.appendInnerContent("    public List<StringPair> getValue() {");
         myBean.appendInnerContent("        final List<StringPair> pairs = new ArrayList<StringPair>();");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r1c1\", \"r1c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r2c1\", \"r2c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r3c1\", \"r3c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r4c1\", \"r4c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r5c1\", \"r5c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r6c1\", \"r6c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(\"r7c1\", \"r7c2\"));");
+        if (rowIdentifierType == RowIdentifierType.ID) {
+            myBean.appendInnerContent("        pairs.add(new StringPair(1L, \"r1c1\", \"r1c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(2L, \"r2c1\", \"r2c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(3L, \"r3c1\", \"r3c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(4L, \"r4c1\", \"r4c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(5L, \"r5c1\", \"r5c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(6L, \"r6c1\", \"r6c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(7L, \"r7c1\", \"r7c2\"));");
+        } else {
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r1c1\", \"r1c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r2c1\", \"r2c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r3c1\", \"r3c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r4c1\", \"r4c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r5c1\", \"r5c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r6c1\", \"r6c2\"));");
+            myBean.appendInnerContent("        pairs.add(new StringPair(\"r7c1\", \"r7c2\"));");
+        }
         if (this.selectionAjaxType == SelectionAjaxType.AJAX && this.tableModelType == TableModelType.DEFAULT_MODEL) {
             myBean.appendInnerContent("        // TODO sort by table model");
         }
@@ -318,14 +334,21 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     private JavaCodeExample createStringPairCodeExample() {
         final JavaCodeExample stringPair = new JavaCodeExample("StringPair.java", "stringpair", "table.demo", "StringPair", false);
+        if (rowIdentifierType == RowIdentifierType.ID) {
+            stringPair.appendInnerContent("    private final long id;");
+        }
         stringPair.appendInnerContent("    private final String a;");
         stringPair.appendInnerContent("    private final String b;\n");
-        stringPair.appendInnerContent("        public StringPair(final String a, final String b) {");
-        stringPair.appendInnerContent("            this.a = a;");
-        stringPair.appendInnerContent("            this.b = b;");
-        stringPair.appendInnerContent("        }\n");
-        stringPair.appendInnerContent("        // getter\n");
-        stringPair.appendInnerContent("    }");
+        if (rowIdentifierType == RowIdentifierType.ID) {
+            stringPair.appendInnerContent("    public StringPair(final long id, final String a, final String b) {");
+            stringPair.appendInnerContent("        this.id = id;");
+        } else {
+            stringPair.appendInnerContent("    public StringPair(final String a, final String b) {");
+        }
+        stringPair.appendInnerContent("        this.a = a;");
+        stringPair.appendInnerContent("        this.b = b;");
+        stringPair.appendInnerContent("    }\n");
+        stringPair.appendInnerContent("    // getter");
         return stringPair;
     }
 
@@ -333,6 +356,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         final List<SelectItem> items = new ArrayList<>();
 
         for (final SelectionAjaxType type : SelectionAjaxType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List<SelectItem> getRowIdentifierTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final RowIdentifierType type : RowIdentifierType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -510,6 +542,24 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public String getRowClass() {
         return toolBarType == ToolBarType.CLIENT_FILTER ? "filterable-item" : null;
+    }
+
+    public String getRowIdentifierProperty() {
+        return rowIdentifierProperty;
+    }
+
+    public RowIdentifierType getRowIdentifierType() {
+        return rowIdentifierType;
+    }
+
+    public void setRowIdentifierType(RowIdentifierType rowIdentifierType) {
+        this.rowIdentifierType = rowIdentifierType;
+
+        if (rowIdentifierType == RowIdentifierType.NONE) {
+            rowIdentifierProperty = null;
+        } else {
+            rowIdentifierProperty = "id";
+        }
     }
 }
 

@@ -33,6 +33,9 @@
             <showcase:tagEnumControl label="table model"
                                      value="#{tableShowcase.tableModelType}"
                                      values="#{tableShowcase.tableModelTypes}"/>
+            <showcase:tagEnumControl label="sort identifier"
+                                     value="#{tableShowcase.rowIdentifierType}"
+                                     values="#{tableShowcase.rowIdentifierTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -110,6 +113,7 @@
                  sortAscendingClass="fa fa-sort-down"
                  sortDescendingClass="fa fa-sort-up"
                  sortUndefinedClass="fa fa-sort"
+                 rowIdentifierProperty="#{tableShowcase.rowIdentifierProperty}"
                  rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
