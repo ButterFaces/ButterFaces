@@ -1,9 +1,13 @@
 .table-striped>tbody>tr.butter-table-row-selected {
-    background: #D1E3FF;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }
 
 .table-striped>tbody>tr.butter-table-row:hover {
-    background: #E8F1FF;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
     cursor: pointer;
 }
 

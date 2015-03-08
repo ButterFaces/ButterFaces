@@ -55,11 +55,15 @@
 }
 
 .butter-component-tree-node-selected > .butter-component-tree-row .butter-component-tree-title {
-    background: #D1E3FF;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }
 
 .butter-component-tree-row:hover > .butter-component-tree-title {
-    background: #E8F1FF;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
 }
 
 .butter-component-tree-no-selection .butter-component-tree-row:hover > .butter-component-tree-title {
