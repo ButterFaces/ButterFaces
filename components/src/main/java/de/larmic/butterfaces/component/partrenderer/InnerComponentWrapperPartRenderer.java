@@ -1,11 +1,12 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
+import java.io.IOException;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 
 /**
  * Created by larmic on 27.08.14.
@@ -58,15 +59,9 @@ public class InnerComponentWrapperPartRenderer {
     private String createDefaultStyleClass(HtmlInputComponent component) {
         final StringBuilder defaultStyleClass = new StringBuilder();
         if (component.isHideLabel()) {
-            defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);
-        } else {
-            defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_10);
-
-            if (StringUtils.isEmpty(component.getLabel())) {
-                defaultStyleClass
-                        .append(StringUtils.SPACE)
-                        .append(Constants.BOOTSTRAP_COL_SM_OFFSET_2);
-            }
+            defaultStyleClass.append("butter-component-value-hiddenLabel");
+        }else {
+           defaultStyleClass.append("butter-component-value");
         }
         return defaultStyleClass.toString();
     }

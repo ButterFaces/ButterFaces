@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/templates/defaultJQueryBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>Static label width</strong> is a mechanism that ensures, that the labels have always the same size ...
+    </ui:define>
+
+    <ui:define name="example">
+        <div class="col-md-4">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+        <div class="col-md-4">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+        <div class="col-md-4">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+        <div class="col-md-4">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+        <div class="col-md-8">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+        <div class="col-md-12">
+            <b:text label="label" value="a test string"/>
+            <b:text label="label" value="a test string"/>
+        </div>
+    </ui:define>
+
+    <ui:define name="codeExample">
+        <ui:remove>
+        <showcase:codeExamples component="#{itemFilterFieldShowcase}"/>
+        </ui:remove>
+    </ui:define>
+</ui:composition>

@@ -14,13 +14,43 @@ select.butter-input-component {
     margin-left: 2px;
 }
 
-.butter-component .checkbox {
+.butter-component > label,
+.butter-component > div {
+    vertical-align: top;
+}
+
+.butter-component .checkbox,
+.butter-component .radio {
     margin-top: 0;
+}
+
+.butter-component .radio input[type="radio"],
+.butter-component .radio-inline input[type="radio"] {
+    margin-left: 0;
 }
 
 .butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100px;
+    display: inline-block;
+}
+
+.butter-component-value {
+    display: inline-block;
+    width: calc(100% - 100px);
+}
+
+.input-group.butter-component-value {
+    float:right;
+}
+
+.input-group.butter-component-value:after {
+    clear: both;
+}
+
+.butter-component-value-hiddenLabel {
+    width: 100%;
 }
 
 .form-group {

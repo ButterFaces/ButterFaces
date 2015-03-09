@@ -1,10 +1,11 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 /**
  * Created by larmic on 27.08.14.
@@ -35,7 +36,7 @@ public class LabelPartRenderer {
 
             writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
                     Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS,
-                    StringUtils.isEmpty(labelStyleClass) ? Constants.BOOTSTRAP_COL_SM_2 : labelStyleClass), null);
+                    StringUtils.isEmpty(labelStyleClass) ? StringUtils.BLANK : labelStyleClass), null);
 
             writer.startElement("abbr", uiComponent);
             if (this.isTooltipNecessary(component)) {
