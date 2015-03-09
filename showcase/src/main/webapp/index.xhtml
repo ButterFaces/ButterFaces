@@ -27,11 +27,11 @@
 
             <div>
                 <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.11/components-1.6.11.jar">
+                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
                     <i class="fa fa-download"></i> Download ButterFaces library
                 </a>
                 <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.11/components-1.6.11-sources.jar">
+                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
                     <i class="fa fa-download"></i> Download ButterFaces source
                 </a>
                 <div class="btn-group hidden-md hidden-lg">
@@ -43,12 +43,12 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.11/components-1.6.11.jar">
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
                                 <i class="fa fa-download"></i> Download ButterFaces library
                             </a>
                         </li>
                         <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/1.6.11/components-1.6.11-sources.jar">
+                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
                                 <i class="fa fa-download"></i> Download ButterFaces source
                             </a>
                         </li>
@@ -167,6 +167,9 @@
                                         target="_blank">maven central respository</a>.
                             </small>
                         </h5>
+                        <div class="maven-example">
+                            <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
+                        </div>
 
                         <p>
                             <span class="glyphicon glyphicon-check" style="color: green;"/>
