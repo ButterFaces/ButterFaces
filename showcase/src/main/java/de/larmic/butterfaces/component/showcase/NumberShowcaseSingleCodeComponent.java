@@ -1,10 +1,11 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import java.io.Serializable;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
+
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 @Named
 @ViewScoped
@@ -63,9 +64,14 @@ public class NumberShowcaseSingleCodeComponent extends AbstractInputShowcaseSing
     @Override
     protected void addCss(StringBuilder sb) {
         if (!StringUtils.isEmpty(this.getStyleClass())) {
-            sb.append(".some-demo-class {\n");
-            sb.append("    background-color: red;\n");
-            sb.append("}");
+            sb
+                  .append(".demo-big-label .butter-component-label {\n")
+                  .append("    width: 250px;\n")
+                  .append("}\n")
+                  .append("\n")
+                  .append(".demo-big-label .butter-component-value {\n")
+                  .append("    width: calc(100% - 250px);\n")
+                  .append("}");
         }
     }
 

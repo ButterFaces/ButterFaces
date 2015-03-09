@@ -1,14 +1,13 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
+
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 @Named
 @ViewScoped
@@ -54,11 +53,7 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
 
-        if (StringUtils.isNotEmpty(this.getStyleClass())) {
-            final CssCodeExample cssCodeExample = new CssCodeExample();
-            cssCodeExample.addCss(".some-demo-class", "background-color: red;");
-            codeExamples.add(cssCodeExample);
-        }
+        generateDemoCSS(codeExamples);
     }
 
     public String getDescription() {

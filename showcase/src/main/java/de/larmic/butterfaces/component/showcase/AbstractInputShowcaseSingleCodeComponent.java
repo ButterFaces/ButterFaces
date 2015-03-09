@@ -109,7 +109,7 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem(null, "default (null)"));
-        items.add(new SelectItem("some-demo-class", "some-demo-class"));
+        items.add(new SelectItem("demo-big-label", "demo-big-label"));
 
         return items;
     }

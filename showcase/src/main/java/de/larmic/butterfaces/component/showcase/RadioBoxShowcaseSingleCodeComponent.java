@@ -1,18 +1,19 @@
 package de.larmic.butterfaces.component.showcase;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
-
-import javax.faces.view.ViewScoped;
-import javax.faces.model.SelectItem;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -117,14 +118,19 @@ public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 		return sb.toString();
 	}
 
-    @Override
-    protected void addCss(StringBuilder sb) {
-        if (!StringUtils.isEmpty(this.getStyleClass())) {
-            sb.append(".some-demo-class {\n");
-            sb.append("    background-color: red;\n");
-            sb.append("}");
-        }
-    }
+	@Override
+	protected void addCss(StringBuilder sb) {
+		if (!StringUtils.isEmpty(this.getStyleClass())) {
+			sb
+					.append(".demo-big-label .butter-component-label {\n")
+					.append("    width: 250px;\n")
+					.append("}\n")
+					.append("\n")
+					.append(".demo-big-label .butter-component-value {\n")
+					.append("    width: calc(100% - 250px);\n")
+					.append("}");
+		}
+	}
 
     protected String getEmptyDistanceString() {
         return "                    ";

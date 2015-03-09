@@ -32,13 +32,13 @@ select.butter-input-component {
 .butter-component-label {
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100px;
+    width: 120px;
     display: inline-block;
 }
 
 .butter-component-value {
     display: inline-block;
-    width: calc(100% - 100px);
+    width: calc(100% - 120px);
 }
 
 .input-group.butter-component-value {

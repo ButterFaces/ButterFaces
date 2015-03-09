@@ -1,11 +1,15 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.type.AjaxType;
-
-import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.model.SelectItem;
+
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.type.AjaxType;
 
 public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
@@ -94,7 +98,7 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem(null, "default (null)"));
-        items.add(new SelectItem("some-demo-class", "some-demo-class"));
+        items.add(new SelectItem("demo-big-label", "demo-big-label"));
 
         return items;
     }
@@ -202,5 +206,14 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    protected void generateDemoCSS(List<AbstractCodeExample> codeExamples) {
+        if (StringUtils.isNotEmpty(this.getStyleClass())) {
+            final CssCodeExample cssCodeExample = new CssCodeExample();
+            cssCodeExample.addCss(".demo-big-label .butter-component-label", "width: 250px;");
+            cssCodeExample.addCss(".demo-big-label .butter-component-value", "width: calc(100% - 250px);");
+            codeExamples.add(cssCodeExample);
+        }
     }
 }

@@ -1,20 +1,19 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
-
-import javax.faces.view.ViewScoped;
-import javax.faces.model.SelectItem;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -82,11 +81,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
 
-        if (StringUtils.isNotEmpty(this.getStyleClass())) {
-            final CssCodeExample cssCodeExample = new CssCodeExample();
-            cssCodeExample.addCss(".some-demo-class", "background-color: red;");
-            codeExamples.add(cssCodeExample);
-        }
+		 generateDemoCSS(codeExamples);
     }
 
 	@Override
