@@ -38,6 +38,9 @@
             <showcase:tagEnumControl label="sort identifier"
                                      value="#{tableShowcase.rowIdentifierType}"
                                      values="#{tableShowcase.rowIdentifierTypes}"/>
+            <showcase:tagEnumControl label="toolbar facets"
+                                     value="#{tableShowcase.toolbarFacetType}"
+                                     values="#{tableShowcase.toolBarFacetTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -79,6 +82,9 @@
                         showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+            <f:facet name="default-options-left"><a class="btn btn-default">Left facet</a></f:facet>
+            <f:facet name="default-options-center"><a class="btn btn-default">Center facet</a></f:facet>
+            <f:facet name="default-options-right"><a class="btn btn-default">Right facet</a></f:facet>
             <f:ajax/>
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...

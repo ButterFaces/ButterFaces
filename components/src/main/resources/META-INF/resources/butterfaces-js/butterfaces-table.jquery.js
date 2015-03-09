@@ -26,7 +26,7 @@
         return this.each(function () {
             var $originalElement = $(this);
 
-            console.log('Toggle column: ' + data.columnIndex);
+            // console.log('Toggle column: ' + data.columnIndex);
 
             var $columnHeader = $originalElement.find(".butter-component-table-column-header[columnnumber='" + data.columnIndex + "']");
             var $columnBody = $originalElement.find(".butter-component-table-column[columnnumber='" + data.columnIndex + "']");
@@ -34,7 +34,7 @@
 
             var checked = $columnHeader.css('display') != 'none';
 
-            console.log('Column checked: ' + checked);
+            // console.log('Column checked: ' + checked);
 
             if (checked) {
                 $columnHeader.css('display', 'none');

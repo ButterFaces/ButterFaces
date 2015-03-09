@@ -35,6 +35,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private RowIdentifierType rowIdentifierType = RowIdentifierType.ID;
     private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
     private ToolBarType toolBarType = ToolBarType.SERVER_FILTER;
+    private ToolbarFacetType toolbarFacetType = ToolbarFacetType.NONE;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     private String rowIdentifierProperty;
@@ -371,6 +372,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         return items;
     }
 
+    public List<SelectItem> getToolBarFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final ToolbarFacetType type : ToolbarFacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
     public List<SelectItem> getToolBarTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
@@ -559,6 +569,14 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public RowIdentifierType getRowIdentifierType() {
         return rowIdentifierType;
+    }
+
+    public ToolbarFacetType getToolbarFacetType() {
+        return toolbarFacetType;
+    }
+
+    public void setToolbarFacetType(ToolbarFacetType toolbarFacetType) {
+        this.toolbarFacetType = toolbarFacetType;
     }
 
     public void setRowIdentifierType(RowIdentifierType rowIdentifierType) {

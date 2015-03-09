@@ -11,6 +11,11 @@
     cursor: pointer;
 }
 
+.butter-table-toolbar {
+    display: inline-block;
+    width: 100%;
+}
+
 .butter-table-toolbar ul.dropdown-menu-form {
     max-height: 300px;
 }
