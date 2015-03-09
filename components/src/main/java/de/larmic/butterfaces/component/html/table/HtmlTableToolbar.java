@@ -30,7 +30,7 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
     protected static final String PROPERTY_TABLE_ID = "tableId";
     protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
     protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
-
+    protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
 
     public HtmlTableToolbar() {
         super();
@@ -76,6 +76,15 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     public void setShowToggleColumnButton(boolean showToggleColumnButton) {
         this.updateStateHelper(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON, showToggleColumnButton);
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST, ajaxDisableRenderRegionsOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

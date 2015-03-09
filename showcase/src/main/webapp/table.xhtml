@@ -18,6 +18,8 @@
             <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
             <showcase:tagBooleanControl label="showToggleColumnButton"
                                         value="#{tableShowcase.showToggleColumnButton}"/>
+            <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+                                        value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -75,6 +77,7 @@
         <b:tableToolbar tableId="filterTable"
                         showRefreshButton="#{tableShowcase.showRefreshButton}"
                         showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
+                        ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax/>
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">

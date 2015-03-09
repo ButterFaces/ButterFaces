@@ -157,8 +157,6 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeAttribute("type", "checkbox", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
-                // TODO correct table id
-
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
 
                 final Map<String, List<ClientBehavior>> behaviors = tableHeader.getClientBehaviors();
@@ -170,7 +168,9 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                         // ajax tag is enabled
                         final AjaxBehavior ajaxBehavior = new AjaxBehavior();
                         ajaxBehavior.setRender(clientBehavior.getRender());
-                        ajaxBehavior.setOnevent(this.getOnEventListenerName(this.cachedTableComponent));
+                        if (tableHeader.isAjaxDisableRenderRegionsOnRequest()) {
+                            ajaxBehavior.setOnevent(this.getOnEventListenerName(this.cachedTableComponent));
+                        }
                         final String ajaxBehaviorScript = ajaxBehavior.getScript(behaviorContext);
 
                         final String correctedEventName = ajaxBehaviorScript.replace(",'click',", ",'toggle_" + columnNumber + "',");
@@ -213,7 +213,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
-            writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.cachedTableComponent.getClientId() + "', onevent:" + this.getOnEventListenerName(this.cachedTableComponent) + "});", null);
+            if (tableHeader.isAjaxDisableRenderRegionsOnRequest()) {
+                writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.cachedTableComponent.getClientId() + "', onevent:" + this.getOnEventListenerName(this.cachedTableComponent) + "});", null);
+            } else {
+                writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.cachedTableComponent.getClientId() + "'});", null);
+            }
             writer.startElement("i", tableHeader);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
             writer.endElement("i");

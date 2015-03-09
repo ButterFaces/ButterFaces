@@ -1,16 +1,5 @@
 package de.larmic.butterfaces.component.showcase.table;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
-import org.apache.commons.lang3.StringUtils;
-
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
@@ -21,6 +10,15 @@ import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
 import de.larmic.butterfaces.model.table.SortType;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by larmic on 11.09.14.
@@ -45,6 +43,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private boolean tableStriped = true;
     private boolean showRefreshButton = true;
     private boolean showToggleColumnButton = true;
+    private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String filterValue;
     private String colWidthColumn1;
     private String colWidthColumn2;
@@ -121,6 +120,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"input\"");
         xhtmlCodeExample.appendInnerContent("                        showRefreshButton=\"" + this.showRefreshButton + "\"");
         xhtmlCodeExample.appendInnerContent("                        showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
+        xhtmlCodeExample.appendInnerContent("                        ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
@@ -543,6 +543,14 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public String getRowClass() {
         return toolBarType == ToolBarType.CLIENT_FILTER ? "filterable-item" : null;
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        return ajaxDisableRenderRegionsOnRequest;
+    }
+
+    public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
+        this.ajaxDisableRenderRegionsOnRequest = ajaxDisableRenderRegionsOnRequest;
     }
 
     public String getRowIdentifierProperty() {
