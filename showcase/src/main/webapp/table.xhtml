@@ -82,9 +82,21 @@
                         showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
-            <f:facet name="default-options-left"><a class="btn btn-default">Left facet</a></f:facet>
-            <f:facet name="default-options-center"><a class="btn btn-default">Center facet</a></f:facet>
-            <f:facet name="default-options-right"><a class="btn btn-default">Right facet</a></f:facet>
+            <f:facet name="default-options-left">
+                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
+                    <a class="btn btn-default">Left facet</a>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="default-options-center">
+                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'CENTER_FACET'}">
+                    <a class="btn btn-default">Center facet</a>
+                </h:panelGroup>
+            </f:facet>
+            <f:facet name="default-options-right">
+                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'RIGHT_FACET'}">
+                    <a class="btn btn-default">Right facet</a>
+                </h:panelGroup>
+            </f:facet>
             <f:ajax/>
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...

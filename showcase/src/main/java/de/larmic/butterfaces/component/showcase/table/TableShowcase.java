@@ -125,6 +125,19 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
+        if (this.toolbarFacetType == ToolbarFacetType.LEFT_FACET) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-left\">");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Left facet</a>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        } else if (this.toolbarFacetType == ToolbarFacetType.CENTER_FACET) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-center\">");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Center facet</a>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        } else if (this.toolbarFacetType == ToolbarFacetType.RIGHT_FACET) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-right\">");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Right facet</a>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        }
         if (this.toolBarType == ToolBarType.TEXT) {
             xhtmlCodeExample.appendInnerContent("            Custom toolbar text...");
         } else if (this.toolBarType == ToolBarType.SERVER_FILTER) {
