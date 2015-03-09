@@ -89,8 +89,6 @@ public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
         this.appendBoolean("required", this.isRequired(), sb);
         this.appendString("layout", radioBoxLayoutType.label, sb);
         this.appendString("styleClass", this.getStyleClass(), sb);
-        this.appendString("inputStyleClass", this.getInputStyleClass(), sb);
-        this.appendString("labelStyleClass", this.getLabelStyleClass(), sb);
         this.appendBoolean("rendered", this.isRendered(), sb, true);
 
 		if (this.comboBoxValueType == ComboBoxValueType.STRING) {

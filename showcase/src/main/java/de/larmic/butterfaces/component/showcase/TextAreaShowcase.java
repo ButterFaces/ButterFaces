@@ -39,8 +39,6 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"" + this.getInputStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    labelStyleClass=\"" + this.getLabelStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + placeholder + "\"");

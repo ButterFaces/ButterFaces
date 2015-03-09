@@ -42,8 +42,6 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
         xhtmlCodeExample.appendInnerContent("                  tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                  placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                  styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                  inputStyleClass=\"" + this.getInputStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                  labelStyleClass=\"" + this.getLabelStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                  readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                  required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                  autoFocus=\"" + this.isAutoFocus() + "\"");

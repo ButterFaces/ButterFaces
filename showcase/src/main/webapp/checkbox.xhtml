@@ -21,12 +21,6 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcase.styleClass}"
                                      values="#{checkBoxShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{checkBoxShowcase.inputStyleClass}"
-                                     values="#{checkBoxShowcase.inputStyleClasses}"/>
-            <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{checkBoxShowcase.labelStyleClass}"
-                                     values="#{checkBoxShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -55,8 +49,6 @@
                         required="#{checkBoxShowcase.required}"
                         rendered="#{checkBoxShowcase.rendered}"
                         autoFocus="#{checkBoxShowcase.autoFocus}"
-                        inputStyleClass="#{checkBoxShowcase.inputStyleClass}"
-                        labelStyleClass="#{checkBoxShowcase.labelStyleClass}"
                         styleClass="#{checkBoxShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"

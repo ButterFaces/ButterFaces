@@ -20,12 +20,6 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{textShowcase.styleClass}"
                                      values="#{textShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{textShowcase.inputStyleClass}"
-                                     values="#{textShowcase.inputStyleClasses}"/>
-            <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{textShowcase.labelStyleClass}"
-                                     values="#{textShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -71,8 +65,6 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    inputStyleClass="#{textShowcase.inputStyleClass}"
-                    labelStyleClass="#{textShowcase.labelStyleClass}"
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
@@ -97,8 +89,6 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    inputStyleClass="#{textShowcase.inputStyleClass}"
-                    labelStyleClass="#{textShowcase.labelStyleClass}"
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
@@ -129,8 +119,6 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    inputStyleClass="#{textShowcase.inputStyleClass}"
-                    labelStyleClass="#{textShowcase.labelStyleClass}"
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"

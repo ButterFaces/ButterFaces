@@ -38,8 +38,6 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    description=\"" + description + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"" + this.getInputStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    labelStyleClass=\"" + this.getLabelStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");

@@ -1,11 +1,12 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.showcase.text.FacetType;
-import de.larmic.butterfaces.component.showcase.type.AjaxType;
-
-import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.model.SelectItem;
+
+import de.larmic.butterfaces.component.showcase.text.FacetType;
+import de.larmic.butterfaces.component.showcase.type.AjaxType;
 
 /**
  * @deprecated Use {@link de.larmic.butterfaces.component.showcase.AbstractInputShowcase} instead.
@@ -26,8 +27,6 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
     private boolean hideLabel;
     private boolean autoFocus;
     private AjaxType ajaxType = AjaxType.NONE;
-    private String inputStyleClass = null;
-    private String labelStyleClass = null;
     private String styleClass = null;
 
     public AbstractInputShowcaseSingleCodeComponent() {
@@ -65,43 +64,6 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
         for (final FacetType type : FacetType.values()) {
             items.add(new SelectItem(type, type.label));
         }
-        return items;
-    }
-
-    public List<SelectItem> getInputStyleClasses() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        items.add(new SelectItem("col-sm-1", "col-sm-1"));
-        items.add(new SelectItem("col-sm-2", "col-sm-2"));
-        items.add(new SelectItem("col-sm-3", "col-sm-3"));
-        items.add(new SelectItem("col-sm-4", "col-sm-4"));
-        items.add(new SelectItem("col-sm-5", "col-sm-5"));
-        items.add(new SelectItem("col-sm-6", "col-sm-6"));
-        items.add(new SelectItem("col-sm-7", "col-sm-7"));
-        items.add(new SelectItem("col-sm-8", "col-sm-8"));
-        items.add(new SelectItem("col-sm-9", "col-sm-9"));
-        items.add(new SelectItem(null, "default (col-sm-10)"));
-        items.add(new SelectItem("col-sm-9", "col-sm-11"));
-        items.add(new SelectItem("col-sm-9", "col-sm-12"));
-
-        return items;
-    }
-
-    public List<SelectItem> getLabelStyleClasses() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        items.add(new SelectItem("col-sm-1", "col-sm-1"));
-        items.add(new SelectItem(null, "default (col-sm-2)"));
-        items.add(new SelectItem("col-sm-3", "col-sm-3"));
-        items.add(new SelectItem("col-sm-4", "col-sm-4"));
-        items.add(new SelectItem("col-sm-5", "col-sm-5"));
-        items.add(new SelectItem("col-sm-6", "col-sm-6"));
-        items.add(new SelectItem("col-sm-7", "col-sm-7"));
-        items.add(new SelectItem("col-sm-8", "col-sm-8"));
-        items.add(new SelectItem("col-sm-9", "col-sm-10"));
-        items.add(new SelectItem("col-sm-9", "col-sm-11"));
-        items.add(new SelectItem("col-sm-9", "col-sm-12"));
-
         return items;
     }
 
@@ -210,22 +172,6 @@ public abstract class AbstractInputShowcaseSingleCodeComponent extends AbstractS
 
     public void setHideLabel(boolean hideLabel) {
         this.hideLabel = hideLabel;
-    }
-
-    public String getInputStyleClass() {
-        return inputStyleClass;
-    }
-
-    public void setInputStyleClass(String inputStyleClass) {
-        this.inputStyleClass = inputStyleClass;
-    }
-
-    public String getLabelStyleClass() {
-        return labelStyleClass;
-    }
-
-    public void setLabelStyleClass(String labelStyleClass) {
-        this.labelStyleClass = labelStyleClass;
     }
 
     public String getStyleClass() {

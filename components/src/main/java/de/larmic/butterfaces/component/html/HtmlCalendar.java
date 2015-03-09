@@ -35,8 +35,6 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 	protected static final String PROPERTY_GLYPHICON_DOWN = "glyphiconDown";
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
-	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 	protected static final String PROPERTY_PICK_DATE = "pickDate";
@@ -130,24 +128,6 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 	public void setLanguage(String language) {
 		this.updateStateHelper(PROPERTY_LANGUAGE, language);;
 	}
-
-	@Override
-    public String getInputStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
-    }
-
-    public void setInputStyleClass(final String inputStyleClass) {
-        this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
-    }
-
-    @Override
-    public String getLabelStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_LABEL_STYLE_CLASS);
-    }
-
-    public void setLabelStyleClass(final String labelStyleClass) {
-        this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
-    }
 
 	public String getGlyphiconTime() {
 		return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_TIME);

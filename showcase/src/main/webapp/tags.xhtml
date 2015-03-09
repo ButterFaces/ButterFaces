@@ -20,12 +20,6 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{tagsShowcase.inputStyleClass}"
-                                     values="#{tagsShowcase.inputStyleClasses}"/>
-            <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{tagsShowcase.labelStyleClass}"
-                                     values="#{tagsShowcase.labelStyleClasses}"/>
             <showcase:tagBooleanControl label="allowDuplicates" value="#{tagsShowcase.allowDuplicates}"/>
             <!-- plugin error trim value does not work correclty -->
             <!--showcase:tagBooleanControl label="trimValue" value="#{tagsShowcase.trimValue}"/-->
@@ -66,8 +60,6 @@
                     rendered="#{tagsShowcase.rendered}"
                     placeholder="#{tagsShowcase.placeholder}"
                     autoFocus="#{tagsShowcase.autoFocus}"
-                    inputStyleClass="#{tagsShowcase.inputStyleClass}"
-                    labelStyleClass="#{tagsShowcase.labelStyleClass}"
                     styleClass="#{tagsShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"

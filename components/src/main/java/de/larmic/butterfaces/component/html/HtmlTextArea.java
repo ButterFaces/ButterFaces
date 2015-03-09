@@ -1,15 +1,16 @@
 package de.larmic.butterfaces.component.html;
 
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
+import java.util.Collections;
+import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputTextarea;
-import java.util.Collections;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -30,8 +31,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
-    protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_EXPANDABLE = "expandable";
@@ -50,24 +49,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    @Override
-    public String getInputStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
-    }
-
-    public void setInputStyleClass(final String inputStyleClass) {
-        this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
-    }
-
-    @Override
-    public String getLabelStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_LABEL_STYLE_CLASS);
-    }
-
-    public void setLabelStyleClass(final String labelStyleClass) {
-        this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
 
     @Override

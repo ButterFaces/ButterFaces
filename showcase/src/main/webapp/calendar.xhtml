@@ -25,12 +25,6 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{calendarShowcase.styleClass}"
                                      values="#{calendarShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{calendarShowcase.inputStyleClass}"
-                                     values="#{calendarShowcase.inputStyleClasses}"/>
-            <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{calendarShowcase.labelStyleClass}"
-                                     values="#{calendarShowcase.labelStyleClasses}"/>
             <showcase:tagEnumControl label="glyphicon"
                                      value="#{calendarShowcase.selectedIconType}"
                                      values="#{calendarShowcase.calendarIconTypes}"/>
@@ -78,8 +72,6 @@
                         rendered="#{calendarShowcase.rendered}"
                         placeholder="#{calendarShowcase.placeholder}"
                         autoFocus="#{calendarShowcase.autoFocus}"
-                        inputStyleClass="#{calendarShowcase.inputStyleClass}"
-                        labelStyleClass="#{calendarShowcase.labelStyleClass}"
                         styleClass="#{calendarShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"

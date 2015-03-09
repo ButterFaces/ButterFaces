@@ -4,10 +4,6 @@ select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
 
-.butter-readonly-value {
-    white-space: pre-wrap;
-}
-
 .butter-component-required {
     color: #a94442;
     margin-right: 2px;
@@ -41,6 +37,10 @@ select.butter-input-component {
     width: calc(100% - 120px);
 }
 
+.butter-component-value-readonly {
+    white-space: pre-wrap;
+}
+
 .input-group.butter-component-value {
     float:right;
 }
@@ -50,7 +50,7 @@ select.butter-input-component {
 }
 
 .butter-component-value-hiddenLabel {
-    width: 100%;
+    width: 100% !important;
 }
 
 .form-group {

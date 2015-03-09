@@ -57,14 +57,6 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
             <name>placeholder</name>
             <type>java.lang.String</type>
         </attribute>
@@ -161,14 +153,6 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
             <name>placeholder</name>
             <type>java.lang.String</type>
         </attribute>
@@ -218,14 +202,6 @@
         </attribute>
         <attribute>
             <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -301,14 +277,6 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
             <name>placeholder</name>
             <type>java.lang.String</type>
         </attribute>
@@ -370,14 +338,6 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
             <name>placeholder</name>
             <type>java.lang.String</type>
         </attribute>
@@ -432,14 +392,6 @@
         </attribute>
         <attribute>
             <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -507,14 +459,6 @@
             <name>styleClass</name>
             <type>java.lang.String</type>
         </attribute>
-        <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
     </tag>
 
     <tag>
@@ -558,14 +502,6 @@
         </attribute>
         <attribute>
             <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
     </tag>
@@ -619,14 +555,6 @@
         </attribute>
         <attribute>
             <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>labelStyleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>inputStyleClass</name>
             <type>java.lang.String</type>
         </attribute>
     </tag>

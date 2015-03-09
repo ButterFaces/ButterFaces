@@ -49,8 +49,6 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                max=\"" + this.getMax() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                inputStyleClass=\"" + this.getInputStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                labelStyleClass=\"" + this.getLabelStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                autoFocus=\"" + this.isAutoFocus() + "\"");

@@ -35,15 +35,8 @@ public class InnerComponentWrapperPartRenderer {
     }
 
     private String createComponentStyleClass(final HtmlInputComponent component) {
-        final String inputStyleClass = component.getInputStyleClass();
-
         final StringBuilder componentStyleClass = new StringBuilder();
-
-        if (StringUtils.isEmpty(component.getInputStyleClass())) {
-            componentStyleClass.append(this.createDefaultStyleClass(component));
-        } else {
-            componentStyleClass.append(inputStyleClass);
-        }
+        componentStyleClass.append(this.createDefaultStyleClass(component));
 
         if (component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
                 && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)

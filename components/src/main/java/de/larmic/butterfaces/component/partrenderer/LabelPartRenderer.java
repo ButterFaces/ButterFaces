@@ -23,7 +23,7 @@ public class LabelPartRenderer {
 
     private void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
                                        final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (!StringUtils.isEmpty(label) && !component.isHideLabel()) {
+        if (!component.isHideLabel()) {
             final UIInput uiComponent = (UIInput) component;
 
             writer.startElement("label", uiComponent);
@@ -31,19 +31,17 @@ public class LabelPartRenderer {
                 writer.writeAttribute("for", uiComponent.getId(), null);
             }
 
-            final String labelStyleClass = component.getLabelStyleClass();
-
-
             writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS,
-                    StringUtils.isEmpty(labelStyleClass) ? StringUtils.BLANK : labelStyleClass), null);
+                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS), null);
 
-            writer.startElement("abbr", uiComponent);
-            if (this.isTooltipNecessary(component)) {
-                writer.writeAttribute("title", component.getTooltip(), null);
+            if(!StringUtils.isEmpty(label)) {
+                writer.startElement("abbr", uiComponent);
+                if (this.isTooltipNecessary(component)) {
+                    writer.writeAttribute("title", component.getTooltip(), null);
+                }
+                writer.writeText(component.getLabel(), null);
+                writer.endElement("abbr");
             }
-            writer.writeText(component.getLabel(), null);
-            writer.endElement("abbr");
 
             this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
 

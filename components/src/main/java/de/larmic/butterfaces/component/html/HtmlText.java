@@ -1,15 +1,16 @@
 package de.larmic.butterfaces.component.html;
 
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
-import java.util.Arrays;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -28,8 +29,6 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 
 	protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_INPUT_STYLE_CLASS = "inputStyleClass";
-	protected static final String PROPERTY_LABEL_STYLE_CLASS = "labelStyleClass";
 	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
 	protected static final String PROPERTY_HTML5_TYPE = "type";
 	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
@@ -122,24 +121,6 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 	@Override
     public void setAutoFocus(final boolean autoFocus) {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
-    }
-
-    @Override
-    public String getInputStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_INPUT_STYLE_CLASS);
-    }
-
-    public void setInputStyleClass(final String inputStyleClass) {
-        this.updateStateHelper(PROPERTY_INPUT_STYLE_CLASS, inputStyleClass);
-    }
-
-    @Override
-    public String getLabelStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_LABEL_STYLE_CLASS);
-    }
-
-    public void setLabelStyleClass(final String labelStyleClass) {
-        this.updateStateHelper(PROPERTY_LABEL_STYLE_CLASS, labelStyleClass);
     }
 
 	private void updateStateHelper(final String propertyName, final Object value) {

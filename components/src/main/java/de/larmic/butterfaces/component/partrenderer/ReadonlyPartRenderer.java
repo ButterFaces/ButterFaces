@@ -1,8 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -12,8 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
-import java.io.IOException;
-import java.util.ArrayList;
+
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 /**
  * Created by larmic on 27.08.14.
@@ -27,13 +28,14 @@ public class ReadonlyPartRenderer {
         final Object value = component.getValue();
 
         if (readonly) {
-            final String inputStyleClass = component.getInputStyleClass();
-
             responseWriter.startElement("div", uiComponent);
-            responseWriter.writeAttribute("class",
-                    StringUtils.isEmpty(inputStyleClass) ? Constants.BOOTSTRAP_COL_SM_10 : inputStyleClass
-                    + " butter-readonly-value", null);
-            responseWriter.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
+            final StringBuilder sb = new StringBuilder("butter-component-value butter-component-value-readonly");
+            if (component.isHideLabel()) {
+                sb.append(" butter-component-value-hiddenLabel");
+            }
+            responseWriter.writeAttribute("class", sb.toString(), null);
+            responseWriter
+                  .writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             responseWriter.endElement("div");
         }
     }
@@ -50,7 +52,13 @@ public class ReadonlyPartRenderer {
         }
 
         if (component instanceof HtmlCheckBox) {
-            return (Boolean) value ? "ja" : "nein";
+            HtmlCheckBox checkBoxComponent = (HtmlCheckBox) component;
+            final StringBuilder sb = new StringBuilder();
+            if(StringUtils.isNotEmpty(checkBoxComponent.getDescription())){
+                sb.append(checkBoxComponent.getDescription()).append(": ");
+            }
+            sb.append((Boolean) value ? "ja" : "nein");
+            return sb.toString();
         }
 
         if (component instanceof HtmlComboBox) {

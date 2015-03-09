@@ -1,10 +1,11 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 public class InnerComponentCheckBoxWrapperPartRenderer {
 
@@ -13,28 +14,19 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
         final HtmlCheckBox uiComponent = (HtmlCheckBox) component;
 
         if (!component.isReadonly()) {
-            final StringBuffer defaultStyleClass = new StringBuffer();
+            final StringBuilder defaultStyleClass = new StringBuilder();
             if (component.isHideLabel()) {
-                defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_12);
-            } else {
-                defaultStyleClass.append(Constants.BOOTSTRAP_COL_SM_10);
-
-                if (StringUtils.isEmpty(component.getLabel())) {
-                    defaultStyleClass
-                            .append(StringUtils.SPACE)
-                            .append(Constants.BOOTSTRAP_COL_SM_OFFSET_2);
-                }
+                defaultStyleClass.append("butter-component-value-hiddenLabel");
+            }else {
+                defaultStyleClass.append("butter-component-value");
             }
 
-            final String inputStyleClass = component.getInputStyleClass();
-
             writer.startElement("div", uiComponent);
-            writer.writeAttribute("class",
-                    StringUtils.isEmpty(inputStyleClass) ? defaultStyleClass.toString() : inputStyleClass, null);
+            writer.writeAttribute("class", defaultStyleClass.toString(), null);
 
             if (!StringUtils.isEmpty(uiComponent.getDescription())) {
                 writer.startElement("div", uiComponent);
-                writer.writeAttribute("class", "checkbox", null);
+                writer.writeAttribute("class", "checkbox butter-component-checkbox-withDescription", null);
                 writer.startElement("label", uiComponent);
             }
         }
@@ -46,7 +38,10 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
             final HtmlCheckBox uiComponent = (HtmlCheckBox) component;
 
             if (!StringUtils.isEmpty(uiComponent.getDescription())) {
+                writer.startElement("span", uiComponent);
+                writer.writeAttribute("class", "butter-component-checkbox-description", null);
                 writer.writeText(uiComponent.getDescription(), null);
+                writer.endElement("span");
                 writer.endElement("label");
                 writer.endElement("div");
             }

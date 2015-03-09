@@ -22,12 +22,6 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{textAreaShowcase.styleClass}"
                                      values="#{textAreaShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="inputStyleClass"
-                                     value="#{textAreaShowcase.inputStyleClass}"
-                                     values="#{textAreaShowcase.inputStyleClasses}"/>
-            <showcase:tagEnumControl label="labelStyleClass"
-                                     value="#{textAreaShowcase.labelStyleClass}"
-                                     values="#{textAreaShowcase.labelStyleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -60,8 +54,6 @@
                         expandable="#{textAreaShowcase.expandable}"
                         placeholder="#{textAreaShowcase.placeholder}"
                         autoFocus="#{textAreaShowcase.autoFocus}"
-                        inputStyleClass="#{textAreaShowcase.inputStyleClass}"
-                        labelStyleClass="#{textAreaShowcase.labelStyleClass}"
                         styleClass="#{textAreaShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"

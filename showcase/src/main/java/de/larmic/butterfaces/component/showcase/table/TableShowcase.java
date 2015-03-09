@@ -1,5 +1,16 @@
 package de.larmic.butterfaces.component.showcase.table;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
+import org.apache.commons.lang3.StringUtils;
+
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
@@ -10,15 +21,6 @@ import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
 import de.larmic.butterfaces.model.table.SortType;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by larmic on 11.09.14.
@@ -127,7 +129,6 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         } else if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             xhtmlCodeExample.appendInnerContent("            <b:text value=\"#{myBean.filterValue}\"");
             xhtmlCodeExample.appendInnerContent("                    placeholder=\"Enter text...\"");
-            xhtmlCodeExample.appendInnerContent("                    inputStyleClass=\"col-sm-6\"");
             xhtmlCodeExample.appendInnerContent("                    autoFocus=\"true\"");
             xhtmlCodeExample.appendInnerContent("                    hideLabel=\"true\">");
             xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"input\"/>");
