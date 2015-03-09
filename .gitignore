@@ -29,3 +29,4 @@ target/
 .directory
 *.log
 *~
+atlassian-ide-plugin.xml
