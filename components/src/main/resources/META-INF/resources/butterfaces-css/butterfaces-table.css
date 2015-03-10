@@ -1,10 +1,12 @@
-.table-striped>tbody>tr.butter-table-row-selected {
+.butter-table tbody>tr.butter-table-row-selected,
+.butter-table tbody>tr.butter-table-row-selected td {
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
 }
 
-.table-striped>tbody>tr.butter-table-row:hover {
+.butter-table tbody>tr.butter-table-row:hover,
+.butter-table tbody>tr.butter-table-row:hover td {
     color: #8a6d3b;
     background-color: #fcf8e3;
     border-color: #faebcc;
