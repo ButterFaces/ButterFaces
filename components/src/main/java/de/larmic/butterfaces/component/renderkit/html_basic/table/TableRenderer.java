@@ -146,7 +146,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     if (sortingSupportedByAjaxTag) {
                         final AjaxBehavior ajaxBehavior = new AjaxBehavior();
                         ajaxBehavior.setRender(Arrays.asList(table.getClientId()));
-                        ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
+                        if (((HtmlTable) table).isAjaxDisableRenderRegionsOnRequest()) {
+                            ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
+                        }
                         final String script = ajaxBehavior.getScript(behaviorContext);
                         final String correctedScript = script.replace(",'click',", ",'sort_" + columnNumber + "',");
                         writer.writeAttribute("onclick", this.removeExecutePart(correctedScript, htmlTable) + ";", null);
@@ -273,11 +275,13 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.endElement("div");
         writer.endElement("div");
 
-        writer.startElement("script", component);
-        writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
-        writer.writeText("    refreshTable(data, '" + this.getInnerTableId(component) + "');", null);
-        writer.writeText("}", null);
-        writer.endElement("script");
+        if (((HtmlTable) component).isAjaxDisableRenderRegionsOnRequest()) {
+            writer.startElement("script", component);
+            writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
+            writer.writeText("    refreshTable(data, '" + this.getInnerTableId(component) + "');", null);
+            writer.writeText("}", null);
+            writer.endElement("script");
+        }
     }
 
     @Override

@@ -44,6 +44,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_SORT_DESCENDING_CLASS  = "sortDescendingClass";
     protected static final String PROPERTY_TABLE_ROW_CLASS  = "rowClass";
     protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY  = "rowIdentifierProperty";
+    protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
 
     private final List<HtmlColumn> cachedColumns = new ArrayList<>();
 
@@ -172,6 +173,15 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setRowIdentifierProperty(String rowIdentifierProperty) {
         this.updateStateHelper(PROPERTY_ROW_IDENTIFIER_PROPERTY, rowIdentifierProperty);
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST, ajaxDisableRenderRegionsOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

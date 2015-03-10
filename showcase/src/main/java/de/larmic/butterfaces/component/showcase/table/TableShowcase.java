@@ -174,6 +174,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                 tableBordered=\"" + this.tableBordered + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableCondensed=\"" + this.tableCondensed + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableStriped=\"" + this.tableStriped + "\"");
+        xhtmlCodeExample.appendInnerContent("                 ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         if (rowIdentifierType == RowIdentifierType.ID) {
             xhtmlCodeExample.appendInnerContent("                 rowIdentifierProperty=\"id\"");
         }
