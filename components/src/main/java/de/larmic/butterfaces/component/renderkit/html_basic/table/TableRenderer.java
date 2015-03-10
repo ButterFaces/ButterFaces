@@ -376,7 +376,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 cachedRowIdentifier = null;
 
                 if (rowObject != null) {
-                    listener.processValueChange(rowObject);
+                    listener.processTableSelection(rowObject);
                     final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
                     cachedRowIdentifier = rowIdentifier;
 

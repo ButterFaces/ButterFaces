@@ -10,6 +10,6 @@ public interface TableSingleSelectionListener<T> {
      *
      * @param data selected row data
      */
-    public void processValueChange(final T data);
+    public void processTableSelection(final T data);
 
 }

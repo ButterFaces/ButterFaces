@@ -126,7 +126,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         myBean.appendInnerContent("    }\n");
         if (isAjaxRendered()) {
             myBean.appendInnerContent("    @Override");
-            myBean.appendInnerContent("    public void processValueChange(final TreeNodeSelectionEvent event) {");
+            myBean.appendInnerContent("    public void processTableSelection(final TreeNodeSelectionEvent event) {");
             myBean.appendInnerContent("        selectedNode = event.getNewValue();");
             myBean.appendInnerContent("    }\n");
             myBean.appendInnerContent("    public Node getSelectedNode() {");

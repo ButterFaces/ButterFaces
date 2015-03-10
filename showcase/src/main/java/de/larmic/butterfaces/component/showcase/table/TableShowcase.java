@@ -112,7 +112,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     }
 
     @Override
-    public void processValueChange(final StringPair data) {
+    public void processTableSelection(final StringPair data) {
         this.selectedValue = data;
     }
 
@@ -313,7 +313,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
             myBean.appendInnerContent("    private StringPair selectedRow;\n");
             myBean.appendInnerContent("    @Override");
-            myBean.appendInnerContent("    public void processValueChange(final StringPair data) {");
+            myBean.appendInnerContent("    public void processTableSelection(final StringPair data) {");
             myBean.appendInnerContent("        this.selectedRow = data;");
             myBean.appendInnerContent("    }\n");
         }
