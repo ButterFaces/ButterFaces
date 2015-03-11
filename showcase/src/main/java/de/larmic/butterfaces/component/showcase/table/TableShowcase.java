@@ -10,6 +10,7 @@ import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
 import de.larmic.butterfaces.model.table.SortType;
+import de.larmic.butterfaces.model.table.TableToolbarRefreshListener;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -122,6 +123,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("                        showRefreshButton=\"" + this.showRefreshButton + "\"");
         xhtmlCodeExample.appendInnerContent("                        showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
         xhtmlCodeExample.appendInnerContent("                        ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
+        if (showRefreshButton) {
+            xhtmlCodeExample.appendInnerContent("                        refreshListener=\"#{myBean.toolbarRefreshListener}\"");
+        }
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
@@ -267,12 +271,19 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.addImport("de.larmic.butterfaces.model.table.TableModel");
             myBean.addImport("de.larmic.butterfaces.model.table.DefaultTableModel");
         }
+        if (showRefreshButton) {
+            myBean.addImport("de.larmic.butterfaces.model.table.TableToolbarRefreshListener");
+        }
 
         myBean.addImport("javax.faces.view.ViewScoped");
         myBean.addImport("javax.inject.Named");
 
         if (this.selectionAjaxType == SelectionAjaxType.AJAX) {
             myBean.addInterfaces("TableSingleSelectionListener");
+        }
+
+        if (showRefreshButton) {
+            myBean.addInterfaces("TableToolbarRefreshListener");
         }
 
         if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
@@ -316,6 +327,13 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.appendInnerContent("    @Override");
             myBean.appendInnerContent("    public void processTableSelection(final StringPair data) {");
             myBean.appendInnerContent("        this.selectedRow = data;");
+            myBean.appendInnerContent("    }\n");
+        }
+
+        if (showRefreshButton) {
+            myBean.appendInnerContent("    public void onPreRefresh() {");
+            myBean.appendInnerContent("        // Is called after clicking refresh button");
+            myBean.appendInnerContent("        // TODO implement me...");
             myBean.appendInnerContent("    }\n");
         }
 
@@ -476,6 +494,16 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public boolean isShowToggleColumnButton() {
         return showToggleColumnButton;
+    }
+
+    public TableToolbarRefreshListener getToolbarRefreshListener() {
+        return new TableToolbarRefreshListener() {
+            @Override
+            public void onPreRefresh() {
+                // do nothing at this time...
+                // could be used for debugging
+            }
+        };
     }
 
     public void setShowToggleColumnButton(boolean showToggleColumnButton) {

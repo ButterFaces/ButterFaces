@@ -80,6 +80,7 @@
         <b:tableToolbar tableId="filterTable"
                         showRefreshButton="#{tableShowcase.showRefreshButton}"
                         showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
+                        refreshListener="#{tableShowcase.toolbarRefreshListener}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:facet name="default-options-left">

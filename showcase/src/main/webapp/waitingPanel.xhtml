@@ -27,7 +27,12 @@
             <f:ajax/>
         </h:commandLink>
 
-        <b:activateLibraries/>
+        <h:commandLink value="Endless click"
+                       styleClass="btn btn-success"
+                       style="margin-left: 10px"
+                       action="#{waitingPanelShowcase.doWaitingClickEndless}">
+            <f:ajax/>
+        </h:commandLink>
     </ui:define>
 
     <ui:define name="other">

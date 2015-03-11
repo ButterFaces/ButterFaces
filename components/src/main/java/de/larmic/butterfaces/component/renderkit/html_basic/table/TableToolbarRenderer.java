@@ -110,15 +110,21 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
         if (behaviorEvent != null) {
-            final String[] split = behaviorEvent.split("_");
-            final String event = split[0];
-            final int eventNumber = Integer.valueOf(split[1]);
-            if ("toggle".equals(event) && this.cachedTableComponent.getTableColumnDisplayModel() != null) {
-                final HtmlColumn toggledColumn = this.cachedTableComponent.getCachedColumns().get(eventNumber);
-                if (this.isHideColumn(this.cachedTableComponent, toggledColumn)) {
-                    this.cachedTableComponent.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
-                } else {
-                    this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
+            if (behaviorEvent.startsWith("toggle")) {
+                final String[] split = behaviorEvent.split("_");
+                final String event = split[0];
+                final int eventNumber = Integer.valueOf(split[1]);
+                if ("toggle".equals(event) && this.cachedTableComponent.getTableColumnDisplayModel() != null) {
+                    final HtmlColumn toggledColumn = this.cachedTableComponent.getCachedColumns().get(eventNumber);
+                    if (this.isHideColumn(this.cachedTableComponent, toggledColumn)) {
+                        this.cachedTableComponent.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
+                    } else {
+                        this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
+                    }
+                }
+            } else if (behaviorEvent.equals("refresh")) {
+                if (htmlTableHeader.getTableToolbarRefreshListener() != null) {
+                    htmlTableHeader.getTableToolbarRefreshListener().onPreRefresh();
                 }
             }
         }
@@ -184,6 +190,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                         }
                         final String ajaxBehaviorScript = ajaxBehavior.getScript(behaviorContext);
 
+                        //final String ajaxCall = this.createAjaxCall(tableHeader, "toggle_" + columnNumber, "0");
+
                         final String correctedEventName = ajaxBehaviorScript.replace(",'click',", ",'toggle_" + columnNumber + "',");
                         writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
                     } else {
@@ -227,15 +235,27 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
             if (tableHeader.isAjaxDisableRenderRegionsOnRequest()) {
-                writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.cachedTableComponent.getClientId() + "', onevent:" + this.getOnEventListenerName(this.cachedTableComponent) + "});", null);
+                writer.writeAttribute("onclick", this.createAjaxCall(tableHeader, "refresh", this.cachedTableComponent.getClientId(), this.getOnEventListenerName(this.cachedTableComponent)), null);
             } else {
-                writer.writeAttribute("onclick", "jsf.ajax.request(this,null,{event:'action',render: '" + this.cachedTableComponent.getClientId() + "'});", null);
+                writer.writeAttribute("onclick", this.createAjaxCall(tableHeader, "refresh", this.cachedTableComponent.getClientId()), null);
             }
             writer.startElement("i", tableHeader);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
             writer.endElement("i");
             writer.endElement("a");
         }
+    }
+
+    private String createAjaxCall(final HtmlTableToolbar tableHeader, final String event, final String render) {
+        return this.createAjaxCall(tableHeader, event, render, null);
+    }
+
+    private String createAjaxCall(final HtmlTableToolbar tableHeader, final String event, final String render, final String onevent) {
+        if (StringUtils.isEmpty(onevent)) {
+            return "jsf.ajax.request('" + tableHeader.getClientId() + "','" + event + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + event + "'});";
+        }
+
+        return "jsf.ajax.request('" + tableHeader.getClientId() + "','" + event + "',{render: '" + render + "', onevent:" + onevent + ", 'javax.faces.behavior.event':'" + event + "'});";
     }
 
     private String getOnEventListenerName(final UIComponent component) {

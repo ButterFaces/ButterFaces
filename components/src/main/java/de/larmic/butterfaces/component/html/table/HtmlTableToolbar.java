@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.model.table.TableToolbarRefreshListener;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -31,6 +33,7 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
     protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
     protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
+    protected static final String PROPERTY_TOOLBAR_REFRESH_LISTENER = "refreshListener";
 
     public HtmlTableToolbar() {
         super();
@@ -85,6 +88,14 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
         this.updateStateHelper(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST, ajaxDisableRenderRegionsOnRequest);
+    }
+
+    public TableToolbarRefreshListener getTableToolbarRefreshListener() {
+        return (TableToolbarRefreshListener) this.getStateHelper().eval(PROPERTY_TOOLBAR_REFRESH_LISTENER);
+    }
+
+    public void setTableToolbarRefreshListener(TableToolbarRefreshListener tableToolbarRefreshListener) {
+        this.updateStateHelper(PROPERTY_TOOLBAR_REFRESH_LISTENER, tableToolbarRefreshListener);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

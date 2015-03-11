@@ -28,6 +28,12 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
         }
     }
 
+    public void doWaitingClickEndless() {
+        while(true) {
+            // endless loop
+        }
+    }
+
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
@@ -39,7 +45,7 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
         xhtmlCodeExample.appendInnerContent("        <h:commandLink styleClass=\"btn btn-success\"");
         xhtmlCodeExample.appendInnerContent("                       action=\"#{myBean.waitForFiveSeconds}>\"");
         xhtmlCodeExample.appendInnerContent("            <!-- ajax tag is needed because waiting panel component");
-        xhtmlCodeExample.appendInnerContent("                 s used ajax status to open and close overlay -->");
+        xhtmlCodeExample.appendInnerContent("                 is used ajax status to open and close overlay -->");
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
         xhtmlCodeExample.appendInnerContent("        </h:commandLink>");
 
