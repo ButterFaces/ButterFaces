@@ -33,7 +33,7 @@ select.butter-input-component {
 }
 
 .butter-component-value {
-    display: inline-block;
+    display: inline-table;
     width: calc(100% - 120px);
 }
 
