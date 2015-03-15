@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://butterfaces.larmic.de/components"
+        >
+
+<h:body>
+    <composite:interface>
+    </composite:interface>
+
+    <composite:implementation>
+        <div class="panel panel-warning">
+            <div class="panel-heading"><span class="fa fa-clock-o"/> Easy to use</div>
+            <div class="panel-body">
+                <p>
+                    <span class="glyphicon glyphicon-check" style="color: green;"/>
+                    <b>One dependency</b>
+                </p>
+                <h5>
+                    <small>There is only one dependency you need. Just add one jar to your project.</small>
+                </h5>
+                <h5>
+                    <small>You can easily use maven to add ButterFaces to your application as it is available in
+                        <a
+                                href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
+                                target="_blank">maven central respository</a>.
+                    </small>
+                </h5>
+                <div class="maven-example">
+                    <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
+                </div>
+
+                <p>
+                    <span class="glyphicon glyphicon-check" style="color: green;"/>
+                    <b>No additional css and js library</b>
+                </p>
+                <h5>
+                    <small>ButterFaces comes up with Bootstrap and jQuery. No need to add it to your application by yourself (but of course you can).</small>
+                </h5>
+
+                <p>
+                    <span class="glyphicon glyphicon-check" style="color: green;"/>
+                    <b>Well documented</b>
+                </p>
+                <h5>
+                    <small>A detailed showcase displays each component of ButterFaces.</small>
+                </h5>
+            </div>
+        </div>
+    </composite:implementation>
+</h:body>
+</html>

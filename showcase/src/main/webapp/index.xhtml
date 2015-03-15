@@ -1,6 +1,7 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:index="http://java.sun.com/jsf/composite/cc/index"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="content">
@@ -101,163 +102,33 @@
 
         </div>
 
-        <div class="row">
+        <div class="row hidden-sm">
             <div class="col-sm-3">
-                <div class="panel panel-primary panel-documentation">
-                    <div class="panel-heading"><span class="fa fa-pencil"/> Why ButterFaces?</div>
-                    <div class="panel-body">
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Butter is delicious</b>
-                        </p>
-                        <h5>
-                            <small>Everything is better with butter - that's why we name our framework ButterFaces.</small>
-                        </h5>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>HTML 5 features</b>
-                        </p>
-                        <h5>
-                            <small>ButterFaces bootstraps most of Mojarras input components and allows the use of most html 5 features e.g. placeholder, type, pattern and the like...</small>
-                        </h5>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Additional features</b>
-                        </p>
-                        <h5>
-                            <small>Each input component is extended by a readonly view and has a responsive label and tooltip attributes supporting ajax and validation.</small>
-                        </h5>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Based on Twitters Bootstrap and jQuery</b>
-                        </p>
-                        <h5>
-                            <small>Bootstraps responsive design and jQuery plugins help to build great and smart applications with being browser independent at the same time.</small>
-                        </h5>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Minimally invasive</b>
-                        </p>
-                        <h5>
-                            <small>ButterFaces provides you with its own components without changing the main artifact. Even dependencies like bootstrap and jquery are configurable.</small>
-                        </h5>
-                    </div>
-                </div>
+                <index:whyButterFaces />
             </div>
 
             <div class="col-sm-3">
-                <div class="panel panel-warning">
-                    <div class="panel-heading"><span class="fa fa-clock-o"/> Easy to use</div>
-                    <div class="panel-body">
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>One dependency</b>
-                        </p>
-                        <h5>
-                            <small>There is only one dependency you need. Just add one jar to your project.</small>
-                        </h5>
-                        <h5>
-                            <small>You can easily use maven to add ButterFaces to your application as it is available in
-                                <a
-                                        href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
-                                        target="_blank">maven central respository</a>.
-                            </small>
-                        </h5>
-                        <div class="maven-example">
-                            <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
-                        </div>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>No additional css and js library</b>
-                        </p>
-                        <h5>
-                            <small>ButterFaces comes up with Bootstrap and jQuery. No need to add it to your application by yourself (but of course you can).</small>
-                        </h5>
-
-                        <p>
-                            <span class="glyphicon glyphicon-check" style="color: green;"/>
-                            <b>Well documented</b>
-                        </p>
-                        <h5>
-                            <small>A detailed showcase displays each component of ButterFaces.</small>
-                        </h5>
-                    </div>
-                </div>
+                <index:easyToUse />
             </div>
 
             <div class="col-sm-6">
-                <div class="panel panel-success panel-components">
-                    <div class="panel-heading"><span class="fa fa-tag"/> ButterFaces JSF Components</div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="nav navList componentsNavList">
-                                    <li class="dropdown-header" role="presentation">Input components</li>
-                                    <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text" title="Butterfaces text component"/></li>
-                                    <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea" title="Butterfaces text area component"/></li>
-                                    <li><h:link value="b:calendar" outcome="/calendar" styleClass="arquillian_calendar newFeature" title="Butterfaces calendar component"/></li>
-                                    <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret" title="Butterfaces secret component"/></li>
-                                    <li><h:link value="b:number" outcome="/number" styleClass="arquillian_number" title="Butterfaces number component"/></li>
-                                    <li><h:link value="b:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox" title="Butterfaces checkbox component"/></li>
-                                    <li><h:link value="b:combobox" outcome="/combobox" styleClass="arquillian_combobox" title="Butterfaces combobox component"/></li>
-                                    <li><h:link value="b:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox" title="Butterfaces radio box component"/></li>
-                                    <li><h:link value="b:tags" outcome="/tags" styleClass="arquillian_tags experimental" title="Butterfaces tags component"/></li>
-                                    <li class="divider" role="presentation">
-                                        <hr/>
-                                    </li>
-                                    <li class="dropdown-header" role="presentation">Miscellaneous</li>
-                                    <li><h:link value="b:activateLibraries" outcome="/activateLibraries" styleClass="arquillian_activateLibraries" title="Butterfaces active libraries component"/></li>
-                                    <li><h:link value="b:defaultAction" outcome="/defaultAction" styleClass="arquillian_defaultAction" title="Butterfaces default action component"/></li>
-                                    <li><h:link value="b:waitingPanel" outcome="/waitingPanel" styleClass="arquillian_waitingPanel" title="Butterfaces waiting panel component"/></li>
-                                    <hr />
-                                    <li class="dropdown-header" role="presentation">Actions</li>
-                                    <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link" title="Butterfaces command link and button component"/></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="nav navList componentsNavList">
-                                    <li class="dropdown-header" role="presentation">Container</li>
-                                    <li><h:link value="b:section" outcome="/section" styleClass="arquillian_section" title="Butterfaces html section component"/>
-                                    </li>
-                                    <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint" title="Butterfaces google pretty print component"/>
-                                    </li>
-                                    <hr/>
-                                    <li class="dropdown-header" role="presentation">Data iteration</li>
-                                    <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table newFeature" title="Butterfaces table component"/></li>
-                                    <li><h:link value="b:tree" outcome="/tree" styleClass="arquillian_tree" title="Butterfaces tree component"/></li>
-                                    <hr/>
-                                    <li class="dropdown-header" role="presentation">jQuery Plugins</li>
-                                    <li><h:link value="$.itemFilterField" outcome="/jquery/itemFilterField" title="Butterfaces JQuery client side filtering component"/></li>
-                                    <li><h:link value="$.disableElements" outcome="/jquery/disableElements" title="Butterfaces JQuery disable and enable elements component"/></li>
-                                </ul>
-                            </div>
-                        </div>
+                <index:components />
+            </div>
+        </div>
 
-                        <div class="experimentalHint clearfix">
-                            <div class="row">
-                                <div class="col-md-9"></div>
-                                <div class="col-md-3">
-                            <span class="experimental hideExperimentalAttention">
-                                <span class="fa fa-warning fa-lg"></span> experimental
-                            </span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-9"></div>
-                                <div class="col-md-3">
-                            <span class="newFeature hideNewFeatureAttention">
-                                <span class="fa fa-star fa-lg"></span> new feature
-                            </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row visible-sm">
+            <div class="col-sm-6">
+                <index:whyButterFaces />
+            </div>
+
+            <div class="col-sm-6">
+                <index:easyToUse />
+            </div>
+        </div>
+
+        <div class="row visible-sm">
+            <div class="col-sm-12">
+                <index:components />
             </div>
         </div>
 

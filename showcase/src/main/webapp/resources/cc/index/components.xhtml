@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://butterfaces.larmic.de/components"
+        >
+
+<h:body>
+    <composite:interface>
+    </composite:interface>
+
+    <composite:implementation>
+        <div class="panel panel-success panel-components">
+            <div class="panel-heading"><span class="fa fa-tag"/> ButterFaces JSF Components</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="nav navList componentsNavList">
+                            <li class="dropdown-header" role="presentation">Input components</li>
+                            <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text" title="Butterfaces text component"/></li>
+                            <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea" title="Butterfaces text area component"/></li>
+                            <li><h:link value="b:calendar" outcome="/calendar" styleClass="arquillian_calendar newFeature" title="Butterfaces calendar component"/></li>
+                            <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret" title="Butterfaces secret component"/></li>
+                            <li><h:link value="b:number" outcome="/number" styleClass="arquillian_number" title="Butterfaces number component"/></li>
+                            <li><h:link value="b:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox" title="Butterfaces checkbox component"/></li>
+                            <li><h:link value="b:combobox" outcome="/combobox" styleClass="arquillian_combobox" title="Butterfaces combobox component"/></li>
+                            <li><h:link value="b:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox" title="Butterfaces radio box component"/></li>
+                            <li><h:link value="b:tags" outcome="/tags" styleClass="arquillian_tags experimental" title="Butterfaces tags component"/></li>
+                            <li class="divider" role="presentation">
+                                <hr/>
+                            </li>
+                            <li class="dropdown-header" role="presentation">Miscellaneous</li>
+                            <li><h:link value="b:activateLibraries" outcome="/activateLibraries" styleClass="arquillian_activateLibraries" title="Butterfaces active libraries component"/></li>
+                            <li><h:link value="b:defaultAction" outcome="/defaultAction" styleClass="arquillian_defaultAction" title="Butterfaces default action component"/></li>
+                            <li><h:link value="b:waitingPanel" outcome="/waitingPanel" styleClass="arquillian_waitingPanel" title="Butterfaces waiting panel component"/></li>
+                            <hr />
+                            <li class="dropdown-header" role="presentation">Actions</li>
+                            <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link" title="Butterfaces command link and button component"/></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="nav navList componentsNavList">
+                            <li class="dropdown-header" role="presentation">Container</li>
+                            <li><h:link value="b:section" outcome="/section" styleClass="arquillian_section" title="Butterfaces html section component"/>
+                            </li>
+                            <li><h:link value="b:prettyprint" outcome="/prettyprint" styleClass="arquillian_prettyprint" title="Butterfaces google pretty print component"/>
+                            </li>
+                            <hr/>
+                            <li class="dropdown-header" role="presentation">Data iteration</li>
+                            <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table newFeature" title="Butterfaces table component"/></li>
+                            <li><h:link value="b:tree" outcome="/tree" styleClass="arquillian_tree" title="Butterfaces tree component"/></li>
+                            <hr/>
+                            <li class="dropdown-header" role="presentation">jQuery Plugins</li>
+                            <li><h:link value="$.itemFilterField" outcome="/jquery/itemFilterField" title="Butterfaces JQuery client side filtering component"/></li>
+                            <li><h:link value="$.disableElements" outcome="/jquery/disableElements" title="Butterfaces JQuery disable and enable elements component"/></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experimentalHint clearfix">
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <span class="experimental hideExperimentalAttention">
+                                <span class="fa fa-warning fa-lg"></span> experimental
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <span class="newFeature hideNewFeatureAttention">
+                                <span class="fa fa-star fa-lg"></span> new feature
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </composite:implementation>
+</h:body>
+</html>
