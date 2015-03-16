@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
 
+import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MaskedTextShowcase extends AbstractInputShowcase implements Serializable {
 
     private FacetType selectedFacetType = FacetType.NONE;
-    private InputMaskType selectedInputMaskType = InputMaskType.NONE;
+    private InputMaskType selectedInputMaskType = null;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private String type;
     private String pattern;
@@ -27,6 +28,11 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
     private boolean autoFocus;
     private String inputMask;
     private String dataInputMask;
+
+    @PostConstruct
+    public void init() {
+        this.setSelectedInputMaskType(InputMaskType.PHONE);
+    }
 
     @Override
     protected Object initValue() {
@@ -40,7 +46,7 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
-        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+        final XhtmlCodeExample xhtmlCodeExample = selectedInputMaskType == InputMaskType.PHONE ? new XhtmlCodeExample(false) : new XhtmlCodeExample(false, true);
 
         xhtmlCodeExample.appendInnerContent("        <b:maskedText id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                      label=\"" + this.getLabel() + "\"");
@@ -55,7 +61,12 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("                      readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                      required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                      autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                      maskedInput=\"" + this.getInputMask() + "\"");
+        if (selectedInputMaskType == InputMaskType.PHONE) {
+            xhtmlCodeExample.appendInnerContent("                      maskedInput=\"" + inputMask + "\"");
+        }
+        if (selectedInputMaskType == InputMaskType.CURRENCY_BY_DATA) {
+            xhtmlCodeExample.appendInnerContent("                      p:data-inputmask=\"" + dataInputMask + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                      rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "keyup");
@@ -189,10 +200,6 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
             case PHONE:
                 inputMask = "'(99) 9999[9]-9999'";
                 dataInputMask = null;
-                break;
-            case PHONE_DATA:
-                inputMask = null;
-                dataInputMask = "'alias': 'phone'";
                 break;
             case CURRENCY_BY_DATA:
                 inputMask = null;

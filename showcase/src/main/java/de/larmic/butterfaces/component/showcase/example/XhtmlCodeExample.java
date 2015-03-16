@@ -8,14 +8,20 @@ public class XhtmlCodeExample extends AbstractCodeExample {
     private final StringBuilder innerContent = new StringBuilder();
 
     private final boolean useFontAwesome;
+    private final boolean usePassThrough;
 
     public XhtmlCodeExample(final boolean useFontAwesome) {
-        this("xhtml", "xhtml", useFontAwesome);
+        this("xhtml", "xhtml", useFontAwesome, false);
     }
 
-    public XhtmlCodeExample(final String tabName, final String tabId, final boolean useFontAwesome) {
+    public XhtmlCodeExample(final boolean useFontAwesome, final boolean usePassThrough) {
+        this("xhtml", "xhtml", useFontAwesome, usePassThrough);
+    }
+
+    public XhtmlCodeExample(final String tabName, final String tabId, final boolean useFontAwesome, final boolean usePassThrough) {
         super(tabName, tabId);
         this.useFontAwesome = useFontAwesome;
+        this.usePassThrough = usePassThrough;
     }
 
     @Override
@@ -43,6 +49,9 @@ public class XhtmlCodeExample extends AbstractCodeExample {
         stringBuilder.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" \n");
         stringBuilder.append("      xmlns:h=\"http://java.sun.com/jsf/html\" \n");
         stringBuilder.append("      xmlns:f=\"http://java.sun.com/jsf/core\" \n");
+        if (usePassThrough) {
+            stringBuilder.append("      xmlns:p=\"http://xmlns.jcp.org/jsf/passthrough\" \n");
+        }
         stringBuilder.append("      xmlns:b=\"http://butterfaces.larmic.de/components\"> \n");
         if (useFontAwesome) {
             stringBuilder.append("<h:head> \n");
