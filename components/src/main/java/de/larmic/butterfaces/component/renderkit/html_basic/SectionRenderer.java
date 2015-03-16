@@ -1,13 +1,14 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlSection;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlSection;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 /**
  * Created by larmic on 31.07.14.
@@ -88,7 +89,7 @@ public class SectionRenderer extends HtmlBasicRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        writer.endElement(ELEMENT_SECTION); // inner content
+        writer.endElement(ELEMENT_DIV); // inner content
         writer.endElement(ELEMENT_SECTION); // component
     }
 
