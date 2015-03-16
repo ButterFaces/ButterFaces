@@ -1,0 +1,160 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:maskedText</strong> The text tag renders an HTML input element of the type "text".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
+            <showcase:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{maskedTextShowcase.rendered}"/>
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{maskedTextShowcase.styleClass}"
+                                     values="#{maskedTextShowcase.styleClasses}"/>
+            <showcase:tagEnumControl label="inputMask"
+                                     value="#{maskedTextShowcase.selectedInputMaskType}"
+                                     values="#{maskedTextShowcase.inputMaskTypes}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="HTML5 tag attributes">
+            <showcase:tagStringControl label="placeholder" value="#{maskedTextShowcase.placeholder}"/>
+            <showcase:tagStringControl label="type" value="#{maskedTextShowcase.type}"/>
+            <showcase:tagStringControl label="pattern" value="#{maskedTextShowcase.pattern}"/>
+            <showcase:tagStringControl label="min" value="#{maskedTextShowcase.min}"/>
+            <showcase:tagStringControl label="max" value="#{maskedTextShowcase.max}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{maskedTextShowcase.autoFocus}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{maskedTextShowcase.ajaxType}"
+                                     values="#{maskedTextShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagEnumControl label="facets"
+                                     value="#{maskedTextShowcase.selectedFacetType}"
+                                     values="#{maskedTextShowcase.availableFacetTypes}"
+                                     renderChildrenPopover="false" />
+            <showcase:tagBooleanControl label="validate"
+                                        value="#{maskedTextShowcase.validation}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="maskedtext"
+                                         component="#{maskedTextShowcase}">
+            <b:maskedText id="text"
+                          label="#{maskedTextShowcase.label}"
+                          hideLabel="#{maskedTextShowcase.hideLabel}"
+                          value="#{maskedTextShowcase.value}"
+                          tooltip="#{maskedTextShowcase.tooltip}"
+                          readonly="#{maskedTextShowcase.readonly}"
+                          required="#{maskedTextShowcase.required}"
+                          rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
+                          placeholder="#{maskedTextShowcase.placeholder}"
+                          type="#{maskedTextShowcase.type}"
+                          pattern="#{maskedTextShowcase.pattern}"
+                          min="#{maskedTextShowcase.min}"
+                          max="#{maskedTextShowcase.max}"
+                          autoFocus="#{maskedTextShowcase.autoFocus}"
+                          p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
+                          inputMask="#{maskedTextShowcase.inputMask}"
+                          styleClass="#{maskedTextShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not maskedTextShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not maskedTextShowcase.validation}"/>
+            </b:maskedText>
+
+            <b:maskedText id="textWithInputGroupAddon"
+                          label="#{maskedTextShowcase.label}"
+                          hideLabel="#{maskedTextShowcase.hideLabel}"
+                          value="#{maskedTextShowcase.value}"
+                          tooltip="#{maskedTextShowcase.tooltip}"
+                          readonly="#{maskedTextShowcase.readonly}"
+                          required="#{maskedTextShowcase.required}"
+                          rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
+                          placeholder="#{maskedTextShowcase.placeholder}"
+                          type="#{maskedTextShowcase.type}"
+                          pattern="#{maskedTextShowcase.pattern}"
+                          min="#{maskedTextShowcase.min}"
+                          max="#{maskedTextShowcase.max}"
+                          autoFocus="#{maskedTextShowcase.autoFocus}"
+                          inputMask="#{maskedTextShowcase.inputMask}"
+                          styleClass="#{maskedTextShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not maskedTextShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not maskedTextShowcase.validation}"/>
+                <f:facet name="input-group-addon-left">
+                    Left input-group-addon
+                </f:facet>
+                <f:facet name="input-group-addon-right">
+                    Right input-group-addon
+                </f:facet>
+            </b:maskedText>
+
+            <b:maskedText id="textWithInputGroupBtn"
+                          label="#{maskedTextShowcase.label}"
+                          hideLabel="#{maskedTextShowcase.hideLabel}"
+                          value="#{maskedTextShowcase.value}"
+                          tooltip="#{maskedTextShowcase.tooltip}"
+                          readonly="#{maskedTextShowcase.readonly}"
+                          required="#{maskedTextShowcase.required}"
+                          rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
+                          placeholder="#{maskedTextShowcase.placeholder}"
+                          type="#{maskedTextShowcase.type}"
+                          pattern="#{maskedTextShowcase.pattern}"
+                          min="#{maskedTextShowcase.min}"
+                          max="#{maskedTextShowcase.max}"
+                          autoFocus="#{maskedTextShowcase.autoFocus}"
+                          inputMask="#{maskedTextShowcase.inputMask}"
+                          styleClass="#{maskedTextShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not maskedTextShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not maskedTextShowcase.validation}"/>
+                <f:facet name="input-group-btn-left">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </f:facet>
+                <f:facet name="input-group-btn-right">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </f:facet>
+            </b:maskedText>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{maskedTextShowcase}"/>
+        <b:activateLibraries />
+    </ui:define>
+</ui:composition>
