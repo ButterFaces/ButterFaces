@@ -1,33 +1,15 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTags;
-import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
 public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
-
-    @Override
-    protected void encodeEndInnerWrapper(HtmlTags htmlComponent, ResponseWriter writer) throws IOException {
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer, false);
-    }
-
-    @Override
-    protected void encodeBeginInnerWrapper(HtmlTags htmlComponent, ResponseWriter writer) throws IOException {
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer, false);
-    }
-
-    @Override
-    protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer, boolean readonly) throws IOException {
-        super.encodeEndContent(context, component, htmlComponent, writer, false);
-    }
 
     @Override
     protected boolean encodeReadonly() {

@@ -1,16 +1,15 @@
 package de.larmic.butterfaces.component.html;
 
-import java.util.Arrays;
-import java.util.List;
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
-
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
+import java.util.Arrays;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -123,7 +122,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
     }
 
-	private void updateStateHelper(final String propertyName, final Object value) {
+	protected void updateStateHelper(final String propertyName, final Object value) {
 		this.getStateHelper().put(propertyName, value);
 
 		final ValueExpression ve = this.getValueExpression(propertyName);

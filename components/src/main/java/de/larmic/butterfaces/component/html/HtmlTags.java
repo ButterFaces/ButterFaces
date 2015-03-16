@@ -1,6 +1,5 @@
 package de.larmic.butterfaces.component.html;
 
-import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
@@ -79,15 +78,5 @@ public class HtmlTags extends HtmlText {
 
 	public void setAllowDuplicates(boolean allowDuplicates) {
 		this.updateStateHelper(PROPERTY_ALLOW_DUPLICATES, allowDuplicates);
-	}
-
-	private void updateStateHelper(final String propertyName, final Object value) {
-		this.getStateHelper().put(propertyName, value);
-
-		final ValueExpression ve = this.getValueExpression(propertyName);
-
-		if (ve != null) {
-			ve.setValue(this.getFacesContext().getELContext(), value);
-		}
 	}
 }

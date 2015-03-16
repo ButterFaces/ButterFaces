@@ -3,11 +3,9 @@ package de.larmic.butterfaces.component.html;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
 
-import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlInputText;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +21,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlCalendar.COMPONENT_TYPE)
-public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder {
+public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFocus, Placeholder {
 
 	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.calendar";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -33,10 +31,6 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 	protected static final String PROPERTY_GLYPHICON_DATE = "glyphiconDate";
 	protected static final String PROPERTY_GLYPHICON_UP = "glyphiconUp";
 	protected static final String PROPERTY_GLYPHICON_DOWN = "glyphiconDown";
-	protected static final String PROPERTY_TOOLTIP = "tooltip";
-    protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-	protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
-	protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 	protected static final String PROPERTY_PICK_DATE = "pickDate";
 	protected static final String PROPERTY_PICK_TIME = "pickTime";
 	protected static final String PROPERTY_LANGUAGE = "language";
@@ -56,46 +50,6 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
-
-	@Override
-	public String getTooltip() {
-		return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
-	}
-
-	public void setTooltip(final String tooltip) {
-		this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
-	}
-
-    @Override
-    public boolean isHideLabel() {
-		final Object eval = this.getStateHelper().eval(PROPERTY_HIDE_LABEL);
-		return eval == null ? false : (Boolean) eval;
-    }
-
-    public void setHideLabel(final boolean hideLabel) {
-        this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
-    }
-
-	@Override
-	public String getPlaceholder() {
-		return (String) this.getStateHelper().eval(PROPERTY_HTML5_PLACEHOLDER);
-	}
-
-	@Override
-	public void setPlaceholder(final String placeholder) {
-		this.updateStateHelper(PROPERTY_HTML5_PLACEHOLDER, placeholder);
-	}
-
-	@Override
-    public boolean isAutoFocus() {
-		final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
-		return eval == null ? false : (Boolean) eval;
-    }
-
-	@Override
-    public void setAutoFocus(final boolean autoFocus) {
-        this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
-    }
 
 	public boolean isPickDate() {
 		return Boolean.valueOf(getStateHelper().eval(PROPERTY_PICK_DATE, Boolean.TRUE).toString());
@@ -161,13 +115,4 @@ public class HtmlCalendar extends HtmlInputText implements HtmlInputComponent, A
 		this.updateStateHelper(PROPERTY_GLYPHICON_DOWN, glyphicon);
 	}
 
-	private void updateStateHelper(final String propertyName, final Object value) {
-		this.getStateHelper().put(propertyName, value);
-
-		final ValueExpression ve = this.getValueExpression(propertyName);
-
-		if (ve != null) {
-			ve.setValue(this.getFacesContext().getELContext(), value);
-		}
-	}
 }

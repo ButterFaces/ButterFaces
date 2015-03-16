@@ -45,7 +45,8 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head"),
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {
