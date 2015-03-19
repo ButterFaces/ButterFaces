@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>de.larmic.butterfaces</groupId>
-            <artifactId>components</artifactId>
+            <artifactId>components-mojarra</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -53,21 +53,20 @@
 
 package de.larmic.butterfaces.component.renderkit.html_basic.mojarra;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.logging.Level;
+import com.sun.faces.RIConstants;
+import com.sun.faces.io.FastStringWriter;
+import com.sun.faces.renderkit.Attribute;
+import com.sun.faces.renderkit.AttributeManager;
+import com.sun.faces.renderkit.RenderKitUtils;
+import com.sun.faces.renderkit.SelectItemsIterator;
+import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
+import com.sun.faces.util.MessageUtils;
+import com.sun.faces.util.ReflectionUtils;
+import com.sun.faces.util.RequestStateManager;
+import com.sun.faces.util.Util;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.partrenderer.Constants;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -83,22 +82,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-
-import com.sun.faces.RIConstants;
-import com.sun.faces.io.FastStringWriter;
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
-import com.sun.faces.renderkit.SelectItemsIterator;
-import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
-import com.sun.faces.util.MessageUtils;
-import com.sun.faces.util.ReflectionUtils;
-import com.sun.faces.util.RequestStateManager;
-import com.sun.faces.util.Util;
-
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.partrenderer.Constants;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.logging.Level;
 
 /**
  * <B>MenuRenderer</B> is a class that renders the current value of

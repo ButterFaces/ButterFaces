@@ -15,6 +15,7 @@
 
     <modules>
         <module>components</module>
+        <module>components-mojarra</module>
         <module>showcase</module>
     </modules>
 
@@ -100,6 +101,7 @@
             <id>ci</id>
             <modules>
                 <module>components</module>
+                <module>components-mojarra</module>
                 <module>showcase</module>
                 <module>test</module>
             </modules>
@@ -162,6 +164,11 @@
             <dependency>
                 <groupId>de.larmic.butterfaces</groupId>
                 <artifactId>components</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.larmic.butterfaces</groupId>
+                <artifactId>components-mojarra</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

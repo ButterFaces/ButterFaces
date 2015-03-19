@@ -16,11 +16,18 @@ public class DependencyExample implements Serializable {
     private de.larmic.butterfaces.component.showcase.Version version;
 
     public String getButterFacesMavenDependency() {
+        return createDependency("components");    }
+
+    public String getButterFacesMojarraMavenDependency() {
+        return createDependency("components-mojarra");
+    }
+
+    private String createDependency(String artifactId) {
         final StringBuilder sb = new StringBuilder();
 
         sb.append("<dependency>\n");
         sb.append(" <groupId>de.larmic.butterfaces</groupId>\n");
-        sb.append(" <artifactId>components</artifactId>\n");
+        sb.append(" <artifactId>" + artifactId + "</artifactId>\n");
         sb.append(" <version>" + version.getLastestReleaseVersion() + "</version>\n");
         sb.append("</dependency>");
 

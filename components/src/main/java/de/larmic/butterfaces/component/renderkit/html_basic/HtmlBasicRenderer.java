@@ -1,7 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import com.sun.faces.util.Util;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -29,8 +27,16 @@ public class HtmlBasicRenderer extends Renderer {
     public static final String ATTRIBUTE_CLASS = "class";
 
     protected void rendererParamsNotNull(final FacesContext context, final UIComponent component) {
-        Util.notNull("context", context);
-        Util.notNull("component", component);
+        notNull("context", context);
+        notNull("component", component);
+    }
+
+   private void notNull(String varname, Object var) {
+
+        if (var == null) {
+            throw new NullPointerException(varname);
+        }
+
     }
 
     protected boolean shouldEncode(final UIComponent component) {
