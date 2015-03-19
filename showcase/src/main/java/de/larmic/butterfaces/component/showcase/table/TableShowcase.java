@@ -51,6 +51,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private String colWidthColumn2;
     private String colWidthColumn3;
     private String colWidthColumn4;
+    private int numberOfRefreshes;
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
@@ -119,6 +120,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(true);
+
+        if (showRefreshButton) {
+            xhtmlCodeExample.appendInnerContent("        <h:panelGroup id=\"numberOfRefreshes\"");
+            xhtmlCodeExample.appendInnerContent("                      layout=\"block\"");
+            xhtmlCodeExample.appendInnerContent("                      styleClass=\"alert alert-success\">");
+            xhtmlCodeExample.appendInnerContent("            Number of refresh clicks: #{myBean.numberOfRefreshes}");
+            xhtmlCodeExample.appendInnerContent("        </h:panelGroup>\n");
+        }
+
         xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"input\"");
         xhtmlCodeExample.appendInnerContent("                        showRefreshButton=\"" + this.showRefreshButton + "\"");
         xhtmlCodeExample.appendInnerContent("                        showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
@@ -128,7 +138,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         }
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
-        xhtmlCodeExample.appendInnerContent("            <f:ajax />");
+        if (showRefreshButton) {
+            xhtmlCodeExample.appendInnerContent("            <!-- update numberOfRefreshes after clicking refresh button -->");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"formId:numberOfRefreshes\" />");
+        } else {
+            xhtmlCodeExample.appendInnerContent("            <f:ajax />");
+        }
         if (this.toolbarFacetType == ToolbarFacetType.LEFT_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-left\">");
             xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Left facet</a>");
@@ -292,6 +307,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         if (this.toolBarType == ToolBarType.SERVER_FILTER) {
             myBean.appendInnerContent("    private String filterValue;\n");
         }
+        if (showRefreshButton) {
+            myBean.appendInnerContent("    private int numberOfRefreshes;\n");
+        }
 
         myBean.appendInnerContent("    public List<StringPair> getValue() {");
         myBean.appendInnerContent("        final List<StringPair> pairs = new ArrayList<StringPair>();");
@@ -331,9 +349,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         }
 
         if (showRefreshButton) {
+            myBean.appendInnerContent("    @Override");
             myBean.appendInnerContent("    public void onPreRefresh() {");
-            myBean.appendInnerContent("        // Is called after clicking refresh button");
-            myBean.appendInnerContent("        // TODO implement me...");
+            myBean.appendInnerContent("        numberOfRefreshes++;");
+            myBean.appendInnerContent("    }\n");
+            myBean.appendInnerContent("    public int getNumberOfRefreshes() {");
+            myBean.appendInnerContent("        return numberOfRefreshes;");
             myBean.appendInnerContent("    }\n");
         }
 
@@ -502,6 +523,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             public void onPreRefresh() {
                 // do nothing at this time...
                 // could be used for debugging
+                numberOfRefreshes++;
             }
         };
     }
@@ -629,6 +651,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         } else {
             rowIdentifierProperty = "id";
         }
+    }
+
+    public int getNumberOfRefreshes() {
+        return numberOfRefreshes;
     }
 }
 

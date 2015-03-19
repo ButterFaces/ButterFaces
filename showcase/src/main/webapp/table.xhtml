@@ -77,6 +77,13 @@
             </style>
         </h:panelGroup>
 
+        <h:panelGroup id="numberOfRefreshes"
+                      layout="block"
+                      rendered="#{tableShowcase.showRefreshButton}"
+                      styleClass="alert alert-success">
+            Number of refresh clicks: #{tableShowcase.numberOfRefreshes}
+        </h:panelGroup>
+
         <b:tableToolbar tableId="filterTable"
                         showRefreshButton="#{tableShowcase.showRefreshButton}"
                         showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
@@ -98,7 +105,7 @@
                     <a class="btn btn-default">Right facet</a>
                 </h:panelGroup>
             </f:facet>
-            <f:ajax/>
+            <f:ajax render="output:numberOfRefreshes" />
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...
             </h:panelGroup>

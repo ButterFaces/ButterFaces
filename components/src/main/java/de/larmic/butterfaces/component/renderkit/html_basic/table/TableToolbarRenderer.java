@@ -6,6 +6,7 @@ import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
+import de.larmic.butterfaces.resolver.AjaxCall;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
 
 import javax.faces.component.UIComponent;
@@ -228,34 +229,22 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
     }
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
-                                                 final HtmlTableToolbar tableHeader) throws IOException {
-        if (tableHeader.isShowRefreshButton()) {
-            writer.startElement("a", tableHeader);
+                                                 final HtmlTableToolbar tableToolbar) throws IOException {
+        if (tableToolbar.isShowRefreshButton()) {
+            writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
-            if (tableHeader.isAjaxDisableRenderRegionsOnRequest()) {
-                writer.writeAttribute("onclick", this.createAjaxCall(tableHeader, "refresh", this.cachedTableComponent.getClientId(), this.getOnEventListenerName(this.cachedTableComponent)), null);
-            } else {
-                writer.writeAttribute("onclick", this.createAjaxCall(tableHeader, "refresh", this.cachedTableComponent.getClientId()), null);
-            }
-            writer.startElement("i", tableHeader);
+
+            final String onEvent = tableToolbar.isAjaxDisableRenderRegionsOnRequest() ? this.getOnEventListenerName(this.cachedTableComponent) : null;
+            final AjaxCall ajaxCall = new AjaxCall(tableToolbar, "refresh", onEvent);
+            writer.writeAttribute("onclick", ajaxCall.createJavaScriptCall(), null);
+
+            writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
             writer.endElement("i");
             writer.endElement("a");
         }
-    }
-
-    private String createAjaxCall(final HtmlTableToolbar tableHeader, final String event, final String render) {
-        return this.createAjaxCall(tableHeader, event, render, null);
-    }
-
-    private String createAjaxCall(final HtmlTableToolbar tableHeader, final String event, final String render, final String onevent) {
-        if (StringUtils.isEmpty(onevent)) {
-            return "jsf.ajax.request('" + tableHeader.getClientId() + "','" + event + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + event + "'});";
-        }
-
-        return "jsf.ajax.request('" + tableHeader.getClientId() + "','" + event + "',{render: '" + render + "', onevent:" + onevent + ", 'javax.faces.behavior.event':'" + event + "'});";
     }
 
     private String getOnEventListenerName(final UIComponent component) {

@@ -42,12 +42,12 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     @Override
     public Collection<String> getEventNames() {
-        return Arrays.asList("click");
+        return Arrays.asList("refresh", "toggle");
     }
 
     @Override
     public String getDefaultEventName() {
-        return "click";
+        return "refresh";
     }
 
     @Override
