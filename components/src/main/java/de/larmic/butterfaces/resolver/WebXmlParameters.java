@@ -14,17 +14,17 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_PRETTYPRINT = "de.larmic.butterfaces.providePrettify";
     public static final String CTX_PARAM_USE_COMPRESSED_RESOURCES = "de.larmic.butterfaces.useCompressedResources";
 
-    public final String CTX_PARAM_REFRESH_GLYPHICON = "de.larmic.butterfaces.glyhicon.refresh";
-    public final String CTX_PARAM_OPTIONS_GLYPHICON = "de.larmic.butterfaces.glyhicon.options";
-    public final String CTX_PARAM_SORT_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.none";
-    public final String CTX_PARAM_SORT_ASC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.ascending";
-    public final String CTX_PARAM_SORT_DESC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.descending";
+    public static final String CTX_PARAM_REFRESH_GLYPHICON = "de.larmic.butterfaces.glyhicon.refresh";
+    public static final String CTX_PARAM_OPTIONS_GLYPHICON = "de.larmic.butterfaces.glyhicon.options";
+    public static final String CTX_PARAM_SORT_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.none";
+    public static final String CTX_PARAM_SORT_ASC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.ascending";
+    public static final String CTX_PARAM_SORT_DESC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.descending";
 
-    public final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
-    public final String DEFAULT_OPTIONS_GLYPHICON = "glyphicon glyphicon-th";
-    public final String DEFAULT_SORT_GLYPHICON = "glyphicon glyphicon-chevron-right";
-    public final String DEFAULT_SORT_ASC_GLYPHICON = "glyphicon glyphicon-chevron-down";
-    public final String DEFAULT_SORT_DESC_GLYPHICON = "glyphicon glyphicon-chevron-up";
+    public static final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
+    public static final String DEFAULT_OPTIONS_GLYPHICON = "glyphicon glyphicon-th";
+    public static final String DEFAULT_SORT_GLYPHICON = "glyphicon glyphicon-chevron-right";
+    public static final String DEFAULT_SORT_ASC_GLYPHICON = "glyphicon glyphicon-chevron-down";
+    public static final String DEFAULT_SORT_DESC_GLYPHICON = "glyphicon glyphicon-chevron-up";
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
