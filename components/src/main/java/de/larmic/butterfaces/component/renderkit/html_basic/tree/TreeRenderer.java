@@ -1,12 +1,10 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.tree;
 
-import de.larmic.butterfaces.component.html.tree.HtmlTree;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
-import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
-import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.Node;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -15,11 +13,14 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import de.larmic.butterfaces.component.html.tree.HtmlTree;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
+import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.Node;
 
 /**
  * Created by larmic on 24.10.14.
@@ -84,7 +85,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
             // collapse
             writer.startElement(ELEMENT_SPAN, tree);
-            final String collapsingClass = collapsed ? getExpansionClass(tree) : getCollapsingClass(tree);
+            final String collapsingClass = node.isCollapsed() ? getExpansionClass(tree) : getCollapsingClass(tree);
             final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + collapsingClass;
             writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
 
