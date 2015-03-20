@@ -786,23 +786,10 @@
             <required>true</required>
         </attribute>
         <attribute>
-            <description>Renders toggle column (show and hide functionality) in table toolbar. Default is true.
-            </description>
-            <name>showToggleColumnButton</name>
-            <type>java.lang.Boolean</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
             <description>A listener called if toolbar refresh button is clicked.
             </description>
             <name>refreshListener</name>
             <type>de.larmic.butterfaces.model.table.TableToolbarRefreshListener</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
-            <description>Renders refresh button in table toolbar. Default is true.</description>
-            <name>showRefreshButton</name>
-            <type>java.lang.Boolean</type>
             <required>false</required>
         </attribute>
         <attribute>

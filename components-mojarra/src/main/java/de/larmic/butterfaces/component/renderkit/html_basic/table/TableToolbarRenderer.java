@@ -4,16 +4,14 @@ import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
-import de.larmic.butterfaces.resolver.AjaxCall;
+import de.larmic.butterfaces.resolver.AjaxRequest;
+import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -138,71 +136,47 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarToggleColumnButton(final FacesContext context,
                                                       final ResponseWriter writer,
-                                                      final HtmlTableToolbar tableHeader) throws IOException {
-        if (tableHeader.isShowToggleColumnButton()) {
-            writer.startElement("div", tableHeader);
+                                                      final HtmlTableToolbar tableToolbar) throws IOException {
+        final AjaxRequest toggle = new AjaxRequestFactory().createRequest(tableToolbar, "toggle", "refreshTable_output_filterTable");
+
+        if (toggle != null) {
+            writer.startElement("div", tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
             // show and hide option toggle
-            writer.startElement("a", tableHeader);
+            writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
             writer.writeAttribute("data-toggle", "dropdown", null);
             writer.writeAttribute("title", "Column options", null);
             writer.writeAttribute("role", "button", null);
-            writer.startElement("i", tableHeader);
+            writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", "glyphicon glyphicon-th", null);
             writer.endElement("i");
-            writer.startElement("span", tableHeader);
+            writer.startElement("span", tableToolbar);
             writer.writeAttribute("class", "caret", null);
             writer.endElement("span");
             writer.endElement("a");
 
             // show and hide option content
-            writer.startElement("ul", tableHeader);
+            writer.startElement("ul", tableToolbar);
             writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
             writer.writeAttribute("role", "menu", null);
 
-            final ClientBehaviorContext behaviorContext =
-                    ClientBehaviorContext.createClientBehaviorContext(context,
-                            tableHeader, "click", tableHeader.getClientId(context), null);
-
             int columnNumber = 0;
             for (HtmlColumn cachedColumn : this.cachedTableComponent.getCachedColumns()) {
-                writer.startElement("li", tableHeader);
-                writer.startElement("label", tableHeader);
+                writer.startElement("li", tableToolbar);
+                writer.startElement("label", tableToolbar);
                 writer.writeAttribute("class", "checkbox", null);
-                writer.startElement("input", tableHeader);
+                writer.startElement("input", tableToolbar);
                 writer.writeAttribute("type", "checkbox", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
 
-                final Map<String, List<ClientBehavior>> behaviors = tableHeader.getClientBehaviors();
-                if (behaviors.containsKey("click")) {
-                    final AjaxBehavior clientBehavior = (AjaxBehavior) behaviors.get("click").get(0);
-                    final String click = clientBehavior.getScript(behaviorContext);
+                toggle.getRenderIds().add(cachedTableComponent.getClientId());
+                toggle.setEventName("toggle_" + columnNumber);
+                writer.writeAttribute("onclick", toggle.createJavaScriptCall() + ";" + jQueryPluginCall, null);
 
-                    if (StringUtils.isNotEmpty(click)) {
-                        // ajax tag is enabled
-                        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
-                        ajaxBehavior.setRender(clientBehavior.getRender());
-                        if (tableHeader.isAjaxDisableRenderRegionsOnRequest()) {
-                            ajaxBehavior.setOnevent(this.getOnEventListenerName(this.cachedTableComponent));
-                        }
-                        final String ajaxBehaviorScript = ajaxBehavior.getScript(behaviorContext);
-
-                        //final String ajaxCall = this.createAjaxCall(tableHeader, "toggle_" + columnNumber, "0");
-
-                        final String correctedEventName = ajaxBehaviorScript.replace(",'click',", ",'toggle_" + columnNumber + "',");
-                        writer.writeAttribute("onclick", correctedEventName + ";" + jQueryPluginCall, null);
-                    } else {
-                        // ajax tag is disabled
-                        writer.writeAttribute("onclick", jQueryPluginCall, null);
-                    }
-                } else {
-                    // no ajax tag is used
-                    writer.writeAttribute("onclick", jQueryPluginCall, null);
-                }
                 if (!this.isHideColumn(this.cachedTableComponent, cachedColumn)) {
                     writer.writeAttribute("checked", "checked", null);
                 }
@@ -230,19 +204,21 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
                                                  final HtmlTableToolbar tableToolbar) throws IOException {
-        if (tableToolbar.isShowRefreshButton()) {
+        final String onEvent = tableToolbar.isAjaxDisableRenderRegionsOnRequest() ? this.getOnEventListenerName(this.cachedTableComponent) : null;
+        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, "refresh", onEvent);
+
+        if (ajaxRequest != null) {
+            ajaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
             writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
-
-            final String onEvent = tableToolbar.isAjaxDisableRenderRegionsOnRequest() ? this.getOnEventListenerName(this.cachedTableComponent) : null;
-            final AjaxCall ajaxCall = new AjaxCall(tableToolbar, "refresh", onEvent);
-            writer.writeAttribute("onclick", ajaxCall.createJavaScriptCall(), null);
+            writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall(), null);
 
             writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
             writer.endElement("i");
+
             writer.endElement("a");
         }
     }

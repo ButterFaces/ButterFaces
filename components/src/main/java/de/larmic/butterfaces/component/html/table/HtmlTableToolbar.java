@@ -30,8 +30,6 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableHeaderRenderer";
 
     protected static final String PROPERTY_TABLE_ID = "tableId";
-    protected static final String PROPERTY_TABLE_SHOW_REFRESH_BUTTON = "showRefreshButton";
-    protected static final String PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON = "showToggleColumnButton";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_TOOLBAR_REFRESH_LISTENER = "refreshListener";
 
@@ -61,24 +59,6 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     public void setTableId(String tableId) {
         this.updateStateHelper(PROPERTY_TABLE_ID, tableId);
-    }
-
-    public boolean isShowRefreshButton() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_REFRESH_BUTTON);
-        return eval == null ? true : (Boolean) eval;
-    }
-
-    public void setShowRefreshButton(boolean showRefreshButton) {
-        this.updateStateHelper(PROPERTY_TABLE_SHOW_REFRESH_BUTTON, showRefreshButton);
-    }
-
-    public boolean isShowToggleColumnButton() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON);
-        return eval == null ? true : (Boolean) eval;
-    }
-
-    public void setShowToggleColumnButton(boolean showToggleColumnButton) {
-        this.updateStateHelper(PROPERTY_TABLE_SHOW_TOGGLE_COLUMN_BUTTON, showToggleColumnButton);
     }
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {

@@ -130,19 +130,18 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         }
 
         xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                        showRefreshButton=\"" + this.showRefreshButton + "\"");
-        xhtmlCodeExample.appendInnerContent("                        showToggleColumnButton=\"" + this.showToggleColumnButton + "\"");
         xhtmlCodeExample.appendInnerContent("                        ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         if (showRefreshButton) {
             xhtmlCodeExample.appendInnerContent("                        refreshListener=\"#{myBean.toolbarRefreshListener}\"");
         }
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
-        xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
         if (showRefreshButton) {
-            xhtmlCodeExample.appendInnerContent("            <!-- update numberOfRefreshes after clicking refresh button -->");
-            xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"formId:numberOfRefreshes\" />");
-        } else {
-            xhtmlCodeExample.appendInnerContent("            <f:ajax />");
+            xhtmlCodeExample.appendInnerContent("            <!-- add refresh ajax event to enable refresh button -->");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"refresh\" render=\"formId:numberOfRefreshes\" />");
+        }
+        if (showToggleColumnButton) {
+            xhtmlCodeExample.appendInnerContent("            <!-- add toggle ajax event to enable toggle column buttons -->");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"toggle\" />");
         }
         if (this.toolbarFacetType == ToolbarFacetType.LEFT_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-left\">");

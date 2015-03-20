@@ -15,9 +15,6 @@
             <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
             <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
             <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
-            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
-            <showcase:tagBooleanControl label="showToggleColumnButton"
-                                        value="#{tableShowcase.showToggleColumnButton}"/>
             <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
                                         value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
         </showcase:tagsContainer>
@@ -41,6 +38,8 @@
             <showcase:tagEnumControl label="toolbar facets"
                                      value="#{tableShowcase.toolbarFacetType}"
                                      values="#{tableShowcase.toolBarFacetTypes}"/>
+            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
+            <showcase:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -85,8 +84,6 @@
         </h:panelGroup>
 
         <b:tableToolbar tableId="filterTable"
-                        showRefreshButton="#{tableShowcase.showRefreshButton}"
-                        showToggleColumnButton="#{tableShowcase.showToggleColumnButton}"
                         refreshListener="#{tableShowcase.toolbarRefreshListener}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
@@ -105,7 +102,8 @@
                     <a class="btn btn-default">Right facet</a>
                 </h:panelGroup>
             </f:facet>
-            <f:ajax render="output:numberOfRefreshes" />
+            <f:ajax event="refresh" render="output:numberOfRefreshes" disabled="#{not tableShowcase.showRefreshButton}" />
+            <f:ajax event="toggle" disabled="#{not tableShowcase.showToggleColumnButton}" />
             <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                 Custom toolbar text...
             </h:panelGroup>
