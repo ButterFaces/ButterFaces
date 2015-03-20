@@ -8,6 +8,7 @@ import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private HtmlTable cachedTableComponent;
+    private WebXmlParameters webXmlParameters;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -46,6 +48,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         if (cachedTableComponent == null) {
             throw new IllegalStateException("Could not find table component with id '" + tableHeader.getTableId() + "'.");
         }
+
+        webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         responseWriter.startElement("div", tableHeader);
         this.writeIdAttribute(context, responseWriter, tableHeader);
@@ -155,7 +159,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("title", "Column options", null);
             writer.writeAttribute("role", "button", null);
             writer.startElement("i", tableToolbar);
-            writer.writeAttribute("class", "glyphicon glyphicon-th", null);
+            writer.writeAttribute("class", webXmlParameters.getOptionsGlyphicon(), null);
             writer.endElement("i");
             writer.startElement("span", tableToolbar);
             writer.writeAttribute("class", "caret", null);
@@ -221,7 +225,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall(), null);
 
             writer.startElement("i", tableToolbar);
-            writer.writeAttribute("class", "glyphicon glyphicon-refresh", null);
+            writer.writeAttribute("class", webXmlParameters.getRefreshGlyphicon(), null);
             writer.endElement("i");
 
             writer.endElement("a");

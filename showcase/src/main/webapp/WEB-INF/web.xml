@@ -40,6 +40,15 @@
 		<param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>
 		<param-value>Processing</param-value>
 	</context-param>
+
+	<context-param>
+        <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>
+        <param-value>fa fa-refresh</param-value>
+    </context-param>
+    <context-param>
+        <param-name>de.larmic.butterfaces.glyhicon.options</param-name>
+        <param-value>fa fa-th</param-value>
+    </context-param>
 	-->
 
 	<servlet>

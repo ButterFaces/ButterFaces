@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.event;
 
+import de.larmic.butterfaces.resolver.WebXmlParameters;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
@@ -18,10 +20,6 @@ public class HandleResourceListener implements SystemEventListener {
 
     private static final String HEAD = "head";
     private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-configurable";
-    public static final String CTX_PARAM_JQUERY = "de.larmic.butterfaces.provideJQuery";
-    public static final String CTX_PARAM_BOOTSTRAP = "de.larmic.butterfaces.provideBootstrap";
-    public static final String CTX_PARAM_PRETTYPRINT = "de.larmic.butterfaces.providePrettify";
-    public static final String CTX_PARAM_USE_COMPRESSED_RESOURCES = "de.larmic.butterfaces.useCompressedResources";
     public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
     public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
     public static final String PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER = "prettify";
@@ -29,11 +27,11 @@ public class HandleResourceListener implements SystemEventListener {
     @Override
     public void processEvent(final SystemEvent event) throws AbortProcessingException {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final ExternalContext externalContext = context.getExternalContext();
-        final boolean provideJQuery = this.readContextParameter(externalContext, CTX_PARAM_JQUERY);
-        final boolean provideBootstrap = this.readContextParameter(externalContext, CTX_PARAM_BOOTSTRAP);
-        final boolean providePrettyPrint = this.readContextParameter(externalContext, CTX_PARAM_PRETTYPRINT);
-        final boolean useCompressedResources = this.readContextParameter(externalContext, CTX_PARAM_USE_COMPRESSED_RESOURCES);
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+        final boolean provideJQuery = webXmlParameters.isProvideJQuery();
+        final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
+        final boolean providePrettyPrint = webXmlParameters.isProvidePrettyprint();
+        final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
 
         final boolean localhost = "localhost".equals(context.getExternalContext().getRequestServerName());
 

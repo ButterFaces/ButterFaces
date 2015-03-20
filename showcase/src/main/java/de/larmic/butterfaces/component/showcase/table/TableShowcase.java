@@ -1,10 +1,7 @@
 package de.larmic.butterfaces.component.showcase.table;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
-import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.example.*;
 import de.larmic.butterfaces.component.showcase.tree.RowIdentifierType;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
@@ -58,6 +55,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
         codeExamples.add(this.createStringPairCodeExample());
+        codeExamples.add(this.createWebXmlExample());
 
         if (this.toolBarType == ToolBarType.TEXT) {
             final CssCodeExample cssCodeExample = new CssCodeExample();
@@ -273,6 +271,23 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         }
 
         return xhtmlCodeExample;
+    }
+
+    private AbstractCodeExample createWebXmlExample() {
+        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
+
+        webXmlCodeExample.appendInnerContent("  <!-- override toolbar glyphicons by context param -->");
+        webXmlCodeExample.appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-refresh</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.options</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-th</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+
+        return webXmlCodeExample;
     }
 
     private JavaCodeExample createMyBeanCodeExample() {
