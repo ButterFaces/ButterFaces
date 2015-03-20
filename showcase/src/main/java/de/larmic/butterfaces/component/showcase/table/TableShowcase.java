@@ -278,6 +278,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
         webXmlCodeExample.appendInnerContent("  <!-- override table and toolbar glyphicons by context param -->");
         webXmlCodeExample.appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
+        webXmlCodeExample.appendInnerContent("  <!-- showcase shows default glyphicons -->");
         webXmlCodeExample.appendInnerContent("  <context-param>");
         webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>");
         webXmlCodeExample.appendInnerContent("     <param-value>fa fa-refresh</param-value>");

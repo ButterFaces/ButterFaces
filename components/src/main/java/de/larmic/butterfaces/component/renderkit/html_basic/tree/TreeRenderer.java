@@ -1,10 +1,13 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.tree;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import de.larmic.butterfaces.component.html.tree.HtmlTree;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
+import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -13,14 +16,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.tree.HtmlTree;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
-import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
-import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.Node;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by larmic on 24.10.14.
@@ -28,12 +28,11 @@ import de.larmic.butterfaces.model.tree.Node;
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
-    private static final String DEFAULT_COLLAPSING_CLASS = "glyphicon glyphicon-minus-sign";
-    private static final String DEFAULT_EXPANSION_CLASS = "glyphicon glyphicon-plus-sign";
-
     private final Map<String, Node> nodes = new HashMap<>();
     private Node selectedNode = null;
     private boolean nodeIconsFound = false;
+
+    private WebXmlParameters webXmlParameters;
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -45,6 +44,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         final HtmlTree htmlTree = (HtmlTree) component;
         final ResponseWriter writer = context.getResponseWriter();
+
+        webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         writer.startElement(ELEMENT_DIV, htmlTree);
         this.writeIdAttribute(context, writer, component);
@@ -85,7 +86,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
             // collapse
             writer.startElement(ELEMENT_SPAN, tree);
-            final String collapsingClass = node.isCollapsed() ? getExpansionClass(tree) : getCollapsingClass(tree);
+            final String collapsingClass = node.isCollapsed() ? webXmlParameters.getExpansionGlyphicon() : webXmlParameters.getCollapsingGlyphicon();
             final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + collapsingClass;
             writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
 
@@ -203,29 +204,16 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private String createButterTreeJQueryParameter(final HtmlTree htmlTree) {
-        final String expansionClass = getExpansionClass(htmlTree);
-        final String collapsingClass = getCollapsingClass(htmlTree);
-
         final Map<String, List<ClientBehavior>> behaviors = htmlTree.getClientBehaviors();
         final boolean treeIconsEnabled = behaviors.containsKey("click");
 
-        return "{expansionClass: '" + expansionClass +
-                "', collapsingClass: '" + collapsingClass +
+        return "{expansionClass: '" + webXmlParameters.getExpansionGlyphicon() +
+                "', collapsingClass: '" + webXmlParameters.getCollapsingGlyphicon() +
                 "', treeSelectionEnabled: '" + treeIconsEnabled +
                 "', treeIconsEnabled: '" + nodeIconsFound + "'}";
     }
 
     private boolean isCollapsed(final Node node) {
         return !node.getSubNodes().isEmpty() && node.isCollapsed();
-    }
-
-    private String getCollapsingClass(final HtmlTree htmlTree) {
-        return StringUtils.isEmpty(htmlTree.getCollapsingClass())
-                ? DEFAULT_COLLAPSING_CLASS : htmlTree.getCollapsingClass();
-    }
-
-    private String getExpansionClass(final HtmlTree htmlTree) {
-        return StringUtils.isEmpty(htmlTree.getExpansionClass())
-                ? DEFAULT_EXPANSION_CLASS : htmlTree.getExpansionClass();
     }
 }

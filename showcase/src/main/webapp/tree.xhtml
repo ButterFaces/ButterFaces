@@ -13,9 +13,6 @@
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagBooleanControl label="rendered" value="#{treeShowcase.rendered}"/>
             <showcase:tagBooleanControl label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
-            <showcase:tagEnumControl label="collapse/expand"
-                                     value="#{treeShowcase.glyphicon}"
-                                     values="#{treeShowcase.glyphicons}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -40,16 +37,12 @@
         <b:tree id="tree"
                 value="#{treeShowcase.tree}"
                 nodeSelectionListener="#{treeShowcase}"
-                collapsingClass="#{treeShowcase.collapsingClass}"
-                expansionClass="#{treeShowcase.expansionClass}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and not treeShowcase.ajaxRendered}"/>
 
         <b:tree id="treeWithAjax"
                 value="#{treeShowcase.tree}"
                 nodeSelectionListener="#{treeShowcase}"
-                collapsingClass="#{treeShowcase.collapsingClass}"
-                expansionClass="#{treeShowcase.expansionClass}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and treeShowcase.ajaxRendered}">
             <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}"/>

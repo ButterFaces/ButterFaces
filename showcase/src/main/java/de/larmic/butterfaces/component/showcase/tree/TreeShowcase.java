@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.tree;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
+import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
@@ -24,18 +25,12 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TreeShowcase extends AbstractCodeShowcase implements Serializable, TreeNodeSelectionListener {
 
-    public static final String FONT_AWESOME_MARKER = "font-awesome";
-
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
     private boolean allExpanded = true;
 
     private Node selectedNode;
-
-    private String glyphicon;
-    private String collapsingClass;
-    private String expansionClass;
 
     public Node getTree() {
         final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder-16.png", "glyphicon-folder-open");
@@ -74,6 +69,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
+        codeExamples.add(this.createWebXmlExample());
     }
 
     private JavaCodeExample createMyBeanCodeExample() {
@@ -155,28 +151,14 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return items;
     }
 
-    public List<SelectItem> getGlyphicons() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        items.add(new SelectItem("bootstrap", "Butterfaces default"));
-        items.add(new SelectItem("other-bootstrap", "other Bootstrap example"));
-        items.add(new SelectItem(FONT_AWESOME_MARKER, "Font-Awesome example"));
-
-        return items;
-    }
-
     private XhtmlCodeExample createXhtmlCodeExample() {
-        final boolean useFontAwesome = this.getGlyphicon() != null && FONT_AWESOME_MARKER.equals(this.getGlyphicon());
-
-        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:tree id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                value=\"#{myBean.treeModel}\"");
         if (isAjaxRendered()) {
             xhtmlCodeExample.appendInnerContent("                nodeSelectionListener=\"#{myBean}\"");
         }
-        xhtmlCodeExample.appendInnerContent("                collapsingClass=\"" + this.getExpansionClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                expansionClass=\"" + this.getCollapsingClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + this.isHideRootNode() + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
@@ -200,6 +182,24 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return xhtmlCodeExample;
     }
 
+    private AbstractCodeExample createWebXmlExample() {
+        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
+
+        webXmlCodeExample.appendInnerContent("  <!-- override tree glyphicons by context param -->");
+        webXmlCodeExample.appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
+        webXmlCodeExample.appendInnerContent("  <!-- showcase shows default glyphicons -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.collapsing</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-minus-square-o</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.expansion</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-plus-square-o</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+
+        return webXmlCodeExample;
+    }
+
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon) {
         if (selectedIconType == TreeIconType.IMAGE) {
             return new DefaultNodeImpl(title, null, icon);
@@ -210,37 +210,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         }
 
         return new DefaultNodeImpl(title);
-    }
-
-    public String getCollapsingClass() {
-        return collapsingClass;
-    }
-
-    public String getExpansionClass() {
-        return expansionClass;
-    }
-
-    public String getGlyphicon() {
-        return glyphicon;
-    }
-
-    public void setGlyphicon(final String glyphicon) {
-        this.glyphicon = glyphicon;
-
-        switch (glyphicon) {
-            case "bootstrap":
-                collapsingClass = null;
-                expansionClass = null;
-                break;
-            case "other-bootstrap":
-                collapsingClass = "glyphicon glyphicon-resize-small";
-                expansionClass = "glyphicon glyphicon-resize-full";
-                break;
-            case FONT_AWESOME_MARKER:
-                collapsingClass = "fa fa-minus-square-o";
-                expansionClass = "fa fa-plus-square-o";
-                break;
-        }
     }
 
     public boolean isHideRootNode() {

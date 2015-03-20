@@ -1361,22 +1361,6 @@
             <type>de.larmic.butterfaces.event.TreeNodeSelectionListener</type>
         </attribute>
         <attribute>
-            <description>
-                Alternative glyphicon class rendered on openend nodes. Default is 'glyphicon glyphicon-plus-sign'.
-            </description>
-            <name>collapsingClass</name>
-            <required>false</required>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>
-                Alternative glyphicon class rendered on closed nodes. Default is 'glyphicon glyphicon-minus-sign'.
-            </description>
-            <name>expansionClass</name>
-            <required>false</required>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
             <name>hideRootNode</name>
             <type>java.lang.Boolean</type>
         </attribute>
