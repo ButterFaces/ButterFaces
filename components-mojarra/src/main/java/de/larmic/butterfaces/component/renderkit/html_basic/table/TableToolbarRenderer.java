@@ -43,9 +43,14 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final ResponseWriter responseWriter = context.getResponseWriter();
         this.cachedTableComponent = new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTable.class);
 
+        if (cachedTableComponent == null) {
+            throw new IllegalStateException("Could not find table component with id '" + tableHeader.getTableId() + "'.");
+        }
+
         responseWriter.startElement("div", tableHeader);
         this.writeIdAttribute(context, responseWriter, tableHeader);
         responseWriter.writeAttribute("class", "butter-table-toolbar", null);
+        responseWriter.writeAttribute("data-table-html-id", cachedTableComponent.getClientId(), null);
     }
 
     @Override
