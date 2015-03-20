@@ -49,6 +49,19 @@
         <param-name>de.larmic.butterfaces.glyhicon.options</param-name>
         <param-value>fa fa-th</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>de.larmic.butterfaces.glyhicon.sort.none</param-name>
+        <param-value>fa fa-sort</param-value>
+    </context-param>
+    <context-param>
+        <param-name>de.larmic.butterfaces.glyhicon.sort.ascending</param-name>
+        <param-value>fa fa-sort-down</param-value>
+    </context-param>
+    <context-param>
+        <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>
+        <param-value>fa fa-sort-up</param-value>
+    </context-param>
 	-->
 
 	<servlet>

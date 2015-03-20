@@ -741,24 +741,6 @@
             <required>false</required>
         </attribute>
         <attribute>
-            <description>Override sorting undefined glyphicon class. Default is glyphicon glyphicon-chevron-right</description>
-            <name>sortUndefinedClass</name>
-            <type>java.lang.String</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
-            <description>Override sorting ascending glyphicon class. Default is glyphicon glyphicon-chevron-down</description>
-            <name>sortAscendingClass</name>
-            <type>java.lang.String</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
-            <description>Override sorting descending glyphicon class. Default is glyphicon glyphicon-chevron-up</description>
-            <name>sortDescendingClass</name>
-            <type>java.lang.String</type>
-            <required>false</required>
-        </attribute>
-        <attribute>
             <description>Optional row style class</description>
             <name>rowClass</name>
             <type>java.lang.String</type>

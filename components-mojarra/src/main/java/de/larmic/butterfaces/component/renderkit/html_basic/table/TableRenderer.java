@@ -8,6 +8,7 @@ import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -33,10 +34,6 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.mojarra.TableRenderer {
 
-    private final String DEFAULT_PROPERTY_TABLE_SORT_UNDEFINED_CLASS = " glyphicon glyphicon-chevron-right";
-    private final String DEFAULT_PROPERTY_TABLE_SORT_ASCENDING_CLASS = " glyphicon glyphicon-chevron-down";
-    private final String DEFAULT_PROPERTY_TABLE_SORT_DESCENDING_CLASS = " glyphicon glyphicon-chevron-up";
-
     private boolean hasColumnWidthSet;
     // dirty: method renderRowStart does not have a rowIndex parameter but it should.
     // alternative: copy encode children but this means coping a lot of private methods... :(
@@ -45,6 +42,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private boolean systemIdentifierHashcodeIsUsedAsCachedRowIdentifier;
     private String cachedRowIdentifier;
+
+    private WebXmlParameters webXmlParameters;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -58,6 +57,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         final HtmlTable table = (HtmlTable) component;
         this.hasColumnWidthSet = hasColumnWidthSet(table.getCachedColumns());
         this.rowIndex = 0;
+        this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         super.encodeBegin(context, component);
     }
@@ -169,11 +169,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
 
                 if (sortType == SortType.ASCENDING) {
-                    sortSpanStyleClass.append(getSortAscendingClass(htmlTable));
+                    sortSpanStyleClass.append(" " + webXmlParameters.getSortAscGlyphicon());
                 } else if (sortType == SortType.DESCENDING) {
-                    sortSpanStyleClass.append(getSortDescendingClass(htmlTable));
+                    sortSpanStyleClass.append(" " + webXmlParameters.getSortDescGlyphicon());
                 } else {
-                    sortSpanStyleClass.append(getSortUndefinedClass(htmlTable));
+                    sortSpanStyleClass.append(" " + webXmlParameters.getSortUnknownGlyphicon());
                 }
 
                 writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
@@ -197,21 +197,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         final String lastPart = script.substring(indexRemoveEnd);
 
         return firstPart + "@this" + lastPart;
-    }
-
-    private String getSortAscendingClass(final HtmlTable table) {
-        final String sortingClass = table.getSortAscendingClass();
-        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_ASCENDING_CLASS;
-    }
-
-    private String getSortDescendingClass(final HtmlTable table) {
-        final String sortingClass = table.getSortDescendingClass();
-        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_DESCENDING_CLASS;
-    }
-
-    private String getSortUndefinedClass(final HtmlTable table) {
-        final String sortingClass = table.getSortUndefinedClass();
-        return StringUtils.isNotEmpty(sortingClass) ? sortingClass : DEFAULT_PROPERTY_TABLE_SORT_UNDEFINED_CLASS;
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {

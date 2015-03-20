@@ -16,9 +16,15 @@ public class WebXmlParameters {
 
     public final String CTX_PARAM_REFRESH_GLYPHICON = "de.larmic.butterfaces.glyhicon.refresh";
     public final String CTX_PARAM_OPTIONS_GLYPHICON = "de.larmic.butterfaces.glyhicon.options";
+    public final String CTX_PARAM_SORT_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.none";
+    public final String CTX_PARAM_SORT_ASC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.ascending";
+    public final String CTX_PARAM_SORT_DESC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.descending";
 
     public final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
     public final String DEFAULT_OPTIONS_GLYPHICON = "glyphicon glyphicon-th";
+    public final String DEFAULT_SORT_GLYPHICON = "glyphicon glyphicon-chevron-right";
+    public final String DEFAULT_SORT_ASC_GLYPHICON = "glyphicon glyphicon-chevron-down";
+    public final String DEFAULT_SORT_DESC_GLYPHICON = "glyphicon glyphicon-chevron-up";
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
@@ -27,6 +33,9 @@ public class WebXmlParameters {
 
     private final String refreshGlyphicon;
     private final String optionsGlyphicon;
+    private final String sortUnknownGlyphicon;
+    private final String sortAscGlyphicon;
+    private final String sortDescGlyphicon;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -36,6 +45,9 @@ public class WebXmlParameters {
 
         this.refreshGlyphicon = this.readParameter(CTX_PARAM_REFRESH_GLYPHICON, DEFAULT_REFRESH_GLYPHICON, externalContext);
         this.optionsGlyphicon = this.readParameter(CTX_PARAM_OPTIONS_GLYPHICON, DEFAULT_OPTIONS_GLYPHICON, externalContext);
+        this.sortUnknownGlyphicon = this.readParameter(CTX_PARAM_SORT_GLYPHICON, DEFAULT_SORT_GLYPHICON, externalContext);
+        this.sortAscGlyphicon = this.readParameter(CTX_PARAM_SORT_ASC_GLYPHICON, DEFAULT_SORT_ASC_GLYPHICON, externalContext);
+        this.sortDescGlyphicon = this.readParameter(CTX_PARAM_SORT_DESC_GLYPHICON, DEFAULT_SORT_DESC_GLYPHICON, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -70,5 +82,17 @@ public class WebXmlParameters {
 
     public boolean isUseCompressedResources() {
         return useCompressedResources;
+    }
+
+    public String getSortUnknownGlyphicon() {
+        return sortUnknownGlyphicon;
+    }
+
+    public String getSortAscGlyphicon() {
+        return sortAscGlyphicon;
+    }
+
+    public String getSortDescGlyphicon() {
+        return sortDescGlyphicon;
     }
 }

@@ -276,7 +276,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private AbstractCodeExample createWebXmlExample() {
         final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
 
-        webXmlCodeExample.appendInnerContent("  <!-- override toolbar glyphicons by context param -->");
+        webXmlCodeExample.appendInnerContent("  <!-- override table and toolbar glyphicons by context param -->");
         webXmlCodeExample.appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
         webXmlCodeExample.appendInnerContent("  <context-param>");
         webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>");
@@ -285,6 +285,18 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         webXmlCodeExample.appendInnerContent("  <context-param>");
         webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.options</param-name>");
         webXmlCodeExample.appendInnerContent("     <param-value>fa fa-th</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.none</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-sort</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.ascending</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-sort-down</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-sort-up</param-value>");
         webXmlCodeExample.appendInnerContent("  </context-param>");
 
         return webXmlCodeExample;
