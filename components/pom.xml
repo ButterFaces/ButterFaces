@@ -165,8 +165,8 @@
             <artifactId>el-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
+            <groupId>javax.faces</groupId>
+            <artifactId>javax.faces-api</artifactId>
         </dependency>
 
         <!-- needed by copy of mojarra table component -->

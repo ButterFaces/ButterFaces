@@ -78,6 +78,7 @@
 
         <version.jbossas>8.2.0.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
+        <javax.faces-api.version>2.2</javax.faces-api.version>
     </properties>
 
     <build>
@@ -151,10 +152,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>${jsf.version}</version>
-                <scope>provided</scope>
+                <groupId>javax.faces</groupId>
+                <artifactId>javax.faces-api</artifactId>
+                <version>${javax.faces-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.faces</groupId>
