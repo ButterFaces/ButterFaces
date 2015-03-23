@@ -85,7 +85,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         this.renderFacet(context, component, "default-options-left");
         this.renderTableToolbarRefreshButton(responseWriter, tableHeader);
         this.renderFacet(context, component, "default-options-center");
-        this.renderTableToolbarToggleColumnButton(context, responseWriter, tableHeader);
+        this.renderTableToolbarToggleColumnButton(responseWriter, tableHeader);
         this.renderFacet(context, component, "default-options-right");
 
         responseWriter.endElement("div"); // end button group
@@ -143,10 +143,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         return true;
     }
 
-    private void renderTableToolbarToggleColumnButton(final FacesContext context,
-                                                      final ResponseWriter writer,
+    private void renderTableToolbarToggleColumnButton(final ResponseWriter writer,
                                                       final HtmlTableToolbar tableToolbar) throws IOException {
-        final AjaxRequest toggle = new AjaxRequestFactory().createRequest(tableToolbar, "toggle", "refreshTable_output_filterTable");
+        final AjaxRequest toggle = tableToolbar.isAjaxDisableRenderRegionsOnRequest()
+                ? new AjaxRequestFactory().createRequest(tableToolbar, "toggle", getOnEventListenerName(cachedTableComponent))
+                : new AjaxRequestFactory().createRequest(tableToolbar, "toggle");
 
         if (toggle != null) {
             writer.startElement("div", tableToolbar);
@@ -183,8 +184,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
 
                 toggle.getRenderIds().add(cachedTableComponent.getClientId());
-                toggle.setEventName("toggle_" + columnNumber);
-                writer.writeAttribute("onclick", toggle.createJavaScriptCall() + ";" + jQueryPluginCall, null);
+                writer.writeAttribute("onclick", toggle.createJavaScriptCall("toggle_" + columnNumber) + ";" + jQueryPluginCall, null);
 
                 if (!this.isHideColumn(this.cachedTableComponent, cachedColumn)) {
                     writer.writeAttribute("checked", "checked", null);

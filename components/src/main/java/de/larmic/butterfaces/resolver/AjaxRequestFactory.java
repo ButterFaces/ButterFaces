@@ -10,7 +10,11 @@ public class AjaxRequestFactory {
     public AjaxRequestFactory() {
     }
 
-    public final AjaxRequest createRequest(final UIComponentBase component, final String event, final String onevent) {
+    public AjaxRequest createRequest(final UIComponentBase component, final String event) {
+        return this.createRequest(component, event, null);
+    }
+
+    public AjaxRequest createRequest(final UIComponentBase component, final String event, final String onevent) {
         try {
             return new AjaxRequest(component, event, onevent);
         } catch (IllegalStateException e) {

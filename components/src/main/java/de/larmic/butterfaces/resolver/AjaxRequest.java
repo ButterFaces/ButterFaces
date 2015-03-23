@@ -17,30 +17,32 @@ public class AjaxRequest {
 
     private final List<String> renderIds;
     private final UIComponentBase component;
-    private final String originalEventName;
     private final String onevent;
-    private String eventName;
+    private final String eventName;
+
+    public AjaxRequest(final UIComponentBase component, final String event) {
+        this(component, event, null);
+    }
 
     public AjaxRequest(final UIComponentBase component, final String event, final String onevent) {
         this.renderIds = this.createRefreshIds(component, event);
         this.component = component;
-        this.originalEventName = event;
         this.onevent = onevent;
-        this.eventName = originalEventName;
+        this.eventName = event;
     }
 
     public String createJavaScriptCall() {
+        return this.createJavaScriptCall(eventName);
+    }
+
+    public String createJavaScriptCall(final String customEventName) {
         final String render = this.createRender(this.renderIds);
 
         if (StringUtils.isEmpty(onevent)) {
-            return "jsf.ajax.request('" + component.getClientId() + "','" + eventName + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + eventName + "'});";
+            return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + customEventName + "'});";
         }
 
-        return "jsf.ajax.request('" + component.getClientId() + "','" + eventName + "',{render: '" + render + "', onevent:" + onevent + ", 'javax.faces.behavior.event':'" + eventName + "'});";
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{render: '" + render + "', onevent:" + onevent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
     }
 
     public List<String> getRenderIds() {
