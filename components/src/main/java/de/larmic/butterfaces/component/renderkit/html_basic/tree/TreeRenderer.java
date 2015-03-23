@@ -187,18 +187,20 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null) {
+        if (behaviorEvent != null && behaviorEvent.contains("_")) {
             final String[] split = behaviorEvent.split("_");
             final String event = split[0];
             final String nodeNumber = split[1];
 
             final Node node = nodes.get(nodeNumber);
 
-            if ("click".equals(event)) {
-                nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
-                selectedNode = node;
-            } else if ("collapse".equals(event)) {
-                node.setCollapsed(!node.isCollapsed());
+            if (node != null) {
+                if ("click".equals(event)) {
+                    nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                    selectedNode = node;
+                } else if ("collapse".equals(event)) {
+                    node.setCollapsed(!node.isCollapsed());
+                }
             }
         }
     }

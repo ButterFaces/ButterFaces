@@ -353,28 +353,32 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null) {
+        if (behaviorEvent != null && behaviorEvent.contains("_")) {
             final String[] split = behaviorEvent.split("_");
             final String event = split[0];
-            final int eventNumber = Integer.valueOf(split[1]);
-            if ("click".equals(event)) {
-                final Object rowObject = findRowObject(tableValues, eventNumber);
+            try {
+                final int eventNumber = Integer.valueOf(split[1]);
+                if ("click".equals(event)) {
+                    final Object rowObject = findRowObject(tableValues, eventNumber);
 
-                cachedRowIdentifier = null;
+                    cachedRowIdentifier = null;
 
-                if (rowObject != null) {
-                    listener.processTableSelection(rowObject);
-                    final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
-                    cachedRowIdentifier = rowIdentifier;
+                    if (rowObject != null) {
+                        listener.processTableSelection(rowObject);
+                        final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
+                        cachedRowIdentifier = rowIdentifier;
 
+                    }
+                } else if ("sort".equals(event) && htmlTable.getModel() != null) {
+                    final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
+                    if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
+                        htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.DESCENDING);
+                    } else {
+                        htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.ASCENDING);
+                    }
                 }
-            } else if ("sort".equals(event) && htmlTable.getModel() != null) {
-                final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
-                if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
-                    htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.DESCENDING);
-                } else {
-                    htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.ASCENDING);
-                }
+            } catch (NumberFormatException e) {
+                // event is not fired by table component
             }
         }
     }
