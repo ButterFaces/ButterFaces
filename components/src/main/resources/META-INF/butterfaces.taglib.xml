@@ -680,6 +680,10 @@
             <name>styleClass</name>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
     </tag>
 
     <tag>

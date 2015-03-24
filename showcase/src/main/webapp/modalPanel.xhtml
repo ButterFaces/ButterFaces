@@ -13,7 +13,7 @@
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="title" value="#{modalPanelShowcase.title}"/>
             <showcase:tagStringControl label="cancelButtonText" value="#{modalPanelShowcase.cancelButtonText}"/>
-            <!--showcase:tagStringControl label="rendered" value="#{modalPanelShowcase.rendered}"/-->
+            <showcase:tagBooleanControl label="rendered" value="#{modalPanelShowcase.rendered}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
@@ -26,6 +26,7 @@
     <ui:define name="output">
         <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'SIMPLE'}">
             <b:modalPanel id="simpleModalPanel"
+                          rendered="#{modalPanelShowcase.rendered}"
                           cancelButtonText="#{modalPanelShowcase.cancelButtonText}"
                           title="#{modalPanelShowcase.title}">
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
@@ -39,6 +40,7 @@
 
         <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'COMPLEX'}">
             <b:modalPanel id="complexModalPanel"
+                          rendered="#{modalPanelShowcase.rendered}"
                           cancelButtonText="#{modalPanelShowcase.cancelButtonText}"
                           title="#{modalPanelShowcase.title}">
                 <b:text id="requiredInput"
