@@ -47,8 +47,8 @@ public class XhtmlCodeExample extends AbstractCodeExample {
 
         stringBuilder.append("<!DOCTYPE html> \n");
         stringBuilder.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" \n");
-        stringBuilder.append("      xmlns:h=\"http://java.sun.com/jsf/html\" \n");
-        stringBuilder.append("      xmlns:f=\"http://java.sun.com/jsf/core\" \n");
+        stringBuilder.append("      xmlns:h=\"http://xmlns.jcp.org/jsf/html\" \n");
+        stringBuilder.append("      xmlns:f=\"http://xmlns.jcp.org/jsf/core\" \n");
         if (usePassThrough) {
             stringBuilder.append("      xmlns:p=\"http://xmlns.jcp.org/jsf/passthrough\" \n");
         }

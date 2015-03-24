@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:text</strong> The modal panel tag renders an HTML input element of the type "div".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="title" value="#{modalPanelShowcase.title}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="modal type"
+                                     value="#{modalPanelShowcase.modalPanelType}"
+                                     values="#{modalPanelShowcase.modalPanelTypes}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'SIMPLE'}">
+            <b:modalPanel id="simpleModalPanel"
+                          title="#{modalPanelShowcase.title}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+            </b:modalPanel>
+
+            <span onClick="butter.modal.open('simpleModalPanel');"
+                  class="btn btn-default">
+                open modal panel
+            </span>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'COMPLEX'}">
+            <b:modalPanel id="complexModalPanel"
+                          title="#{modalPanelShowcase.title}">
+                <b:text id="requiredInput"
+                        value="#{modalPanelShowcase.text}"
+                        required="true"
+                        label="Required input"/>
+                <f:facet name="additional-footer">
+                    <b:commandLink value="Save"
+                                   action="#{modalPanelShowcase.submit}"
+                                   ajaxDisableRenderRegionsOnRequest="false"
+                                   styleClass="btn btn-success">
+                        <f:ajax execute="requiredInput"
+                                render="requiredInput closeModalPanelScriplet"
+                                onevent="closeIfNoValidationErrorOccured"/>
+                    </b:commandLink>
+                </f:facet>
+            </b:modalPanel>
+
+            <h:panelGroup id="closeModalPanelScriplet">
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function closeIfNoValidationErrorOccured(data) {
+                        var jsfValidation = '#{facesContext.maximumSeverity != null}';
+                        var validationFailed = jsfValidation === 'true';
+                        if (data.status == 'success' && !validationFailed) {
+                            butter.modal.close('complexModalPanel');
+                        }
+                    }
+                    //]]>
+                </script>
+            </h:panelGroup>
+
+            <span onClick="butter.modal.open('complexModalPanel');"
+                  class="btn btn-default">
+                open modal panel
+            </span>
+        </h:panelGroup>
+
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{modalPanelShowcase}"/>
+        <b:activateLibraries/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('modalPanel');
+            });
+        </script>
+    </ui:define>
+</ui:composition>
