@@ -92,7 +92,7 @@ public class AjaxRequestTest {
 
     private String createExpectedJSCall(final String event, final String render) {
         if (StringUtils.isEmpty(render)) {
-            return "jsf.ajax.request('null','" + event + "',{render: '', 'javax.faces.behavior.event':'" + event + "'});";
+            return "jsf.ajax.request('null','" + event + "',{'javax.faces.behavior.event':'" + event + "'});";
         }
 
         return "jsf.ajax.request('null','" + event + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + event + "'});";

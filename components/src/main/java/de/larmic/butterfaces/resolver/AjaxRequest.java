@@ -39,10 +39,18 @@ public class AjaxRequest {
         final String render = this.createRender(this.renderIds);
 
         if (StringUtils.isEmpty(onevent)) {
-            return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{render: '" + render + "', 'javax.faces.behavior.event':'" + customEventName + "'});";
+            return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "'javax.faces.behavior.event':'" + customEventName + "'});";
         }
 
-        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{render: '" + render + "', onevent:" + onevent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
+        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "onevent:" + onevent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
+    }
+
+    private String createRenderPart(final String render) {
+        if (StringUtils.isNotEmpty(render)) {
+            return "render: '" + render + "', ";
+        }
+
+        return "";
     }
 
     public List<String> getRenderIds() {
