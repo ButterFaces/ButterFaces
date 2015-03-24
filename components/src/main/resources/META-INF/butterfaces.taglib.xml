@@ -669,6 +669,10 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>cancelButtonText</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>style</name>
             <type>java.lang.String</type>
         </attribute>

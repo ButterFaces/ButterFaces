@@ -94,7 +94,11 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         writer.startElement(ELEMENT_SPAN, component);
         writer.writeAttribute(ATTRIBUTE_CLASS, "btn btn-danger pull-left", null);
         writer.writeAttribute("onClick", "butter.modal.close('" + component.getId() + "');", null);
-        writer.writeText("Close", component, null);
+        if (StringUtils.isNotEmpty(component.getCancelButtonText())) {
+            writer.writeText(component.getCancelButtonText(), component, null);
+        } else {
+            writer.writeText("Close", component, null);
+        }
         writer.endElement(ELEMENT_SPAN);
 
         final UIComponent additionalFooter = this.getFacet(component, "additional-footer");

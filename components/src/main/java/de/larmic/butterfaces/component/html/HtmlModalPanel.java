@@ -22,6 +22,7 @@ public class HtmlModalPanel extends UIComponentBase {
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.ModalPanelRenderer";
 
 	protected static final String PROPERTY_TITLE= "title";
+	protected static final String PROPERTY_CANCEL_BTN_TEXT= "cancelButtonText";
 	protected static final String PROPERTY_STYLE_CLASS = "styleClass";
 	protected static final String PROPERTY_STYLE = "style";
 
@@ -59,6 +60,13 @@ public class HtmlModalPanel extends UIComponentBase {
 		this.updateStateHelper(PROPERTY_STYLE, style);
 	}
 
+	public String getCancelButtonText() {
+		return (String) this.getStateHelper().eval(PROPERTY_CANCEL_BTN_TEXT);
+	}
+
+	public void setCancelButtonText(String cancelButtonText) {
+		this.updateStateHelper(PROPERTY_CANCEL_BTN_TEXT, cancelButtonText);
+	}
 
 	protected void updateStateHelper(final String propertyName, final Object value) {
 		this.getStateHelper().put(propertyName, value);
