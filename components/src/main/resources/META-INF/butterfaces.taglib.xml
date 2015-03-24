@@ -660,6 +660,25 @@
     </tag>
 
     <tag>
+        <tag-name>modalPanel</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.modal</component-type>
+        </component>
+        <attribute>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
         <tag-name>prettyprint</tag-name>
         <component>
             <component-type>de.larmic.butterfaces.component.prettyprint</component-type>
