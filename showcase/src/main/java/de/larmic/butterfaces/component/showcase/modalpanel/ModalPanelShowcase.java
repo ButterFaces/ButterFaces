@@ -19,6 +19,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
 
     private ModalPanelType modalPanelType = ModalPanelType.SIMPLE;
     private String title = "Demo title";
+    private String cancelButtonText;
     private String text;
 
     @Override
@@ -27,6 +28,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
 
         if (modalPanelType == ModalPanelType.SIMPLE) {
             xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
+            xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\"");
             xhtmlCodeExample.appendInnerContent("                      title=\"" + title + "\">");
             xhtmlCodeExample.appendInnerContent("            Lorem ipsum dolor sit amet, consectetuer ...");
             xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
@@ -36,6 +38,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.COMPLEX) {
             xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
+            xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\"");
             xhtmlCodeExample.appendInnerContent("                      title=\"" + title + "\">");
             xhtmlCodeExample.appendInnerContent("            <b:text id=\"requiredInput\"");
             xhtmlCodeExample.appendInnerContent("                    value=\"#{myBean.text}\"");
@@ -114,6 +117,14 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getCancelButtonText() {
+        return cancelButtonText;
+    }
+
+    public void setCancelButtonText(String cancelButtonText) {
+        this.cancelButtonText = cancelButtonText;
     }
 
     public ModalPanelType getModalPanelType() {
