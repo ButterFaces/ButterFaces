@@ -3,7 +3,7 @@ if (typeof butter === 'undefined') {
 }
 butter.ajax = {};
 
-butter.ajax.disableElementsOnRequest =  function(data, tableId) {
+butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* string */ tableId) {
     var status = data.status;
 
     var $table = $(document.getElementById(tableId));

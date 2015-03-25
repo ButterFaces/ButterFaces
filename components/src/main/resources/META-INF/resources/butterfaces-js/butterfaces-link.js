@@ -1,4 +1,9 @@
-function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphicon, disableRenderRegionsIds) {
+if (typeof butter === 'undefined') {
+    butter = {};
+}
+butter.link = {};
+
+butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingText, hideGlyphicon, disableRenderRegionsIds) {
     var status = data.status;
 
     // console.log(data.source.id);
@@ -44,4 +49,4 @@ function disableOnClick(data, showDots, linkText, linkProcessingText, hideGlyphi
             }
             break;
     }
-}
+};

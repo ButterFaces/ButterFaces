@@ -70,7 +70,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
                     ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
 
-            responseWriter.writeText("    disableOnClick(data, " +
+            responseWriter.writeText("    butter.link.disableOnClick(data, " +
                     link.isAjaxShowWaitingDotsOnRequest() + ",'" +
                     link.getValue() + "','" +
                     processingText + "'," +

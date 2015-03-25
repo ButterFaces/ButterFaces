@@ -66,7 +66,7 @@ public class PrettyPrintRenderer extends HtmlBasicRenderer {
         // call pretty print javascript on render
         writer.startElement("script", component);
         writer.writeAttribute("type", "text/javascript", "type");
-        writer.writeText("jQuery(function () { handlePrettyPrint(); });", null);
+        writer.writeText("jQuery(function () { butter.prettyprint.cleanup(); });", null);
         writer.endElement("script");
     }
 

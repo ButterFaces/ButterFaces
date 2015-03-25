@@ -1,8 +1,5 @@
 package de.larmic.butterfaces.component.html;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
@@ -13,6 +10,8 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import java.util.Collections;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -21,6 +20,7 @@ import javax.faces.validator.ValidatorException;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-number.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
 })

@@ -36,10 +36,10 @@
             </div>
 
             <ui:remove>
-                <!-- Don't know why calling handlePrettyPrint() but after changing panel to tab is does not work out of the box anymore. -->
+                <!-- Don't know why calling butter.prettyprint.cleanup() but after changing panel to tab is does not work out of the box anymore. -->
             </ui:remove>
             <script type="text/javascript">
-                handlePrettyPrint();
+                butter.prettyprint.cleanup();
 
                 $(function() {
                     $("li[role='presentation']").first().addClass("active");

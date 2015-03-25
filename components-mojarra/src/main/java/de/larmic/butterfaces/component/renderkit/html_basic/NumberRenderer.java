@@ -134,7 +134,7 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
 
                 writer.startElement("script", component);
                 writer.writeText("var _component = document.getElementById('" + component.getClientId() + "');", null);
-                writer.writeText("_component.addEventListener('keyup', function(e) {handleSpinner(e, _component, "
+                writer.writeText("_component.addEventListener('keyup', function(e) {butter.number.handleSpinner(e, _component, "
                         + convertMinMax(inputComponent.getMin()) + ", "
                         + convertMinMax(inputComponent.getMax()) + ")}, false);", null);
                 writer.endElement("script");
