@@ -29,9 +29,9 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         writer.startElement(ELEMENT_DIV, component);
         writeIdAttribute(context, writer, component);
         if (StringUtils.isNotEmpty(modalPanel.getStyleClass())) {
-            writer.writeAttribute(ATTRIBUTE_CLASS, "modal fade " + modalPanel.getStyleClass(), null);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-modal modal fade " + modalPanel.getStyleClass(), null);
         } else {
-            writer.writeAttribute(ATTRIBUTE_CLASS, "modal fade", null);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-modal modal fade", null);
         }
         if (StringUtils.isNotEmpty(modalPanel.getStyle())) {
             writer.writeAttribute(ATTRIBUTE_STYLE, modalPanel.getStyle(), null);

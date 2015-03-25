@@ -262,7 +262,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         writer.startElement("script", component);
         writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
-        writer.writeText("    refreshTable(data, '" + this.getInnerTableId(component) + "');", null);
+        writer.writeText("    butter.ajax.disableElementsOnRequest(data, '" + this.getInnerTableId(component) + "');", null);
         writer.writeText("}", null);
         writer.endElement("script");
     }

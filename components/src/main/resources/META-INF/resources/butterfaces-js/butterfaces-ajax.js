@@ -1,4 +1,9 @@
-function refreshTable(data, tableId) {
+if (typeof butter === 'undefined') {
+    butter = {};
+}
+butter.ajax = {};
+
+butter.ajax.disableElementsOnRequest =  function(data, tableId) {
     var status = data.status;
 
     var $table = $(document.getElementById(tableId));
@@ -22,4 +27,4 @@ function refreshTable(data, tableId) {
             $table.butterEnableElements();
             break;
     }
-}
+};
