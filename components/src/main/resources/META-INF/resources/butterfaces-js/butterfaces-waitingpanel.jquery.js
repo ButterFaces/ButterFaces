@@ -23,23 +23,12 @@
                 if (data.status == 'begin') {
                     // console.log('Begin ajax event');
                     ajaxRequestRunning = true;
-                    setTimeout(function () {
-                        // console.log('Ajax request running: ' + ajaxRequestRunning);
-                        if (ajaxRequestRunning) {
-                            // console.log('Ajax request is running. Showing modal panel');
-                            $waitingPanelDialog.css({'display':'inline-block'});
-                            $waitingPanelDialog.butterDisableElements();
-                            $waitingPanelDialog.css({'display':'none'});
-                        } else {
-                            // console.log('Ajax request is not running. Not showing modal panel');
-                        }
-
-                    }, waitingPanelOpeningDelay);
+                    butter.overlay.show({delay: waitingPanelOpeningDelay})
 
                 } else if (data.status == 'success') {
                     // console.log('End ajax event');
                     ajaxRequestRunning = false;
-                    $waitingPanelDialog.butterEnableElements();
+                    butter.overlay.hide();
                 }
             }
 

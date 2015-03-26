@@ -63,7 +63,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("                    var jsfValidation = '#{facesContext.maximumSeverity != null}';");
             xhtmlCodeExample.appendInnerContent("                    var validationFailed = jsfValidation === 'true';");
             xhtmlCodeExample.appendInnerContent("                    if (data.status == 'success' && !validationFailed) {");
-            xhtmlCodeExample.appendInnerContent("                        butter.modal.close('complexModalPanel');");
+            xhtmlCodeExample.appendInnerContent("                        butter.modal.close('modalPanel');");
             xhtmlCodeExample.appendInnerContent("                    }");
             xhtmlCodeExample.appendInnerContent("                }");
             xhtmlCodeExample.appendInnerContent("                //]]>");
