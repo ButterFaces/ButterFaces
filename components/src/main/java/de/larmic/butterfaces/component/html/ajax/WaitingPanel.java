@@ -64,7 +64,7 @@ public class WaitingPanel extends UIComponentBase {
 
     public boolean isBlockpage() {
         final Object eval = this.getStateHelper().eval(PROPERTY_BLOCKPAGE);
-        return eval == null ? false : (Boolean) eval;
+        return eval == null ? true : (Boolean) eval;
     }
 
     public void setBlockpage(boolean blockpage) {
