@@ -17,16 +17,16 @@
                     <div class="col-sm-6">
                         <ul class="nav navList componentsNavList">
                             <li class="dropdown-header" role="presentation">Input components</li>
-                            <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text" title="Butterfaces text component"/></li>
-                            <li><h:link value="b:maskedText" outcome="/maskedtext" styleClass="arquillian_maskedText newFeature" title="Butterfaces masked text component"/></li>
-                            <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea" title="Butterfaces text area component"/></li>
-                            <li><h:link value="b:calendar" outcome="/calendar" styleClass="arquillian_calendar newFeature" title="Butterfaces calendar component"/></li>
-                            <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret" title="Butterfaces secret component"/></li>
-                            <li><h:link value="b:number" outcome="/number" styleClass="arquillian_number" title="Butterfaces number component"/></li>
-                            <li><h:link value="b:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox" title="Butterfaces checkbox component"/></li>
-                            <li><h:link value="b:combobox" outcome="/combobox" styleClass="arquillian_combobox" title="Butterfaces combobox component"/></li>
-                            <li><h:link value="b:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox" title="Butterfaces radio box component"/></li>
-                            <li><h:link value="b:tags" outcome="/tags" styleClass="arquillian_tags experimental" title="Butterfaces tags component"/></li>
+                            <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text mojarra" title="Butterfaces text component"/></li>
+                            <li><h:link value="b:maskedText" outcome="/maskedtext" styleClass="arquillian_maskedText newFeature mojarra" title="Butterfaces masked text component"/></li>
+                            <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea mojarra" title="Butterfaces text area component"/></li>
+                            <li><h:link value="b:calendar" outcome="/calendar" styleClass="arquillian_calendar mojarra" title="Butterfaces calendar component"/></li>
+                            <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret mojarra" title="Butterfaces secret component"/></li>
+                            <li><h:link value="b:number" outcome="/number" styleClass="arquillian_number mojarra" title="Butterfaces number component"/></li>
+                            <li><h:link value="b:checkbox" outcome="/checkbox" styleClass="arquillian_checkbox mojarra" title="Butterfaces checkbox component"/></li>
+                            <li><h:link value="b:combobox" outcome="/combobox" styleClass="arquillian_combobox mojarra" title="Butterfaces combobox component"/></li>
+                            <li><h:link value="b:radiobox" outcome="/radiobox" styleClass="arquillian_radiobox mojarra" title="Butterfaces radio box component"/></li>
+                            <li><h:link value="b:tags" outcome="/tags" styleClass="arquillian_tags experimental mojarra" title="Butterfaces tags component"/></li>
                             <li class="divider" role="presentation">
                                 <hr/>
                             </li>
@@ -37,7 +37,7 @@
                             <li><h:link value="b:modalPanel" outcome="/modalPanel" styleClass="arquillian_modalPanel newFeature" title="Butterfaces modal panel component"/></li>
                             <hr />
                             <li class="dropdown-header" role="presentation">Actions</li>
-                            <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link" title="Butterfaces command link and button component"/></li>
+                            <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link mojarra" title="Butterfaces command link and button component"/></li>
                         </ul>
                     </div>
                     <div class="col-sm-6">
@@ -49,7 +49,7 @@
                             </li>
                             <hr/>
                             <li class="dropdown-header" role="presentation">Data iteration</li>
-                            <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table newFeature" title="Butterfaces table component"/></li>
+                            <li><h:link value="b:table" outcome="/table" styleClass="arquillian_table mojarra" title="Butterfaces table component"/></li>
                             <li><h:link value="b:tree" outcome="/tree" styleClass="arquillian_tree" title="Butterfaces tree component"/></li>
                             <hr/>
                             <li class="dropdown-header" role="presentation">jQuery Plugins</li>
@@ -61,19 +61,20 @@
 
                 <div class="experimentalHint clearfix">
                     <div class="row">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
+                            <div class="pull-right">
                             <span class="experimental hideExperimentalAttention">
                                 <span class="fa fa-warning fa-lg"></span> experimental
                             </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-4">
+                                <br/>
+                            <span class="mojarra hideMojarraAttention">
+                                <span class="fa fa-warning fa-lg"></span> only mojarra version
+                            </span>
+                                <br/>
                             <span class="newFeature hideNewFeatureAttention">
                                 <span class="fa fa-star fa-lg"></span> new feature
                             </span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -11,9 +11,9 @@
             <hr />
 
             <footer class="footer">
-                <div class="float-right footer-link"><a href="http://www.larmic.de/legalNotice.html" target="_blank">Impressum</a></div>
-                <div class="float-right footer-link" style="padding-right: 10px;"><a href="http://opensource.org/licenses/MIT" target="_blank">License</a></div>
-                <div class="float-right footer-link" style="padding-right: 10px;"><a href="https://bitbucket.org/butterfaces/butterfaces/" target="_blank">Source</a></div>
+                <div class="pull-right footer-link"><a href="http://www.larmic.de/legalNotice.html" target="_blank">Impressum</a></div>
+                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="http://opensource.org/licenses/MIT" target="_blank">License</a></div>
+                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="https://bitbucket.org/butterfaces/butterfaces/" target="_blank">Source</a></div>
                 <div class="versionInformation">
                     <strong>ButterFaces #{version.version}</strong> @ Wildfly #{version.getJBossVersion()} <br/>
                     <div class="revision">GIT-Revision: <a href="https://bitbucket.org/butterfaces/butterfaces/commits/#{version.revision}" target="_blank">#{version.revision}</a></div>
@@ -23,7 +23,16 @@
                         if (jQuery('a.experimental').size() != 0) {
                             jQuery('span.experimental').removeClass('hideExperimentalAttention');
                             jQuery('a.experimental').each(function () {
-                                jQuery(this).append(' <span class="fa fa-warning fa-lg"></span>');
+                                jQuery(this).append(' <sub><span class="fa fa-warning"></span></sub>');
+                            });
+                        }
+
+                    });
+                    jQuery(document).ready(function () {
+                        if (jQuery('a.mojarra').size() != 0) {
+                            jQuery('span.mojarra').removeClass('hideMojarraAttention');
+                            jQuery('a.mojarra').each(function () {
+                                jQuery(this).append(' <sub><span class="fa fa-history"></span></sub>');
                             });
                         }
 
@@ -32,7 +41,7 @@
                         if (jQuery('a.newFeature').size() != 0) {
                             jQuery('span.newFeature').removeClass('hideNewFeatureAttention');
                             jQuery('a.newFeature').each(function () {
-                                jQuery(this).append(' <span class="fa fa-star fa-lg"></span>');
+                                jQuery(this).append(' <sub><span class="fa fa-star"></span></sub>');
                             });
                         }
 
