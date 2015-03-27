@@ -362,7 +362,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     if (rowObject != null) {
                         final TableSingleSelectionListener listener = htmlTable.getSingleSelectionListener();
 
-                        if (listener == null) {
+                        if (listener != null) {
                             listener.processTableSelection(rowObject);
                             final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
                             cachedRowIdentifier = rowIdentifier;
