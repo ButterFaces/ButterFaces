@@ -21,7 +21,7 @@
                 <script type="text/javascript">
                     jQuery(document).ready(function () {
                         if (jQuery('a.experimental').size() != 0) {
-                            jQuery('span.experimental').removeClass('hideExperimentalAttention');
+                            jQuery('li.experimental').removeClass('hideExperimentalAttention');
                             jQuery('a.experimental').each(function () {
                                 jQuery(this).append(' <sub><span class="fa fa-warning"></span></sub>');
                             });
@@ -30,7 +30,7 @@
                     });
                     jQuery(document).ready(function () {
                         if (jQuery('a.mojarra').size() != 0) {
-                            jQuery('span.mojarra').removeClass('hideMojarraAttention');
+                            jQuery('li.mojarra').removeClass('hideMojarraAttention');
                             jQuery('a.mojarra').each(function () {
                                 jQuery(this).append(' <sub class="mojarra"><span class="fa fa-recycle"></span></sub>');
                             });
@@ -39,7 +39,7 @@
                     });
                     jQuery(document).ready(function () {
                         if (jQuery('a.newFeature').size() != 0) {
-                            jQuery('span.newFeature').removeClass('hideNewFeatureAttention');
+                            jQuery('li.newFeature').removeClass('hideNewFeatureAttention');
                             jQuery('a.newFeature').each(function () {
                                 jQuery(this).append(' <sub><span class="fa fa-star"></span></sub>');
                             });
