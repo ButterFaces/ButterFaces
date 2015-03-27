@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Named
 @ViewScoped
-public class TableShowcase extends AbstractCodeShowcase implements Serializable, TableSingleSelectionListener<StringPair> {
+public class TableShowcase extends AbstractCodeShowcase implements Serializable {
 
     private final List<StringPair> stringPairs = new ArrayList<>();
     private StringPair selectedValue = null;
@@ -31,7 +31,6 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
     private RowIdentifierType rowIdentifierType = RowIdentifierType.ID;
-    private TableModelType tableModelType = TableModelType.DEFAULT_MODEL;
     private ToolBarType toolBarType = ToolBarType.SERVER_FILTER;
     private ToolbarFacetType toolbarFacetType = ToolbarFacetType.NONE;
     private DefaultTableModel tableModel = new DefaultTableModel();
@@ -43,6 +42,8 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     private boolean showRefreshButton = true;
     private boolean showToggleColumnButton = true;
     private boolean ajaxDisableRenderRegionsOnRequest = true;
+    private boolean useTableModel = true;
+    private boolean useSelectionListener = true;
     private String filterValue;
     private String colWidthColumn1;
     private String colWidthColumn2;
@@ -111,9 +112,17 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         return false;
     }
 
-    @Override
-    public void processTableSelection(final StringPair data) {
-        this.selectedValue = data;
+    public TableSingleSelectionListener<StringPair> getTableSelectionListener() {
+        if(useSelectionListener) {
+            return new TableSingleSelectionListener<StringPair>() {
+                @Override
+                public void processTableSelection(StringPair data) {
+                    selectedValue = data;
+                }
+            };
+        }
+
+        return null;
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
@@ -178,10 +187,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         xhtmlCodeExample.appendInnerContent("        <b:table id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                 var=\"rowItem\"");
         xhtmlCodeExample.appendInnerContent("                 value=\"#{myBean.value}\"");
-        if (tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (useTableModel) {
             xhtmlCodeExample.appendInnerContent("                 model=\"#{myBean.tableModel}\"");
         }
-        if (selectionAjaxType == SelectionAjaxType.AJAX) {
+        if (selectionAjaxType == SelectionAjaxType.AJAX && useSelectionListener) {
             xhtmlCodeExample.appendInnerContent("                 singleSelectionListener=\"#{myBean}\"");
         }
         if (toolBarType == ToolBarType.CLIENT_FILTER) {
@@ -309,7 +318,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         if (this.selectionAjaxType == SelectionAjaxType.AJAX) {
             myBean.addImport("de.larmic.butterfaces.event.TableSingleSelectionListener");
         }
-        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (useTableModel) {
             myBean.addImport("de.larmic.butterfaces.model.table.TableModel");
             myBean.addImport("de.larmic.butterfaces.model.table.DefaultTableModel");
         }
@@ -328,7 +337,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.addInterfaces("TableToolbarRefreshListener");
         }
 
-        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (useTableModel) {
             myBean.appendInnerContent("    private TableModel tableModel = new DefaultTableModel();\n");
         }
         if (this.toolBarType == ToolBarType.SERVER_FILTER) {
@@ -357,7 +366,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.appendInnerContent("        pairs.add(new StringPair(\"r6c1\", \"r6c2\"));");
             myBean.appendInnerContent("        pairs.add(new StringPair(\"r7c1\", \"r7c2\"));");
         }
-        if (this.selectionAjaxType == SelectionAjaxType.AJAX && this.tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (this.selectionAjaxType == SelectionAjaxType.AJAX && useTableModel) {
             myBean.appendInnerContent("        // TODO sort by table model");
         }
         if (this.toolBarType == ToolBarType.SERVER_FILTER) {
@@ -405,7 +414,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
             myBean.appendInnerContent("    }\n");
         }
 
-        if (this.tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (useTableModel) {
             myBean.appendInnerContent("    public TableModel getTableModel() {");
             myBean.appendInnerContent("        return this.tableModel;");
             myBean.appendInnerContent("    }");
@@ -474,15 +483,6 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
         final List<SelectItem> items = new ArrayList<>();
 
         for (final FourthColumnWidthType type : FourthColumnWidthType.values()) {
-            items.add(new SelectItem(type, type.label));
-        }
-        return items;
-    }
-
-    public List<SelectItem> getTableModelTypes() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        for (final TableModelType type : TableModelType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -611,19 +611,11 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
     }
 
     public DefaultTableModel getTableModel() {
-        if (tableModelType == TableModelType.DEFAULT_MODEL) {
+        if (useTableModel) {
             return tableModel;
         }
 
         return null;
-    }
-
-    public TableModelType getTableModelType() {
-        return tableModelType;
-    }
-
-    public void setTableModelType(TableModelType tableModelType) {
-        this.tableModelType = tableModelType;
     }
 
     public ToolBarType getToolBarType() {
@@ -682,6 +674,22 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable,
 
     public int getNumberOfRefreshes() {
         return numberOfRefreshes;
+    }
+
+    public boolean isUseTableModel() {
+        return useTableModel;
+    }
+
+    public void setUseTableModel(boolean useTableModel) {
+        this.useTableModel = useTableModel;
+    }
+
+    public boolean isUseSelectionListener() {
+        return useSelectionListener;
+    }
+
+    public void setUseSelectionListener(boolean useSelectionListener) {
+        this.useSelectionListener = useSelectionListener;
     }
 }
 

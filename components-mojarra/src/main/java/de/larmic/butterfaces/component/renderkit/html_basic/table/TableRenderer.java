@@ -337,11 +337,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         final Object untypedTableValue = htmlTable.getValue();
-        final TableSingleSelectionListener listener = htmlTable.getSingleSelectionListener();
 
-        if (listener == null) {
-            return;
-        }
 
         if (!(untypedTableValue instanceof Iterable)) {
             return;
@@ -364,9 +360,13 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     cachedRowIdentifier = null;
 
                     if (rowObject != null) {
-                        listener.processTableSelection(rowObject);
-                        final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
-                        cachedRowIdentifier = rowIdentifier;
+                        final TableSingleSelectionListener listener = htmlTable.getSingleSelectionListener();
+
+                        if (listener == null) {
+                            listener.processTableSelection(rowObject);
+                            final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
+                            cachedRowIdentifier = rowIdentifier;
+                        }
 
                     }
                 } else if ("sort".equals(event) && htmlTable.getModel() != null) {

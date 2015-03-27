@@ -29,16 +29,14 @@
             <showcase:tagEnumControl label="column width"
                                      value="#{tableShowcase.fourthColumnWidthType}"
                                      values="#{tableShowcase.twoColumnWidthTypes}"/>
-            <showcase:tagEnumControl label="table model"
-                                     value="#{tableShowcase.tableModelType}"
-                                     values="#{tableShowcase.tableModelTypes}"/>
             <showcase:tagEnumControl label="sort identifier"
                                      value="#{tableShowcase.rowIdentifierType}"
                                      values="#{tableShowcase.rowIdentifierTypes}"/>
             <showcase:tagEnumControl label="toolbar facets"
                                      value="#{tableShowcase.toolbarFacetType}"
                                      values="#{tableShowcase.toolBarFacetTypes}"/>
-            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
+            <showcase:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
+            <showcase:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
             <showcase:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
         </showcase:tagsContainer>
     </ui:define>
@@ -49,13 +47,13 @@
                       styleClass="alert alert-warning"
                       rendered="#{!(tableShowcase.selectionAjaxType eq 'AJAX')}">
             <strong>Attention:</strong> Table selection will only work in ajax mode. Column sorting will only work in ajax mode.
-            <h:panelGroup rendered="#{!(tableShowcase.tableModelType eq 'NONE')}">Table model will only work
+            <h:panelGroup rendered="#{not tableShowcase.useTableModel}">Table model will only work
                 in ajax mode.</h:panelGroup>
         </h:panelGroup>
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{tableShowcase.tableModelType eq 'NONE' and tableShowcase.selectionAjaxType eq 'AJAX'}">
+                      rendered="#{tableShowcase.useTableModel and tableShowcase.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will not be stored when not using a table model.
             Try toggling columns and and press refresh button. In this case column hide information will be used by checking
             hideColumn attribute.
@@ -63,7 +61,7 @@
 
         <h:panelGroup layout="block"
                       styleClass="alert alert-warning"
-                      rendered="#{!(tableShowcase.tableModelType eq 'NONE') and tableShowcase.selectionAjaxType eq 'AJAX'}">
+                      rendered="#{not tableShowcase.useTableModel and tableShowcase.selectionAjaxType eq 'AJAX'}">
             <strong>Attention:</strong> Column show and hide information will be stored when using a table model. When
             using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
         </h:panelGroup>
@@ -130,7 +128,7 @@
         <b:table id="filterTable"
                  var="rowItem"
                  value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase}"
+                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                  model="#{tableShowcase.tableModel}"
                  tableCondensed="#{tableShowcase.tableCondensed}"
                  tableStriped="#{tableShowcase.tableStriped}"
@@ -171,7 +169,7 @@
 
         <b:table var="rowItem"
                  value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase}"
+                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                  rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
             <b:column id="column1"
                       colWidth="#{tableShowcase.colWidthColumn1}"
