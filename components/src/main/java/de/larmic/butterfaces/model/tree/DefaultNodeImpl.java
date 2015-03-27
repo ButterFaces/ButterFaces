@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.model.tree;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -65,7 +64,7 @@ public class DefaultNodeImpl<T> implements Node<T> {
     }
 
     @Override
-    public Collection<Node> getSubNodes() {
+    public List<Node> getSubNodes() {
         return subNodes;
     }
 

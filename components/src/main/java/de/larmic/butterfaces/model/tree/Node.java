@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.model.tree;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by larmic on 24.10.14.
@@ -53,6 +53,6 @@ public interface Node<T> {
     /**
      * @return a list of child nodes. An empty list if no sub nodes exits.
      */
-    Collection<Node> getSubNodes();
+    List<Node> getSubNodes();
 
 }
