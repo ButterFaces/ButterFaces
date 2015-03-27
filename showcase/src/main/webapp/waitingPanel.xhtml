@@ -11,15 +11,22 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
             <showcase:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
+            <showcase:tagBooleanControl label="blockpage" value="#{waitingPanelShowcase.blockpage}" />
+            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:waitingPanel delay="#{waitingPanelShowcase.delayInMillis}"
+                        blockpage="#{waitingPanelShowcase.blockpage}"
                         rendered="#{waitingPanelShowcase.rendered}">
         </b:waitingPanel>
+
+        <h:panelGroup layout="block" rendered="#{not waitingPanelShowcase.blockpage}" styleClass="alert alert-warning">
+            <strong>Attention:</strong> If blockpage is not active the ui will be usable until delay time is reached.
+            Try 4000 millis with and without active blockpage. Click button and while request try clicking on page.
+        </h:panelGroup>
 
         <h:commandLink value="5 second click"
                        styleClass="btn btn-success"

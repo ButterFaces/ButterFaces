@@ -19,6 +19,7 @@ import java.util.List;
 public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serializable {
 
     private int delayInMillis = 500;
+    private boolean blockpage = true;
 
     public void doWaitingClick() {
         try {
@@ -39,7 +40,8 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:waitingPanel id=\"waiting\"");
-        xhtmlCodeExample.appendInnerContent("                        delay=\"" + this.delayInMillis + "\"");
+        xhtmlCodeExample.appendInnerContent("                        delay=\"" + delayInMillis + "\"");
+        xhtmlCodeExample.appendInnerContent("                        blockpage=\"" + blockpage + "\"");
         xhtmlCodeExample.appendInnerContent("                        rendered\"" + this.isRendered() + "\" />\n", true);
 
         xhtmlCodeExample.appendInnerContent("        <h:commandLink styleClass=\"btn btn-success\"");
@@ -49,15 +51,15 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
         xhtmlCodeExample.appendInnerContent("            <f:ajax />");
         xhtmlCodeExample.appendInnerContent("        </h:commandLink>");
 
-        final JavaCodeExample javaCodeExample = new JavaCodeExample("waiting.demo", "MyBean", true);
+        final JavaCodeExample javaCodeExample = new JavaCodeExample("MyBean.java", "mybean", "waiting.demo", "MyBean", true);
 
-        javaCodeExample.appendInnerContent("    public void waitForFiveSeconds() {\n");
-        javaCodeExample.appendInnerContent("        try {\n");
-        javaCodeExample.appendInnerContent("            Thread.sleep(5000);\n");
-        javaCodeExample.appendInnerContent("        } catch (InterruptedException e) {\n");
-        javaCodeExample.appendInnerContent("            // this error is not ok...\n");
-        javaCodeExample.appendInnerContent("        }\n");
-        javaCodeExample.appendInnerContent("    }\n\n");
+        javaCodeExample.appendInnerContent("    public void waitForFiveSeconds() {");
+        javaCodeExample.appendInnerContent("        try {");
+        javaCodeExample.appendInnerContent("            Thread.sleep(5000);");
+        javaCodeExample.appendInnerContent("        } catch (InterruptedException e) {");
+        javaCodeExample.appendInnerContent("            // this error is not ok...");
+        javaCodeExample.appendInnerContent("        }");
+        javaCodeExample.appendInnerContent("    }");
 
         codeExamples.add(xhtmlCodeExample);
         codeExamples.add(javaCodeExample);
@@ -71,4 +73,11 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
         this.delayInMillis = delayInMillis;
     }
 
+    public boolean isBlockpage() {
+        return blockpage;
+    }
+
+    public void setBlockpage(boolean blockpage) {
+        this.blockpage = blockpage;
+    }
 }

@@ -1421,6 +1421,11 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>blockpage</name>
+            <type>java.lang.Boolean</type>
+            <description>blocks page on ajax request directly by using a tranparent overlay. After delay it overlay will be visible. </description>
+        </attribute>
+        <attribute>
             <description>
                 Delay to open waiting panel. Short ajax request should not trigger a waiting panel.
                 Default is 500 ms.

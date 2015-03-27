@@ -6,26 +6,36 @@ butter.overlay = {};
 butter.overlay.show = function(/* object */ options) {
     if ($('body').find('.butter-component-overlay').length === 0) {
         var delay = 500;
-        // var blockpage = true;
+        var blockpage = true;
 
         if (options !== undefined) {
             if (options.delay !== undefined) {
                 delay = options.delay;
             }
-            //if (options.blockpage !== undefined) {
-            //    blockpage = options.blockpage;
-            //}
+            if (options.blockpage !== undefined) {
+                blockpage = options.blockpage;
+            }
         }
 
         console.log('Opening overlay with delay: ' + delay);
-        // console.log(blockpage);
+        console.log(blockpage);
 
         var $spinner = $('<div class="butter-component-spinner" />');
         var $overlay = $('<div class="butter-component-overlay" />');
+
         $('body').append($overlay);
-        $overlay.show();
+
+        // show transparent overlay direcly if blockpage is true
+        if (blockpage) {
+            $overlay.show();
+        }
 
         setTimeout(function () {
+            // show overlay after delay if blockpage is false
+            if (!blockpage) {
+                $overlay.show();
+            }
+
             $overlay.css('background-color', 'rgba(0, 0, 0, 0.5)');
             $overlay.append($spinner);
         }, delay);

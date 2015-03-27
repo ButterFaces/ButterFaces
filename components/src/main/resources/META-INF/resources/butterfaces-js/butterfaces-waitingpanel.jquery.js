@@ -11,6 +11,7 @@
     var $waitingPanelDialog = null;
     var eventRegistered = false;
     var waitingPanelOpeningDelay = null;
+    var blockpage = null;
 
     $.fn.waitingPanel = function (data) {
 
@@ -23,7 +24,7 @@
                 if (data.status == 'begin') {
                     // console.log('Begin ajax event');
                     ajaxRequestRunning = true;
-                    butter.overlay.show({delay: waitingPanelOpeningDelay})
+                    butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
 
                 } else if (data.status == 'success') {
                     // console.log('End ajax event');
@@ -42,6 +43,7 @@
 
             $waitingPanelDialog = $(_msg);
             waitingPanelOpeningDelay = data.waitingPanelDelay;
+            blockpage = data.blockpage;
 
             // I found no way to remove event listener from jsf js.
             // I tried to register a callback once and change it on render waiting panel but after this

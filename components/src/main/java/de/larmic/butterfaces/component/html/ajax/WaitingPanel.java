@@ -24,6 +24,7 @@ public class WaitingPanel extends UIComponentBase {
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.WaitingPanelRenderer";
 
     protected static final String PROPERTY_DELAY = "delay";
+    protected static final String PROPERTY_BLOCKPAGE = "blockpage";
     protected static final String PROPERTY_STYLE_CLASS = "styleClass";
     protected static final String PROPERTY_STYLE = "style";
 
@@ -59,6 +60,15 @@ public class WaitingPanel extends UIComponentBase {
 
     public void setDelay(final Integer delay) {
         this.updateStateHelper(PROPERTY_DELAY, delay);
+    }
+
+    public boolean isBlockpage() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_BLOCKPAGE);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setBlockpage(boolean blockpage) {
+        this.updateStateHelper(PROPERTY_BLOCKPAGE, blockpage);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

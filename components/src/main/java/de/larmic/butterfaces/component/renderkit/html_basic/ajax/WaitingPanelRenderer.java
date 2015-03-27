@@ -68,7 +68,7 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
     private String createButterTreeJQueryParameter(final WaitingPanel waitingPanel) {
         final int waitingPanelDelay = getWaitingPanelDelay(waitingPanel);
 
-        return "{waitingPanelDelay: '" + waitingPanelDelay + "'}";
+        return "{waitingPanelDelay: '" + waitingPanelDelay + "', blockpage: " + waitingPanel.isBlockpage() + "}";
     }
 
     private int getWaitingPanelDelay(final WaitingPanel waitingPanel) {
