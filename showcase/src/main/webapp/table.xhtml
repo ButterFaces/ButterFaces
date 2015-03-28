@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
@@ -81,121 +81,124 @@
             Number of refresh clicks: #{tableShowcase.numberOfRefreshes}
         </h:panelGroup>
 
-        <b:tableToolbar tableId="filterTable"
-                        refreshListener="#{tableShowcase.toolbarRefreshListener}"
-                        ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
-                        rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
-            <f:facet name="default-options-left">
-                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
-                    <a class="btn btn-default">Left facet</a>
+        <showcase:donothing>
+            <b:tableToolbar tableId="filterTable"
+                            refreshListener="#{tableShowcase.toolbarRefreshListener}"
+                            ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
+                            rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+                <f:facet name="default-options-left">
+                    <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
+                        <a class="btn btn-default">Left facet</a>
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="default-options-center">
+                    <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'CENTER_FACET'}">
+                        <a class="btn btn-default">Center facet</a>
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="default-options-right">
+                    <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'RIGHT_FACET'}">
+                        <a class="btn btn-default">Right facet</a>
+                    </h:panelGroup>
+                </f:facet>
+                <f:ajax event="refresh" render="output:numberOfRefreshes"
+                        disabled="#{not tableShowcase.showRefreshButton}"/>
+                <f:ajax event="toggle" disabled="#{not tableShowcase.showToggleColumnButton}"/>
+                <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
+                    Custom toolbar text...
                 </h:panelGroup>
-            </f:facet>
-            <f:facet name="default-options-center">
-                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'CENTER_FACET'}">
-                    <a class="btn btn-default">Center facet</a>
+                <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'SERVER_FILTER'}">
+                    <b:text value="#{tableShowcase.filterValue}"
+                            placeholder="Enter text..."
+                            hideLabel="true"
+                            autoFocus="true">
+                        <f:ajax event="keyup" render="filterTable"/>
+                    </b:text>
                 </h:panelGroup>
-            </f:facet>
-            <f:facet name="default-options-right">
-                <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'RIGHT_FACET'}">
-                    <a class="btn btn-default">Right facet</a>
-                </h:panelGroup>
-            </f:facet>
-            <f:ajax event="refresh" render="output:numberOfRefreshes" disabled="#{not tableShowcase.showRefreshButton}" />
-            <f:ajax event="toggle" disabled="#{not tableShowcase.showToggleColumnButton}" />
-            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
-                Custom toolbar text...
-            </h:panelGroup>
-            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'SERVER_FILTER'}">
-                <b:text value="#{tableShowcase.filterValue}"
-                        placeholder="Enter text..."
-                        hideLabel="true"
-                        autoFocus="true">
-                    <f:ajax event="keyup" render="filterTable"/>
-                </b:text>
-            </h:panelGroup>
-            <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'CLIENT_FILTER'}">
-                <div class="form-inline pull-left" role="form">
-                    <div class="form-group">
-                        <input type="text"
-                               class="form-control jQueryPluginSelector"
-                               placeholder="Enter text..."
-                               data-filterable-item-container=".butter-table"/>
+                <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'CLIENT_FILTER'}">
+                    <div class="form-inline pull-left" role="form">
+                        <div class="form-group">
+                            <input type="text"
+                                   class="form-control jQueryPluginSelector"
+                                   placeholder="Enter text..."
+                                   data-filterable-item-container=".butter-table"/>
+                        </div>
                     </div>
-                </div>
-            </h:panelGroup>
-        </b:tableToolbar>
+                </h:panelGroup>
+            </b:tableToolbar>
 
-        <b:table id="filterTable"
-                 var="rowItem"
-                 value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
-                 model="#{tableShowcase.tableModel}"
-                 tableCondensed="#{tableShowcase.tableCondensed}"
-                 tableStriped="#{tableShowcase.tableStriped}"
-                 tableBordered="#{tableShowcase.tableBordered}"
-                 rowClass="#{tableShowcase.rowClass}"
-                 ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
-                 rowIdentifierProperty="#{tableShowcase.rowIdentifierProperty}"
-                 rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
-            <f:ajax render="output:nodeTitle"
-                    disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
-            <b:column id="column1"
-                      colWidth="#{tableShowcase.colWidthColumn1}"
-                      label="Readonly text">
-                #{rowItem.a}
-            </b:column>
-            <b:column id="column2"
-                      colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="Input text">
-                <h:inputText value="#{rowItem.b}"/>
-            </b:column>
-            <b:column id="column3"
-                      colWidth="#{tableShowcase.colWidthColumn3}"
-                      sortColumnEnabled="false"
-                      label="Action">
-                <b:commandLink value="doSomething"
-                               styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcase.doSomethingWith(rowItem)}">
-                    <f:ajax execute="@this" render="output:nodeTitle"/>
-                </b:commandLink>
-            </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
-                      hideColumn="true"
-                      sortColumnEnabled="false"
-                      label="Readonly text (default hide)">
-                #{rowItem.a}
-            </b:column>
-        </b:table>
+            <b:table id="filterTable"
+                     var="rowItem"
+                     value="#{tableShowcase.stringRows}"
+                     singleSelectionListener="#{tableShowcase.tableSelectionListener}"
+                     model="#{tableShowcase.tableModel}"
+                     tableCondensed="#{tableShowcase.tableCondensed}"
+                     tableStriped="#{tableShowcase.tableStriped}"
+                     tableBordered="#{tableShowcase.tableBordered}"
+                     rowClass="#{tableShowcase.rowClass}"
+                     ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
+                     rowIdentifierProperty="#{tableShowcase.rowIdentifierProperty}"
+                     rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+                <f:ajax render="output:nodeTitle"
+                        disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
+                <b:column id="column1"
+                          colWidth="#{tableShowcase.colWidthColumn1}"
+                          label="Readonly text">
+                    #{rowItem.a}
+                </b:column>
+                <b:column id="column2"
+                          colWidth="#{tableShowcase.colWidthColumn2}"
+                          label="Input text">
+                    <h:inputText value="#{rowItem.b}"/>
+                </b:column>
+                <b:column id="column3"
+                          colWidth="#{tableShowcase.colWidthColumn3}"
+                          sortColumnEnabled="false"
+                          label="Action">
+                    <b:commandLink value="doSomething"
+                                   styleClass="btn btn-warning btn-xs"
+                                   action="#{tableShowcase.doSomethingWith(rowItem)}">
+                        <f:ajax execute="@this" render="output:nodeTitle"/>
+                    </b:commandLink>
+                </b:column>
+                <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+                          hideColumn="true"
+                          sortColumnEnabled="false"
+                          label="Readonly text (default hide)">
+                    #{rowItem.a}
+                </b:column>
+            </b:table>
 
-        <b:table var="rowItem"
-                 value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
-                 rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
-            <b:column id="column1"
-                      colWidth="#{tableShowcase.colWidthColumn1}"
-                      label="Readonly text">
-                #{rowItem.a}
-            </b:column>
-            <b:column id="column2"
-                      colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="Input text">
-                <h:inputText value="#{rowItem.b}"/>
-            </b:column>
-            <b:column id="column3"
-                      colWidth="#{tableShowcase.colWidthColumn3}"
-                      label="Action">
-                <b:commandLink value="doSomething"
-                               styleClass="btn btn-warning btn-xs"
-                               action="#{tableShowcase.doSomethingWith(rowItem)}">
-                    <f:ajax execute="@this" render="output:nodeTitle"/>
-                </b:commandLink>
-            </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
-                      hideColumn="true"
-                      label="Readonly text (default hide)">
-                #{rowItem.a}
-            </b:column>
-        </b:table>
+            <b:table var="rowItem"
+                     value="#{tableShowcase.stringRows}"
+                     singleSelectionListener="#{tableShowcase.tableSelectionListener}"
+                     rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
+                <b:column id="column1"
+                          colWidth="#{tableShowcase.colWidthColumn1}"
+                          label="Readonly text">
+                    #{rowItem.a}
+                </b:column>
+                <b:column id="column2"
+                          colWidth="#{tableShowcase.colWidthColumn2}"
+                          label="Input text">
+                    <h:inputText value="#{rowItem.b}"/>
+                </b:column>
+                <b:column id="column3"
+                          colWidth="#{tableShowcase.colWidthColumn3}"
+                          label="Action">
+                    <b:commandLink value="doSomething"
+                                   styleClass="btn btn-warning btn-xs"
+                                   action="#{tableShowcase.doSomethingWith(rowItem)}">
+                        <f:ajax execute="@this" render="output:nodeTitle"/>
+                    </b:commandLink>
+                </b:column>
+                <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+                          hideColumn="true"
+                          label="Readonly text (default hide)">
+                    #{rowItem.a}
+                </b:column>
+            </b:table>
+        </showcase:donothing>
 
         <h:panelGroup id="nodeTitle"
                       layout="block">
@@ -222,6 +225,8 @@
                               styleClass="form-control arquillian_output_value"/>
             </div>
         </h:panelGroup>
+
+
     </ui:define>
 
     <ui:define name="other">
