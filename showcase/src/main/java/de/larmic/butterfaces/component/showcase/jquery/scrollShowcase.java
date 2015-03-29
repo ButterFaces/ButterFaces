@@ -28,7 +28,7 @@ public class scrollShowcase extends AbstractCodeShowcase implements Serializable
         xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-default btn-xs\"");
         xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.middle').butterScrollToFirst(-60);\">middle</span>");
         xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-default btn-xs\"");
-        xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.scrollable-item').butterScrollToFirst(-60);\">bottom</span>");
+        xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.scrollable-item').butterScrollToLast(-60);\">bottom</span>");
         xhtmlCodeExample.appendInnerContent("            </div>");
         xhtmlCodeExample.appendInnerContent("        </div>\n");
 
