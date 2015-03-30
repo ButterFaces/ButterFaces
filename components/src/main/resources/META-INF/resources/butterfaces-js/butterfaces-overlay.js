@@ -17,8 +17,8 @@ butter.overlay.show = function(/* object */ options) {
             }
         }
 
-        console.log('Opening overlay with delay: ' + delay);
-        console.log(blockpage);
+        // console.log('Opening overlay with delay: ' + delay);
+        // console.log(blockpage);
 
         var $spinner = $('<div class="butter-component-spinner" />');
         var $overlay = $('<div class="butter-component-overlay" />');
