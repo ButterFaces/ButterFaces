@@ -3,19 +3,20 @@ if (typeof butter === 'undefined') {
 }
 butter.ajax = {};
 
-butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* string */ tableId) {
+butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of string */ ids) {
     var status = data.status;
 
-    var $table = $(document.getElementById(tableId));
-
     // console.log(data);
-    // console.log("Table id: " + tableId);
-    // console.log($table);
+    // console.log(ids);
 
     switch (status) {
         case "begin": // Before the ajax request is sent.
             // console.log('ajax request begin');
-            $table.butterDisableElements();
+
+            for(i=0;i<ids.length;i++){
+                $(document.getElementById(ids[i])).butterDisableElements();
+            }
+
             break;
 
         case "complete": // After the ajax response is arrived.
@@ -24,7 +25,11 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* string */
 
         case "success": // After update of HTML DOM based on ajax response..
             // console.log('ajax request success');
-            $table.butterEnableElements();
+
+            for(i=0;i<ids.length;i++){
+                $(document.getElementById(ids[i])).butterEnableElements();
+            }
+
             break;
     }
 };

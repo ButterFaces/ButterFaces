@@ -36,13 +36,42 @@ public class AjaxRequest {
     }
 
     public String createJavaScriptCall(final String customEventName) {
+        return this.createJavaScriptCall(customEventName, onevent);
+    }
+
+    public String createJavaScriptCall(final String customEventName, final String customOnEvent) {
         final String render = this.createRender(this.renderIds);
 
-        if (StringUtils.isEmpty(onevent)) {
+        if (StringUtils.isEmpty(customOnEvent)) {
             return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "'javax.faces.behavior.event':'" + customEventName + "'});";
         }
 
-        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "onevent: " + onevent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
+        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "onevent: " + customOnEvent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
+    }
+
+    public String createJavaScriptCall(final String customEventName, final boolean disableElements) {
+        if (disableElements && !renderIds.isEmpty()) {
+            final StringBuilder onEvent = new StringBuilder("(function(data) { butter.ajax.disableElementsOnRequest(data, [");
+
+            final Iterator<String> iterator = renderIds.iterator();
+
+            while (iterator.hasNext()) {
+                final String renderId = iterator.next();
+                onEvent.append("'");
+                onEvent.append(renderId);
+                onEvent.append("'");
+
+                if (iterator.hasNext()) {
+                    onEvent.append(", ");
+                }
+            }
+
+            onEvent.append("]) })");
+
+            return this.createJavaScriptCall(customEventName, onEvent.toString());
+        }
+
+        return this.createJavaScriptCall(customEventName, null);
     }
 
     private String createRenderPart(final String render) {

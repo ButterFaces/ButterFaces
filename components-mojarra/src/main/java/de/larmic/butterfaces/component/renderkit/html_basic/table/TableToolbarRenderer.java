@@ -11,7 +11,6 @@ import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -145,11 +144,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarToggleColumnButton(final ResponseWriter writer,
                                                       final HtmlTableToolbar tableToolbar) throws IOException {
-        final AjaxRequest toggle = tableToolbar.isAjaxDisableRenderRegionsOnRequest()
-                ? new AjaxRequestFactory().createRequest(tableToolbar, "toggle", getOnEventListenerName(cachedTableComponent))
-                : new AjaxRequestFactory().createRequest(tableToolbar, "toggle");
+        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, "toggle");
 
-        if (toggle != null) {
+        if (ajaxRequest != null) {
+            ajaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
+
             writer.startElement("div", tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
@@ -183,8 +182,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
 
-                toggle.getRenderIds().add(cachedTableComponent.getClientId());
-                writer.writeAttribute("onclick", toggle.createJavaScriptCall("toggle_" + columnNumber) + ";" + jQueryPluginCall, null);
+                final String ajaxCall = ajaxRequest.createJavaScriptCall("toggle_" + columnNumber, tableToolbar.isAjaxDisableRenderRegionsOnRequest());
+                writer.writeAttribute("onclick", ajaxCall + ";" + jQueryPluginCall, null);
 
                 if (!this.isHideColumn(this.cachedTableComponent, cachedColumn)) {
                     writer.writeAttribute("checked", "checked", null);
@@ -213,16 +212,18 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
                                                  final HtmlTableToolbar tableToolbar) throws IOException {
-        final String onEvent = tableToolbar.isAjaxDisableRenderRegionsOnRequest() ? this.getOnEventListenerName(this.cachedTableComponent) : null;
-        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, "refresh", onEvent);
+        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, "refresh");
+
 
         if (ajaxRequest != null) {
             ajaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
+            final String ajaxCall = ajaxRequest.createJavaScriptCall("refresh", tableToolbar.isAjaxDisableRenderRegionsOnRequest());
+
             writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", "Refresh table", null);
-            writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall(), null);
+            writer.writeAttribute("onclick", ajaxCall, null);
 
             writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", webXmlParameters.getRefreshGlyphicon(), null);
@@ -230,10 +231,5 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
             writer.endElement("a");
         }
-    }
-
-    private String getOnEventListenerName(final UIComponent component) {
-        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        return "refreshTable" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 }
