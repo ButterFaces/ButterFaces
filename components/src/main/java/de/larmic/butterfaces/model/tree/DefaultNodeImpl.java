@@ -9,8 +9,8 @@ import java.util.List;
 public class DefaultNodeImpl<T> implements Node<T> {
 
     private final List<Node> subNodes = new ArrayList<>();
-    private final String title;
     private final T data;
+    private String title;
     private String imageIcon;
     private String glyphiconIcon;
     private boolean isCollapsed;
@@ -32,6 +32,10 @@ public class DefaultNodeImpl<T> implements Node<T> {
     @Override
     public String getTitle() {
         return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
