@@ -15,7 +15,6 @@ import de.larmic.butterfaces.resolver.WebXmlParameters;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
@@ -244,12 +243,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         super.renderTableEnd(context, component, writer);
         writer.endElement("div");
         writer.endElement("div");
-
-        writer.startElement("script", component);
-        writer.writeText("function " + this.getOnEventListenerName(component) + "(data) {", null);
-        writer.writeText("    butter.ajax.disableElementsOnRequest(data, ['" + this.getInnerTableId(component) + "']);", null);
-        writer.writeText("}", null);
-        writer.endElement("script");
     }
 
     @Override
@@ -397,11 +390,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         return null;
-    }
-
-    private String getOnEventListenerName(final UIComponent component) {
-        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        return "refreshTable" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 
     private Object findRowObject(final Iterable tableValues, final int row) {
