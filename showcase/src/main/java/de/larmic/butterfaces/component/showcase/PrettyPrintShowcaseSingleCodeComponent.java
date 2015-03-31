@@ -116,7 +116,7 @@ public class PrettyPrintShowcaseSingleCodeComponent extends AbstractInputShowcas
         final StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html>\n");
         html.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"\n");
-        html.append("      xmlns:h=\"http://java.sun.com/jsf/html\"\n");
+        html.append("      xmlns:h=\"http://xmlns.jcp.org/jsf/html\"\n");
         html.append("      xmlns:b=\"http://butterfaces.larmic.de/components\">\n");
         html.append("<h:head />\n");
         html.append("<body>\n");

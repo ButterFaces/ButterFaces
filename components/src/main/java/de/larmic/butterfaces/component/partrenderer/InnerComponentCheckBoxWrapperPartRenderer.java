@@ -1,11 +1,13 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import java.io.IOException;
-
-import javax.faces.context.ResponseWriter;
-
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+
+import javax.faces.component.UIInput;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
 public class InnerComponentCheckBoxWrapperPartRenderer {
 
@@ -17,7 +19,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
             final StringBuilder defaultStyleClass = new StringBuilder();
             if (component.isHideLabel()) {
                 defaultStyleClass.append("butter-component-value-hiddenLabel");
-            }else {
+            } else {
                 defaultStyleClass.append("butter-component-value");
             }
 
@@ -46,10 +48,27 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 writer.endElement("div");
             }
 
-            writer.startElement("script", uiComponent);
-            writer.writeText("addLabelAttributeToInnerComponent('" + component.getClientId() + "', '"
-                    + component.getLabel() + "');", null);
-            writer.endElement("script");
+            final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
+            final Iterator<String> eventNamesIterator = eventNames.iterator();
+
+            if (eventNamesIterator.hasNext()) {
+                final StringBuilder sb = new StringBuilder("[");
+
+                while (eventNamesIterator.hasNext()) {
+                    sb.append("'");
+                    sb.append(eventNamesIterator.next());
+                    sb.append("'");
+
+                    if (eventNamesIterator.hasNext()) {
+                        sb.append(", ");
+                    }
+                }
+
+                sb.append("]");
+
+                final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
+                RenderUtils.renderJavaScriptCall(function, writer, uiComponent);
+            }
 
             writer.endElement("div");
         }

@@ -1,6 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:panelGroup rendered="#{facesContext.externalContext.request.serverName eq 'localhost' or facesContext.externalContext.request.serverName eq '127.0.0.1'}">
         <link rel="stylesheet/less" type="text/css" href="#{facesContext.externalContext.request.contextPath}/resources/less/showcase-localhost.less?preventCache=#{environment.resourceVersion}" />

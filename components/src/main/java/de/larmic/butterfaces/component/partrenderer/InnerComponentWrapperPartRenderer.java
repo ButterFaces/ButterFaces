@@ -1,12 +1,14 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import java.io.IOException;
-
-import javax.faces.component.UIInput;
-import javax.faces.context.ResponseWriter;
-
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by larmic on 27.08.14.
@@ -61,10 +63,10 @@ public class InnerComponentWrapperPartRenderer {
 
     public void renderInnerWrapperEnd(final HtmlInputComponent component,
                                       final ResponseWriter writer) throws IOException {
-        this.renderInnerWrapperEnd(component, writer, component.isReadonly());
+        this.renderInnerWrapperEnd((UIComponent) component, writer, component.isReadonly());
     }
 
-    public void renderInnerWrapperEnd(final HtmlInputComponent component,
+    public void renderInnerWrapperEnd(final UIComponent component,
                                       final ResponseWriter writer,
                                       final boolean readonly) throws IOException {
         if (!readonly) {
@@ -72,11 +74,27 @@ public class InnerComponentWrapperPartRenderer {
 
             writer.endElement("div");
 
-            writer.startElement("script", uiComponent);
-            writer.writeText("addLabelAttributeToInnerComponent('" + component.getClientId() + "', '"
-                    + component.getLabel() + "');", null);
-            writer.endElement("script");
+            final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
+            final Iterator<String> eventNamesIterator = eventNames.iterator();
 
+            if (eventNamesIterator.hasNext()) {
+                final StringBuilder sb = new StringBuilder("[");
+
+                while (eventNamesIterator.hasNext()) {
+                    sb.append("'");
+                    sb.append(eventNamesIterator.next());
+                    sb.append("'");
+
+                    if (eventNamesIterator.hasNext()) {
+                        sb.append(", ");
+                    }
+                }
+
+                sb.append("]");
+
+                final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
+                RenderUtils.renderJavaScriptCall(function, writer, uiComponent);
+            }
         }
     }
 }

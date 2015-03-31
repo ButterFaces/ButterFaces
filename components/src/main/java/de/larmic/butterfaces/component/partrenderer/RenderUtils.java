@@ -6,6 +6,19 @@ import java.io.IOException;
 
 public class RenderUtils {
 
+    public static final void renderJavaScriptCall(final String function, final ResponseWriter writer, final UIComponent uiComponent) throws IOException {
+        final StringBuilder jsCall = new StringBuilder();
+
+        jsCall.append("jQuery(function () {");
+        jsCall.append(function);
+        jsCall.append(";");
+        jsCall.append("});");
+
+        writer.startElement("script", uiComponent);
+        writer.writeText(jsCall.toString(), null);
+        writer.endElement("script");
+    }
+
     /**
      * Renders a script element with a function call for a jquery plugin
      *

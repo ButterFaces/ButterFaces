@@ -25,7 +25,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-clientSideFilter.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-filterable.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-default.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),

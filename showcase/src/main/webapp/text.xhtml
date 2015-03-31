@@ -1,9 +1,9 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
         <strong>b:text</strong> The text tag renders an HTML input element of the type "text".
@@ -51,6 +51,7 @@
         <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="text"
                                          component="#{textShowcase}">
+
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
@@ -69,6 +70,7 @@
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
+                        listener="#{textShowcase.someListenerAction}"
                         disabled="#{not textShowcase.ajax}" />
                 <f:validateLength minimum="2"
                                   maximum="10"
@@ -92,6 +94,7 @@
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
+                        listener="#{textShowcase.someListenerAction}"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
@@ -122,6 +125,7 @@
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
+                        listener="#{textShowcase.someListenerAction}"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"

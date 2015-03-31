@@ -65,9 +65,9 @@ public abstract class AbstractShowcaseSingleCodeComponent {
         sb.append("\n");
         sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"");
         sb.append("\n");
-        sb.append("      xmlns:h=\"http://java.sun.com/jsf/html\"");
+        sb.append("      xmlns:h=\"http://xmlns.jcp.org/jsf/html\"");
         sb.append("\n");
-        sb.append("      xmlns:f=\"http://java.sun.com/jsf/core\"");
+        sb.append("      xmlns:f=\"http://xmlns.jcp.org/jsf/core\"");
         sb.append("\n");
         sb.append("      xmlns:b=\"http://butterfaces.larmic.de/components\">");
         sb.append("\n");
