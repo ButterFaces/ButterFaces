@@ -102,8 +102,9 @@
                     </h:panelGroup>
                 </f:facet>
                 <f:ajax event="refresh" render="output:numberOfRefreshes"
-                        disabled="#{not tableShowcase.showRefreshButton}"/>
-                <f:ajax event="toggle" disabled="#{not tableShowcase.showToggleColumnButton}"/>
+                        disabled="#{not tableShowcase.showRefreshButton or tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
+                <f:ajax event="toggle"
+                        disabled="#{not tableShowcase.showToggleColumnButton or tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
                 <h:panelGroup rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
                     Custom toolbar text...
                 </h:panelGroup>

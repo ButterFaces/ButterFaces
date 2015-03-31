@@ -8,13 +8,14 @@ import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
+import de.larmic.butterfaces.resolver.AjaxRequest;
+import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
@@ -23,7 +24,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +116,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         int columnNumber = 0;
 
+        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(htmlTable, "click");
+        if (ajaxRequest != null) {
+            ajaxRequest.getRenderIds().add(htmlTable.getClientId());
+        }
+
         for (HtmlColumn column : htmlTable.getCachedColumns()) {
             writer.startElement("th", table);
             writer.writeAttribute("id", column.getClientId(), null);
@@ -132,28 +137,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
             boolean sortingSupportedByAjaxTag = false;
 
-            if (column.isSortColumnEnabled() && htmlTable.getModel() != null) {
-                final ClientBehaviorContext behaviorContext =
-                        ClientBehaviorContext.createClientBehaviorContext(context,
-                                table, "click", table.getClientId(context), null);
-
-                final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
-                if (behaviors.containsKey("click")) {
-                    final String click = behaviors.get("click").get(0).getScript(behaviorContext);
-
-                    sortingSupportedByAjaxTag = StringUtils.isNotEmpty(click);
-
-                    if (sortingSupportedByAjaxTag) {
-                        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
-                        ajaxBehavior.setRender(Arrays.asList(table.getClientId()));
-                        if (((HtmlTable) table).isAjaxDisableRenderRegionsOnRequest()) {
-                            ajaxBehavior.setOnevent(this.getOnEventListenerName(table));
-                        }
-                        final String script = ajaxBehavior.getScript(behaviorContext);
-                        final String correctedScript = script.replace(",'click',", ",'sort_" + columnNumber + "',");
-                        writer.writeAttribute("onclick", this.removeExecutePart(correctedScript, htmlTable) + ";", null);
-                    }
-                }
+            if (column.isSortColumnEnabled() && htmlTable.getModel() != null && ajaxRequest != null) {
+                writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall("sort_" + columnNumber, htmlTable.isAjaxDisableRenderRegionsOnRequest()), null);
             }
 
             // render header label
