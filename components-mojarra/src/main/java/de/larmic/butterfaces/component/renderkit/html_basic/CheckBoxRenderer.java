@@ -123,6 +123,7 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         writer.startElement("input", component);
         writeIdAttributeIfNecessary(context, writer, component);
         writer.writeAttribute("type", "checkbox", "type");
+        writer.writeAttribute("name", component.getClientId(context), "name");
 
         if (Boolean.valueOf(currentValue)) {
             writer.writeAttribute("checked", Boolean.TRUE, "value");
