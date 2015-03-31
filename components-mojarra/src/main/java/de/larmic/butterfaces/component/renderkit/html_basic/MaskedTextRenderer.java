@@ -10,7 +10,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlMaskedText.COMPONENT_FAMILY, rendererType = HtmlMaskedText.RENDERER_TYPE)
-public class MaskedInputRenderer extends AbstractTextRenderer<HtmlMaskedText> {
+public class MaskedTextRenderer extends AbstractTextRenderer<HtmlMaskedText> {
 
     @Override
     protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
