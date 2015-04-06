@@ -134,8 +134,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("style", "display:none", null);
             }
 
-            boolean sortingSupportedByAjaxTag = false;
-
             if (column.isSortColumnEnabled() && htmlTable.getModel() != null && ajaxRequest != null) {
                 writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall("sort_" + columnNumber, htmlTable.isAjaxDisableRenderRegionsOnRequest()), null);
             }
@@ -146,7 +144,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeText(column.getLabel(), null);
             writer.endElement("span");
 
-            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null && sortingSupportedByAjaxTag) {
+            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null && ajaxRequest != null) {
                 writer.startElement("span", table);
                 final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(column.getId());
 
@@ -170,17 +168,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
         writer.endElement("tr");
         writer.endElement("thead");
-    }
-
-    private String removeExecutePart(final String script, final HtmlTable table) {
-        final String clientId = table.getClientId();
-        final int indexRemoveBegin = script.lastIndexOf(clientId);
-        final int indexRemoveEnd = indexRemoveBegin + clientId.length();
-
-        final String firstPart = script.substring(0, indexRemoveBegin);
-        final String lastPart = script.substring(indexRemoveEnd);
-
-        return firstPart + "@this" + lastPart;
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
