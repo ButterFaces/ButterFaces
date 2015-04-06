@@ -270,7 +270,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         if (behaviors.containsKey("click")) {
             final String click = behaviors.get("click").get(0).getScript(behaviorContext);
 
-            if (StringUtils.isNotEmpty(click)) {
+            if (StringUtils.isNotEmpty(click) && htmlTable.getSingleSelectionListener() != null) {
                 final String correctedEventName = click.replace(",'click',", ",'click_" + rowIndex + "',");
                 final String correctedClientId = correctedEventName.replaceFirst(clientId, baseClientId);
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectRow({rowIndex:'" + rowIndex + "'})");
