@@ -36,6 +36,23 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
+        } else if (modalPanelType == ModalPanelType.CUSTOM_FOOTER) {
+            xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
+            xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\"");
+            xhtmlCodeExample.appendInnerContent("                      title=\"" + title + "\">");
+            xhtmlCodeExample.appendInnerContent("            Lorem ipsum dolor sit amet, consectetuer ...");
+            xhtmlCodeExample.appendInnerContent("            <!-- when using footer facet additional-footer will be ignored -->");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"footer\">");
+            xhtmlCodeExample.appendInnerContent("                <span onClick=\"butter.modal.close('customFooterModalPanel');\"");
+            xhtmlCodeExample.appendInnerContent("                      class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                    close modal panel");
+            xhtmlCodeExample.appendInnerContent("                </span>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+            xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
+            xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("            open modal panel");
+            xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.COMPLEX) {
             xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
             xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\"");

@@ -38,6 +38,25 @@
             </span>
         </h:panelGroup>
 
+        <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'CUSTOM_FOOTER'}">
+            <b:modalPanel id="customFooterModalPanel"
+                          rendered="#{modalPanelShowcase.rendered}"
+                          title="#{modalPanelShowcase.title}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+                <f:facet name="footer">
+                    <span onClick="butter.modal.close('customFooterModalPanel');"
+                          class="btn btn-default">
+                        close modal panel
+                    </span>
+                </f:facet>
+            </b:modalPanel>
+
+            <span onClick="butter.modal.open('customFooterModalPanel');"
+                  class="btn btn-default">
+                open modal panel
+            </span>
+        </h:panelGroup>
+
         <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'COMPLEX'}">
             <b:modalPanel id="complexModalPanel"
                           rendered="#{modalPanelShowcase.rendered}"

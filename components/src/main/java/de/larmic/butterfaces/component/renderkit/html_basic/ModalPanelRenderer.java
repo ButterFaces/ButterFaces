@@ -89,25 +89,31 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement(ELEMENT_DIV, component);
-        writer.writeAttribute(ATTRIBUTE_CLASS, "modal-footer", null);
+        writer.writeAttribute(ATTRIBUTE_CLASS, "modal-footer butter-modal-footer", null);
 
-        writer.startElement(ELEMENT_SPAN, component);
-        writer.writeAttribute(ATTRIBUTE_CLASS, "btn btn-danger pull-left", null);
-        writer.writeAttribute("onClick", "butter.modal.close('" + component.getId() + "');", null);
-        if (StringUtils.isNotEmpty(component.getCancelButtonText())) {
-            writer.writeText(component.getCancelButtonText(), component, null);
+        final UIComponent footer = this.getFacet(component, "footer");
+
+        if (footer != null) {
+            footer.encodeAll(context);
         } else {
-            writer.writeText("Close", component, null);
-        }
-        writer.endElement(ELEMENT_SPAN);
-
-        final UIComponent additionalFooter = this.getFacet(component, "additional-footer");
-
-        if (additionalFooter != null) {
             writer.startElement(ELEMENT_SPAN, component);
-            writer.writeAttribute(ATTRIBUTE_CLASS, "pull-right", null);
-            additionalFooter.encodeAll(context);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "btn btn-danger pull-left", null);
+            writer.writeAttribute("onClick", "butter.modal.close('" + component.getId() + "');", null);
+            if (StringUtils.isNotEmpty(component.getCancelButtonText())) {
+                writer.writeText(component.getCancelButtonText(), component, null);
+            } else {
+                writer.writeText("Close", component, null);
+            }
             writer.endElement(ELEMENT_SPAN);
+
+            final UIComponent additionalFooter = this.getFacet(component, "additional-footer");
+
+            if (additionalFooter != null) {
+                writer.startElement(ELEMENT_SPAN, component);
+                writer.writeAttribute(ATTRIBUTE_CLASS, "pull-right butter-modal-additional-footer", null);
+                additionalFooter.encodeAll(context);
+                writer.endElement(ELEMENT_SPAN);
+            }
         }
 
         writer.endElement(ELEMENT_DIV);
