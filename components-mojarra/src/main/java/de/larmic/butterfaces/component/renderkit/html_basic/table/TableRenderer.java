@@ -23,6 +23,8 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -352,12 +354,14 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         systemIdentifierHashcodeIsUsedAsCachedRowIdentifier = false;
 
         if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
-            try {
-                final Field declaredField = rowObject.getClass().getDeclaredField(rowIdentifierProperty);
-                declaredField.setAccessible(true);
-                return convertRowIdentifierToString(rowObject, declaredField);
-            } catch (NoSuchFieldException e) {
-            } catch (IllegalAccessException e) {
+            String identifier = getRowIdentifierPropertyByField(rowObject, rowIdentifierProperty);
+
+            if (StringUtils.isNotEmpty(identifier)) {
+                identifier = getRowIdentifierPropertyByGetter(rowObject, rowIdentifierProperty);
+            }
+
+            if (StringUtils.isNotEmpty(identifier)) {
+                return identifier;
             }
         }
 
@@ -365,9 +369,34 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         return System.identityHashCode(rowObject) + "";
     }
 
-    private String convertRowIdentifierToString(final Object rowObject, final Field declaredField) throws IllegalAccessException {
-        final Object rowIdentifier = declaredField.get(rowObject);
+    private String getRowIdentifierPropertyByField(Object rowObject, String rowIdentifierProperty) {
+        try {
+            final Method method = rowObject.getClass().getMethod("get" + toUpperCase(rowIdentifierProperty));
+            final Object valueObject = method.invoke(rowObject, (Object[]) null);
+            return convertRowIdentifierToString(valueObject);
+        } catch (NoSuchMethodException e) {
+        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException e) {
+        }
+        return null;
+    }
 
+    private String toUpperCase(final String str) {
+        return Character.toString(str.charAt(0)).toUpperCase()+str.substring(1);
+    }
+
+    private String getRowIdentifierPropertyByGetter(Object rowObject, String rowIdentifierProperty) {
+        try {
+            final Field declaredField = rowObject.getClass().getDeclaredField(rowIdentifierProperty);
+            declaredField.setAccessible(true);
+            return convertRowIdentifierToString(declaredField.get(rowObject));
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException e) {
+        }
+        return null;
+    }
+
+    private String convertRowIdentifierToString(final Object rowIdentifier) throws IllegalAccessException {
         if (rowIdentifier != null) {
             final String rowIdentifierAsString = rowIdentifier.toString();
 

@@ -34,4 +34,8 @@ public class StringPair {
     public long getId() {
         return id;
     }
+
+    public long getIdentifier() {
+        return id;
+    }
 }

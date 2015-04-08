@@ -30,7 +30,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
-    private RowIdentifierType rowIdentifierType = RowIdentifierType.ID;
+    private RowIdentifierType rowIdentifierType = RowIdentifierType.FIELD;
     private ToolBarType toolBarType = ToolBarType.SERVER_FILTER;
     private ToolbarFacetType toolbarFacetType = ToolbarFacetType.NONE;
     private DefaultTableModel tableModel = new DefaultTableModel();
@@ -113,7 +113,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     }
 
     public TableSingleSelectionListener<StringPair> getTableSelectionListener() {
-        if(useSelectionListener) {
+        if (useSelectionListener) {
             return new TableSingleSelectionListener<StringPair>() {
                 @Override
                 public void processTableSelection(StringPair data) {
@@ -199,10 +199,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                 tableBordered=\"" + this.tableBordered + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableCondensed=\"" + this.tableCondensed + "\"");
         xhtmlCodeExample.appendInnerContent("                 tableStriped=\"" + this.tableStriped + "\"");
-        xhtmlCodeExample.appendInnerContent("                 ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
-        if (rowIdentifierType == RowIdentifierType.ID) {
+        if (rowIdentifierType == RowIdentifierType.FIELD) {
             xhtmlCodeExample.appendInnerContent("                 rowIdentifierProperty=\"id\"");
+        } else if (rowIdentifierType == RowIdentifierType.GETTER) {
+            xhtmlCodeExample.appendInnerContent("                 rowIdentifierProperty=\"identifier\"");
         }
+        xhtmlCodeExample.appendInnerContent("                 ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         xhtmlCodeExample.appendInnerContent("                 rendered=\"" + this.isRendered() + "\">");
 
         xhtmlCodeExample.appendInnerContent("            <!-- at this time you have to put an ajax tag to activate some features-->");
@@ -349,7 +351,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
         myBean.appendInnerContent("    public List<StringPair> getValue() {");
         myBean.appendInnerContent("        final List<StringPair> pairs = new ArrayList<StringPair>();");
-        if (rowIdentifierType == RowIdentifierType.ID) {
+        if (rowIdentifierType == RowIdentifierType.FIELD) {
             myBean.appendInnerContent("        pairs.add(new StringPair(1L, \"r1c1\", \"r1c2\"));");
             myBean.appendInnerContent("        pairs.add(new StringPair(2L, \"r2c1\", \"r2c2\"));");
             myBean.appendInnerContent("        pairs.add(new StringPair(3L, \"r3c1\", \"r3c2\"));");
@@ -425,12 +427,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     private JavaCodeExample createStringPairCodeExample() {
         final JavaCodeExample stringPair = new JavaCodeExample("StringPair.java", "stringpair", "table.demo", "StringPair", false);
-        if (rowIdentifierType == RowIdentifierType.ID) {
+        if (rowIdentifierType != RowIdentifierType.NONE) {
             stringPair.appendInnerContent("    private final long id;");
         }
         stringPair.appendInnerContent("    private final String a;");
         stringPair.appendInnerContent("    private final String b;\n");
-        if (rowIdentifierType == RowIdentifierType.ID) {
+        if (rowIdentifierType != RowIdentifierType.NONE) {
             stringPair.appendInnerContent("    public StringPair(final long id, final String a, final String b) {");
             stringPair.appendInnerContent("        this.id = id;");
         } else {
@@ -439,6 +441,11 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         stringPair.appendInnerContent("        this.a = a;");
         stringPair.appendInnerContent("        this.b = b;");
         stringPair.appendInnerContent("    }\n");
+        if (rowIdentifierType == RowIdentifierType.GETTER) {
+            stringPair.appendInnerContent("    public long getIdentifier() {");
+            stringPair.appendInnerContent("        return id;");
+            stringPair.appendInnerContent("    }\n");
+        }
         stringPair.appendInnerContent("    // getter");
         return stringPair;
     }
@@ -667,8 +674,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
         if (rowIdentifierType == RowIdentifierType.NONE) {
             rowIdentifierProperty = null;
-        } else {
+        } else if (rowIdentifierType == RowIdentifierType.FIELD) {
             rowIdentifierProperty = "id";
+        } else {
+            rowIdentifierProperty = "identifier";
         }
     }
 
