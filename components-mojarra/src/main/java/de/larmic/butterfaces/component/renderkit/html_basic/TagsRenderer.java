@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.html.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
@@ -14,6 +15,18 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
     @Override
     protected boolean encodeReadonly() {
         return false;
+    }
+
+    @Override
+    protected void encodeInnerEnd(UIComponent component, ResponseWriter writer) throws IOException {
+        final HtmlTags htmlTags = (HtmlTags) component;
+
+        if (htmlTags.isReadonly()) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "butter-component-value", null);
+            super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
+            writer.endElement("div");
+        }
     }
 
     @Override

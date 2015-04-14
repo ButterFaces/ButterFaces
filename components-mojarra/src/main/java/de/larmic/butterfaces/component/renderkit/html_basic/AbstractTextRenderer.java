@@ -54,7 +54,11 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         final T htmlComponent = (T) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        this.encodeEndContent(context, component, htmlComponent, writer, htmlComponent.isReadonly());
+        if (!htmlComponent.isReadonly()) {
+            this.encodeEndContent(context, component, htmlComponent, writer);
+        }
+
+        this.encodeInnerEnd(component, writer);
 
         this.encodeEndInnerWrapper(htmlComponent, writer);
 
@@ -67,37 +71,35 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
-    protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer, boolean readonly) throws IOException {
-        if (!readonly) {
-            final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
-            final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
-            final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
-            final UIComponent inputGroupBtnRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_RIGHT);
-            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonLeftFacet != null) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-addon", null);
-                inputGroupAddonLeftFacet.encodeAll(context);
-                writer.endElement("span");
-            }
-            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnLeftFacet != null) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-btn", null);
-                inputGroupBtnLeftFacet.encodeAll(context);
-                writer.endElement("span");
-            }
-            super.encodeEnd(context, component);
-            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonRightFacet != null) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-addon", null);
-                inputGroupAddonRightFacet.encodeAll(context);
-                writer.endElement("span");
-            }
-            if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnRightFacet != null) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-btn", null);
-                inputGroupBtnRightFacet.encodeAll(context);
-                writer.endElement("span");
-            }
+    protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+        final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
+        final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
+        final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
+        final UIComponent inputGroupBtnRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_RIGHT);
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonLeftFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-addon", null);
+            inputGroupAddonLeftFacet.encodeAll(context);
+            writer.endElement("span");
+        }
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnLeftFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-btn", null);
+            inputGroupBtnLeftFacet.encodeAll(context);
+            writer.endElement("span");
+        }
+        super.encodeEnd(context, component);
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonRightFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-addon", null);
+            inputGroupAddonRightFacet.encodeAll(context);
+            writer.endElement("span");
+        }
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnRightFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-btn", null);
+            inputGroupBtnRightFacet.encodeAll(context);
+            writer.endElement("span");
         }
     }
 
@@ -123,6 +125,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     protected void encodeBeginInnerWrapper(T htmlComponent, ResponseWriter writer) throws IOException {
         // Open inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+    }
+
+    protected void encodeInnerEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
+        // override me
     }
 
     protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
