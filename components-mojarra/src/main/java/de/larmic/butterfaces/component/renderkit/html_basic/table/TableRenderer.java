@@ -356,11 +356,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
             String identifier = getRowIdentifierPropertyByField(rowObject, rowIdentifierProperty);
 
-            if (StringUtils.isNotEmpty(identifier)) {
+            if (StringUtils.isEmpty(identifier)) {
                 identifier = getRowIdentifierPropertyByGetter(rowObject, rowIdentifierProperty);
             }
 
-            if (StringUtils.isNotEmpty(identifier)) {
+            if (StringUtils.isEmpty(identifier)) {
                 return identifier;
             }
         }
