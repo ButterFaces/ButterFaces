@@ -134,7 +134,7 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
             case ENTER:
                 return "13";
             case SPACE:
-                return "";
+                return "32";
             default:
                 return null;
         }
