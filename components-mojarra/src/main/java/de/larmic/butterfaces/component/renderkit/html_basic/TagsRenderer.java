@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -63,6 +64,9 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         }
         if (tags.getMaxTags() != null) {
             jQueryPluginCall.append("maxTags: " + tags.getMaxChars() + ",");
+        }
+        if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
+            jQueryPluginCall.append("confirmKeys: [" + tags.getConfirmKeys() + "],");
         }
 
         jQueryPluginCall.append("trimValue: " + tags.isTrimValue() + ",");

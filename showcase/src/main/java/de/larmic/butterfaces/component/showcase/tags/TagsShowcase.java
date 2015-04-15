@@ -1,13 +1,15 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.tags;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -15,6 +17,7 @@ import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 public class TagsShowcase extends AbstractInputShowcase implements Serializable {
 
     private String placeholder = "Enter text...";
+    private ConfirmKeyType selectedConfirmKeyType = ConfirmKeyType.DEFAULT;
     private boolean autoFocus;
     private boolean allowDuplicates;
     private boolean trimValue;
@@ -43,6 +46,7 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         //xhtmlCodeExample.appendInnerContent("                trimValue=\"" + trimValue + "\"");
         xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
         xhtmlCodeExample.appendInnerContent("                maxChars=\"" + maxChars + "\"");
+        xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + getConfirmKeys() + "\"");
         xhtmlCodeExample.appendInnerContent("                tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
@@ -64,6 +68,15 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         codeExamples.add(xhtmlCodeExample);
 
         generateDemoCSS(codeExamples);
+    }
+
+    public List<SelectItem> getConfirmKeyTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final ConfirmKeyType type : ConfirmKeyType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public String getPlaceholder() {
@@ -112,5 +125,26 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setMaxChars(Integer maxChars) {
         this.maxChars = maxChars;
+    }
+
+    public String getConfirmKeys() {
+        switch (selectedConfirmKeyType) {
+            case COMMA:
+                return "44";
+            case ENTER:
+                return "13";
+            case SPACE:
+                return "";
+            default:
+                return null;
+        }
+    }
+
+    public ConfirmKeyType getSelectedConfirmKeyType() {
+        return selectedConfirmKeyType;
+    }
+
+    public void setSelectedConfirmKeyType(ConfirmKeyType selectedConfirmKeyType) {
+        this.selectedConfirmKeyType = selectedConfirmKeyType;
     }
 }

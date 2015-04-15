@@ -25,6 +25,9 @@
             <!--showcase:tagBooleanControl label="trimValue" value="#{tagsShowcase.trimValue}"/-->
             <showcase:tagStringControl label="maxChars" value="#{tagsShowcase.maxChars}"/>
             <showcase:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
+            <showcase:tagEnumControl label="confirmKeys"
+                                     value="#{tagsShowcase.selectedConfirmKeyType}"
+                                     values="#{tagsShowcase.confirmKeyTypes}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
@@ -54,6 +57,7 @@
                     trimValue="#{tagsShowcase.trimValue}"
                     maxChars="#{tagsShowcase.maxChars}"
                     maxTags="#{tagsShowcase.maxTags}"
+                    confirmKeys="#{tagsShowcase.confirmKeys}"
                     tooltip="#{tagsShowcase.tooltip}"
                     readonly="#{tagsShowcase.readonly}"
                     required="#{tagsShowcase.required}"

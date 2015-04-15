@@ -30,6 +30,7 @@ public class HtmlTags extends HtmlText {
 	protected static final String PROPERTY_MAX_CHARS = "maxChars";
 	protected static final String PROPERTY_TRIM_VALUE = "trimValue";
 	protected static final String PROPERTY_ALLOW_DUPLICATES = "allowDuplicates";
+	protected static final String PROPERTY_CONFIRM_KEYS = "confirmKeys";
 
 	public HtmlTags() {
 		super();
@@ -78,5 +79,13 @@ public class HtmlTags extends HtmlText {
 
 	public void setAllowDuplicates(boolean allowDuplicates) {
 		this.updateStateHelper(PROPERTY_ALLOW_DUPLICATES, allowDuplicates);
+	}
+
+	public String getConfirmKeys() {
+		return (String) this.getStateHelper().eval(PROPERTY_CONFIRM_KEYS);
+	}
+
+	public void setConfirmKeys(String confirmKeys) {
+		this.updateStateHelper(PROPERTY_CONFIRM_KEYS, confirmKeys);
 	}
 }
