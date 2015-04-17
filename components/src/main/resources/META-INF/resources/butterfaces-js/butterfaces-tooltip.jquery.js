@@ -1,14 +1,42 @@
 (function ($) {
 
-    $.fn.butterTooltip = function (/* string */ trigger, /* string */ title, /* string */ placement, /* string */ contentNameSelector) {
+    $.fn._butterTooltip = function (/* object */ data) {
+        var root = $(this);
+
+        console.log(data);
+
+        var content = jQuery('[name=' + data.contentByName + ']');
+
+        var newData = {
+            trigger: data.trigger,
+            title: data.title,
+            placement: data.placement,
+            placementFunction: data.placementFunction,
+            content: content.html().trim()
+        };
+        console.log(newData);
+
+        content.remove();
+
+        root.butterTooltip(newData);
+    };
+
+    $.fn.butterTooltip = function (/* object */ data) {
         return this.each(function () {
-            var root = $(this);
+            var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : butter.tooltip.calculateTooltipPosition);
+            var trigger = data.trigger ? data.trigger : 'hover';
 
-            var content = jQuery('[name='+contentNameSelector+']').html().trim();
+            //console.log('placement: ' + placement);
+            //console.log('trigger: ' + trigger);
 
-            console.log(content);
-
-            jQuery('#hoverBtn').popover({trigger:trigger, placement:'left', title:'demo title', html:'true', content:content});
+            jQuery('#hoverBtn').popover({
+                trigger: trigger,
+                placement: placement,
+                title: data.title,
+                html: 'true',
+                content: data.content,
+                viewport: 'html'
+            });
         });
     };
 

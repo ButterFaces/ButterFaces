@@ -31,6 +31,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
 
         final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
         final String contentId = component.getClientId().replace(separatorChar + "", "_");
+        final String forSelector = tooltip.getFor();
 
         writer.startElement("span", tooltip);
         writer.writeAttribute("name", contentId, null);
@@ -40,21 +41,31 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         }
         writer.endElement("span");
 
-        final String title = StringUtils.isNotEmpty(tooltip.getTitle()) ? tooltip.getTitle() : "";
-        final String placement = StringUtils.isNotEmpty(tooltip.getPlacement()) ? tooltip.getPlacement() : "right";
-
         writer.startElement("script", tooltip);
-        writer.writeText("jQuery('", null);
-        writer.writeText(tooltip.getjQueryTargetSelector(), null);
-        writer.writeText("').butterTooltip('", null);
-        writer.writeText("hover", null);
-        writer.writeText("', '", null);
-        writer.writeText(title, null);
-        writer.writeText("', '", null);
-        writer.writeText(placement, null);
-        writer.writeText("', '", null);
+        writer.writeText("jQuery(document).ready(function() {\n", null);
+        writer.writeText("   jQuery('", null);
+        writer.writeText(forSelector, null);
+        writer.writeText("')._butterTooltip({\n", null);
+        writer.writeText("      trigger: ", null);
+        writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
+        writer.writeText(",\n      title: ", null);
+        writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
+        writer.writeText(",\n      placement: ", null);
+        writer.writeText(getNullSafeStringParameter(tooltip.getPlacement()), null);
+        writer.writeText(",\n      placementFunction: ", null);
+        writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
+        writer.writeText(",\n      contentByName: '", null);
         writer.writeText(contentId, null);
-        writer.writeText("');", null);
+        writer.writeText("'\n   })\n});", null);
         writer.endElement("script");
+    }
+
+    private String getNullSafeStringParameter(final String value) {
+        return "'" + StringUtils.getNullSafeValue(value) + "'";
+    }
+
+    private String getNullSafeFunctionParameter(final String value) {
+        final String nullSafeValue = StringUtils.getNullSafeValue(value);
+        return StringUtils.isNotEmpty(nullSafeValue) ? nullSafeValue : "''";
     }
 }

@@ -670,7 +670,7 @@
             <component-type>de.larmic.butterfaces.component.tooltip</component-type>
         </component>
         <attribute>
-            <name>jQueryTargetSelector</name>
+            <name>for</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -683,6 +683,10 @@
         </attribute>
         <attribute>
             <name>placement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>placementFunction</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>

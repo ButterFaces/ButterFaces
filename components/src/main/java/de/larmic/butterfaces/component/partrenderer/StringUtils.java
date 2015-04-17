@@ -32,4 +32,8 @@ public class StringUtils {
     public static final String getNotNullValue(final String value, final String alternative) {
         return isNotEmpty(value) ? value : alternative;
     }
+
+    public static final String getNullSafeValue(final String value) {
+        return getNotNullValue(value, "");
+    }
 }

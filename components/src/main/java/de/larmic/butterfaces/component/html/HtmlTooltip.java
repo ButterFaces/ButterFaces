@@ -13,6 +13,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
+		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTooltip.COMPONENT_TYPE)
@@ -22,10 +23,11 @@ public class HtmlTooltip extends UIComponentBase {
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TooltipRenderer";
 
-	protected static final String PROPERTY_JQUERY_TARGET_SELECTOR = "jQueryTargetSelector";
+	protected static final String PROPERTY_FOR = "for";
 	protected static final String PROPERTY_TITLE = "title";
 	protected static final String PROPERTY_TRIGGER = "trigger";
 	protected static final String PROPERTY_PLACEMENT = "placement";
+	protected static final String PROPERTY_PLACEMENT_FUNCTION = "placementFunction";
 
 	public HtmlTooltip() {
 		super();
@@ -42,12 +44,12 @@ public class HtmlTooltip extends UIComponentBase {
 		return 0;
 	}
 
-	public String getjQueryTargetSelector() {
-		return (String) this.getStateHelper().eval(PROPERTY_JQUERY_TARGET_SELECTOR);
+	public String getFor() {
+		return (String) this.getStateHelper().eval(PROPERTY_FOR);
 	}
 
-	public void setjQueryTargetSelector(String jQueryTargetSelector) {
-		this.updateStateHelper(PROPERTY_JQUERY_TARGET_SELECTOR, jQueryTargetSelector);
+	public void setFor(String jQueryTargetSelector) {
+		this.updateStateHelper(PROPERTY_FOR, jQueryTargetSelector);
 	}
 
 	public String getTrigger() {
@@ -72,5 +74,13 @@ public class HtmlTooltip extends UIComponentBase {
 
 	public void setPlacement(String placement) {
 		this.updateStateHelper(PROPERTY_PLACEMENT, placement);
+	}
+
+	public String getPlacementFunction() {
+		return (String) this.getStateHelper().eval(PROPERTY_PLACEMENT_FUNCTION);
+	}
+
+	public void setPlacementFunction(String placementFunction) {
+		this.updateStateHelper(PROPERTY_PLACEMENT_FUNCTION, placementFunction);
 	}
 }

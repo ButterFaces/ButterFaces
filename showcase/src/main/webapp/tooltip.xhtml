@@ -18,12 +18,11 @@
     <ui:define name="output">
         <div id="hoverBtn" class="btn btn-lg btn-danger" role="button">Hover</div>
 
-        <b:tooltip jQueryTargetSelector="#hoverBtn"
-                   title="test"
+        <b:tooltip for="#hoverBtn"
                    rendered="#{tooltipShowcase.rendered}">
             <strong>test</strong>
             <h:panelGroup>panel group</h:panelGroup>
-            <h4>noch mehr</h4> test
+            <h4>noch mehr</h4> test ein ganz langer text, da geht noch mehr und mehr und mehr und mehr
         </b:tooltip>
 
     </ui:define>
@@ -33,9 +32,11 @@
         <b:activateLibraries />
 
         <script type="text/javascript">
+            //<![CDATA[
             jQuery(document).ready(function () {
                 setActiveNavigation('tooltip');
             });
+            //]]>
         </script>
     </ui:define>
 </ui:composition>
