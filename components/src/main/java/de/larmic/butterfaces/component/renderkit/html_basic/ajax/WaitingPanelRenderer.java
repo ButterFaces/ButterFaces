@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.ajax;
 import de.larmic.butterfaces.component.html.ajax.WaitingPanel;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

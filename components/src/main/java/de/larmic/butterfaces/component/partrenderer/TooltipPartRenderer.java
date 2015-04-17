@@ -20,7 +20,7 @@ public class TooltipPartRenderer {
 
         if (calculateShowTooltip(component)) {
             renderTooltipElement(component, writer, uiComponent);
-            RenderUtils.renderJQueryPluginCall(outerComponentId, "butterTooltip()", writer, uiComponent);
+            RenderUtils.renderJQueryPluginCall(outerComponentId, "butterTooltipDeprecated()", writer, uiComponent);
         }
     }
 

@@ -1,10 +1,10 @@
 package de.larmic.butterfaces.component.html;
 
-import javax.el.ValueExpression;
+import de.larmic.butterfaces.component.base.component.UIComponentBase;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-section.css", target = "head"),
@@ -61,15 +61,5 @@ public class HtmlSection extends UIComponentBase {
 
     public void setBadgeText(final String badgeText) {
         this.updateStateHelper(PROPERTY_BADGE_TEXT, badgeText);
-    }
-
-    private void updateStateHelper(final String propertyName, final Object value) {
-        this.getStateHelper().put(propertyName, value);
-
-        final ValueExpression ve = this.getValueExpression(propertyName);
-
-        if (ve != null) {
-            ve.setValue(this.getFacesContext().getELContext(), value);
-        }
     }
 }

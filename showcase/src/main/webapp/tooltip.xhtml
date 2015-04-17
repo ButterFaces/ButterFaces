@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:tooltip</strong> TODO.
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{tooltipShowcase.rendered}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <div id="hoverBtn" class="btn btn-lg btn-danger" role="button">Hover</div>
+
+        <b:tooltip jQueryTargetSelector="#hoverBtn"
+                   title="test"
+                   rendered="#{tooltipShowcase.rendered}">
+            <strong>test</strong>
+            <h:panelGroup>panel group</h:panelGroup>
+            <h4>noch mehr</h4> test
+        </b:tooltip>
+
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{tooltipShowcase}"/>
+        <b:activateLibraries />
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('tooltip');
+            });
+        </script>
+    </ui:define>
+</ui:composition>

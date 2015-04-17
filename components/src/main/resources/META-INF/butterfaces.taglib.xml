@@ -665,6 +665,33 @@
     </tag>
 
     <tag>
+        <tag-name>tooltip</tag-name>
+        <component>
+            <component-type>de.larmic.butterfaces.component.tooltip</component-type>
+        </component>
+        <attribute>
+            <name>jQueryTargetSelector</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>trigger</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>placement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rendered</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+
+    <tag>
         <tag-name>modalPanel</tag-name>
         <component>
             <component-type>de.larmic.butterfaces.component.modal</component-type>

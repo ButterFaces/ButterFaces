@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlPrettyPrint;
 
 import javax.faces.component.UIComponent;

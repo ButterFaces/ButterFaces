@@ -1,6 +1,18 @@
 (function ($) {
 
-    $.fn.butterTooltip = function () {
+    $.fn.butterTooltip = function (/* string */ trigger, /* string */ title, /* string */ placement, /* string */ contentNameSelector) {
+        return this.each(function () {
+            var root = $(this);
+
+            var content = jQuery('[name='+contentNameSelector+']').html().trim();
+
+            console.log(content);
+
+            jQuery('#hoverBtn').popover({trigger:trigger, placement:'left', title:'demo title', html:'true', content:content});
+        });
+    };
+
+    $.fn.butterTooltipDeprecated = function () {
         return this.each(function () {
             //console.log("initializing tooltip");
             var root = $(this);

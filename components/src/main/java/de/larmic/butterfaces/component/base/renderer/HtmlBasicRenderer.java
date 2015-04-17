@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.base.renderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
