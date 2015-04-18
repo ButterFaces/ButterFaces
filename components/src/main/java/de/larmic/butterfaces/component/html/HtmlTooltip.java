@@ -28,6 +28,8 @@ public class HtmlTooltip extends UIComponentBase {
 	protected static final String PROPERTY_TRIGGER = "trigger";
 	protected static final String PROPERTY_PLACEMENT = "placement";
 	protected static final String PROPERTY_PLACEMENT_FUNCTION = "placementFunction";
+	protected static final String PROPERTY_POPOVER_min_WIDTH = "minVerticalOffset";
+	protected static final String PROPERTY_POPOVER_min_HEIGHT = "minHorizontalOffset";
 
 	public HtmlTooltip() {
 		super();
@@ -82,5 +84,21 @@ public class HtmlTooltip extends UIComponentBase {
 
 	public void setPlacementFunction(String placementFunction) {
 		this.updateStateHelper(PROPERTY_PLACEMENT_FUNCTION, placementFunction);
+	}
+
+	public Integer getMinVerticalOffset() {
+		return (Integer) this.getStateHelper().eval(PROPERTY_POPOVER_min_WIDTH);
+	}
+
+	public void setMinVerticalOffset(Integer minVerticalOffset) {
+		this.updateStateHelper(PROPERTY_POPOVER_min_WIDTH, minVerticalOffset);
+	}
+
+	public Integer getMinHorizontalOffset() {
+		return (Integer) this.getStateHelper().eval(PROPERTY_POPOVER_min_HEIGHT);
+	}
+
+	public void setMinHorizontalOffset(Integer minHorizontalOffset) {
+		this.updateStateHelper(PROPERTY_POPOVER_min_HEIGHT, minHorizontalOffset);
 	}
 }

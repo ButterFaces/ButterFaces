@@ -3,7 +3,7 @@
     $.fn._butterTooltip = function (/* object */ data) {
         var root = $(this);
 
-        console.log(data);
+        //console.log(data);
 
         var content = jQuery('[name=' + data.contentByName + ']');
 
@@ -14,7 +14,8 @@
             placementFunction: data.placementFunction,
             content: content.html().trim()
         };
-        console.log(newData);
+
+        //console.log(newData);
 
         content.remove();
 
@@ -23,11 +24,19 @@
 
     $.fn.butterTooltip = function (/* object */ data) {
         return this.each(function () {
+            var root = $(this);
             var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : butter.tooltip.calculateTooltipPosition);
             var trigger = data.trigger ? data.trigger : 'hover';
 
             //console.log('placement: ' + placement);
             //console.log('trigger: ' + trigger);
+
+            if (data.popoverMaxWidth) {
+                root.attr('data-tooltip-min-vertical-offset', data.minVerticalOffset);
+            }
+            if (data.popoverMaxWidth) {
+                root.attr('data-tooltip-min-horizontal-offset', data.minHorizontalOffset);
+            }
 
             jQuery('#hoverBtn').popover({
                 trigger: trigger,

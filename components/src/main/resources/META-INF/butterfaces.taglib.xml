@@ -690,6 +690,14 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>minVerticalOffset</name>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <name>minHorizontalOffset</name>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
             <name>rendered</name>
             <type>java.lang.Boolean</type>
         </attribute>

@@ -56,7 +56,11 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
         writer.writeText(",\n      contentByName: '", null);
         writer.writeText(contentId, null);
-        writer.writeText("'\n   })\n});", null);
+        writer.writeText("',\n      minVerticalOffset: ", null);
+        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
+        writer.writeText(",\n      minHorizontalOffset: ", null);
+        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
+        writer.writeText("\n   })\n});", null);
         writer.endElement("script");
     }
 
@@ -67,5 +71,9 @@ public class TooltipRenderer extends HtmlBasicRenderer {
     private String getNullSafeFunctionParameter(final String value) {
         final String nullSafeValue = StringUtils.getNullSafeValue(value);
         return StringUtils.isNotEmpty(nullSafeValue) ? nullSafeValue : "''";
+    }
+
+    private String getNullSafeIntegerParameter(final Integer value) {
+        return value == null ? "''" : String.valueOf(value);
     }
 }
