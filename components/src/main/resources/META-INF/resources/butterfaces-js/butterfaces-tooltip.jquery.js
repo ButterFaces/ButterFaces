@@ -8,10 +8,13 @@
         var content = jQuery('[name=' + data.contentByName + ']');
 
         var newData = {
+            for: data.for,
             trigger: data.trigger,
             title: data.title,
             placement: data.placement,
             placementFunction: data.placementFunction,
+            minVerticalOffset: data.minVerticalOffset,
+            minHorizontalOffset : data.minHorizontalOffset,
             content: content.html().trim()
         };
 
@@ -28,17 +31,18 @@
             var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : butter.tooltip.calculateTooltipPosition);
             var trigger = data.trigger ? data.trigger : 'hover';
 
+            //console.log(data);
             //console.log('placement: ' + placement);
             //console.log('trigger: ' + trigger);
 
-            if (data.popoverMaxWidth) {
+            if (data.minVerticalOffset) {
                 root.attr('data-tooltip-min-vertical-offset', data.minVerticalOffset);
             }
-            if (data.popoverMaxWidth) {
+            if (data.minHorizontalOffset) {
                 root.attr('data-tooltip-min-horizontal-offset', data.minHorizontalOffset);
             }
 
-            jQuery('#hoverBtn').popover({
+            jQuery(data.for).popover({
                 trigger: trigger,
                 placement: placement,
                 title: data.title,

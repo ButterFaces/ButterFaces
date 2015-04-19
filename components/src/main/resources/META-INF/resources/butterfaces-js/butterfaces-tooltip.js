@@ -5,7 +5,7 @@ butter.tooltip = {};
 
 butter.tooltip.calculateTooltipPosition = function(popover, source) {
     var popoverMaxWidthByBootstrap = 276;
-    var popoverMaxHeightByButterFaces = 100;
+    var popoverMaxHeightByButterFaces = 110;
 
     var offsetBottom = $(window).height() - $(source).offset().top - $(source).outerHeight();
     var offsetRight = $(window).width() - $(source).offset().left - $(source).outerWidth();

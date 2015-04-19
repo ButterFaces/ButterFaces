@@ -46,7 +46,9 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         writer.writeText("   jQuery('", null);
         writer.writeText(forSelector, null);
         writer.writeText("')._butterTooltip({\n", null);
-        writer.writeText("      trigger: ", null);
+        writer.writeText("      for: ", null);
+        writer.writeText(getNullSafeStringParameter(tooltip.getFor()), null);
+        writer.writeText(",\n      trigger: ", null);
         writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
         writer.writeText(",\n      title: ", null);
         writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
