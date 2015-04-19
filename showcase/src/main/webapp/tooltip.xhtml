@@ -6,23 +6,39 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:tooltip</strong> TODO.
+        <strong>b:tooltip</strong> renders a <a href="http://getbootstrap.com/javascript/#popovers" target="_blank">Bootstrap popover</a> for given component.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="title" value="#{tooltipShowcase.title}"/>
+            <showcase:tagStringControl label="trigger" value="#{tooltipShowcase.trigger}"/>
+            <showcase:tagStringControl label="placement" value="#{tooltipShowcase.placement}"/>
             <showcase:tagBooleanControl label="rendered" value="#{tooltipShowcase.rendered}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <div id="hoverBtn" class="btn btn-lg btn-danger" role="button">Hover</div>
 
-        <b:tooltip for="#hoverBtn"
+        <h:panelGroup layout="block" styleClass="alert alert-warning" rendered="#{empty tooltipShowcase.placement}">
+            If no placement is set tooltip placement will be automatically calculated by offeset to bottom and right browser border.
+            Ordered positions are bottom, right, left, top.
+        </h:panelGroup>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a id="tooltipBtn" class="btn btn-lg btn-danger" role="button">#{tooltipShowcase.trigger} me!</a>
+            </div>
+        </div>
+
+        <b:tooltip for="#tooltipBtn"
+                   title="#{tooltipShowcase.title}"
+                   trigger="#{tooltipShowcase.trigger}"
+                   placement="#{tooltipShowcase.placement}"
                    rendered="#{tooltipShowcase.rendered}">
-            <strong>test</strong>
-            <h:panelGroup>panel group</h:panelGroup>
-            <h4>noch mehr</h4> test ein ganz langer text, da geht noch mehr und mehr und mehr und mehr
+            <strong>some text stuff</strong>
+            <br />
+            <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
         </b:tooltip>
 
     </ui:define>
