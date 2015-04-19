@@ -8,7 +8,7 @@
         var content = jQuery('[name=' + data.contentByName + ']');
 
         var newData = {
-            for: data.for,
+            forElement: data.forElement,
             trigger: data.trigger,
             title: data.title,
             placement: data.placement,
@@ -34,6 +34,7 @@
             //console.log(data);
             //console.log('placement: ' + placement);
             //console.log('trigger: ' + trigger);
+            console.log(data.forElement);
 
             if (data.minVerticalOffset) {
                 root.attr('data-tooltip-min-vertical-offset', data.minVerticalOffset);
@@ -42,7 +43,7 @@
                 root.attr('data-tooltip-min-horizontal-offset', data.minHorizontalOffset);
             }
 
-            jQuery(data.for).popover({
+            jQuery(data.forElement).popover({
                 trigger: trigger,
                 placement: placement,
                 title: data.title,
