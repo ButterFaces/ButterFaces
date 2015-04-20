@@ -360,7 +360,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 identifier = getRowIdentifierPropertyByGetter(rowObject, rowIdentifierProperty);
             }
 
-            if (StringUtils.isEmpty(identifier)) {
+            if (StringUtils.isNotEmpty(identifier)) {
                 return identifier;
             }
         }
