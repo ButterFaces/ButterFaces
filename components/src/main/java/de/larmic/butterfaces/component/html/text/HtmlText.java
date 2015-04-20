@@ -1,5 +1,7 @@
-package de.larmic.butterfaces.component.html;
+package de.larmic.butterfaces.component.html.text;
 
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
 
@@ -8,7 +10,9 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @ResourceDependencies({
@@ -35,6 +39,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 	protected static final String PROPERTY_HTML5_MIN = "min";
 	protected static final String PROPERTY_HTML5_MAX = "max";
 
+
 	public HtmlText() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
@@ -48,6 +53,13 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
+	}
+
+	@Override
+	public Collection<String> getEventNames() {
+		final ArrayList<String> eventNames = new ArrayList<>(super.getEventNames());
+		eventNames.add("autocomplete");
+		return eventNames;
 	}
 
 	@Override

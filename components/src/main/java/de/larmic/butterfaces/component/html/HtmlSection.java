@@ -14,7 +14,7 @@ public class HtmlSection extends UIComponentBase {
 
 	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.section";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.FieldSetRenderer";
+	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.SectionRenderer";
 
     protected static final String PROPERTY_LABEL = "label";
     protected static final String PROPERTY_BADGE_TEXT = "badgeText";

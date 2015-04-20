@@ -1,6 +1,6 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import de.larmic.butterfaces.component.html.HtmlCalendar;
+import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;

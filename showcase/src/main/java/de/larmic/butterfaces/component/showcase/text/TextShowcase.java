@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.text;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.model.text.AutoCompleteModel;
 
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
@@ -10,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -101,6 +103,19 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
     public void someListenerAction(AjaxBehaviorEvent event) {
 
+    }
+
+    public AutoCompleteModel getAutoCompleteModel() {
+        return new AutoCompleteModel() {
+            @Override
+            public List<String> autoComplete(Object value) {
+                if ("t".equals(value)) {
+                    return Arrays.asList("test1", "test2");
+                }
+
+                return Arrays.asList("Kein Eintrag gefunden");
+            }
+        };
     }
 
     public List<SelectItem> getAvailableFacetTypes() {

@@ -75,6 +75,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}" />
+                <b:autoComplete autoComplete="#{textShowcase.autoCompleteModel}" />
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
@@ -97,6 +98,7 @@
                         listener="#{textShowcase.someListenerAction}"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not textShowcase.ajax}"/>
+                <b:autoComplete autoComplete="#{textShowcase.autoCompleteModel}" />
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
@@ -128,6 +130,7 @@
                         listener="#{textShowcase.someListenerAction}"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not textShowcase.ajax}"/>
+                <b:autoComplete autoComplete="#{textShowcase.autoCompleteModel}" />
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
