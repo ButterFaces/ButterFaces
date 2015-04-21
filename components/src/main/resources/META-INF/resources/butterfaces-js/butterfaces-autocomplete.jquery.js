@@ -8,10 +8,13 @@
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
 
-    $.fn.butterHandleAutoComplete = function () {
+    $.fn._butterHandleAutoComplete = function () {
         return this.each(function () {
             var $originalElement = $(this);
             var $input = $originalElement.prev();
+
+            $input.attr('autocomplete', 'off');
+            $input.attr('autocorrect', 'off');
 
             $originalElement.find('li').on("click", function () {
                 $input.val($(this).attr("data-select-value")).change();
