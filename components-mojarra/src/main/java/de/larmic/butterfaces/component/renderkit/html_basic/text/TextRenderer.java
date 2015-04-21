@@ -73,10 +73,10 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
                     render += " " + keyupRender;
                 }
             }
-
         }
 
-        return "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + render + "'});";
+        final String onevent = "function(data) { if (data.status === 'success') {jQuery(document.getElementById('" + render + "'))._butterAutoCompleteOnKeyUp()}}";
+        return "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + render + "',onevent:" + onevent + "});";
     }
 
     private HtmlAutoComplete findAutoCompleteChild(final UIComponent component) {

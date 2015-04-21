@@ -1,3 +1,7 @@
+.butter-autocomplete-component {
+    display: none;
+}
+
 .butter-autocomplete-component ul {
     margin: 0;
     padding: 0;

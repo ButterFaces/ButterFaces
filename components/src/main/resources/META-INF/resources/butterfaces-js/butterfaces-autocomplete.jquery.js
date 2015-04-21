@@ -8,6 +8,14 @@
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
 
+    $.fn._butterAutoCompleteOnKeyUp = function() {
+        return this.each(function () {
+            var $originalElement = $(this);
+
+            $originalElement.css('display', 'inline');
+        });
+    }
+
     $.fn._butterHandleAutoComplete = function () {
         return this.each(function () {
             var $originalElement = $(this);
@@ -18,8 +26,8 @@
 
             $originalElement.find('li').on("click", function () {
                 $input.val($(this).attr("data-select-value")).change();
+                $originalElement.css('display', 'none');
             })
-
         });
     };
 
