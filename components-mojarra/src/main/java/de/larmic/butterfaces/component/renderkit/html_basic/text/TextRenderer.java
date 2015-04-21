@@ -4,6 +4,8 @@ import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -49,14 +51,32 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
     protected void renderPassThruAttributes(final FacesContext context,
                                             final UIComponent component,
                                             final ResponseWriter writer) throws IOException {
-        super.renderPassThruAttributes(context, component, writer);
-
         final HtmlText text = (HtmlText) component;
 
         if (findAutoCompleteChild(text) != null) {
-            final String suggestFunction = "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + findAutoCompleteChild(text).getClientId() + "'});";
+            final String suggestFunction = createAjaxRequest(text);
             writer.writeAttribute("onkeyup", suggestFunction, null);
         }
+
+        super.renderPassThruAttributes(context, component, writer);
+    }
+
+    private String createAjaxRequest(final HtmlText text) {
+        final List<ClientBehavior> keyup = text.getClientBehaviors().get("keyup");
+
+        String render = findAutoCompleteChild(text).getClientId();
+
+        if (keyup != null && !keyup.isEmpty()) {
+            final AjaxBehavior ajaxBehavior = (AjaxBehavior) keyup.get(0);
+            if (!ajaxBehavior.isDisabled()) {
+                for (String keyupRender : ajaxBehavior.getRender()) {
+                    render += " " + keyupRender;
+                }
+            }
+
+        }
+
+        return "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + render + "'});";
     }
 
     private HtmlAutoComplete findAutoCompleteChild(final UIComponent component) {
