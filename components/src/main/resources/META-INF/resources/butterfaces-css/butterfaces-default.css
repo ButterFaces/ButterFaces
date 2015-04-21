@@ -143,9 +143,6 @@ select.butter-input-component {
     white-space: normal;
     overflow: hidden;
     resize: none;
-    background-image: url(#{resource[ 'img:expandable.png' ]}) !important;
-    background-position: right center;
-    background-repeat: no-repeat;
 }
 
 .butter-component-expandable-ghost {

@@ -56,6 +56,17 @@
             this.$originalElement.blur(function (event) {
                 self._handleBlurEvent(event);
             });
+
+            this._addInputGroupAddon();
+        },
+
+        _addInputGroupAddon: function () {
+            this.$originalElement
+                    .addClass("form-control")
+                    .parent()
+                    .addClass("input-group");
+            $("<span class='input-group-addon'><span class='glyphicon glyphicon-resize-full'></span></span>")
+                    .insertAfter(this.$originalElement);
         },
 
         expandElement: function (event) {
@@ -91,7 +102,7 @@
                     .focus() //set cursor into the ghost element
                     .animate({
                         height: self.EXPAND_HEIGHT,
-                        width: self.EXPAND_WIDTH
+                        width: self.initialWidth > self.EXPAND_WIDTH ? self.initialWidth : self.EXPAND_WIDTH
                     }, self.ANIMATION_DURATION, self.EASING, function () {
                         $(document)
                                 .on("click.expandable", function (event) {
@@ -113,7 +124,10 @@
                     });
 
             //make original invisible
-            this.$originalElement.css("opacity", 0);
+            this.$originalElement
+                    .css("opacity", 0)
+                    .siblings()
+                    .css("opacity", 0);
         },
 
         /**
@@ -131,7 +145,10 @@
                     .off("keydown.expandable");
 
             //make original visible again
-            this.$originalElement.css("opacity", 1);
+            this.$originalElement
+                    .css("opacity", 1)
+                    .siblings()
+                    .css("opacity", 1);
 
             var self = this;
             this.$ghostElement.animate({
