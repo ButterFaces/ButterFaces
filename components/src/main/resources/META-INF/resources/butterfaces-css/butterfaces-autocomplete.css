@@ -1,5 +1,13 @@
 .butter-autocomplete-component {
     display: none;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 4px 4px 0 0;
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin-top: 1px;
+    z-index: 100;
+    width: calc(100% - 120px);
 }
 
 .butter-autocomplete-component ul {

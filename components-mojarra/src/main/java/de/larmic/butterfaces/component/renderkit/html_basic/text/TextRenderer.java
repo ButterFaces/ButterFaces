@@ -64,7 +64,8 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
     private String createAjaxRequest(final HtmlText text) {
         final List<ClientBehavior> keyup = text.getClientBehaviors().get("keyup");
 
-        String render = findAutoCompleteChild(text).getClientId();
+        final String autoCompleteClientId = findAutoCompleteChild(text).getClientId();
+        String render = autoCompleteClientId;
 
         if (keyup != null && !keyup.isEmpty()) {
             final AjaxBehavior ajaxBehavior = (AjaxBehavior) keyup.get(0);
@@ -75,7 +76,7 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
             }
         }
 
-        final String onevent = "function(data) { if (data.status === 'success') {jQuery(document.getElementById('" + render + "'))._butterAutoCompleteOnKeyUp()}}";
+        final String onevent = "function(data) { if (data.status === 'success') {jQuery(document.getElementById('" + autoCompleteClientId + "'))._butterAutoCompleteOnKeyUp()}}";
         return "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + render + "',onevent:" + onevent + "});";
     }
 

@@ -49,7 +49,7 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        RenderUtils.renderJQueryPluginCall(component.getClientId(), "_butterHandleAutoComplete()", writer, component);
+        RenderUtils.renderJQueryPluginCall(component.getClientId(), "_butterAutoCompleteInit()", writer, component);
 
         writer.endElement("div");
     }

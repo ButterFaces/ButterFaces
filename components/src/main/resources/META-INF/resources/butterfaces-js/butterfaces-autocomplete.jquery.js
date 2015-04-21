@@ -16,7 +16,7 @@
         });
     }
 
-    $.fn._butterHandleAutoComplete = function () {
+    $.fn._butterAutoCompleteInit = function () {
         return this.each(function () {
             var $originalElement = $(this);
             var $input = $originalElement.prev();
