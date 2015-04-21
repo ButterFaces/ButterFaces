@@ -49,32 +49,49 @@
 
                 //create a ghost element that be animated on gets the focus
                 $ghostElement = $("<textarea>")
-                    .val($originalElement.val()) //transfer value from original to ghost
-                    .css("width", initialWidth)
-                    .css("height", initialHeight)
-                    .css("position", "absolute")
-                    .css("top", initialOffset.top)
-                    .css("left", initialOffset.left)
-                    .css("z-index", 2000)
-                    .css("box-shadow", "5px 5px 5px 0 #999")
-                    .addClass("butter-component-expandable-ghost")
-                    .blur(collapseElement)
-                    .appendTo($("body"))
-                    .focus() //set cursor into the ghost element
-                    .animate({
-                        height: EXPAND_HEIGHT,
-                        width: EXPAND_WIDTH
-                    }, ANIMATION_DURATION, EASING);
+                        .val($originalElement.val()) //transfer value from original to ghost
+                        .css("width", initialWidth)
+                        .css("height", initialHeight)
+                        .css("position", "absolute")
+                        .css("top", initialOffset.top)
+                        .css("left", initialOffset.left)
+                        .css("z-index", 2000)
+                        .css("box-shadow", "5px 5px 5px 0 #999")
+                        .addClass("butter-component-expandable-ghost")
+                        .blur(collapseElement)
+                        .appendTo($("body"))
+                        .focus() //set cursor into the ghost element
+                        .animate({
+                            height: EXPAND_HEIGHT,
+                            width: EXPAND_WIDTH
+                        }, ANIMATION_DURATION, EASING, function () {
+                            $(document)
+                                    .bind("click", handleMouseClick)
+                                    .bind("keydown", handleEscapeKey);
+
+                            moveCaretToEnd(this);
+
+                            //keep track of the orginal element's position
+                            positionTriggerInterval = window.setInterval(repositionGhostElement, 500);
+                        });
 
                 //make original invisible
                 $originalElement.css("opacity", 0);
-
-                //keep track of the orginal element's position
-                positionTriggerInterval = window.setInterval(repositionGhostElement, 30);
             };
 
-            var collapseElement = function () {
+            /**
+             * Collapses the ghost element and sets the value if not isCancelled
+             * @param isCancelled
+             */
+            var collapseElement = function (cancelled) {
                 // console.log("collapsing element");
+
+                // 'cancelled' can be an event object
+                var isCancelled = typeof cancelled === "boolean" && cancelled;
+
+                $(document)
+                        .unbind("click", handleMouseClick)
+                        .unbind("keydown", handleEscapeKey);
 
                 //make original visible again
                 $originalElement.css("opacity", 1);
@@ -85,8 +102,10 @@
                 }, ANIMATION_DURATION, EASING, function () {
                     //on animation complete
 
-                    //transfer value back from ghost to original
-                    $originalElement.val($ghostElement.val())
+                    if(!isCancelled){
+                        //transfer value back from ghost to original
+                        $originalElement.val($ghostElement.val())
+                    }
 
                     //delete the ghost element
                     $ghostElement.remove();
@@ -95,25 +114,53 @@
                     //delete position trigger timeout
                     window.clearInterval(positionTriggerInterval);
 
-                    // trigger blur and keyup event on original textarea and don't block
-                    // it for jsf
-                    blockBlurEventOnOriginal = false;
-                    blockFocusEventOnOriginal = true;
-                    // defer the events a little bit, look at
-                    // (http://stackoverflow.com/questions/8380759/why-isnt-this-textarea-focusing-with-focus#8380785)
-                    window.setTimeout(function () {
-                        $originalElement.focus();
+                    if (!isCancelled) {
+                        // trigger blur and keyup event on original textarea and don't block
+                        // it for jsf
+                        blockBlurEventOnOriginal = false;
+                        blockFocusEventOnOriginal = true;
+                        // defer the events a little bit, look at
+                        // (http://stackoverflow.com/questions/8380759/why-isnt-this-textarea-focusing-with-focus#8380785)
+                        window.setTimeout(function () {
+                            $originalElement.focus();
+                            blockFocusEventOnOriginal = false;
+                            $originalElement.keyup();
+                            $originalElement.blur();
+                        }, 50);
+                    } else {
+                        blockBlurEventOnOriginal = true;
                         blockFocusEventOnOriginal = false;
-                        $originalElement.keyup();
-                        $originalElement.blur();
-                    }, 50);
+                    }
                 });
+            };
+
+            var handleMouseClick = function (event) {
+                // collapse ghost element if user clicks beside it
+                if (!$(event.target).is(".butter-component-expandable-ghost")) {
+                    collapseElement(false);
+                }
+            };
+
+            var handleEscapeKey = function (event) {
+                if (event.which === 27) {
+                    collapseElement(true);
+                }
             };
 
             var handleBlurEvent = function (event) {
                 if (blockBlurEventOnOriginal) {
                     // prevent blur event bubbling, so it will not be triggered in jsf
                     event.preventDefault();
+                }
+            };
+
+            var moveCaretToEnd = function (element) {
+                if (typeof element.selectionStart == "number") {
+                    element.selectionStart = element.selectionEnd = element.value.length;
+                } else if (typeof element.createTextRange !== "undefined") {
+                    var range = element.createTextRange();
+                    range.collapse(false);
+                    range.select();
                 }
             };
 
