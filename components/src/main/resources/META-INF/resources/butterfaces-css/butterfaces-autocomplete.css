@@ -1,0 +1,12 @@
+.butter-autocomplete-component ul {
+    margin: 0;
+    padding: 0;
+}
+
+.butter-autocomplete-component li:hover {
+    cursor: pointer;
+}
+
+.butter-autocomplete-component li:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}

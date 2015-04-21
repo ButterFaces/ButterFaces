@@ -1,23 +1,26 @@
 package de.larmic.butterfaces.component.showcase.text;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.model.text.AutoCompleteModel;
 
+import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
 public class TextShowcase extends AbstractInputShowcase implements Serializable {
+
+    private final List<String> autoCompleteValues = new ArrayList<>();
 
     private FacetType selectedFacetType = FacetType.NONE;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
@@ -26,6 +29,21 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
     private String min;
     private String max;
     private boolean autoFocus;
+
+    @PostConstruct
+    public void init() {
+        autoCompleteValues.add("test");
+        autoCompleteValues.add("tetest");
+        autoCompleteValues.add("test1 ButterFaces");
+        autoCompleteValues.add("test2");
+        autoCompleteValues.add("ButterFaces");
+        autoCompleteValues.add("ButterFaces JSF");
+        autoCompleteValues.add("ButterFaces Mojarra");
+        autoCompleteValues.add("ButterFaces Component");
+        autoCompleteValues.add("JSF");
+        autoCompleteValues.add("JSF 2");
+        autoCompleteValues.add("JSF 2.2");
+    }
 
     @Override
     protected Object initValue() {
@@ -109,11 +127,17 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
         return new AutoCompleteModel() {
             @Override
             public List<String> autoComplete(Object value) {
-                if ("t".equals(value)) {
-                    return Arrays.asList("test1", "test2");
+                final List<String> values = new ArrayList<>();
+
+                if (StringUtils.isNotEmpty(value.toString())) {
+                    for (String autoCompleteValue : autoCompleteValues) {
+                        if (autoCompleteValue.toLowerCase().contains(value.toString().toLowerCase())) {
+                            values.add(autoCompleteValue);
+                        }
+                    }
                 }
 
-                return Arrays.asList("Kein Eintrag gefunden");
+                return values;
             }
         };
     }

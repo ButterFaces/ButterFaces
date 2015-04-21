@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,6 +31,7 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
             writer.startElement("ul", autoComplete);
             for (String value : autoComplete.getCachedAutoCompleteValues()) {
                 writer.startElement("li", autoComplete);
+                writer.writeAttribute("data-select-value", value, null);
                 writer.writeText(value, autoComplete, null);
                 writer.endElement("li");
             }
@@ -46,6 +48,8 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
+
+        RenderUtils.renderJQueryPluginCall(component.getClientId(), "butterHandleAutoComplete()", writer, component);
 
         writer.endElement("div");
     }
