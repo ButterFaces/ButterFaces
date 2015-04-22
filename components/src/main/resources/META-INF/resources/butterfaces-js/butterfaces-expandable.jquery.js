@@ -125,9 +125,9 @@
 
             //make original invisible
             this.$originalElement
-                    .css("opacity", 0)
+                    .css("visibility", "hidden")
                     .siblings()
-                    .css("opacity", 0);
+                    .css("visibility", "hidden");
         },
 
         /**
@@ -146,9 +146,9 @@
 
             //make original visible again
             this.$originalElement
-                    .css("opacity", 1)
+                    .css("visibility", "visible")
                     .siblings()
-                    .css("opacity", 1);
+                    .css("visibility", "visible");
 
             var self = this;
             this.$ghostElement.animate({
