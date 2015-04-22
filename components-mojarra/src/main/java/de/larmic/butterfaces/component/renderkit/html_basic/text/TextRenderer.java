@@ -22,7 +22,7 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
     protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException  {
         final HtmlAutoComplete autoCompleteChild = findAutoCompleteChild(component);
         if (autoCompleteChild != null) {
-            RenderUtils.renderJQueryPluginCall(component.getClientId(), "_butterAutoCompleteInit()", writer, component);
+            RenderUtils.renderJQueryPluginCall(autoCompleteChild.getClientId(), "_butterAutoCompleteInit()", writer, component);
         }
     }
 
