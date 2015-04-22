@@ -188,7 +188,9 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             // *** END HTML 5 CHANGED ****************************
 
             // style is rendered as a passthur attribute
-            renderPassThruAttributes(context, component, writer);
+            renderAdditionalInputAttributes(context, component, writer);
+            RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES,
+                    getNonOnChangeBehaviors(component));
             RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
 
             RenderKitUtils.renderOnchange(context, component, false);
@@ -197,11 +199,9 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         }
     }
 
-    protected void renderPassThruAttributes(final FacesContext context,
-                                          final UIComponent component,
-                                          final ResponseWriter writer) throws IOException {
-        RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES,
-                getNonOnChangeBehaviors(component));
+    protected void renderAdditionalInputAttributes(final FacesContext context,
+                                                   final UIComponent component,
+                                                   final ResponseWriter writer) throws IOException {
     }
 
     @Override

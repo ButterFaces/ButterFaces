@@ -2,7 +2,6 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -48,8 +47,6 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-
-        RenderUtils.renderJQueryPluginCall(component.getClientId(), "_butterAutoCompleteAddClickSupport()", writer, component);
 
         writer.endElement("div");
     }

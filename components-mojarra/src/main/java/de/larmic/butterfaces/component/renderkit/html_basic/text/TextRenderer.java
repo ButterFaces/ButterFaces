@@ -5,8 +5,6 @@ import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -58,36 +56,14 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
     }
 
     @Override
-    protected void renderPassThruAttributes(final FacesContext context,
-                                            final UIComponent component,
-                                            final ResponseWriter writer) throws IOException {
-        final HtmlText text = (HtmlText) component;
-
-        if (findAutoCompleteChild(text) != null) {
-            final String suggestFunction = createAjaxRequest(text);
-            //writer.writeAttribute("onkeyup", suggestFunction, null);
+    protected void renderAdditionalInputAttributes(final FacesContext context,
+                                                   final UIComponent component,
+                                                   final ResponseWriter writer) throws IOException {
+        final HtmlAutoComplete autoCompleteChild = findAutoCompleteChild(component);
+        if (autoCompleteChild != null) {
+            writer.writeAttribute("autocomplete", "off", null);
+            writer.writeAttribute("autocorrect", "off", null);
         }
-
-        super.renderPassThruAttributes(context, component, writer);
-    }
-
-    private String createAjaxRequest(final HtmlText text) {
-        final List<ClientBehavior> keyup = text.getClientBehaviors().get("keyup");
-
-        final String autoCompleteClientId = findAutoCompleteChild(text).getClientId();
-        String render = autoCompleteClientId;
-
-        if (keyup != null && !keyup.isEmpty()) {
-            final AjaxBehavior ajaxBehavior = (AjaxBehavior) keyup.get(0);
-            if (!ajaxBehavior.isDisabled()) {
-                for (String keyupRender : ajaxBehavior.getRender()) {
-                    render += " " + keyupRender;
-                }
-            }
-        }
-
-        final String onevent = "function(data) { if (data.status === 'success') {jQuery(document.getElementById('" + autoCompleteClientId + "'))._butterAutoCompleteOnKeyUp()}}";
-        return "jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:'" + render + "',onevent:" + onevent + "});";
     }
 
     private HtmlAutoComplete findAutoCompleteChild(final UIComponent component) {
