@@ -1,10 +1,8 @@
 package de.larmic.butterfaces.component.showcase.text;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.model.text.AutoCompleteModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -121,25 +119,6 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
     public void someListenerAction(AjaxBehaviorEvent event) {
 
-    }
-
-    public AutoCompleteModel getAutoCompleteModel() {
-        return new AutoCompleteModel() {
-            @Override
-            public List<String> autoComplete(Object value) {
-                final List<String> values = new ArrayList<>();
-
-                if (StringUtils.isNotEmpty(value.toString())) {
-                    for (String autoCompleteValue : autoCompleteValues) {
-                        if (autoCompleteValue.toLowerCase().contains(value.toString().toLowerCase())) {
-                            values.add(autoCompleteValue);
-                        }
-                    }
-                }
-
-                return values;
-            }
-        };
     }
 
     public List<SelectItem> getAvailableFacetTypes() {
