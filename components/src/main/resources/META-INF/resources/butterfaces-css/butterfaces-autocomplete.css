@@ -1,4 +1,6 @@
 .butter-autocomplete-component {
+    max-height: 150px;
+    overflow-y: auto;
     display: none;
     position: absolute;
     background-color: #fff;
