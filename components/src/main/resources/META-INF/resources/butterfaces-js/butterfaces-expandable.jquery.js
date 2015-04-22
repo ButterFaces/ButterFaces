@@ -76,7 +76,7 @@
                         });
 
                 //make original invisible
-                $originalElement.css("opacity", 0);
+                $originalElement.css("visibility", "hidden");
             };
 
             /**
@@ -94,7 +94,7 @@
                         .unbind("keydown", handleEscapeKey);
 
                 //make original visible again
-                $originalElement.css("opacity", 1);
+                $originalElement.css("visibility", "visible");
 
                 $ghostElement.animate({
                     height: initialHeight,
