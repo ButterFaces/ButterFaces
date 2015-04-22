@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -16,6 +17,15 @@ import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlText.RENDERER_TYPE)
 public class TextRenderer extends AbstractTextRenderer<HtmlText> {
+
+    @Override
+    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException  {
+        final HtmlAutoComplete autoCompleteChild = findAutoCompleteChild(component);
+        if (autoCompleteChild != null) {
+            RenderUtils.renderJQueryPluginCall(component.getClientId(), "_butterAutoCompleteInit()", writer, component);
+        }
+    }
+
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
         super.decode(context, component);

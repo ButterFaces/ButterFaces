@@ -23,6 +23,13 @@
 
             $input.attr('autocomplete', 'off');
             $input.attr('autocorrect', 'off');
+        });
+    };
+
+    $.fn._butterAutoCompleteAddClickSupport = function () {
+        return this.each(function () {
+            var $originalElement = $(this);
+            var $input = $originalElement.prev();
 
             $originalElement.find('li').on("click", function () {
                 $input.val($(this).attr("data-select-value")).change();
