@@ -46,9 +46,9 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
         xhtmlCodeExample.appendInnerContent("        <b:calendar id=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    label=\"" + getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    value=\"" + getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
@@ -56,22 +56,22 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconDown=\"" + glyphiconDown + "\"");
-        xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
+        xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + getPlaceholder() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    readonly=\"" + isReadonly() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    required=\"" + isRequired() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + isAutoFocus() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + isRendered() + "\">");
 
-        this.addAjaxTag(xhtmlCodeExample, "keyup");
+        addAjaxTag(xhtmlCodeExample, "change");
 
-        if (this.isValidation()) {
+        if (isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:calendar>", false);
 
-        this.addOutputExample(xhtmlCodeExample);
+        addOutputExample(xhtmlCodeExample);
 
         codeExamples.add(xhtmlCodeExample);
 

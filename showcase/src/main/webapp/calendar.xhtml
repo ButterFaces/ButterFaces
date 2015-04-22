@@ -73,7 +73,7 @@
                         placeholder="#{calendarShowcase.placeholder}"
                         autoFocus="#{calendarShowcase.autoFocus}"
                         styleClass="#{calendarShowcase.styleClass}">
-                <f:ajax event="keyup"
+                <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not calendarShowcase.ajax}"/>
