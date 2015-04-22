@@ -19,7 +19,7 @@ import java.util.Map;
 public class TextRenderer extends AbstractTextRenderer<HtmlText> {
 
     @Override
-    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException  {
+    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
         final HtmlAutoComplete autoCompleteChild = findAutoCompleteChild(component);
         if (autoCompleteChild != null) {
             RenderUtils.renderJQueryPluginCall(autoCompleteChild.getClientId(), "_butterAutoCompleteInit()", writer, component);
@@ -65,7 +65,7 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
 
         if (findAutoCompleteChild(text) != null) {
             final String suggestFunction = createAjaxRequest(text);
-            writer.writeAttribute("onkeyup", suggestFunction, null);
+            //writer.writeAttribute("onkeyup", suggestFunction, null);
         }
 
         super.renderPassThruAttributes(context, component, writer);
