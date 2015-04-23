@@ -1,8 +1,102 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:index="http://java.sun.com/jsf/composite/cc/index"
                 xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="fullWidthPart">
+
+        <div class="fulWidthPart">
+            <div class="container">
+                <h2>ButterFaces
+                    <small>a smart JSF framework</small>
+                </h2>
+
+                <p>
+                    Welcome to ButterFaces, a lightweight and modern JSF framework that combines the advantages from
+                    <a href="http://getbootstrap.com/" target="_blank">Twitters Bootstrap</a>,
+                    <a href="http://jquery.com/" target="_blank">jQuery</a> and HTML 5 to develop fast, easy and modern
+                    web applications using <a href="https://javaserverfaces.java.net/" target="_blank">JSF 2</a>.
+                </p>
+
+                <div>
+                    <a class="btn btn-success hidden-sm hidden-xs"
+                       href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
+                        <i class="fa fa-download"></i> Download ButterFaces library
+                    </a>
+                    <a class="btn btn-success hidden-sm hidden-xs"
+                       href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
+                        <i class="fa fa-download"></i> Download ButterFaces source
+                    </a>
+
+                    <div class="btn-group hidden-md hidden-lg">
+                        <button type="button" class="btn btn-success">Download</button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Menü ein-/ausblenden</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
+                                    <i class="fa fa-download"></i> Download ButterFaces library
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
+                                    <i class="fa fa-download"></i> Download ButterFaces source
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="btn btn-primary hidden-xs"
+                       target="_blank"
+                       href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
+                        <i class="fa fa-external-link"></i> View issue tracker
+                    </a>
+                    <a class="btn btn-primary hidden-xs"
+                       target="_blank"
+                       href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
+                        <i class="fa fa-external-link"></i> View getting started
+                    </a>
+
+                    <div class="btn-group hidden-sm hidden-md hidden-lg">
+                        <button type="button" class="btn btn-primary">Help</button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Menü ein-/ausblenden</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a target="_blank"
+                                   href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
+                                    <i class="fa fa-external-link"></i> View issue tracker
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank"
+                                   href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
+                                    <i class="fa fa-external-link"></i> View getting started
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="socialNetwork">
+                    <div class="googleplus">
+                        <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
+                        <script src="https://apis.google.com/js/platform.js"></script>
+
+                        <!-- Fügen Sie dieses Tag an der Stelle ein, an der die Widget erscheinen soll. -->
+                        <div class="g-follow" data-annotation="bubble" data-height="20"
+                             data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ui:define>
 
     <ui:define name="content">
 
@@ -13,94 +107,6 @@
                 don't forget to mark element in header component too
             -->
         </ui:remove>
-
-        <div class="jumbotron">
-            <h2>ButterFaces
-                <small>a smart JSF framework</small>
-            </h2>
-
-            <p>
-                Welcome to ButterFaces, a lightweight and modern JSF framework that combines the advantages from
-                <a href="http://getbootstrap.com/" target="_blank">Twitters Bootstrap</a>,
-                <a href="http://jquery.com/" target="_blank">jQuery</a> and HTML 5 to develop fast, easy and modern
-                web applications using <a href="https://javaserverfaces.java.net/" target="_blank">JSF 2</a>.
-            </p>
-
-            <div>
-                <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
-                    <i class="fa fa-download"></i> Download ButterFaces library
-                </a>
-                <a class="btn btn-success hidden-sm hidden-xs"
-                   href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
-                    <i class="fa fa-download"></i> Download ButterFaces source
-                </a>
-                <div class="btn-group hidden-md hidden-lg">
-                    <button type="button" class="btn btn-success">Download</button>
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                            aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Menü ein-/ausblenden</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
-                                <i class="fa fa-download"></i> Download ButterFaces library
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
-                                <i class="fa fa-download"></i> Download ButterFaces source
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <a class="btn btn-primary hidden-xs"
-                   target="_blank"
-                   href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
-                    <i class="fa fa-external-link"></i> View issue tracker
-                </a>
-                <a class="btn btn-primary hidden-xs"
-                   target="_blank"
-                   href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
-                    <i class="fa fa-external-link"></i> View getting started
-                </a>
-                <div class="btn-group hidden-sm hidden-md hidden-lg">
-                    <button type="button" class="btn btn-primary">Help</button>
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                            aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Menü ein-/ausblenden</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a target="_blank"
-                               href="https://larmic.atlassian.net/browse/BUT/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel">
-                                <i class="fa fa-external-link"></i> View issue tracker
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank"
-                               href="https://larmic.atlassian.net/wiki/display/BUT/Getting+started">
-                                <i class="fa fa-external-link"></i> View getting started
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="socialNetwork">
-                <div class="googleplus">
-                    <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
-                    <script src="https://apis.google.com/js/platform.js"></script>
-
-                    <!-- Fügen Sie dieses Tag an der Stelle ein, an der die Widget erscheinen soll. -->
-                    <div class="g-follow" data-annotation="bubble" data-height="20"
-                         data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
-                </div>
-            </div>
-
-        </div>
 
         <div class="row hidden-sm">
             <div class="col-sm-3">

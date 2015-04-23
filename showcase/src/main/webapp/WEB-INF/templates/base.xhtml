@@ -9,19 +9,21 @@
 <h:head>
     <title>ButterFaces: a lightweight and modern JSF framework</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="ButterFaces is a lightweight and modern JSF framework that takes the best from Twitters Bootstrap and HTML 5 to develop fast, easy and modern web applications."/>
-    <meta name="keywords" content="jsf, jsf2, faces, mojarra, bootstrap, jquery, framework, java, enterprise, server, usability, web, html5, easy, modern, website"/>
+    <meta name="description"
+          content="ButterFaces is a lightweight and modern JSF framework that takes the best from Twitters Bootstrap and HTML 5 to develop fast, easy and modern web applications."/>
+    <meta name="keywords"
+          content="jsf, jsf2, faces, mojarra, bootstrap, jquery, framework, java, enterprise, server, usability, web, html5, easy, modern, website"/>
     <meta name="author" content="Lars Michaelis, Stephan Zerhusen"/>
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="DISTRIBUTION" content="GLOBAL" />
-    <meta http-equiv="PRAGMA" content="NO-CACHE" />
-    <meta http-equiv="Expires" content="604800" />
+    <meta name="robots" content="index, follow"/>
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="DISTRIBUTION" content="GLOBAL"/>
+    <meta http-equiv="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="Expires" content="604800"/>
     <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.png"/>
 
-    <ui:include src="../includes/less.xhtml" />
+    <ui:include src="../includes/less.xhtml"/>
     <h:outputScript library="js" name="global.js" target="body"/>
 </h:head>
 
@@ -33,65 +35,85 @@
                 .navbar-header {
                     float: none;
                 }
-                .navbar-left,.navbar-right {
+
+                .navbar-left, .navbar-right {
                     float: none !important;
                 }
+
                 .navbar-toggle {
                     display: block;
                 }
+
                 .navbar-collapse {
                     border-top: 1px solid transparent;
-                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+                    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
                 }
+
                 .navbar-fixed-top {
                     top: 0;
                     border-width: 0 0 1px;
                 }
+
                 .navbar-collapse.collapse {
-                    display: none!important;
+                    display: none !important;
                 }
+
                 .navbar-nav {
-                    float: none!important;
+                    float: none !important;
                     margin-top: 7.5px;
                 }
-                .navbar-nav>li {
+
+                .navbar-nav > li {
                     float: none;
                 }
-                .navbar-nav>li>a {
+
+                .navbar-nav > li > a {
                     padding-top: 10px;
                     padding-bottom: 10px;
                 }
-                .collapse.in{
-                    display:block !important;
+
+                .collapse.in {
+                    display: block !important;
                 }
             }
         </style>
 
         <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}">
-        <!-- Piwik -->
-        <script type="text/javascript">
-            var _paq = _paq || [];
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function() {
-                var u=(("https:" == document.location.protocol) ? "https" : "http") + "://analytics.larmic.de/";
-                _paq.push(['setTrackerUrl', u+'piwik.php']);
-                _paq.push(['setSiteId', 2]);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
-                g.defer=true; g.async=true; g.src=u+'js/'; s.parentNode.insertBefore(g,s);
-            })();
-        </script>
-        <noscript><p><img src="http://analytics.larmic.de/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
-        <!-- End Piwik Code -->
+            <!-- Piwik -->
+            <script type="text/javascript">
+                var _paq = _paq || [];
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                (function () {
+                    var u = (("https:" == document.location.protocol) ? "https" : "http") + "://analytics.larmic.de/";
+                    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+                    _paq.push(['setSiteId', 2]);
+                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                    g.type = 'text/javascript';
+                    g.defer = true;
+                    g.async = true;
+                    g.src = u + 'js/';
+                    s.parentNode.insertBefore(g, s);
+                })();
+            </script>
+            <noscript><p><img src="http://analytics.larmic.de/piwik.php?idsite=2" style="border:0;" alt=""/></p>
+            </noscript>
+            <!-- End Piwik Code -->
         </h:panelGroup>
 
 
         <showcase:header/>
 
-        <div class="content container">
-            <ui:insert name="siteHeader"/>
-            <ui:insert name="content"/>
-            <ui:insert name="footer" />
+
+        <div class="content">
+            <div class="container">
+                <ui:insert name="siteHeader"/>
+            </div>
+            <ui:insert name="fullWidthPart"/>
+            <div class="container">
+                <ui:insert name="content"/>
+                <ui:insert name="footer"/>
+            </div>
         </div>
 
         <showcase:footer/>
