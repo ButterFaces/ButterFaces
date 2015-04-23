@@ -184,12 +184,10 @@
       <attribute>
          <name>language</name>
          <type>java.lang.String</type>
-         <description>Takes a string of any valid moment (https://github.com/moment/moment/tree/develop/locale) locale e.g. 'de' for German.</description>
       </attribute>
       <attribute>
          <name>sideBySide</name>
          <type>java.lang.Boolean</type>
-         <description>If sideBySide is true and the time picker is used, both components will display side by side instead of collapsing.</description>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -1486,6 +1484,22 @@
       <component>
          <component-type>de.larmic.butterfaces.component.defaultAction</component-type>
       </component>
+      <attribute>
+         <name>rendered</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+   </tag>
+
+   <tag>
+      <tag-name>autoComplete</tag-name>
+      <component>
+         <component-type>de.larmic.butterfaces.component.autoComplete</component-type>
+      </component>
+      <attribute>
+         <name>autoComplete</name>
+         <type>de.larmic.butterfaces.model.text.AutoCompleteModel</type>
+         <required>true</required>
+      </attribute>
       <attribute>
          <name>rendered</name>
          <type>java.lang.Boolean</type>
