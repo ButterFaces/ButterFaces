@@ -1,6 +1,4 @@
-package de.larmic.butterfaces.component.html;
-
-import de.larmic.butterfaces.component.html.feature.Masked;
+package de.larmic.butterfaces.component.html.text;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -12,21 +10,19 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
-@FacesComponent(HtmlMaskedText.COMPONENT_TYPE)
-public class HtmlMaskedText extends HtmlText implements Masked {
+@FacesComponent(HtmlSecret.COMPONENT_TYPE)
+public class HtmlSecret extends HtmlText {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.maskedText";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.secret";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.MaskedInputRenderer";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.SecretRenderer";
 
-    protected static final String PROPERTY_INPUT_MASK = "inputMask";
-
-    public HtmlMaskedText() {
+    public HtmlSecret() {
         super();
         this.setRendererType(RENDERER_TYPE);
+        this.setType("password");
     }
 
     @Override
@@ -34,13 +30,4 @@ public class HtmlMaskedText extends HtmlText implements Masked {
         return COMPONENT_FAMILY;
     }
 
-    @Override
-    public String getInputMask() {
-        return (String) this.getStateHelper().eval(PROPERTY_INPUT_MASK);
-    }
-
-    @Override
-    public void setInputMask(String inputMask) {
-        this.updateStateHelper(PROPERTY_INPUT_MASK, inputMask);
-    }
 }

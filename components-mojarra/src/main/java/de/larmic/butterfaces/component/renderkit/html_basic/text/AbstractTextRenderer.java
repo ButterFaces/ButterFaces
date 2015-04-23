@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.renderkit.Attribute;
@@ -6,7 +6,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlText;
+import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.partrenderer.*;
 
@@ -89,6 +89,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             writer.endElement("span");
         }
         super.encodeEnd(context, component);
+        this.postEncodeInput(context, component);
         if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonRightFacet != null) {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
@@ -101,6 +102,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             inputGroupBtnRightFacet.encodeAll(context);
             writer.endElement("span");
         }
+    }
+
+    protected void postEncodeInput(final FacesContext context, final UIComponent component) throws IOException {
+
     }
 
     /**
@@ -183,6 +188,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             // *** END HTML 5 CHANGED ****************************
 
             // style is rendered as a passthur attribute
+            renderAdditionalInputAttributes(context, component, writer);
             RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES,
                     getNonOnChangeBehaviors(component));
             RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
@@ -191,6 +197,11 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
             writer.endElement("input");
         }
+    }
+
+    protected void renderAdditionalInputAttributes(final FacesContext context,
+                                                   final UIComponent component,
+                                                   final ResponseWriter writer) throws IOException {
     }
 
     @Override

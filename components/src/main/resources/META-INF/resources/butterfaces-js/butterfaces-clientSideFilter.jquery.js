@@ -42,34 +42,13 @@
                             $filterableItem.addClass("hidden");
                         }
 
-                        $filterableItem.find('.search-highlighted').contents().unwrap();
-                        $filterableItem[0].normalize()
-                        if (filterValue !== '') {
-                            $filterableItem.add($filterableItem.find('*')).highlight(filterValue, "search-highlighted");
-                        }
+                        $filterableItem.highlight(filterValue, "search-highlighted");
                     });
                 }, 300);
             });
         });
     };
 }(jQuery));
-
-
-(function ($) {
-    $.fn.highlight = function (str, className) {
-        var regex = new RegExp(str, "gi");
-        return this.each(function () {
-            $(this).contents().filter(function() {
-                return this.nodeType == 3 && regex.test(this.nodeValue);
-            }).replaceWith(function() {
-                return (this.nodeValue || "").replace(regex, function(match) {
-                    return "<span class=\"" + className + "\">" + match + "</span>";
-                });
-            });
-        });
-    };
-}(jQuery));
-
 
 (function ($) {
     $.expr[":"].containsIgnoreCase = $.expr.createPseudo(function (arg) {

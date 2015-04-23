@@ -2,7 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlText;
+import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 

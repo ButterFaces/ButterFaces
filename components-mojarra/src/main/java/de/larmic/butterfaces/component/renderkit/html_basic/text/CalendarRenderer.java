@@ -83,7 +83,7 @@ public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
     private String createJQueryPluginCallback(HtmlCalendar calendar) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
         jQueryPluginCall.append("on(\"dp.change\", function (e) {");
-        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(calendar.getClientId(), ".butter-input-component") + "trigger('change');");
+        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(calendar.getClientId(), ".butter-input-component") + "trigger('keyup');");
         jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }
