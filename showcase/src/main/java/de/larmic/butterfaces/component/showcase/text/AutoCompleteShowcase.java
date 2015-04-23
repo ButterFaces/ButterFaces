@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.text;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.model.text.AutoCompleteModel;
 
@@ -53,26 +54,35 @@ public class AutoCompleteShowcase extends AbstractInputShowcase implements Seria
 
         xhtmlCodeExample.appendInnerContent("\n        <b:text id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                tooltip=\"" + this.getTooltip() + "\"");
-        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
-        xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
-        xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
-        xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
+        xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "keyup");
 
-        if (this.isValidation()) {
-            xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
-        }
+        xhtmlCodeExample.appendInnerContent("            <b:autoComplete autoComplete=\"#{myBean}\"", true);
+        xhtmlCodeExample.appendInnerContent("                            rendered=\"" + this.isRendered() + "\"/>");
 
         xhtmlCodeExample.appendInnerContent("        </b:text>", true);
 
         this.addOutputExample(xhtmlCodeExample);
 
         codeExamples.add(xhtmlCodeExample);
+        codeExamples.add(createMyBeanCodeExample());
+    }
 
-        generateDemoCSS(codeExamples);
+    private JavaCodeExample createMyBeanCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "autocomplete.demo", "MyBean", true);
+
+        myBean.addImport("javax.faces.view.ViewScoped");
+        myBean.addImport("javax.inject.Named");
+        myBean.addImport("\nde.larmic.butterfaces.model.text.AutoCompleteModel");
+
+        myBean.addInterfaces("AutoCompleteModel");
+
+        myBean.appendInnerContent("    public List<String> autoComplete(Object value) {");
+        myBean.appendInnerContent("        // TODO implement me...");
+        myBean.appendInnerContent("    }");
+
+        return myBean;
     }
 
     public AutoCompleteModel getAutoCompleteModel() {
