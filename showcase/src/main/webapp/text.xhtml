@@ -12,7 +12,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{textShowcase.required}"/>
@@ -38,6 +37,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
             <showcase:tagEnumControl label="facets"
                                      value="#{textShowcase.selectedFacetType}"
                                      values="#{textShowcase.availableFacetTypes}"

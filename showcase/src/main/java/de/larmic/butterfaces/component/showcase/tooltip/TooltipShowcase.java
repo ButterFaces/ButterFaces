@@ -41,7 +41,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("                Lorem ipsum dolor sit amet, consectetuer ...");
             xhtmlCodeExample.appendInnerContent("            </h:panelGroup>");
             xhtmlCodeExample.appendInnerContent("        </b:tooltip>", false);
-        } else {
+        } else if (selectedTooltTipType == TooltipType.COMMAND_LINK) {
             xhtmlCodeExample.appendInnerContent("        <b:commandLink value=\"" + trigger + " me!\"");
             xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
             xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
@@ -55,6 +55,26 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("                </h:panelGroup>");
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
             xhtmlCodeExample.appendInnerContent("        </b:commandLink>", false);
+        } else {
+            xhtmlCodeExample.appendInnerContent("        <b:text value=\"#{myBean.value}\"");
+            xhtmlCodeExample.appendInnerContent("                label=\"" + trigger + " me!\"");
+            xhtmlCodeExample.appendInnerContent("                placeholder=\"Insert text and blur me...\">");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"blur\"");
+            xhtmlCodeExample.appendInnerContent("                    execute=\"@this\"");
+            xhtmlCodeExample.appendInnerContent("                    render=\"@this\" />");
+            xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\"");
+            xhtmlCodeExample.appendInnerContent("                              maximum=\"10\" />");
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
+            xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
+            xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + "\">");
+            xhtmlCodeExample.appendInnerContent("                <strong>some text stuff</strong>");
+            xhtmlCodeExample.appendInnerContent("                <br />");
+            xhtmlCodeExample.appendInnerContent("                <h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("                    Lorem ipsum dolor sit amet, consectetuer ...");
+            xhtmlCodeExample.appendInnerContent("                </h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("        </b:text>", false);
         }
 
         codeExamples.add(xhtmlCodeExample);

@@ -13,7 +13,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{calendarShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
@@ -42,6 +41,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
         </showcase:tagsContainer>
     </ui:define>
 
