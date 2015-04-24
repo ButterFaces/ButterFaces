@@ -636,10 +636,12 @@
       <attribute>
          <name>for</name>
          <type>java.lang.String</type>
+         <description>jQuery selector. Could be empty if tooltip component is embedded in a ButterFaces component.</description>
       </attribute>
       <attribute>
          <name>title</name>
          <type>java.lang.String</type>
+         <description>Tooltip title. If title if empty no title will be displayed.</description>
       </attribute>
       <attribute>
          <name>trigger</name>
