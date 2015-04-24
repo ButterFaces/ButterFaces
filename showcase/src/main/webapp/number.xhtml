@@ -1,7 +1,7 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -10,46 +10,63 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{numberShowcaseSingleCodeComponent.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{numberShowcaseSingleCodeComponent.tooltip}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcaseSingleCodeComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{numberShowcaseSingleCodeComponent.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{numberShowcaseSingleCodeComponent.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{numberShowcaseSingleCodeComponent.rendered}"/>
-            <showcase:tagStringControl label="min" value="#{numberShowcaseSingleCodeComponent.min}"/>
-            <showcase:tagStringControl label="max" value="#{numberShowcaseSingleCodeComponent.max}"/>
+            <showcase:tagStringControl label="label" value="#{numberShowcase.label}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{numberShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{numberShowcase.required}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{numberShowcase.rendered}"/>
+            <showcase:tagStringControl label="min" value="#{numberShowcase.min}"/>
+            <showcase:tagStringControl label="max" value="#{numberShowcase.max}"/>
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{numberShowcaseSingleCodeComponent.styleClass}"
-                                     values="#{numberShowcaseSingleCodeComponent.styleClasses}"/>
+                                     value="#{numberShowcase.styleClass}"
+                                     values="#{numberShowcase.styleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{numberShowcaseSingleCodeComponent.placeholder}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcaseSingleCodeComponent.autoFocus}"/>
+            <showcase:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcase.autoFocus}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="ajax"
-                                     value="#{numberShowcaseSingleCodeComponent.ajaxType}"
-                                     values="#{numberShowcaseSingleCodeComponent.ajaxTypes}"
+                                     value="#{numberShowcase.ajaxType}"
+                                     values="#{numberShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{numberShowcase.tooltip}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponentDeprecated id="outputComponent"
+        <showcase:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="number"
-                                         component="#{numberShowcaseSingleCodeComponent}">
-            <div class="arquillian_component">
-                <showcase:numberShowcase component="#{numberShowcaseSingleCodeComponent}"
-                                         rendered="true"/>
-            </div>
-        </showcase:showcaseOuputComponentDeprecated>
+                                         component="#{numberShowcase}">
+            <b:number label="#{numberShowcase.label}"
+                      hideLabel="#{numberShowcase.hideLabel}"
+                      value="#{numberShowcase.value}"
+                      tooltip="#{numberShowcase.tooltip}"
+                      readonly="#{numberShowcase.readonly}"
+                      required="#{numberShowcase.required}"
+                      rendered="#{numberShowcase.rendered}"
+                      placeholder="#{numberShowcase.placeholder}"
+                      min="#{numberShowcase.min}"
+                      styleClass="#{numberShowcase.styleClass}"
+                      max="#{numberShowcase.max}"
+                      autoFocus="#{numberShowcase.autoFocus}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not numberShowcase.ajax}"/>
+                <b:tooltip>
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+            </b:number>
+        </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{numberShowcaseSingleCodeComponent}"/>
+        <showcase:codeExamples component="#{numberShowcase}"/>
+        <b:activateLibraries />
     </ui:define>
 </ui:composition>

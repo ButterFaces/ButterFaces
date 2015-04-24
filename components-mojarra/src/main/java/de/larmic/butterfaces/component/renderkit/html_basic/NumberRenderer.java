@@ -7,6 +7,7 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlNumber;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -68,7 +69,7 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+        renderTooltip(context, htmlComponent);
 
         final String min = "".equals(htmlComponent.getMin()) ? "0" : htmlComponent.getMin();
         final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
@@ -80,6 +81,14 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void renderTooltip(final FacesContext context, final UIComponent component) throws IOException {
+        for (UIComponent uiComponent : component.getChildren()) {
+            if (uiComponent instanceof HtmlTooltip) {
+                uiComponent.encodeAll(context);
+            }
+        }
     }
 
     /**

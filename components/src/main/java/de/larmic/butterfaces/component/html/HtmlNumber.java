@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.Tooltip;
+
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
@@ -25,7 +27,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
-public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
+public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.number";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
