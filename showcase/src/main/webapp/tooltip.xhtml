@@ -3,7 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
-        >
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
         <strong>b:tooltip</strong> renders a <a href="http://getbootstrap.com/javascript/#popovers" target="_blank">Bootstrap popover</a> for given component.
@@ -49,18 +49,38 @@
                         <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
                     </b:tooltip>
                 </b:commandLink>
+
+                <b:text label="#{tooltipShowcase.trigger} me!"
+                        value="#{tooltipShowcase.textFieldValue}"
+                        placeholder="Insert text and blur me..."
+                        rendered="#{tooltipShowcase.selectedTooltTipType eq 'TEXT'}">
+                    <f:ajax event="blur"
+                            execute="@this"
+                            render="@this"/>
+                    <f:validateLength minimum="2" maximum="10"/>
+                    <b:tooltip title="#{tooltipShowcase.title}"
+                               trigger="#{tooltipShowcase.trigger}"
+                               placement="#{tooltipShowcase.placement}"
+                               rendered="#{tooltipShowcase.rendered}">
+                        <strong>some text stuff</strong>
+                        <br/>
+                        <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+                    </b:tooltip>
+                </b:text>
             </div>
         </div>
 
-        <b:tooltip for="#tooltipBtn"
-                   title="#{tooltipShowcase.title}"
-                   trigger="#{tooltipShowcase.trigger}"
-                   placement="#{tooltipShowcase.placement}"
-                   rendered="#{tooltipShowcase.rendered}">
-            <strong>some text stuff</strong>
-            <br />
-            <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
-        </b:tooltip>
+        <h:panelGroup layout="block" rendered="#{tooltipShowcase.selectedTooltTipType eq 'A'}">
+            <b:tooltip for="#tooltipBtn"
+                       title="#{tooltipShowcase.title}"
+                       trigger="#{tooltipShowcase.trigger}"
+                       placement="#{tooltipShowcase.placement}"
+                       rendered="#{tooltipShowcase.rendered}">
+                <strong>some text stuff</strong>
+                <br/>
+                <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+            </b:tooltip>
+        </h:panelGroup>
 
     </ui:define>
 

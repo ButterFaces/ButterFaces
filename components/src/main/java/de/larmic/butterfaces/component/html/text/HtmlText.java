@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -24,7 +25,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlText.COMPONENT_TYPE)
-public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder {
+public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder, Tooltip {
 
 	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.text";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

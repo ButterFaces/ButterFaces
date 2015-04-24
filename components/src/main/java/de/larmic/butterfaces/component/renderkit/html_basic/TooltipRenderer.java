@@ -5,12 +5,14 @@ import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Created by larmic on 31.07.14.
@@ -38,6 +40,9 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.startElement("span", tooltip);
             writer.writeAttribute("name", contentId, null);
             writer.writeAttribute("class", "butter-component-tooltip-content", null);
+            if (StringUtils.isEmpty(tooltip.getFor()) && tooltip.getParent() instanceof Tooltip) {
+                renderValidationErrors(context, writer, tooltip.getParent());
+            }
             for (UIComponent child : tooltip.getChildren()) {
                 child.encodeAll(context);
             }
@@ -64,6 +69,32 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
             writer.writeText("\n   })\n});", null);
             writer.endElement("script");
+        }
+    }
+
+    private void renderValidationErrors(final FacesContext context,
+                                        final ResponseWriter writer,
+                                        final UIComponent component) throws IOException {
+        final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+
+        while (clientIdsWithMessages.hasNext()) {
+            final String clientIdWithMessages = clientIdsWithMessages.next();
+            if (component.getClientId().equals(clientIdWithMessages)) {
+                final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
+
+                writer.startElement("div", component);
+                writer.writeAttribute("class", "butter-component-tooltip-validation-error", null);
+                writer.startElement("ul", component);
+
+                while (componentMessages.hasNext()) {
+                    writer.startElement("li", component);
+                    writer.writeText(componentMessages.next().getDetail(), null);
+                    writer.endElement("li");
+                }
+
+                writer.endElement("ul");
+                writer.endElement("div");
+            }
         }
     }
 

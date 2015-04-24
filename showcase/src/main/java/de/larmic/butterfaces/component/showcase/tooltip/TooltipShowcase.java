@@ -20,6 +20,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
     private String title = "custom title";
     private String trigger = "hover";
     private String placement;
+    private String textFieldValue;
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
@@ -98,5 +99,13 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
 
     public void setSelectedTooltTipType(TooltipType selectedTooltTipType) {
         this.selectedTooltTipType = selectedTooltTipType;
+    }
+
+    public String getTextFieldValue() {
+        return textFieldValue;
+    }
+
+    public void setTextFieldValue(String textFieldValue) {
+        this.textFieldValue = textFieldValue;
     }
 }

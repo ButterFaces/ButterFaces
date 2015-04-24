@@ -40,6 +40,9 @@
             if (data.minHorizontalOffset) {
                 root.attr('data-tooltip-min-horizontal-offset', data.minHorizontalOffset);
             }
+            if (root.next().hasClass('popover')) {
+                root.next().remove();
+            }
 
             root.popover({
                 trigger: trigger,

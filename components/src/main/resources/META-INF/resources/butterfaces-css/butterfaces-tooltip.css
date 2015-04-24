@@ -1,3 +1,7 @@
 .butter-component-tooltip-content {
     display: none;
 }
+
+.butter-component-tooltip-validation-error ul {
+    padding-left: 0;
+}

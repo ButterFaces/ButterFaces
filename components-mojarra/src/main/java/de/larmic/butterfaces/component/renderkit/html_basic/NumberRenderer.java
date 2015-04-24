@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.text;
+package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.renderkit.Attribute;

@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase.maskedText;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -51,7 +52,6 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("        <b:maskedText id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                      label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                      value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                      tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                      placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                      type=\"" + this.getType() + "\"");
         xhtmlCodeExample.appendInnerContent("                      pattern=\"" + this.getPattern() + "\"");
@@ -73,6 +73,12 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
 
         if (this.isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+        }
+
+        if (StringUtils.isNotEmpty(getTooltip())) {
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
         if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {

@@ -6,6 +6,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.partrenderer.*;
@@ -62,13 +63,20 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         this.encodeEndInnerWrapper(htmlComponent, writer);
 
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+        renderTooltip(context, component);
 
         this.encodeEnd(component, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void renderTooltip(final FacesContext context, final UIComponent component) throws IOException {
+        for (UIComponent uiComponent : component.getChildren()) {
+            if (uiComponent instanceof HtmlTooltip) {
+                uiComponent.encodeAll(context);
+            }
+        }
     }
 
     protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {

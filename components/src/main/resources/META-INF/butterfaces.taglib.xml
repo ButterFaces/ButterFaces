@@ -22,10 +22,6 @@
          <required>true</required>
       </attribute>
       <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
-      </attribute>
-      <attribute>
          <name>hideLabel</name>
          <type>java.lang.Boolean</type>
       </attribute>
@@ -88,10 +84,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -160,10 +152,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>glyphiconTime</name>
@@ -244,10 +232,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -382,10 +366,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>

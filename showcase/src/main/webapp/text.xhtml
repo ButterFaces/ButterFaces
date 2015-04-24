@@ -56,7 +56,6 @@
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
@@ -75,13 +74,15 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}" />
+                <b:tooltip>
+                    #{textShowcase.tooltip}
+                </b:tooltip>
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
@@ -100,6 +101,9 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
+                <b:tooltip>
+                    #{textShowcase.tooltip}
+                </b:tooltip>
                 <f:facet name="input-group-addon-left">
                     Left input-group-addon
                 </f:facet>
@@ -112,7 +116,6 @@
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
@@ -123,6 +126,9 @@
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
                     styleClass="#{textShowcase.styleClass}">
+                <b:tooltip>
+                    #{textShowcase.tooltip}
+                </b:tooltip>
                 <f:ajax event="keyup"
                         execute="@this"
                         listener="#{textShowcase.someListenerAction}"
