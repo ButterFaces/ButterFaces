@@ -25,20 +25,36 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
-        xhtmlCodeExample.appendInnerContent("        <a id=\"btn\">"+trigger+" me!</a>");
+        if (selectedTooltTipType == TooltipType.A) {
+            xhtmlCodeExample.appendInnerContent("        <a id=\"btn\" class=\"btn btn-default\">" + trigger + " me!</a>");
 
-        xhtmlCodeExample.appendInnerContent("        <b:tooltip id=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                   for=\"btn\"");
-        xhtmlCodeExample.appendInnerContent("                   title=\"" + title + "\"");
-        xhtmlCodeExample.appendInnerContent("                   trigger=\"" + trigger + "\"");
-        xhtmlCodeExample.appendInnerContent("                   placement=\"" + placement + "\"");
-        xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
-        xhtmlCodeExample.appendInnerContent("            <strong>some text stuff</strong>");
-        xhtmlCodeExample.appendInnerContent("            <br />");
-        xhtmlCodeExample.appendInnerContent("            <h:panelGroup>");
-        xhtmlCodeExample.appendInnerContent("                Lorem ipsum dolor sit amet, consectetuer ...");
-        xhtmlCodeExample.appendInnerContent("            </h:panelGroup>");
-        xhtmlCodeExample.appendInnerContent("        </b:tooltip>", false);
+            xhtmlCodeExample.appendInnerContent("        <b:tooltip id=\"input\"");
+            xhtmlCodeExample.appendInnerContent("                   for=\"btn\"");
+            xhtmlCodeExample.appendInnerContent("                   title=\"" + title + "\"");
+            xhtmlCodeExample.appendInnerContent("                   trigger=\"" + trigger + "\"");
+            xhtmlCodeExample.appendInnerContent("                   placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
+            xhtmlCodeExample.appendInnerContent("            <strong>some text stuff</strong>");
+            xhtmlCodeExample.appendInnerContent("            <br />");
+            xhtmlCodeExample.appendInnerContent("            <h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("                Lorem ipsum dolor sit amet, consectetuer ...");
+            xhtmlCodeExample.appendInnerContent("            </h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("        </b:tooltip>", false);
+        } else {
+            xhtmlCodeExample.appendInnerContent("        <b:commandLink value=\"" + trigger + " me!\"");
+            xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
+            xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
+            xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + "\">");
+            xhtmlCodeExample.appendInnerContent("                <strong>some text stuff</strong>");
+            xhtmlCodeExample.appendInnerContent("                <br />");
+            xhtmlCodeExample.appendInnerContent("                <h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("                    Lorem ipsum dolor sit amet, consectetuer ...");
+            xhtmlCodeExample.appendInnerContent("                </h:panelGroup>");
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("        </b:commandLink>", false);
+        }
 
         codeExamples.add(xhtmlCodeExample);
     }
