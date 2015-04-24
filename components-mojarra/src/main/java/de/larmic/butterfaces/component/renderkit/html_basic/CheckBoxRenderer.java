@@ -70,9 +70,6 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         // Close inner component wrapper div
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
-
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }

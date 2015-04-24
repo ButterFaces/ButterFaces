@@ -33,6 +33,10 @@ select.butter-input-component {
     padding: 6px 0 0 0;
 }
 
+.butter-component-checkbox-withDescription {
+    padding-top: 6px;
+}
+
 .butter-component-value {
     display: inline-table;
     width: calc(100% - 120px);
