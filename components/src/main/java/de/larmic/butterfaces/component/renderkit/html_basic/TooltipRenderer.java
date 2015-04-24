@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -31,39 +32,49 @@ public class TooltipRenderer extends HtmlBasicRenderer {
 
         final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
         final String contentId = component.getClientId().replace(separatorChar + "", "_");
-        final String forSelector = tooltip.getFor();
+        final String forSelector = getForElement(tooltip);
 
-        writer.startElement("span", tooltip);
-        writer.writeAttribute("name", contentId, null);
-        writer.writeAttribute("class", "butter-component-tooltip-content", null);
-        for (UIComponent child : tooltip.getChildren()) {
-            child.encodeAll(context);
+        if (StringUtils.isNotEmpty(forSelector)) {
+            writer.startElement("span", tooltip);
+            writer.writeAttribute("name", contentId, null);
+            writer.writeAttribute("class", "butter-component-tooltip-content", null);
+            for (UIComponent child : tooltip.getChildren()) {
+                child.encodeAll(context);
+            }
+            writer.endElement("span");
+
+            writer.startElement("script", tooltip);
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("   jQuery(", null);
+            writer.writeText(forSelector, null);
+            writer.writeText(")._butterTooltip({\n", null);
+            writer.writeText("      trigger: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
+            writer.writeText(",\n      title: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
+            writer.writeText(",\n      placement: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getPlacement()), null);
+            writer.writeText(",\n      placementFunction: ", null);
+            writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
+            writer.writeText(",\n      contentByName: '", null);
+            writer.writeText(contentId, null);
+            writer.writeText("',\n      minVerticalOffset: ", null);
+            writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
+            writer.writeText(",\n      minHorizontalOffset: ", null);
+            writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
+            writer.writeText("\n   })\n});", null);
+            writer.endElement("script");
         }
-        writer.endElement("span");
+    }
 
-        writer.startElement("script", tooltip);
-        writer.writeText("jQuery(document).ready(function() {\n", null);
-        writer.writeText("   jQuery('", null);
-        writer.writeText(forSelector, null);
-        writer.writeText("')._butterTooltip({\n", null);
-        writer.writeText("      forElement: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getFor()), null);
-        writer.writeText(",\n      trigger: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
-        writer.writeText(",\n      title: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
-        writer.writeText(",\n      placement: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getPlacement()), null);
-        writer.writeText(",\n      placementFunction: ", null);
-        writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
-        writer.writeText(",\n      contentByName: '", null);
-        writer.writeText(contentId, null);
-        writer.writeText("',\n      minVerticalOffset: ", null);
-        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
-        writer.writeText(",\n      minHorizontalOffset: ", null);
-        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
-        writer.writeText("\n   })\n});", null);
-        writer.endElement("script");
+    private String getForElement(HtmlTooltip tooltip) {
+        if (StringUtils.isNotEmpty(tooltip.getFor())) {
+            return "'" + tooltip.getFor() + "'";
+        } else if (tooltip.getParent() instanceof Tooltip) {
+            return "document.getElementById('" + tooltip.getParent().getClientId() + "')";
+        }
+
+        return null;
     }
 
     private String getNullSafeStringParameter(final String value) {
