@@ -77,6 +77,12 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
 		this.addAjaxTag(xhtmlCodeExample, "change");
 
+		if (StringUtils.isNotEmpty(getTooltip())) {
+			xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+			xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+			xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+		}
+
 		if (this.isValidation()) {
 			xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
 		}

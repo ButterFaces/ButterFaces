@@ -62,9 +62,6 @@ public class ComboBoxRenderer extends MenuRenderer {
       // Render textarea expandable script call
       new FilterableSelectPartRenderer().renderFilterable(htmlComponent, writer);
 
-      // render tooltip elements if necessary
-      new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
-
       // Open outer component wrapper div
       new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
    }
