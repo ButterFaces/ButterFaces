@@ -1,5 +1,9 @@
-.butter-component-tooltip-content {
+.butter-component-tooltip-temp-content {
     display: none;
+}
+
+.butter-component-tooltip-validation-error {
+    color: #a94442;
 }
 
 .butter-component-tooltip-validation-error ul {

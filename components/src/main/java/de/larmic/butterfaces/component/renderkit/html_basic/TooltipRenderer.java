@@ -39,7 +39,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         if (StringUtils.isNotEmpty(forSelector)) {
             writer.startElement("span", tooltip);
             writer.writeAttribute("name", contentId, null);
-            writer.writeAttribute("class", "butter-component-tooltip-content", null);
+            writer.writeAttribute("class", "butter-component-tooltip-temp-content", null);
             if (StringUtils.isEmpty(tooltip.getFor()) && tooltip.getParent() instanceof Tooltip) {
                 renderValidationErrors(context, writer, tooltip.getParent());
             }
