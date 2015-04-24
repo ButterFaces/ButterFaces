@@ -1,8 +1,8 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -11,50 +11,69 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{radioBoxShowcaseSingleCodeComponent.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcaseSingleCodeComponent.tooltip}" />
-            <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcaseSingleCodeComponent.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcaseSingleCodeComponent.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{radioBoxShowcaseSingleCodeComponent.required}" />
-            <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcaseSingleCodeComponent.rendered}" />
+            <showcase:tagStringControl label="label" value="#{radioBoxShowcase.label}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{radioBoxShowcase.required}" />
+            <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}" />
             <showcase:tagEnumControl label="styleClass"
-                                     value="#{radioBoxShowcaseSingleCodeComponent.styleClass}"
-                                     values="#{radioBoxShowcaseSingleCodeComponent.styleClasses}"/>
+                                     value="#{radioBoxShowcase.styleClass}"
+                                     values="#{radioBoxShowcase.styleClasses}"/>
         </showcase:tagsContainer>
 
         <showcase:tagsContainer label="Tag controls">
             <showcase:tagEnumControl label="radio box"
-                                     value="#{radioBoxShowcaseSingleCodeComponent.comboBoxValueType}"
-                                     values="#{radioBoxShowcaseSingleCodeComponent.comboBoxTypes}"
+                                     value="#{radioBoxShowcase.comboBoxValueType}"
+                                     values="#{radioBoxShowcase.comboBoxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="comboboxPopoverContent"/>
             <showcase:tagEnumControl label="radio box"
-                                     value="#{radioBoxShowcaseSingleCodeComponent.radioBoxLayoutType}"
-                                     values="#{radioBoxShowcaseSingleCodeComponent.radioLayoutTypes}"
+                                     value="#{radioBoxShowcase.radioBoxLayoutType}"
+                                     values="#{radioBoxShowcase.radioLayoutTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="radioboxLayoutPopoverContent"/>
             <showcase:tagEnumControl label="ajax"
-                                     value="#{radioBoxShowcaseSingleCodeComponent.ajaxType}"
-                                     values="#{radioBoxShowcaseSingleCodeComponent.ajaxTypes}"
+                                     value="#{radioBoxShowcase.ajaxType}"
+                                     values="#{radioBoxShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcase.tooltip}" />
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponentDeprecated id="outputComponent" activeComponentNavigationId="radiobox" component="#{radioBoxShowcaseSingleCodeComponent}">
-            <showcase:radioBoxShowcase component="#{radioBoxShowcaseSingleCodeComponent}"
-                                       rendered="true"/>
-        </showcase:showcaseOuputComponentDeprecated>
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="radiobox"
+                                         component="#{radioBoxShowcase}">
+            <b:radioBox label="#{radioBoxShowcase.label}"
+                        value="#{radioBoxShowcase.value}"
+                        hideLabel="#{radioBoxShowcase.hideLabel}"
+                        readonly="#{radioBoxShowcase.readonly}"
+                        required="#{radioBoxShowcase.required}"
+                        rendered="#{radioBoxShowcase.rendered}"
+                        layout="#{radioBoxShowcase.radioBoxLayoutType.label}"
+                        styleClass="#{radioBoxShowcase.styleClass}">
+                <f:selectItems value="#{radioBoxShowcase.values}"/>
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not radioBoxShowcase.ajax}"/>
+                <b:tooltip>
+                    #{radioBoxShowcase.tooltip}
+                </b:tooltip>
+                <c:if test="#{radioBoxShowcase.converterActive}">
+                    <f:converter converterId="fooConverter"/>
+                </c:if>
+            </b:radioBox>
+        </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
+        <showcase:codeExamples component="#{radioBoxShowcase}"/>
         <b:activateLibraries />
-
-        <showcase:showcaseSimpleExampleComponent component="#{radioBoxShowcaseSingleCodeComponent}" />
     </ui:define>
 
 </ui:composition>

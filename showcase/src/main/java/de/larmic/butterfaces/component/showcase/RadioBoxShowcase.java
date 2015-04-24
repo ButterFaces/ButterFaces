@@ -1,24 +1,25 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
 import de.larmic.butterfaces.component.showcase.comboBox.FooType;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
+public class RadioBoxShowcase extends AbstractInputShowcase implements Serializable {
 
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
@@ -27,7 +28,7 @@ public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 	private final List<SelectItem> enums = new ArrayList<SelectItem>();
 	private final List<SelectItem> strings = new ArrayList<SelectItem>();
 
-	public RadioBoxShowcaseSingleCodeComponent() {
+	public RadioBoxShowcase() {
 		this.initFoos();
 		this.initStrings();
 		this.initEnums();
@@ -46,6 +47,55 @@ public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 
 		return "(item is null)";
 	}
+
+	@Override
+	public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+		final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+
+		xhtmlCodeExample.appendInnerContent("        <b:radioBox id=\"input\"");
+		xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    layout=\"" + radioBoxLayoutType.label + "\"");
+		xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
+
+		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
+			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2000\" \n");
+			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2000\"/>\n");
+			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2010\" \n");
+			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2010\"/>\n");
+			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2020\" \n");
+			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2020\"/>\n");
+		} else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
+			xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
+		} else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
+			xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
+			xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>\n");
+		}
+
+		this.addAjaxTag(xhtmlCodeExample, "change");
+
+		if (this.isValidation()) {
+			xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+		}
+
+		if (StringUtils.isNotEmpty(getTooltip())) {
+			xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+			xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+			xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+		}
+
+		xhtmlCodeExample.appendInnerContent("        </b:radioBox>", false);
+
+		this.addOutputExample(xhtmlCodeExample);
+
+		codeExamples.add(xhtmlCodeExample);
+
+		generateDemoCSS(codeExamples);
+	}
+
 
 	@Override
 	public String getReadableValue() {
@@ -72,67 +122,6 @@ public class RadioBoxShowcaseSingleCodeComponent extends AbstractInputShowcaseSi
 			return this.strings;
 		}
 	}
-
-	@Override
-	public String getXHtml() {
-		final StringBuilder sb = new StringBuilder();
-
-        this.addXhtmlStart(sb);
-
-		sb.append("        <b:radioBox id=\"input\"\n");
-		sb.append("                    label=\"" + this.getLabel() + "\"\n");
-		sb.append("                    value=\"" + this.getValue() + "\"\n");
-
-        this.appendString("tooltip", this.getTooltip(), sb);
-
-        this.appendBoolean("readonly", this.isReadonly(), sb);
-        this.appendBoolean("required", this.isRequired(), sb);
-        this.appendString("layout", radioBoxLayoutType.label, sb);
-        this.appendString("styleClass", this.getStyleClass(), sb);
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
-
-		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
-			sb.append("            <f:selectItem itemValue=\"2000\" \n");
-			sb.append("                          itemLabel=\"Year 2000\"/>\n");
-			sb.append("            <f:selectItem itemValue=\"2010\" \n");
-			sb.append("                          itemLabel=\"Year 2010\"/>\n");
-			sb.append("            <f:selectItem itemValue=\"2020\" \n");
-			sb.append("                          itemLabel=\"Year 2020\"/>\n");
-		} else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-			sb.append("            <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
-		} else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
-			sb.append("            <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
-			sb.append("            <f:converter converterId=\"fooConverter\"/>\n");
-		}
-
-		this.createAjaxXhtml(sb, "change");
-
-		sb.append("        </b:radioBox>");
-
-		this.createOutputXhtml(sb);
-
-        this.addXhtmlEnd(sb);
-
-		return sb.toString();
-	}
-
-	@Override
-	protected void addCss(StringBuilder sb) {
-		if (!StringUtils.isEmpty(this.getStyleClass())) {
-			sb
-					.append(".demo-big-label .butter-component-label {\n")
-					.append("    width: 250px;\n")
-					.append("}\n")
-					.append("\n")
-					.append(".demo-big-label .butter-component-value {\n")
-					.append("    width: calc(100% - 250px);\n")
-					.append("}");
-		}
-	}
-
-    protected String getEmptyDistanceString() {
-        return "                    ";
-    }
 
 	public boolean isConverterActive() {
 		return this.comboBoxValueType == ComboBoxValueType.OBJECT;
