@@ -19,8 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "01-moment-with-locales.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.js", target = "head")
 })
 @FacesComponent(HtmlCalendar.COMPONENT_TYPE)
 public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFocus, Placeholder {

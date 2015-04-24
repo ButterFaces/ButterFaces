@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.html;
 
-import java.util.Collections;
-import java.util.List;
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputTextarea;
-
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
+import java.util.Collections;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -18,12 +18,11 @@ import de.larmic.butterfaces.component.html.feature.Placeholder;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-maxlength.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
-public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus {
+public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.textArea";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

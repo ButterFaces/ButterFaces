@@ -6,7 +6,7 @@ import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.text.HtmlNumber;
+import de.larmic.butterfaces.component.html.HtmlNumber;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;

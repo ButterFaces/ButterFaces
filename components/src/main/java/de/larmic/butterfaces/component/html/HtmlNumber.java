@@ -1,7 +1,4 @@
-package de.larmic.butterfaces.component.html.text;
-
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
+package de.larmic.butterfaces.component.html;
 
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;

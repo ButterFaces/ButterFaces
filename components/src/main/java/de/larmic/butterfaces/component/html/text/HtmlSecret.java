@@ -9,8 +9,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")
 })
 @FacesComponent(HtmlSecret.COMPONENT_TYPE)
 public class HtmlSecret extends HtmlText {
