@@ -1,11 +1,14 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.tooltip;
 
+import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -13,6 +16,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TooltipShowcase extends AbstractCodeShowcase implements Serializable {
 
+    private TooltipType selectedTooltTipType = TooltipType.A;
     private String title = "custom title";
     private String trigger = "hover";
     private String placement;
@@ -39,6 +43,15 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
         codeExamples.add(xhtmlCodeExample);
     }
 
+    public List<SelectItem> getTooltipTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TooltipType type : TooltipType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -61,5 +74,13 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
 
     public void setPlacement(String placement) {
         this.placement = placement;
+    }
+
+    public TooltipType getSelectedTooltTipType() {
+        return selectedTooltTipType;
+    }
+
+    public void setSelectedTooltTipType(TooltipType selectedTooltTipType) {
+        this.selectedTooltTipType = selectedTooltTipType;
     }
 }
