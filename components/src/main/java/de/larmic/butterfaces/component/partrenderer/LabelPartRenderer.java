@@ -1,11 +1,13 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
-
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
 
 /**
  * Created by larmic on 27.08.14.
@@ -34,10 +36,10 @@ public class LabelPartRenderer {
             writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
                     Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS), null);
 
-            if(!StringUtils.isEmpty(label)) {
+            if (!StringUtils.isEmpty(label)) {
                 writer.startElement("abbr", uiComponent);
-                if (this.isTooltipNecessary(component)) {
-                    writer.writeAttribute("title", component.getTooltip(), null);
+                if (this.isTooltipNecessary(uiComponent)) {
+                    writer.writeAttribute("title", "", null);
                 }
                 writer.writeText(component.getLabel(), null);
                 writer.endElement("abbr");
@@ -60,7 +62,15 @@ public class LabelPartRenderer {
         }
     }
 
-    private boolean isTooltipNecessary(final HtmlInputComponent component) {
-        return !StringUtils.isEmpty(component.getTooltip());
+    private boolean isTooltipNecessary(final javax.faces.component.UIComponentBase component) {
+        if (component instanceof Tooltip) {
+            for (UIComponent uiComponent : component.getChildren()) {
+                if (uiComponent instanceof HtmlTooltip) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

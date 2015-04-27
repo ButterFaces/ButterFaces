@@ -28,7 +28,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TextAreaRenderer";
 
-    protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
@@ -48,15 +47,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    @Override
-    public String getTooltip() {
-        return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
-    }
-
-    public void setTooltip(final String tooltip) {
-        this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
     }
 
     @Override

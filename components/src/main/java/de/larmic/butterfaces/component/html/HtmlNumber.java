@@ -33,7 +33,6 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.NumberRenderer";
 
-    protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
@@ -72,15 +71,6 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    @Override
-    public String getTooltip() {
-        return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
-    }
-
-    public void setTooltip(final String tooltip) {
-        this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
     }
 
     @Override

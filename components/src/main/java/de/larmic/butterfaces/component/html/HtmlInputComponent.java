@@ -1,12 +1,9 @@
 package de.larmic.butterfaces.component.html;
 
+import javax.faces.component.UIComponent;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-
 public interface HtmlInputComponent {
-
-    String getTooltip();
 
     boolean isReadonly();
 
