@@ -18,9 +18,10 @@ public class OuterComponentWrapperPartRenderer {
         writer.startElement("div", uiComponent);
         writer.writeAttribute("id", component.getClientId(), null);
 
+        final String readonly = component.isReadonly() ? "butter-component-readonly" : "";
         final String validationClass = valid ? null : Constants.BOOTSTRAP_ERROR;
         final String styleClass = StringUtils.concatWithSpace(Constants.COMPONENT_STYLE_CLASS, Constants.BOOTSTRAP_CONTAINER,
-                component.getStyleClass(), validationClass);
+                component.getStyleClass(), validationClass, readonly);
 
         writer.writeAttribute("class", styleClass, null);
     }
