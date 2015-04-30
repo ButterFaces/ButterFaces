@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
@@ -123,10 +124,12 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 final int eventNumber = Integer.valueOf(split[1]);
                 if ("toggle".equals(event) && this.cachedTableComponent.getTableColumnDisplayModel() != null) {
                     final HtmlColumn toggledColumn = this.cachedTableComponent.getCachedColumns().get(eventNumber);
+                    final String tableUniqueIdentifier = StringUtils.getNotNullValue(cachedTableComponent.getUniqueIdentifier(), cachedTableComponent.getId());
+                    final String columnUniqueIdentifier = StringUtils.getNotNullValue(toggledColumn.getUniqueIdentifier(), toggledColumn.getId());
                     if (this.isHideColumn(this.cachedTableComponent, toggledColumn)) {
-                        this.cachedTableComponent.getTableColumnDisplayModel().showColumn(toggledColumn.getId());
+                        this.cachedTableComponent.getTableColumnDisplayModel().showColumn(tableUniqueIdentifier, columnUniqueIdentifier);
                     } else {
-                        this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(toggledColumn.getId());
+                        this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(tableUniqueIdentifier, columnUniqueIdentifier);
                     }
                 }
             } else if (behaviorEvent.equals("refresh")) {
@@ -202,7 +205,9 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnDisplayModel() != null) {
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(column.getId());
+            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
+            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }

@@ -148,7 +148,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
             if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null && ajaxRequest != null) {
                 writer.startElement("span", table);
-                final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(column.getId());
+                final String tableUniqueIdentifier = StringUtils.getNotNullValue(htmlTable.getUniqueIdentifier(), table.getId());
+                final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+                final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
 
                 final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
 
@@ -174,7 +176,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnDisplayModel() != null) {
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(column.getId());
+            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
+            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }
@@ -338,10 +342,12 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     }
                 } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                     final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
-                    if (htmlTable.getTableSortModel().getSortType(sortedColumn.getId()) == SortType.ASCENDING) {
-                        htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.DESCENDING);
+                    final String tableUniqueIdentifier = StringUtils.getNotNullValue(htmlTable.getUniqueIdentifier(), htmlTable.getId());
+                    final String columnUniqueIdentifier = StringUtils.getNotNullValue(sortedColumn.getUniqueIdentifier(), sortedColumn.getId());
+                    if (htmlTable.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
+                        htmlTable.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.DESCENDING);
                     } else {
-                        htmlTable.getTableSortModel().sortColumn(sortedColumn.getId(), sortedColumn.getSortBy(), SortType.ASCENDING);
+                        htmlTable.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.ASCENDING);
                     }
                 }
             } catch (NumberFormatException e) {
