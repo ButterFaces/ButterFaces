@@ -26,6 +26,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-filterable.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-tooltip.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-autocomplete.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-labeled-container.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-overlay.js", target = "head"),

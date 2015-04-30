@@ -1,7 +1,9 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.feature.HideLabel;
+import de.larmic.butterfaces.component.html.feature.Readonly;
+import de.larmic.butterfaces.component.html.feature.SupportedFacets;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -20,80 +22,84 @@ public class InnerComponentWrapperPartRenderer {
     public static final String INPUT_GROUP_BTN_LEFT = "input-group-btn-left";
     public static final String INPUT_GROUP_BTN_RIGHT = "input-group-btn-right";
 
-    public void renderInnerWrapperBegin(final HtmlInputComponent component,
+    public void renderInnerWrapperBegin(final UIComponent component,
                                         final ResponseWriter writer) throws IOException {
-        this.renderInnerWrapperBegin(component, writer, component.isReadonly());
+        final boolean readonly = component instanceof Readonly && ((Readonly) component).isReadonly();
+        this.renderInnerWrapperBegin(component, writer, readonly);
     }
 
-    public void renderInnerWrapperBegin(final HtmlInputComponent component,
+    public void renderInnerWrapperBegin(final UIComponent component,
                                         final ResponseWriter writer,
                                         final boolean readonly) throws IOException {
-        final UIInput uiComponent = (UIInput) component;
-
         if (!readonly) {
-            writer.startElement("div", uiComponent);
+            writer.startElement("div", component);
             writer.writeAttribute("class", this.createComponentStyleClass(component), null);
         }
     }
 
-    private String createComponentStyleClass(final HtmlInputComponent component) {
+    private String createComponentStyleClass(final UIComponent component) {
         final StringBuilder componentStyleClass = new StringBuilder();
         componentStyleClass.append(this.createDefaultStyleClass(component));
 
-        if (component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
-                && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)
-                || component.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN)
-                && (component.getFacet(INPUT_GROUP_BTN_LEFT) != null || component.getFacet(INPUT_GROUP_BTN_RIGHT) != null)
-                || component.getSupportedFacets().contains(InputComponentFacet.CALENDAR)) {
-            componentStyleClass.append(" input-group");
+        if (component instanceof SupportedFacets) {
+            final SupportedFacets supportedFacets = (SupportedFacets) component;
+            if (supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
+                    && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)
+                    || supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN)
+                    && (component.getFacet(INPUT_GROUP_BTN_LEFT) != null || component.getFacet(INPUT_GROUP_BTN_RIGHT) != null)
+                    || supportedFacets.getSupportedFacets().contains(InputComponentFacet.CALENDAR)) {
+                componentStyleClass.append(" input-group");
+            }
         }
 
         return componentStyleClass.toString();
     }
 
-    private String createDefaultStyleClass(HtmlInputComponent component) {
+    private String createDefaultStyleClass(UIComponent component) {
+        final boolean hideLabel = component instanceof HideLabel && ((HideLabel) component).isHideLabel();
         final StringBuilder defaultStyleClass = new StringBuilder();
-        if (component.isHideLabel()) {
+        if (hideLabel) {
             defaultStyleClass.append("butter-component-value-hiddenLabel");
-        }else {
-           defaultStyleClass.append("butter-component-value");
+        } else {
+            defaultStyleClass.append("butter-component-value");
         }
         return defaultStyleClass.toString();
     }
 
-    public void renderInnerWrapperEnd(final HtmlInputComponent component,
+    public void renderInnerWrapperEnd(final UIComponent component,
                                       final ResponseWriter writer) throws IOException {
-        this.renderInnerWrapperEnd((UIComponent) component, writer, component.isReadonly());
+        final boolean readonly = component instanceof Readonly && ((Readonly) component).isReadonly();
+        this.renderInnerWrapperEnd(component, writer, readonly);
     }
 
     public void renderInnerWrapperEnd(final UIComponent component,
                                       final ResponseWriter writer,
                                       final boolean readonly) throws IOException {
         if (!readonly) {
-            final UIInput uiComponent = (UIInput) component;
-
             writer.endElement("div");
 
-            final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
-            final Iterator<String> eventNamesIterator = eventNames.iterator();
+            if (component instanceof UIInput) {
+                final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
+                final Iterator<String> eventNamesIterator = eventNames.iterator();
 
-            if (eventNamesIterator.hasNext()) {
-                final StringBuilder sb = new StringBuilder("[");
+                if (eventNamesIterator.hasNext()) {
+                    final StringBuilder sb = new StringBuilder("[");
 
-                while (eventNamesIterator.hasNext()) {
-                    sb.append("'");
-                    sb.append(eventNamesIterator.next());
-                    sb.append("'");
+                    while (eventNamesIterator.hasNext()) {
+                        sb.append("'");
+                        sb.append(eventNamesIterator.next());
+                        sb.append("'");
 
-                    if (eventNamesIterator.hasNext()) {
-                        sb.append(", ");
+                        if (eventNamesIterator.hasNext()) {
+                            sb.append(", ");
+                        }
                     }
+
+                    sb.append("]");
+
+                    final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
+                    RenderUtils.renderJavaScriptCall(function, writer, component);
                 }
-
-                sb.append("]");
-
-                final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
-                RenderUtils.renderJavaScriptCall(function, writer, uiComponent);
             }
         }
     }

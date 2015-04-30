@@ -1,11 +1,11 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlTooltip;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.component.html.feature.HideLabel;
+import de.larmic.butterfaces.component.html.feature.Label;
+import de.larmic.butterfaces.component.html.feature.Readonly;
+import de.larmic.butterfaces.component.html.feature.Required;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
@@ -14,34 +14,30 @@ import java.io.IOException;
  */
 public class LabelPartRenderer {
 
-
-    public void renderLabel(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
-        final boolean readonly = component.isReadonly();
-        final boolean required = component.isRequired();
-        final String label = component.getLabel();
+    public void renderLabel(final UIComponent component, final ResponseWriter responseWriter) throws IOException {
+        final boolean readonly = component instanceof Readonly && ((Readonly) component).isReadonly();
+        final boolean required = component instanceof Required && ((Required) component).isRequired();
+        final String label = component instanceof Label ? ((Label) component).getLabel() : "";
 
         writeLabelIfNecessary(component, readonly, required, label, responseWriter);
     }
 
-    private void writeLabelIfNecessary(final HtmlInputComponent component, final boolean readonly,
+    private void writeLabelIfNecessary(final UIComponent component, final boolean readonly,
                                        final boolean required, final String label, final ResponseWriter writer) throws IOException {
-        if (!component.isHideLabel()) {
-            final UIInput uiComponent = (UIInput) component;
+        final boolean hideLabel = component instanceof HideLabel && ((HideLabel) component).isHideLabel();
 
-            writer.startElement("label", uiComponent);
+        if (!hideLabel) {
+            writer.startElement("label", component);
             if (!readonly) {
-                writer.writeAttribute("for", uiComponent.getId(), null);
+                writer.writeAttribute("for", component.getId(), null);
             }
 
             writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
                     Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS), null);
 
             if (!StringUtils.isEmpty(label)) {
-                writer.startElement("abbr", uiComponent);
-                if (this.isTooltipNecessary(uiComponent)) {
-                    writer.writeAttribute("title", "", null);
-                }
-                writer.writeText(component.getLabel(), null);
+                writer.startElement("abbr", component);
+                writer.writeText(label, null);
                 writer.endElement("abbr");
             }
 
@@ -60,17 +56,5 @@ public class LabelPartRenderer {
             writer.writeText("*", null);
             writer.endElement("span");
         }
-    }
-
-    private boolean isTooltipNecessary(final javax.faces.component.UIComponentBase component) {
-        if (component instanceof Tooltip) {
-            for (UIComponent uiComponent : component.getChildren()) {
-                if (uiComponent instanceof HtmlTooltip) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }

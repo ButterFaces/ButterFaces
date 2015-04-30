@@ -36,12 +36,12 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
 
-        this.encodeBeginInnerWrapper(htmlComponent, writer);
+        this.encodeBeginInnerWrapper(component, writer);
         this.encodeReadonly(htmlComponent, writer);
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         this.encodeInnerEnd(component, writer);
 
-        this.encodeEndInnerWrapper(htmlComponent, writer);
+        this.encodeEndInnerWrapper(component, writer);
 
         renderTooltipIfNecessary(context, component);
 
@@ -136,14 +136,14 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         }
     }
 
-    protected void encodeEndInnerWrapper(T htmlComponent, ResponseWriter writer) throws IOException {
+    protected void encodeEndInnerWrapper(UIComponent component, ResponseWriter writer) throws IOException {
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
     }
 
-    protected void encodeBeginInnerWrapper(T htmlComponent, ResponseWriter writer) throws IOException {
+    protected void encodeBeginInnerWrapper(UIComponent component, ResponseWriter writer) throws IOException {
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
     }
 
     protected void encodeInnerEnd(final UIComponent component, final ResponseWriter writer) throws IOException {

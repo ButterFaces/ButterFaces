@@ -33,13 +33,13 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -57,7 +57,7 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         }
 
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
 
         renderTooltipIfNecessary(context, component);
 

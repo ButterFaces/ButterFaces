@@ -40,10 +40,10 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
 
         // Open inner component wrapper div
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
