@@ -13,7 +13,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
@@ -39,6 +38,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
             <showcase:tagEnumControl label="facets"
                                      value="#{maskedTextShowcase.selectedFacetType}"
                                      values="#{maskedTextShowcase.availableFacetTypes}"
@@ -84,7 +84,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not maskedTextShowcase.validation}"/>
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
                     #{maskedTextShowcase.tooltip}
                 </b:tooltip>
             </b:maskedText>
@@ -118,7 +118,7 @@
                 <f:facet name="input-group-addon-right">
                     Right input-group-addon
                 </f:facet>
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
                     #{maskedTextShowcase.tooltip}
                 </b:tooltip>
             </b:maskedText>
@@ -146,7 +146,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not maskedTextShowcase.validation}"/>
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
                     #{maskedTextShowcase.tooltip}
                 </b:tooltip>
                 <f:facet name="input-group-btn-left">

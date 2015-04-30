@@ -7,8 +7,8 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
-import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -32,6 +32,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         super.encodeBegin(context, component);
 
         final T htmlComponent = (T) component;
+
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
@@ -63,7 +64,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         this.encodeEndInnerWrapper(htmlComponent, writer);
 
-        renderTooltip(context, component);
+        renderTooltipIfNecessary(context, component);
 
         this.encodeEnd(component, writer);
 
@@ -71,12 +72,17 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
-    protected void renderTooltip(final FacesContext context, final UIComponent component) throws IOException {
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
         for (UIComponent uiComponent : component.getChildren()) {
             if (uiComponent instanceof HtmlTooltip) {
                 uiComponent.encodeAll(context);
+                if (uiComponent.isRendered()) {
+                    break;
+                }
             }
         }
+
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
     }
 
     protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {

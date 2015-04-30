@@ -61,7 +61,7 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not comboBoxShowcase.ajax}" />
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
                 <c:if test="#{comboBoxShowcase.converterActive}">

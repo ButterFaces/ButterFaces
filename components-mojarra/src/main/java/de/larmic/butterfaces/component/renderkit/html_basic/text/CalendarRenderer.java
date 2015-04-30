@@ -39,7 +39,7 @@ public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(calendar, writer);
 
         // render tooltip elements if necessary
-        renderTooltip(context, calendar);
+        renderTooltipIfNecessary(context, calendar);
 
         if (calendar.isPickDate() || calendar.isPickTime()) {
             writer.startElement("script", calendar);

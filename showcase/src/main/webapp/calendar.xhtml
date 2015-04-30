@@ -76,7 +76,7 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not calendarShowcase.ajax}"/>
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty calendarShowcase.tooltip}">
                     #{calendarShowcase.tooltip}
                 </b:tooltip>
             </b:calendar>

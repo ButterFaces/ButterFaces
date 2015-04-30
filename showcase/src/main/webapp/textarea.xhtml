@@ -61,7 +61,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textAreaShowcase.validation}" />
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty textAreaShowcase.tooltip}">
                     #{textAreaShowcase.tooltip}
                 </b:tooltip>
             </b:textArea>

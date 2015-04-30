@@ -59,6 +59,8 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         // Close inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
+        renderTooltipIfNecessary(context, component);
+
         // Render textarea counter
         new MaxLengthPartRenderer().renderMaxLength(htmlComponent, writer);
 
@@ -67,6 +69,10 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
     }
 
     /**

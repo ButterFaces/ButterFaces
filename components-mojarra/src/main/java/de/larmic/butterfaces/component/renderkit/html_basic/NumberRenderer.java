@@ -69,7 +69,7 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
         // render tooltip elements if necessary
-        renderTooltip(context, htmlComponent);
+        renderTooltipIfNecessary(context, htmlComponent);
 
         final String min = "".equals(htmlComponent.getMin()) ? "0" : htmlComponent.getMin();
         final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
@@ -83,12 +83,17 @@ public class NumberRenderer extends HtmlBasicInputRenderer {
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
-    protected void renderTooltip(final FacesContext context, final UIComponent component) throws IOException {
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
         for (UIComponent uiComponent : component.getChildren()) {
             if (uiComponent instanceof HtmlTooltip) {
                 uiComponent.encodeAll(context);
+                if (uiComponent.isRendered()) {
+                    break;
+                }
             }
         }
+
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
     }
 
     /**

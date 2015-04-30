@@ -53,8 +53,8 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not checkBoxShowcase.ajax}" />
-                <b:tooltip>
-                    #{textShowcase.tooltip}
+                <b:tooltip rendered="#{not empty checkBoxShowcase.tooltip}">
+                    #{checkBoxShowcase.tooltip}
                 </b:tooltip>
             </b:checkBox>
         </showcase:showcaseOuputComponent>

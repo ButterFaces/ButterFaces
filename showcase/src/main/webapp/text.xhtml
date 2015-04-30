@@ -75,7 +75,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}" />
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
             </b:text>
@@ -102,7 +102,7 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
                 <f:facet name="input-group-addon-left">
@@ -127,7 +127,7 @@
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
                     styleClass="#{textShowcase.styleClass}">
-                <b:tooltip>
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
                 <f:ajax event="keyup"
