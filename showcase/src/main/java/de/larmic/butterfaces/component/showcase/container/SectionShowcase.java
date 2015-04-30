@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.section;
+package de.larmic.butterfaces.component.showcase.container;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;

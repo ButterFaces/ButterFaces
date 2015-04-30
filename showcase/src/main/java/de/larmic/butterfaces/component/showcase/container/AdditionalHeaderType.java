@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.section;
+package de.larmic.butterfaces.component.showcase.container;
 
 public enum AdditionalHeaderType {
 	NONE("No additional header"), TEXT("additional text"), BUTTON("additional button");

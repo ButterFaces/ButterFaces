@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="header">
-        <strong>b:labeledContainer</strong> TODO
+        <strong>b:labeledContainer</strong> renderes a labeled container component wrapper for JSF components.
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -14,13 +14,23 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{labeledContainerShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="rendered" value="#{labeledContainerShowcase.rendered}"/>
         </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="example"
+                                     value="#{labeledContainerShowcase.exampleType}"
+                                     values="#{labeledContainerShowcase.exampleTypes}"/>
+        </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <b:labeledContainer label="#{labeledContainerShowcase.label}"
                             hideLabel="#{labeledContainerShowcase.hideLabel}"
                             rendered="#{labeledContainerShowcase.rendered}">
-            <b:section label="demo">
+            <h:panelGroup rendered="#{labeledContainerShowcase.exampleType eq 'TEXT'}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+            </h:panelGroup>
+            <b:commandLink value="click me" rendered="#{labeledContainerShowcase.exampleType eq 'LINK'}" />
+            <b:section label="demo" rendered="#{labeledContainerShowcase.exampleType eq 'SECTION'}">
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             </b:section>
          </b:labeledContainer>
