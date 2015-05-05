@@ -23,13 +23,17 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 defaultStyleClass.append("butter-component-value");
             }
 
+            defaultStyleClass.append(" butter-component-checkbox");
+
             writer.startElement("div", uiComponent);
             writer.writeAttribute("class", defaultStyleClass.toString(), null);
 
             if (!StringUtils.isEmpty(uiComponent.getDescription())) {
                 writer.startElement("div", uiComponent);
-                writer.writeAttribute("class", "checkbox butter-component-checkbox-withDescription", null);
+                writer.writeAttribute("class", "checkbox withDescription", null);
                 writer.startElement("label", uiComponent);
+            } else {
+
             }
         }
     }
