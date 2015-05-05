@@ -20,6 +20,10 @@ select.butter-input-component {
     margin-top: 0;
 }
 
+.butter-component.form-group {
+    margin-bottom: 10px;
+}
+
 .butter-component .radio input[type="radio"],
 .butter-component .radio-inline input[type="radio"] {
     margin-left: 0;
