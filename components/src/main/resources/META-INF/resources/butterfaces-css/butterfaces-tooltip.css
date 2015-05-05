@@ -9,3 +9,8 @@
 .butter-component-tooltip-validation-error ul {
     padding-left: 0;
 }
+
+.butter-component-label-tooltip abbr {
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+}

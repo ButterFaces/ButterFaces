@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -32,8 +34,10 @@ public class LabelPartRenderer {
                 writer.writeAttribute("for", component.getId(), null);
             }
 
-            writer.writeAttribute("class", StringUtils.concatWithSpace(Constants.LABEL_STYLE_CLASS,
-                    Constants.BOOTSTRAP_CONTROL_LABEL, Constants.TOOLTIP_LABEL_CLASS), null);
+            writer.writeAttribute("class", StringUtils.concatWithSpace(
+                    Constants.LABEL_STYLE_CLASS,
+                    Constants.BOOTSTRAP_CONTROL_LABEL,
+                    shouldRenderTooltip(component) ? Constants.TOOLTIP_LABEL_CLASS : ""), null);
 
             if (!StringUtils.isEmpty(label)) {
                 writer.startElement("abbr", component);
@@ -45,6 +49,22 @@ public class LabelPartRenderer {
 
             writer.endElement("label");
         }
+    }
+
+    private boolean shouldRenderTooltip(UIComponent component) {
+        if (component instanceof HtmlInputComponent && !((HtmlInputComponent) component).isValid()) {
+            return true;
+        }
+
+        for (UIComponent uiComponent : component.getChildren()) {
+            if (uiComponent instanceof HtmlTooltip) {
+                if (uiComponent.isRendered()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void writeRequiredSpanIfNecessary(final String clientId, final boolean readonly, final boolean required,
