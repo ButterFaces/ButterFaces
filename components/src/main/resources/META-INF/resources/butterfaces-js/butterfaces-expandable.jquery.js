@@ -9,75 +9,60 @@
     // extend jQuery --------------------------------------------------------------------
     $.fn.butterExpandable = function () {
         return this.each(function () {
-            new Expandable(this);
+            if ($(this).find("textarea").length > 0) {
+                new TextareaExpandable(this);
+            } else {
+                new DivExpandable(this);
+            }
         });
     };
 
-    // define object --------------------------------------------------------------------
+    // define objects --------------------------------------------------------------------
 
-    /**
-     * Constructor function
-     * @param rootElement the root rootElement (textarea or div)
-     * @constructor
-     */
-    var Expandable = function (rootElement) {
-        this.EXPAND_HEIGHT = 250; //in px
-        this.EXPAND_WIDTH = 500; //in px
-        this.ANIMATION_DURATION = 200; //in ms
-        this.REPOSITION_INTERVAL = 500; //in ms
-        this.EASING = "swing";
-        this.KEYCODE_ESCAPE = 27;
+    var _AbstractExpandable = Class.extend({
+        init: function (rootElement) {
+            this.EXPAND_HEIGHT = 250; //in px
+            this.EXPAND_WIDTH = 500; //in px
+            this.ANIMATION_DURATION = 200; //in ms
+            this.REPOSITION_INTERVAL = 500; //in ms
+            this.EASING = "swing";
+            this.KEYCODE_ESCAPE = 27;
 
-        this.$rootElement = $(rootElement);
+            this.$rootElement = $(rootElement);
 
-        this.$ghostElement = null;
-        this.$originalElement;
-        this.blockBlurEventOnOriginal = true;
-        this.blockFocusEventOnOriginal = false;
-        this.initialHeight;
-        this.initialWidth;
-        this.initialOffset;
-        this.positionTriggerInterval;
+            this.$ghostElement = null;
+            this.$originalElement;
+            this.initialHeight;
+            this.initialWidth;
+            this.initialOffset;
+            this.positionTriggerInterval;
 
-        this._initialize();
-    };
-
-    Expandable.prototype = {
-        constructor: Expandable,
-
-        _initialize: function () {
-            this.$originalElement = this.$rootElement.find("textarea");
-            this.$originalElement.addClass("butter-component-expandable-original");
-
-            var self = this;
-            this.$originalElement.focus(function (event) {
-                self.expandElement(event);
-            });
-            this.$originalElement.blur(function (event) {
-                self._handleBlurEvent(event);
-            });
-
-            this._addInputGroupAddon();
+            this.initialize();
         },
 
-        _addInputGroupAddon: function () {
-            this.$originalElement
-                    .addClass("form-control")
-                    .parent()
-                    .addClass("input-group");
-            $("<span class='input-group-addon'><span class='glyphicon glyphicon-resize-full'></span></span>")
-                    .insertAfter(this.$originalElement);
+        initialize: function () {
+            // should intentionally be overridden
+        },
+
+        isExpansionEventIgnored: function (event) {
+            // should intentionally be overridden
+            return false;
+        },
+
+        onGhostElementCreated: function () {
+            // should intentionally be overridden
+        },
+
+        onGhostElementCollapsed: function (isCancelled) {
+            // should intentionally be overridden
         },
 
         expandElement: function (event) {
-            if (this.blockFocusEventOnOriginal) {
-                event.preventDefault();
+            if (this.isExpansionEventIgnored(event)) {
                 return;
             }
 
             // console.log("expanding element");
-
-            this.blockBlurEventOnOriginal = true;
 
             this.initialHeight = this.$originalElement.outerHeight();
             this.initialWidth = this.$originalElement.outerWidth();
@@ -85,49 +70,53 @@
 
             //create a ghost element that be animated on gets the focus
             var self = this;
-            this.$ghostElement = $("<textarea>")
-                    .val(this.$originalElement.val()) //transfer value from original to ghost
-                    .css("width", this.initialWidth)
-                    .css("height", this.initialHeight)
-                    .css("position", "absolute")
-                    .css("top", this.initialOffset.top)
-                    .css("left", this.initialOffset.left)
-                    .css("z-index", 2000)
-                    .css("box-shadow", "5px 5px 5px 0 #999")
-                    .addClass("butter-component-expandable-ghost")
-                    .blur(function (event) {
-                        self.collapseElement(event);
-                    })
-                    .appendTo($("body"))
-                    .focus() //set cursor into the ghost element
-                    .animate({
-                        height: self.EXPAND_HEIGHT,
-                        width: self.initialWidth > self.EXPAND_WIDTH ? self.initialWidth : self.EXPAND_WIDTH
-                    }, self.ANIMATION_DURATION, self.EASING, function () {
-                        $(document)
-                                .on("click.expandable", function (event) {
-                                    self._handleMouseClick(event);
-                                })
-                                .on("keydown.expandable", function (event) {
-                                    self._handleEscapeKey(event);
-                                });
-
-                        $(window).on("resize.expandable", function (event) {
-                            self._repositionGhostElement(event);
+            this.$ghostElement = this.createGhostElement()
+                .val(this.$originalElement.val()) //transfer value from original to ghost
+                .css("width", this.initialWidth)
+                .css("height", this.initialHeight)
+                .css("position", "absolute")
+                .css("top", this.initialOffset.top)
+                .css("left", this.initialOffset.left)
+                .css("z-index", 2000)
+                .css("box-shadow", "5px 5px 5px 0 #999")
+                .addClass("butter-component-expandable-ghost")
+                .appendTo($("body"))
+                .animate({
+                    height: self.EXPAND_HEIGHT,
+                    width: self.initialWidth > self.EXPAND_WIDTH ? self.initialWidth : self.EXPAND_WIDTH
+                }, self.ANIMATION_DURATION, self.EASING, function () {
+                    $(document)
+                        .on("click.expandable", function (event) {
+                            self._handleMouseClick(event);
+                        })
+                        .on("keydown.expandable", function (event) {
+                            self._handleEscapeKey(event);
                         });
 
-                        self._moveCaretToEnd(this);
-
-                        //keep track of the orginal element's position
-                        self.positionTriggerInterval =
-                                window.setInterval(self._repositionGhostElement, self.REPOSITION_INTERVAL);
+                    $(window).on("resize.expandable", function (event) {
+                        self._repositionGhostElement(event);
                     });
+
+                    //keep track of the orginal element's position
+                    self.positionTriggerInterval =
+                        window.setInterval(self._repositionGhostElement, self.REPOSITION_INTERVAL);
+                });
 
             //make original invisible
             this.$originalElement
-                    .css("visibility", "hidden")
-                    .siblings()
-                    .css("visibility", "hidden");
+                .css("visibility", "hidden")
+                .siblings()
+                .css("visibility", "hidden");
+
+            this.onGhostElementCreated();
+        },
+
+        /**
+         * @returns {*|HTMLElement}
+         */
+        createGhostElement: function () {
+            // should intentionally be overridden
+            return null;
         },
 
         /**
@@ -141,14 +130,14 @@
             var isCancelled = typeof cancelled === "boolean" && cancelled;
 
             $(document)
-                    .off("click.expandable")
-                    .off("keydown.expandable");
+                .off("click.expandable")
+                .off("keydown.expandable");
 
             //make original visible again
             this.$originalElement
-                    .css("visibility", "visible")
-                    .siblings()
-                    .css("visibility", "visible");
+                .css("visibility", "visible")
+                .siblings()
+                .css("visibility", "visible");
 
             var self = this;
             this.$ghostElement.animate({
@@ -157,10 +146,7 @@
             }, self.ANIMATION_DURATION, self.EASING, function () {
                 //on animation complete
 
-                if (!isCancelled) {
-                    //transfer value back from ghost to original
-                    self.$originalElement.val(self.$ghostElement.val())
-                }
+                self.onGhostElementCollapsed(isCancelled);
 
                 //delete the ghost element
                 self.$ghostElement.remove();
@@ -169,24 +155,6 @@
                 //delete position trigger timeout and resize listener
                 window.clearInterval(self.positionTriggerInterval);
                 $(window).off("resize.expandable");
-
-                if (!isCancelled) {
-                    // trigger blur and keyup event on original textarea and don't block
-                    // it for jsf
-                    self.blockBlurEventOnOriginal = false;
-                    self.blockFocusEventOnOriginal = true;
-                    // defer the events a little bit, look at
-                    // (http://stackoverflow.com/questions/8380759/why-isnt-this-textarea-focusing-with-focus#8380785)
-                    window.setTimeout(function () {
-                        self.$originalElement.focus();
-                        self.blockFocusEventOnOriginal = false;
-                        self.$originalElement.keyup();
-                        self.$originalElement.blur();
-                    }, 50);
-                } else {
-                    self.blockBlurEventOnOriginal = true;
-                    self.blockFocusEventOnOriginal = false;
-                }
             });
         },
 
@@ -203,10 +171,113 @@
             }
         },
 
+        _repositionGhostElement: function () {
+            //keep track of window resizing and reposition the ghost element
+            if (this.$ghostElement !== undefined && this.$ghostElement != null) {
+                this.initialOffset = this.$originalElement.offset();
+                this.$ghostElement
+                    .css("top", this.initialOffset.top)
+                    .css("left", this.initialOffset.left);
+            }
+        }
+    });
+
+    var DivExpandable = _AbstractExpandable.extend({
+        initialize: function () {
+            this.$originalElement = this.$rootElement.find(".butter-component-value-readonly");
+            this.$originalElement.addClass("butter-component-expandable-original");
+
+            var self = this;
+            this.$originalElement.click(function (event) {
+                self.expandElement(event);
+            });
+        },
+
+        createGhostElement: function () {
+            return $("<div>");
+        }
+    });
+
+    var TextareaExpandable = _AbstractExpandable.extend({
+        initialize: function () {
+            this.blockFocusEventOnOriginal = false;
+            this.blockBlurEventOnOriginal = false;
+
+            this.$originalElement = this.$rootElement.find("textarea");
+            this.$originalElement.addClass("butter-component-expandable-original");
+
+            var self = this;
+            this.$originalElement.focus(function (event) {
+                self.expandElement(event);
+            });
+            this.$originalElement.blur(function (event) {
+                self._handleBlurEvent(event);
+            });
+
+            this._addInputGroupAddon();
+        },
+
+        _addInputGroupAddon: function () {
+            this.$originalElement
+                .addClass("form-control")
+                .parent()
+                .addClass("input-group");
+            $("<span class='input-group-addon'><span class='glyphicon glyphicon-resize-full'></span></span>")
+                .insertAfter(this.$originalElement);
+        },
+
         _handleBlurEvent: function (event) {
             if (this.blockBlurEventOnOriginal) {
                 // prevent blur event bubbling, so it will not be triggered in jsf
                 event.preventDefault();
+            }
+        },
+
+        createGhostElement: function () {
+            return $("<textarea>");
+        },
+
+        isExpansionEventIgnored: function (event) {
+            this.blockBlurEventOnOriginal = true;
+            if (this.blockFocusEventOnOriginal) {
+                event.preventDefault();
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        onGhostElementCreated: function () {
+            var self = this;
+            this.$ghostElement
+                .blur(function (event) {
+                    self.collapseElement(event);
+                })
+                .focus();
+            this._moveCaretToEnd(this.$ghostElement);
+        },
+
+        onGhostElementCollapsed: function (isCancelled) {
+            if (!isCancelled) {
+                //transfer value back from ghost to original
+                this.$originalElement.val(this.$ghostElement.val())
+
+                // trigger blur and keyup event on original textarea and don't block
+                // it for jsf
+                this.blockBlurEventOnOriginal = false;
+                this.blockFocusEventOnOriginal = true;
+                // defer the events a little bit, look at
+                // (http://stackoverflow.com/questions/8380759/why-isnt-this-textarea-focusing-with-focus#8380785)
+                var self = this;
+                window.setTimeout(function () {
+                    self.$originalElement.focus();
+                    self.$originalElement.keyup();
+                    self.$originalElement.blur();
+                    self.blockFocusEventOnOriginal = false;
+                }, 50);
+            } else {
+                this.blockBlurEventOnOriginal = true;
+                this.blockFocusEventOnOriginal = false;
             }
         },
 
@@ -218,16 +289,6 @@
                 range.collapse(false);
                 range.select();
             }
-        },
-
-        _repositionGhostElement: function () {
-            //keep track of window resizing and reposition the ghost element
-            if (this.$ghostElement !== undefined && this.$ghostElement != null) {
-                this.initialOffset = this.$originalElement.offset();
-                this.$ghostElement
-                        .css("top", this.initialOffset.top)
-                        .css("left", this.initialOffset.left);
-            }
         }
-    };
+    });
 }(jQuery));
