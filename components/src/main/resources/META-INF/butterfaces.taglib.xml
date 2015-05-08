@@ -696,18 +696,22 @@
       <attribute>
          <name>onShow</name>
          <type>java.lang.String</type>
+         <description>This event fires immediately when the show instance method is called. If caused by a click, the clicked element is available as the relatedTarget property of the event.</description>
       </attribute>
       <attribute>
          <name>onShown</name>
          <type>java.lang.String</type>
+         <description>This event is fired when the modal has been made visible to the user (will wait for CSS transitions to complete). If caused by a click, the clicked element is available as the relatedTarget property of the event.</description>
       </attribute>
       <attribute>
          <name>onHide</name>
          <type>java.lang.String</type>
+         <description>This event is fired immediately when the hide instance method has been called.</description>
       </attribute>
       <attribute>
          <name>onHidden</name>
          <type>java.lang.String</type>
+         <description>This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).</description>
       </attribute>
       <attribute>
          <name>rendered</name>
