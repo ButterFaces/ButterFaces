@@ -694,6 +694,22 @@
          <type>java.lang.String</type>
       </attribute>
       <attribute>
+         <name>onShow</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>onShown</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>onHide</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>onHidden</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
          <name>rendered</name>
          <type>java.lang.Boolean</type>
       </attribute>
