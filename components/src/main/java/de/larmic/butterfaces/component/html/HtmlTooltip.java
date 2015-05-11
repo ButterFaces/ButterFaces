@@ -30,6 +30,10 @@ public class HtmlTooltip extends UIComponentBase {
 	protected static final String PROPERTY_PLACEMENT_FUNCTION = "placementFunction";
 	protected static final String PROPERTY_POPOVER_min_WIDTH = "minVerticalOffset";
 	protected static final String PROPERTY_POPOVER_min_HEIGHT = "minHorizontalOffset";
+	protected static final String PROPERTY_ON_SHOW = "onShow";
+	protected static final String PROPERTY_ON_SHOWN = "onShown";
+	protected static final String PROPERTY_ON_HIDE = "onHide";
+	protected static final String PROPERTY_ON_HIDDEN = "onHidden";
 
 	public HtmlTooltip() {
 		super();
@@ -101,4 +105,36 @@ public class HtmlTooltip extends UIComponentBase {
 	public void setMinHorizontalOffset(Integer minHorizontalOffset) {
 		this.updateStateHelper(PROPERTY_POPOVER_min_HEIGHT, minHorizontalOffset);
 	}
+
+    public String getOnShow() {
+        return (String) this.getStateHelper().eval(PROPERTY_ON_SHOW);
+    }
+
+    public void setOnShow(String onShow) {
+        this.updateStateHelper(PROPERTY_ON_SHOW, onShow);
+    }
+
+    public String getOnShown() {
+        return (String) this.getStateHelper().eval(PROPERTY_ON_SHOWN);
+    }
+
+    public void setOnShown(String onShown) {
+        this.updateStateHelper(PROPERTY_ON_SHOWN, onShown);
+    }
+
+    public String getOnHide() {
+        return (String) this.getStateHelper().eval(PROPERTY_ON_HIDE);
+    }
+
+    public void setOnHide(String onHide) {
+        this.updateStateHelper(PROPERTY_ON_HIDE, onHide);
+    }
+
+    public String getOnHidden() {
+        return (String) this.getStateHelper().eval(PROPERTY_ON_HIDDEN);
+    }
+
+    public void setOnHidden(String onHidden) {
+        this.updateStateHelper(PROPERTY_ON_HIDDEN, onHidden);
+    }
 }

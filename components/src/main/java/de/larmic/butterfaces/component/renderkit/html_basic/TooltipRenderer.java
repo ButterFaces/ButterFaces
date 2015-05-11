@@ -68,9 +68,34 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.writeText(",\n      minHorizontalOffset: ", null);
             writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
             writer.writeText("\n   })\n});", null);
+
+            if (StringUtils.isNotEmpty(tooltip.getOnShow())
+                    || StringUtils.isNotEmpty(tooltip.getOnShown())
+                    || StringUtils.isNotEmpty(tooltip.getOnHide())
+                    || StringUtils.isNotEmpty(tooltip.getOnHidden())) {
+                encodePopoverEvent(forSelector, tooltip.getOnShow(), "show.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnShown(), "shown.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnHide(), "hide.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnHidden(), "hidden.bs.popover", component, writer);
+            }
+
             writer.endElement("script");
         }
     }
+
+    private void encodePopoverEvent(final String forSelector,
+                                    final String function,
+                                    final String event,
+                                    final UIComponent component,
+                                    final ResponseWriter writer) throws IOException {
+        if (StringUtils.isNotEmpty(function)) {
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("    jQuery(" + forSelector + ").on('" + event + "', function() {\n ", component, null);
+                writer.writeText("        " + function + ";\n", component, null);
+                writer.writeText("    });\n", component, null);
+                writer.writeText("});\n", component, null);
+            }
+        }
 
     private void renderValidationErrors(final FacesContext context,
                                         final ResponseWriter writer,

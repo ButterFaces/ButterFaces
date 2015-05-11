@@ -30,7 +30,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("        <a id=\"btn\" class=\"btn btn-default\">" + trigger + " me!</a>");
 
             xhtmlCodeExample.appendInnerContent("        <b:tooltip id=\"input\"");
-            xhtmlCodeExample.appendInnerContent("                   for=\"btn\"");
+            xhtmlCodeExample.appendInnerContent("                   for=\"#btn\"");
             xhtmlCodeExample.appendInnerContent("                   title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                   trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                   placement=\"" + placement + "\"");
