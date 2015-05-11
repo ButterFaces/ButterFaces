@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.feature.Validation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,7 +33,7 @@ public class TooltipPartRenderer {
     }
 
     private boolean shouldRenderTooltip(UIComponent component) {
-        return component instanceof HtmlInputComponent && !((HtmlInputComponent) component).isValid();
+        return component instanceof Validation && !((Validation) component).isValid();
     }
 
 }
