@@ -57,6 +57,10 @@
             // should intentionally be overridden
         },
 
+        transferValueToGhostElement: function () {
+            // should intentionally be overridden
+        },
+
         expandElement: function (event) {
             if (this.isExpansionEventIgnored(event)) {
                 return;
@@ -70,9 +74,9 @@
 
             //create a ghost element that be animated on gets the focus
             var self = this;
-            this.$ghostElement = this.createGhostElement()
-                .val(this.$originalElement.val()) //transfer value from original to ghost
-                .css("width", this.initialWidth)
+            this.$ghostElement = this.createGhostElement();
+            this.transferValueToGhostElement();
+            this.$ghostElement.css("width", this.initialWidth)
                 .css("height", this.initialHeight)
                 .css("position", "absolute")
                 .css("top", this.initialOffset.top)
@@ -195,6 +199,11 @@
 
         createGhostElement: function () {
             return $("<div>");
+        },
+
+
+        transferValueToGhostElement: function () {
+            this.$ghostElement.html(this.$originalElement.html());
         }
     });
 
@@ -235,6 +244,10 @@
 
         createGhostElement: function () {
             return $("<textarea>");
+        },
+
+        transferValueToGhostElement: function () {
+            this.$ghostElement.val(this.$originalElement.val());
         },
 
         isExpansionEventIgnored: function (event) {

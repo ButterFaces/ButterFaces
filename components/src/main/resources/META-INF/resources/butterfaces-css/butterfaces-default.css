@@ -140,9 +140,13 @@ select.butter-input-component {
 
 .butter-component-expandable-original {
     height: 34px !important;
-    white-space: normal;
+    white-space: nowrap;
     overflow: hidden;
     resize: none;
+}
+
+div.butter-component-expandable-original {
+    text-overflow: ellipsis;
 }
 
 .butter-component-expandable-ghost {
@@ -150,4 +154,9 @@ select.butter-input-component {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 2px 2px 4px #999;
+}
+
+div.butter-component-expandable-ghost {
+    background-color: #fff;
+    white-space: pre;
 }
