@@ -13,8 +13,8 @@
             var $autocomplete = $(this);
             var $input = $autocomplete.prev();
 
-            $input.keyup(function() {
-                var testOnEvent = function(data) {
+            $input.keyup(function () {
+                var testOnEvent = function (data) {
                     var $autocomplete2 = $(document.getElementById($autocomplete.attr('id')));
                     if (data.status === 'success') {
                         if ($input.data('data-test') === undefined) {
@@ -37,8 +37,20 @@
                     }
                 };
 
-                jsf.ajax.request(this,'autocomplete',{'javax.faces.behavior.event':'autocomplete',render:$autocomplete.attr('id'),onevent:testOnEvent});
+                jsf.ajax.request(this, 'autocomplete', {
+                    'javax.faces.behavior.event': 'autocomplete',
+                    render: $autocomplete.attr('id'),
+                    onevent: testOnEvent
+                });
             });
+
+            $input.blur(function () {
+                window.setTimeout(function () {
+                    var $autocomplete2 = $(document.getElementById($autocomplete.attr('id')));
+                    $autocomplete2.css('display', 'none');
+                }, 100);
+            });
+
         });
     };
 
