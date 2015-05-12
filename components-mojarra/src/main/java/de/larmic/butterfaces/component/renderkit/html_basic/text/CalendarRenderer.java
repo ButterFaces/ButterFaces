@@ -41,7 +41,7 @@ public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
         // render tooltip elements if necessary
         renderTooltipIfNecessary(context, calendar);
 
-        if (calendar.isPickDate() || calendar.isPickTime()) {
+        if (!calendar.isReadonly() && (calendar.isPickDate() || calendar.isPickTime())) {
             writer.startElement("script", calendar);
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
