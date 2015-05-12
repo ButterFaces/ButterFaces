@@ -10,9 +10,20 @@ select.butter-input-component {
     margin-left: 2px;
 }
 
-.butter-component > label,
-.butter-component > div {
-    vertical-align: top;
+.butter-component .input-group {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+    align-items: stretch;
+}
+
+.butter-component .input-group-addon {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+    width: auto;
 }
 
 .butter-component .checkbox,
@@ -20,8 +31,13 @@ select.butter-input-component {
     margin-top: 0;
 }
 
-.butter-component.form-group {
+.butter-component {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
     margin-bottom: 10px;
+    min-height: 34px;
 }
 
 .butter-component .radio input[type="radio"],
@@ -30,37 +46,42 @@ select.butter-input-component {
 }
 
 .butter-component-label {
+    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
-    display: inline-block;
-    padding: 6px 0 0 0;
+    align-items: baseline;
+}
+
+.butter-component-label abbr {
+    display: block;
+}
+
+.butter-component-label abbr,
+.butter-component-value-readonly,
+.butter-component-checkbox {
+    padding-top: 6px;
 }
 
 .butter-component-readonly .butter-component-label {
     padding: 0;
 }
 
-.butter-component-checkbox {
-    padding-top: 6px;
-}
-
 .butter-component-value {
-    display: inline-table;
-    width: calc(100% - 120px);
+    -webkit-box-flex: 1;   /* OLD - iOS 6-, Safari 3.1-6 */
+    width: 70%;            /* For old syntax, otherwise collapses. */
+    -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
+    -ms-flex: 1;           /* IE 10 */
+    flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
 }
 
 .butter-component-value-readonly {
     white-space: pre-wrap;
 }
 
-.input-group.butter-component-value {
-    float:right;
-}
-
-.input-group.butter-component-value:after {
-    clear: both;
-}
 
 .butter-component-value-hiddenLabel {
     width: 100% !important;

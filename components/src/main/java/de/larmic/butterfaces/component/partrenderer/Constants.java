@@ -13,12 +13,10 @@ public class Constants {
     public static final String TEXT_AREA_MAXLENGTH_COUNTER_CLASS = "butter-component-maxlength-counter";
 
     public static final String COMPONENT_STYLE_CLASS = "butter-component";
+    public static final String COMPONENT_READONLY_STYLE_CLASS = "butter-component-readonly";
 
     public static final String BOOTSTRAP_FORM_CONTROL = "form-control";
     public static final String BOOTSTRAP_CONTROL_LABEL = "control-label";
-    public static final String BOOTSTRAP_COL_SM_10 = "col-sm-10";
-    public static final String BOOTSTRAP_COL_SM_12 = "col-sm-12";
-    public static final String BOOTSTRAP_COL_SM_OFFSET_2 = "col-sm-offset-2";
     public static final String BOOTSTRAP_ERROR = "has-error";
     public static final String BOOTSTRAP_CONTAINER = "form-group";
 

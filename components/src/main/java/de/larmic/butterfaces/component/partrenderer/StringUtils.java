@@ -14,7 +14,7 @@ public class StringUtils {
         for (final String style : styles) {
             if (style != null && !BLANK.equals(style)) {
                 sb.append(style);
-                sb.append(" ");
+                sb.append(SPACE);
             }
         }
 
