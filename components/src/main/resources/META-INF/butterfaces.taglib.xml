@@ -353,6 +353,10 @@
          <name>max</name>
          <type>java.lang.String</type>
       </attribute>
+      <attribute>
+         <name>step</name>
+         <type>java.lang.String</type>
+      </attribute>
    </tag>
 
    <tag>

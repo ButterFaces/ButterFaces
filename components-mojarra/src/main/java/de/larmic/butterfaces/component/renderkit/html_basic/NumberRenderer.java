@@ -27,6 +27,9 @@ public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
         if (StringUtils.isNotEmpty(numberComponent.getMax())) {
             options.put("max", numberComponent.getMax());
         }
+        if (StringUtils.isNotEmpty(numberComponent.getStep())) {
+            options.put("step", numberComponent.getStep());
+        }
 
         RenderUtils.renderJQueryPluginCall(
                 component.getClientId(),

@@ -36,6 +36,7 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
+    protected static final String PROPERTY_STEP = "step";
 
     public HtmlNumber() {
         super();
@@ -103,6 +104,14 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
 
     public void setMax(final String max) {
         this.updateStateHelper(PROPERTY_HTML5_MAX, max);
+    }
+
+    public String getStep() {
+        return (String) this.getStateHelper().eval(PROPERTY_STEP);
+    }
+
+    public void setStep(final String step) {
+        this.updateStateHelper(PROPERTY_STEP, step);
     }
 
     public boolean getAutoFocus() {

@@ -17,6 +17,7 @@ public class NumberShowcase extends AbstractInputShowcase implements Serializabl
     private String placeholder = DEFAULT_NUMBER_PLACEHOLDER;
     private String min;
     private String max;
+    private String step;
     private boolean autoFocus;
 
     @Override
@@ -39,6 +40,7 @@ public class NumberShowcase extends AbstractInputShowcase implements Serializabl
         xhtmlCodeExample.appendInnerContent("                  placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                  min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                  max=\"" + this.getMax() + "\"");
+        xhtmlCodeExample.appendInnerContent("                  step=\"" + this.getStep() + "\"");
         xhtmlCodeExample.appendInnerContent("                  styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                  readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                  required=\"" + this.isRequired() + "\"");
@@ -96,5 +98,13 @@ public class NumberShowcase extends AbstractInputShowcase implements Serializabl
 
     public void setMax(String max) {
         this.max = max;
+    }
+
+    public String getStep() {
+        return step;
+    }
+
+    public void setStep(String step) {
+        this.step = step;
     }
 }

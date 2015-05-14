@@ -17,6 +17,7 @@
             <showcase:tagBooleanControl label="rendered" value="#{numberShowcase.rendered}"/>
             <showcase:tagStringControl label="min" value="#{numberShowcase.min}"/>
             <showcase:tagStringControl label="max" value="#{numberShowcase.max}"/>
+            <showcase:tagStringControl label="step" value="#{numberShowcase.step}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{numberShowcase.styleClass}"
                                      values="#{numberShowcase.styleClasses}"/>
@@ -51,8 +52,9 @@
                       rendered="#{numberShowcase.rendered}"
                       placeholder="#{numberShowcase.placeholder}"
                       min="#{numberShowcase.min}"
-                      styleClass="#{numberShowcase.styleClass} arquillian_component"
                       max="#{numberShowcase.max}"
+                      step="#{numberShowcase.step}"
+                      styleClass="#{numberShowcase.styleClass} arquillian_component"
                       autoFocus="#{numberShowcase.autoFocus}">
                 <f:ajax event="change"
                         execute="@this"
