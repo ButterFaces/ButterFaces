@@ -50,6 +50,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-scroll.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-autocomplete.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "01-moment-with-locales.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.js", target = "head"),
@@ -57,7 +58,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {
