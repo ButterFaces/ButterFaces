@@ -20,22 +20,24 @@ public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
     protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlNumber numberComponent = (HtmlNumber) component;
 
-        Map<String, String> options = new HashMap<>();
-        if (StringUtils.isNotEmpty(numberComponent.getMin())) {
-            options.put("min", numberComponent.getMin());
-        }
-        if (StringUtils.isNotEmpty(numberComponent.getMax())) {
-            options.put("max", numberComponent.getMax());
-        }
-        if (StringUtils.isNotEmpty(numberComponent.getStep())) {
-            options.put("step", numberComponent.getStep());
-        }
+        if (!numberComponent.isReadonly()) {
+            Map<String, String> options = new HashMap<>();
+            if (StringUtils.isNotEmpty(numberComponent.getMin())) {
+                options.put("min", numberComponent.getMin());
+            }
+            if (StringUtils.isNotEmpty(numberComponent.getMax())) {
+                options.put("max", numberComponent.getMax());
+            }
+            if (StringUtils.isNotEmpty(numberComponent.getStep())) {
+                options.put("step", numberComponent.getStep());
+            }
 
-        RenderUtils.renderJQueryPluginCall(
-                component.getClientId(),
-                "butterNumberSpinner(" + RenderUtils.createOptionsStringForJQueryPluginCall(options) + ")",
-                writer,
-                numberComponent
-        );
+            RenderUtils.renderJQueryPluginCall(
+                    component.getClientId(),
+                    "butterNumberSpinner(" + RenderUtils.createOptionsStringForJQueryPluginCall(options) + ")",
+                    writer,
+                    numberComponent
+            );
+        }
     }
 }
