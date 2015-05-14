@@ -130,3 +130,22 @@ select.butter-input-component {
     border-radius: 4px;
     box-shadow: 2px 2px 4px #999;
 }
+
+.butter-component-number-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 !important;
+    width: 40px !important;
+}
+
+.butter-component-number-button {
+    cursor: pointer;
+}
+
+.butter-component-number-button:hover {
+    background-color: #ddd;
+}
+
+.butter-component-number-button:first-child {
+    border-bottom: 1px solid #ccc;
+}

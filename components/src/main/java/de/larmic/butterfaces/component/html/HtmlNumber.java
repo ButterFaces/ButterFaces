@@ -22,9 +22,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-number.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip {
