@@ -87,15 +87,10 @@
         init: function (element, options) {
             this.$input = $(element).find("input");
             this._initInput();
-
-            var defaultOptions = {
-                step: 1
-            };
-            this._options = $.extend({}, defaultOptions, options);
-
-            this._counter = 0;
+            this._initOptions(options);
+            this._counter = null;
+            this.setCounter(0);
             this._isValueSet = false;
-
             this._initButtons();
             this._initArrowKeys();
             this._initMouseWheel();
@@ -106,9 +101,27 @@
             this.$input
                 .addClass("butter-component-number")
                 .blur(function () {
-                    self._setValue();
+                    self._setValueOnBlur();
                 })
                 .parent().addClass("input-group");
+        },
+
+        _initOptions: function (options) {
+            var defaultOptions = {
+                step: 1
+            };
+            this._options = $.extend({}, defaultOptions, options);
+
+            // ensure that this values are numbers
+            if (this._options.step !== undefined) {
+                this._options.step = this._options.step * 1;
+            }
+            if (this._options.min !== undefined) {
+                this._options.min = this._options.min * 1;
+            }
+            if (this._options.max !== undefined) {
+                this._options.max = this._options.max * 1;
+            }
         },
 
         _initButtons: function () {
@@ -170,10 +183,11 @@
             });
         },
 
-        _setValue: function () {
+        _setValueOnBlur: function () {
             var value = this.$input.val();
             if (this._isStringEmpty(value)) {
                 this.$input.val("");
+                this.setCounter(0);
                 this._isValueSet = false;
             } else {
                 var parsedInt = parseInt(value);
@@ -182,10 +196,11 @@
                         this.$input.val(this._counter);
                     } else {
                         this.$input.val("");
+                        this.setCounter(0);
                         this._isValueSet = false;
                     }
                 } else {
-                    this._counter = parsedInt;
+                    this.setCounter(parsedInt);
                     this.$input.val(this._counter);
                     this._isValueSet = true;
                 }
@@ -194,7 +209,7 @@
 
         increaseCounter: function () {
             if (this._isValueSet) {
-                this._counter += this._options.step;
+                this.setCounter(this._counter + this._options.step);
             } else {
                 this._isValueSet = true;
             }
@@ -203,7 +218,7 @@
 
         decreaseCounter: function () {
             if (this._isValueSet) {
-                this._counter -= this._options.step;
+                this.setCounter(this._counter - this._options.step);
             } else {
                 this._isValueSet = true;
             }
@@ -212,6 +227,16 @@
 
         _isStringEmpty: function (value) {
             return (value.length === 0 || !value.trim());
+        },
+
+        setCounter: function (value) {
+            if (this._options.min !== undefined && value < this._options.min) {
+                this._counter = this._options.min;
+            } else if (this._options.max !== undefined && value > this._options.max) {
+                this._counter = this._options.max;
+            } else {
+                this._counter = value;
+            }
         }
     });
 }(jQuery));

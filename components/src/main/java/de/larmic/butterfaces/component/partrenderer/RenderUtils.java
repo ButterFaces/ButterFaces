@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.partrenderer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.Map;
 
 public class RenderUtils {
 
@@ -82,6 +83,20 @@ public class RenderUtils {
         }
 
         return jsCall.toString();
+    }
+
+    public static String createOptionsStringForJQueryPluginCall(Map<String, String> options) {
+        StringBuilder sb = new StringBuilder("{");
+        int index = 0;
+        for (String key : options.keySet()) {
+            if (index > 0) {
+                sb.append(", ");
+            }
+            sb.append(key).append(": '").append(options.get(key)).append("'");
+            index++;
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
 }
