@@ -132,7 +132,12 @@ select.butter-input-component {
 }
 
 .butter-component-number-buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
     align-items: stretch;
     padding: 0 !important;
     width: 40px !important;
