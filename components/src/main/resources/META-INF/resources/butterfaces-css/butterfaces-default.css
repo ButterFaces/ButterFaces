@@ -4,6 +4,19 @@ select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
 
+.butter-component {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    min-height: 34px;
+}
+
 .butter-component-required {
     color: #a94442;
     margin-right: 2px;
@@ -11,18 +24,18 @@ select.butter-input-component {
 }
 
 .butter-component .input-group {
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
-    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
     align-items: stretch;
 }
 
 .butter-component .input-group-addon {
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
-    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
     width: auto;
 }
 
@@ -31,33 +44,21 @@ select.butter-input-component {
     margin-top: 0;
 }
 
-.butter-component {
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
-    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
-    margin-bottom: 10px;
-    min-height: 34px;
-}
-
 .butter-component .radio input[type="radio"],
 .butter-component .radio-inline input[type="radio"] {
     margin-left: 0;
 }
 
 .butter-component-label {
-    display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
-    display: -ms-flexbox;  /* TWEENER - IE 10 */
-    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
-    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
     align-items: baseline;
-}
-
-.butter-component-label abbr {
-    display: block;
 }
 
 .butter-component-label abbr,
@@ -71,11 +72,9 @@ select.butter-input-component {
 }
 
 .butter-component-value {
-    -webkit-box-flex: 1;   /* OLD - iOS 6-, Safari 3.1-6 */
-    width: 70%;            /* For old syntax, otherwise collapses. */
-    -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
-    -ms-flex: 1;           /* IE 10 */
-    flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0;
+    flex: 1 0;
 }
 
 .butter-component-value-readonly {
@@ -100,7 +99,10 @@ select.butter-input-component {
 }
 
 .butter-component-maxlength-counter {
-    padding-right: 15px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 100%;
+    flex: 0 1 100%;
+    padding-right: 10px;
     text-align: right;
 }
 
@@ -114,12 +116,18 @@ select.butter-input-component {
 
 .butter-component-expandable-original {
     height: 34px !important;
-    white-space: normal;
+    white-space: nowrap;
     overflow: hidden;
     resize: none;
-    background-image: url(#{resource[ 'img:expandable.png' ]}) !important;
-    background-position: right center;
-    background-repeat: no-repeat;
+}
+
+div.butter-component-expandable-original {
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+div.butter-component-expandable-original:hover {
+    text-decoration: underline;
 }
 
 .butter-component-expandable-ghost {
@@ -127,4 +135,60 @@ select.butter-input-component {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 2px 2px 4px #999;
+    background-color: #fff;
+}
+
+div.butter-component-expandable-ghost {
+    overflow: auto;
+}
+
+.butter-component-expandable-ghost-readonlyContent {
+    white-space: pre-wrap;
+    padding: 10px;
+}
+
+.butter-component-expandable-readonly-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0;
+    flex: 1 0;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+}
+
+.butter-component-expandable-readonly-icon {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.butter-component-number-buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    padding: 0 !important;
+    width: 40px !important;
+}
+
+.butter-component-number-button {
+    cursor: pointer;
+}
+
+.butter-component-number-button:hover {
+    background-color: #ddd;
+}
+
+.butter-component-number-button:first-child {
+    border-bottom: 1px solid #ccc;
 }

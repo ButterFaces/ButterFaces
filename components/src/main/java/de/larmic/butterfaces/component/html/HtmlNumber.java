@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import java.util.Collections;
+import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
@@ -12,8 +13,8 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import java.util.Collections;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -21,10 +22,9 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-number.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip {
@@ -38,6 +38,7 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
+    protected static final String PROPERTY_STEP = "step";
 
     public HtmlNumber() {
         super();
@@ -105,6 +106,14 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
 
     public void setMax(final String max) {
         this.updateStateHelper(PROPERTY_HTML5_MAX, max);
+    }
+
+    public String getStep() {
+        return (String) this.getStateHelper().eval(PROPERTY_STEP);
+    }
+
+    public void setStep(final String step) {
+        this.updateStateHelper(PROPERTY_STEP, step);
     }
 
     public boolean getAutoFocus() {
