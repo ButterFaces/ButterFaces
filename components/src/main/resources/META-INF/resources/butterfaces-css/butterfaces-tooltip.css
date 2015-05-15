@@ -11,6 +11,6 @@
 }
 
 .butter-component-label-tooltip abbr {
-    border-bottom-style: dashed;
-    border-bottom-width: 1px;
+    text-decoration: underline;
+    text-decoration-style:dotted;
 }
