@@ -123,6 +123,11 @@ select.butter-input-component {
 
 div.butter-component-expandable-original {
     text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+div.butter-component-expandable-original:hover {
+    text-decoration: underline;
 }
 
 .butter-component-expandable-ghost {
@@ -131,7 +136,37 @@ div.butter-component-expandable-original {
     border-radius: 4px;
     box-shadow: 2px 2px 4px #999;
     background-color: #fff;
-    white-space: pre;
+}
+
+div.butter-component-expandable-ghost {
+    overflow: auto;
+}
+
+.butter-component-expandable-ghost-readonlyContent {
+    white-space: pre-wrap;
+    padding: 10px;
+}
+
+.butter-component-expandable-readonly-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0;
+    flex: 1 0;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+}
+
+.butter-component-expandable-readonly-icon {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-left: 5px;
 }
 
 .butter-component-number-buttons {

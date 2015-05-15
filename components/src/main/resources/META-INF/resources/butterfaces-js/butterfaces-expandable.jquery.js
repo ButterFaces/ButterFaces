@@ -77,40 +77,40 @@
             this.$ghostElement = this.createGhostElement();
             this.transferValueToGhostElement();
             this.$ghostElement.css("width", this.initialWidth)
-                .css("height", this.initialHeight)
-                .css("position", "absolute")
-                .css("top", this.initialOffset.top)
-                .css("left", this.initialOffset.left)
-                .css("z-index", 2000)
-                .css("box-shadow", "5px 5px 5px 0 #999")
-                .addClass("butter-component-expandable-ghost")
-                .appendTo($("body"))
-                .animate({
-                    height: self.EXPAND_HEIGHT,
-                    width: self.initialWidth > self.EXPAND_WIDTH ? self.initialWidth : self.EXPAND_WIDTH
-                }, self.ANIMATION_DURATION, self.EASING, function () {
-                    $(document)
-                        .on("click.expandable", function (event) {
-                            self._handleMouseClick(event);
-                        })
-                        .on("keydown.expandable", function (event) {
-                            self._handleEscapeKey(event);
+                    .css("height", this.initialHeight)
+                    .css("position", "absolute")
+                    .css("top", this.initialOffset.top)
+                    .css("left", this.initialOffset.left)
+                    .css("z-index", 2000)
+                    .css("box-shadow", "5px 5px 5px 0 #999")
+                    .addClass("butter-component-expandable-ghost")
+                    .appendTo($("body"))
+                    .animate({
+                        height: self.EXPAND_HEIGHT,
+                        width: self.initialWidth > self.EXPAND_WIDTH ? self.initialWidth : self.EXPAND_WIDTH
+                    }, self.ANIMATION_DURATION, self.EASING, function () {
+                        $(document)
+                                .on("click.expandable", function (event) {
+                                    self._handleMouseClick(event);
+                                })
+                                .on("keydown.expandable", function (event) {
+                                    self._handleEscapeKey(event);
+                                });
+
+                        $(window).on("resize.expandable", function (event) {
+                            self._repositionGhostElement(event);
                         });
 
-                    $(window).on("resize.expandable", function (event) {
-                        self._repositionGhostElement(event);
+                        //keep track of the orginal element's position
+                        self.positionTriggerInterval =
+                                window.setInterval(self._repositionGhostElement, self.REPOSITION_INTERVAL);
                     });
-
-                    //keep track of the orginal element's position
-                    self.positionTriggerInterval =
-                        window.setInterval(self._repositionGhostElement, self.REPOSITION_INTERVAL);
-                });
 
             //make original invisible
             this.$originalElement
-                .css("visibility", "hidden")
-                .siblings()
-                .css("visibility", "hidden");
+                    .css("visibility", "hidden")
+                    .siblings()
+                    .css("visibility", "hidden");
 
             this.onGhostElementCreated();
         },
@@ -134,14 +134,14 @@
             var isCancelled = typeof cancelled === "boolean" && cancelled;
 
             $(document)
-                .off("click.expandable")
-                .off("keydown.expandable");
+                    .off("click.expandable")
+                    .off("keydown.expandable");
 
             //make original visible again
             this.$originalElement
-                .css("visibility", "visible")
-                .siblings()
-                .css("visibility", "visible");
+                    .css("visibility", "visible")
+                    .siblings()
+                    .css("visibility", "visible");
 
             var self = this;
             this.$ghostElement.animate({
@@ -180,8 +180,8 @@
             if (this.$ghostElement !== undefined && this.$ghostElement != null) {
                 this.initialOffset = this.$originalElement.offset();
                 this.$ghostElement
-                    .css("top", this.initialOffset.top)
-                    .css("left", this.initialOffset.left);
+                        .css("top", this.initialOffset.top)
+                        .css("left", this.initialOffset.left);
             }
         }
     });
@@ -189,21 +189,42 @@
     var DivExpandable = _AbstractExpandable.extend({
         initialize: function () {
             this.$originalElement = this.$rootElement.find(".butter-component-value-readonly");
-            this.$originalElement.addClass("butter-component-expandable-original");
+            this._rearrangeOriginalElementStructure();
+        },
 
+        _rearrangeOriginalElementStructure: function () {
             var self = this;
-            this.$originalElement.click(function (event) {
-                self.expandElement(event);
-            });
+            var _label = this.$rootElement.find(".butter-component-label");
+
+            this.$originalElement
+                    .addClass("butter-component-expandable-original")
+                    .click(function (event) {
+                        self.expandElement(event);
+                    })
+                    .detach();
+
+            var _container = $("<div>")
+                    .addClass("butter-component-expandable-readonly-container")
+                    .insertAfter(_label);
+
+            var _icon = $("<span>").addClass("glyphicon glyphicon-resize-full");
+
+            this.$originalElement.appendTo(_container);
+            $("<div>")
+                    .addClass("butter-component-expandable-readonly-icon")
+                    .append(_icon)
+                    .appendTo(_container);
         },
 
         createGhostElement: function () {
             return $("<div>");
         },
 
-
         transferValueToGhostElement: function () {
-            this.$ghostElement.html(this.$originalElement.html());
+            $("<div>")
+                    .html(this.$originalElement.html())
+                    .addClass("butter-component-expandable-ghost-readonlyContent")
+                    .appendTo(this.$ghostElement);
         }
     });
 
@@ -228,11 +249,11 @@
 
         _addInputGroupAddon: function () {
             this.$originalElement
-                .addClass("form-control")
-                .parent()
-                .addClass("input-group");
+                    .addClass("form-control")
+                    .parent()
+                    .addClass("input-group");
             $("<span class='input-group-addon'><span class='glyphicon glyphicon-resize-full'></span></span>")
-                .insertAfter(this.$originalElement);
+                    .insertAfter(this.$originalElement);
         },
 
         _handleBlurEvent: function (event) {
@@ -263,10 +284,10 @@
         onGhostElementCreated: function () {
             var self = this;
             this.$ghostElement
-                .blur(function (event) {
-                    self.collapseElement(event);
-                })
-                .focus();
+                    .blur(function (event) {
+                        self.collapseElement(event);
+                    })
+                    .focus();
             this._moveCaretToEnd(this.$ghostElement);
         },
 
