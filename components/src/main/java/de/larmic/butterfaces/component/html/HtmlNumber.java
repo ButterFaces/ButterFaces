@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
+import de.larmic.butterfaces.component.html.feature.Tooltip;
+
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
@@ -20,23 +22,21 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-number.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.bootstrap-touchspin.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
-public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
+public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.number";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.NumberRenderer";
 
-    protected static final String PROPERTY_TOOLTIP = "tooltip";
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
+    protected static final String PROPERTY_STEP = "step";
 
     public HtmlNumber() {
         super();
@@ -73,15 +73,6 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
     }
 
     @Override
-    public String getTooltip() {
-        return (String) this.getStateHelper().eval(PROPERTY_TOOLTIP);
-    }
-
-    public void setTooltip(final String tooltip) {
-        this.updateStateHelper(PROPERTY_TOOLTIP, tooltip);
-    }
-
-    @Override
     public boolean isHideLabel() {
         final Object eval = this.getStateHelper().eval(PROPERTY_HIDE_LABEL);
         return eval == null ? false : (Boolean) eval;
@@ -113,6 +104,14 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent {
 
     public void setMax(final String max) {
         this.updateStateHelper(PROPERTY_HTML5_MAX, max);
+    }
+
+    public String getStep() {
+        return (String) this.getStateHelper().eval(PROPERTY_STEP);
+    }
+
+    public void setStep(final String step) {
+        this.updateStateHelper(PROPERTY_STEP, step);
     }
 
     public boolean getAutoFocus() {

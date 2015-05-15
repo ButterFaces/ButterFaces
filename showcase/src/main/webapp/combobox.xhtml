@@ -13,7 +13,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{comboBoxShowcase.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}" />
             <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}" />
@@ -41,6 +40,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}" />
         </showcase:tagsContainer>
     </ui:define>
 
@@ -61,6 +61,9 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not comboBoxShowcase.ajax}" />
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
+                    #{comboBoxShowcase.tooltip}
+                </b:tooltip>
                 <c:if test="#{comboBoxShowcase.converterActive}">
                     <f:converter converterId="fooConverter"/>
                 </c:if>

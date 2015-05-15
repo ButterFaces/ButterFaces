@@ -50,6 +50,7 @@ import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
 import com.sun.faces.util.Util;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -412,7 +413,9 @@ public class TableRenderer extends BaseTableRenderer {
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnDisplayModel() != null) {
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(column.getId());
+            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
+            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }

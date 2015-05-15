@@ -2,14 +2,17 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Created by larmic on 31.07.14.
@@ -31,39 +34,103 @@ public class TooltipRenderer extends HtmlBasicRenderer {
 
         final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
         final String contentId = component.getClientId().replace(separatorChar + "", "_");
-        final String forSelector = tooltip.getFor();
+        final String forSelector = getForElement(tooltip);
 
-        writer.startElement("span", tooltip);
-        writer.writeAttribute("name", contentId, null);
-        writer.writeAttribute("class", "butter-component-tooltip-content", null);
-        for (UIComponent child : tooltip.getChildren()) {
-            child.encodeAll(context);
+        if (StringUtils.isNotEmpty(forSelector)) {
+            writer.startElement("span", tooltip);
+            writer.writeAttribute("name", contentId, null);
+            writer.writeAttribute("class", "butter-component-tooltip-temp-content", null);
+            if (StringUtils.isEmpty(tooltip.getFor()) && tooltip.getParent() instanceof Tooltip) {
+                renderValidationErrors(context, writer, tooltip.getParent());
+            }
+            for (UIComponent child : tooltip.getChildren()) {
+                child.encodeAll(context);
+            }
+            writer.endElement("span");
+
+            writer.startElement("script", tooltip);
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("   jQuery(", null);
+            writer.writeText(forSelector, null);
+            writer.writeText(")._butterTooltip({\n", null);
+            writer.writeText("      trigger: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
+            writer.writeText(",\n      title: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
+            writer.writeText(",\n      placement: ", null);
+            writer.writeText(getNullSafeStringParameter(tooltip.getPlacement()), null);
+            writer.writeText(",\n      placementFunction: ", null);
+            writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
+            writer.writeText(",\n      contentByName: '", null);
+            writer.writeText(contentId, null);
+            writer.writeText("',\n      minVerticalOffset: ", null);
+            writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
+            writer.writeText(",\n      minHorizontalOffset: ", null);
+            writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
+            writer.writeText("\n   })\n});", null);
+
+            if (StringUtils.isNotEmpty(tooltip.getOnShow())
+                    || StringUtils.isNotEmpty(tooltip.getOnShown())
+                    || StringUtils.isNotEmpty(tooltip.getOnHide())
+                    || StringUtils.isNotEmpty(tooltip.getOnHidden())) {
+                encodePopoverEvent(forSelector, tooltip.getOnShow(), "show.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnShown(), "shown.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnHide(), "hide.bs.popover", component, writer);
+                encodePopoverEvent(forSelector, tooltip.getOnHidden(), "hidden.bs.popover", component, writer);
+            }
+
+            writer.endElement("script");
         }
-        writer.endElement("span");
+    }
 
-        writer.startElement("script", tooltip);
-        writer.writeText("jQuery(document).ready(function() {\n", null);
-        writer.writeText("   jQuery('", null);
-        writer.writeText(forSelector, null);
-        writer.writeText("')._butterTooltip({\n", null);
-        writer.writeText("      forElement: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getFor()), null);
-        writer.writeText(",\n      trigger: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getTrigger()), null);
-        writer.writeText(",\n      title: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getTitle()), null);
-        writer.writeText(",\n      placement: ", null);
-        writer.writeText(getNullSafeStringParameter(tooltip.getPlacement()), null);
-        writer.writeText(",\n      placementFunction: ", null);
-        writer.writeText(getNullSafeFunctionParameter(tooltip.getPlacementFunction()), null);
-        writer.writeText(",\n      contentByName: '", null);
-        writer.writeText(contentId, null);
-        writer.writeText("',\n      minVerticalOffset: ", null);
-        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
-        writer.writeText(",\n      minHorizontalOffset: ", null);
-        writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
-        writer.writeText("\n   })\n});", null);
-        writer.endElement("script");
+    private void encodePopoverEvent(final String forSelector,
+                                    final String function,
+                                    final String event,
+                                    final UIComponent component,
+                                    final ResponseWriter writer) throws IOException {
+        if (StringUtils.isNotEmpty(function)) {
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("    jQuery(" + forSelector + ").on('" + event + "', function() {\n ", component, null);
+                writer.writeText("        " + function + ";\n", component, null);
+                writer.writeText("    });\n", component, null);
+                writer.writeText("});\n", component, null);
+            }
+        }
+
+    private void renderValidationErrors(final FacesContext context,
+                                        final ResponseWriter writer,
+                                        final UIComponent component) throws IOException {
+        final Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+
+        while (clientIdsWithMessages.hasNext()) {
+            final String clientIdWithMessages = clientIdsWithMessages.next();
+            if (component.getClientId().equals(clientIdWithMessages)) {
+                final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
+
+                writer.startElement("div", component);
+                writer.writeAttribute("class", "butter-component-tooltip-validation-error", null);
+                writer.startElement("ul", component);
+
+                while (componentMessages.hasNext()) {
+                    writer.startElement("li", component);
+                    writer.writeText(componentMessages.next().getDetail(), null);
+                    writer.endElement("li");
+                }
+
+                writer.endElement("ul");
+                writer.endElement("div");
+            }
+        }
+    }
+
+    private String getForElement(HtmlTooltip tooltip) {
+        if (StringUtils.isNotEmpty(tooltip.getFor())) {
+            return "'" + tooltip.getFor() + "'";
+        } else if (tooltip.getParent() instanceof Tooltip) {
+            return "document.getElementById('" + tooltip.getParent().getClientId() + "')";
+        }
+
+        return null;
     }
 
     private String getNullSafeStringParameter(final String value) {

@@ -1,13 +1,13 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.List;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -54,6 +54,12 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         }
 
         this.addAjaxTag(xhtmlCodeExample, "keyup");
+
+        if (StringUtils.isNotEmpty(getTooltip())) {
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+        }
 
         xhtmlCodeExample.appendInnerContent("        </b:textArea>", false);
 

@@ -72,6 +72,31 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         writer.endElement(ELEMENT_DIV); // modal-content
         writer.endElement(ELEMENT_DIV); // modal-dialog
         writer.endElement(ELEMENT_DIV); // modal fade
+
+        if (StringUtils.isNotEmpty(modalPanel.getOnShow())
+                || StringUtils.isNotEmpty(modalPanel.getOnShown())
+                || StringUtils.isNotEmpty(modalPanel.getOnHide())
+                || StringUtils.isNotEmpty(modalPanel.getOnHidden())) {
+            writer.startElement("script", component);
+            encodePopoverEvent(modalPanel.getOnShow(), "show.bs.modal", component, writer);
+            encodePopoverEvent(modalPanel.getOnShown(), "shown.bs.modal", component, writer);
+            encodePopoverEvent(modalPanel.getOnHide(), "hide.bs.modal", component, writer);
+            encodePopoverEvent(modalPanel.getOnHidden(), "hidden.bs.modal", component, writer);
+            writer.endElement("script");
+        }
+    }
+
+    private void encodePopoverEvent(final String function,
+                                    final String event,
+                                    final UIComponent component,
+                                    final ResponseWriter writer) throws IOException {
+        if (StringUtils.isNotEmpty(function)) {
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("    jQuery('.butter-modal[data-modal-id=\"" + component.getId() + "\"]').on('" + event + "', function () {\n", component, null);
+            writer.writeText("        " + function + ";\n", component, null);
+            writer.writeText("    });\n", component, null);
+            writer.writeText("});\n", component, null);
+        }
     }
 
     private void writerHeader(final HtmlModalPanel component, final ResponseWriter writer) throws IOException {

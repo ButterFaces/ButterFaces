@@ -27,13 +27,13 @@ public class RadioBoxRenderer extends de.larmic.butterfaces.component.renderkit.
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
 
         // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
@@ -63,12 +63,15 @@ public class RadioBoxRenderer extends de.larmic.butterfaces.component.renderkit.
         }
 
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
 
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+        renderTooltipIfNecessary(context, component);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
 	}
+
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
+    }
 }

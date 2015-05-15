@@ -42,6 +42,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_ROW_CLASS  = "rowClass";
     protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY  = "rowIdentifierProperty";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
+    protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
 
     private final List<HtmlColumn> cachedColumns = new ArrayList<>();
 
@@ -103,6 +104,14 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setModel(TableModel tableModel) {
         this.updateStateHelper(PROPERTY_MODEL, tableModel);
+    }
+
+    public String getUniqueIdentifier() {
+        return (String) this.getStateHelper().eval(PROPERTY_UNIQUE_IDENTIFIER);
+    }
+
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.updateStateHelper(PROPERTY_UNIQUE_IDENTIFIER, uniqueIdentifier);
     }
 
     public boolean isTableCondensed() {

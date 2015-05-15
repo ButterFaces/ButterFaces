@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.html.action;
 
+import de.larmic.butterfaces.component.html.feature.Tooltip;
+
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -18,7 +20,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")})
 @FacesComponent(HtmlCommandLink.COMPONENT_TYPE)
-public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink {
+public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink implements Tooltip {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.commandLink";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

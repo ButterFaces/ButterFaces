@@ -3,7 +3,7 @@
     <parent>
         <artifactId>butterfaces</artifactId>
         <groupId>de.larmic.butterfaces</groupId>
-        <version>1.7.11-SNAPSHOT</version>
+        <version>1.7.20-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -58,7 +58,7 @@
                                 <artifactItem>
                                     <groupId>org.wildfly</groupId>
                                     <artifactId>wildfly-dist</artifactId>
-                                    <version>8.1.0.Final</version>
+                                    <version>${version.jbossas}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target</outputDirectory>

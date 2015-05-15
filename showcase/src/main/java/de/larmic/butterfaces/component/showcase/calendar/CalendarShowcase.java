@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.showcase.calendar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
-import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -48,7 +48,6 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("        <b:calendar id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                    label=\"" + getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
@@ -67,6 +66,12 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
         if (isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+        }
+
+        if (StringUtils.isNotEmpty(getTooltip())) {
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:calendar>", false);

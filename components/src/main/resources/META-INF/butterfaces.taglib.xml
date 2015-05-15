@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE facelet-taglib PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+        "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
 <facelet-taglib version="2.2"
                 xmlns="http://xmlns.jcp.org/xml/ns/javaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -20,10 +23,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -88,10 +87,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -162,10 +157,6 @@
          <required>true</required>
       </attribute>
       <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
-      </attribute>
-      <attribute>
          <name>glyphiconTime</name>
          <type>java.lang.String</type>
       </attribute>
@@ -184,12 +175,10 @@
       <attribute>
          <name>language</name>
          <type>java.lang.String</type>
-         <description>Takes a string of any valid moment (https://github.com/moment/moment/tree/develop/locale) locale e.g. 'de' for German.</description>
       </attribute>
       <attribute>
          <name>sideBySide</name>
          <type>java.lang.Boolean</type>
-         <description>If sideBySide is true and the time picker is used, both components will display side by side instead of collapsing.</description>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -246,10 +235,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -368,6 +353,10 @@
          <name>max</name>
          <type>java.lang.String</type>
       </attribute>
+      <attribute>
+         <name>step</name>
+         <type>java.lang.String</type>
+      </attribute>
    </tag>
 
    <tag>
@@ -384,10 +373,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -437,10 +422,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>hideLabel</name>
@@ -500,10 +481,6 @@
          <required>true</required>
       </attribute>
       <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
-      </attribute>
-      <attribute>
          <name>hideLabel</name>
          <type>java.lang.Boolean</type>
       </attribute>
@@ -557,10 +534,6 @@
          <required>true</required>
       </attribute>
       <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
-      </attribute>
-      <attribute>
          <name>hideLabel</name>
          <type>java.lang.Boolean</type>
       </attribute>
@@ -600,10 +573,6 @@
       <attribute>
          <name>value</name>
          <required>true</required>
-      </attribute>
-      <attribute>
-         <name>tooltip</name>
-         <type>java.lang.String</type>
       </attribute>
       <attribute>
          <name>description</name>
@@ -674,10 +643,12 @@
       <attribute>
          <name>for</name>
          <type>java.lang.String</type>
+         <description>jQuery selector. Could be empty if tooltip component is embedded in a ButterFaces component.</description>
       </attribute>
       <attribute>
          <name>title</name>
          <type>java.lang.String</type>
+         <description>Tooltip title. If title if empty no title will be displayed.</description>
       </attribute>
       <attribute>
          <name>trigger</name>
@@ -703,6 +674,26 @@
          <name>rendered</name>
          <type>java.lang.Boolean</type>
       </attribute>
+      <attribute>
+         <name>onShow</name>
+         <type>java.lang.String</type>
+         <description>This event fires immediately when the show instance method is called.</description>
+      </attribute>
+      <attribute>
+         <name>onShown</name>
+         <type>java.lang.String</type>
+         <description>This event is fired when the popover has been made visible to the user (will wait for CSS transitions to complete).</description>
+      </attribute>
+      <attribute>
+         <name>onHide</name>
+         <type>java.lang.String</type>
+         <description>This event is fired immediately when the hide instance method has been called.</description>
+      </attribute>
+      <attribute>
+         <name>onHidden</name>
+         <type>java.lang.String</type>
+         <description>This event is fired when the popover has finished being hidden from the user (will wait for CSS transitions to complete).</description>
+      </attribute>
    </tag>
 
    <tag>
@@ -725,6 +716,26 @@
       <attribute>
          <name>styleClass</name>
          <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>onShow</name>
+         <type>java.lang.String</type>
+         <description>This event fires immediately when the show instance method is called. If caused by a click, the clicked element is available as the relatedTarget property of the event.</description>
+      </attribute>
+      <attribute>
+         <name>onShown</name>
+         <type>java.lang.String</type>
+         <description>This event is fired when the modal has been made visible to the user (will wait for CSS transitions to complete). If caused by a click, the clicked element is available as the relatedTarget property of the event.</description>
+      </attribute>
+      <attribute>
+         <name>onHide</name>
+         <type>java.lang.String</type>
+         <description>This event is fired immediately when the hide instance method has been called.</description>
+      </attribute>
+      <attribute>
+         <name>onHidden</name>
+         <type>java.lang.String</type>
+         <description>This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).</description>
       </attribute>
       <attribute>
          <name>rendered</name>
@@ -768,6 +779,11 @@
          <name>var</name>
          <type>java.lang.String</type>
          <required>true</required>
+      </attribute>
+      <attribute>
+         <name>uniqueIdentifier</name>
+         <type>java.lang.String</type>
+         <description>If unique identifier is set it will be used for table model (instead of client id)</description>
       </attribute>
       <attribute>
          <name>value</name>
@@ -868,6 +884,11 @@
       <attribute>
          <name>rendered</name>
          <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>uniqueIdentifier</name>
+         <type>java.lang.String</type>
+         <description>If unique identifier is set it will be used for table model (instead of client id)</description>
       </attribute>
       <attribute>
          <description>HTML table colgroup column width. Could be in px, percent or relative.</description>
@@ -1491,4 +1512,50 @@
          <type>java.lang.Boolean</type>
       </attribute>
    </tag>
+
+   <tag>
+      <tag-name>autoComplete</tag-name>
+      <component>
+         <component-type>de.larmic.butterfaces.component.autoComplete</component-type>
+      </component>
+      <attribute>
+         <name>autoComplete</name>
+         <type>de.larmic.butterfaces.model.text.AutoCompleteModel</type>
+         <required>true</required>
+      </attribute>
+      <attribute>
+         <name>rendered</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+   </tag>
+
+   <tag>
+      <tag-name>labeledContainer</tag-name>
+      <component>
+         <component-type>de.larmic.butterfaces.component.labeledContainer</component-type>
+      </component>
+      <attribute>
+         <name>label</name>
+         <type>java.lang.String</type>
+         <description>Renders a label in front of input component and adds label attribute to input component.
+         </description>
+      </attribute>
+      <attribute>
+         <name>hideLabel</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>rendered</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>style</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>styleClass</name>
+         <type>java.lang.String</type>
+      </attribute>
+   </tag>
+
 </facelet-taglib>

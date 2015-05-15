@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://java.sun.com/jsf/composite/cc"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:autoComplete</strong> The autoComplete tag can only be used inside of a ButterFaces text component and renders a list of auto complete values which can be selected by item click.
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagBooleanControl label="rendered" value="#{autoCompleteShowcase.rendered}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagBooleanControl label="ajax" value="#{autoCompleteShowcase.ajaxEnabled}"/>
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="autoComplete"
+                                         component="#{autoCompleteShowcase}">
+            <b:text id="text"
+                    label="label"
+                    value="#{autoCompleteShowcase.value}"
+                    placeholder="begin with typing test...">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not autoCompleteShowcase.ajaxEnabled}" />
+                <b:autoComplete autoComplete="#{autoCompleteShowcase.autoCompleteModel}"
+                                rendered="#{autoCompleteShowcase.rendered}"/>
+                <b:tooltip>
+                    Try it with <strong>ButterFaces</strong> or <strong>test</strong>
+                </b:tooltip>
+            </b:text>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{autoCompleteShowcase}"/>
+        <b:activateLibraries />
+    </ui:define>
+</ui:composition>

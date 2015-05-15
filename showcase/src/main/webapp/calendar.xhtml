@@ -13,7 +13,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{calendarShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
@@ -42,6 +41,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -66,7 +66,6 @@
                         sideBySide="#{calendarShowcase.sideBySise}"
                         hideLabel="#{calendarShowcase.hideLabel}"
                         value="#{calendarShowcase.value}"
-                        tooltip="#{calendarShowcase.tooltip}"
                         readonly="#{calendarShowcase.readonly}"
                         required="#{calendarShowcase.required}"
                         rendered="#{calendarShowcase.rendered}"
@@ -77,6 +76,9 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not calendarShowcase.ajax}"/>
+                <b:tooltip rendered="#{not empty calendarShowcase.tooltip}">
+                    #{calendarShowcase.tooltip}
+                </b:tooltip>
             </b:calendar>
 
         </showcase:showcaseOuputComponent>

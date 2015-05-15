@@ -13,7 +13,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
@@ -39,6 +38,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
             <showcase:tagEnumControl label="facets"
                                      value="#{maskedTextShowcase.selectedFacetType}"
                                      values="#{maskedTextShowcase.availableFacetTypes}"
@@ -65,7 +65,6 @@
                           label="#{maskedTextShowcase.label}"
                           hideLabel="#{maskedTextShowcase.hideLabel}"
                           value="#{maskedTextShowcase.value}"
-                          tooltip="#{maskedTextShowcase.tooltip}"
                           readonly="#{maskedTextShowcase.readonly}"
                           required="#{maskedTextShowcase.required}"
                           rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
@@ -85,13 +84,15 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not maskedTextShowcase.validation}"/>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
+                    #{maskedTextShowcase.tooltip}
+                </b:tooltip>
             </b:maskedText>
 
             <b:maskedText id="textWithInputGroupAddon"
                           label="#{maskedTextShowcase.label}"
                           hideLabel="#{maskedTextShowcase.hideLabel}"
                           value="#{maskedTextShowcase.value}"
-                          tooltip="#{maskedTextShowcase.tooltip}"
                           readonly="#{maskedTextShowcase.readonly}"
                           required="#{maskedTextShowcase.required}"
                           rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
@@ -117,13 +118,15 @@
                 <f:facet name="input-group-addon-right">
                     Right input-group-addon
                 </f:facet>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
+                    #{maskedTextShowcase.tooltip}
+                </b:tooltip>
             </b:maskedText>
 
             <b:maskedText id="textWithInputGroupBtn"
                           label="#{maskedTextShowcase.label}"
                           hideLabel="#{maskedTextShowcase.hideLabel}"
                           value="#{maskedTextShowcase.value}"
-                          tooltip="#{maskedTextShowcase.tooltip}"
                           readonly="#{maskedTextShowcase.readonly}"
                           required="#{maskedTextShowcase.required}"
                           rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
@@ -143,6 +146,9 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not maskedTextShowcase.validation}"/>
+                <b:tooltip rendered="#{not empty maskedTextShowcase.tooltip}">
+                    #{maskedTextShowcase.tooltip}
+                </b:tooltip>
                 <f:facet name="input-group-btn-left">
                     <button class="btn btn-default" type="button">Go!</button>
                 </f:facet>

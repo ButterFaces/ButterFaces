@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.showcase;
 
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.faces.view.ViewScoped;
@@ -22,5 +23,20 @@ public class ActivateLibrariesShowcase extends AbstractCodeShowcase implements S
         xhtmlCodeExample.appendInnerContent("        </b:activateLibraries>", false);
 
         codeExamples.add(xhtmlCodeExample);
+        codeExamples.add(createWebXmlExample());
+    }
+
+    private AbstractCodeExample createWebXmlExample() {
+        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
+
+        webXmlCodeExample.appendInnerContent("  <!-- If you want to enable compressed and minified resources -->");
+        webXmlCodeExample.appendInnerContent("  <!-- (http://yui.github.io/yuicompressor/ is used) -->");
+        webXmlCodeExample.appendInnerContent("  <!-- default is false -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.useCompressedResources</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>true</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+
+        return webXmlCodeExample;
     }
 }

@@ -12,7 +12,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{textShowcase.required}"/>
@@ -38,6 +37,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
+            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
             <showcase:tagEnumControl label="facets"
                                      value="#{textShowcase.selectedFacetType}"
                                      values="#{textShowcase.availableFacetTypes}"
@@ -55,8 +55,8 @@
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
+                    tooltip="demo"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
@@ -75,13 +75,15 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}" />
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
@@ -100,6 +102,9 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
                 <f:facet name="input-group-addon-left">
                     Left input-group-addon
                 </f:facet>
@@ -112,7 +117,6 @@
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
-                    tooltip="#{textShowcase.tooltip}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
@@ -123,6 +127,9 @@
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
                     styleClass="#{textShowcase.styleClass}">
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
                 <f:ajax event="keyup"
                         execute="@this"
                         listener="#{textShowcase.someListenerAction}"

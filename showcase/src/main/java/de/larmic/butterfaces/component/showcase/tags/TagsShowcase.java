@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase.tags;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -47,7 +48,6 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
         xhtmlCodeExample.appendInnerContent("                maxChars=\"" + maxChars + "\"");
         xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + getConfirmKeys() + "\"");
-        xhtmlCodeExample.appendInnerContent("                tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
@@ -59,6 +59,12 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
         if (this.isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+        }
+
+        if (StringUtils.isNotEmpty(getTooltip())) {
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:tags>", false);

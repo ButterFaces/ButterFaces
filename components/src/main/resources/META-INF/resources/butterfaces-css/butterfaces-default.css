@@ -4,15 +4,39 @@ select.butter-input-component {
     height: 34px; /* bootstrap default height */
 }
 
+.butter-component {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    min-height: 34px;
+}
+
 .butter-component-required {
     color: #a94442;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-.butter-component > label,
-.butter-component > div {
-    vertical-align: top;
+.butter-component .input-group {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+}
+
+.butter-component .input-group-addon {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    width: auto;
 }
 
 .butter-component .checkbox,
@@ -26,28 +50,37 @@ select.butter-input-component {
 }
 
 .butter-component-label {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
-    display: inline-block;
+    -webkit-box-align: baseline;
+    -webkit-align-items: baseline;
+    align-items: baseline;
+}
+
+.butter-component-label abbr,
+.butter-component-value-readonly,
+.butter-component-checkbox {
+    padding-top: 6px;
+}
+
+.butter-component-readonly .butter-component-label {
+    padding: 0;
 }
 
 .butter-component-value {
-    display: inline-table;
-    width: calc(100% - 120px);
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0;
+    flex: 1 0;
 }
 
 .butter-component-value-readonly {
     white-space: pre-wrap;
 }
 
-.input-group.butter-component-value {
-    float:right;
-}
-
-.input-group.butter-component-value:after {
-    clear: both;
-}
 
 .butter-component-value-hiddenLabel {
     width: 100% !important;
@@ -65,68 +98,11 @@ select.butter-input-component {
     clear: both;
 }
 
-.butter-component-tooltip {
-    display: inline-block;
-}
-
-.butter-component-tooltip-hidden {
-    visibility: hidden;
-    position: absolute;
-    left: -9999px;
-}
-
-.butter-component-tooltip-text {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 2px 2px 4px #999;
-    white-space: nowrap;
-}
-
-.butter-component-tooltip-text hr {
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.butter-component-tooltip-text ul {
-    margin-left: -20px;
-}
-
-.butter-component-tooltip-validation-error {
-    color: #a94442;
-}
-
-.butter-component-tooltip-right .butter-component-tooltip-text {
-    margin-left: 15px;
-}
-
-.butter-component-tooltip-right .butter-component-tooltip-arrow {
-    height: 16px;
-    width: 16px;
-    background-image: url(#{resource[ 'img:tooltip_arrow_left.png' ]});
-    position: absolute;
-    top: 5px;
-    left: 0;
-    z-index: 10;
-}
-
-.butter-component-tooltip-up .butter-component-tooltip-text {
-    margin-top: 15px;
-}
-
-.butter-component-tooltip-up .butter-component-tooltip-arrow {
-    height: 16px;
-    width: 16px;
-    background-image: url(#{resource[ 'img:tooltip_arrow_up.png' ]});
-    position: absolute;
-    top: 0;
-    left: 5px;
-    z-index: 10;
-}
-
 .butter-component-maxlength-counter {
-    padding-right: 15px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 100%;
+    flex: 0 1 100%;
+    padding-right: 10px;
     text-align: right;
 }
 
@@ -154,9 +130,30 @@ div.butter-component-expandable-original {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 2px 2px 4px #999;
-}
-
-div.butter-component-expandable-ghost {
     background-color: #fff;
     white-space: pre;
+}
+
+.butter-component-number-buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    padding: 0 !important;
+    width: 40px !important;
+}
+
+.butter-component-number-button {
+    cursor: pointer;
+}
+
+.butter-component-number-button:hover {
+    background-color: #ddd;
+}
+
+.butter-component-number-button:first-child {
+    border-bottom: 1px solid #ccc;
 }

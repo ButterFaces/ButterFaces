@@ -12,7 +12,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
-            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
             <showcase:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
             <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
@@ -34,6 +33,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -43,7 +43,6 @@
             <b:checkBox label="#{checkBoxShowcase.label}"
                         value="#{checkBoxShowcase.value}"
                         hideLabel="#{checkBoxShowcase.hideLabel}"
-                        tooltip="#{checkBoxShowcase.tooltip}"
                         description="#{checkBoxShowcase.description}"
                         readonly="#{checkBoxShowcase.readonly}"
                         required="#{checkBoxShowcase.required}"
@@ -54,6 +53,9 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not checkBoxShowcase.ajax}" />
+                <b:tooltip rendered="#{not empty checkBoxShowcase.tooltip}">
+                    #{checkBoxShowcase.tooltip}
+                </b:tooltip>
             </b:checkBox>
         </showcase:showcaseOuputComponent>
     </ui:define>

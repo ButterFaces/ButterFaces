@@ -37,6 +37,11 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     }
 
     @Override
+    protected boolean shouldWriteIdAttribute(UIComponent component) {
+        return true;
+    }
+
+    @Override
     protected void writeCommonLinkAttributes(final ResponseWriter writer, final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final String styleClass = (String) component.getAttributes().get("styleClass");

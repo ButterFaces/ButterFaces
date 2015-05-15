@@ -1,9 +1,11 @@
 package de.larmic.butterfaces.component.showcase.text;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
+import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -17,6 +19,8 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TextShowcase extends AbstractInputShowcase implements Serializable {
 
+    private final List<String> autoCompleteValues = new ArrayList<>();
+
     private FacetType selectedFacetType = FacetType.NONE;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private String type;
@@ -24,6 +28,21 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
     private String min;
     private String max;
     private boolean autoFocus;
+
+    @PostConstruct
+    public void init() {
+        autoCompleteValues.add("test");
+        autoCompleteValues.add("tetest");
+        autoCompleteValues.add("test1 ButterFaces");
+        autoCompleteValues.add("test2");
+        autoCompleteValues.add("ButterFaces");
+        autoCompleteValues.add("ButterFaces JSF");
+        autoCompleteValues.add("ButterFaces Mojarra");
+        autoCompleteValues.add("ButterFaces Component");
+        autoCompleteValues.add("JSF");
+        autoCompleteValues.add("JSF 2");
+        autoCompleteValues.add("JSF 2.2");
+    }
 
     @Override
     protected Object initValue() {
@@ -42,7 +61,6 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("        <b:text id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                type=\"" + this.getType() + "\"");
         xhtmlCodeExample.appendInnerContent("                pattern=\"" + this.getPattern() + "\"");
@@ -58,6 +76,12 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
         if (this.isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+        }
+
+        if (StringUtils.isNotEmpty(getTooltip())) {
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
         if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {

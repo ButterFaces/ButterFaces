@@ -12,7 +12,6 @@
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
             <showcase:tagStringControl label="label" value="#{textAreaShowcase.label}" />
-            <showcase:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}" />
             <showcase:tagBooleanControl label="hideLabel" value="#{textAreaShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{textAreaShowcase.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{textAreaShowcase.required}" />
@@ -36,6 +35,7 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}" />
             <showcase:tagBooleanControl label="validate" value="#{textAreaShowcase.validation}" />
         </showcase:tagsContainer>
     </ui:define>
@@ -46,7 +46,6 @@
                         label="#{textAreaShowcase.label}"
                         hideLabel="#{textAreaShowcase.hideLabel}"
                         value="#{textAreaShowcase.value}"
-                        tooltip="#{textAreaShowcase.tooltip}"
                         readonly="#{textAreaShowcase.readonly}"
                         required="#{textAreaShowcase.required}"
                         rendered="#{textAreaShowcase.rendered}"
@@ -62,6 +61,9 @@
                 <f:validateLength minimum="2"
                                   maximum="10"
                                   disabled="#{not textAreaShowcase.validation}" />
+                <b:tooltip rendered="#{not empty textAreaShowcase.tooltip}">
+                    #{textAreaShowcase.tooltip}
+                </b:tooltip>
             </b:textArea>
         </showcase:showcaseOuputComponent>
     </ui:define>

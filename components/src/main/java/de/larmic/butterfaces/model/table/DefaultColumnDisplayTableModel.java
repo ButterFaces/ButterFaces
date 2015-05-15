@@ -14,19 +14,19 @@ public class DefaultColumnDisplayTableModel implements TableColumnDisplayModel {
     private final Map<String, Boolean> columnInformation = new HashMap<>();
 
     @Override
-    public void showColumn(final String clientId) {
-        columnInformation.put(clientId, false);
+    public void showColumn(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
+        columnInformation.put(columnUniqueIdentifier, false);
     }
 
     @Override
-    public void hideColumn(final String clientId) {
-        columnInformation.put(clientId, true);
+    public void hideColumn(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
+        columnInformation.put(columnUniqueIdentifier, true);
     }
 
 
     @Override
-    public Boolean isColumnHidden(final String clientId) {
-        final Boolean hideColumn = columnInformation.get(clientId);
+    public Boolean isColumnHidden(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
+        final Boolean hideColumn = columnInformation.get(columnUniqueIdentifier);
         return hideColumn == null ? null : hideColumn;
     }
 }

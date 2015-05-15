@@ -129,6 +129,7 @@
 
         <b:table id="filterTable"
                  var="rowItem"
+                 uniqueIdentifier="filterTable"
                  value="#{tableShowcase.stringRows}"
                  singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                  model="#{tableShowcase.tableModel}"
@@ -142,16 +143,19 @@
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:column id="column1"
+                      uniqueIdentifier="column1"
                       colWidth="#{tableShowcase.colWidthColumn1}"
                       label="Readonly text">
                 #{rowItem.a}
             </b:column>
             <b:column id="column2"
+                      uniqueIdentifier="column2"
                       colWidth="#{tableShowcase.colWidthColumn2}"
                       label="Input text">
                 <h:inputText value="#{rowItem.b}"/>
             </b:column>
             <b:column id="column3"
+                      uniqueIdentifier="column3"
                       colWidth="#{tableShowcase.colWidthColumn3}"
                       sortColumnEnabled="false"
                       label="Action">
@@ -162,6 +166,7 @@
                 </b:commandLink>
             </b:column>
             <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+                      uniqueIdentifier="column4"
                       hideColumn="true"
                       sortColumnEnabled="false"
                       label="Readonly text (default hide)">

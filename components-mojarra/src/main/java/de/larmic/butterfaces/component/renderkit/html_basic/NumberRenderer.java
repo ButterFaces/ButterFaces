@@ -1,190 +1,43 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import com.sun.faces.config.WebConfiguration;
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
-import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlNumber;
-import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.html.text.HtmlMaskedText;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractTextRenderer;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlNumber.COMPONENT_FAMILY, rendererType = HtmlNumber.RENDERER_TYPE)
-public class NumberRenderer extends HtmlBasicInputRenderer {
-
-    private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
-    private static final Attribute[] OUTPUT_ATTRIBUTES = AttributeManager
-            .getAttributes(AttributeManager.Key.OUTPUTTEXT);
+public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
 
     @Override
-    public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
+    protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
+        final HtmlNumber numberComponent = (HtmlNumber) component;
 
-        if (!shouldEncode(component)) {
-            return;
-        }
-
-        super.encodeBegin(context, component);
-
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
-        final ResponseWriter writer = context.getResponseWriter();
-
-        // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
-
-        // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
-
-        // Open inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
-
-        // Render readonly span if components readonly attribute is set
-        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
-    }
-
-    @Override
-    public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
-            return;
-        }
-
-        final HtmlNumber htmlComponent = (HtmlNumber) component;
-        final ResponseWriter writer = context.getResponseWriter();
-
-        if (!htmlComponent.isReadonly()) {
-            super.encodeEnd(context, component);
-        }
-
-        // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
-
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
-
-        final String min = "".equals(htmlComponent.getMin()) ? "0" : htmlComponent.getMin();
-        final String max = "".equals(htmlComponent.getMax()) ? "100" : htmlComponent.getMax();
-
-        writer.startElement("script", component);
-        //writer.writeText("jQuery(document.getElementById('" + component.getClientId() + "')).find('input.butter-number-component').TouchSpin({ verticalbuttons: true, min:" + min + ", max:" + max + " });", null);
-        writer.writeText("jQuery(document.getElementById('" + component.getClientId() + "')).find('input.butter-number-component').TouchSpin({ verticalbuttons: true });", null);
-        writer.endElement("script");
-
-        // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
-    }
-
-    /**
-     * Method copied from super class to add html features.
-     */
-    @Override
-    protected void getEndTextToRender(final FacesContext context, final UIComponent component, final String currentValue)
-            throws IOException {
-
-        final ResponseWriter writer = context.getResponseWriter();
-        assert (writer != null);
-
-        if (component instanceof UIInput) {
-            writer.startElement("input", component);
-            this.writeIdAttributeIfNecessary(context, writer, component);
-            writer.writeAttribute("name", (component.getClientId(context)), "clientId");
-            writer.writeAttribute("type", "text", null);
-
-            final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
-                    Constants.BOOTSTRAP_FORM_CONTROL, "butter-number-component",
-                    !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
-
-            if (StringUtils.isNotEmpty(styleClass)) {
-                writer.writeAttribute("class", styleClass, "styleClass");
+        if (!numberComponent.isReadonly()) {
+            Map<String, String> options = new HashMap<>();
+            if (StringUtils.isNotEmpty(numberComponent.getMin())) {
+                options.put("min", numberComponent.getMin());
+            }
+            if (StringUtils.isNotEmpty(numberComponent.getMax())) {
+                options.put("max", numberComponent.getMax());
+            }
+            if (StringUtils.isNotEmpty(numberComponent.getStep())) {
+                options.put("step", numberComponent.getStep());
             }
 
-            // render default text specified
-            if (currentValue != null) {
-                writer.writeAttribute("value", currentValue, "value");
-            }
-
-            // *** BEGIN CUSTOM CHANGED **************************
-            writer.writeAttribute("autocomplete", "off", "autocomplete");
-            // *** END CUSTOM CHANGED ****************************
-
-            // *** BEGIN HTML 5 CHANGED **************************
-            this.renderHtmlFeatures(component, writer);
-            // *** END HTML 5 CHANGED ****************************
-
-            // style is rendered as a passthur attribute
-            RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES,
-                    getNonOnChangeBehaviors(component));
-            RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
-
-            RenderKitUtils.renderOnchange(context, component, false);
-
-            writer.endElement("input");
-
-            // *** BEGIN CUSTOM CHANGED **************************
-            if (component instanceof HtmlNumber) {
-                final HtmlNumber inputComponent = (HtmlNumber) component;
-
-                writer.startElement("script", component);
-                writer.writeText("var _component = document.getElementById('" + component.getClientId() + "');", null);
-                writer.writeText("_component.addEventListener('keyup', function(e) {butter.number.handleSpinner(e, _component, "
-                        + convertMinMax(inputComponent.getMin()) + ", "
-                        + convertMinMax(inputComponent.getMax()) + ")}, false);", null);
-                writer.endElement("script");
-            }
-            // *** END CUSTOM CHANGED ****************************
-
-        }
-    }
-
-    @Override
-    public void encodeChildren(FacesContext context, UIComponent component)
-            throws IOException {
-
-        boolean renderChildren = WebConfiguration.getInstance()
-                .isOptionEnabled(WebConfiguration.BooleanWebContextInitParameter.AllowTextChildren);
-
-        if (!renderChildren) {
-            return;
-        }
-
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncodeChildren(component)) {
-            return;
-        }
-
-        if (component.getChildCount() > 0) {
-            for (UIComponent kid : component.getChildren()) {
-                encodeRecursive(context, kid);
-            }
-        }
-
-    }
-
-    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
-        if (component instanceof HtmlNumber) {
-            final HtmlNumber inputComponent = (HtmlNumber) component;
-            new HtmlAttributePartRenderer().writePlaceholderAttribute(writer, inputComponent.getPlaceholder());
-
-            if (inputComponent.getAutoFocus()) {
-                writer.writeAttribute("autofocus", "true", null);
-            }
-        }
-    }
-
-    private String convertMinMax(String value) {
-        try {
-            return "'" + Integer.valueOf(value) + "'";
-        } catch (NumberFormatException e) {
-            return "null";
+            RenderUtils.renderJQueryPluginCall(
+                    component.getClientId(),
+                    "butterNumberSpinner(" + RenderUtils.createOptionsStringForJQueryPluginCall(options) + ")",
+                    writer,
+                    numberComponent
+            );
         }
     }
 }

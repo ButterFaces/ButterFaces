@@ -18,7 +18,7 @@
                         <ul class="nav navList componentsNavList">
                             <li class="dropdown-header" role="presentation">Input components</li>
                             <li><h:link value="b:text" outcome="/text" styleClass="arquillian_text mojarra" title="Butterfaces text component"/></li>
-                            <li><h:link value="b:maskedText" outcome="/maskedtext" styleClass="arquillian_maskedText newFeature mojarra" title="Butterfaces masked text component"/></li>
+                            <li><h:link value="b:maskedText" outcome="/maskedtext" styleClass="arquillian_maskedText mojarra" title="Butterfaces masked text component"/></li>
                             <li><h:link value="b:textarea" outcome="/textarea" styleClass="arquillian_textarea mojarra" title="Butterfaces text area component"/></li>
                             <li><h:link value="b:calendar" outcome="/calendar" styleClass="arquillian_calendar mojarra" title="Butterfaces calendar component"/></li>
                             <li><h:link value="b:secret" outcome="/secret" styleClass="arquillian_secret mojarra" title="Butterfaces secret component"/></li>
@@ -34,17 +34,19 @@
                             <li><h:link value="b:activateLibraries" outcome="/activateLibraries" styleClass="arquillian_activateLibraries" title="Butterfaces active libraries component"/></li>
                             <li><h:link value="b:defaultAction" outcome="/defaultAction" styleClass="arquillian_defaultAction" title="Butterfaces default action component"/></li>
                             <li><h:link value="b:waitingPanel" outcome="/waitingPanel" styleClass="arquillian_waitingPanel" title="Butterfaces waiting panel component"/></li>
-                            <li><h:link value="b:modalPanel" outcome="/modalPanel" styleClass="arquillian_modalPanel newFeature" title="Butterfaces modal panel component"/></li>
-                            <li><h:link value="b:tooltip" styleClass="arquillian_tooltip_header experimental"  outcome="/tooltip" title="Butterfaces tooltip component"/></li>
-                            <li class="divider" role="presentation">
-                                <hr/>
-                            </li>
-                            <li class="dropdown-header" role="presentation">Actions</li>
-                            <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link mojarra" title="Butterfaces command link and button component"/></li>
+                            <li><h:link value="b:modalPanel" outcome="/modalPanel" styleClass="arquillian_modalPanel" title="Butterfaces modal panel component"/></li>
+                            <li><h:link value="b:tooltip" styleClass="arquillian_tooltip_header newFeature"  outcome="/tooltip" title="Butterfaces tooltip component"/></li>
+                            <li><h:link value="b:autoComplete" styleClass="arquillian_autocomplete_header newFeature"  outcome="/autoComplete" title="Butterfaces auto complete component"/></li>
+                            <li><h:link value="b:labeledContainer" styleClass="arquillian_labeledContainer_header newFeature"  outcome="/labeledContainer" title="Butterfaces labeled container component"/></li>
                         </ul>
                     </div>
                     <div class="col-sm-6">
                         <ul class="nav navList componentsNavList">
+                            <li class="dropdown-header" role="presentation">Actions</li>
+                            <li><h:link value="b:commandLink" outcome="/commandLink"  styleClass="arquillian_link mojarra" title="Butterfaces command link and button component"/></li>
+                            <li class="divider" role="presentation">
+                                <hr/>
+                            </li>
                             <li class="dropdown-header" role="presentation">Container</li>
                             <li><h:link value="b:section" outcome="/section" styleClass="arquillian_section" title="Butterfaces html section component"/>
                             </li>

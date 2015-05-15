@@ -40,10 +40,10 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(htmlComponent, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(htmlComponent, writer);
+        new LabelPartRenderer().renderLabel(component, writer);
 
         // Open inner component wrapper div
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
@@ -70,11 +70,14 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         // Close inner component wrapper div
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
 
-        // render tooltip elements if necessary
-        new TooltipPartRenderer().renderTooltip(htmlComponent, writer);
+        renderTooltipIfNecessary(context, component);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
     }
 
     @Override

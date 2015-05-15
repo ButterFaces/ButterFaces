@@ -6,7 +6,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:tooltip</strong> renders a <a href="http://getbootstrap.com/javascript/#popovers" target="_blank">Bootstrap popover</a> for given component.
+        <strong>b:tooltip</strong> renders a <a href="http://getbootstrap.com/javascript/#popovers" target="_blank">Bootstrap popover</a> for given component. Tooltip component is embeddable in all <strong>ButterFaces input fields</strong> and <strong>command link</strong>.
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -15,6 +15,12 @@
             <showcase:tagStringControl label="trigger" value="#{tooltipShowcase.trigger}"/>
             <showcase:tagStringControl label="placement" value="#{tooltipShowcase.placement}"/>
             <showcase:tagBooleanControl label="rendered" value="#{tooltipShowcase.rendered}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="components"
+                                     value="#{tooltipShowcase.selectedTooltTipType}"
+                                     values="#{tooltipShowcase.tooltipTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -27,19 +33,54 @@
 
         <div class="row">
             <div class="col-md-12">
-                <a id="tooltipBtn" class="btn btn-lg btn-danger" role="button">#{tooltipShowcase.trigger} me!</a>
+                <h:panelGroup layout="block" rendered="#{tooltipShowcase.selectedTooltTipType eq 'A'}">
+                    <a id="tooltipBtn" class="btn btn-default" role="button">#{tooltipShowcase.trigger} me!</a>
+                </h:panelGroup>
+
+                <b:commandLink value="#{tooltipShowcase.trigger} me!"
+                               rendered="#{tooltipShowcase.selectedTooltTipType eq 'COMMAND_LINK'}"
+                               styleClass="btn btn-default">
+                    <b:tooltip title="#{tooltipShowcase.title}"
+                               trigger="#{tooltipShowcase.trigger}"
+                               placement="#{tooltipShowcase.placement}"
+                               rendered="#{tooltipShowcase.rendered}">
+                        <strong>some text stuff</strong>
+                        <br/>
+                        <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+                    </b:tooltip>
+                </b:commandLink>
+
+                <b:text label="#{tooltipShowcase.trigger} me!"
+                        value="#{tooltipShowcase.textFieldValue}"
+                        placeholder="Insert text and blur me..."
+                        rendered="#{tooltipShowcase.selectedTooltTipType eq 'TEXT'}">
+                    <f:ajax event="blur"
+                            execute="@this"
+                            render="@this"/>
+                    <f:validateLength minimum="2" maximum="10"/>
+                    <b:tooltip title="#{tooltipShowcase.title}"
+                               trigger="#{tooltipShowcase.trigger}"
+                               placement="#{tooltipShowcase.placement}"
+                               rendered="#{tooltipShowcase.rendered}">
+                        <strong>some text stuff</strong>
+                        <br/>
+                        <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+                    </b:tooltip>
+                </b:text>
             </div>
         </div>
 
-        <b:tooltip for="#tooltipBtn"
-                   title="#{tooltipShowcase.title}"
-                   trigger="#{tooltipShowcase.trigger}"
-                   placement="#{tooltipShowcase.placement}"
-                   rendered="#{tooltipShowcase.rendered}">
-            <strong>some text stuff</strong>
-            <br />
-            <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
-        </b:tooltip>
+        <h:panelGroup layout="block" rendered="#{tooltipShowcase.selectedTooltTipType eq 'A'}">
+            <b:tooltip for="#tooltipBtn"
+                       title="#{tooltipShowcase.title}"
+                       trigger="#{tooltipShowcase.trigger}"
+                       placement="#{tooltipShowcase.placement}"
+                       rendered="#{tooltipShowcase.rendered}">
+                <strong>some text stuff</strong>
+                <br/>
+                <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+            </b:tooltip>
+        </h:panelGroup>
 
     </ui:define>
 

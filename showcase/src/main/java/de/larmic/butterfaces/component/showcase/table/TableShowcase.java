@@ -98,12 +98,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     }
 
     private boolean shouldReverseRows() {
-        if ((this.tableModel.getTableSortModel().getSortType("column1") == SortType.ASCENDING
-                || this.tableModel.getTableSortModel().getSortType("column2") == SortType.ASCENDING)
+        if ((this.tableModel.getTableSortModel().getSortType(null, "column1") == SortType.ASCENDING
+                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.ASCENDING)
                 && !stringPairs.get(0).getA().equals("r1c1")) {
             return true;
-        } else if ((this.tableModel.getTableSortModel().getSortType("column1") == SortType.DESCENDING
-                || this.tableModel.getTableSortModel().getSortType("column2") == SortType.DESCENDING)
+        } else if ((this.tableModel.getTableSortModel().getSortType(null, "column1") == SortType.DESCENDING
+                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.DESCENDING)
                 && stringPairs.get(0).getA().equals("r1c1")) {
             return true;
         }
