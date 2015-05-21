@@ -198,7 +198,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("class", "butter-table", null);
 
         writer.startElement("div", table);
-        writer.writeAttribute("id", this.getInnerTableId(table), "id");
 
         final String styleClass = (String) table.getAttributes().get("styleClass");
         if (styleClass != null) {
@@ -439,11 +438,5 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         return false;
-    }
-
-    private String getInnerTableId(final UIComponent table) {
-        // TODO at this time it is not possible to render inner table.
-        //return table.getClientId() + "_table";
-        return table.getClientId();
     }
 }
