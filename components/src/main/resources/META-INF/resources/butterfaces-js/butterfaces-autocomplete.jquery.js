@@ -13,7 +13,7 @@
             var $autocomplete = $(this);
             var $input = $autocomplete.prev();
 
-            $input.keyup(function () {
+            $input.keyup(function (event) {
                 var testOnEvent = function (data) {
                     var $autocomplete2 = $(document.getElementById($autocomplete.attr('id')));
                     if (data.status === 'success') {
@@ -36,6 +36,14 @@
                         }
                     }
                 };
+
+                if ($input.val().length === 0) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    $(document.getElementById($autocomplete.attr('id'))).css('display', 'none');
+                    $input.removeData('data-test');
+                    return;
+                }
 
                 jsf.ajax.request(this, 'autocomplete', {
                     'javax.faces.behavior.event': 'autocomplete',
