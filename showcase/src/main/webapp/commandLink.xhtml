@@ -153,19 +153,18 @@
             <div class="alert alert-info">
                 Default JSF2 resetValues command button or link attribute does not reset all values in a form. It only
                 work if command link executes only one field. ButterFaces command link component resets all values.
-                Try is by submitting text field with empty value to create a validation error and clicks each of render
+                Try it by submitting text field with empty value to create a validation error and clicks each of render
                 buttons.
             </div>
 
             <div class="row">
-                <div class="col-md-10">
-                    <h:panelGroup id="rerenderArea">
-                        <b:text label="Not null value"
-                                value="#{commandLinkShowcase.resetValue}"
-                                placeholder="do not enter text, just click submit button"
-                                required="true"/>
-                    </h:panelGroup>
-                </div>
+                <h:panelGroup id="rerenderArea" styleClass="col-md-10">
+                    <b:text label="Not null value"
+                            value="#{commandLinkShowcase.resetValue}"
+                            placeholder="do not enter text, just click submit button"
+                            required="true"/>
+                </h:panelGroup>
+
                 <div class="col-md-2">
                     <b:commandLink value="Submit" styleClass="btn btn-success">
                         <f:ajax execute="rerenderArea" render="rerenderArea"/>

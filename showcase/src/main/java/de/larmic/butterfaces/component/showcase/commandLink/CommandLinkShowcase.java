@@ -48,15 +48,24 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
     @Override
     public void buildCodeExamples(List<AbstractCodeExample> codeExamples) {
-        final XhtmlCodeExample xhtmlCodeExample = createXhtmlCodeExample();
-
-        final JavaCodeExample javaCodeExample = createJavaCodeExample();
+        final boolean resetValuesExample = commandLinkExampleType != CommandLinkExampleType.RESET_VALUES;
+        final XhtmlCodeExample xhtmlCodeExample = resetValuesExample ? createXhtmlCodeExampleResetValues() : createXhtmlCodeExample();
+        final JavaCodeExample javaCodeExample = resetValuesExample ? createJavaCodeExampleResetValues() : createJavaCodeExample();
 
         codeExamples.add(xhtmlCodeExample);
         codeExamples.add(javaCodeExample);
     }
 
     private JavaCodeExample createJavaCodeExample() {
+        final JavaCodeExample javaCodeExample = new JavaCodeExample("MyBean.java", "mybean", "command.link.demo", "MyBean", true);
+
+        javaCodeExample.appendInnerContent("    private String value = \"\";\n");
+        javaCodeExample.appendInnerContent("    // getter +  setter");
+
+        return javaCodeExample;
+    }
+
+    private JavaCodeExample createJavaCodeExampleResetValues() {
         final JavaCodeExample javaCodeExample = new JavaCodeExample("MyBean.java", "mybean", "command.link.demo", "MyBean", true);
 
         javaCodeExample.appendInnerContent("    private int clicks = 0;\n");
@@ -79,6 +88,46 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
+        final boolean useFontAwesome = this.getGlyphicon() != null && this.getGlyphicon().contains("fa");
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
+
+        xhtmlCodeExample.appendInnerContent("\n        <div class=\"row\">");
+        xhtmlCodeExample.appendInnerContent("           <h:panelGroup id=\"rerenderArea\"");
+        xhtmlCodeExample.appendInnerContent("                         styleClass=\"col-md-10\">");
+        xhtmlCodeExample.appendInnerContent("              <b:text label=\"Not null value\"");
+        xhtmlCodeExample.appendInnerContent("                      value=\"#{myBean.value}\"");
+        xhtmlCodeExample.appendInnerContent("                      required=\"true\">");
+        xhtmlCodeExample.appendInnerContent("           </h:panelGroup>");
+        xhtmlCodeExample.appendInnerContent("\n           <div class=\"col-md-2\">");
+        xhtmlCodeExample.appendInnerContent("              <b:commandLink value=\"Submit\"");
+        xhtmlCodeExample.appendInnerContent("                             styleClass=\"btn btn-success\">");
+        xhtmlCodeExample.appendInnerContent("                 <f:ajax execute=\"rerenderArea\"");
+        xhtmlCodeExample.appendInnerContent("                         render=\"rerenderArea\"/>");
+        xhtmlCodeExample.appendInnerContent("              </b:commandLink>");
+        xhtmlCodeExample.appendInnerContent("           </div>");
+        xhtmlCodeExample.appendInnerContent("        </div>");
+
+        xhtmlCodeExample.appendInnerContent("\n        <b:commandLink value=\"render (no resetValues)\"");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
+        xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"/>");
+        xhtmlCodeExample.appendInnerContent("        </b:commandLink>");
+        xhtmlCodeExample.appendInnerContent("\n        <b:commandLink value=\"render (resetValues)\"");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
+        xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"");
+        xhtmlCodeExample.appendInnerContent("                   resetValues=\"true\"/>");
+        xhtmlCodeExample.appendInnerContent("        </b:commandLink>");
+        xhtmlCodeExample.appendInnerContent("\n        <h:commandLink value=\"render (reset values JSF2 default)\"");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
+        xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"");
+        xhtmlCodeExample.appendInnerContent("                   resetValues=\"true\"/>");
+        xhtmlCodeExample.appendInnerContent("        </h:commandLink>");
+        return xhtmlCodeExample;
+    }
+
+    private XhtmlCodeExample createXhtmlCodeExampleResetValues() {
         final boolean useFontAwesome = this.getGlyphicon() != null && this.getGlyphicon().contains("fa");
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
