@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -36,10 +37,13 @@ public class TextRenderer extends AbstractTextRenderer<HtmlText> {
             final ExternalContext external = context.getExternalContext();
             final Map<String, String> params = external.getRequestParameterMap();
             final String behaviorEvent = params.get("javax.faces.behavior.event");
+            final String searchValue = params.get("params");
 
-            if ("autocomplete".equals(behaviorEvent)) {
+            if ("autocomplete".equals(behaviorEvent) && StringUtils.isNotEmpty(searchValue)) {
                 autoCompleteChild.getCachedAutoCompleteValues().clear();
-                final List<String> values = autoCompleteChild.getAutoComplete().autoComplete(text.getSubmittedValue());
+                text.setSubmittedValue(null);
+                text.setLocalValueSet(false);
+                final List<String> values = autoCompleteChild.getAutoComplete().autoComplete(searchValue);
                 if (values != null) {
                     autoCompleteChild.getCachedAutoCompleteValues().addAll(values);
                 }

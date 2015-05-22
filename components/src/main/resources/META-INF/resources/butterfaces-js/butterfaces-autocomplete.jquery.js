@@ -40,6 +40,7 @@
                 jsf.ajax.request(this, 'autocomplete', {
                     'javax.faces.behavior.event': 'autocomplete',
                     render: $autocomplete.attr('id'),
+                    params: $input.val(),
                     onevent: testOnEvent
                 });
             });
