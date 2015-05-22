@@ -10,6 +10,10 @@
     padding-left: 0;
 }
 
+.butter-component-tooltip-validation-error li {
+    list-style: none;
+}
+
 .butter-component-label-tooltip abbr {
     text-decoration: underline;
     text-decoration-style:dotted;

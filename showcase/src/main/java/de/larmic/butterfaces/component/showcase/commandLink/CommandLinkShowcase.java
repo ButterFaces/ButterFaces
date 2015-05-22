@@ -17,6 +17,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class CommandLinkShowcase extends AbstractCodeShowcase implements Serializable {
 
+    private String resetValue = "";
     private String value = "click me";
     private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
     private String style = "btn btn-primary";
@@ -229,5 +230,13 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
     public void setCommandLinkExampleType(CommandLinkExampleType commandLinkExampleType) {
         this.commandLinkExampleType = commandLinkExampleType;
+    }
+
+    public String getResetValue() {
+        return resetValue;
+    }
+
+    public void setResetValue(String resetValue) {
+        this.resetValue = resetValue;
     }
 }

@@ -150,7 +150,45 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{commandLinkShowcase.commandLinkExampleType eq 'RESET_VALUES'}">
-            TODO...
+            <div class="alert alert-info">
+                Default JSF2 resetValues command button or link attribute does not reset all values in a form. It only
+                work if command link executes only one field. ButterFaces command link component resets all values.
+                Try is by submitting text field with empty value to create a validation error and clicks each of render
+                buttons.
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <h:panelGroup id="rerenderArea">
+                        <b:text label="Not null value"
+                                value="#{commandLinkShowcase.resetValue}"
+                                placeholder="do not enter text, just click submit button"
+                                required="true"/>
+                    </h:panelGroup>
+                </div>
+                <div class="col-md-2">
+                    <b:commandLink value="Submit" styleClass="btn btn-success">
+                        <f:ajax execute="rerenderArea" render="rerenderArea"/>
+                    </b:commandLink>
+                </div>
+            </div>
+
+            <b:commandLink value="render (no resetValues)"
+                           styleClass="btn btn-default"
+                           style="margin-right:4px;">
+                <f:ajax execute="@this" render="rerenderArea"/>
+            </b:commandLink>
+
+            <b:commandLink value="render (reset values)"
+                           styleClass="btn btn-default"
+                           style="margin-right:4px;">
+                <f:ajax execute="@this" render="rerenderArea" resetValues="true"/>
+            </b:commandLink>
+
+            <h:commandLink value="render (reset values but JSF2 default command link)"
+                           styleClass="btn btn-default">
+                <f:ajax execute="@this" render="rerenderArea" resetValues="true"/>
+            </h:commandLink>
         </h:panelGroup>
 
     </ui:define>
