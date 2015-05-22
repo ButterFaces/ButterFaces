@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIOutput;
@@ -89,6 +90,8 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
         if (component instanceof UIOutput) {
             ((UIOutput) component).resetValue();
+        } else if (component instanceof EditableValueHolder) {
+            ((EditableValueHolder) component).resetValue();
         }
     }
 
