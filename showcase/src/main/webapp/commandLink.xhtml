@@ -166,7 +166,7 @@
                 </h:panelGroup>
 
                 <div class="col-md-2">
-                    <b:commandLink value="Submit" styleClass="btn btn-success">
+                    <b:commandLink id="submit" value="Submit" styleClass="btn btn-success">
                         <f:ajax execute="rerenderArea" render="rerenderArea"/>
                     </b:commandLink>
                 </div>
@@ -175,18 +175,18 @@
             <b:commandLink value="render (no resetValues)"
                            styleClass="btn btn-default"
                            style="margin-right:4px;">
-                <f:ajax execute="@this" render="rerenderArea"/>
+                <f:ajax execute="@this" render="rerenderArea submit"/>
             </b:commandLink>
 
             <b:commandLink value="render (reset values)"
                            styleClass="btn btn-default"
                            style="margin-right:4px;">
-                <f:ajax execute="@this" render="rerenderArea" resetValues="true"/>
+                <f:ajax execute="@this" render="rerenderArea submit" resetValues="true"/>
             </b:commandLink>
 
             <h:commandLink value="render (reset values but JSF2 default command link)"
                            styleClass="btn btn-default">
-                <f:ajax execute="@this" render="rerenderArea" resetValues="true"/>
+                <f:ajax execute="@this" render="rerenderArea submit" resetValues="true"/>
             </h:commandLink>
         </h:panelGroup>
 

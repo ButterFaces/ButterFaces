@@ -67,14 +67,22 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         final String render = params.get("javax.faces.partial.render");
 
         if (StringUtils.isNotEmpty(resetValues) && StringUtils.isNotEmpty(render) && Boolean.valueOf(resetValues)) {
-            // TODO only reset values on render components
-            resetValues(context.getViewRoot());
+            final String[] split = render.split(" ");
+
+            for (String clientId : split) {
+                final UIComponent renderComponent = context.getViewRoot().findComponent(clientId);
+                resetValues(renderComponent);
+            }
         }
 
         super.decode(context, component);
     }
 
     private void resetValues(final UIComponent component) {
+        if (component == null) {
+            return;
+        }
+
         for (UIComponent child : component.getChildren()) {
             resetValues(child);
         }
