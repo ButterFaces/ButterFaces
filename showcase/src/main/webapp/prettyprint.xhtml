@@ -1,5 +1,5 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://java.sun.com/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
@@ -12,15 +12,24 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcaseSingleCodeComponent.rendered}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{prettyPrintShowcase.rendered}"/>
             <showcase:tagEnumControl label="language"
-                                     value="#{prettyPrintShowcaseSingleCodeComponent.prettyPrintType}"
-                                     values="#{prettyPrintShowcaseSingleCodeComponent.prettyPrintTypes}"/>
+                                     value="#{prettyPrintShowcase.prettyPrintType}"
+                                     values="#{prettyPrintShowcase.prettyPrintTypes}"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:prettyPrintShowcase component="#{prettyPrintShowcaseSingleCodeComponent}" />
+        <b:prettyprint id="prettyprint"
+                       language="#{prettyPrintShowcase.language}"
+                       styleClass="arquillian_component"
+                       rendered="#{prettyPrintShowcase.rendered}">
+            #{prettyPrintShowcase.content}
+        </b:prettyprint>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{prettyPrintShowcase}"/>
 
         <b:activateLibraries />
 
@@ -29,9 +38,5 @@
                 setActiveNavigation('prettyprint');
             });
         </script>
-    </ui:define>
-
-    <ui:define name="other">
-        <showcase:showcaseSimpleExampleComponent component="#{prettyPrintShowcaseSingleCodeComponent}"/>
     </ui:define>
 </ui:composition>

@@ -1,9 +1,11 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.PrettyPrintType;
 
-import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,18 +14,27 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class PrettyPrintShowcaseSingleCodeComponent extends AbstractInputShowcaseSingleCodeComponent implements Serializable {
+public class PrettyPrintShowcase extends AbstractCodeShowcase implements Serializable {
 
     private PrettyPrintType prettyPrintType = PrettyPrintType.HTML;
 
     @Override
-    protected Object initValue() {
-        return "value";
-    }
+    public void buildCodeExamples(List<AbstractCodeExample> codeExamples) {
+        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
-    @Override
-    public String getReadableValue() {
-        return (String) this.getValue();
+        xhtmlCodeExample.appendInnerContent("\n        <b:prettyprint id=\"pretty\"");
+        xhtmlCodeExample.appendInnerContent("                       language=\"" + getLanguage() + "\"");
+        xhtmlCodeExample.appendInnerContent("                       rendered=\"" + isRendered() + "\">");
+        if (prettyPrintType == PrettyPrintType.HTML) {
+            xhtmlCodeExample.appendInnerContent("           #{myBean.htmlContent}");
+        } else if (prettyPrintType == PrettyPrintType.JAVA) {
+            xhtmlCodeExample.appendInnerContent("           #{myBean.javaContent}");
+        } else {
+            xhtmlCodeExample.appendInnerContent("           #{myBean.xmlContent}");
+        }
+        xhtmlCodeExample.appendInnerContent("        </b:prettyprint>");
+
+        codeExamples.add(xhtmlCodeExample);
     }
 
     public String getContent() {
@@ -55,38 +66,6 @@ public class PrettyPrintShowcaseSingleCodeComponent extends AbstractInputShowcas
             items.add(new SelectItem(type, type.label));
         }
         return items;
-    }
-
-    @Override
-    public String getXHtml() {
-        final StringBuilder sb = new StringBuilder();
-
-        this.addXhtmlStart(sb);
-
-        sb.append("        <b:prettyprint id=\"input\"\n");
-
-        this.appendString("language", this.getLanguage(), sb);
-        this.appendBoolean("rendered", this.isRendered(), sb, true);
-        if (prettyPrintType == PrettyPrintType.HTML) {
-            sb.append("           #{myBean.htmlContent}\n");
-        } else if (prettyPrintType == PrettyPrintType.JAVA) {
-            sb.append("           #{myBean.javaContent}\n");
-        } else {
-            sb.append("           #{myBean.xmlContent}\n");
-        }
-
-        sb.append("        </b:prettyprint>");
-
-        this.createOutputXhtml(sb);
-
-        this.addXhtmlEnd(sb);
-
-        return sb.toString();
-    }
-
-    @Override
-    protected String getEmptyDistanceString() {
-        return "                       ";
     }
 
     private String getJavaExample() {
