@@ -6,8 +6,10 @@ import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIOutput;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
@@ -58,6 +60,31 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     }
 
     @Override
+    public void decode(FacesContext context, UIComponent component) {
+        final ExternalContext external = context.getExternalContext();
+        final Map<String, String> params = external.getRequestParameterMap();
+        final String resetValues = params.get("javax.faces.partial.resetValues");
+        final String render = params.get("javax.faces.partial.render");
+
+        if (StringUtils.isNotEmpty(resetValues) && StringUtils.isNotEmpty(render) && Boolean.valueOf(resetValues)) {
+            // TODO only reset values on render components
+            resetValues(context.getViewRoot());
+        }
+
+        super.decode(context, component);
+    }
+
+    private void resetValues(final UIComponent component) {
+        for (UIComponent child : component.getChildren()) {
+            resetValues(child);
+        }
+
+        if (component instanceof UIOutput) {
+            ((UIOutput) component).resetValue();
+        }
+    }
+
+    @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
@@ -95,7 +122,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
         final String ajaxProcessingTextByWebXml = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(WEB_XML_AJAX_PROCESSING_TEXT);
 
-        return StringUtils.isEmpty(ajaxProcessingTextByWebXml)  ? "Processing" : ajaxProcessingTextByWebXml;
+        return StringUtils.isEmpty(ajaxProcessingTextByWebXml) ? "Processing" : ajaxProcessingTextByWebXml;
     }
 
     @Override
