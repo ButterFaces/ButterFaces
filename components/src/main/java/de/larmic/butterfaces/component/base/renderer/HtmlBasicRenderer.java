@@ -9,7 +9,6 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -31,7 +30,7 @@ public class HtmlBasicRenderer extends Renderer {
         notNull("component", component);
     }
 
-   private void notNull(String varname, Object var) {
+    private void notNull(String varname, Object var) {
 
         if (var == null) {
             throw new NullPointerException(varname);
@@ -40,43 +39,24 @@ public class HtmlBasicRenderer extends Renderer {
     }
 
     protected boolean shouldEncode(final UIComponent component) {
-        // suppress rendering if "rendered" property on the component is
-        // false.
-        if (!component.isRendered()) {
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "End encoding component {0} since rendered attribute is set to false", component.getId());
-            }
-            return false;
-        }
-        return true;
+        return component.isRendered();
     }
 
     protected String writeIdAttributeIfNecessary(final FacesContext context,
                                                  final ResponseWriter writer,
-                                                 final UIComponent component) {
-        String id = null;
+                                                 final UIComponent component) throws IOException {
         if (shouldWriteIdAttribute(component)) {
-            this.writeIdAttribute(context, writer, component);
+            return this.writeIdAttribute(context, writer, component);
         }
-        return id;
+        return null;
     }
 
     protected String writeIdAttribute(final FacesContext context,
                                       final ResponseWriter writer,
-                                      final UIComponent component) {
-        String id = null;
-        try {
-            writer.writeAttribute("id", id = component.getClientId(context), "id");
-        } catch (IOException e) {
-//                if (logger.isLoggable(Level.WARNING)) {
-//                    String message = MessageUtils.getExceptionMessageString
-//                            (MessageUtils.CANT_WRITE_ID_ATTRIBUTE_ERROR_MESSAGE_ID,
-//                                    e.getMessage());
-//                    logger.warning(message);
-//                }
-        }
-
-        return id;
+                                      final UIComponent component) throws IOException {
+        final String clientId = component.getClientId(context);
+        writer.writeAttribute("id", clientId, "id");
+        return clientId;
     }
 
     /**
@@ -153,10 +133,9 @@ public class HtmlBasicRenderer extends Renderer {
     /**
      * @param component Component from which to return a facet
      * @param name      Name of the desired facet
-     *
      * @return the specified facet from the specified component, but
-     *  <strong>only</strong> if its <code>rendered</code> property is
-     *  set to <code>true</code>.
+     * <strong>only</strong> if its <code>rendered</code> property is
+     * set to <code>true</code>.
      */
     protected UIComponent getFacet(UIComponent component, String name) {
 

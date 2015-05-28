@@ -97,7 +97,6 @@ public class RadioRenderer extends SelectManyCheckboxListRenderer {
         }
 
 
-
         Class type = String.class;
         if (curValue != null) {
             type = curValue.getClass();
@@ -159,6 +158,8 @@ public class RadioRenderer extends SelectManyCheckboxListRenderer {
         writer.writeText("\n", component, null);
 
         writer.startElement("input", component);
+        final String inputClientId = component.getClientId(context) + ":" + itemNumber;
+        writer.writeAttribute("id", inputClientId, "id");
         writer.writeAttribute("type", "radio", "type");
 
         if (checked) {
@@ -195,7 +196,7 @@ public class RadioRenderer extends SelectManyCheckboxListRenderer {
 
         writer.endElement("input");
         writer.startElement("label", component);
-        // TODO writer.writeAttribute("for", idString, "for");
+        writer.writeAttribute("for", inputClientId, "for");
         // if enabledClass or disabledClass attributes are specified, apply
         // it on the label.
         if (labelClass != null) {
