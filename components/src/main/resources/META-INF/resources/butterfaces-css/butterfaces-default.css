@@ -23,6 +23,10 @@ select.butter-input-component {
     margin-left: 2px;
 }
 
+.butter-component-required:after {
+    content: '*';
+}
+
 .butter-component .input-group {
     display: -webkit-box;
     display: -webkit-flex;

@@ -140,6 +140,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall("sort_" + columnNumber, htmlTable.isAjaxDisableRenderRegionsOnRequest()), null);
             }
 
+            writer.startElement("div", table);
+
             // render header label
             writer.startElement("span", table);
             writer.writeAttribute("class", "butter-component-table-column-label", null);
@@ -165,6 +167,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
                 writer.endElement("span");
             }
+
+            writer.endElement("div");
 
             writer.endElement("th");
 

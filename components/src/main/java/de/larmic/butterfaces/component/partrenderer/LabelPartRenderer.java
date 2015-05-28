@@ -41,11 +41,13 @@ public class LabelPartRenderer {
 
             if (!StringUtils.isEmpty(label)) {
                 writer.startElement("abbr", component);
+                writer.startElement("span", component);
                 writer.writeText(label, null);
+                writer.endElement("span");
+                this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
                 writer.endElement("abbr");
             }
 
-            this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
 
             writer.endElement("label");
         }
@@ -73,7 +75,6 @@ public class LabelPartRenderer {
             writer.startElement("span", null);
             writer.writeAttribute("id", clientId + "_requiredLabel", null);
             writer.writeAttribute("class", Constants.REQUIRED_SPAN_CLASS, null);
-            writer.writeText("*", null);
             writer.endElement("span");
         }
     }

@@ -14,7 +14,11 @@
     list-style: none;
 }
 
-.butter-component-label-tooltip abbr {
+.butter-component-label-tooltip abbr span {
     text-decoration: underline;
     text-decoration-style:dotted;
+}
+
+.butter-component-label-tooltip abbr span.butter-component-required {
+    text-decoration: none;
 }

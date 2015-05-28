@@ -18,10 +18,6 @@
     width: 100%;
 }
 
-.butter-table-toolbar ul.dropdown-menu-form {
-    max-height: 300px;
-}
-
 .butter-table-toolbar-columns label {
     font-weight: normal;
 }
@@ -43,4 +39,9 @@
 
 .butter-component-table-column-sort:hover {
     cursor: pointer;
+}
+
+.butter-component-table-column-header>div {
+    display: flex;
+    align-items: center;
 }
