@@ -134,10 +134,6 @@ div.butter-component-expandable-original:hover {
     text-decoration: underline;
 }
 
-.butter-component-combobox select {
-    display: none;
-}
-
 .butter-component-expandable-ghost {
     resize: none;
     border: 1px solid #ccc;
@@ -199,4 +195,12 @@ div.butter-component-expandable-ghost {
 
 .butter-component-number-button:first-child {
     border-bottom: 1px solid #ccc;
+}
+
+.butter-component-combobox select {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

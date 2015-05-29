@@ -14,17 +14,8 @@
             var resultSelected = false;
             var optionList = [];
 
-            var _selectParent = $select.parent();
-            if(!_selectParent.hasClass("input-group")){
-                _selectParent.addClass("input-group");
-            }
-
-            $ghostInput = $("<input>")
-                    .attr("id", "costCenterSelectionComponent_ghost")
-                    .attr("type", "text")
-                    .attr("autocomplete", "off")
-                    .addClass("filterableSelect-input ")
-                    .addClass($select.attr("class"))
+            $ghostInput = $select.parent().find(".butter-component-combobox-ghost")
+                    //.addClass($select.attr("class"))
                     .val(_formatDisplayValue($select.find("option:selected").text()))
                     .on("keyup", function (event) {
                         optionList = [];
@@ -61,21 +52,9 @@
                     })
                     .on("blur", function () {
                         _removeResultList();
-                    })
-                    .insertBefore($select);
+                    });
 
-            $select.hide();
-
-            $("<span>")
-                    .addClass("input-group-btn")
-                    .append(
-                    $("<button>")
-                            .addClass("btn btn-default")
-                            .html("&nbsp;")
-                            .append(
-                            $("<i>").addClass("fa fa-chevron-down")
-                    )
-            )
+            $ghostInput.next()
                     .on("click", function (event) {
                         event.preventDefault();
                         optionList = [];
@@ -85,8 +64,7 @@
                         });
                         _renderResult();
                         $ghostInput.focus();
-                    })
-                    .insertAfter($select);
+                    });
 
             var _renderResult = function () {
                 // create container elements if necessary

@@ -1,17 +1,24 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.HtmlText;
+import de.larmic.butterfaces.component.partrenderer.FilterableSelectPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.HtmlAttributePartRenderer;
+import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
@@ -66,7 +73,7 @@ public class ComboBoxRenderer extends MenuRenderer {
         writer.endElement("input");
 
         writer.startElement("span", component);
-        writer.writeAttribute("class", "input-group-addon pointerCursor", "styleClass");
+        writer.writeAttribute("class", "input-group-addon cursor-pointer", "styleClass");
         writer.startElement("span", component);
         writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
         writer.endElement("span");
