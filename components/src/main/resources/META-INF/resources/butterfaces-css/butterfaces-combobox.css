@@ -1,0 +1,35 @@
+.butter-component-combobox-resultContainer {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    max-height: 400px;
+    max-width: 900px;
+    overflow: auto;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+.butter-component-combobox-resultListContainer {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.butter-component-combobox-resultItem,
+.butter-component-combobox-noResultItems {
+    padding: 3px 5px;
+}
+
+.butter-component-combobox-resultItem {
+    cursor: pointer;
+}
+
+.butter-component-combobox-resultItem:nth-child(odd) {
+    background-color: #f6f6f6;
+}
+
+.butter-component-combobox-resultItem:hover {
+    background-color: #eee;
+}
+
+.butter-component-combobox select {
+    display: none;
+}

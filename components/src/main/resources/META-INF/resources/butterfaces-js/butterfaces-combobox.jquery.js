@@ -1,6 +1,6 @@
 (function ($) {
     // extend jQuery --------------------------------------------------------------------
-    $.fn.butterFilterableSelect = function () {
+    $.fn.butterCombobox = function () {
 
         var _formatDisplayValue = function(value){
             return value;
@@ -26,7 +26,7 @@
                                 optionList.push($option);
                             }
                         });
-                        _renderResult();
+                        _renderResult(searchText);
                     })
                 // handle return button
                     .on("keydown", function (event) {
@@ -66,12 +66,12 @@
                         $ghostInput.focus();
                     });
 
-            var _renderResult = function () {
+            var _renderResult = function (searchText) {
                 // create container elements if necessary
                 if ($resultContainer === null) {
                     var ghostOffset = $ghostInput.offset();
                     $resultContainer = $("<div>")
-                            .addClass("filterableSelect-resultContainer")
+                            .addClass("butter-component-combobox-resultContainer")
                             .css({
                                 position: "absolute",
                                 left: ghostOffset.left,
@@ -80,7 +80,7 @@
                                 zIndex: 1000
                             });
                     $resultListContainer = $("<ul>")
-                            .addClass("filterableSelect-resultListContainer")
+                            .addClass("butter-component-combobox-resultListContainer")
                             .appendTo($resultContainer);
                     $("body").append($resultContainer);
                 }
@@ -102,11 +102,11 @@
                             resultItemHtml = "<b>"+resultItemText+"</b>";
                         }
 
-                        $("<li>")
+                        var test = $("<li>")
                                 .html(resultItemHtml)
                                 .attr("data-select-value", optionList[i].val())
                                 .attr("data-select-label", resultItemLabel)
-                                .addClass("filterableSelect-resultItem")
+                                .addClass("butter-component-combobox-resultItem")
                                 .on("click", function () {
                                     $select
                                             .val($(this).attr("data-select-value"))
@@ -114,12 +114,13 @@
                                     $ghostInput.val(_formatDisplayValue($(this).attr("data-select-label")));
                                     resultSelected = true;
                                 })
-                                .appendTo($resultListContainer);
+                                .appendTo($resultListContainer)
+                                .highlight(searchText, "search-highlighted");
                     }
                 } else {
                     $("<li>")
                             .text("Keine Einträge vorhanden!")
-                            .addClass("filterableSelect-noResultItems")
+                            .addClass("butter-component-combobox-noResultItems")
                             .appendTo($resultListContainer);
                 }
             };

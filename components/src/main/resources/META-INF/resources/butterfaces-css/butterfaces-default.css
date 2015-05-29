@@ -197,10 +197,12 @@ div.butter-component-expandable-ghost {
     border-bottom: 1px solid #ccc;
 }
 
-.butter-component-combobox select {
-    display: none;
-}
-
 .cursor-pointer {
     cursor: pointer;
+}
+
+.search-highlighted {
+    background-color: #ffe161;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 4px;
 }

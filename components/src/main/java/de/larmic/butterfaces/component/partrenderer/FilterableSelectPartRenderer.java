@@ -12,7 +12,7 @@ public class FilterableSelectPartRenderer {
         final UIInput uiComponent = (UIInput) component;
         final String outerComponentId = component.getClientId();
 
-        RenderUtils.renderJQueryPluginCall(outerComponentId, "butterFilterableSelect()", writer, uiComponent);
+        RenderUtils.renderJQueryPluginCall(outerComponentId, "butterCombobox()", writer, uiComponent);
     }
 
 }
