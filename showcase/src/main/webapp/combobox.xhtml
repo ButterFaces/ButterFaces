@@ -40,6 +40,10 @@
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}" />
+            <showcase:tagEnumControl label="facets"
+                                     value="#{comboBoxShowcase.selectedFacetType}"
+                                     values="#{comboBoxShowcase.availableFacetTypes}"
+                                     renderChildrenPopover="false" />
         </showcase:tagsContainer>
     </ui:define>
 
@@ -53,7 +57,7 @@
                         required="#{comboBoxShowcase.required}"
                         autoFocus="#{comboBoxShowcase.autoFocus}"
                         styleClass="#{comboBoxShowcase.styleClass}"
-                        rendered="#{comboBoxShowcase.rendered}">
+                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'NONE'}">
                 <f:selectItems value="#{comboBoxShowcase.values}" />
                 <f:ajax event="change"
                         execute="@this"
@@ -62,6 +66,56 @@
                 <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
+                <c:if test="#{comboBoxShowcase.converterActive}">
+                    <f:converter converterId="fooConverter"/>
+                </c:if>
+            </b:comboBox>
+
+            <b:comboBox label="#{comboBoxShowcase.label}"
+                        value="#{comboBoxShowcase.value}"
+                        hideLabel="#{comboBoxShowcase.hideLabel}"
+                        tooltip="#{comboBoxShowcase.tooltip}"
+                        readonly="#{comboBoxShowcase.readonly}"
+                        required="#{comboBoxShowcase.required}"
+                        autoFocus="#{comboBoxShowcase.autoFocus}"
+                        styleClass="#{comboBoxShowcase.styleClass}"
+                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
+                <f:selectItems value="#{comboBoxShowcase.values}" />
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not comboBoxShowcase.ajax}" />
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
+                    #{comboBoxShowcase.tooltip}
+                </b:tooltip>
+                <f:facet name="input-group-addon-left">
+                    Left input-group-addon
+                </f:facet>
+                <c:if test="#{comboBoxShowcase.converterActive}">
+                    <f:converter converterId="fooConverter"/>
+                </c:if>
+            </b:comboBox>
+
+            <b:comboBox label="#{comboBoxShowcase.label}"
+                        value="#{comboBoxShowcase.value}"
+                        hideLabel="#{comboBoxShowcase.hideLabel}"
+                        tooltip="#{comboBoxShowcase.tooltip}"
+                        readonly="#{comboBoxShowcase.readonly}"
+                        required="#{comboBoxShowcase.required}"
+                        autoFocus="#{comboBoxShowcase.autoFocus}"
+                        styleClass="#{comboBoxShowcase.styleClass}"
+                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}">
+                <f:selectItems value="#{comboBoxShowcase.values}" />
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not comboBoxShowcase.ajax}" />
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
+                    #{comboBoxShowcase.tooltip}
+                </b:tooltip>
+                <f:facet name="input-group-btn-left">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </f:facet>
                 <c:if test="#{comboBoxShowcase.converterActive}">
                     <f:converter converterId="fooConverter"/>
                 </c:if>

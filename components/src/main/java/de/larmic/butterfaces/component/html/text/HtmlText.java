@@ -49,7 +49,10 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 
 	@Override
 	public List<InputComponentFacet> getSupportedFacets() {
-		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON, InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN);
+		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON,
+				InputComponentFacet.BOOTSTRAP_INPUT_GROUP_RIGHT_ADDON,
+				InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN,
+				InputComponentFacet.BOOTSTRAP_INPUT_GROUP_RIGHT_BTN);
 	}
 
 	@Override

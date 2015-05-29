@@ -8,7 +8,7 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectOneMenu;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 @ResourceDependencies({
@@ -38,7 +38,8 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
 
     @Override
     public List<InputComponentFacet> getSupportedFacets() {
-        return Collections.emptyList();
+        return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON,
+                InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN);
     }
 
     @Override

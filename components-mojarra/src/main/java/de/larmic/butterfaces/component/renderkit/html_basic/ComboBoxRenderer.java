@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
@@ -42,6 +43,21 @@ public class ComboBoxRenderer extends MenuRenderer {
 
         writer.startElement("div", component);
         writer.writeAttribute("class", "input-group", "styleClass");
+
+        final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
+        final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
+        if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonLeftFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-addon", null);
+            inputGroupAddonLeftFacet.encodeAll(context);
+            writer.endElement("span");
+        }
+        if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
+            writer.startElement("span", component);
+            writer.writeAttribute("class", "input-group-btn", null);
+            inputGroupBtnLeftFacet.encodeAll(context);
+            writer.endElement("span");
+        }
 
         writer.startElement("input", component);
         writer.writeAttribute("type", "text", null);

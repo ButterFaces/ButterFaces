@@ -90,13 +90,13 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
         final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
         final UIComponent inputGroupBtnRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_RIGHT);
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonLeftFacet != null) {
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonLeftFacet != null) {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
             inputGroupAddonLeftFacet.encodeAll(context);
             writer.endElement("span");
         }
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnLeftFacet != null) {
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-btn", null);
             inputGroupBtnLeftFacet.encodeAll(context);
@@ -104,13 +104,13 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         }
         super.encodeEnd(context, component);
         this.postEncodeInput(context, component);
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON) && inputGroupAddonRightFacet != null) {
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonRightFacet != null) {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-addon", null);
             inputGroupAddonRightFacet.encodeAll(context);
             writer.endElement("span");
         }
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN) && inputGroupBtnRightFacet != null) {
+        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnRightFacet != null) {
             writer.startElement("span", component);
             writer.writeAttribute("class", "input-group-btn", null);
             inputGroupBtnRightFacet.encodeAll(context);

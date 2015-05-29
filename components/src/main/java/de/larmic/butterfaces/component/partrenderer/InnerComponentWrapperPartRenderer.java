@@ -43,16 +43,28 @@ public class InnerComponentWrapperPartRenderer {
 
         if (component instanceof SupportedFacets) {
             final SupportedFacets supportedFacets = (SupportedFacets) component;
-            if (supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_ADDON)
-                    && (component.getFacet(INPUT_GROUP_ADDON_LEFT) != null || component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null)
-                    || supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_BTN)
-                    && (component.getFacet(INPUT_GROUP_BTN_LEFT) != null || component.getFacet(INPUT_GROUP_BTN_RIGHT) != null)
+            if (hasLeftInputGroup(component, supportedFacets)
+                    || hasRightInputGroup(component, supportedFacets)
                     || supportedFacets.getSupportedFacets().contains(InputComponentFacet.CALENDAR)) {
                 componentStyleClass.append(" input-group");
             }
         }
 
         return componentStyleClass.toString();
+    }
+
+    private boolean hasLeftInputGroup(UIComponent component, SupportedFacets supportedFacets) {
+        return (supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON))
+                && component.getFacet(INPUT_GROUP_ADDON_LEFT) != null
+                || supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN)
+                && component.getFacet(INPUT_GROUP_BTN_LEFT) != null;
+    }
+
+    private boolean hasRightInputGroup(UIComponent component, SupportedFacets supportedFacets) {
+        return (supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_RIGHT_ADDON))
+                && component.getFacet(INPUT_GROUP_ADDON_RIGHT) != null
+                || supportedFacets.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_RIGHT_BTN)
+                && component.getFacet(INPUT_GROUP_BTN_RIGHT) != null;
     }
 
     private String createDefaultStyleClass(UIComponent component) {

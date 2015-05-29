@@ -1,9 +1,7 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.comboBox;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.showcase.comboBox.Foo;
-import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
-import de.larmic.butterfaces.component.showcase.comboBox.FooType;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
@@ -21,6 +19,7 @@ import java.util.List;
 public class ComboBoxShowcase extends AbstractInputShowcase implements Serializable {
 
     private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
+    private FacetType selectedFacetType = FacetType.NONE;
 
     private boolean autoFocus;
 
@@ -59,6 +58,18 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
             xhtmlCodeExample.appendInnerContent("                " + getTooltip());
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+        }
+
+        if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-addon-left\">");
+            xhtmlCodeExample.appendInnerContent("                Left input-group-addon");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        } else if (selectedFacetType == FacetType.INPUT_GROUP_BTN) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-left\">");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                     Go!");
+            xhtmlCodeExample.appendInnerContent("                 </button>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
         }
 
         if (this.comboBoxValueType == ComboBoxValueType.STRING) {
@@ -108,6 +119,15 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         }
 
         return "(item is null)";
+    }
+
+    public List<SelectItem> getAvailableFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final FacetType type : FacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public List<SelectItem> getValues() {
@@ -172,5 +192,13 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         this.strings.add(new SelectItem("2000", "Year 2000"));
         this.strings.add(new SelectItem("2010", "Year 2010"));
         this.strings.add(new SelectItem("2020", "Year 2020"));
+    }
+
+    public FacetType getSelectedFacetType() {
+        return selectedFacetType;
+    }
+
+    public void setSelectedFacetType(FacetType selectedFacetType) {
+        this.selectedFacetType = selectedFacetType;
     }
 }
