@@ -22,7 +22,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
 
-    private boolean filterable;
     private boolean autoFocus;
 
     private final List<SelectItem> foos = new ArrayList<SelectItem>();
@@ -51,7 +50,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    filterable=\"" + filterable + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
@@ -142,14 +140,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     public void setComboBoxValueType(final ComboBoxValueType comboBoxValueType) {
         this.comboBoxValueType = comboBoxValueType;
-    }
-
-    public boolean getFilterable() {
-        return filterable;
-    }
-
-    public void setFilterable(boolean filterable) {
-        this.filterable = filterable;
     }
 
     public boolean isAutoFocus() {

@@ -15,82 +15,80 @@ import java.io.IOException;
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
 
-   @Override
-   public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-      rendererParamsNotNull(context, component);
+    @Override
+    public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
 
-      if (!shouldEncode(component)) {
-         return;
-      }
+        if (!shouldEncode(component)) {
+            return;
+        }
 
-      super.encodeBegin(context, component);
+        super.encodeBegin(context, component);
 
-      final HtmlComboBox comboBox = (HtmlComboBox) component;
-      final ResponseWriter writer = context.getResponseWriter();
+        final HtmlComboBox comboBox = (HtmlComboBox) component;
+        final ResponseWriter writer = context.getResponseWriter();
 
-      // Open outer component wrapper div
-      new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, "butter-component-combobox");
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, "butter-component-combobox");
 
-      // Render label if components label attribute is set
-      new LabelPartRenderer().renderLabel(component, writer);
+        // Render label if components label attribute is set
+        new LabelPartRenderer().renderLabel(component, writer);
 
-      // Open inner component wrapper div
-      new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
+        // Open inner component wrapper div
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
 
-      // Render readonly span if components readonly attribute is set
-      new ReadonlyPartRenderer().renderReadonly(comboBox, writer);
+        // Render readonly span if components readonly attribute is set
+        new ReadonlyPartRenderer().renderReadonly(comboBox, writer);
 
-      if (comboBox.isFilterable()) {
-         writer.startElement("div", component);
-         writer.writeAttribute("class", "input-group", "styleClass");
+        writer.startElement("div", component);
+        writer.writeAttribute("class", "input-group", "styleClass");
 
-         writer.startElement("input", component);
-         writer.writeAttribute("type", "text", null);
-         writer.writeAttribute("autocomplete", "off", null);
-         writer.writeAttribute("class", "butter-component-combobox-ghost form-control", "styleClass");
-         writer.endElement("input");
+        writer.startElement("input", component);
+        writer.writeAttribute("type", "text", null);
+        writer.writeAttribute("autocomplete", "off", null);
+        writer.writeAttribute("class", "butter-component-combobox-ghost form-control", "styleClass");
+        writer.endElement("input");
 
-         writer.startElement("span", component);
-         writer.writeAttribute("class", "input-group-addon pointerCursor", "styleClass");
-         writer.startElement("span", component);
-         writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
-         writer.endElement("span");
-         writer.endElement("span");
+        writer.startElement("span", component);
+        writer.writeAttribute("class", "input-group-addon pointerCursor", "styleClass");
+        writer.startElement("span", component);
+        writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
+        writer.endElement("span");
+        writer.endElement("span");
 
-         writer.endElement("div");
-      }
-   }
+        writer.endElement("div");
+    }
 
-   @Override
-   public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-      rendererParamsNotNull(context, component);
+    @Override
+    public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
+        rendererParamsNotNull(context, component);
 
-      if (!shouldEncode(component)) {
-         return;
-      }
+        if (!shouldEncode(component)) {
+            return;
+        }
 
-      final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
-      final ResponseWriter writer = context.getResponseWriter();
+        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final ResponseWriter writer = context.getResponseWriter();
 
-      if (!htmlComponent.isReadonly()) {
-         super.encodeEnd(context, component);
-      }
+        if (!htmlComponent.isReadonly()) {
+            super.encodeEnd(context, component);
+        }
 
-      // Close inner component wrapper div
-      new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
+        // Close inner component wrapper div
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
 
-      renderTooltipIfNecessary(context, component);
+        renderTooltipIfNecessary(context, component);
 
-      // Render textarea expandable script call
-      new FilterableSelectPartRenderer().renderFilterable(htmlComponent, writer);
+        // Render textarea expandable script call
+        new FilterableSelectPartRenderer().renderFilterable(htmlComponent, writer);
 
-      // Open outer component wrapper div
-      new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
-   }
+        // Open outer component wrapper div
+        new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
 
-   protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
-      new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
-   }
+    protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
+        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
+    }
 
     @Override
     protected void renderHtmlFeatures(final UIComponent component, final ResponseWriter writer) throws IOException {

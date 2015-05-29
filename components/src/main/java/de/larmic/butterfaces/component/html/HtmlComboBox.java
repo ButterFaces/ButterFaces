@@ -29,7 +29,6 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.ComboBoxRenderer";
 
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
-    protected static final String PROPERTY_FILTERABLE = "filterable";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
     public HtmlComboBox() {
@@ -66,15 +65,6 @@ public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponen
 
     public void setHideLabel(final boolean hideLabel) {
         this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
-    }
-
-    public boolean isFilterable() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_FILTERABLE);
-        return eval == null ? false : (Boolean) eval;
-    }
-
-    public void setFilterable(final boolean filterable) {
-        this.updateStateHelper(PROPERTY_FILTERABLE, filterable);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

@@ -17,7 +17,6 @@
             <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}" />
             <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}" />
-            <showcase:tagBooleanControl label="filterable" value="#{comboBoxShowcase.filterable}" />
             <showcase:tagEnumControl label="styleClass"
                                      value="#{comboBoxShowcase.styleClass}"
                                      values="#{comboBoxShowcase.styleClasses}"/>
@@ -52,7 +51,6 @@
                         tooltip="#{comboBoxShowcase.tooltip}"
                         readonly="#{comboBoxShowcase.readonly}"
                         required="#{comboBoxShowcase.required}"
-                        filterable="#{comboBoxShowcase.filterable}"
                         autoFocus="#{comboBoxShowcase.autoFocus}"
                         styleClass="#{comboBoxShowcase.styleClass}"
                         rendered="#{comboBoxShowcase.rendered}">
@@ -73,7 +71,6 @@
 
     <ui:define name="other">
         <showcase:codeExamples component="#{comboBoxShowcase}" />
-        <b:activateLibraries />
     </ui:define>
 
 </ui:composition>
