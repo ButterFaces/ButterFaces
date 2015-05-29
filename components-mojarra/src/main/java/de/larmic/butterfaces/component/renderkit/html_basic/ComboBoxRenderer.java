@@ -25,11 +25,11 @@ public class ComboBoxRenderer extends MenuRenderer {
 
       super.encodeBegin(context, component);
 
-      final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+      final HtmlComboBox comboBox = (HtmlComboBox) component;
       final ResponseWriter writer = context.getResponseWriter();
 
       // Open outer component wrapper div
-      new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
+      new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, "butter-component-combobox");
 
       // Render label if components label attribute is set
       new LabelPartRenderer().renderLabel(component, writer);
@@ -38,7 +38,27 @@ public class ComboBoxRenderer extends MenuRenderer {
       new InnerComponentWrapperPartRenderer().renderInnerWrapperBegin(component, writer);
 
       // Render readonly span if components readonly attribute is set
-      new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+      new ReadonlyPartRenderer().renderReadonly(comboBox, writer);
+
+      if (comboBox.isFilterable()) {
+         writer.startElement("div", component);
+         writer.writeAttribute("class", "input-group", "styleClass");
+
+         writer.startElement("input", component);
+         writer.writeAttribute("type", "text", null);
+         writer.writeAttribute("autocomplete", "off", null);
+         writer.writeAttribute("class", "butter-component-combobox-ghost form-control", "styleClass");
+         writer.endElement("input");
+
+         writer.startElement("span", component);
+         writer.writeAttribute("class", "input-group-addon pointerCursor", "styleClass");
+         writer.startElement("span", component);
+         writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
+         writer.endElement("span");
+         writer.endElement("span");
+
+         writer.endElement("div");
+      }
    }
 
    @Override
