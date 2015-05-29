@@ -38,7 +38,7 @@
                         var $filterableItem = $(this);
                         if ($filterableItem.is(':containsIgnoreCase(' + filterValue + ')')) {
                             $filterableItem.removeClass("hidden");
-                            $filterableItem.highlight(filterValue, "search-highlighted");
+                            $filterableItem.highlight(filterValue);
                         } else {
                             $filterableItem.addClass("hidden");
                         }

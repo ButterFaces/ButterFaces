@@ -115,7 +115,7 @@
                                     resultSelected = true;
                                 })
                                 .appendTo($resultListContainer)
-                                .highlight(searchText, "search-highlighted");
+                                .highlight(searchText);
                     }
                 } else {
                     $("<li>")

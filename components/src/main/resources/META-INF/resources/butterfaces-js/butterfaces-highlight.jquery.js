@@ -1,5 +1,6 @@
 (function ($) {
-    $.fn.highlight = function (searchString, highlightClassName) {
+    $.fn.highlight = function (searchString) {
+        var highlightClassName = "search-highlighted";
         var regex = new RegExp(searchString, "gi");
 
         var elements = this.find('*');

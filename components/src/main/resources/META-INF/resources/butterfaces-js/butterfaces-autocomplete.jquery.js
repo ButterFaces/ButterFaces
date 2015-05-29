@@ -20,7 +20,7 @@
                         if ($input.data('data-test') === undefined) {
                             if ($autocomplete2.has('li').size() > 0) {
                                 $autocomplete2.css('display', 'inline');
-                                $autocomplete2.highlight($input.val(), "search-highlighted");
+                                $autocomplete2.highlight($input.val());
                                 $autocomplete2.find('li').on("click", function () {
                                     $input.val($(this).attr("data-select-value")).change();
                                     $input.data('data-test', 'true');
