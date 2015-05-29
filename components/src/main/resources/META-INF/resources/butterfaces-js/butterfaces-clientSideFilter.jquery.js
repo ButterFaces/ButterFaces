@@ -38,11 +38,11 @@
                         var $filterableItem = $(this);
                         if ($filterableItem.is(':containsIgnoreCase(' + filterValue + ')')) {
                             $filterableItem.removeClass("hidden");
+                            $filterableItem.highlight(filterValue, "search-highlighted");
                         } else {
                             $filterableItem.addClass("hidden");
                         }
 
-                        $filterableItem.highlight(filterValue, "search-highlighted");
                     });
                 }, 300);
             });
