@@ -90,7 +90,6 @@
                     if (event.which === self._keyCodes.enter) {
                         self._stopEvent(event);
                         if (self.$selectedOption !== null) {
-                            self._hideOptionResultList();
                             self._setSelectedValue();
                         }
                     } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
@@ -248,11 +247,14 @@
         _setSelectedValue: function () {
             var $selectedOption = this.$selectedOption;
             if ($selectedOption !== null) {
-                this.$select
-                    .val($selectedOption.attr("data-select-value"))
-                    .change();
-                this.$ghostInput.val($selectedOption.attr("data-select-label"));
-                this._hideOptionResultList();
+                var valueData = $selectedOption.attr("data-select-value");
+                if(valueData !== undefined) {
+                    this.$select
+                        .val(valueData)
+                        .change();
+                    this.$ghostInput.val($selectedOption.attr("data-select-label"));
+                    this._hideOptionResultList();
+                }
             }
         },
 
