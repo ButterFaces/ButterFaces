@@ -36,10 +36,20 @@ select.butter-input-component {
     align-items: stretch;
 }
 
+.butter-component .input-group .form-control {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
 .butter-component .input-group-addon {
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
+    width: auto;
+}
+
+.butter-component .input-group-btn {
     width: auto;
 }
 

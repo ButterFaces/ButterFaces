@@ -31,5 +31,5 @@
 }
 
 .butter-component-combobox select {
-    display: none;
+    display: none !important;
 }
