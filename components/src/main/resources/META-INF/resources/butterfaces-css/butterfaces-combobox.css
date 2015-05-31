@@ -26,8 +26,8 @@
     background-color: #f6f6f6;
 }
 
-.butter-component-combobox-resultItem:hover {
-    background-color: #eee;
+.butter-component-combobox-resultItem-selected {
+    background-color: #ddd !important;
 }
 
 .butter-component-combobox select {

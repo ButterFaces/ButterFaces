@@ -15,8 +15,36 @@
             this.$resultContainer = null;
             this.$resultListContainer = null;
             this.$options = this.$select.find("option");
-            this.optionList = [];
-            this.resultSelected = false;
+            this.optionResultList = [];
+            this.$selectedOption = null;
+            this._hasFocus = false;
+
+            this._keyCodes = {
+                //backspace: 8,
+                tab: 9,
+                enter: 13,
+                shift: 16,
+                ctrl: 17,
+                alt: 18,
+                pause: 19,
+                caps_lock: 20,
+                escape: 27,
+                page_up: 33,
+                page_down: 34,
+                end: 35,
+                home: 36,
+                arrow_left: 37,
+                arrow_up: 38,
+                arrow_right: 39,
+                arrow_down: 40,
+                insert: 45,
+                delete: 46,
+                left_window_key: 91,
+                right_window_key: 92,
+                select_key: 93,
+                num_lock: 144,
+                scroll_lock: 145
+            };
 
             this._initializeGhostElement();
             this._initializeDropDownButton();
@@ -26,65 +54,101 @@
             var self = this;
             self.$ghostInput = self.$select.parent().find(".butter-component-combobox-ghost")
                 //.addClass($select.attr("class"))
-                .val(self._formatDisplayValue(self.$select.find("option:selected").text()))
-                .on("keyup", function (event) {
-                    self.optionList = [];
-                    var searchText = $(this).val();
-                    self.$options.each(function () {
-                        var $option = $(this);
-                        if ($option.text().toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
-                            self.optionList.push($option);
-                        }
-                    });
-                    self._renderResult(searchText);
-                })
-                // handle return button
-                .on("keydown", function (event) {
-                    if (event.keyCode === 13) {
-                        event.preventDefault();
-                        if (self.optionList.length > 0) {
-                            self.$select
-                                .val(self.optionList[0].val())
-                                .change();
-                            self.$ghostInput.val(self._formatDisplayValue(self.optionList[0].text()));
-                            self.resultSelected = true;
-                            self._removeResultList();
-                        }
-                    }
-                })
+                .val(self.$select.find("option:selected").text())
                 .on("focus", function () {
+                    self._hasFocus = true;
                     // automatically select whole text on focus
                     this.setSelectionRange(0, $(this).val().length)
                 })
                 .on("mouseup", function (event) {
                     // in safari the mouseup event unselects the text, so we have to prevent this
-                    event.preventDefault();
+                    self._stopEvent(event);
                 })
                 .on("blur", function () {
-                    self._removeResultList();
+                    self._hasFocus = false;
+                    window.setTimeout(function () {
+                        if (!self._hasFocus) {
+                            self._hideOptionResultList();
+                            self._resetDisplayValue();
+                        }
+                    }, 200);
+                })
+                .on("keyup", function (event) {
+                    // don't handle other keys than character keys
+                    for (keyName in self._keyCodes) {
+                        if (self._keyCodes[keyName] === event.which) {
+                            self._stopEvent(event);
+                            return;
+                        }
+                    }
+
+                    var searchText = $(this).val();
+                    self._createOptionResultList(searchText);
+                    self._showOptionResultList(searchText);
+                })
+                .on("keydown", function (event) {
+                    if (event.which === self._keyCodes.enter) {
+                        self._stopEvent(event);
+                        if (self.$selectedOption !== null) {
+                            self._hideOptionResultList();
+                            self._setSelectedValue();
+                        }
+                    } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
+                        self._stopEvent(event);
+                        if (self.optionResultList.length === 0) {
+                            self._createOptionResultList();
+                        }
+                        if (self.$resultContainer === null) {
+                            self._showOptionResultList();
+                        }
+                        if (self.$selectedOption === null) {
+                            self._selectResultOptionElement(self.$resultListContainer.children()[0]);
+                        } else {
+                            self._moveResultOptionElementSelectionCursor(event.which === self._keyCodes.arrow_up ? -1 : 1);
+                        }
+                    } else if (event.which === self._keyCodes.escape) {
+                        if (self.$resultContainer !== null) {
+                            self._hideOptionResultList();
+                            self._resetDisplayValue();
+                            this.setSelectionRange(0, $(this).val().length);
+                        } else {
+                            self.$ghostInput.blur();
+                        }
+                    }
                 });
+
         },
 
         _initializeDropDownButton: function () {
             var self = this;
             self.$ghostInput.next()
                 .on("click", function (event) {
-                    event.preventDefault();
-                    self.optionList = [];
-                    self.$options.each(function () {
-                        var $option = $(this);
-                        self.optionList.push($option);
-                    });
-                    self._renderResult();
+                    self._stopEvent(event);
+                    self._createOptionResultList();
+                    self._showOptionResultList();
                     self.$ghostInput.focus();
                 });
         },
 
-        _formatDisplayValue: function (value) {
-            return value;
+        _createOptionResultList: function (searchText) {
+            var self = this;
+            self.optionResultList = [];
+            if (!searchText || searchText === "") {
+                self.$options.each(function () {
+                    var $option = $(this);
+                    self.optionResultList.push($option);
+                });
+            } else {
+                self.$options.each(function () {
+                    var $option = $(this);
+                    if ($option.text().toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
+                        self.optionResultList.push($option);
+                    }
+                });
+            }
         },
 
-        _renderResult: function (searchText) {
+        _showOptionResultList: function (searchText) {
             // create container elements if necessary
             if (this.$resultContainer === null) {
                 var ghostOffset = this.$ghostInput.offset();
@@ -104,12 +168,13 @@
             }
 
             this.$resultListContainer.empty();
+            this.$selectedOption = null;
 
-            if (this.optionList.length > 0) {
-                for (var i = 0; i < this.optionList.length; i++) {
+            if (this.optionResultList.length > 0) {
+                for (var i = 0; i < this.optionResultList.length; i++) {
                     var resultItemHtml;
                     var resultItemLabel;
-                    var resultItemText = this.optionList[i].text();
+                    var resultItemText = this.optionResultList[i].text();
                     var separatorIndex = resultItemText.indexOf(" - ");
                     if (separatorIndex > 0) {
                         resultItemLabel = resultItemText.substring(0, separatorIndex);
@@ -121,17 +186,16 @@
                     }
 
                     var self = this;
-                    var test = $("<li>")
+                    $("<li>")
                         .html(resultItemHtml)
-                        .attr("data-select-value", this.optionList[i].val())
+                        .attr("data-select-value", this.optionResultList[i].val())
                         .attr("data-select-label", resultItemLabel)
                         .addClass("butter-component-combobox-resultItem")
                         .on("click", function () {
-                            self.$select
-                                .val($(this).attr("data-select-value"))
-                                .change();
-                            self.$ghostInput.val(self._formatDisplayValue($(this).attr("data-select-label")));
-                            self.resultSelected = true;
+                            self._setSelectedValue();
+                        })
+                        .on("mouseenter", function () {
+                            self._selectResultOptionElement(this);
                         })
                         .appendTo(self.$resultListContainer)
                         .highlight(searchText);
@@ -144,39 +208,65 @@
             }
         },
 
-        _removeResultList: function () {
+        _hideOptionResultList: function () {
             var self = this;
             if (self.$resultContainer !== null) {
-                window.setTimeout(function () {
-                    if (!self.resultSelected) {
-                        self._tryToSetValueAfterBlur();
-                    }
-                    self.$resultContainer.remove();
-                    self.$resultContainer = null;
-                    self.$resultListContainer = null;
-                    self.resultSelected = false;
-                }, 200);
+                self.$resultContainer.remove();
+                self.$resultContainer = null;
+                self.$resultListContainer = null;
             }
         },
 
-        _tryToSetValueAfterBlur: function () {
-            var self = this;
-            var value = self.$ghostInput.val();
-            var valueValid = false;
-            if (value !== undefined && value !== "") {
-                self.$options.each(function () {
-                    if (!valueValid && $(this).text() === value) {
-                        valueValid = true;
-                        self.$select.val($(this).val());
-                    }
-                });
-            }
+        _selectResultOptionElement: function (optionElement) {
+            var selectedOptionElement = $(optionElement);
+            selectedOptionElement.addClass("butter-component-combobox-resultItem-selected")
+                .siblings().removeClass("butter-component-combobox-resultItem-selected");
+            this.$selectedOption = selectedOptionElement;
+        },
 
-            if (!valueValid) {
-                // set old value
-                self.$ghostInput.val(self._formatDisplayValue(self.$select.find("option:selected").text()));
+        _moveResultOptionElementSelectionCursor: function (direction) {
+            if (direction > 0) {
+                var $next = this.$selectedOption.next();
+                if ($next.length > 0) {
+                    this._selectResultOptionElement($next[0]);
+                } else {
+                    //there is no next
+                    this._selectResultOptionElement(this.$resultListContainer.children()[0]);
+                }
+            } else {
+                var $prev = this.$selectedOption.prev();
+                if ($prev.length > 0) {
+                    this._selectResultOptionElement($prev[0]);
+                } else {
+                    //there is no previous
+                    var resultListOptions = this.$resultListContainer.children();
+                    this._selectResultOptionElement(resultListOptions[resultListOptions.length - 1]);
+                }
             }
+        },
+
+        _setSelectedValue: function () {
+            var $selectedOption = this.$selectedOption;
+            if ($selectedOption !== null) {
+                this.$select
+                    .val($selectedOption.attr("data-select-value"))
+                    .change();
+                this.$ghostInput.val($selectedOption.attr("data-select-label"));
+                this._hideOptionResultList();
+            }
+        },
+
+        _resetDisplayValue: function () {
+            // set old value
+            this.$ghostInput.val(this.$select.find("option:selected").text());
+        },
+
+        _stopEvent: function (event) {
+            event.preventDefault();
+            //event.preventBubble();
         }
-
     });
-}(jQuery));
+}
+(jQuery)
+)
+;
