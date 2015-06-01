@@ -182,24 +182,13 @@
 
             if (this.optionResultList.length > 0) {
                 for (var i = 0; i < this.optionResultList.length; i++) {
-                    var resultItemHtml;
-                    var resultItemLabel;
                     var resultItemText = this.optionResultList[i].text();
-                    var separatorIndex = resultItemText.indexOf(" - ");
-                    if (separatorIndex > 0) {
-                        resultItemLabel = resultItemText.substring(0, separatorIndex);
-                        resultItemHtml = "<b>" + resultItemLabel + "</b>";
-                        resultItemHtml += "<br/>" + resultItemText.substr(separatorIndex + 3);
-                    } else {
-                        resultItemLabel = resultItemText;
-                        resultItemHtml = "<b>" + resultItemText + "</b>";
-                    }
 
                     var self = this;
                     $("<li>")
-                        .html(resultItemHtml)
+                        .text(resultItemText)
                         .attr("data-select-value", this.optionResultList[i].val())
-                        .attr("data-select-label", resultItemLabel)
+                        .attr("data-select-label", resultItemText)
                         .addClass("butter-component-combobox-resultItem")
                         .on("click", function () {
                             self._setSelectedValue();
