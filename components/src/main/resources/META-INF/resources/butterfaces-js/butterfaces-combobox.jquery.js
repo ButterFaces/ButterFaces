@@ -18,6 +18,7 @@
             this.optionResultList = [];
             this.$selectedOption = null;
             this._hasFocus = false;
+            this.isMouseClickeBlocked = false;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -67,10 +68,13 @@
                 })
                 .on("blur", function () {
                     self._hasFocus = false;
+                    self.isMouseClickeBlocked = true;
+
                     window.setTimeout(function () {
                         if (!self._hasFocus) {
                             self._hideOptionResultList();
                             self._resetDisplayValue();
+                            self.isMouseClickeBlocked = false;
                         }
                     }, 200);
                 })
@@ -124,6 +128,11 @@
             self.$ghostInput.next()
                 .on("click", function (event) {
                     self._stopEvent(event);
+
+                    if(self.isMouseClickeBlocked){
+                        return;
+                    }
+
                     self._createOptionResultList();
                     self._showOptionResultList();
                     self.$ghostInput.focus();
