@@ -1,24 +1,17 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.HtmlText;
+import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.FilterableSelectPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.HtmlAttributePartRenderer;
-import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
-import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
@@ -48,38 +41,40 @@ public class ComboBoxRenderer extends MenuRenderer {
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(comboBox, writer);
 
-        writer.startElement("div", component);
-        writer.writeAttribute("class", "input-group", "styleClass");
+        if (!comboBox.isReadonly()) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "input-group", "styleClass");
 
-        final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
-        final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
-        if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonLeftFacet != null) {
+            final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
+            final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
+            if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonLeftFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-addon", null);
+                inputGroupAddonLeftFacet.encodeAll(context);
+                writer.endElement("span");
+            }
+            if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
+                writer.startElement("span", component);
+                writer.writeAttribute("class", "input-group-btn", null);
+                inputGroupBtnLeftFacet.encodeAll(context);
+                writer.endElement("span");
+            }
+
+            writer.startElement("input", component);
+            writer.writeAttribute("type", "text", null);
+            writer.writeAttribute("autocomplete", "off", null);
+            writer.writeAttribute("class", "butter-component-combobox-ghost form-control", "styleClass");
+            writer.endElement("input");
+
             writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-addon", null);
-            inputGroupAddonLeftFacet.encodeAll(context);
-            writer.endElement("span");
-        }
-        if (comboBox.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
+            writer.writeAttribute("class", "input-group-addon cursor-pointer", "styleClass");
             writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-btn", null);
-            inputGroupBtnLeftFacet.encodeAll(context);
+            writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
             writer.endElement("span");
+            writer.endElement("span");
+
+            writer.endElement("div");
         }
-
-        writer.startElement("input", component);
-        writer.writeAttribute("type", "text", null);
-        writer.writeAttribute("autocomplete", "off", null);
-        writer.writeAttribute("class", "butter-component-combobox-ghost form-control", "styleClass");
-        writer.endElement("input");
-
-        writer.startElement("span", component);
-        writer.writeAttribute("class", "input-group-addon cursor-pointer", "styleClass");
-        writer.startElement("span", component);
-        writer.writeAttribute("class", "glyphicon glyphicon-chevron-down", "styleClass");
-        writer.endElement("span");
-        writer.endElement("span");
-
-        writer.endElement("div");
     }
 
     @Override
