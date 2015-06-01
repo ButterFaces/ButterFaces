@@ -1,17 +1,24 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.HtmlText;
+import de.larmic.butterfaces.component.partrenderer.HtmlAttributePartRenderer;
+import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
@@ -97,8 +104,10 @@ public class ComboBoxRenderer extends MenuRenderer {
 
         renderTooltipIfNecessary(context, component);
 
-        // Render textarea expandable script call
-        new FilterableSelectPartRenderer().renderFilterable(htmlComponent, writer);
+        if (!htmlComponent.isReadonly()) {
+            // Render textarea expandable script call
+            RenderUtils.renderJQueryPluginCall(component.getClientId(), "butterCombobox()", writer, component);
+        }
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
