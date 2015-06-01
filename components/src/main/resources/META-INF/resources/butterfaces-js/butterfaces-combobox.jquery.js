@@ -38,7 +38,7 @@
                 arrow_right: 39,
                 arrow_down: 40,
                 insert: 45,
-                delete: 46,
+                deleteC: 46,
                 left_window_key: 91,
                 right_window_key: 92,
                 select_key: 93,
