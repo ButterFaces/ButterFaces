@@ -151,14 +151,15 @@
         _showOptionResultList: function (searchText) {
             // create container elements if necessary
             if (this.$resultContainer === null) {
-                var ghostOffset = this.$ghostInput.offset();
+                var $inputGroup = this.$ghostInput.parent();
+                var inputGroupOffset = $inputGroup.offset();
                 this.$resultContainer = $("<div>")
                     .addClass("butter-component-combobox-resultContainer")
                     .css({
                         position: "absolute",
-                        left: ghostOffset.left,
-                        top: ghostOffset.top + this.$ghostInput.outerHeight(),
-                        minWidth: ghostOffset.top + this.$ghostInput.innerWidth(),
+                        left: inputGroupOffset.left,
+                        top: inputGroupOffset.top + $inputGroup.outerHeight(),
+                        width: $inputGroup.innerWidth(),
                         zIndex: 1000
                     });
                 this.$resultListContainer = $("<ul>")
