@@ -38,7 +38,8 @@
                 arrow_right: 39,
                 arrow_down: 40,
                 insert: 45,
-                deleteC: 46,
+                // 'delete' is a reserved key word
+                delete_key: 46,
                 left_window_key: 91,
                 right_window_key: 92,
                 select_key: 93,
