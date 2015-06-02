@@ -5,6 +5,8 @@
     max-width: 900px;
     overflow: auto;
     box-shadow: 2px 2px 5px #ccc;
+    /* ensure that z-index is higher than the modal panel from bootstrap */
+    z-index: 1051;
 }
 
 .butter-component-combobox-resultListContainer {

@@ -168,8 +168,7 @@
                         position: "absolute",
                         left: inputGroupOffset.left,
                         top: inputGroupOffset.top + $inputGroup.outerHeight(),
-                        width: $inputGroup.innerWidth(),
-                        zIndex: 1000
+                        width: $inputGroup.innerWidth()
                     });
                 this.$resultListContainer = $("<ul>")
                     .addClass("butter-component-combobox-resultListContainer")
