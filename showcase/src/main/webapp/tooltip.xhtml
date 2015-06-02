@@ -50,6 +50,21 @@
                     </b:tooltip>
                 </b:commandLink>
 
+                <b:commandLink value="#{tooltipShowcase.trigger} me!"
+                               rendered="#{tooltipShowcase.selectedTooltTipType eq 'COMMAND_LINK'}"
+                               disabled="true"
+                               style="margin-left: 8px;"
+                               styleClass="btn btn-default">
+                    <b:tooltip title="#{tooltipShowcase.title}"
+                               trigger="#{tooltipShowcase.trigger}"
+                               placement="#{tooltipShowcase.placement}"
+                               rendered="#{tooltipShowcase.rendered}">
+                        <strong>some text stuff</strong>
+                        <br/>
+                        <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+                    </b:tooltip>
+                </b:commandLink>
+
                 <b:text label="#{tooltipShowcase.trigger} me!"
                         value="#{tooltipShowcase.textFieldValue}"
                         placeholder="Insert text and blur me..."

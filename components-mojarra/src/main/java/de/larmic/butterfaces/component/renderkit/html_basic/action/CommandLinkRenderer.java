@@ -36,7 +36,20 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         this.onEventCallback = null;
 
-        super.encodeBegin(context, component);
+        final HtmlCommandLink link = (HtmlCommandLink) component;
+        final ResponseWriter writer = context.getResponseWriter();
+
+        if (!link.isDisabled()) {
+            super.encodeBegin(context, component);
+        } else {
+            writer.startElement("span", component);
+            writeIdAttributeIfNecessary(context, writer, component);
+            writeCommonLinkAttributes(writer, component);
+            if (StringUtils.isNotEmpty(link.getStyle())) {
+                writer.writeAttribute("style", link.getStyle(), "style");
+            }
+            this.writeValue(component, writer);
+        }
     }
 
     @Override
@@ -52,7 +65,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         final StringBuilder generatedStyleClass = new StringBuilder(StringUtils.isEmpty(styleClass) ? "" : styleClass);
 
         if (link.isDisabled()) {
-            generatedStyleClass.append(" disabled");
+            generatedStyleClass.append(" btn-disabled");
         }
 
         if (generatedStyleClass.length() > 0) {
@@ -98,32 +111,36 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
-        final ResponseWriter responseWriter = context.getResponseWriter();
+        final ResponseWriter writer = context.getResponseWriter();
 
-        if (link.isAjaxDisableLinkOnRequest()) {
-            responseWriter.startElement("script", component);
-            responseWriter.writeText("function " + getOnEventListenerName(component) + "(data) {", null);
-            if (StringUtils.isNotEmpty(onEventCallback)) {
-                responseWriter.writeText("    " + onEventCallback + "(data);", null);
+        if (!link.isDisabled()) {
+            if (link.isAjaxDisableLinkOnRequest()) {
+                writer.startElement("script", component);
+                writer.writeText("function " + getOnEventListenerName(component) + "(data) {", null);
+                if (StringUtils.isNotEmpty(onEventCallback)) {
+                    writer.writeText("    " + onEventCallback + "(data);", null);
+                }
+
+                final String processingText = createAjaxProcessingText(link);
+
+                final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
+                final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
+                        ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
+
+                writer.writeText("    butter.link.disableOnClick(data, " +
+                        link.isAjaxShowWaitingDotsOnRequest() + ",'" +
+                        link.getValue() + "','" +
+                        processingText + "'," +
+                        link.isAjaxHideGlyphiconOnRequest() + ",'" +
+                        jQueryIDSelector + "');", null);
+                writer.writeText("}", null);
+                writer.endElement("script");
             }
 
-            final String processingText = createAjaxProcessingText(link);
-
-            final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
-            final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
-                    ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
-
-            responseWriter.writeText("    butter.link.disableOnClick(data, " +
-                    link.isAjaxShowWaitingDotsOnRequest() + ",'" +
-                    link.getValue() + "','" +
-                    processingText + "'," +
-                    link.isAjaxHideGlyphiconOnRequest() + ",'" +
-                    jQueryIDSelector + "');", null);
-            responseWriter.writeText("}", null);
-            responseWriter.endElement("script");
+            super.encodeEnd(context, component);
+        } else {
+            writer.endElement("span");
         }
-
-        super.encodeEnd(context, component);
     }
 
     private String createAjaxProcessingText(final HtmlCommandLink link) {

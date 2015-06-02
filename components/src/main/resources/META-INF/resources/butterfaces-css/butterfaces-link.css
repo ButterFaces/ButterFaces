@@ -4,9 +4,12 @@
     display: none;
 }
 
-.butter-component-link.disabled {
-    pointer-events: none;
-    cursor: default;
+.butter-component-link.btn-disabled {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
 }
 
 .butter-component-link-overlay {
