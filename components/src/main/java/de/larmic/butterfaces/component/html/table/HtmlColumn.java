@@ -1,5 +1,9 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.resolver.AjaxRequest;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
+
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIColumn;
@@ -8,7 +12,7 @@ import javax.faces.component.UIColumn;
  * Created by larmic on 10.09.14.
  */
 @FacesComponent(HtmlColumn.COMPONENT_TYPE)
-public class HtmlColumn extends UIColumn {
+public class HtmlColumn extends UIColumn implements Tooltip {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.column";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -20,6 +24,11 @@ public class HtmlColumn extends UIColumn {
     protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
     protected static final String PROPERTY_SORT_BY = "sortBy";
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
+
+    // dirty: should find a better way to update field in table renderer
+    private int columnNumberUsedByTable;
+    private AjaxRequest tableAjaxClickRequest;
+    private WebXmlParameters webXmlParameters;
 
     public HtmlColumn() {
         super();
@@ -79,6 +88,30 @@ public class HtmlColumn extends UIColumn {
 
     public void setSortBy(String sortBy) {
         this.updateStateHelper(PROPERTY_SORT_BY, sortBy);
+    }
+
+    public int getColumnNumberUsedByTable() {
+        return columnNumberUsedByTable;
+    }
+
+    public void setColumnNumberUsedByTable(int columnNumberUsedByTable) {
+        this.columnNumberUsedByTable = columnNumberUsedByTable;
+    }
+
+    public AjaxRequest getTableAjaxClickRequest() {
+        return tableAjaxClickRequest;
+    }
+
+    public void setTableAjaxClickRequest(AjaxRequest tableAjaxClickRequest) {
+        this.tableAjaxClickRequest = tableAjaxClickRequest;
+    }
+
+    public WebXmlParameters getWebXmlParameters() {
+        return webXmlParameters;
+    }
+
+    public void setWebXmlParameters(WebXmlParameters webXmlParameters) {
+        this.webXmlParameters = webXmlParameters;
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

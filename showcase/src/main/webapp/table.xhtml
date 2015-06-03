@@ -153,6 +153,9 @@
                       colWidth="#{tableShowcase.colWidthColumn2}"
                       label="Input text">
                 <h:inputText value="#{rowItem.b}"/>
+                <b:tooltip placement="top">
+                    <strong>Attention: </strong> it seems a mojarra bug that input fields in tables are not sortable.
+                </b:tooltip>
             </b:column>
             <b:column id="column3"
                       uniqueIdentifier="column3"

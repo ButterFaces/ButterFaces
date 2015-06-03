@@ -123,55 +123,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         for (HtmlColumn column : htmlTable.getCachedColumns()) {
-            writer.startElement("th", table);
-            writer.writeAttribute("id", column.getClientId(), null);
-            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null) {
-                writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
-            } else {
-                writer.writeAttribute("class", "butter-component-table-column-header", null);
-            }
-            writer.writeAttribute("columnNumber", "" + columnNumber, null);
-
-            if (this.isHideColumn(htmlTable, column)) {
-                writer.writeAttribute("style", "display:none", null);
-            }
-
-            if (column.isSortColumnEnabled() && htmlTable.getModel() != null && ajaxRequest != null) {
-                writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall("sort_" + columnNumber, htmlTable.isAjaxDisableRenderRegionsOnRequest()), null);
-            }
-
-            writer.startElement("div", table);
-
-            // render header label
-            writer.startElement("span", table);
-            writer.writeAttribute("class", "butter-component-table-column-label", null);
-            writer.writeText(column.getLabel(), null);
-            writer.endElement("span");
-
-            if (column.isSortColumnEnabled() && htmlTable.getTableSortModel() != null && ajaxRequest != null) {
-                writer.startElement("span", table);
-                final String tableUniqueIdentifier = StringUtils.getNotNullValue(htmlTable.getUniqueIdentifier(), table.getId());
-                final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
-                final SortType sortType = htmlTable.getModel().getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
-
-                final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
-
-                if (sortType == SortType.ASCENDING) {
-                    sortSpanStyleClass.append(" " + webXmlParameters.getSortAscGlyphicon());
-                } else if (sortType == SortType.DESCENDING) {
-                    sortSpanStyleClass.append(" " + webXmlParameters.getSortDescGlyphicon());
-                } else {
-                    sortSpanStyleClass.append(" " + webXmlParameters.getSortUnknownGlyphicon());
-                }
-
-                writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
-                writer.endElement("span");
-            }
-
-            writer.endElement("div");
-
-            writer.endElement("th");
-
+            column.setWebXmlParameters(webXmlParameters);
+            column.setColumnNumberUsedByTable(columnNumber);
+            column.setTableAjaxClickRequest(ajaxRequest);
+            column.encodeAll(context);
             columnNumber++;
         }
         writer.endElement("tr");

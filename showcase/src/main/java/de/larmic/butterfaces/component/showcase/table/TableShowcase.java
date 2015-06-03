@@ -236,6 +236,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
         xhtmlCodeExample.appendInnerContent("                    label=\"C2\">");
         xhtmlCodeExample.appendInnerContent("                /* input text */");
+        xhtmlCodeExample.appendInnerContent("                <b:tooltip placement=\"top\">");
+        xhtmlCodeExample.appendInnerContent("                   /* tooltip text */");
+        xhtmlCodeExample.appendInnerContent("                </b:tooltip>");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
         xhtmlCodeExample.appendInnerContent("            <column id=\"column3\"");
