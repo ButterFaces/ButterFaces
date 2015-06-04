@@ -18,7 +18,7 @@
             this.optionResultList = [];
             this.$selectedOption = null;
             this._hasFocus = false;
-            this.isMouseClickeBlocked = false;
+            this.isMouseClickBlocked = false;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -68,13 +68,14 @@
                 })
                 .on("blur", function () {
                     self._hasFocus = false;
-                    self.isMouseClickeBlocked = true;
+                    // block next mouse click only if the result list is opened
+                    self.isMouseClickBlocked = self.$resultContainer !== null;
 
                     window.setTimeout(function () {
+                        self.isMouseClickBlocked = false;
                         if (!self._hasFocus) {
                             self._hideOptionResultList();
                             self._resetDisplayValue();
-                            self.isMouseClickeBlocked = false;
                         }
                     }, 200);
                 })
@@ -147,7 +148,7 @@
                 .on("click", function (event) {
                     self._stopEvent(event);
 
-                    if(self.isMouseClickeBlocked){
+                    if(self.isMouseClickBlocked){
                         return;
                     }
 
