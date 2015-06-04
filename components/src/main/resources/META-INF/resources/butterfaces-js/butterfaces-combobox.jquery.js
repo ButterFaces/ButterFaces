@@ -93,34 +93,46 @@
                 })
                 .on("keydown", function (event) {
                     if (event.which === self._keyCodes.enter) {
-                        self._stopEvent(event);
-                        if (self.$selectedOption !== null) {
-                            self._setSelectedValue();
-                        }
+                        self._handleEnterKeyDown(event);
                     } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
-                        self._stopEvent(event);
-                        if (self.optionResultList.length === 0) {
-                            self._createOptionResultList();
-                        }
-                        if (self.$resultContainer === null) {
-                            self._showOptionResultList();
-                        }
-                        if (self.$selectedOption === null) {
-                            self._selectResultOptionElement(self.$resultListContainer.children()[0]);
-                        } else {
-                            self._moveResultOptionElementSelectionCursor(event.which === self._keyCodes.arrow_up ? -1 : 1);
-                        }
+                        self._handleArrowUpAndDownKeyDown(event);
                     } else if (event.which === self._keyCodes.escape) {
-                        if (self.$resultContainer !== null) {
-                            self._hideOptionResultList();
-                            self._resetDisplayValue();
-                            this.setSelectionRange(0, $(this).val().length);
-                        } else {
-                            self.$ghostInput.blur();
-                        }
+                        self._handleEscapeKeyDown(event);
                     }
                 });
 
+        },
+        
+        _handleEnterKeyDown: function(event) {
+            this._stopEvent(event);
+            if (this.$selectedOption !== null) {
+                this._setSelectedValue();
+            }
+        },
+        
+        _handleArrowUpAndDownKeyDown: function(event) {
+            this._stopEvent(event);
+            if (this.optionResultList.length === 0) {
+                this._createOptionResultList();
+            }
+            if (this.$resultContainer === null) {
+                this._showOptionResultList();
+            }
+            if (this.$selectedOption === null) {
+                this._selectResultOptionElement(this.$resultListContainer.children()[0]);
+            } else {
+                this._moveResultOptionElementSelectionCursor(event.which === this._keyCodes.arrow_up ? -1 : 1);
+            }
+        },
+        
+        _handleEscapeKeyDown: function(event) {
+            if (this.$resultContainer !== null) {
+                this._hideOptionResultList();
+                this._resetDisplayValue();
+                this.setSelectionRange(0, $(this).val().length);
+            } else {
+                this.$ghostInput.blur();
+            }
         },
 
         _initializeDropDownButton: function () {
