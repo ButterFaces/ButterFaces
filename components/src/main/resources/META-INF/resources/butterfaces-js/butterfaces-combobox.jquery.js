@@ -104,9 +104,11 @@
         },
         
         _handleEnterKeyDown: function(event) {
-            this._stopEvent(event);
             if (this.$selectedOption !== null) {
+                this._stopEvent(event);
                 this._setSelectedValue();
+            }else{
+                this._resetDisplayValue();
             }
         },
         
@@ -118,10 +120,14 @@
             if (this.$resultContainer === null) {
                 this._showOptionResultList();
             }
-            if (this.$selectedOption === null) {
-                this._selectResultOptionElement(this.$resultListContainer.children()[0]);
-            } else {
-                this._moveResultOptionElementSelectionCursor(event.which === this._keyCodes.arrow_up ? -1 : 1);
+
+            // don't select the no result items message
+            if(this.$resultListContainer.find(".butter-component-combobox-noResultItems").length === 0){
+                if (this.$selectedOption === null) {
+                    this._selectResultOptionElement(this.$resultListContainer.children()[0]);
+                } else {
+                    this._moveResultOptionElementSelectionCursor(event.which === this._keyCodes.arrow_up ? -1 : 1);
+                }
             }
         },
         
@@ -170,6 +176,8 @@
         },
 
         _showOptionResultList: function (searchText) {
+            var self = this;
+
             // create container elements if necessary
             if (this.$resultContainer === null) {
                 var $inputGroup = this.$ghostInput.parent();
@@ -182,8 +190,12 @@
                         top: inputGroupOffset.top + $inputGroup.outerHeight(),
                         width: $inputGroup.innerWidth()
                     });
+
                 this.$resultListContainer = $("<ul>")
                     .addClass("butter-component-combobox-resultListContainer")
+                   .on("mouseleave", function() {
+                        self._clearResultOptionSelection();
+                    })
                     .appendTo(this.$resultContainer);
                 $("body").append(this.$resultContainer);
             }
@@ -224,14 +236,22 @@
                 self.$resultContainer.remove();
                 self.$resultContainer = null;
                 self.$resultListContainer = null;
+                this.$selectedOption = null;
             }
         },
 
         _selectResultOptionElement: function (optionElement) {
+            this._clearResultOptionSelection();
             var selectedOptionElement = $(optionElement);
-            selectedOptionElement.addClass("butter-component-combobox-resultItem-selected")
-                .siblings().removeClass("butter-component-combobox-resultItem-selected");
+            selectedOptionElement.addClass("butter-component-combobox-resultItem-selected");
             this.$selectedOption = selectedOptionElement;
+        },
+
+        _clearResultOptionSelection: function() {
+            this.$selectedOption = null;
+            this.$resultListContainer
+                    .find(".butter-component-combobox-resultItem-selected")
+                    .removeClass("butter-component-combobox-resultItem-selected");
         },
 
         _moveResultOptionElementSelectionCursor: function (direction) {
