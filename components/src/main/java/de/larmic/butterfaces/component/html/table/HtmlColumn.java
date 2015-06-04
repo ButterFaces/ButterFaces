@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
@@ -12,7 +13,7 @@ import javax.faces.component.UIColumn;
  * Created by larmic on 10.09.14.
  */
 @FacesComponent(HtmlColumn.COMPONENT_TYPE)
-public class HtmlColumn extends UIColumn implements Tooltip {
+public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.column";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

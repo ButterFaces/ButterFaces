@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.html;
 
-import java.util.Arrays;
-import java.util.List;
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Label;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlSelectOneMenu;
-
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import java.util.Arrays;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -25,7 +25,7 @@ import de.larmic.butterfaces.component.html.feature.Tooltip;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-combobox.jquery.js", target = "head")
 })
 @FacesComponent(HtmlComboBox.COMPONENT_TYPE)
-public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent, AutoFocus, Tooltip {
+public class HtmlComboBox extends HtmlSelectOneMenu implements HtmlInputComponent, AutoFocus, Tooltip, Label {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.comboBox";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

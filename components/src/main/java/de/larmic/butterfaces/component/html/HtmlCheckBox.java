@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 import javax.el.ValueExpression;
@@ -19,7 +20,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head")
 })
 @FacesComponent(HtmlCheckBox.COMPONENT_TYPE)
-public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent, AutoFocus, Tooltip {
+public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInputComponent, AutoFocus, Tooltip, Label {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.checkBox";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
