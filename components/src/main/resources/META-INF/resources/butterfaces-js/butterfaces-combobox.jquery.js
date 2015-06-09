@@ -214,7 +214,7 @@
                         .attr("data-select-value", this.optionResultList[i].val())
                         .attr("data-select-label", resultItemText)
                         .addClass("butter-component-combobox-resultItem")
-                        .on("click", function () {
+                        .on("mousedown", function () {
                             self._setSelectedValue();
                         })
                         .on("mouseenter", function () {
