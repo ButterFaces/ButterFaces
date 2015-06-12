@@ -135,8 +135,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnDisplayModel() != null) {
-            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
-            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
             final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
@@ -300,8 +300,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                     }
                 } else if ("sort".equals(event) && htmlTable.getModel() != null) {
                     final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
-                    final String tableUniqueIdentifier = StringUtils.getNotNullValue(htmlTable.getUniqueIdentifier(), htmlTable.getId());
-                    final String columnUniqueIdentifier = StringUtils.getNotNullValue(sortedColumn.getUniqueIdentifier(), sortedColumn.getId());
+                    final String tableUniqueIdentifier = htmlTable.getModelUniqueIdentifier();
+                    final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
                     if (htmlTable.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
                         htmlTable.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.DESCENDING);
                     } else {

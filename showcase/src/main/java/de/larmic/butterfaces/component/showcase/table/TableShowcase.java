@@ -41,6 +41,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     private boolean tableStriped = true;
     private boolean showRefreshButton = true;
     private boolean showToggleColumnButton = true;
+    private boolean showOrderColumnButton = true;
     private boolean ajaxDisableRenderRegionsOnRequest = true;
     private boolean useTableModel = true;
     private boolean useSelectionListener = true;
@@ -552,6 +553,14 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     public boolean isShowToggleColumnButton() {
         return showToggleColumnButton;
+    }
+
+    public boolean isShowOrderColumnButton() {
+        return showOrderColumnButton;
+    }
+
+    public void setShowOrderColumnButton(boolean showOrderColumnButton) {
+        this.showOrderColumnButton = showOrderColumnButton;
     }
 
     public TableToolbarRefreshListener getToolbarRefreshListener() {

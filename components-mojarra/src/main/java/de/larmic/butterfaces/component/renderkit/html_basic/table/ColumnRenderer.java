@@ -3,7 +3,6 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
@@ -60,8 +59,8 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
         if (column.isSortColumnEnabled() && table.getTableSortModel() != null && ajaxRequest != null) {
             writer.startElement("span", component);
-            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
-            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
             final SortType sortType = table.getModel().getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
 
             final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
@@ -126,8 +125,8 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnDisplayModel() != null) {
-            final String tableUniqueIdentifier = StringUtils.getNotNullValue(table.getUniqueIdentifier(), table.getId());
-            final String columnUniqueIdentifier = StringUtils.getNotNullValue(column.getUniqueIdentifier(), column.getId());
+            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
             final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;

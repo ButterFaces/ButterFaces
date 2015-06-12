@@ -18,7 +18,7 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table-toolbar.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-ajax.js", target = "head")
@@ -29,6 +29,10 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table.toolbar";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableHeaderRenderer";
+
+    public static final String EVENT_REFRESH_TABLE = "refresh";
+    public static final String EVENT_TOGGLE_COLUMN = "toggle";
+    public static final String EVENT_ORDER_COLUMN = "order";
 
     protected static final String PROPERTY_TABLE_ID = "tableId";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
@@ -41,7 +45,7 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     @Override
     public Collection<String> getEventNames() {
-        return Arrays.asList("refresh", "toggle");
+        return Arrays.asList(EVENT_REFRESH_TABLE, EVENT_TOGGLE_COLUMN, EVENT_ORDER_COLUMN);
     }
 
     @Override

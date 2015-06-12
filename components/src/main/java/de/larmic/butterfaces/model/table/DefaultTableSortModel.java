@@ -11,7 +11,7 @@ public class DefaultTableSortModel implements TableSortModel {
     /**
      * Map of column id and {@link de.larmic.butterfaces.model.table.SortType} information.
      */
-    private final Map<String, SortType> columnSortTypes = new HashMap<>();
+    protected final Map<String, SortType> columnSortTypes = new HashMap<>();
 
     /**
      * Resets all sort orders to NONE and sets {@link de.larmic.butterfaces.model.table.SortType} for corresponding column id.

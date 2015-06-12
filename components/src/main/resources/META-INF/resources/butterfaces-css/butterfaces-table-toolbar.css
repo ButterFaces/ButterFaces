@@ -1,0 +1,42 @@
+.butter-table-toolbar {
+    display: inline-block;
+    width: 100%;
+}
+
+.butter-table-toolbar .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.butter-table-toolbar-columns label {
+    font-weight: normal;
+}
+
+.butter-table-toolbar-columns li {
+    margin-left: 30px;
+}
+
+.butter-table-toolbar-columns li:hover {
+    background: #E8F1FF;
+    cursor: pointer;
+}
+
+.butter-table-toolbar-column-order {
+}
+
+.butter-table-toolbar-column-order-item {
+    display: block;
+    top: -3px;
+}
+
+.butter-table-toolbar-column-order-item-down {
+}
+
+.butter-table-toolbar-column-option {
+    display: flex;
+    align-items: center;
+}
+
+.butter-table-toolbar-column-option .checkbox {
+    margin: 0;
+}

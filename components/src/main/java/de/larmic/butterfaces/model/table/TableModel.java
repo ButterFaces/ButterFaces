@@ -15,4 +15,6 @@ public interface TableModel {
      */
     TableColumnDisplayModel getTableColumnDisplayModel();
 
+    TableOrderModel getTableOrderModel();
+
 }

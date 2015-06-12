@@ -19,6 +19,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-prettyprint.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-section.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-table-toolbar.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-tags.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-tree.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-waiting.css", target = "head"),

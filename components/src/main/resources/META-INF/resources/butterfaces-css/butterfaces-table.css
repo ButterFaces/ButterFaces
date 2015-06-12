@@ -13,26 +13,6 @@
     cursor: pointer;
 }
 
-.butter-table-toolbar {
-    display: inline-block;
-    width: 100%;
-}
-
-.butter-table-toolbar-columns label {
-    font-weight: normal;
-}
-
-.butter-table-toolbar-columns li {
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.butter-table-toolbar-columns li:hover {
-    background: #E8F1FF;
-    cursor: pointer;
-}
-
 .butter-component-table-column-sort-spinner {
     margin-left: 5px;
 }

@@ -7,6 +7,7 @@ public class DefaultTableModel implements TableModel {
 
     private final TableSortModel tableSortModel = new DefaultTableSortModel();
     private final TableColumnDisplayModel columnDisplayTableModel = new DefaultColumnDisplayTableModel();
+    private final TableOrderModel tableOrderModel = new DefaultTableOrderModel();
 
     @Override
     public TableSortModel getTableSortModel() {
@@ -18,4 +19,8 @@ public class DefaultTableModel implements TableModel {
         return columnDisplayTableModel;
     }
 
+    @Override
+    public TableOrderModel getTableOrderModel() {
+        return tableOrderModel;
+    }
 }

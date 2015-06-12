@@ -1,7 +1,8 @@
 <ui:composition template="/WEB-INF/templates/base.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:index="http://xmlns.jcp.org/jsf/composite/cc/index"
-                xmlns:b="http://butterfaces.larmic.de/components">
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="fullWidthPart">
 
@@ -83,7 +84,8 @@
                     </div>
                 </div>
 
-                <div class="socialNetwork">
+                <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}"
+                              styleClass="socialNetwork">
                     <div class="googleplus">
                         <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
                         <script src="https://apis.google.com/js/platform.js"></script>
@@ -93,9 +95,18 @@
                              data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
                     </div>
 
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="larmicDE" data-hashtags="ButterFaces">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                </div>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="larmicDE"
+                       data-hashtags="ButterFaces">Tweet</a>
+                    <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + '://platform.twitter.com/widgets.js';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, 'script', 'twitter-wjs');</script>
+                </h:panelGroup>
 
             </div>
         </div>

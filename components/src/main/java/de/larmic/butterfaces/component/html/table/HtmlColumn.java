@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
@@ -34,6 +35,10 @@ public class HtmlColumn extends UIColumn implements Tooltip, Label {
     public HtmlColumn() {
         super();
         this.setRendererType(RENDERER_TYPE);
+    }
+
+    public String getModelUniqueIdentifier() {
+        return StringUtils.getNotNullValue(getUniqueIdentifier(), getId());
     }
 
     @Override

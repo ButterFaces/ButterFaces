@@ -1,8 +1,10 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.TableColumnDisplayModel;
 import de.larmic.butterfaces.model.table.TableModel;
+import de.larmic.butterfaces.model.table.TableOrderModel;
 import de.larmic.butterfaces.model.table.TableSortModel;
 
 import javax.el.ValueExpression;
@@ -39,8 +41,8 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
-    protected static final String PROPERTY_TABLE_ROW_CLASS  = "rowClass";
-    protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY  = "rowIdentifierProperty";
+    protected static final String PROPERTY_TABLE_ROW_CLASS = "rowClass";
+    protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY = "rowIdentifierProperty";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
 
@@ -69,15 +71,46 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public List<HtmlColumn> getCachedColumns() {
         final int childCount = this.getChildCount();
         if (childCount > 0 && this.cachedColumns.isEmpty()) {
-            for (UIComponent kid : this.getChildren()) {
+            final Iterator<UIComponent> childIterator = this.getChildren().iterator();
+
+            while (childIterator.hasNext()) {
+                final UIComponent kid = childIterator.next();
                 if ((kid instanceof HtmlColumn) && kid.isRendered()) {
-                    this.cachedColumns.add((HtmlColumn) kid);
+                    final HtmlColumn column = (HtmlColumn) kid;
+                    this.cachedColumns.add(column);
+                    if (getTableOrderModel() != null
+                            && getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), column.getModelUniqueIdentifier()) == null) {
+                        getTableOrderModel().orderColumnToLeft(getModelUniqueIdentifier(), column.getModelUniqueIdentifier());
+                    }
+                    childIterator.remove();
                 }
             }
-            return this.cachedColumns;
+
+            Collections.sort(cachedColumns, new Comparator<HtmlColumn>() {
+                @Override
+                public int compare(HtmlColumn o1, HtmlColumn o2) {
+                    if (getTableOrderModel() != null) {
+                        final Integer o1OrderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
+                        final Integer o2OrderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
+
+                        if (o1OrderPosition != null && o2OrderPosition != null) {
+                            return o1OrderPosition.compareTo(o2OrderPosition);
+                        }
+                    }
+                    return 0;
+                }
+            });
+
+            for (HtmlColumn cachedColumn : cachedColumns) {
+                this.getChildren().add(cachedColumn);
+            }
         }
 
         return this.cachedColumns;
+    }
+
+    public String getModelUniqueIdentifier() {
+        return StringUtils.getNotNullValue(getUniqueIdentifier(), getId());
     }
 
     public TableSingleSelectionListener getSingleSelectionListener() {
@@ -95,6 +128,11 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public TableSortModel getTableSortModel() {
         final TableModel tableModel = this.getModel();
         return tableModel != null ? tableModel.getTableSortModel() : null;
+    }
+
+    public TableOrderModel getTableOrderModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableOrderModel() : null;
     }
 
     public TableColumnDisplayModel getTableColumnDisplayModel() {
