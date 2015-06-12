@@ -41,7 +41,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     // we will try this way... maybe migrating later...
     private int rowIndex;
 
-    private boolean systemIdentifierHashcodeIsUsedAsCachedRowIdentifier;
     private String cachedRowIdentifier;
 
     private WebXmlParameters webXmlParameters;
@@ -211,7 +210,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.startElement("tr", htmlTable);
         writer.writeAttribute("rowIndex", rowIndex, null);
         final String rowClass = StringUtils.isNotEmpty(htmlTable.getRowClass()) ? "butter-table-row " + htmlTable.getRowClass() : "butter-table-row";
-        if (isRowSelected(context, htmlTable.getVar(), htmlTable.getRowIdentifierProperty())) {
+
+        // TODO maybe optimize -> isRowSelected is expensive. If first selected row is found no other calls are needed
+        // TODO because table only support row single selection
+
+        if (this.isRowSelected(context, htmlTable)) {
             writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
         } else {
             writer.writeAttribute("class", rowClass, null);
@@ -234,9 +237,15 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         rowIndex++;
     }
 
-    private boolean isRowSelected(final FacesContext context, final String htmlTableVar, final String rowIdentifierProperty) {
+    private boolean isRowSelected(FacesContext context, HtmlTable htmlTable) {
+        String rowIdentifierProperty = null;
+
         if (StringUtils.isNotEmpty(cachedRowIdentifier)) {
-            final String value = this.createRowIdentifierValueExpression(context, htmlTableVar, rowIdentifierProperty);
+            if (StringUtils.isNotEmpty(htmlTable.getRowIdentifierProperty())) {
+                rowIdentifierProperty = htmlTable.getRowIdentifierProperty();
+            }
+
+            final String value = this.createRowIdentifierValueExpression(context, htmlTable.getVar(), rowIdentifierProperty);
             return cachedRowIdentifier.equals(value);
         }
 
@@ -245,10 +254,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
     private String createRowIdentifierValueExpression(final FacesContext context, String htmlTableVar, String rowIdentifierProperty) {
         final ELContext elContext = context.getELContext();
-        final String valueExpressionString = systemIdentifierHashcodeIsUsedAsCachedRowIdentifier ? "#{" + htmlTableVar + "}" : "#{" + htmlTableVar + "." + rowIdentifierProperty + "}";
+        final String valueExpressionString = StringUtils.isEmpty(rowIdentifierProperty) ? "#{" + htmlTableVar + "}" : "#{" + htmlTableVar + "." + rowIdentifierProperty + "}";
         final ValueExpression valueExpression = this.createRowIdentifierValueExpression(context, valueExpressionString);
         final Object value = valueExpression.getValue(elContext);
-        return systemIdentifierHashcodeIsUsedAsCachedRowIdentifier ? System.identityHashCode(value) + "" : value.toString();
+        return StringUtils.isEmpty(rowIdentifierProperty) ? System.identityHashCode(value) + "" : value.toString();
     }
 
     private ValueExpression createRowIdentifierValueExpression(final FacesContext context, final String valueExpression) {
@@ -272,8 +281,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             return;
         }
 
-        final Iterable tableValues = (Iterable) untypedTableValue;
-
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
@@ -284,7 +291,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             try {
                 final int eventNumber = Integer.valueOf(split[1]);
                 if ("click".equals(event)) {
-                    final Object rowObject = findRowObject(tableValues, eventNumber);
+                    final Object rowObject = findRowObject(htmlTable, eventNumber);
 
                     cachedRowIdentifier = null;
 
@@ -315,8 +322,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private String getRowIdentifierProperty(final Object rowObject, final String rowIdentifierProperty) {
-        systemIdentifierHashcodeIsUsedAsCachedRowIdentifier = false;
-
         if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
             String identifier = getRowIdentifierPropertyByField(rowObject, rowIdentifierProperty);
 
@@ -329,7 +334,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             }
         }
 
-        systemIdentifierHashcodeIsUsedAsCachedRowIdentifier = true;
         return System.identityHashCode(rowObject) + "";
     }
 
@@ -346,7 +350,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private String toUpperCase(final String str) {
-        return Character.toString(str.charAt(0)).toUpperCase()+str.substring(1);
+        return Character.toString(str.charAt(0)).toUpperCase() + str.substring(1);
     }
 
     private String getRowIdentifierPropertyByGetter(Object rowObject, String rowIdentifierProperty) {
@@ -372,18 +376,24 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         return null;
     }
 
-    private Object findRowObject(final Iterable tableValues, final int row) {
-        final Iterator iterator = tableValues.iterator();
-        int actualRow = 0;
+    private Object findRowObject(final HtmlTable table, final int row) {
+        final Object value = table.getValue();
 
-        while (iterator.hasNext()) {
-            final Object value = iterator.next();
+        if (value instanceof Iterable) {
+            final Iterator iterator = ((Iterable) value).iterator();
+            int actualRow = 0;
 
-            if (actualRow == row) {
-                return value;
+            while (iterator.hasNext()) {
+                final Object value1 = iterator.next();
+
+                if (actualRow == row) {
+                    return value1;
+                }
+
+                actualRow++;
             }
 
-            actualRow++;
+            return null;
         }
 
         return null;
