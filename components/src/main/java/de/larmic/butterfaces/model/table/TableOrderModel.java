@@ -5,11 +5,9 @@ package de.larmic.butterfaces.model.table;
  */
 public interface TableOrderModel {
 
-    void orderColumnToLeft(final String tableUniqueIdentifier,
-                           final String columnUniqueIdentifier);
-
-    void orderColumnToRight(final String tableUniqueIdentifier,
-                            final String columnUniqueIdentifier);
+    void orderColumnToPosition(final String tableUniqueIdentifier,
+                               final String columnUniqueIdentifier,
+                               final int position);
 
     /**
      * @return null if order position is unknown.

@@ -13,19 +13,19 @@ public class DefaultTableOrderModelTest {
 
     @Before
     public void setUp() throws Exception {
-        model.orderColumnToLeft(null, "test1");
+        model.orderColumnToPosition(null, "test1", 0);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
 
-        model.orderColumnToLeft(null, "test2");
+        model.orderColumnToPosition(null, "test2", 0);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test2"));
 
-        model.orderColumnToLeft(null, "test3");
+        model.orderColumnToPosition(null, "test3", 0);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test3"));
 
-        model.orderColumnToLeft(null, "test4");
+        model.orderColumnToPosition(null, "test4", 0);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test3"));
@@ -34,25 +34,25 @@ public class DefaultTableOrderModelTest {
 
     @Test
     public void testOrderColumnToLeft() throws Exception {
-        model.orderColumnToLeft(null, "test4");
+        model.orderColumnToPosition(null, "test4", 2);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test4"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test3"));
 
-        model.orderColumnToLeft(null, "test4");
+        model.orderColumnToPosition(null, "test4", 1);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test4"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test3"));
 
-        model.orderColumnToLeft(null, "test4");
+        model.orderColumnToPosition(null, "test4", 0);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test4"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test3"));
 
-        model.orderColumnToLeft(null, "test4");
+        model.orderColumnToPosition(null, "test4", -1);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test4"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test2"));
@@ -61,25 +61,25 @@ public class DefaultTableOrderModelTest {
 
     @Test
     public void testOrderColumnToRight() throws Exception {
-        model.orderColumnToRight(null, "test1");
+        model.orderColumnToPosition(null, "test1", 1);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test3"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test4"));
 
-        model.orderColumnToRight(null, "test1");
+        model.orderColumnToPosition(null, "test1", 2);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test3"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test1"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test4"));
 
-        model.orderColumnToRight(null, "test1");
+        model.orderColumnToPosition(null, "test1", 3);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test3"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test4"));
         Assert.assertEquals(new Integer(3), model.getOrderPosition(null, "test1"));
 
-        model.orderColumnToRight(null, "test1");
+        model.orderColumnToPosition(null, "test1", 4);
         Assert.assertEquals(new Integer(0), model.getOrderPosition(null, "test2"));
         Assert.assertEquals(new Integer(1), model.getOrderPosition(null, "test3"));
         Assert.assertEquals(new Integer(2), model.getOrderPosition(null, "test4"));

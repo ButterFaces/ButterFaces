@@ -144,10 +144,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 final String tableUniqueIdentifier = cachedTableComponent.getModelUniqueIdentifier();
                 final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
 
+                final Integer orderPosition = cachedTableComponent.getTableOrderModel().getOrderPosition(tableUniqueIdentifier, columnUniqueIdentifier);
                 if (orderUp) {
-                    cachedTableComponent.getTableOrderModel().orderColumnToLeft(tableUniqueIdentifier, columnUniqueIdentifier);
+                    cachedTableComponent.getTableOrderModel().orderColumnToPosition(tableUniqueIdentifier, columnUniqueIdentifier, orderPosition - 1);
                 } else {
-                    cachedTableComponent.getTableOrderModel().orderColumnToRight(tableUniqueIdentifier, columnUniqueIdentifier);
+                    cachedTableComponent.getTableOrderModel().orderColumnToPosition(tableUniqueIdentifier, columnUniqueIdentifier, orderPosition + 1);
                 }
             }
         }

@@ -80,7 +80,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
                     this.cachedColumns.add(column);
                     if (getTableOrderModel() != null
                             && getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), column.getModelUniqueIdentifier()) == null) {
-                        getTableOrderModel().orderColumnToLeft(getModelUniqueIdentifier(), column.getModelUniqueIdentifier());
+                        getTableOrderModel().orderColumnToPosition(getModelUniqueIdentifier(), column.getModelUniqueIdentifier(), 0);
                     }
                     childIterator.remove();
                 }
