@@ -8,12 +8,15 @@
     left: auto;
 }
 
+.butter-table-toolbar-columns {
+    width: 160px;
+}
+
 .butter-table-toolbar-columns label {
     font-weight: normal;
 }
 
 .butter-table-toolbar-columns li {
-    margin-left: 30px;
 }
 
 .butter-table-toolbar-columns li:hover {
@@ -21,20 +24,32 @@
     cursor: pointer;
 }
 
-.butter-table-toolbar-column-order {
-}
-
 .butter-table-toolbar-column-order-item {
-    display: block;
-    top: -3px;
-}
-
-.butter-table-toolbar-column-order-item-down {
+    font-size: 11px;
 }
 
 .butter-table-toolbar-column-option {
     display: flex;
     align-items: center;
+}
+
+.butter-table-toolbar-column-option input {
+    width: 16px;
+    margin: 0 0 0 6px;
+}
+
+.butter-table-toolbar-column-option label {
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.butter-table-toolbar-column-option .butter-table-toolbar-column-order {
+    width: 16px;
+    margin-right: 6px;
+    display: flex;
+    flex-direction: column;
 }
 
 .butter-table-toolbar-column-option .checkbox {

@@ -199,13 +199,14 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.startElement("li", tableToolbar);
                 writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
                 writer.writeAttribute("data-original-column", columnNumber, null);
-                writer.startElement("label", tableToolbar);
-                writer.writeAttribute("class", "checkbox", "styleClass");
 
                 if (toggleAjaxRequest != null) {
                     this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest, columnNumber, cachedColumn);
                 }
 
+                writer.startElement("label", tableToolbar);
+                writer.writeAttribute("class", "checkbox", "styleClass");
+                writer.writeAttribute("title", cachedColumn.getLabel(), "title");
                 writer.writeText(cachedColumn.getLabel(), null);
                 writer.endElement("label");
 
