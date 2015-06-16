@@ -50,21 +50,49 @@
         });
     };
 
-    $.fn.orderColumnUp = function(data) {
-        return this.each(function() {
+    $.fn.orderColumnUp = function (data) {
+        return this.each(function () {
             var $originalElement = $(this);
 
-            console.log($originalElement);
-            console.log('Order up column with data-column: ' + data.column);
+            //console.log($originalElement);
+            //console.log('Order down column with data-column: ' + data.column);
+
+            var tableId = $originalElement.attr('id');
+            var $toolbar = $('div[data-table-html-id="' + tableId + '"]');
+
+            //console.log($toolbar);
+
+            var $column = $toolbar.find('li[data-original-column="' + data.column + '"]');
+            var $nextColumn = $column.prev();
+
+            //console.log($column);
+            //console.log($nextColumn);
+
+            var $detachtedColumn = $column.detach();
+            $nextColumn.before($detachtedColumn);
         });
     };
 
-    $.fn.orderColumnDown = function(data) {
-        return this.each(function() {
+    $.fn.orderColumnDown = function (data) {
+        return this.each(function () {
             var $originalElement = $(this);
 
-            console.log($originalElement);
-            console.log('Order down column with data-column: ' + data.column);
+            //console.log($originalElement);
+            //console.log('Order down column with data-column: ' + data.column);
+
+            var tableId = $originalElement.attr('id');
+            var $toolbar = $('div[data-table-html-id="' + tableId + '"]');
+
+            //console.log($toolbar);
+
+            var $column = $toolbar.find('li[data-original-column="' + data.column + '"]');
+            var $nextColumn = $column.next();
+
+            //console.log($column);
+            //console.log($nextColumn);
+
+            var $detachtedColumn = $column.detach();
+            $nextColumn.after($detachtedColumn);
         });
     };
 }(jQuery));

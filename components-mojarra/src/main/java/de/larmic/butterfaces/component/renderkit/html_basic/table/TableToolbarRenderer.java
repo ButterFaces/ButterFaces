@@ -198,7 +198,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             for (HtmlColumn cachedColumn : this.cachedTableComponent.getCachedColumns()) {
                 writer.startElement("li", tableToolbar);
                 writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
-                writer.writeAttribute("data-column", columnNumber, null);
+                writer.writeAttribute("data-original-column", columnNumber, null);
                 writer.startElement("label", tableToolbar);
                 writer.writeAttribute("class", "checkbox", "styleClass");
 

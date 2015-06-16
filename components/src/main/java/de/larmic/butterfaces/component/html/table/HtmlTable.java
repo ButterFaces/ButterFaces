@@ -106,6 +106,13 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
             }
         }
 
+        for (HtmlColumn cachedColumn : cachedColumns) {
+            if (getTableOrderModel() != null
+                    && getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier()) == null) {
+                getTableOrderModel().orderColumnToPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier(), 0);
+            }
+        }
+
         return this.cachedColumns;
     }
 

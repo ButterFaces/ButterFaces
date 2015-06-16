@@ -40,3 +40,8 @@
 .butter-table-toolbar-column-option .checkbox {
     margin: 0;
 }
+
+.butter-table-toolbar-columns .butter-table-toolbar-column-option:last-of-type .butter-table-toolbar-column-order-item-down,
+.butter-table-toolbar-columns .butter-table-toolbar-column-option:first-of-type .butter-table-toolbar-column-order-item-up {
+    display: none;
+}
