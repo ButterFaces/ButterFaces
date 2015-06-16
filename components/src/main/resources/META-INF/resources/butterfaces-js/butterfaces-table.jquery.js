@@ -49,4 +49,22 @@
             // console.log($originalElement.find('tr[rowindex=' + data.rowIndex + ']'));
         });
     };
+
+    $.fn.orderColumnUp = function(data) {
+        return this.each(function() {
+            var $originalElement = $(this);
+
+            console.log($originalElement);
+            console.log('Order up column with data-column: ' + data.column);
+        });
+    };
+
+    $.fn.orderColumnDown = function(data) {
+        return this.each(function() {
+            var $originalElement = $(this);
+
+            console.log($originalElement);
+            console.log('Order down column with data-column: ' + data.column);
+        });
+    };
 }(jQuery));

@@ -198,6 +198,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             for (HtmlColumn cachedColumn : this.cachedTableComponent.getCachedColumns()) {
                 writer.startElement("li", tableToolbar);
                 writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
+                writer.writeAttribute("data-column", columnNumber, null);
                 writer.startElement("label", tableToolbar);
                 writer.writeAttribute("class", "checkbox", "styleClass");
 
@@ -229,13 +230,15 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         writer.writeAttribute("class", "butter-table-toolbar-column-order", "styleClass");
         writer.startElement("span", tableToolbar);
         writer.writeAttribute("class", "butter-table-toolbar-column-order-item butter-table-toolbar-column-order-item-up " + webXmlParameters.getSortDescGlyphicon(), "styleClass");
+        final String jQueryPluginUpCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "orderColumnUp({column: '" + columnNumber + "'})");
         final String ajaxUpCall = orderAjaxRequest.createJavaScriptCall("order_up_" + columnNumber, tableToolbar.isAjaxDisableRenderRegionsOnRequest());
-        writer.writeAttribute("onclick", ajaxUpCall + ";", null);
+        writer.writeAttribute("onclick", ajaxUpCall + ";" + jQueryPluginUpCall, null);
         writer.endElement("span");
         writer.startElement("span", tableToolbar);
         writer.writeAttribute("class", "butter-table-toolbar-column-order-item butter-table-toolbar-column-order-item-down " + webXmlParameters.getSortAscGlyphicon(), "styleClass");
+        final String jQueryPluginDownCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "orderColumnDown({column: '" + columnNumber + "'})");
         final String ajaxDownCall = orderAjaxRequest.createJavaScriptCall("order_down_" + columnNumber, tableToolbar.isAjaxDisableRenderRegionsOnRequest());
-        writer.writeAttribute("onclick", ajaxDownCall + ";", null);
+        writer.writeAttribute("onclick", ajaxDownCall + ";" + jQueryPluginDownCall, null);
         writer.endElement("span");
         writer.endElement("span");
     }
