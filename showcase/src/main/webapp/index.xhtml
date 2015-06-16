@@ -85,7 +85,8 @@
                 </div>
 
                 <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}"
-                              styleClass="socialNetwork">
+                              styleClass="socialNetwork"
+                              layout="block">
                     <div class="googleplus">
                         <!-- Fügen Sie dieses Tag in den head-Abschnitt oder direkt vor dem schließenden body-Tag ein. -->
                         <script src="https://apis.google.com/js/platform.js"></script>
@@ -124,31 +125,31 @@
 
         <div class="row hidden-sm">
             <div class="col-sm-3">
-                <index:whyButterFaces />
+                <index:whyButterFaces/>
             </div>
 
             <div class="col-sm-4">
-                <index:easyToUse />
+                <index:easyToUse/>
             </div>
 
             <div class="col-sm-5">
-                <index:components />
+                <index:components/>
             </div>
         </div>
 
         <div class="row visible-sm">
             <div class="col-sm-6">
-                <index:whyButterFaces />
+                <index:whyButterFaces/>
             </div>
 
             <div class="col-sm-6">
-                <index:easyToUse />
+                <index:easyToUse/>
             </div>
         </div>
 
         <div class="row visible-sm">
             <div class="col-sm-12">
-                <index:components />
+                <index:components/>
             </div>
         </div>
 
