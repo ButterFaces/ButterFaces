@@ -33,6 +33,10 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <name>disabled</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
          <name>rendered</name>
          <type>java.lang.Boolean</type>
       </attribute>
@@ -102,6 +106,10 @@
       </attribute>
       <attribute>
          <name>required</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>disabled</name>
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
@@ -202,6 +210,10 @@
       </attribute>
       <attribute>
          <name>required</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>disabled</name>
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
@@ -330,6 +342,10 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <name>disabled</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
          <name>autoFocus</name>
          <type>java.lang.Boolean</type>
       </attribute>
@@ -395,6 +411,10 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <name>disabled</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
          <name>style</name>
          <type>java.lang.String</type>
       </attribute>
@@ -437,6 +457,10 @@
       </attribute>
       <attribute>
          <name>required</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>disabled</name>
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
@@ -490,6 +514,10 @@
       </attribute>
       <attribute>
          <name>autoFocus</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
+         <name>disabled</name>
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>

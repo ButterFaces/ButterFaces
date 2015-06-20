@@ -15,6 +15,7 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{textShowcase.required}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
             <showcase:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{textShowcase.styleClass}"
@@ -58,6 +59,7 @@
                     tooltip="demo"
                     value="#{textShowcase.value}"
                     readonly="#{textShowcase.readonly}"
+                    disabled="#{textShowcase.disabled}"
                     required="#{textShowcase.required}"
                     rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
                     placeholder="#{textShowcase.placeholder}"

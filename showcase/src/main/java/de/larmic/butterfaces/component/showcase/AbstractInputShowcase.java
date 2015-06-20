@@ -22,6 +22,7 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
    private boolean required;
    private boolean validation;
    private boolean hideLabel;
+   private boolean disabled;
    private AjaxType ajaxType = AjaxType.NONE;
    private String styleClass = null;
 
@@ -113,6 +114,16 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
    public boolean isRequired() {
       return this.required;
+   }
+
+   @Override
+   public boolean isDisabled() {
+      return disabled;
+   }
+
+   @Override
+   public void setDisabled(boolean disabled) {
+      this.disabled = disabled;
    }
 
    public void setRequired(final boolean required) {

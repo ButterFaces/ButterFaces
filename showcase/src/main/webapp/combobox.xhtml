@@ -16,6 +16,7 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}" />
             <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}" />
+            <showcase:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}" />
             <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}" />
             <showcase:tagEnumControl label="styleClass"
                                      value="#{comboBoxShowcase.styleClass}"
@@ -56,6 +57,7 @@
                         readonly="#{comboBoxShowcase.readonly}"
                         required="#{comboBoxShowcase.required}"
                         autoFocus="#{comboBoxShowcase.autoFocus}"
+                        disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
                         rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'NONE'}">
                 <f:selectItems value="#{comboBoxShowcase.values}" />

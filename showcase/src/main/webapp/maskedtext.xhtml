@@ -16,6 +16,7 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{maskedTextShowcase.disabled}"/>
             <showcase:tagBooleanControl label="rendered" value="#{maskedTextShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{maskedTextShowcase.styleClass}"
@@ -67,6 +68,7 @@
                           value="#{maskedTextShowcase.value}"
                           readonly="#{maskedTextShowcase.readonly}"
                           required="#{maskedTextShowcase.required}"
+                          disabled="#{maskedTextShowcase.disabled}"
                           rendered="#{maskedTextShowcase.rendered and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and maskedTextShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
                           placeholder="#{maskedTextShowcase.placeholder}"
                           type="#{maskedTextShowcase.type}"
