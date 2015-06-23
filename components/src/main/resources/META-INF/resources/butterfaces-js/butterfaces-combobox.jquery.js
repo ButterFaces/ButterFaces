@@ -112,6 +112,7 @@
             if (this.$selectedOption !== null) {
                 this._stopEvent(event);
                 this._setSelectedValue();
+                this._selectCompleteTextInGhostInput();
             }else{
                 this._resetDisplayValue();
             }
