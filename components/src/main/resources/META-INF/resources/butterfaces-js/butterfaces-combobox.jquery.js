@@ -113,6 +113,9 @@
                 this._stopEvent(event);
                 this._setSelectedValue();
                 this._selectCompleteTextInGhostInput();
+            }else if(this.$selectedOption === null && this.$resultContainer !== null){
+                // deactivate enter key if result list is opened but nothing is selected
+                this._stopEvent(event);
             }else{
                 this._resetDisplayValue();
             }
