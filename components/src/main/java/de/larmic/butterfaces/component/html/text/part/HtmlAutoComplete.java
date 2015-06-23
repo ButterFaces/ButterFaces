@@ -13,7 +13,7 @@ import de.larmic.butterfaces.model.text.AutoCompleteModel;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-section.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-baseClass.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-autocomplete.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-autocomplete.css", target = "head") })

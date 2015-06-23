@@ -48,7 +48,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-modal.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-prettyprint.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-scroll.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-baseClass.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-autocomplete.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head"),

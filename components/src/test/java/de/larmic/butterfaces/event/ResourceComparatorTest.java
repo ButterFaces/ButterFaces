@@ -24,7 +24,7 @@ public class ResourceComparatorTest {
         resources.add(createCSSResource("butterfaces-configurable", "bootstrap.min.css"));
         resources.add(createJSResource("butterfaces-js", "butterfaces-expandable.jquery.js"));
         resources.add(createJSResource("butterfaces-configurable", "bootstrap.min.js"));
-        resources.add(createJSResource("butterfaces-js", "butterfaces-baseClass.js"));
+        resources.add(createJSResource("butterfaces-js", "butterfaces-01-baseClass.js"));
 
         Collections.sort(resources, new ResourceComparator());
 

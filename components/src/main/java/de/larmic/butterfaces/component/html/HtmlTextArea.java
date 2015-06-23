@@ -19,7 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-baseClass.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-maxlength.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
