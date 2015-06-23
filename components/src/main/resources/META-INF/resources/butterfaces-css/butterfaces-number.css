@@ -1,3 +1,31 @@
 .butter-component-number .butter-component-value .input-group-addon .glyphicon {
     line-height: 1;
 }
+
+.butter-component-number-buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    padding: 0 !important;
+    width: 40px !important;
+}
+
+.butter-component-number-button {
+    cursor: pointer;
+}
+
+.butter-component-number-button:hover {
+    background-color: #ddd;
+}
+
+.butter-component-number-button:first-child {
+    border-bottom: 1px solid #ccc;
+}
+
+.butter-component-number-button.disabled {
+    cursor: not-allowed;
+}

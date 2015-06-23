@@ -39,7 +39,8 @@
 
         _initOptions: function (options) {
             var defaultOptions = {
-                step: 1
+                step: 1,
+                disabled: false
             };
             this._options = $.extend({}, defaultOptions, options);
 
@@ -65,16 +66,26 @@
             $("<span>")
                 .addClass("glyphicon glyphicon-chevron-up")
                 .addClass("butter-component-number-button")
+                .addClass(function () {
+                    return self._options.disabled ? "disabled" : "";
+                })
                 .click(function () {
-                    self.increaseCounter();
+                    if (!self._options.disabled) {
+                        self.increaseCounter();
+                    }
                 })
                 .appendTo($addon);
 
             $("<span>")
                 .addClass("glyphicon glyphicon-chevron-down")
                 .addClass("butter-component-number-button")
+                .addClass(function () {
+                    return self._options.disabled ? "disabled" : "";
+                })
                 .click(function () {
-                    self.decreaseCounter();
+                    if (!self._options.disabled) {
+                        self.decreaseCounter();
+                    }
                 })
                 .appendTo($addon);
         },

@@ -183,30 +183,6 @@ div.butter-component-expandable-ghost {
     margin-left: 5px;
 }
 
-.butter-component-number-buttons {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-    align-items: stretch;
-    padding: 0 !important;
-    width: 40px !important;
-}
-
-.butter-component-number-button {
-    cursor: pointer;
-}
-
-.butter-component-number-button:hover {
-    background-color: #ddd;
-}
-
-.butter-component-number-button:first-child {
-    border-bottom: 1px solid #ccc;
-}
-
 .cursor-pointer {
     cursor: pointer;
 }

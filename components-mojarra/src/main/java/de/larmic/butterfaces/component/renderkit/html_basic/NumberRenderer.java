@@ -37,6 +37,9 @@ public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
             if (StringUtils.isNotEmpty(numberComponent.getStep())) {
                 options.put("step", numberComponent.getStep());
             }
+            if ( numberComponent.isDisabled()) {
+                options.put("disabled", numberComponent.isDisabled() + "");
+            }
 
             RenderUtils.renderJQueryPluginCall(
                     component.getClientId(),
