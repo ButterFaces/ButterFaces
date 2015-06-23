@@ -312,7 +312,4 @@
             this.$ghostInput[0].setSelectionRange(0, this.$ghostInput.val().length);
         }
     });
-}
-(jQuery)
-)
-;
+}(jQuery));
