@@ -30,7 +30,7 @@
         _initInput: function () {
             var self = this;
             this.$input
-                .addClass("butter-component-number")
+                .addClass("butter-component-number-input")
                 .blur(function () {
                     self._setValueOnBlur();
                 })

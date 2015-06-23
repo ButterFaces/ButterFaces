@@ -23,6 +23,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
+        this.encodeBegin(context, component, "");
+    }
+
+    public void encodeBegin(final FacesContext context, final UIComponent component, final String additionalStyleClass) throws IOException {
         rendererParamsNotNull(context, component);
 
         if (!shouldEncode(component)) {
@@ -36,7 +40,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, additionalStyleClass);
 
         // Render label if components label attribute is set
         new LabelPartRenderer().renderLabel(component, writer);

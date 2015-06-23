@@ -15,6 +15,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-configurable", name = "prettify.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "prettify.js", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-number.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-link.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-prettyprint.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-section.css", target = "head"),

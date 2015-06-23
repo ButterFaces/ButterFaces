@@ -7,6 +7,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractTextRenderer;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
@@ -15,6 +16,11 @@ import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlNumber.COMPONENT_FAMILY, rendererType = HtmlNumber.RENDERER_TYPE)
 public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
+
+    @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.encodeBegin(context, component, "butter-component-number");
+    }
 
     @Override
     protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
