@@ -257,6 +257,10 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <name>disabled</name>
+         <type>java.lang.Boolean</type>
+      </attribute>
+      <attribute>
          <name>rendered</name>
          <type>java.lang.Boolean</type>
       </attribute>
