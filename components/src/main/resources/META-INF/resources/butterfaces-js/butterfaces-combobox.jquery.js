@@ -18,6 +18,7 @@
             this.optionResultList = [];
             this.$selectedOption = null;
             this._hasFocus = false;
+            this._disabled = this.$select.is('[disabled=disabled]');
             this.isMouseClickBlocked = false;
 
             this._keyCodes = {
@@ -102,6 +103,9 @@
                     }
                 });
 
+            if (self._disabled) {
+                self.$ghostInput.attr('disabled', 'disabled');
+            }
         },
         
         _handleEnterKeyDown: function(event) {
@@ -144,18 +148,22 @@
 
         _initializeDropDownButton: function () {
             var self = this;
-            self.$ghostInput.next()
-                .on("click", function (event) {
-                    self._stopEvent(event);
+            if (!self._disabled) {
+                self.$ghostInput.next()
+                    .on("click", function (event) {
+                        self._stopEvent(event);
 
-                    if(self.isMouseClickBlocked){
-                        return;
-                    }
+                        if (self.isMouseClickBlocked) {
+                            return;
+                        }
 
-                    self._createOptionResultList();
-                    self._showOptionResultList();
-                    self.$ghostInput.focus();
-                });
+                        self._createOptionResultList();
+                        self._showOptionResultList();
+                        self.$ghostInput.focus();
+                    });
+            } else {
+                self.$ghostInput.next().addClass('disabled');
+            }
         },
 
         _createOptionResultList: function (searchText) {
