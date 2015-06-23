@@ -51,6 +51,7 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
+        xhtmlCodeExample.appendInnerContent("                disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                autoFocus=\"" + this.isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");

@@ -59,6 +59,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + isRequired() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                    rendered=\"" + isRendered() + "\">");
 
