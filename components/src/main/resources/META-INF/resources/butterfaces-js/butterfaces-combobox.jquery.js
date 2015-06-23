@@ -61,7 +61,7 @@
                 .on("focus", function () {
                     self._hasFocus = true;
                     // automatically select whole text on focus
-                    this.setSelectionRange(0, $(this).val().length)
+                    self._selectCompleteTextInGhostInput();
                 })
                 .on("mouseup", function (event) {
                     // in safari the mouseup event unselects the text, so we have to prevent this
@@ -140,7 +140,7 @@
             if (this.$resultContainer !== null) {
                 this._hideOptionResultList();
                 this._resetDisplayValue();
-                this.setSelectionRange(0, $(this).val().length);
+                this._selectCompleteTextInGhostInput();
             } else {
                 this.$ghostInput.blur();
             }
@@ -306,6 +306,10 @@
         _stopEvent: function (event) {
             event.preventDefault();
             //event.preventBubble();
+        },
+
+        _selectCompleteTextInGhostInput: function() {
+            this.$ghostInput[0].setSelectionRange(0, this.$ghostInput.val().length);
         }
     });
 }
