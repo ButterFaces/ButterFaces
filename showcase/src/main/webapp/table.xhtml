@@ -29,9 +29,6 @@
             <showcase:tagEnumControl label="column width"
                                      value="#{tableShowcase.fourthColumnWidthType}"
                                      values="#{tableShowcase.twoColumnWidthTypes}"/>
-            <showcase:tagEnumControl label="row identifier"
-                                     value="#{tableShowcase.rowIdentifierType}"
-                                     values="#{tableShowcase.rowIdentifierTypes}"/>
             <showcase:tagEnumControl label="toolbar facets"
                                      value="#{tableShowcase.toolbarFacetType}"
                                      values="#{tableShowcase.toolBarFacetTypes}"/>
@@ -142,7 +139,6 @@
                  tableBordered="#{tableShowcase.tableBordered}"
                  rowClass="#{tableShowcase.rowClass}"
                  ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
-                 rowIdentifierProperty="#{tableShowcase.rowIdentifierProperty}"
                  rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>

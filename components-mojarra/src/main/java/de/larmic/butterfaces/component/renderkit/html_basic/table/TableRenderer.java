@@ -12,8 +12,6 @@ import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
@@ -22,9 +20,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +35,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     // alternative: copy encode children but this means coping a lot of private methods... :(
     // we will try this way... maybe migrating later...
     private int rowIndex;
-
-    private String cachedRowIdentifier;
 
     private WebXmlParameters webXmlParameters;
 
@@ -214,7 +207,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         // TODO maybe optimize -> isRowSelected is expensive. If first selected row is found no other calls are needed
         // TODO because table only support row single selection
 
-        if (this.isRowSelected(context, htmlTable)) {
+        if (this.isRowSelected(htmlTable, rowIndex)) {
             writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
         } else {
             writer.writeAttribute("class", rowClass, null);
@@ -237,44 +230,26 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         rowIndex++;
     }
 
-    private boolean isRowSelected(FacesContext context, HtmlTable htmlTable) {
-        String rowIdentifierProperty = null;
+    private boolean isRowSelected(final HtmlTable table, final int rowIndex) {
 
-        if (StringUtils.isNotEmpty(cachedRowIdentifier)) {
-            if (StringUtils.isNotEmpty(htmlTable.getRowIdentifierProperty())) {
-                rowIdentifierProperty = htmlTable.getRowIdentifierProperty();
-            }
-
-            final String value = this.createRowIdentifierValueExpression(context, htmlTable.getVar(), rowIdentifierProperty);
-            return cachedRowIdentifier.equals(value);
+        if (table.getSingleSelectionListener() != null) {
+            final Object rowObject = findRowObject(table, rowIndex);
+            return table.getSingleSelectionListener().isValueSelected(rowObject);
         }
 
         return false;
     }
 
-    private String createRowIdentifierValueExpression(final FacesContext context, String htmlTableVar, String rowIdentifierProperty) {
-        final ELContext elContext = context.getELContext();
-        final String valueExpressionString = StringUtils.isEmpty(rowIdentifierProperty) ? "#{" + htmlTableVar + "}" : "#{" + htmlTableVar + "." + rowIdentifierProperty + "}";
-        final ValueExpression valueExpression = this.createRowIdentifierValueExpression(context, valueExpressionString);
-        final Object value = valueExpression.getValue(elContext);
-        return StringUtils.isEmpty(rowIdentifierProperty) ? System.identityHashCode(value) + "" : value.toString();
-    }
-
-    private ValueExpression createRowIdentifierValueExpression(final FacesContext context, final String valueExpression) {
-        final ELContext elContext = context.getELContext();
-        return context.getApplication().getExpressionFactory().createValueExpression(elContext, valueExpression, Object.class);
-    }
-
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
-        final HtmlTable htmlTable = (HtmlTable) component;
-        final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
+        final HtmlTable table = (HtmlTable) component;
+        final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
 
         if (behaviors.isEmpty()) {
             return;
         }
 
-        final Object untypedTableValue = htmlTable.getValue();
+        final Object untypedTableValue = table.getValue();
 
 
         if (!(untypedTableValue instanceof Iterable)) {
@@ -291,28 +266,24 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             try {
                 final int eventNumber = Integer.valueOf(split[1]);
                 if ("click".equals(event)) {
-                    final Object rowObject = findRowObject(htmlTable, eventNumber);
-
-                    cachedRowIdentifier = null;
+                    final Object rowObject = findRowObject(table, eventNumber);
 
                     if (rowObject != null) {
-                        final TableSingleSelectionListener listener = htmlTable.getSingleSelectionListener();
+                        final TableSingleSelectionListener listener = table.getSingleSelectionListener();
 
                         if (listener != null) {
                             listener.processTableSelection(rowObject);
-                            final String rowIdentifier = this.getRowIdentifierProperty(rowObject, htmlTable.getRowIdentifierProperty());
-                            cachedRowIdentifier = rowIdentifier;
                         }
 
                     }
-                } else if ("sort".equals(event) && htmlTable.getModel() != null) {
-                    final HtmlColumn sortedColumn = htmlTable.getCachedColumns().get(eventNumber);
-                    final String tableUniqueIdentifier = htmlTable.getModelUniqueIdentifier();
+                } else if ("sort".equals(event) && table.getModel() != null) {
+                    final HtmlColumn sortedColumn = table.getCachedColumns().get(eventNumber);
+                    final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
                     final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
-                    if (htmlTable.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
-                        htmlTable.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.DESCENDING);
+                    if (table.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
+                        table.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.DESCENDING);
                     } else {
-                        htmlTable.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.ASCENDING);
+                        table.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.ASCENDING);
                     }
                 }
             } catch (NumberFormatException e) {
@@ -320,62 +291,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             }
         }
     }
-
-    private String getRowIdentifierProperty(final Object rowObject, final String rowIdentifierProperty) {
-        if (StringUtils.isNotEmpty(rowIdentifierProperty)) {
-            String identifier = getRowIdentifierPropertyByField(rowObject, rowIdentifierProperty);
-
-            if (StringUtils.isEmpty(identifier)) {
-                identifier = getRowIdentifierPropertyByGetter(rowObject, rowIdentifierProperty);
-            }
-
-            if (StringUtils.isNotEmpty(identifier)) {
-                return identifier;
-            }
-        }
-
-        return System.identityHashCode(rowObject) + "";
-    }
-
-    private String getRowIdentifierPropertyByField(Object rowObject, String rowIdentifierProperty) {
-        try {
-            final Method method = rowObject.getClass().getMethod("get" + toUpperCase(rowIdentifierProperty));
-            final Object valueObject = method.invoke(rowObject, (Object[]) null);
-            return convertRowIdentifierToString(valueObject);
-        } catch (NoSuchMethodException e) {
-        } catch (InvocationTargetException e) {
-        } catch (IllegalAccessException e) {
-        }
-        return null;
-    }
-
-    private String toUpperCase(final String str) {
-        return Character.toString(str.charAt(0)).toUpperCase() + str.substring(1);
-    }
-
-    private String getRowIdentifierPropertyByGetter(Object rowObject, String rowIdentifierProperty) {
-        try {
-            final Field declaredField = rowObject.getClass().getDeclaredField(rowIdentifierProperty);
-            declaredField.setAccessible(true);
-            return convertRowIdentifierToString(declaredField.get(rowObject));
-        } catch (NoSuchFieldException e) {
-        } catch (IllegalAccessException e) {
-        }
-        return null;
-    }
-
-    private String convertRowIdentifierToString(final Object rowIdentifier) throws IllegalAccessException {
-        if (rowIdentifier != null) {
-            final String rowIdentifierAsString = rowIdentifier.toString();
-
-            if (StringUtils.isNotEmpty(rowIdentifierAsString)) {
-                return rowIdentifierAsString;
-            }
-        }
-
-        return null;
-    }
-
     private Object findRowObject(final HtmlTable table, final int row) {
         final Object value = table.getValue();
 

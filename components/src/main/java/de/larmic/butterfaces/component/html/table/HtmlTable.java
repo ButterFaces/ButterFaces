@@ -42,7 +42,6 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
     protected static final String PROPERTY_TABLE_ROW_CLASS = "rowClass";
-    protected static final String PROPERTY_ROW_IDENTIFIER_PROPERTY = "rowIdentifierProperty";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
 
@@ -192,14 +191,6 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public void setRowClass(String rowClass) {
         this.updateStateHelper(PROPERTY_TABLE_ROW_CLASS, rowClass);
-    }
-
-    public String getRowIdentifierProperty() {
-        return (String) this.getStateHelper().eval(PROPERTY_ROW_IDENTIFIER_PROPERTY);
-    }
-
-    public void setRowIdentifierProperty(String rowIdentifierProperty) {
-        this.updateStateHelper(PROPERTY_ROW_IDENTIFIER_PROPERTY, rowIdentifierProperty);
     }
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {

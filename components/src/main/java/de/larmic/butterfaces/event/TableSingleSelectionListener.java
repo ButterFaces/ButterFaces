@@ -12,4 +12,6 @@ public interface TableSingleSelectionListener<T> {
      */
     public void processTableSelection(final T data);
 
+    public boolean isValueSelected(final T data);
+
 }
