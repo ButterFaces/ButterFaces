@@ -39,6 +39,8 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallback(htmlTags)), null);
         if (htmlTags.isReadonly()) {
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "markTagsInputAsReadonly()"), null);
+        } else if (htmlTags.isDisabled()) {
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "markTagsInputAsDisabled()"), null);
         }
         writer.endElement("script");
     }
@@ -71,6 +73,7 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
 
         jQueryPluginCall.append("trimValue: " + tags.isTrimValue() + ",");
         jQueryPluginCall.append("allowDuplicates: " + tags.isAllowDuplicates() + ",");
+        jQueryPluginCall.append("disabled: " + tags.isDisabled());
         jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }

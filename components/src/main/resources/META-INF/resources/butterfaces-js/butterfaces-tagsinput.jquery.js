@@ -20,4 +20,14 @@
         });
     };
 
+    $.fn.markTagsInputAsDisabled = function () {
+        return this.each(function () {
+            var $originalElement = $(this);
+
+            $originalElement.addClass('butter-component-tags-disabled');
+            $originalElement.find('.bootstrap-tagsinput span[data-role=remove]').css({'display':'none'});
+            $originalElement.find('.bootstrap-tagsinput input[type=text]').css({'display':'none'});
+        });
+    };
+
 }(jQuery));
