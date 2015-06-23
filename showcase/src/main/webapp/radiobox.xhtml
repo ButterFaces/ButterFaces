@@ -15,6 +15,7 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}" />
             <showcase:tagBooleanControl label="required" value="#{radioBoxShowcase.required}" />
+            <showcase:tagBooleanControl label="disabled" value="#{radioBoxShowcase.disabled}"/>
             <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}" />
             <showcase:tagEnumControl label="styleClass"
                                      value="#{radioBoxShowcase.styleClass}"
@@ -54,6 +55,7 @@
                         readonly="#{radioBoxShowcase.readonly}"
                         required="#{radioBoxShowcase.required}"
                         rendered="#{radioBoxShowcase.rendered}"
+                        disabled="#{radioBoxShowcase.disabled}"
                         layout="#{radioBoxShowcase.radioBoxLayoutType.label}"
                         styleClass="#{radioBoxShowcase.styleClass}">
                 <f:selectItems value="#{radioBoxShowcase.values}"/>

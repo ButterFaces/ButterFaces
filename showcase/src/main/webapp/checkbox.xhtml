@@ -16,6 +16,7 @@
             <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
             <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
             <showcase:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{checkBoxShowcase.disabled}"/>
             <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcase.styleClass}"
@@ -48,6 +49,7 @@
                         required="#{checkBoxShowcase.required}"
                         rendered="#{checkBoxShowcase.rendered}"
                         autoFocus="#{checkBoxShowcase.autoFocus}"
+                        disabled="#{checkBoxShowcase.disabled}"
                         styleClass="#{checkBoxShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"
