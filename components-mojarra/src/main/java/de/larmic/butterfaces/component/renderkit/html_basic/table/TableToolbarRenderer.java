@@ -179,7 +179,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default dropdown-toggle", null);
             writer.writeAttribute("data-toggle", "dropdown", null);
-            writer.writeAttribute("title", "Column options", null);
+            writer.writeAttribute("title", tableToolbar.getColumnOptionsTooltip(), null);
             writer.writeAttribute("role", "button", null);
             writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", webXmlParameters.getOptionsGlyphicon(), null);
@@ -288,7 +288,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
-            writer.writeAttribute("title", "Refresh table", null);
+            writer.writeAttribute("title", tableToolbar.getRefreshTooltip(), null);
             writer.writeAttribute("onclick", ajaxCall, null);
 
             writer.startElement("i", tableToolbar);

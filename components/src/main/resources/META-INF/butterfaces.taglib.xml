@@ -882,6 +882,14 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <name>refreshTooltip</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>columnOptionsTooltip</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
          <description>Table client id the table header belongs to.</description>
          <name>tableId</name>
          <type>java.lang.Boolean</type>

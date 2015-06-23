@@ -15,6 +15,8 @@
             <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
             <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
             <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
+            <showcase:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
+            <showcase:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
             <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
                                         value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
         </showcase:tagsContainer>
@@ -81,6 +83,8 @@
         </h:panelGroup>
 
         <b:tableToolbar tableId="filterTable"
+                        refreshTooltip="#{tableShowcase.refreshTooltip}"
+                        columnOptionsTooltip="#{tableShowcase.columnOptionsTooltip}"
                         refreshListener="#{tableShowcase.toolbarRefreshListener}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
                         rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">

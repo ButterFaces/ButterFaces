@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.model.table.TableToolbarRefreshListener;
 
 import javax.el.ValueExpression;
@@ -37,6 +38,9 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
     protected static final String PROPERTY_TABLE_ID = "tableId";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_TOOLBAR_REFRESH_LISTENER = "refreshListener";
+    protected static final String PROPERTY_REFRESH_TOOLTIP = "refreshTooltip";
+    protected static final String PROPERTY_COLUMN_OPTIONS_TOOLTIP = "columnOptionsTooltip";
+
 
     public HtmlTableToolbar() {
         super();
@@ -81,6 +85,24 @@ public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorH
 
     public void setTableToolbarRefreshListener(TableToolbarRefreshListener tableToolbarRefreshListener) {
         this.updateStateHelper(PROPERTY_TOOLBAR_REFRESH_LISTENER, tableToolbarRefreshListener);
+    }
+
+    public String getRefreshTooltip() {
+        final String value = (String) this.getStateHelper().eval(PROPERTY_REFRESH_TOOLTIP);
+        return StringUtils.isNotEmpty(value) ? value : "Refresh table";
+    }
+
+    public void setRefreshTooltip(String refreshTooltip) {
+        this.updateStateHelper(PROPERTY_REFRESH_TOOLTIP, refreshTooltip);
+    }
+
+    public String getColumnOptionsTooltip() {
+        final String value = (String) this.getStateHelper().eval(PROPERTY_COLUMN_OPTIONS_TOOLTIP);
+        return StringUtils.isNotEmpty(value) ? value : "Column options";
+    }
+
+    public void setColumnOptionsTooltip(String columnOptionsTooltip) {
+        this.updateStateHelper(PROPERTY_COLUMN_OPTIONS_TOOLTIP, columnOptionsTooltip);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

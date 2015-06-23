@@ -33,7 +33,8 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     private ToolbarFacetType toolbarFacetType = ToolbarFacetType.NONE;
     private DefaultTableModel tableModel = new DefaultTableModel();
 
-    private String rowIdentifierProperty;
+    private String refreshTooltip;
+    private String columnOptionsTooltip;
     private boolean tableCondensed;
     private boolean tableBordered;
     private boolean tableStriped = true;
@@ -144,6 +145,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                        ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         if (showRefreshButton) {
             xhtmlCodeExample.appendInnerContent("                        refreshListener=\"#{myBean.toolbarRefreshListener}\"");
+        }
+        if (refreshTooltip != null) {
+            xhtmlCodeExample.appendInnerContent("                        refreshTooltip=\"" + refreshTooltip + "\"");
+        }
+        if (columnOptionsTooltip != null) {
+            xhtmlCodeExample.appendInnerContent("                        columnOptionsTooltip=\"" + columnOptionsTooltip + "\"");
         }
         xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
         if (showRefreshButton) {
@@ -637,8 +644,20 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         this.ajaxDisableRenderRegionsOnRequest = ajaxDisableRenderRegionsOnRequest;
     }
 
-    public String getRowIdentifierProperty() {
-        return rowIdentifierProperty;
+    public String getRefreshTooltip() {
+        return refreshTooltip;
+    }
+
+    public void setRefreshTooltip(String refreshTooltip) {
+        this.refreshTooltip = refreshTooltip;
+    }
+
+    public String getColumnOptionsTooltip() {
+        return columnOptionsTooltip;
+    }
+
+    public void setColumnOptionsTooltip(String columnOptionsTooltip) {
+        this.columnOptionsTooltip = columnOptionsTooltip;
     }
 
     public ToolbarFacetType getToolbarFacetType() {
