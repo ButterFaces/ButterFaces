@@ -35,6 +35,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     // alternative: copy encode children but this means coping a lot of private methods... :(
     // we will try this way... maybe migrating later...
     private int rowIndex;
+    private boolean foundSelectedRow;
 
     private WebXmlParameters webXmlParameters;
 
@@ -51,6 +52,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         this.hasColumnWidthSet = hasColumnWidthSet(table.getCachedColumns());
         this.rowIndex = 0;
         this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
+        this.foundSelectedRow = false;
 
         super.encodeBegin(context, component);
     }
@@ -204,11 +206,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         writer.writeAttribute("rowIndex", rowIndex, null);
         final String rowClass = StringUtils.isNotEmpty(htmlTable.getRowClass()) ? "butter-table-row " + htmlTable.getRowClass() : "butter-table-row";
 
-        // TODO maybe optimize -> isRowSelected is expensive. If first selected row is found no other calls are needed
-        // TODO because table only support row single selection
-
-        if (this.isRowSelected(htmlTable, rowIndex)) {
+        if (!foundSelectedRow && this.isRowSelected(htmlTable, rowIndex)) {
             writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
+            foundSelectedRow = true;
         } else {
             writer.writeAttribute("class", rowClass, null);
         }
@@ -231,7 +231,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private boolean isRowSelected(final HtmlTable table, final int rowIndex) {
-
         if (table.getSingleSelectionListener() != null) {
             final Object rowObject = findRowObject(table, rowIndex);
             return table.getSingleSelectionListener().isValueSelected(rowObject);
