@@ -1,0 +1,31 @@
+.butter-dropdownlist-container {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    max-height: 400px;
+    max-width: 900px;
+    overflow: auto;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+.butter-dropdownlist-resultList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.butter-dropdownlist-resultItem,
+.butter-dropdownlist-container-noResultItems {
+    padding: 3px 5px;
+}
+
+.butter-dropdownlist-resultItem {
+    cursor: pointer;
+}
+
+.butter-dropdownlist-resultItem:nth-child(odd) {
+    background-color: #f6f6f6;
+}
+
+.butter-dropdownlist-resultItem-selected {
+    background-color: #ddd !important;
+}

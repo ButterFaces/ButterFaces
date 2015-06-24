@@ -18,6 +18,7 @@
 
     var AutocompleteList = Class.extend({
         init: function (rootElement) {
+            console.log("init AutocompleteList");
             this.$autocomplete = $(rootElement);
             this.$input = this.$autocomplete.prev();
 
@@ -26,7 +27,7 @@
                 if (self.$input.val().length === 0) {
                     event.stopPropagation();
                     event.preventDefault();
-                    $(document.getElementById(self.$autocomplete.attr("id"))).css("display", "none");
+                    self._getAutocomplete().hide();
                     self.$input.removeData("data-test");
                     return;
                 }
@@ -43,20 +44,23 @@
 
             self.$input.blur(function () {
                 window.setTimeout(function () {
-                    $(document.getElementById(self.$autocomplete.attr("id")))
-                            .css("display", "none");
+                    self._getAutocomplete().hide();
                 }, 100);
             });
         },
 
         _testOnEvent: function (data) {
+            console.log("_testOnEvent");
             var self = this;
             var $autocomplete2 = $(document.getElementById(self.$autocomplete.attr("id")));
             if (data.status === "success") {
                 if (self.$input.data("data-test") === undefined) {
                     if ($autocomplete2.has("li").size() > 0) {
                         $autocomplete2
-                                .css("display", "inline")
+                                .show()
+                                .css({
+                                    width: self.$input.innerWidth()
+                                })
                                 .highlight(self.$input.val())
                                 .find("li").on("click", function () {
                                     self.$input
@@ -67,13 +71,17 @@
                                             .focus();
                                 });
                     } else {
-                        $autocomplete2.css("display", "none");
+                        $autocomplete2.hide();
                     }
                 } else {
-                    $autocomplete2.css("display", "none");
+                    $autocomplete2.hide();
                     self.$input.removeData("data-test");
                 }
             }
+        },
+
+        _getAutocomplete: function () {
+            return $(document.getElementById(this.$autocomplete.attr("id")));
         }
     });
 

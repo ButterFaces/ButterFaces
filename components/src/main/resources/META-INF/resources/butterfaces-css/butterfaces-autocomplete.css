@@ -1,29 +1,5 @@
-.butter-autocomplete-component {
-    max-height: 150px;
-    overflow-y: auto;
+.butter-component-autocomplete {
     display: none;
     position: absolute;
-    background-color: #fff;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin-top: 1px;
     z-index: 100;
-    width: calc(100% - 120px);
-}
-
-.butter-autocomplete-component ul {
-    margin: 0;
-    padding: 0;
-}
-
-.butter-autocomplete-component li:hover {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    cursor: pointer;
-}
-
-.butter-autocomplete-component li:nth-of-type(odd) {
-    background-color: #f9f9f9;
 }

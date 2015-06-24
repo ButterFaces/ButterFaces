@@ -131,7 +131,7 @@
             }
 
             // don't select the no result items message
-            if(this.$resultListContainer.find(".butter-component-combobox-noResultItems").length === 0){
+            if(this.$resultListContainer.find(".butter-dropdownlist-container-noResultItems").length === 0){
                 if (this.$selectedOption === null) {
                     this._selectResultOptionElement(this.$resultListContainer.children()[0]);
                 } else {
@@ -196,7 +196,8 @@
                 var $inputGroup = this.$ghostInput.parent();
                 var inputGroupOffset = $inputGroup.offset();
                 this.$resultContainer = $("<div>")
-                    .addClass("butter-component-combobox-resultContainer")
+                    .addClass("butter-dropdownlist-container")
+                    .addClass("butter-component-combobox-dropdownlist-container")
                     .css({
                         position: "absolute",
                         left: inputGroupOffset.left,
@@ -205,8 +206,8 @@
                     });
 
                 this.$resultListContainer = $("<ul>")
-                    .addClass("butter-component-combobox-resultListContainer")
-                   .on("mouseleave", function() {
+                    .addClass("butter-dropdownlist-resultList")
+                    .on("mouseleave", function() {
                         self._clearResultOptionSelection();
                     })
                     .appendTo(this.$resultContainer);
@@ -225,7 +226,7 @@
                         .text(resultItemText)
                         .attr("data-select-value", this.optionResultList[i].val())
                         .attr("data-select-label", resultItemText)
-                        .addClass("butter-component-combobox-resultItem")
+                        .addClass("butter-dropdownlist-resultItem")
                         .on("mousedown", function () {
                             self._setSelectedValue();
                         })
@@ -238,7 +239,7 @@
             } else {
                 $("<li>")
                     .text("Keine Einträge vorhanden!")
-                    .addClass("butter-component-combobox-noResultItems")
+                    .addClass("butter-dropdownlist-container-noResultItems")
                     .appendTo(this.$resultListContainer);
             }
         },
@@ -256,15 +257,15 @@
         _selectResultOptionElement: function (optionElement) {
             this._clearResultOptionSelection();
             var selectedOptionElement = $(optionElement);
-            selectedOptionElement.addClass("butter-component-combobox-resultItem-selected");
+            selectedOptionElement.addClass("butter-dropdownlist-resultItem-selected");
             this.$selectedOption = selectedOptionElement;
         },
 
         _clearResultOptionSelection: function() {
             this.$selectedOption = null;
             this.$resultListContainer
-                    .find(".butter-component-combobox-resultItem-selected")
-                    .removeClass("butter-component-combobox-resultItem-selected");
+                    .find(".butter-dropdownlist-resultItem-selected")
+                    .removeClass("butter-dropdownlist-resultItem-selected");
         },
 
         _moveResultOptionElementSelectionCursor: function (direction) {
