@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.event;
 
 /**
- * Created by larmic on 21.11.14.
+ * Implement interface to add single row selection to b:table component.
  */
 public interface TableSingleSelectionListener<T> {
 
@@ -12,6 +12,10 @@ public interface TableSingleSelectionListener<T> {
      */
     public void processTableSelection(final T data);
 
+    /**
+     * @return true if actual value is selected. if a selected row is found remaining rows will not be checked because
+     * only single row selection is available.
+     */
     public boolean isValueSelected(final T data);
 
 }
