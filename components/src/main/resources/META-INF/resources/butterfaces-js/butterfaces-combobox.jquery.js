@@ -80,6 +80,15 @@
                         }
                     }, 200);
                 })
+                .on("keydown", function (event) {
+                    if (event.which === self._keyCodes.enter) {
+                        self._handleEnterKeyDown(event);
+                    } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
+                        self._handleArrowUpAndDownKeyDown(event);
+                    } else if (event.which === self._keyCodes.escape) {
+                        self._handleEscapeKeyDown(event);
+                    }
+                })
                 .on("keyup", function (event) {
                     // don't handle other keys than character keys
                     for (keyName in self._keyCodes) {
@@ -92,22 +101,13 @@
                     var searchText = $(this).val();
                     self._createOptionResultList(searchText);
                     self._showOptionResultList(searchText);
-                })
-                .on("keydown", function (event) {
-                    if (event.which === self._keyCodes.enter) {
-                        self._handleEnterKeyDown(event);
-                    } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
-                        self._handleArrowUpAndDownKeyDown(event);
-                    } else if (event.which === self._keyCodes.escape) {
-                        self._handleEscapeKeyDown(event);
-                    }
                 });
 
             if (self._disabled) {
                 self.$ghostInput.attr('disabled', 'disabled');
             }
         },
-        
+
         _handleEnterKeyDown: function(event) {
             if (this.$selectedOption !== null) {
                 this._stopEvent(event);
@@ -120,7 +120,7 @@
                 this._resetDisplayValue();
             }
         },
-        
+
         _handleArrowUpAndDownKeyDown: function(event) {
             this._stopEvent(event);
             if (this.optionResultList.length === 0) {
@@ -139,7 +139,7 @@
                 }
             }
         },
-        
+
         _handleEscapeKeyDown: function(event) {
             if (this.$resultContainer !== null) {
                 this._hideOptionResultList();

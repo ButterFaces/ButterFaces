@@ -18,11 +18,11 @@
 
     var AutocompleteList = Class.extend({
         init: function (rootElement) {
-            console.log("init AutocompleteList");
             var $autocompleteTmp = $(rootElement);
             this.$input = $autocompleteTmp.prev();
             this.autocompleteId = $autocompleteTmp.attr("id");
             this.$selectedOption = null;
+            this.ignoreKeyupEvent = false;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -54,14 +54,17 @@
 
             var self = this;
             self.$input
-                    .on("keyup", function (event) {
-                        if (self.$input.val().length === 0) {
-                            self._stopEvent(event);
-                            self._hideAutocomplete();
-                            self.$input.removeData("data-test");
-                            return;
+                    .on("keydown", function (event) {
+                        if (event.which === self._keyCodes.enter) {
+                            self._handleEnterKeyDown(event);
+                        } else if (event.which === self._keyCodes.arrow_up
+                                || event.which === self._keyCodes.arrow_down) {
+                            self._handleArrowUpAndDownKeyDown(event);
+                        } else if (event.which === self._keyCodes.escape) {
+                            self._handleEscapeKeyDown(event);
                         }
-
+                    })
+                    .on("keyup", function (event) {
                         // don't handle other keys than character keys
                         for (keyName in self._keyCodes) {
                             if (self._keyCodes[keyName] === event.which) {
@@ -70,13 +73,52 @@
                             }
                         }
 
+                        if (self.ignoreKeyupEvent) {
+                            self._stopEvent(event);
+                            self.ignoreKeyupEvent = false;
+                            return;
+                        }
+
+                        if (self.$input.val().length === 0) {
+                            self._stopEvent(event);
+                            self._hideAutocompleteResultList();
+                            return;
+                        }
+
                         self._sendJsfAjaxRequest();
                     })
                     .on("blur", function (event) {
                         window.setTimeout(function () {
-                            self._hideAutocomplete();
+                            self._hideAutocompleteResultList();
                         }, 100);
                     });
+        },
+
+        _handleEnterKeyDown: function (event) {
+            if (this.$selectedOption !== null) {
+                this._stopEvent(event);
+                this._setSelectedValue();
+            }
+        },
+
+        _handleArrowUpAndDownKeyDown: function (event) {
+            this._stopEvent(event);
+            var $autocomplete = this._getAutocompleteElement();
+            if (!$autocomplete.is(":visible") && this.$input.val().length > 0) {
+                this._sendJsfAjaxRequest();
+            } else if ($autocomplete.is(":visible") && $autocomplete.find("li").length > 0) {
+                if (this.$selectedOption === null) {
+                    this._selectResultOptionElement($autocomplete.find("li")[0]);
+                } else {
+                    this._moveResultOptionElementSelectionCursor(
+                            $autocomplete, event.which === this._keyCodes.arrow_up ? -1 : 1);
+                }
+            }
+        },
+
+        _handleEscapeKeyDown: function (event) {
+            this._stopEvent(event);
+            this._hideAutocompleteResultList();
         },
 
         _sendJsfAjaxRequest: function () {
@@ -86,35 +128,25 @@
                 render: self.autocompleteId,
                 params: self.$input.val(),
                 onevent: function (data) {
-                    self._handleJsfAjaxEvent(data);
+                    if (data.status === "success") {
+                        self._handleAutocompleteResultListVisibility();
+                    }
                 }
             });
         },
 
-        _handleJsfAjaxEvent: function (data) {
-            console.log("_handleJsfAjaxEvent");
-            if (data.status === "success") {
-                this._handleAutocompleteVisibility();
-            }
-        },
-
-        _handleAutocompleteVisibility: function () {
+        _handleAutocompleteResultListVisibility: function () {
             var self = this;
-            var $autocomplete2 = self._getAutocompleteElement();
+            var $autocomplete = self._getAutocompleteElement();
 
-            if (self.$input.data("data-test") === undefined) {
-                if ($autocomplete2.has("li").size() > 0) {
-                    self._showAutocomplete();
-                } else {
-                    self._hideAutocomplete();
-                }
+            if ($autocomplete.find("li").length > 0) {
+                self._initAndShowAutocompleteResultList();
             } else {
-                self._hideAutocomplete();
-                self.$input.removeData("data-test");
+                self._hideAutocompleteResultList();
             }
         },
 
-        _showAutocomplete: function () {
+        _initAndShowAutocompleteResultList: function () {
             var self = this;
             var $autocomplete = self._getAutocompleteElement();
             $autocomplete
@@ -131,12 +163,7 @@
 
             $autocomplete.find("li")
                     .on("mousedown", function () {
-                        self._hideAutocomplete();
-                        /*self.$input
-                         .val($(this).attr("data-select-value"))
-                         .change()
-                         .keyup()
-                         .focus();*/
+                        self._setSelectedValue();
                     })
                     .on("mouseenter", function () {
                         self._selectResultOptionElement(this);
@@ -157,7 +184,40 @@
                     .removeClass("butter-dropdownlist-resultItem-selected");
         },
 
-        _hideAutocomplete: function () {
+        _moveResultOptionElementSelectionCursor: function ($autocomplete, direction) {
+            if (direction > 0) {
+                var $next = this.$selectedOption.next();
+                if ($next.length > 0) {
+                    this._selectResultOptionElement($next[0]);
+                } else {
+                    //there is no next
+                    this._selectResultOptionElement($autocomplete.find("li")[0]);
+                }
+            } else {
+                var $prev = this.$selectedOption.prev();
+                if ($prev.length > 0) {
+                    this._selectResultOptionElement($prev[0]);
+                } else {
+                    //there is no previous
+                    var resultListOptions = $autocomplete.find("li");
+                    this._selectResultOptionElement(resultListOptions[resultListOptions.length - 1]);
+                }
+            }
+        },
+
+        _setSelectedValue: function () {
+            if (this.$selectedOption !== null) {
+                this.ignoreKeyupEvent = true;
+                this.$input
+                        .val(this.$selectedOption.attr("data-select-value"))
+                        .change()
+                        .focus()
+                        .keyup();
+                this._hideAutocompleteResultList();
+            }
+        },
+
+        _hideAutocompleteResultList: function () {
             this.$selectedOption = null;
             this._getAutocompleteElement().hide();
         },
