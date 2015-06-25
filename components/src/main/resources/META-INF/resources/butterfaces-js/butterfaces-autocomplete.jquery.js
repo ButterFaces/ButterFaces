@@ -233,6 +233,9 @@
         },
 
         _hideAutocompleteResultList: function () {
+            if (this.requestDelayTimerId !== null) {
+                window.clearTimeout(this.requestDelayTimerId)
+            }
             this.$selectedOption = null;
             this._getAutocompleteElement().hide();
         },
