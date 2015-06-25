@@ -18,11 +18,14 @@
 
     var AutocompleteList = Class.extend({
         init: function (rootElement) {
+            this.SEARCH_REQUEST_DELAY = 300;// in ms
+
             var $autocompleteTmp = $(rootElement);
             this.$input = $autocompleteTmp.prev();
             this.autocompleteId = $autocompleteTmp.attr("id");
             this.$selectedOption = null;
             this.ignoreKeyupEvent = false;
+            this.requestDelayTimerId = null;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -85,7 +88,7 @@
                             return;
                         }
 
-                        self._sendJsfAjaxRequest();
+                        self._trySendJsfAjaxRequest();
                     })
                     .on("blur", function (event) {
                         window.setTimeout(function () {
@@ -105,7 +108,7 @@
             this._stopEvent(event);
             var $autocomplete = this._getAutocompleteElement();
             if (!$autocomplete.is(":visible") && this.$input.val().length > 0) {
-                this._sendJsfAjaxRequest();
+                this._trySendJsfAjaxRequest();
             } else if ($autocomplete.is(":visible") && $autocomplete.find("li").length > 0) {
                 if (this.$selectedOption === null) {
                     this._selectResultOptionElement($autocomplete.find("li")[0]);
@@ -119,6 +122,18 @@
         _handleEscapeKeyDown: function (event) {
             this._stopEvent(event);
             this._hideAutocompleteResultList();
+        },
+
+        _trySendJsfAjaxRequest: function () {
+            var self = this;
+            if (self.requestDelayTimerId !== null) {
+                window.clearTimeout(self.requestDelayTimerId)
+            }
+
+            self.requestDelayTimerId = window.setTimeout(function () {
+                self.requestDelayTimerId = null;
+                self._sendJsfAjaxRequest();
+            }, self.SEARCH_REQUEST_DELAY);
         },
 
         _sendJsfAjaxRequest: function () {
