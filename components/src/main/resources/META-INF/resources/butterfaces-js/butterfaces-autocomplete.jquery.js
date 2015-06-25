@@ -148,7 +148,10 @@
                 params: self.$input.val(),
                 onevent: function (data) {
                     if (data.status === "success") {
-                        self._handleAutocompleteResultListVisibility();
+                        // only show result if input field still has focus
+                        if (self.$input.is(":focus")) {
+                            self._handleAutocompleteResultListVisibility();
+                        }
                         self._hideLoadingSpinner();
                     }
                 }
