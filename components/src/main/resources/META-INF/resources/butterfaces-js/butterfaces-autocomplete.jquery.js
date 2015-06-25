@@ -22,6 +22,7 @@
 
             var $autocompleteTmp = $(rootElement);
             this.$input = $autocompleteTmp.prev();
+            this.$input.parent().css({position: "relative"});
             this.autocompleteId = $autocompleteTmp.attr("id");
             this.$selectedOption = null;
             this.ignoreKeyupEvent = false;
@@ -138,6 +139,9 @@
 
         _sendJsfAjaxRequest: function () {
             var self = this;
+
+            self._showLoadingSpinner();
+
             jsf.ajax.request(self.$input[0], "autocomplete", {
                 "javax.faces.behavior.event": "autocomplete",
                 render: self.autocompleteId,
@@ -145,6 +149,7 @@
                 onevent: function (data) {
                     if (data.status === "success") {
                         self._handleAutocompleteResultListVisibility();
+                        self._hideLoadingSpinner();
                     }
                 }
             });
@@ -159,6 +164,15 @@
             } else {
                 self._hideAutocompleteResultList();
             }
+        },
+
+        _showLoadingSpinner: function () {
+            $('<div class="butter-dropdownlist-spinner-container"><div class="butter-dropdownlist-spinner"></div></div>')
+                    .appendTo(this.$input.parent());
+        },
+
+        _hideLoadingSpinner: function () {
+            this.$input.parent().find(".butter-dropdownlist-spinner").remove();
         },
 
         _initAndShowAutocompleteResultList: function () {
