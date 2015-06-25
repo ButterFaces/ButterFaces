@@ -19,6 +19,8 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_SORT_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.none";
     public static final String CTX_PARAM_SORT_ASC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.ascending";
     public static final String CTX_PARAM_SORT_DESC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.descending";
+    public static final String CTX_PARAM_ORDER_LEFT_GLYPHICON = "de.larmic.butterfaces.glyhicon.order.left";
+    public static final String CTX_PARAM_ORDER_RIGHT_GLYPHICON = "de.larmic.butterfaces.glyhicon.order.right";
     public static final String CTX_PARAM_COLLAPSING_GLYPHICON = "de.larmic.butterfaces.glyhicon.collapsing";
     public static final String CTX_PARAM_EXPANSION_GLYPHICON = "de.larmic.butterfaces.glyhicon.expansion";
 
@@ -27,6 +29,8 @@ public class WebXmlParameters {
     public static final String DEFAULT_SORT_GLYPHICON = "glyphicon glyphicon-chevron-right";
     public static final String DEFAULT_SORT_ASC_GLYPHICON = "glyphicon glyphicon-chevron-down";
     public static final String DEFAULT_SORT_DESC_GLYPHICON = "glyphicon glyphicon-chevron-up";
+    public static final String DEFAULT_ORDER_LEFT_GLYPHICON = "glyphicon glyphicon-chevron-left";
+    public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
     public static final String DEFAULT_COLLAPSING_GLYPHICON = "glyphicon glyphicon-minus-sign";
     public static final String DEFAULT_EXPANSION_GLYPHICON = "glyphicon glyphicon-plus-sign";
 
@@ -40,6 +44,8 @@ public class WebXmlParameters {
     private final String sortUnknownGlyphicon;
     private final String sortAscGlyphicon;
     private final String sortDescGlyphicon;
+    private final String orderLeftGlyphicon;
+    private final String orderRightGlyphicon;
     private final String collapsingGlyphicon;
     private final String expansionGlyphicon;
 
@@ -54,6 +60,9 @@ public class WebXmlParameters {
         this.sortUnknownGlyphicon = this.readParameter(CTX_PARAM_SORT_GLYPHICON, DEFAULT_SORT_GLYPHICON, externalContext);
         this.sortAscGlyphicon = this.readParameter(CTX_PARAM_SORT_ASC_GLYPHICON, DEFAULT_SORT_ASC_GLYPHICON, externalContext);
         this.sortDescGlyphicon = this.readParameter(CTX_PARAM_SORT_DESC_GLYPHICON, DEFAULT_SORT_DESC_GLYPHICON, externalContext);
+
+        this.orderLeftGlyphicon = this.readParameter(CTX_PARAM_ORDER_LEFT_GLYPHICON, DEFAULT_ORDER_LEFT_GLYPHICON, externalContext);
+        this.orderRightGlyphicon = this.readParameter(CTX_PARAM_ORDER_RIGHT_GLYPHICON, DEFAULT_ORDER_RIGHT_GLYPHICON, externalContext);
 
         this.collapsingGlyphicon = this.readParameter(CTX_PARAM_COLLAPSING_GLYPHICON, DEFAULT_COLLAPSING_GLYPHICON, externalContext);
         this.expansionGlyphicon = this.readParameter(CTX_PARAM_EXPANSION_GLYPHICON, DEFAULT_EXPANSION_GLYPHICON, externalContext);
@@ -103,6 +112,14 @@ public class WebXmlParameters {
 
     public String getSortDescGlyphicon() {
         return sortDescGlyphicon;
+    }
+
+    public String getOrderLeftGlyphicon() {
+        return orderLeftGlyphicon;
+    }
+
+    public String getOrderRightGlyphicon() {
+        return orderRightGlyphicon;
     }
 
     public String getCollapsingGlyphicon() {

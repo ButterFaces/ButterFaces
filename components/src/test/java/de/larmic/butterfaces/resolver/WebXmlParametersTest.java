@@ -19,6 +19,9 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_SORT_ASC = "o_sort_asc";
     private static final String OVERRIDDEN_SORT_DESC = "o_sort_desc";
 
+    private static final String OVERRIDDEN_ORDER_LEFT= "o_order_right";
+    private static final String OVERRIDDEN_ORDER_RIGHT= "o_order_left";
+
     private static final String OVERRIDDEN_COLLAPSING = "o_collape";
     private static final String OVERRIDDEN_EXPANSION = "o_expand";
 
@@ -38,6 +41,9 @@ public class WebXmlParametersTest {
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_SORT_GLYPHICON)).thenReturn(OVERRIDDEN_SORT_UNKNOWN);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_SORT_ASC_GLYPHICON)).thenReturn(OVERRIDDEN_SORT_ASC);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_SORT_DESC_GLYPHICON)).thenReturn(OVERRIDDEN_SORT_DESC);
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_ORDER_LEFT_GLYPHICON)).thenReturn(OVERRIDDEN_ORDER_LEFT);
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_ORDER_RIGHT_GLYPHICON)).thenReturn(OVERRIDDEN_ORDER_RIGHT);
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_COLLAPSING_GLYPHICON)).thenReturn(OVERRIDDEN_COLLAPSING);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_EXPANSION_GLYPHICON)).thenReturn(OVERRIDDEN_EXPANSION);
@@ -88,6 +94,15 @@ public class WebXmlParametersTest {
 
         Assert.assertEquals(WebXmlParameters.DEFAULT_SORT_DESC_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getSortDescGlyphicon());
         Assert.assertEquals(OVERRIDDEN_SORT_DESC, new WebXmlParameters(overriddenValueExternalContext).getSortDescGlyphicon());
+    }
+
+    @Test
+    public void testOrderParameters() throws Exception {
+        Assert.assertEquals(WebXmlParameters.DEFAULT_ORDER_LEFT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderLeftGlyphicon());
+        Assert.assertEquals(OVERRIDDEN_ORDER_LEFT, new WebXmlParameters(overriddenValueExternalContext).getOrderLeftGlyphicon());
+
+        Assert.assertEquals(WebXmlParameters.DEFAULT_ORDER_RIGHT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderRightGlyphicon());
+        Assert.assertEquals(OVERRIDDEN_ORDER_RIGHT, new WebXmlParameters(overriddenValueExternalContext).getOrderRightGlyphicon());
     }
 
     @Test

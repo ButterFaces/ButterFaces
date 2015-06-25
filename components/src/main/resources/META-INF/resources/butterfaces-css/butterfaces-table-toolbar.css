@@ -24,10 +24,6 @@
     cursor: pointer;
 }
 
-.butter-table-toolbar-column-order-item {
-    font-size: 11px;
-}
-
 .butter-table-toolbar-column-option {
     display: flex;
     align-items: center;
