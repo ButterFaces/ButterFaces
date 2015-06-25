@@ -27,6 +27,8 @@
             this.$selectedOption = null;
             this.ignoreKeyupEvent = false;
             this.requestDelayTimerId = null;
+            this.isRequestRunning = false;
+            this.areChangesMadeWhileRequestWasRunning = false;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -127,6 +129,12 @@
 
         _trySendJsfAjaxRequest: function () {
             var self = this;
+
+            if (self.isRequestRunning) {
+                // console.log("request is active, so remember that changes has been made while request was running");
+                self.areChangesMadeWhileRequestWasRunning = true;
+            }
+
             if (self.requestDelayTimerId !== null) {
                 window.clearTimeout(self.requestDelayTimerId)
             }
@@ -140,7 +148,16 @@
         _sendJsfAjaxRequest: function () {
             var self = this;
 
+            if (self.isRequestRunning) {
+                // console.log("request is running, abort");
+                return;
+            }
+            self.isRequestRunning = true;
+
+            self.areChangesMadeWhileRequestWasRunning = false;
             self._showLoadingSpinner();
+
+            // console.log("starting request");
 
             jsf.ajax.request(self.$input[0], "autocomplete", {
                 "javax.faces.behavior.event": "autocomplete",
@@ -148,11 +165,19 @@
                 params: self.$input.val(),
                 onevent: function (data) {
                     if (data.status === "success") {
+                        // console.log("request finished");
+
                         // only show result if input field still has focus
                         if (self.$input.is(":focus")) {
                             self._handleAutocompleteResultListVisibility();
                         }
                         self._hideLoadingSpinner();
+                        self.isRequestRunning = false;
+
+                        if (self.areChangesMadeWhileRequestWasRunning) {
+                            // console.log("changes made while request was running, start new request automatically");
+                            self._sendJsfAjaxRequest();
+                        }
                     }
                 }
             });
