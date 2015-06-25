@@ -256,9 +256,9 @@
 
         _selectResultOptionElement: function (optionElement) {
             this._clearResultOptionSelection();
-            var selectedOptionElement = $(optionElement);
-            selectedOptionElement.addClass("butter-dropdownlist-resultItem-selected");
-            this.$selectedOption = selectedOptionElement;
+            var $selectedOptionElement = $(optionElement);
+            $selectedOptionElement.addClass("butter-dropdownlist-resultItem-selected");
+            this.$selectedOption = $selectedOptionElement;
         },
 
         _clearResultOptionSelection: function() {
@@ -309,8 +309,8 @@
         },
 
         _stopEvent: function (event) {
+            event.stopPropagation();
             event.preventDefault();
-            //event.preventBubble();
         },
 
         _selectCompleteTextInGhostInput: function() {
