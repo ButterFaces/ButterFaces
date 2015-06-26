@@ -28,8 +28,15 @@
             Try 4000 millis with and without active blockpage. Click button and while request try clicking on page.
         </h:panelGroup>
 
+        <h:commandLink value="short click"
+                       styleClass="btn btn-success"
+                       action="#{waitingPanelShowcase.doShortWaitingClick}">
+            <f:ajax/>
+        </h:commandLink>
+
         <h:commandLink value="5 second click"
                        styleClass="btn btn-success"
+                       style="margin-left: 10px"
                        action="#{waitingPanelShowcase.doWaitingClick}">
             <f:ajax/>
         </h:commandLink>
