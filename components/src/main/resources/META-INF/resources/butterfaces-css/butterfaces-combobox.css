@@ -1,8 +1,9 @@
 .butter-component-combobox-dropdownlist-container {
-    /* ensure that z-index is higher than the modal panel from bootstrap */
-    z-index: 1051;
+   /* ensure that z-index is higher than the modal panel from bootstrap */
+   z-index: 1051;
 }
 
-.butter-component-combobox select {
-    display: none !important;
+.butter-component-combobox select,
+.butter-component-combobox-resultListItemTemplate {
+   display: none !important;
 }

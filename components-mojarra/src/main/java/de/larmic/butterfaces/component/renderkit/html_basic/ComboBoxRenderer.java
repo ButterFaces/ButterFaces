@@ -105,6 +105,14 @@ public class ComboBoxRenderer extends MenuRenderer {
         renderTooltipIfNecessary(context, component);
 
         if (!htmlComponent.isReadonly()) {
+            final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
+            if(resultListItemTemplateFacet != null){
+                writer.startElement("div", component);
+                writer.writeAttribute("class", "butter-component-combobox-resultListItemTemplate", "style");
+                resultListItemTemplateFacet.encodeAll(context);
+                writer.endElement("div");
+            }
+
             // Render textarea expandable script call
             RenderUtils.renderJQueryPluginCall(component.getClientId(), "butterCombobox()", writer, component);
         }
