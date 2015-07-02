@@ -241,7 +241,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
         xhtmlCodeExample.appendInnerContent("            <column id=\"column2\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"75%\"");
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"65%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"30px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
@@ -258,7 +258,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"10%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"20px\"");
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"7*\"");
         }
@@ -271,9 +271,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"10%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"20px\"");
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"7*\"");
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
         }
         xhtmlCodeExample.appendInnerContent("                    label=\"C4\">");
         xhtmlCodeExample.appendInnerContent("                /* date */");
