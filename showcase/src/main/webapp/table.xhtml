@@ -172,7 +172,14 @@
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+            <b:column id="column4"
+                      uniqueIdentifier="column4"
+                      colWidth="#{tableShowcase.colWidthColumn4}"
+                      sortColumnEnabled="true"
+                      label="Creation Date">
+                <showcase:date date="#{rowItem.date}" />
+            </b:column>
+            <b:column colWidth="#{tableShowcase.colWidthColumn5}"
                       uniqueIdentifier="column4"
                       hideColumn="true"
                       sortColumnEnabled="false"

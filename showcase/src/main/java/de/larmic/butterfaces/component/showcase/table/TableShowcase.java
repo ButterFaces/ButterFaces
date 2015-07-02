@@ -49,6 +49,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     private String colWidthColumn2;
     private String colWidthColumn3;
     private String colWidthColumn4;
+    private String colWidthColumn5;
     private int numberOfRefreshes;
 
     @Override
@@ -99,11 +100,13 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     private boolean shouldReverseRows() {
         if ((this.tableModel.getTableSortModel().getSortType(null, "column1") == SortType.ASCENDING
-                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.ASCENDING)
+                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.ASCENDING
+                || this.tableModel.getTableSortModel().getSortType(null, "column4") == SortType.ASCENDING)
                 && !stringPairs.get(0).getA().equals("r1c1")) {
             return true;
         } else if ((this.tableModel.getTableSortModel().getSortType(null, "column1") == SortType.DESCENDING
-                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.DESCENDING)
+                || this.tableModel.getTableSortModel().getSortType(null, "column2") == SortType.DESCENDING
+                || this.tableModel.getTableSortModel().getSortType(null, "column4") == SortType.DESCENDING)
                 && stringPairs.get(0).getA().equals("r1c1")) {
             return true;
         }
@@ -160,6 +163,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         if (showToggleColumnButton) {
             xhtmlCodeExample.appendInnerContent("            <!-- add toggle ajax event to enable toggle column buttons -->");
             xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"toggle\" />");
+        }
+        if (showOrderColumnButton) {
+            xhtmlCodeExample.appendInnerContent("            <!-- add order ajax event to enable order column buttons -->");
+            xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"order\" />");
         }
         if (this.toolbarFacetType == ToolbarFacetType.LEFT_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-left\">");
@@ -262,6 +269,18 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
         xhtmlCodeExample.appendInnerContent("            <column id=\"column4\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10%\"");
+        } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"20px\"");
+        } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
+            xhtmlCodeExample.appendInnerContent("                    colWidth=\"7*\"");
+        }
+        xhtmlCodeExample.appendInnerContent("                    label=\"C4\">");
+        xhtmlCodeExample.appendInnerContent("                /* date */");
+        xhtmlCodeExample.appendInnerContent("            </column>");
+
+        xhtmlCodeExample.appendInnerContent("            <column id=\"column5\"");
+        if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"5%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"10px\"");
@@ -269,7 +288,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
         }
         xhtmlCodeExample.appendInnerContent("                    sortColumnEnabled=\"false\"");
-        xhtmlCodeExample.appendInnerContent("                    label=\"C4\">");
+        xhtmlCodeExample.appendInnerContent("                    label=\"C5\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
@@ -432,11 +451,13 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         final JavaCodeExample stringPair = new JavaCodeExample("StringPair.java", "stringpair", "table.demo", "StringPair", false);
         stringPair.appendInnerContent("    private final long id;");
         stringPair.appendInnerContent("    private final String a;");
-        stringPair.appendInnerContent("    private final String b;\n");
+        stringPair.appendInnerContent("    private final String b;");
+        stringPair.appendInnerContent("    private final String date;\n");
         stringPair.appendInnerContent("    public StringPair(final long id, final String a, final String b) {");
         stringPair.appendInnerContent("        this.id = id;");
         stringPair.appendInnerContent("        this.a = a;");
         stringPair.appendInnerContent("        this.b = b;");
+        stringPair.appendInnerContent("        this.date = new java.util.Date();");
         stringPair.appendInnerContent("    }\n");
         stringPair.appendInnerContent("    // getter");
         return stringPair;
@@ -570,24 +591,28 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
                 colWidthColumn2 = null;
                 colWidthColumn3 = null;
                 colWidthColumn4 = null;
+                colWidthColumn5 = null;
                 break;
             case PERCENT:
                 colWidthColumn1 = "10%";
-                colWidthColumn2 = "75%";
+                colWidthColumn2 = "65%";
                 colWidthColumn3 = "10%";
-                colWidthColumn4 = "5%";
+                colWidthColumn4 = "10%";
+                colWidthColumn5 = "5%";
                 break;
             case PX:
                 colWidthColumn1 = "50px";
                 colWidthColumn2 = "30px";
                 colWidthColumn3 = "10px";
                 colWidthColumn4 = "10px";
+                colWidthColumn5 = "10px";
                 break;
             case RELATIVE:
                 colWidthColumn1 = "5*";
                 colWidthColumn2 = "1*";
                 colWidthColumn3 = "7*";
-                colWidthColumn3 = "1*";
+                colWidthColumn4 = "1*";
+                colWidthColumn5 = "1*";
                 break;
         }
     }
@@ -606,6 +631,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     public String getColWidthColumn4() {
         return colWidthColumn4;
+    }
+
+    public String getColWidthColumn5() {
+        return colWidthColumn5;
     }
 
     public DefaultTableModel getTableModel() {

@@ -8,12 +8,15 @@ import de.larmic.butterfaces.model.table.TableOrderModel;
 import de.larmic.butterfaces.model.table.TableSortModel;
 
 import javax.el.ValueExpression;
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
 import java.util.*;
 
 /**
@@ -113,6 +116,49 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         }
 
         return this.cachedColumns;
+    }
+
+    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+        int savedRowIndex = this.getRowIndex();
+
+        try {
+            return super.invokeOnComponent(context, clientId, callback);
+        } catch (Exception e) {
+            // This error will occur if a composite component is used as column child.
+            this.setRowIndex(savedRowIndex);
+            return invokeOnComponentFromUIComponent(context, clientId, callback);
+        }
+
+    }
+
+    /**
+     * Copy from {@link UIComponent#invokeOnComponent} because super call will trigger {@link UIData#invokeOnComponent(FacesContext, String, ContextCallback)}.
+     */
+    public boolean invokeOnComponentFromUIComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+        if (null == context || null == clientId || null == callback) {
+            throw new NullPointerException();
+        }
+
+        boolean found = false;
+        if (clientId.equals(this.getClientId(context))) {
+            try {
+                this.pushComponentToEL(context, this);
+                callback.invokeContextCallback(context, this);
+                return true;
+            } catch (Exception e) {
+                throw new FacesException(e);
+            } finally {
+                this.popComponentFromEL(context);
+            }
+        } else {
+            Iterator<UIComponent> itr = this.getFacetsAndChildren();
+
+            while (itr.hasNext() && !found) {
+                found = itr.next().invokeOnComponent(context, clientId,
+                        callback);
+            }
+        }
+        return found;
     }
 
     public String getModelUniqueIdentifier() {
