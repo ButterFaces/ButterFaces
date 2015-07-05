@@ -1,27 +1,28 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.HtmlAttributePartRenderer;
-import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.*;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import de.larmic.butterfaces.context.FacesContextStringResolverWrapper;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.model.SelectItem;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
+
+    private List<String> ruleListItemTemplateKeys;
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -35,6 +36,8 @@ public class ComboBoxRenderer extends MenuRenderer {
 
         final HtmlComboBox comboBox = (HtmlComboBox) component;
         final ResponseWriter writer = context.getResponseWriter();
+
+        ruleListItemTemplateKeys = extractRuleListItemTemplateKeys(context, component, comboBox);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, "butter-component-combobox");
@@ -84,6 +87,29 @@ public class ComboBoxRenderer extends MenuRenderer {
         }
     }
 
+    protected List<String> extractRuleListItemTemplateKeys(FacesContext context, UIComponent component, HtmlComboBox comboBox) throws IOException {
+        final ArrayList<String> keys = new ArrayList<>();
+
+        if (!comboBox.isReadonly()) {
+            final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
+            if (resultListItemTemplateFacet != null) {
+                final StringWriter stringWriter = new StringWriter();
+                final FacesContextStringResolverWrapper facesContextStringResolverWrapper = new FacesContextStringResolverWrapper(context, stringWriter);
+                resultListItemTemplateFacet.encodeAll(facesContextStringResolverWrapper);
+                final String encodedFacet = stringWriter.toString();
+                final String[] possibleKeys = encodedFacet.split("\\{\\{");
+                for (String possibleKey : possibleKeys) {
+                    if (possibleKey.contains("}}")) {
+                        final String[] split = possibleKey.split("\\}\\}");
+                        keys.add(split[0]);
+                    }
+                }
+            }
+        }
+
+        return keys;
+    }
+
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
         rendererParamsNotNull(context, component);
@@ -106,7 +132,7 @@ public class ComboBoxRenderer extends MenuRenderer {
 
         if (!htmlComponent.isReadonly()) {
             final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
-            if(resultListItemTemplateFacet != null){
+            if (resultListItemTemplateFacet != null) {
                 writer.startElement("div", component);
                 writer.writeAttribute("class", "butter-component-combobox-resultListItemTemplate", "style");
                 resultListItemTemplateFacet.encodeAll(context);
@@ -119,6 +145,92 @@ public class ComboBoxRenderer extends MenuRenderer {
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    /**
+     * Override {@link com.sun.faces.renderkit.html_basic.MenuRenderer#renderOption(FacesContext, UIComponent, UIComponent, Converter, SelectItem, Object, Object[], OptionComponentInfo)}
+     */
+    protected boolean renderOption(FacesContext context,
+                                   UIComponent component,
+                                   UIComponent selectComponent,
+                                   Converter converter,
+                                   SelectItem curItem,
+                                   Object currentSelections,
+                                   Object[] submittedValues,
+                                   OptionComponentInfo optionInfo) throws IOException {
+
+        Object valuesArray;
+        Object itemValue;
+        String valueString = getFormattedValue(context, component,
+                curItem.getValue(), converter);
+        boolean containsValue;
+        if (submittedValues != null) {
+            containsValue = containsaValue(submittedValues);
+            if (containsValue) {
+                valuesArray = submittedValues;
+                itemValue = valueString;
+            } else {
+                valuesArray = currentSelections;
+                itemValue = curItem.getValue();
+            }
+        } else {
+            valuesArray = currentSelections;
+            itemValue = curItem.getValue();
+        }
+
+        boolean isSelected = isSelected(context, component, itemValue, valuesArray, converter);
+        if (optionInfo.isHideNoSelection()
+                && curItem.isNoSelectionOption()
+                && currentSelections != null
+                && !isSelected) {
+            return false;
+        }
+
+        ResponseWriter writer = context.getResponseWriter();
+        assert (writer != null);
+        writer.writeText("\t", component, null);
+        writer.startElement("option", (null != selectComponent) ? selectComponent : component);
+        writer.writeAttribute("value", valueString, "value");
+
+        if (isSelected) {
+            writer.writeAttribute("selected", true, "selected");
+        }
+
+        // if the component is disabled, "disabled" attribute would be rendered
+        // on "select" tag, so don't render "disabled" on every option.
+        if ((!optionInfo.isDisabled()) && curItem.isDisabled()) {
+            writer.writeAttribute("disabled", true, "disabled");
+        }
+
+        String labelClass;
+        if (optionInfo.isDisabled() || curItem.isDisabled()) {
+            labelClass = optionInfo.getDisabledClass();
+        } else {
+            labelClass = optionInfo.getEnabledClass();
+        }
+        if (labelClass != null) {
+            writer.writeAttribute("class", labelClass, "labelClass");
+        }
+
+        if (curItem.isEscape()) {
+            String label = curItem.getLabel();
+            if (label == null) {
+                label = valueString;
+            }
+            writer.writeText(label, component, "label");
+        } else {
+            writer.write(curItem.getLabel());
+        }
+
+        // ***** CHANGED - START - Render facet field values if needed
+        for (String key : ruleListItemTemplateKeys) {
+            writer.writeAttribute("data-field-" + key, "demo", null);
+        }
+        // ***** CHANGED - END
+
+        writer.endElement("option");
+        writer.writeText("\n", component, null);
+        return true;
     }
 
     protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
