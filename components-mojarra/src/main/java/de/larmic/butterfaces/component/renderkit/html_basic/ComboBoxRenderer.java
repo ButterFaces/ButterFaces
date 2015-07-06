@@ -6,6 +6,7 @@ import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
 import de.larmic.butterfaces.context.FacesContextStringResolverWrapper;
 
 import javax.faces.component.UIComponent;
@@ -89,6 +90,8 @@ public class ComboBoxRenderer extends MenuRenderer {
 
     protected List<String> extractRuleListItemTemplateKeys(FacesContext context, UIComponent component, HtmlComboBox comboBox) throws IOException {
         final ArrayList<String> keys = new ArrayList<>();
+
+        // TODO [larmic] switch to regex
 
         if (!comboBox.isReadonly()) {
             final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
@@ -196,6 +199,10 @@ public class ComboBoxRenderer extends MenuRenderer {
             writer.writeAttribute("selected", true, "selected");
         }
 
+        // ***** CHANGED - START - Render facet field values if needed
+        renderItemTemplateOptionDataField(itemValue, writer);
+        // ***** CHANGED - END
+
         // if the component is disabled, "disabled" attribute would be rendered
         // on "select" tag, so don't render "disabled" on every option.
         if ((!optionInfo.isDisabled()) && curItem.isDisabled()) {
@@ -222,15 +229,21 @@ public class ComboBoxRenderer extends MenuRenderer {
             writer.write(curItem.getLabel());
         }
 
-        // ***** CHANGED - START - Render facet field values if needed
-        for (String key : ruleListItemTemplateKeys) {
-            writer.writeAttribute("data-field-" + key, "demo", null);
-        }
-        // ***** CHANGED - END
-
         writer.endElement("option");
         writer.writeText("\n", component, null);
         return true;
+    }
+
+    private void renderItemTemplateOptionDataField(final Object itemValue, final ResponseWriter writer) throws IOException {
+        if (itemValue != null) {
+            for (String key : ruleListItemTemplateKeys) {
+                final String value = new ReflectionUtil().getValueFromObject(itemValue, key);
+
+                if (StringUtils.isNotEmpty(value)) {
+                    writer.writeAttribute("data-field-" + key, value, null);
+                }
+            }
+        }
     }
 
     protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {

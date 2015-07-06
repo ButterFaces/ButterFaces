@@ -69,8 +69,8 @@
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
                 <f:facet name="resultListItemTemplate">
-                    <span>{{test2}}</span>
-                    <h:outputText value="demo {{test}}" />
+                    <span>{{key}}</span>
+                    <h:outputText value="demo {{value}}" />
                 </f:facet>
                 <c:if test="#{comboBoxShowcase.converterActive}">
                     <f:converter converterId="fooConverter"/>
