@@ -1,7 +1,8 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -11,32 +12,32 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
-
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by larmic on 27.08.14.
  */
 public class ReadonlyPartRenderer {
 
-    public void renderReadonly(final HtmlInputComponent component, final ResponseWriter responseWriter) throws IOException {
+    public void renderReadonly(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
         final UIInput uiComponent = (UIInput) component;
 
         final boolean readonly = component.isReadonly();
         final Object value = component.getValue();
 
         if (readonly) {
-            responseWriter.startElement("div", uiComponent);
+            writer.startElement("div", uiComponent);
             final StringBuilder sb = new StringBuilder("butter-component-value butter-component-value-readonly");
             if (component.isHideLabel()) {
                 sb.append(" butter-component-value-hiddenLabel");
             }
-            responseWriter.writeAttribute("class", sb.toString(), null);
-            responseWriter
-                  .writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
-            responseWriter.endElement("div");
+            writer.writeAttribute("class", sb.toString(), null);
+            writer.startElement("span", uiComponent);
+            writer.writeAttribute("class", "butter-component-value-readonly-wrapper", "styleClass");
+            writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
+            writer.endElement("span");
+            writer.endElement("div");
         }
     }
 

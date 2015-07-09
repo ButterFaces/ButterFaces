@@ -2,7 +2,9 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.component.html.text.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.application.FacesMessage;
@@ -79,8 +81,31 @@ public class TooltipRenderer extends HtmlBasicRenderer {
                 encodePopoverEvent(forSelector, tooltip.getOnHidden(), "hidden.bs.popover", component, writer);
             }
 
+            if (StringUtils.isEmpty(tooltip.getFor()) && isTooltipParentReadonly(tooltip)) {
+                // in this case popover will be docked in readonly text to calculate correct position
+                // hover event should triggered correctly
+                writer.writeText("jQuery(document).ready(function() {", null);
+                writer.writeText("\n    jQuery(" + createParentForElement(tooltip) + ").find('.butter-component-label').on('" + convertTooltipTriggerToJavaScriptEvent(tooltip.getTrigger()) + "', function(e) {", component, null);
+                writer.writeText("\n        jQuery(" + createParentReadonlyForElement(tooltip) + ").trigger(e.type);", component, null);
+                writer.writeText("\n    });", component, null);
+                writer.writeText("\n});\n", component, null);
+            }
+
             writer.endElement("script");
         }
+    }
+
+    private String convertTooltipTriggerToJavaScriptEvent(final String trigger) {
+        if ("click".equalsIgnoreCase(trigger)) {
+            return "click";
+        }
+
+        // TODO hover focus click manual
+        // manual geht nicht mit anderen
+        // Fall hover und focus als beispiel beachten.
+
+        // default is hover
+        return "mouseenter mouseleave";
     }
 
     private void encodePopoverEvent(final String forSelector,
@@ -91,11 +116,11 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         if (StringUtils.isNotEmpty(function)) {
             writer.writeText("jQuery(document).ready(function() {\n", null);
             writer.writeText("    jQuery(" + forSelector + ").on('" + event + "', function() {\n ", component, null);
-                writer.writeText("        " + function + ";\n", component, null);
-                writer.writeText("    });\n", component, null);
-                writer.writeText("});\n", component, null);
-            }
+            writer.writeText("        " + function + ";\n", component, null);
+            writer.writeText("    });\n", component, null);
+            writer.writeText("});\n", component, null);
         }
+    }
 
     private void renderValidationErrors(final FacesContext context,
                                         final ResponseWriter writer,
@@ -123,14 +148,35 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String getForElement(HtmlTooltip tooltip) {
+    private String getForElement(final HtmlTooltip tooltip) {
         if (StringUtils.isNotEmpty(tooltip.getFor())) {
             return "'" + tooltip.getFor() + "'";
         } else if (tooltip.getParent() instanceof Tooltip) {
-            return "document.getElementById('" + tooltip.getParent().getClientId() + "')";
+            final UIComponent parent = tooltip.getParent();
+
+            if (parent instanceof Readonly && !(parent instanceof HtmlTags) && ((Readonly) parent).isReadonly()) {
+                return createParentReadonlyForElement(tooltip);
+            }
+
+            return createParentForElement(tooltip);
         }
 
         return null;
+    }
+
+    private String createParentReadonlyForElement(final HtmlTooltip tooltip) {
+        return createParentForElement(tooltip) + ").find('.butter-component-value-readonly-wrapper'";
+    }
+
+    private String createParentForElement(final HtmlTooltip tooltip) {
+        return "document.getElementById('" + tooltip.getParent().getClientId() + "')";
+    }
+
+    private boolean isTooltipParentReadonly(final HtmlTooltip tooltip) {
+        return tooltip.getParent() instanceof Tooltip
+                && !(tooltip.getParent() instanceof HtmlTags)
+                && tooltip.getParent() instanceof Readonly
+                && ((Readonly) tooltip.getParent()).isReadonly();
     }
 
     private String getNullSafeStringParameter(final String value) {

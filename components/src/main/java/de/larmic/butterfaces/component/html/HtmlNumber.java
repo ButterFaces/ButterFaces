@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
 import de.larmic.butterfaces.component.html.feature.Label;
+import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 
 import javax.el.ValueExpression;
@@ -28,7 +29,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
-public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip, Label {
+public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.number";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

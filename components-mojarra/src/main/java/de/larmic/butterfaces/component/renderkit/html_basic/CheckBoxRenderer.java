@@ -36,7 +36,7 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
             return;
         }
 
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlCheckBox checkBox = (HtmlCheckBox) component;
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
@@ -46,10 +46,10 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
         new LabelPartRenderer().renderLabel(component, writer);
 
         // Open inner component wrapper div
-        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperBegin(htmlComponent, writer);
+        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperBegin(checkBox, writer);
 
         // Render readonly span if components readonly attribute is set
-        new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+        new ReadonlyPartRenderer().renderReadonly(checkBox, writer);
     }
 
     @Override
@@ -60,15 +60,15 @@ public class CheckBoxRenderer extends HtmlBasicInputRenderer {
             return;
         }
 
-        final HtmlInputComponent htmlComponent = (HtmlInputComponent) component;
+        final HtmlCheckBox checkBox = (HtmlCheckBox) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        if (!htmlComponent.isReadonly()) {
+        if (!checkBox.isReadonly()) {
             super.encodeEnd(context, component);
         }
 
         // Close inner component wrapper div
-        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(htmlComponent, writer);
+        new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(checkBox, writer);
 
         renderTooltipIfNecessary(context, component);
 

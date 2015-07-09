@@ -82,6 +82,24 @@
                         <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
                     </b:tooltip>
                 </b:text>
+
+                <b:text label="#{tooltipShowcase.trigger} me!"
+                        value="short text"
+                        readonly="true"
+                        rendered="#{tooltipShowcase.selectedTooltTipType eq 'READONLY_TEXT'}">
+                    <f:ajax event="blur"
+                            execute="@this"
+                            render="@this"/>
+                    <f:validateLength minimum="2" maximum="10"/>
+                    <b:tooltip title="#{tooltipShowcase.title}"
+                               trigger="#{tooltipShowcase.trigger}"
+                               placement="#{tooltipShowcase.placement}"
+                               rendered="#{tooltipShowcase.rendered}">
+                        <strong>some text stuff</strong>
+                        <br/>
+                        <h:panelGroup>Lorem ipsum dolor sit amet, consectetuer ...</h:panelGroup>
+                    </b:tooltip>
+                </b:text>
             </div>
         </div>
 

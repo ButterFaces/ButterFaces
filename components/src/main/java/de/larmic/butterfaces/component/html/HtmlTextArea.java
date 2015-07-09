@@ -1,9 +1,6 @@
 package de.larmic.butterfaces.component.html;
 
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Label;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.component.html.feature.*;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -24,7 +21,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
-public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label {
+public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label, Readonly {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.textArea";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
