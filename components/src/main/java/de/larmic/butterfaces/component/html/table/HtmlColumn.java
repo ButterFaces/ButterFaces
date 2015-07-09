@@ -1,14 +1,14 @@
 package de.larmic.butterfaces.component.html.table;
 
+import javax.el.ValueExpression;
+import javax.faces.component.FacesComponent;
+import javax.faces.component.UIColumn;
+
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
-
-import javax.el.ValueExpression;
-import javax.faces.component.FacesComponent;
-import javax.faces.component.UIColumn;
 
 /**
  * Created by larmic on 10.09.14.
@@ -26,6 +26,8 @@ public class HtmlColumn extends UIColumn implements Tooltip, Label {
     protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
     protected static final String PROPERTY_SORT_BY = "sortBy";
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
+    protected static final String PROPERTY_HEADER_STYLE_CLASS = "headerStyleClass";
+    protected static final String PROPERTY_HEADER_STYLE = "headerStyle";
 
     // dirty: should find a better way to update field in table renderer
     private int columnNumberUsedByTable;
@@ -77,6 +79,22 @@ public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
     public void setUniqueIdentifier(String uniqueIdentifier) {
         this.updateStateHelper(PROPERTY_UNIQUE_IDENTIFIER, uniqueIdentifier);
+    }
+
+    public String getHeaderStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_HEADER_STYLE_CLASS);
+    }
+
+    public void setHeaderStyleClass(String headerStyleClass) {
+        this.updateStateHelper(PROPERTY_HEADER_STYLE_CLASS, headerStyleClass);
+    }
+
+    public String getHeaderStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_HEADER_STYLE);
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        this.updateStateHelper(PROPERTY_HEADER_STYLE, headerStyle);
     }
 
     public boolean isSortColumnEnabled() {

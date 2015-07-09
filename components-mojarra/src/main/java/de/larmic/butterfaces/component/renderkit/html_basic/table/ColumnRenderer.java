@@ -1,17 +1,18 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
+import java.io.IOException;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
 
 /**
  * Created by larmic on 10.09.14.
@@ -50,6 +51,8 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
         writer.startElement("div", component);
         writer.writeAttribute("data-tooltip-identifier", this.createTooltipIdentifier(column), null);
+        writer.writeAttribute("class", column.getHeaderStyleClass(), null);
+        writer.writeAttribute("style", column.getHeaderStyle(), null);
 
         // render header label
         writer.startElement("span", component);
