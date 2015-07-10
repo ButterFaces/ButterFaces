@@ -1,8 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import java.io.IOException;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -12,8 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
-import java.io.IOException;
-import java.util.ArrayList;
+
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 /**
  * Created by larmic on 27.08.14.
@@ -72,7 +73,7 @@ public class ReadonlyPartRenderer {
     private String getReadableValueFrom(final HtmlComboBox comboBox, final Object value) {
         for (final UIComponent child : comboBox.getChildren()) {
             if (child instanceof UISelectItems) {
-                final ArrayList<SelectItem> items = (ArrayList<SelectItem>) ((UISelectItems) child).getValue();
+                final List<SelectItem> items = (List<SelectItem>) ((UISelectItems) child).getValue();
 
                 for (final SelectItem item : items) {
                     if (this.isMatchingLabel(item, value)) {

@@ -44,20 +44,26 @@
 
 package de.larmic.butterfaces.component.renderkit.html_basic.mojarra;
 
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
-import com.sun.faces.util.Util;
-import de.larmic.butterfaces.component.html.table.HtmlColumn;
-import de.larmic.butterfaces.component.html.table.HtmlTable;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.*;
+
+import com.sun.faces.renderkit.Attribute;
+import com.sun.faces.renderkit.AttributeManager;
+import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
+import com.sun.faces.util.Util;
+
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 
 /**
  * <p>Render a {@link javax.faces.component.UIData} component as a two-dimensional table.</p>
@@ -217,7 +223,7 @@ public class TableRenderer extends BaseTableRenderer {
         if (bodyRows != null) {
             String[] rows = Util.split(appMap, bodyRows, ",");
             if (rows != null) {
-                result = new ArrayList<Integer>(rows.length);
+                result = new ArrayList<>(rows.length);
                 for (String curRow : rows) {
                     result.add(Integer.valueOf(curRow));
                 }
@@ -462,7 +468,7 @@ public class TableRenderer extends BaseTableRenderer {
         int childCount = table.getChildCount();
         if (childCount > 0) {
             List<UIColumn> results =
-                    new ArrayList<UIColumn>(childCount);
+                  new ArrayList<>(childCount);
             for (UIComponent kid : table.getChildren()) {
                 if ((kid instanceof UIColumn) && kid.isRendered()) {
                     results.add((UIColumn) kid);

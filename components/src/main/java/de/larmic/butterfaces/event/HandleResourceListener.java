@@ -2,6 +2,7 @@ package de.larmic.butterfaces.event;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -42,7 +43,7 @@ public class HandleResourceListener implements SystemEventListener {
 
       final boolean localhost = "localhost".equals(context.getExternalContext().getRequestServerName());
 
-      final ArrayList<UIComponent> resources =
+      final List<UIComponent> resources =
             new ArrayList<>(context.getViewRoot().getComponentResources(context, HEAD));
 
       if (useCompressedResources && !localhost) {
@@ -53,7 +54,7 @@ public class HandleResourceListener implements SystemEventListener {
    }
 
    private void handleCompressedResources(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                          boolean providePrettyPrint, ArrayList<UIComponent> resources) {
+                                          boolean providePrettyPrint, List<UIComponent> resources) {
       for (UIComponent resource : resources) {
          final String resourceLibrary = (String) resource.getAttributes().get("library");
          final String resourceName = (String) resource.getAttributes().get("name");
@@ -96,21 +97,21 @@ public class HandleResourceListener implements SystemEventListener {
    }
 
    private void handleSingleResources(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                      boolean providePrettyPrint, ArrayList<UIComponent> resources) {
+                                      boolean providePrettyPrint, List<UIComponent> resources) {
       // the ordering of the resources is not supported in JSF spec, so we have to do it manually
       removeAllResourcesFromViewRoot(context, resources);
       Collections.sort(resources, new ResourceComparator());
       addResourcesToViewRoot(context, provideJQuery, provideBootstrap, providePrettyPrint, resources);
    }
 
-   private void removeAllResourcesFromViewRoot(FacesContext context, ArrayList<UIComponent> resources) {
+   private void removeAllResourcesFromViewRoot(FacesContext context, List<UIComponent> resources) {
       for (UIComponent resource : resources) {
          removeHeadResource(context, resource);
       }
    }
 
    private void addResourcesToViewRoot(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                       boolean providePrettyPrint, ArrayList<UIComponent> resources) {
+                                       boolean providePrettyPrint, List<UIComponent> resources) {
       // if no compression is used each component will provide its own css and js resources
       // so remove configurable resources if not provide by application
       for (UIComponent resource : resources) {

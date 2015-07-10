@@ -1,17 +1,18 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -23,9 +24,9 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     private boolean autoFocus;
 
-    private final List<SelectItem> foos = new ArrayList<SelectItem>();
-    private final List<SelectItem> enums = new ArrayList<SelectItem>();
-    private final List<SelectItem> strings = new ArrayList<SelectItem>();
+    private final List<SelectItem> foos = new ArrayList<>();
+    private final List<SelectItem> enums = new ArrayList<>();
+    private final List<SelectItem> strings = new ArrayList<>();
 
     public ComboBoxShowcase() {
         this.initFoos();
@@ -147,7 +148,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     public List<SelectItem> getComboBoxTypes() {
-        final List<SelectItem> items = new ArrayList<SelectItem>();
+        final List<SelectItem> items = new ArrayList<>();
 
         for (final ComboBoxValueType type : ComboBoxValueType.values()) {
             items.add(new SelectItem(type, type.label));

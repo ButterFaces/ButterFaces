@@ -1,5 +1,13 @@
 package de.larmic.butterfaces.component.showcase;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
@@ -9,13 +17,6 @@ import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
 
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
@@ -24,9 +25,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
 
-	private final List<SelectItem> foos = new ArrayList<SelectItem>();
-	private final List<SelectItem> enums = new ArrayList<SelectItem>();
-	private final List<SelectItem> strings = new ArrayList<SelectItem>();
+	private final List<SelectItem> foos = new ArrayList<>();
+	private final List<SelectItem> enums = new ArrayList<>();
+	private final List<SelectItem> strings = new ArrayList<>();
 
 	public RadioBoxShowcase() {
 		this.initFoos();
@@ -135,7 +136,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	}
 
 	public List<SelectItem> getComboBoxTypes() {
-		final List<SelectItem> items = new ArrayList<SelectItem>();
+		final List<SelectItem> items = new ArrayList<>();
 
 		for (final ComboBoxValueType type : ComboBoxValueType.values()) {
 			items.add(new SelectItem(type, type.label));
@@ -144,7 +145,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	}
 
     public List<SelectItem> getRadioLayoutTypes() {
-		final List<SelectItem> items = new ArrayList<SelectItem>();
+		final List<SelectItem> items = new ArrayList<>();
 
 		for (final RadioBoxLayoutType type : RadioBoxLayoutType.values()) {
 			items.add(new SelectItem(type, type.label));
