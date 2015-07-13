@@ -98,11 +98,12 @@ public class TooltipRenderer extends HtmlBasicRenderer {
     private String convertTooltipTriggerToJavaScriptEvent(final String trigger) {
         if ("click".equalsIgnoreCase(trigger)) {
             return "click";
+        } else if ("focus".equalsIgnoreCase(trigger)) {
+            return "focus";
+        } else if ("manual".equalsIgnoreCase(trigger)) {
+            // in case of manual no tooltip is supported on label event
+            return "";
         }
-
-        // TODO hover focus click manual
-        // manual geht nicht mit anderen
-        // Fall hover und focus als beispiel beachten.
 
         // default is hover
         return "mouseenter mouseleave";
