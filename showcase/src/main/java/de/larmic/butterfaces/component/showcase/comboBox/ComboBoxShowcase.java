@@ -1,18 +1,17 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -101,11 +100,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     @Override
     public Object getValue() {
-        if (super.getValue() != null) {
-            return super.getValue().toString();
-        }
-
-        return "(item is null)";
+        return super.getValue() != null ? super.getValue() : "(item is null)";
     }
 
     @Override
