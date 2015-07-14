@@ -87,7 +87,7 @@
                         columnOptionsTooltip="#{tableShowcase.columnOptionsTooltip}"
                         refreshListener="#{tableShowcase.toolbarRefreshListener}"
                         ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
-                        rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+                        rendered="#{!(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:facet name="default-options-left">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
                     <a class="btn btn-default">Left facet</a>

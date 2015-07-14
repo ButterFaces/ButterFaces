@@ -52,13 +52,7 @@
 
     $.fn.orderColumnUp = function (data) {
         return this.each(function () {
-            var $originalElement = $(this);
-
-            //console.log($originalElement);
-            //console.log('Order down column with data-column: ' + data.column);
-
-            var tableId = $originalElement.attr('id');
-            var $toolbar = $('div[data-table-html-id="' + tableId + '"]');
+            var $toolbar = $(this);
 
             //console.log($toolbar);
 
@@ -75,13 +69,7 @@
 
     $.fn.orderColumnDown = function (data) {
         return this.each(function () {
-            var $originalElement = $(this);
-
-            //console.log($originalElement);
-            //console.log('Order down column with data-column: ' + data.column);
-
-            var tableId = $originalElement.attr('id');
-            var $toolbar = $('div[data-table-html-id="' + tableId + '"]');
+            var $toolbar = $(this);
 
             //console.log($toolbar);
 

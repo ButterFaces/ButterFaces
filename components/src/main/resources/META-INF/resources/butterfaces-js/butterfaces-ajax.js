@@ -14,7 +14,13 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of 
             // console.log('ajax request begin');
 
             for(i=0;i<ids.length;i++){
-                $(document.getElementById(ids[i])).butterDisableElements();
+                var $elementToDisable = $(document.getElementById(ids[i]));
+
+                if ($elementToDisable.length !== 0) {
+                    //console.log('disable ' + ids[i]);
+                    $(document.getElementById(ids[i])).butterDisableElements();
+                    //console.log('disablee ' + ids[i]);
+                }
             }
 
             break;
@@ -27,7 +33,13 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of 
             // console.log('ajax request success');
 
             for(i=0;i<ids.length;i++){
-                $(document.getElementById(ids[i])).butterEnableElements();
+                var $elementToEmable = $(document.getElementById(ids[i]));
+
+                if ($elementToEmable.length !== 0) {
+                    //console.log('enable ' + ids[i]);
+                    $(document.getElementById(ids[i])).butterEnableElements();
+                    //console.log('enabled ' + ids[i]);
+                }
             }
 
             break;
