@@ -205,7 +205,7 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
 
         switch (selectedInputMaskType) {
             case PHONE:
-                inputMask = "'(99) 9999[9]-9999'";
+                inputMask = "(99) 9999[9]-9999";
                 dataInputMask = null;
                 break;
             case CURRENCY_BY_DATA:

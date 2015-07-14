@@ -23,7 +23,7 @@ public class MaskedTextRenderer extends AbstractTextRenderer<HtmlMaskedText> {
 
     private String buildPluginCall(final HtmlMaskedText maskedText) {
         if (StringUtils.isNotEmpty(maskedText.getInputMask())) {
-            return "inputmask(" + maskedText.getInputMask() + ")";
+            return "inputmask('" + maskedText.getInputMask() + "')";
         }
 
         return "inputmask()";
