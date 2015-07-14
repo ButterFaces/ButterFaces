@@ -33,7 +33,7 @@
             //console.log(data);
             //console.log('placement: ' + placement);
             //console.log('trigger: ' + trigger);
-            console.log('viewport: ' + data.viewport);
+            //console.log('viewport: ' + data.viewport);
 
             if (data.minVerticalOffset) {
                 root.attr('data-tooltip-min-vertical-offset', data.minVerticalOffset);
