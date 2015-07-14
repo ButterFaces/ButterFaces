@@ -11,6 +11,7 @@
     var FilterableCombobox = Class.extend({
         init: function (rootElement) {
             this.$select = $(rootElement).find("select");
+            this.$template = this.$select.parent().siblings(".butter-component-combobox-resultListItemTemplate").html();
             this.$ghostInput = null;
             this.$resultContainer = null;
             this.$resultListContainer = null;
@@ -219,13 +220,22 @@
 
             if (this.optionResultList.length > 0) {
                 for (var i = 0; i < this.optionResultList.length; i++) {
-                    var resultItemText = this.optionResultList[i].text();
+                    var resultItemLabel = this.optionResultList[i].text();
+                    var resultItemHtml;
+                    if(this.$template !== undefined){
+                        var dataFields = this.optionResultList[i].data();
+                        resultItemHtml = this.$template;
+                        this.$template.replace(/\{\{(.*?)\}\}/g, function(group0, group1) {
+                            resultItemHtml = resultItemHtml.replace("{{" + group1 + "}}", dataFields[group1.toLowerCase()])
+                            return;
+                        })
+                    }
 
                     var self = this;
                     $("<li>")
-                        .text(resultItemText)
+                        .html(resultItemHtml === undefined ? resultItemLabel : resultItemHtml)
                         .attr("data-select-value", this.optionResultList[i].val())
-                        .attr("data-select-label", resultItemText)
+                        .attr("data-select-label", resultItemLabel)
                         .addClass("butter-dropdownlist-resultItem")
                         .on("mousedown", function () {
                             self._setSelectedValue();

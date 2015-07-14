@@ -248,7 +248,7 @@ public class ComboBoxRenderer extends MenuRenderer {
                 final String value = new ReflectionUtil().getValueFromObject(itemValue, key);
 
                 if (StringUtils.isNotEmpty(value)) {
-                    writer.writeAttribute("data-field-" + key, value, null);
+                    writer.writeAttribute("data-" + key, value, null);
                 }
             }
         }
