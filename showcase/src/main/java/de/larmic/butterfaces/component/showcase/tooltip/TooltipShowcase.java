@@ -19,6 +19,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
     private TooltipType selectedTooltTipType = TooltipType.A;
     private String title = "custom title";
     private String trigger = "hover";
+    private String viewport = "body";
     private String placement;
     private String textFieldValue;
 
@@ -34,6 +35,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("                   title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                   trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                   placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                   viewport=\"" + viewport + "\"");
             xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
             xhtmlCodeExample.appendInnerContent("            <strong>some text stuff</strong>");
             xhtmlCodeExample.appendInnerContent("            <br />");
@@ -47,6 +49,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                       viewport=\"" + viewport + "\"");
             xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + "\">");
             xhtmlCodeExample.appendInnerContent("                <strong>some text stuff</strong>");
             xhtmlCodeExample.appendInnerContent("                <br />");
@@ -67,6 +70,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                       viewport=\"" + viewport + "\"");
             xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + "\">");
             xhtmlCodeExample.appendInnerContent("                <strong>some text stuff</strong>");
             xhtmlCodeExample.appendInnerContent("                <br />");
@@ -87,6 +91,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
+            xhtmlCodeExample.appendInnerContent("                       viewport=\"" + viewport + "\"");
             xhtmlCodeExample.appendInnerContent("                       rendered=\"" + this.isRendered() + "\">");
             xhtmlCodeExample.appendInnerContent("                <strong>some text stuff</strong>");
             xhtmlCodeExample.appendInnerContent("                <br />");
@@ -147,5 +152,13 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
 
     public void setTextFieldValue(String textFieldValue) {
         this.textFieldValue = textFieldValue;
+    }
+
+    public String getViewport() {
+        return viewport;
+    }
+
+    public void setViewport(String viewport) {
+        this.viewport = viewport;
     }
 }

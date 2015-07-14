@@ -27,6 +27,7 @@ public class HtmlTooltip extends UIComponentBase {
 	protected static final String PROPERTY_TITLE = "title";
 	protected static final String PROPERTY_TRIGGER = "trigger";
 	protected static final String PROPERTY_PLACEMENT = "placement";
+	protected static final String PROPERTY_VIEWPORT = "viewport";
 	protected static final String PROPERTY_PLACEMENT_FUNCTION = "placementFunction";
 	protected static final String PROPERTY_POPOVER_min_WIDTH = "minVerticalOffset";
 	protected static final String PROPERTY_POPOVER_min_HEIGHT = "minHorizontalOffset";
@@ -80,6 +81,14 @@ public class HtmlTooltip extends UIComponentBase {
 
 	public void setPlacement(String placement) {
 		this.updateStateHelper(PROPERTY_PLACEMENT, placement);
+	}
+
+	public String getViewport() {
+		return (String) this.getStateHelper().eval(PROPERTY_VIEWPORT);
+	}
+
+	public void setViewport(String viewport) {
+		this.updateStateHelper(PROPERTY_VIEWPORT, viewport);
 	}
 
 	public String getPlacementFunction() {

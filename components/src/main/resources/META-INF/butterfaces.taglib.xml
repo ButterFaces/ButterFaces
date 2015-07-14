@@ -691,6 +691,10 @@
          <type>java.lang.String</type>
       </attribute>
       <attribute>
+         <name>viewport</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
          <name>placement</name>
          <type>java.lang.String</type>
       </attribute>
@@ -920,7 +924,15 @@
          <type>java.lang.String</type>
       </attribute>
       <attribute>
-         <name>rendered</name>
+         <name>label</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>headerStyleClass</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>headerStyle</name>
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>

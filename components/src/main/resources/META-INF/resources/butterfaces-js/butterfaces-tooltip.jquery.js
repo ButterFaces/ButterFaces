@@ -13,7 +13,7 @@
             placement: data.placement,
             placementFunction: data.placementFunction,
             minVerticalOffset: data.minVerticalOffset,
-            minHorizontalOffset : data.minHorizontalOffset,
+            minHorizontalOffset: data.minHorizontalOffset,
             content: content.html().trim()
         };
 
@@ -33,6 +33,7 @@
             //console.log(data);
             //console.log('placement: ' + placement);
             //console.log('trigger: ' + trigger);
+            console.log('viewport: ' + data.viewport);
 
             if (data.minVerticalOffset) {
                 root.attr('data-tooltip-min-vertical-offset', data.minVerticalOffset);
@@ -44,13 +45,14 @@
                 root.next().remove();
             }
 
+
             root.popover({
                 trigger: trigger,
                 placement: placement,
                 title: data.title,
                 html: 'true',
                 content: data.content,
-                viewport: 'html'
+                viewport: data.viewport
             });
         });
     };

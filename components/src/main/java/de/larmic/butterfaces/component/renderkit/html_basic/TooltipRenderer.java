@@ -69,6 +69,8 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.writeText(getNullSafeIntegerParameter(tooltip.getMinVerticalOffset()), null);
             writer.writeText(",\n      minHorizontalOffset: ", null);
             writer.writeText(getNullSafeIntegerParameter(tooltip.getMinHorizontalOffset()), null);
+            writer.writeText(",\n      viewport: ", null);
+            writer.writeText("'" + StringUtils.getNotNullValue(tooltip.getViewport(), "body") + "'", null);
             writer.writeText("\n   })\n});", null);
 
             if (StringUtils.isNotEmpty(tooltip.getOnShow())
