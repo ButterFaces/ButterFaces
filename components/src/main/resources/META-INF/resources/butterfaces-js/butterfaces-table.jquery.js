@@ -21,32 +21,30 @@
         });
     };
 
-    $.fn.toggleColumnVisibilty = function (data) {
+    $.fn.toggleColumnVisibilty = function (renderIds, disableRenderIds, columnNumber) {
 
         return this.each(function () {
             var $originalElement = $(this);
 
-            // console.log('Toggle column: ' + data.columnIndex);
-
-            var $columnHeader = $originalElement.find(".butter-component-table-column-header[columnnumber='" + data.columnIndex + "']");
-            var $columnBody = $originalElement.find(".butter-component-table-column[columnnumber='" + data.columnIndex + "']");
-            var $colGroup = $originalElement.find(".butter-table-colgroup[columnnumber='" + data.columnIndex + "']");
-
-            var checked = $columnHeader.css('display') != 'none';
-
-            // console.log('Column checked: ' + checked);
-
-            if (checked) {
-                $columnHeader.css('display', 'none');
-                $columnBody.css('display', 'none');
-                $colGroup.css('display', 'none');
-            } else {
-                $columnHeader.css('display', '');
-                $columnBody.css('display', '');
-                $colGroup.css('display', '');
+            var renderIdString = "";
+            for (index = 0; index < renderIds.length - 1; index++) {
+                renderIdString += renderIds[index];
+                renderIdString += ", ";
             }
 
-            // console.log($originalElement.find('tr[rowindex=' + data.rowIndex + ']'));
+            renderIdString += renderIds[renderIds.length - 1];
+
+            jsf.ajax.request($originalElement.attr('id'), 'toggle_' + columnNumber, {
+                "javax.faces.behavior.event": 'toggle_' + columnNumber,
+                render: renderIdString,
+                params: 'test',
+                onevent: (function (data) {
+                    //console.log(data);
+                    if (disableRenderIds) {
+                        butter.ajax.disableElementsOnRequest(data, renderIds);
+                    }
+                })
+            });
         });
     };
 

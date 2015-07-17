@@ -250,10 +250,17 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         writer.writeAttribute("type", "checkbox", null);
         writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
-        final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(this.cachedTableComponent.getClientId(), "toggleColumnVisibilty({columnIndex:'" + columnNumber + "'})");
+        final StringBuilder ajax = new StringBuilder("jQuery(document.getElementById('");
+        ajax.append(tableToolbar.getClientId());
+        ajax.append("')).toggleColumnVisibilty([");
+        for (String renderId : toggleAjaxRequest.getRenderIds()) {
+            ajax.append("'");
+            ajax.append(renderId);
+            ajax.append("'");
+        }
+        ajax.append("], " + tableToolbar.isAjaxDisableRenderRegionsOnRequest() + ", " + columnNumber + ");");
 
-        final String ajaxCall = toggleAjaxRequest.createJavaScriptCall("toggle_" + columnNumber, tableToolbar.isAjaxDisableRenderRegionsOnRequest());
-        writer.writeAttribute("onclick", ajaxCall + ";" + jQueryPluginCall, null);
+        writer.writeAttribute("onclick", ajax.toString(), null);
 
         if (!this.isHideColumn(this.cachedTableComponent, cachedColumn)) {
             writer.writeAttribute("checked", "checked", null);
