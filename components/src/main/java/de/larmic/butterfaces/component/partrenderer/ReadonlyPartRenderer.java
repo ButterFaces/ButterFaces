@@ -80,8 +80,7 @@ public class ReadonlyPartRenderer {
                         return item.getLabel();
                     }
                 }
-            }
-            if (child instanceof UISelectItem) {
+            } else  if (child instanceof UISelectItem) {
                 final UISelectItem item = (UISelectItem) child;
 
                 if (this.isMatchingLabel(item, value)) {
