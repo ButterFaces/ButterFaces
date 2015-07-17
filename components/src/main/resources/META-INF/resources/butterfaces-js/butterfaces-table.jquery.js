@@ -26,18 +26,10 @@
         return this.each(function () {
             var $originalElement = $(this);
 
-            var renderIdString = "";
-            for (index = 0; index < renderIds.length - 1; index++) {
-                renderIdString += renderIds[index];
-                renderIdString += ", ";
-            }
-
-            renderIdString += renderIds[renderIds.length - 1];
-
             jsf.ajax.request($originalElement.attr('id'), 'toggle_' + columnNumber, {
                 "javax.faces.behavior.event": 'toggle_' + columnNumber,
-                render: renderIdString,
-                params: 'test',
+                render: renderIds.join(", "),
+                params: createColumnVisibilty($originalElement),
                 onevent: (function (data) {
                     //console.log(data);
                     if (disableRenderIds) {
@@ -46,6 +38,20 @@
                 })
             });
         });
+
+        function createColumnVisibilty($toolbar) {
+            var columns = [];
+
+            $toolbar.find('.butter-table-toolbar-column-option input[type=checkbox]').each(function (index, checkbox) {
+                var $checkbox = $(checkbox).parent('.butter-table-toolbar-column-option');
+                columns.push({
+                    idenfifier: $checkbox.attr('data-column-model-identifier'),
+                    visible: $checkbox.is(':checked')
+                });
+            });
+
+            return columns;
+        }
     };
 
     $.fn.orderColumnUp = function (data) {

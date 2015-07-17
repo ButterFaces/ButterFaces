@@ -199,6 +199,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.startElement("li", tableToolbar);
                 writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
                 writer.writeAttribute("data-original-column", columnNumber, null);
+                writer.writeAttribute("data-column-model-identifier", cachedColumn.getModelUniqueIdentifier(), null);
 
                 if (toggleAjaxRequest != null) {
                     this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest, columnNumber, cachedColumn);
@@ -248,7 +249,6 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                          final HtmlColumn cachedColumn) throws IOException {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
-        writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
         final StringBuilder ajax = new StringBuilder("jQuery(document.getElementById('");
         ajax.append(tableToolbar.getClientId());
