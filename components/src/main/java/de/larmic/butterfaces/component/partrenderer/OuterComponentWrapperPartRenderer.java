@@ -1,13 +1,13 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.html.feature.Readonly;
+import de.larmic.butterfaces.component.html.feature.Style;
+import de.larmic.butterfaces.component.html.feature.StyleClass;
+import de.larmic.butterfaces.component.html.feature.Validation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
-
-import de.larmic.butterfaces.component.html.feature.Readonly;
-import de.larmic.butterfaces.component.html.feature.StyleClass;
-import de.larmic.butterfaces.component.html.feature.Validation;
+import java.io.IOException;
 
 /**
  * Created by larmic on 27.08.14.
@@ -21,6 +21,7 @@ public class OuterComponentWrapperPartRenderer {
     public void renderComponentBegin(final UIComponent component, final ResponseWriter writer, final String addtionalStyleClass) throws IOException {
         final String validationClass = component instanceof Validation && !((Validation) component).isValid() ? Constants.BOOTSTRAP_ERROR : "";
         final String componentStyleClass = component instanceof StyleClass ? ((StyleClass) component).getStyleClass() : "";
+        final String componentStyle = component instanceof Style ? ((Style) component).getStyle() : "";
         final String readonlyClass = component instanceof Readonly && ((Readonly) component).isReadonly() ? Constants.COMPONENT_READONLY_STYLE_CLASS : "";
 
         writer.startElement("div", component);
@@ -37,6 +38,10 @@ public class OuterComponentWrapperPartRenderer {
                 );
 
         writer.writeAttribute("class", styleClass, null);
+
+        if (StringUtils.isNotEmpty(componentStyle)) {
+            writer.writeAttribute("style", componentStyle, null);
+        }
     }
 
     public void renderComponentEnd(final ResponseWriter writer) throws IOException {

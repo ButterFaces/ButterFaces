@@ -1,10 +1,7 @@
 package de.larmic.butterfaces.component.html;
 
 import de.larmic.butterfaces.component.base.component.UIComponentBase;
-import de.larmic.butterfaces.component.html.feature.HideLabel;
-import de.larmic.butterfaces.component.html.feature.Label;
-import de.larmic.butterfaces.component.html.feature.StyleClass;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.component.html.feature.*;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -16,7 +13,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head")
 })
 @FacesComponent(HtmlLabeledContainer.COMPONENT_TYPE)
-public class HtmlLabeledContainer extends UIComponentBase implements Tooltip, Label, HideLabel, StyleClass {
+public class HtmlLabeledContainer extends UIComponentBase implements Tooltip, Label, HideLabel, StyleClass, Style {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.labeledContainer";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
