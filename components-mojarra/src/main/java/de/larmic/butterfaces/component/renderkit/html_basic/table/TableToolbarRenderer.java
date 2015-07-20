@@ -137,7 +137,6 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 }
             } else if (behaviorEvent.startsWith(HtmlTableToolbar.EVENT_ORDER_COLUMN) && cachedTableComponent.getTableOrderModel() != null) {
                 final String[] split = behaviorEvent.split("_");
-                final String event = split[0];
                 final boolean orderUp = "up".equals(split[1]);
                 final int eventNumber = Integer.valueOf(split[2]);
                 final HtmlColumn column = this.cachedTableComponent.getCachedColumns().get(eventNumber);

@@ -29,7 +29,7 @@
             jsf.ajax.request($originalElement.attr('id'), 'toggle_' + columnNumber, {
                 "javax.faces.behavior.event": 'toggle_' + columnNumber,
                 render: renderIds.join(", "),
-                params: createColumnVisibilty($originalElement),
+                params: JSON.stringify(createColumnVisibilty($originalElement)),
                 onevent: (function (data) {
                     //console.log(data);
                     if (disableRenderIds) {
@@ -45,8 +45,8 @@
             $toolbar.find('.butter-table-toolbar-column-option input[type=checkbox]').each(function (index, checkbox) {
                 var $checkbox = $(checkbox).parent('.butter-table-toolbar-column-option');
                 columns.push({
-                    idenfifier: $checkbox.attr('data-column-model-identifier'),
-                    visible: $checkbox.is(':checked')
+                    identifier: $checkbox.attr('data-column-model-identifier'),
+                    visible: $checkbox.find('input[type=checkbox]').is(':checked')
                 });
             });
 
