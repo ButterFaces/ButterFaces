@@ -2,7 +2,7 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
-import de.larmic.butterfaces.model.table.TableColumnDisplayModel;
+import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
 import de.larmic.butterfaces.model.table.TableModel;
 import de.larmic.butterfaces.model.table.TableOrderModel;
 import de.larmic.butterfaces.model.table.TableSortModel;
@@ -187,9 +187,9 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         return tableModel != null ? tableModel.getTableOrderModel() : null;
     }
 
-    public TableColumnDisplayModel getTableColumnDisplayModel() {
+    public TableColumnVisibilityModel getTableColumnVisibilityModel() {
         final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableColumnDisplayModel() : null;
+        return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
     }
 
     public void setModel(TableModel tableModel) {

@@ -13,7 +13,7 @@ public interface TableModel {
     /**
      * @return null if no column display (show and hide) is used. In this case column information will be lost if table is rerendered.
      */
-    TableColumnDisplayModel getTableColumnDisplayModel();
+    TableColumnVisibilityModel getTableColumnVisibilityModel();
 
     TableOrderModel getTableOrderModel();
 

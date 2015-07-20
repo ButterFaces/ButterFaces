@@ -44,26 +44,20 @@
 
 package de.larmic.butterfaces.component.renderkit.html_basic.mojarra;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.sun.faces.renderkit.Attribute;
+import com.sun.faces.renderkit.AttributeManager;
+import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
+import com.sun.faces.util.Util;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
-import com.sun.faces.util.Util;
-
-import de.larmic.butterfaces.component.html.table.HtmlColumn;
-import de.larmic.butterfaces.component.html.table.HtmlTable;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * <p>Render a {@link javax.faces.component.UIData} component as a two-dimensional table.</p>
@@ -417,10 +411,10 @@ public class TableRenderer extends BaseTableRenderer {
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnDisplayModel() != null) {
+        if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
+            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }

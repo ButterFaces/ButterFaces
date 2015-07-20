@@ -128,10 +128,10 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnDisplayModel() != null) {
+        if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
+            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }

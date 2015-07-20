@@ -6,7 +6,7 @@ package de.larmic.butterfaces.model.table;
 public class DefaultTableModel implements TableModel {
 
     private final TableSortModel tableSortModel = new DefaultTableSortModel();
-    private final TableColumnDisplayModel columnDisplayTableModel = new DefaultColumnDisplayTableModel();
+    private final TableColumnVisibilityModel tableColumnVisibilityModel = new DefaultColumnVisibilityTableModel();
     private final TableOrderModel tableOrderModel = new DefaultTableOrderModel();
 
     @Override
@@ -15,8 +15,8 @@ public class DefaultTableModel implements TableModel {
     }
 
     @Override
-    public TableColumnDisplayModel getTableColumnDisplayModel() {
-        return columnDisplayTableModel;
+    public TableColumnVisibilityModel getTableColumnVisibilityModel() {
+        return tableColumnVisibilityModel;
     }
 
     @Override

@@ -5,6 +5,8 @@ import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.model.json.JsonToModelConverter;
+import de.larmic.butterfaces.model.json.TableColumnVisibility;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
@@ -117,20 +119,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
         if (behaviorEvent != null) {
-            if (behaviorEvent.startsWith(HtmlTableToolbar.EVENT_TOGGLE_COLUMN)) {
-                final String[] split = behaviorEvent.split("_");
-                final String event = split[0];
-                final int eventNumber = Integer.valueOf(split[1]);
-                if (HtmlTableToolbar.EVENT_TOGGLE_COLUMN.equals(event) && this.cachedTableComponent.getTableColumnDisplayModel() != null) {
-                    final HtmlColumn toggledColumn = this.cachedTableComponent.getCachedColumns().get(eventNumber);
-                    final String tableUniqueIdentifier = cachedTableComponent.getModelUniqueIdentifier();
-                    final String columnUniqueIdentifier = toggledColumn.getModelUniqueIdentifier();
-                    if (this.isHideColumn(this.cachedTableComponent, toggledColumn)) {
-                        this.cachedTableComponent.getTableColumnDisplayModel().showColumn(tableUniqueIdentifier, columnUniqueIdentifier);
-                    } else {
-                        this.cachedTableComponent.getTableColumnDisplayModel().hideColumn(tableUniqueIdentifier, columnUniqueIdentifier);
-                    }
-                }
+            if (HtmlTableToolbar.EVENT_TOGGLE_COLUMN.equals(behaviorEvent) && this.cachedTableComponent.getTableColumnVisibilityModel() != null) {
+                final String tableUniqueIdentifier = cachedTableComponent.getModelUniqueIdentifier();
+                final TableColumnVisibility visibility = new JsonToModelConverter().convertTableColumnVisibility(tableUniqueIdentifier, params.get("params"));
+                cachedTableComponent.getTableColumnVisibilityModel().update(visibility);
             } else if (behaviorEvent.equals(HtmlTableToolbar.EVENT_REFRESH_TABLE)) {
                 if (htmlTableHeader.getTableToolbarRefreshListener() != null) {
                     htmlTableHeader.getTableToolbarRefreshListener().onPreRefresh();
@@ -201,7 +193,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeAttribute("data-column-model-identifier", cachedColumn.getModelUniqueIdentifier(), null);
 
                 if (toggleAjaxRequest != null) {
-                    this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest, columnNumber, cachedColumn);
+                    this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest, cachedColumn);
                 }
 
                 writer.startElement("label", tableToolbar);
@@ -244,7 +236,6 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
     private void renderToggleColumnInput(final ResponseWriter writer,
                                          final HtmlTableToolbar tableToolbar,
                                          final AjaxRequest toggleAjaxRequest,
-                                         final int columnNumber,
                                          final HtmlColumn cachedColumn) throws IOException {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
@@ -257,7 +248,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             ajax.append(renderId);
             ajax.append("'");
         }
-        ajax.append("], " + tableToolbar.isAjaxDisableRenderRegionsOnRequest() + ", " + columnNumber + ");");
+        ajax.append("], " + tableToolbar.isAjaxDisableRenderRegionsOnRequest() + ");");
 
         writer.writeAttribute("onclick", ajax.toString(), null);
 
@@ -268,10 +259,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
     }
 
     private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnDisplayModel() != null) {
+        if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnDisplayModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
+            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
             if (hideColumn != null) {
                 return hideColumn;
             }

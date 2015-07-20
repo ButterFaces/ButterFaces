@@ -21,13 +21,13 @@
         });
     };
 
-    $.fn.toggleColumnVisibilty = function (renderIds, disableRenderIds, columnNumber) {
+    $.fn.toggleColumnVisibilty = function (renderIds, disableRenderIds) {
 
         return this.each(function () {
             var $originalElement = $(this);
 
-            jsf.ajax.request($originalElement.attr('id'), 'toggle_' + columnNumber, {
-                "javax.faces.behavior.event": 'toggle_' + columnNumber,
+            jsf.ajax.request($originalElement.attr('id'), 'toggle', {
+                "javax.faces.behavior.event": 'toggle',
                 render: renderIds.join(", "),
                 params: JSON.stringify(createColumnVisibilty($originalElement)),
                 onevent: (function (data) {

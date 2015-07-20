@@ -1,12 +1,13 @@
 package de.larmic.butterfaces.model.table;
 
+import de.larmic.butterfaces.model.json.TableColumnVisibility;
+
 /**
  * Created by larmic on 03.12.14.
  */
-public interface TableColumnDisplayModel {
+public interface TableColumnVisibilityModel {
 
-    void showColumn(final String tableUniqueIdentifier, final String columnUniqueIdentifier);
-    void hideColumn(final String tableUniqueIdentifier, final String columnUniqueIdentifier);
+    void update(final TableColumnVisibility visibility);
 
     /**
      * @return null if column id is not known.

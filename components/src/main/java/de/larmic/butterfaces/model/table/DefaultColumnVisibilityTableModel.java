@@ -1,0 +1,21 @@
+package de.larmic.butterfaces.model.table;
+
+import de.larmic.butterfaces.model.json.TableColumnVisibility;
+
+/**
+ * Simple implementation of {@link TableColumnVisibilityModel}. Matches visibility by using column unique identifier.
+ */
+public class DefaultColumnVisibilityTableModel implements TableColumnVisibilityModel {
+
+    private TableColumnVisibility visibility;
+
+    @Override
+    public void update(final TableColumnVisibility visibility) {
+        this.visibility = visibility;
+    }
+
+    @Override
+    public Boolean isColumnHidden(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
+        return visibility != null ? visibility.getInvisibleColumns().contains(columnUniqueIdentifier) : null;
+    }
+}

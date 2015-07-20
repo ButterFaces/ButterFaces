@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.model.json;
 
+import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public class JsonToModelConverter {
 
     /**
-     * Converts given json string to {@link TableColumnVisibility} used by {@link de.larmic.butterfaces.model.table.TableColumnDisplayModel}.
+     * Converts given json string to {@link TableColumnVisibility} used by {@link TableColumnVisibilityModel}.
      *
      * @param tableIdentifier an application unique table identifier.
      * @param json            string to convert to {@link TableColumnVisibility}.
