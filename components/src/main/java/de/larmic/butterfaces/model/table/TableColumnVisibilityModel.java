@@ -5,10 +5,13 @@ package de.larmic.butterfaces.model.table;
  */
 public interface TableColumnVisibilityModel {
 
+    /**
+     * Updates table column visibility. At all times it contains complete visibility information.
+     */
     void update(final TableColumnVisibility visibility);
 
     /**
-     * @return null if column id is not known.
+     * @return null if column identifier is not known, table identifier is not matching or no visibility is set.
      */
     Boolean isColumnHidden(final String tableUniqueIdentifier, final String columnUniqueIdentifier);
 }

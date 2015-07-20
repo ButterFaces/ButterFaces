@@ -2,10 +2,8 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
-import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
-import de.larmic.butterfaces.model.table.TableModel;
-import de.larmic.butterfaces.model.table.TableOrderModel;
-import de.larmic.butterfaces.model.table.TableSortModel;
+import de.larmic.butterfaces.model.json.Ordering;
+import de.larmic.butterfaces.model.table.*;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -73,46 +71,70 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
     public List<HtmlColumn> getCachedColumns() {
         final int childCount = this.getChildCount();
         if (childCount > 0 && this.cachedColumns.isEmpty()) {
-            final Iterator<UIComponent> childIterator = this.getChildren().iterator();
-
-            while (childIterator.hasNext()) {
-                final UIComponent kid = childIterator.next();
-                if ((kid instanceof HtmlColumn) && kid.isRendered()) {
-                    final HtmlColumn column = (HtmlColumn) kid;
+            // all children that are {@link HtmlColumn} or should be rendered
+            for (UIComponent uiComponent : getChildren()) {
+                if ((uiComponent instanceof HtmlColumn) && uiComponent.isRendered()) {
+                    final HtmlColumn column = (HtmlColumn) uiComponent;
                     this.cachedColumns.add(column);
-                    if (getTableOrderModel() != null
-                            && getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), column.getModelUniqueIdentifier()) == null) {
-                        getTableOrderModel().orderColumnToPosition(getModelUniqueIdentifier(), column.getModelUniqueIdentifier(), 0);
-                    }
-                    childIterator.remove();
+                }
+            }
+        }
+
+        // clear "maybe" unsorted columns
+        this.getChildren().clear();
+
+        // sort columns by model if necessary
+        if (getTableOrderModel() != null) {
+            final List<HtmlColumn> notOrderedByModelColumnIdentifiers = new ArrayList<>();
+            final List<Ordering> existingOrderings = new ArrayList<>();
+
+            for (HtmlColumn cachedColumn : cachedColumns) {
+                final Integer position = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
+                if (position == null) {
+                    notOrderedByModelColumnIdentifiers.add(cachedColumn);
+                } else {
+                    existingOrderings.add(new Ordering(cachedColumn.getModelUniqueIdentifier(), position));
                 }
             }
 
+            // in case of not ordered columns update table model
+            if (!notOrderedByModelColumnIdentifiers.isEmpty()) {
+                // order already existing column orderings
+                Ordering.sort(existingOrderings);
+
+                final List<String> orderings = new ArrayList<>();
+                for (Ordering existingOrdering : existingOrderings) {
+                    orderings.add(existingOrdering.getIdentifier());
+                }
+                for (HtmlColumn notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
+                    orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
+                }
+
+                // update table model to sync model and
+                final TableColumnOrdering ordering = new TableColumnOrdering(getModelUniqueIdentifier(), orderings);
+                getTableOrderModel().update(ordering);
+            }
+
+            // sort columns by table model. Every column should be found.
             Collections.sort(cachedColumns, new Comparator<HtmlColumn>() {
                 @Override
                 public int compare(HtmlColumn o1, HtmlColumn o2) {
                     if (getTableOrderModel() != null) {
-                        final Integer o1OrderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
+                        final Integer orderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
                         final Integer o2OrderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
 
-                        if (o1OrderPosition != null && o2OrderPosition != null) {
-                            return o1OrderPosition.compareTo(o2OrderPosition);
+                        if (orderPosition != null && o2OrderPosition != null) {
+                            return orderPosition.compareTo(o2OrderPosition);
                         }
                     }
                     return 0;
                 }
             });
-
-            for (HtmlColumn cachedColumn : cachedColumns) {
-                this.getChildren().add(cachedColumn);
-            }
         }
 
+        // insert (sorted) {@link HtmlColumn}s.
         for (HtmlColumn cachedColumn : cachedColumns) {
-            if (getTableOrderModel() != null
-                    && getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier()) == null) {
-                getTableOrderModel().orderColumnToPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier(), 0);
-            }
+            this.getChildren().add(cachedColumn);
         }
 
         return this.cachedColumns;

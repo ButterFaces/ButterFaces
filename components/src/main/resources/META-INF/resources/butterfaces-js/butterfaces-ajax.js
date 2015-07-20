@@ -45,3 +45,18 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of 
             break;
     }
 };
+
+butter.ajax.sendRequest = function(/* string */ clientId, /* string */ event, /* array */ renderIds, /*optional string */ params, /* boolean */ disableRenderIds) {
+    jsf.ajax.request(clientId, event, {
+        "javax.faces.behavior.event": event,
+        render: renderIds.join(", "),
+        params: params,
+        onevent: (function (data) {
+            //console.log(data);
+            if (disableRenderIds) {
+                butter.ajax.disableElementsOnRequest(data, renderIds);
+            }
+        })
+    });
+};
+

@@ -1,34 +1,28 @@
 package de.larmic.butterfaces.model.table;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Created by larmic on 10.06.15.
  */
 public class DefaultTableOrderModel implements TableOrderModel {
 
-    protected final List<String> ordering = new ArrayList<>();
+    private TableColumnOrdering ordering;
 
     @Override
-    public void orderColumnToPosition(final String tableUniqueIdentifier,
-                                      final String columnUniqueIdentifier,
-                                      final int position) {
-        final Integer nullableActualOrderPosition = getOrderPosition(tableUniqueIdentifier, columnUniqueIdentifier);
-
-        if (nullableActualOrderPosition == null) {
-            ordering.add(columnUniqueIdentifier);
-        } else if (position >= 0 && position < ordering.size()) {
-            Collections.swap(ordering, nullableActualOrderPosition, position);
-        }
+    public void update(final TableColumnOrdering ordering) {
+        this.ordering = ordering;
     }
 
     @Override
     public Integer getOrderPosition(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
+        if (ordering == null
+                || !ordering.getTableIdentifier().equalsIgnoreCase(tableUniqueIdentifier)
+                || !ordering.getOrderedColumnIdentifiers().contains(columnUniqueIdentifier)) {
+            return null;
+        }
+
         int index = 0;
 
-        for (String uniqueIdentifier : ordering) {
+        for (String uniqueIdentifier : ordering.getOrderedColumnIdentifiers()) {
             if (columnUniqueIdentifier.equals(uniqueIdentifier)) {
                 return index;
             }
@@ -36,6 +30,6 @@ public class DefaultTableOrderModel implements TableOrderModel {
             index++;
         }
 
-        return null;
+        throw new RuntimeException("Could not get order position of table " + tableUniqueIdentifier + " and column " + columnUniqueIdentifier);
     }
 }

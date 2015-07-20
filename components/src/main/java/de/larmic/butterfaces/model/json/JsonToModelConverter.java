@@ -1,9 +1,12 @@
 package de.larmic.butterfaces.model.json;
 
+import de.larmic.butterfaces.model.table.TableColumnOrdering;
 import de.larmic.butterfaces.model.table.TableColumnVisibility;
 import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,18 +22,13 @@ public class JsonToModelConverter {
      * @return the converted {@link TableColumnVisibility}.
      */
     public TableColumnVisibility convertTableColumnVisibility(final String tableIdentifier, final String json) {
-        final String[] split = json.trim().split("(?<=\\}),(?=\\{)");
+        final String[] split = this.pitColumns(json);
 
         final List<String> visibleColumns = new ArrayList<>();
         final List<String> invisibleColumns = new ArrayList<>();
 
-        for (String s : split) {
-            String column = s.replace("{", "");
-            column = column.replace("[", "");
-            column = column.replace("}", "");
-            column = column.replace("]", "");
-            column = column.replace("\"", "");
-            final String[] attribute = column.split(",");
+        for (String column : split) {
+            final String[] attribute = this.pitAttributes(column);
             final String identifier = attribute[0].split(":")[1];
             final String visible = attribute[1].split(":")[1];
 
@@ -44,4 +42,52 @@ public class JsonToModelConverter {
         return new TableColumnVisibility(tableIdentifier, visibleColumns, invisibleColumns);
     }
 
+    /**
+     * Converts given json string to {@link TableColumnOrdering} used by {@link de.larmic.butterfaces.model.table.TableOrderModel}.
+     *
+     * @param tableIdentifier an application unique table identifier.
+     * @param json            string to convert to {@link TableColumnOrdering}.
+     * @return the converted {@link TableColumnOrdering}.
+     */
+    public TableColumnOrdering convertTableColumnOrdering(final String tableIdentifier, final String json) {
+        final String[] split = this.pitColumns(json);
+
+        final List<Ordering> orderings = new ArrayList<>();
+
+        for (String column : split) {
+            final String[] attribute = this.pitAttributes(column);
+            final String identifier = attribute[0].split(":")[1];
+            final String position = attribute[1].split(":")[1];
+
+            orderings.add(new Ordering(identifier, Integer.valueOf(position)));
+        }
+
+        Collections.sort(orderings, new Comparator<Ordering>() {
+            @Override
+            public int compare(Ordering o1, Ordering o2) {
+                return o1.getIndex().compareTo(o2.getIndex());
+            }
+        });
+
+        final List<String> columnIdentifier = new ArrayList<>();
+
+        for (Ordering ordering : orderings) {
+            columnIdentifier.add(ordering.getIdentifier());
+        }
+
+        return new TableColumnOrdering(tableIdentifier, columnIdentifier);
+    }
+
+    private String[] pitColumns(String json) {
+        return json.trim().split("(?<=\\}),(?=\\{)");
+    }
+
+    private String[] pitAttributes(final String column) {
+        String cleanedColumn = column.replace("{", "");
+        cleanedColumn = cleanedColumn.replace("[", "");
+        cleanedColumn = cleanedColumn.replace("}", "");
+        cleanedColumn = cleanedColumn.replace("]", "");
+        cleanedColumn = cleanedColumn.replace("\"", "");
+        return cleanedColumn.split(",");
+    }
 }

@@ -24,19 +24,10 @@
     $.fn.toggleColumnVisibilty = function (renderIds, disableRenderIds) {
 
         return this.each(function () {
-            var $originalElement = $(this);
+            var $toolbar = $(this);
 
-            jsf.ajax.request($originalElement.attr('id'), 'toggle', {
-                "javax.faces.behavior.event": 'toggle',
-                render: renderIds.join(", "),
-                params: JSON.stringify(createColumnVisibilty($originalElement)),
-                onevent: (function (data) {
-                    //console.log(data);
-                    if (disableRenderIds) {
-                        butter.ajax.disableElementsOnRequest(data, renderIds);
-                    }
-                })
-            });
+            var json = JSON.stringify(createColumnVisibilty($toolbar));
+            butter.ajax.sendRequest($toolbar.attr('id'), 'toggle', renderIds, json, disableRenderIds);
         });
 
         function createColumnVisibilty($toolbar) {
@@ -51,6 +42,64 @@
             });
 
             return columns;
+        }
+    };
+
+    $.fn.orderColumn = function (renderIds, disableRenderIds, toLeft, columnNumber) {
+
+        return this.each(function () {
+            var $toolbar = $(this);
+
+            if (toLeft) {
+                //console.log('order column ' + columnNumber + ' to left');
+                orderColumnLeft($toolbar, columnNumber);
+            } else {
+                //console.log('order column ' + columnNumber + ' to right');
+                orderColumnRight($toolbar, columnNumber);
+            }
+
+            var json = JSON.stringify(createColumnOrder($toolbar));
+            butter.ajax.sendRequest($toolbar.attr('id'), 'order', renderIds, json, disableRenderIds);
+        });
+
+        function createColumnOrder($toolbar) {
+            var columns = [];
+
+            $toolbar.find('.butter-table-toolbar-column-option input[type=checkbox]').each(function (index, checkbox) {
+                var $checkbox = $(checkbox).parent('.butter-table-toolbar-column-option');
+                columns.push({
+                    identifier: $checkbox.attr('data-column-model-identifier'),
+                    position: index
+                });
+            });
+
+            return columns;
+        }
+
+        function orderColumnLeft(/* jquery toolbar */ $toolbar, columnNumber) {
+            //console.log($toolbar);
+
+            var $column = $toolbar.find('li[data-original-column="' + columnNumber + '"]');
+            var $nextColumn = $column.prev();
+
+            //console.log($column);
+            //console.log($nextColumn);
+
+            var $detachtedColumn = $column.detach();
+            $nextColumn.before($detachtedColumn);
+        }
+
+        function orderColumnRight(/* jquery toolbar */ $toolbar, columnNumber) {
+            //console.log($toolbar);
+
+            var $column = $toolbar.find('li[data-original-column="' + columnNumber + '"]');
+            var $nextColumn = $column.next();
+
+            //console.log($column);
+            //console.log($nextColumn);
+
+            var $detachtedColumn = $column.detach();
+            $nextColumn.after($detachtedColumn);
         }
     };
 
