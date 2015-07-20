@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.model.json;
 
+import de.larmic.butterfaces.model.table.TableColumnVisibility;
 import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
 
 import java.util.ArrayList;

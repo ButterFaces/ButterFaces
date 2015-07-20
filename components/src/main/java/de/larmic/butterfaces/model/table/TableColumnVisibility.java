@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.model.json;
+package de.larmic.butterfaces.model.table;
 
 import java.util.ArrayList;
 import java.util.List;

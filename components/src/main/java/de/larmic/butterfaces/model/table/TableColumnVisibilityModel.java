@@ -1,9 +1,7 @@
 package de.larmic.butterfaces.model.table;
 
-import de.larmic.butterfaces.model.json.TableColumnVisibility;
-
 /**
- * Created by larmic on 03.12.14.
+ * Table model to handle column visibilities. If model is not used it is not possible to hide columns by user interaction.
  */
 public interface TableColumnVisibilityModel {
 

@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.model.json;
 
 
+import de.larmic.butterfaces.model.table.TableColumnVisibility;
 import org.junit.Assert;
 import org.junit.Test;
 

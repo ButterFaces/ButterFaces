@@ -6,7 +6,7 @@ import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.model.json.JsonToModelConverter;
-import de.larmic.butterfaces.model.json.TableColumnVisibility;
+import de.larmic.butterfaces.model.table.TableColumnVisibility;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
