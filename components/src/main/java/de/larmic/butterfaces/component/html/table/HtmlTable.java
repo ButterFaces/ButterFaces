@@ -84,12 +84,12 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         this.getChildren().clear();
 
         // sort columns by model if necessary
-        if (getTableOrderModel() != null) {
+        if (getTableOrderingModel() != null) {
             final List<HtmlColumn> notOrderedByModelColumnIdentifiers = new ArrayList<>();
             final List<Ordering> existingOrderings = new ArrayList<>();
 
             for (HtmlColumn cachedColumn : cachedColumns) {
-                final Integer position = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
+                final Integer position = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
                 if (position == null) {
                     notOrderedByModelColumnIdentifiers.add(cachedColumn);
                 } else {
@@ -112,16 +112,16 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
                 // update table model to sync model and
                 final TableColumnOrdering ordering = new TableColumnOrdering(getModelUniqueIdentifier(), orderings);
-                getTableOrderModel().update(ordering);
+                getTableOrderingModel().update(ordering);
             }
 
             // sort columns by table model. Every column should be found.
             Collections.sort(cachedColumns, new Comparator<HtmlColumn>() {
                 @Override
                 public int compare(HtmlColumn o1, HtmlColumn o2) {
-                    if (getTableOrderModel() != null) {
-                        final Integer orderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
-                        final Integer o2OrderPosition = getTableOrderModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
+                    if (getTableOrderingModel() != null) {
+                        final Integer orderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
+                        final Integer o2OrderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
 
                         if (orderPosition != null && o2OrderPosition != null) {
                             return orderPosition.compareTo(o2OrderPosition);
@@ -204,7 +204,7 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         return tableModel != null ? tableModel.getTableRowSortingModel() : null;
     }
 
-    public TableColumnOrderingModel getTableOrderModel() {
+    public TableColumnOrderingModel getTableOrderingModel() {
         final TableModel tableModel = this.getModel();
         return tableModel != null ? tableModel.getTableColumnOrderingModel() : null;
     }

@@ -129,9 +129,9 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 if (htmlTableHeader.getTableToolbarRefreshListener() != null) {
                     htmlTableHeader.getTableToolbarRefreshListener().onPreRefresh();
                 }
-            } else if (HtmlTableToolbar.EVENT_ORDER_COLUMN.equals(behaviorEvent) && cachedTableComponent.getTableOrderModel() != null) {
+            } else if (HtmlTableToolbar.EVENT_ORDER_COLUMN.equals(behaviorEvent) && cachedTableComponent.getTableOrderingModel() != null) {
                 final TableColumnOrdering ordering = new JsonToModelConverter().convertTableColumnOrdering(tableUniqueIdentifier, params.get("params"));
-                cachedTableComponent.getTableOrderModel().update(ordering);
+                cachedTableComponent.getTableOrderingModel().update(ordering);
             }
         }
     }
@@ -146,7 +146,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final AjaxRequest toggleAjaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
         final AjaxRequest orderAjaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
 
-        if (toggleAjaxRequest != null || orderAjaxRequest != null) {
+        if (toggleAjaxRequest != null && cachedTableComponent.getTableColumnVisibilityModel() != null
+                || orderAjaxRequest != null && cachedTableComponent.getTableOrderingModel() != null) {
             if (toggleAjaxRequest != null) {
                 toggleAjaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
             }
@@ -183,7 +184,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeAttribute("data-original-column", columnNumber, null);
                 writer.writeAttribute("data-column-model-identifier", cachedColumn.getModelUniqueIdentifier(), null);
 
-                if (toggleAjaxRequest != null) {
+                if (toggleAjaxRequest != null && cachedTableComponent.getTableColumnVisibilityModel() != null) {
                     this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest.getRenderIds(), cachedColumn);
                 }
 
@@ -193,7 +194,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeText(cachedColumn.getLabel(), null);
                 writer.endElement("label");
 
-                if (orderAjaxRequest != null && cachedTableComponent.getTableOrderModel() != null) {
+                if (orderAjaxRequest != null && cachedTableComponent.getTableOrderingModel() != null) {
                     this.renderOrderColumnSpan(writer, tableToolbar, orderAjaxRequest.getRenderIds(), columnNumber);
                 }
 

@@ -5,14 +5,14 @@ import java.util.Date;
 /**
  * Created by larmic on 21.11.14.
  */
-public class StringPair {
+public class DemoPojo {
 
     private final long id;
     private final Date date;
     private String a;
     private String b;
 
-    public StringPair(final long id, final String a, final String b) {
+    public DemoPojo(final long id, final String a, final String b) {
         this.id = id;
         this.date = new Date(new Date().getTime() + (id * 1000));
         this.a = a;

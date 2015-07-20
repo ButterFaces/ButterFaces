@@ -24,8 +24,8 @@ import java.util.List;
 @ViewScoped
 public class TableShowcase extends AbstractCodeShowcase implements Serializable {
 
-    private final List<StringPair> stringPairs = new ArrayList<>();
-    private StringPair selectedValue = null;
+    private final List<DemoPojo> demoPojos = new ArrayList<>();
+    private DemoPojo selectedValue = null;
     private String doSomethingWithRow = null;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private FourthColumnWidthType fourthColumnWidthType = FourthColumnWidthType.NONE;
@@ -56,7 +56,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
-        codeExamples.add(this.createStringPairCodeExample());
+        codeExamples.add(this.createDemoPojoCodeExample());
         codeExamples.add(this.createWebXmlExample());
 
         if (this.toolBarType == ToolBarType.TEXT) {
@@ -67,47 +67,47 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     }
 
-    public List<StringPair> getStringRows() {
-        if (stringPairs.isEmpty()) {
-            stringPairs.add(new StringPair(1L, "r1c1", "r1c2"));
-            stringPairs.add(new StringPair(2L, "r2c1", "r2c2"));
-            stringPairs.add(new StringPair(3L, "r3c1", "r3c2"));
-            stringPairs.add(new StringPair(4L, "r4c1", "r4c2"));
-            stringPairs.add(new StringPair(5L, "r5c1", "r5c2"));
-            stringPairs.add(new StringPair(6L, "r6c1", "r6c2"));
-            stringPairs.add(new StringPair(7L, "r7c1", "r7c2"));
+    public List<DemoPojo> getStringRows() {
+        if (demoPojos.isEmpty()) {
+            demoPojos.add(new DemoPojo(1L, "r1c1", "r1c2"));
+            demoPojos.add(new DemoPojo(2L, "r2c1", "r2c2"));
+            demoPojos.add(new DemoPojo(3L, "r3c1", "r3c2"));
+            demoPojos.add(new DemoPojo(4L, "r4c1", "r4c2"));
+            demoPojos.add(new DemoPojo(5L, "r5c1", "r5c2"));
+            demoPojos.add(new DemoPojo(6L, "r6c1", "r6c2"));
+            demoPojos.add(new DemoPojo(7L, "r7c1", "r7c2"));
         }
 
         if (toolBarType == ToolBarType.SERVER_FILTER && StringUtils.isNotEmpty(filterValue)) {
-            final List<StringPair> filteredStringPairs = new ArrayList<>();
+            final List<DemoPojo> filteredDemoPojos = new ArrayList<>();
 
-            for (StringPair stringPair : stringPairs) {
-                if (StringUtils.containsIgnoreCase(stringPair.getA(), filterValue)
-                        || StringUtils.containsIgnoreCase(stringPair.getB(), filterValue)) {
-                    filteredStringPairs.add(stringPair);
+            for (DemoPojo demoPojo : demoPojos) {
+                if (StringUtils.containsIgnoreCase(demoPojo.getA(), filterValue)
+                        || StringUtils.containsIgnoreCase(demoPojo.getB(), filterValue)) {
+                    filteredDemoPojos.add(demoPojo);
                 }
             }
 
-            return filteredStringPairs;
+            return filteredDemoPojos;
         }
 
         if (this.shouldReverseRows()) {
-            Collections.reverse(stringPairs);
+            Collections.reverse(demoPojos);
         }
 
-        return stringPairs;
+        return demoPojos;
     }
 
     private boolean shouldReverseRows() {
         if ((this.tableModel.getTableRowSortingModel().getSortType(null, "column1") == SortType.ASCENDING
                 || this.tableModel.getTableRowSortingModel().getSortType(null, "column2") == SortType.ASCENDING
                 || this.tableModel.getTableRowSortingModel().getSortType(null, "column4") == SortType.ASCENDING)
-                && !stringPairs.get(0).getA().equals("r1c1")) {
+                && !demoPojos.get(0).getA().equals("r1c1")) {
             return true;
         } else if ((this.tableModel.getTableRowSortingModel().getSortType(null, "column1") == SortType.DESCENDING
                 || this.tableModel.getTableRowSortingModel().getSortType(null, "column2") == SortType.DESCENDING
                 || this.tableModel.getTableRowSortingModel().getSortType(null, "column4") == SortType.DESCENDING)
-                && stringPairs.get(0).getA().equals("r1c1")) {
+                && demoPojos.get(0).getA().equals("r1c1")) {
             return true;
         }
 
@@ -115,16 +115,16 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         return false;
     }
 
-    public TableSingleSelectionListener<StringPair> getTableSelectionListener() {
+    public TableSingleSelectionListener<DemoPojo> getTableSelectionListener() {
         if (useSelectionListener) {
-            return new TableSingleSelectionListener<StringPair>() {
+            return new TableSingleSelectionListener<DemoPojo>() {
                 @Override
-                public void processTableSelection(StringPair data) {
+                public void processTableSelection(DemoPojo data) {
                     selectedValue = data;
                 }
 
                 @Override
-                public boolean isValueSelected(StringPair data) {
+                public boolean isValueSelected(DemoPojo data) {
                     return selectedValue != null ? data.getIdentifier() == selectedValue.getIdentifier() : false;
                 }
             };
@@ -377,15 +377,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             myBean.appendInnerContent("    private int numberOfRefreshes;\n");
         }
 
-        myBean.appendInnerContent("    public List<StringPair> getValue() {");
-        myBean.appendInnerContent("        final List<StringPair> pairs = new ArrayList<StringPair>();");
-        myBean.appendInnerContent("        pairs.add(new StringPair(1L, \"r1c1\", \"r1c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(2L, \"r2c1\", \"r2c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(3L, \"r3c1\", \"r3c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(4L, \"r4c1\", \"r4c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(5L, \"r5c1\", \"r5c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(6L, \"r6c1\", \"r6c2\"));");
-        myBean.appendInnerContent("        pairs.add(new StringPair(7L, \"r7c1\", \"r7c2\"));");
+        myBean.appendInnerContent("    public List<DemoPojo> getValue() {");
+        myBean.appendInnerContent("        final List<DemoPojo> pairs = new ArrayList<>();");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(1L, \"r1c1\", \"r1c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(2L, \"r2c1\", \"r2c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(3L, \"r3c1\", \"r3c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(4L, \"r4c1\", \"r4c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(5L, \"r5c1\", \"r5c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(6L, \"r6c1\", \"r6c2\"));");
+        myBean.appendInnerContent("        pairs.add(new DemoPojo(7L, \"r7c1\", \"r7c2\"));");
         if (this.selectionAjaxType == SelectionAjaxType.AJAX && useTableModel) {
             myBean.appendInnerContent("        // TODO sort by table model");
         }
@@ -397,13 +397,13 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         myBean.appendInnerContent("    }\n");
 
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
-            myBean.appendInnerContent("    private StringPair selectedRow;\n");
+            myBean.appendInnerContent("    private DemoPojo selectedRow;\n");
             myBean.appendInnerContent("    @Override");
-            myBean.appendInnerContent("    public void processTableSelection(final StringPair data) {");
+            myBean.appendInnerContent("    public void processTableSelection(final DemoPojo data) {");
             myBean.appendInnerContent("        this.selectedRow = data;");
             myBean.appendInnerContent("    }\n");
             myBean.appendInnerContent("    @Override");
-            myBean.appendInnerContent("    public boolean isValueSelected(StringPair data) {");
+            myBean.appendInnerContent("    public boolean isValueSelected(DemoPojo data) {");
             myBean.appendInnerContent("        return selectedRow != null ? data.getId() == selectedRow.getId() : false;");
             myBean.appendInnerContent("    }\n");
         }
@@ -419,7 +419,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
 
         if (this.toolBarType == ToolBarType.SERVER_FILTER) {
-            myBean.appendInnerContent("    public List<StringPair> filterByValue(final List<StringPair> pairs,");
+            myBean.appendInnerContent("    public List<DemoPojo> filterByValue(final List<DemoPojo> pairs,");
             myBean.appendInnerContent("                                          final String filterValue) {");
             myBean.appendInnerContent("        // TODO implement me");
             myBean.appendInnerContent("        return pairs;");
@@ -433,7 +433,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
 
         if (selectionAjaxType == SelectionAjaxType.AJAX) {
-            myBean.appendInnerContent("    public StringPair getSelectedRow() {");
+            myBean.appendInnerContent("    public DemoPojo getSelectedRow() {");
             myBean.appendInnerContent("        return selectedRow;");
             myBean.appendInnerContent("    }\n");
         }
@@ -447,20 +447,20 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         return myBean;
     }
 
-    private JavaCodeExample createStringPairCodeExample() {
-        final JavaCodeExample stringPair = new JavaCodeExample("StringPair.java", "stringpair", "table.demo", "StringPair", false);
-        stringPair.appendInnerContent("    private final long id;");
-        stringPair.appendInnerContent("    private final String a;");
-        stringPair.appendInnerContent("    private final String b;");
-        stringPair.appendInnerContent("    private final String date;\n");
-        stringPair.appendInnerContent("    public StringPair(final long id, final String a, final String b) {");
-        stringPair.appendInnerContent("        this.id = id;");
-        stringPair.appendInnerContent("        this.a = a;");
-        stringPair.appendInnerContent("        this.b = b;");
-        stringPair.appendInnerContent("        this.date = new java.util.Date();");
-        stringPair.appendInnerContent("    }\n");
-        stringPair.appendInnerContent("    // getter");
-        return stringPair;
+    private JavaCodeExample createDemoPojoCodeExample() {
+        final JavaCodeExample DemoPojo = new JavaCodeExample("DemoPojo.java", "DemoPojo", "table.demo", "DemoPojo", false);
+        DemoPojo.appendInnerContent("    private final long id;");
+        DemoPojo.appendInnerContent("    private final String a;");
+        DemoPojo.appendInnerContent("    private final String b;");
+        DemoPojo.appendInnerContent("    private final String date;\n");
+        DemoPojo.appendInnerContent("    public DemoPojo(final long id, final String a, final String b) {");
+        DemoPojo.appendInnerContent("        this.id = id;");
+        DemoPojo.appendInnerContent("        this.a = a;");
+        DemoPojo.appendInnerContent("        this.b = b;");
+        DemoPojo.appendInnerContent("        this.date = new java.util.Date();");
+        DemoPojo.appendInnerContent("    }\n");
+        DemoPojo.appendInnerContent("    // getter");
+        return DemoPojo;
     }
 
     public List<SelectItem> getAjaxSelectionTypes() {
@@ -499,7 +499,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         return items;
     }
 
-    public void doSomethingWith(final StringPair selectedValue) {
+    public void doSomethingWith(final DemoPojo selectedValue) {
         this.doSomethingWithRow = "I have done something with " + (selectedValue == null ? "null" : selectedValue.getA());
     }
 
@@ -511,7 +511,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         this.selectionAjaxType = selectionAjaxType;
     }
 
-    public StringPair getSelectedValue() {
+    public DemoPojo getSelectedValue() {
         return this.selectedValue;
     }
 
