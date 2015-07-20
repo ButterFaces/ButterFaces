@@ -2,6 +2,10 @@ package de.larmic.butterfaces.handler;
 
 import javax.faces.application.Resource;
 
+/**
+ * Simple {@link javax.faces.application.ResourceWrapper} to add a prevent cache that resets resources after deployeing
+ * a new artifact.
+ */
 public class ButterFacesResource extends javax.faces.application.ResourceWrapper {
 
 	// current revision

@@ -1,15 +1,14 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.HtmlSection;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.HtmlSection;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import java.io.IOException;
 
 /**
  * Created by larmic on 31.07.14.
@@ -58,9 +57,7 @@ public class SectionRenderer extends HtmlBasicRenderer {
             writer.startElement(ELEMENT_DIV, component);
             writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title", null);
 
-            if (labelNotEmpty) {
-                writer.writeText(section.getLabel(), component, "label");
-            }
+            writer.writeText(section.getLabel(), component, "label");
 
             if (StringUtils.isNotEmpty(section.getBadgeText())) {
                 writer.startElement(ELEMENT_SPAN, component);
