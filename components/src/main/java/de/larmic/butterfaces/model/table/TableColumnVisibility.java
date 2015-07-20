@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by larmic on 20.07.15.
+ * DTO used by {@link TableColumnVisibilityModel} to handle column visibility changes by user interaction.
  */
 public class TableColumnVisibility {
     private final String tableIdentifier;
