@@ -14,8 +14,13 @@ public class DefaultColumnVisibilityTableModel implements TableColumnVisibilityM
 
     @Override
     public Boolean isColumnHidden(final String tableUniqueIdentifier, final String columnUniqueIdentifier) {
-        return visibility != null
-                ? visibility.getTableIdentifier().equalsIgnoreCase(tableUniqueIdentifier) && visibility.getInvisibleColumns().contains(columnUniqueIdentifier)
-                : null;
+        if (visibility == null
+                || !visibility.getTableIdentifier().equalsIgnoreCase(tableUniqueIdentifier)
+                || (!visibility.getInvisibleColumns().contains(columnUniqueIdentifier)
+                    && !visibility.getVisibleColumns().contains(columnUniqueIdentifier))) {
+            return null;
+        }
+
+        return visibility.getInvisibleColumns().contains(columnUniqueIdentifier);
     }
 }
