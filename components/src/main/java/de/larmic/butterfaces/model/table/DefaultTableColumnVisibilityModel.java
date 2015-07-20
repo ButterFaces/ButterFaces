@@ -3,7 +3,7 @@ package de.larmic.butterfaces.model.table;
 /**
  * Simple implementation of {@link TableColumnVisibilityModel}. Matches visibility by using column unique identifier.
  */
-public class DefaultColumnVisibilityTableModel implements TableColumnVisibilityModel {
+public class DefaultTableColumnVisibilityModel implements TableColumnVisibilityModel {
 
     private TableColumnVisibility visibility;
 

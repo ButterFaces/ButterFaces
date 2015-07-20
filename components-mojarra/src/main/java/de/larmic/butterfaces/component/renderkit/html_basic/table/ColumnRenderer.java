@@ -63,7 +63,7 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
             writer.startElement("span", component);
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final SortType sortType = table.getModel().getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
+            final SortType sortType = table.getModel().getTableRowSortingModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
 
             final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
 

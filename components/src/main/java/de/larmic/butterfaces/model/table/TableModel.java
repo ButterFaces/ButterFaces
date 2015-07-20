@@ -8,13 +8,13 @@ public interface TableModel {
     /**
      * @return null if no sort model is used. This means sort columns is not available.
      */
-    TableSortModel getTableSortModel();
+    TableRowSortingModel getTableRowSortingModel();
 
     /**
      * @return null if no column display (show and hide) is used. In this case column information will be lost if table is rerendered.
      */
     TableColumnVisibilityModel getTableColumnVisibilityModel();
 
-    TableOrderModel getTableOrderModel();
+    TableColumnOrderingModel getTableColumnOrderingModel();
 
 }

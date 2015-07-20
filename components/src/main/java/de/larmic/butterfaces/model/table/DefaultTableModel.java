@@ -5,13 +5,13 @@ package de.larmic.butterfaces.model.table;
  */
 public class DefaultTableModel implements TableModel {
 
-    private final TableSortModel tableSortModel = new DefaultTableSortModel();
-    private final TableColumnVisibilityModel tableColumnVisibilityModel = new DefaultColumnVisibilityTableModel();
-    private final TableOrderModel tableOrderModel = new DefaultTableOrderModel();
+    private final TableRowSortingModel tableRowSortingModel = new DefaultTableRowSortingModel();
+    private final TableColumnVisibilityModel tableColumnVisibilityModel = new DefaultTableColumnVisibilityModel();
+    private final TableColumnOrderingModel tableColumnOrderingModel = new DefaultTableOrderingModel();
 
     @Override
-    public TableSortModel getTableSortModel() {
-        return tableSortModel;
+    public TableRowSortingModel getTableRowSortingModel() {
+        return tableRowSortingModel;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class DefaultTableModel implements TableModel {
     }
 
     @Override
-    public TableOrderModel getTableOrderModel() {
-        return tableOrderModel;
+    public TableColumnOrderingModel getTableColumnOrderingModel() {
+        return tableColumnOrderingModel;
     }
 }

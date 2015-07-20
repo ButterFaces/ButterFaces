@@ -8,11 +8,11 @@ import java.util.Arrays;
 /**
  * Created by larmic on 11.06.15.
  */
-public class DefaultTableOrderModelTest {
+public class DefaultTableOrderingModelTest {
 
     @Test
     public void testGetOrderPosition() throws Exception {
-        final DefaultTableOrderModel model = new DefaultTableOrderModel();
+        final DefaultTableOrderingModel model = new DefaultTableOrderingModel();
 
         Assert.assertNull(model.getOrderPosition("dtoIsNull", "dtoIsNull"));
 

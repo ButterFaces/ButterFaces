@@ -8,11 +8,11 @@ import java.util.Arrays;
 /**
  * Created by larmic on 20.07.15.
  */
-public class DefaultColumnVisibilityTableModelTest {
+public class DefaultTableColumnVisibilityModelTest {
 
     @Test
     public void testIsColumnHidden() throws Exception {
-        final DefaultColumnVisibilityTableModel model = new DefaultColumnVisibilityTableModel();
+        final DefaultTableColumnVisibilityModel model = new DefaultTableColumnVisibilityModel();
 
         Assert.assertNull(model.isColumnHidden("dtoIsNull", "dtoIsNull"));
 

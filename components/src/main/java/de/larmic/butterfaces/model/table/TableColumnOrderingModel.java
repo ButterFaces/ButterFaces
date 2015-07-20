@@ -4,7 +4,7 @@ package de.larmic.butterfaces.model.table;
  * Table model to handle column orderings (left and right). If model is not used it is not possible to change column
  * ordering by user interaction.
  */
-public interface TableOrderModel {
+public interface TableColumnOrderingModel {
 
     /**
      * Updates table column ordering. At all times it contains complete ordering information.

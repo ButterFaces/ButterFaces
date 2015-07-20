@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by larmic on 03.12.14.
  */
-public class DefaultTableSortModel implements TableSortModel {
+public class DefaultTableRowSortingModel implements TableRowSortingModel {
 
     /**
      * Map of column id and {@link de.larmic.butterfaces.model.table.SortType} information.

@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.model.json;
 
 import de.larmic.butterfaces.model.table.TableColumnOrdering;
+import de.larmic.butterfaces.model.table.TableColumnOrderingModel;
 import de.larmic.butterfaces.model.table.TableColumnVisibility;
 import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
 
@@ -43,7 +44,7 @@ public class JsonToModelConverter {
     }
 
     /**
-     * Converts given json string to {@link TableColumnOrdering} used by {@link de.larmic.butterfaces.model.table.TableOrderModel}.
+     * Converts given json string to {@link TableColumnOrdering} used by {@link TableColumnOrderingModel}.
      *
      * @param tableIdentifier an application unique table identifier.
      * @param json            string to convert to {@link TableColumnOrdering}.

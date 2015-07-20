@@ -199,14 +199,14 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
     }
 
-    public TableSortModel getTableSortModel() {
+    public TableRowSortingModel getTableSortModel() {
         final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableSortModel() : null;
+        return tableModel != null ? tableModel.getTableRowSortingModel() : null;
     }
 
-    public TableOrderModel getTableOrderModel() {
+    public TableColumnOrderingModel getTableOrderModel() {
         final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableOrderModel() : null;
+        return tableModel != null ? tableModel.getTableColumnOrderingModel() : null;
     }
 
     public TableColumnVisibilityModel getTableColumnVisibilityModel() {

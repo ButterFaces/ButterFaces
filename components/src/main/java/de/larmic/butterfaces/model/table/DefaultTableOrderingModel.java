@@ -3,7 +3,7 @@ package de.larmic.butterfaces.model.table;
 /**
  * Created by larmic on 10.06.15.
  */
-public class DefaultTableOrderModel implements TableOrderModel {
+public class DefaultTableOrderingModel implements TableColumnOrderingModel {
 
     private TableColumnOrdering ordering;
 

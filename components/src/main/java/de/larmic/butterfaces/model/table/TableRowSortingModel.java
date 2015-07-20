@@ -3,7 +3,7 @@ package de.larmic.butterfaces.model.table;
 /**
  * Created by larmic on 03.12.14.
  */
-public interface TableSortModel {
+public interface TableRowSortingModel {
 
     /**
      * @param columnUniqueIdentifier column unique identifier (client id if unique identifier is not set)
