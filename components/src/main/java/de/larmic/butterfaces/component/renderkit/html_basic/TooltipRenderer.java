@@ -135,7 +135,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             if (component.getClientId().equals(clientIdWithMessages)) {
                 final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
 
-                writer.startElement("div", component);
+                writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
                 writer.writeAttribute("class", "butter-component-tooltip-validation-error", null);
                 writer.startElement("ul", component);
 
@@ -146,7 +146,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
                 }
 
                 writer.endElement("ul");
-                writer.endElement("div");
+                writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
             }
         }
     }

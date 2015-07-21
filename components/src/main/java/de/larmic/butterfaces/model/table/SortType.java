@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.model.table;
 
 /**
- * Created by larmic on 10.12.14.
+ * Table row sort type (used by {@link TableRowSortingModel}.
  */
 public enum SortType {
 

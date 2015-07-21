@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.partrenderer;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -32,7 +33,7 @@ public class InnerComponentWrapperPartRenderer {
                                         final ResponseWriter writer,
                                         final boolean readonly) throws IOException {
         if (!readonly) {
-            writer.startElement("div", component);
+            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
             writer.writeAttribute("class", this.createComponentStyleClass(component), null);
         }
     }
@@ -88,7 +89,7 @@ public class InnerComponentWrapperPartRenderer {
                                       final ResponseWriter writer,
                                       final boolean readonly) throws IOException {
         if (!readonly) {
-            writer.endElement("div");
+            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
 
             if (component instanceof UIInput) {
                 final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();

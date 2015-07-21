@@ -5,7 +5,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import javax.faces.context.ExternalContext;
 
 /**
- * Created by larmic on 20.03.15.
+ * Easy way to get access of all butterfaces web.xml parameters.
  */
 public class WebXmlParameters {
 

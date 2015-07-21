@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.base.component;
 import javax.el.ValueExpression;
 
 /**
- * Created by larmic on 15.04.15.
+ * Base butterfaces ui component class. Should be used if possible.
  */
 public abstract class UIComponentBase extends javax.faces.component.UIComponentBase {
 

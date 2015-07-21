@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 import java.util.*;
 
 /**
- * Created by larmic on 18.11.14.
+ * Resolves client id for all ajax render ids in an  {@link UIComponent}. This client ids should be readably by jquery.
  */
 public class AjaxClientIdResolver {
 

@@ -1,14 +1,13 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
+import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlAutoComplete.COMPONENT_FAMILY, rendererType = HtmlAutoComplete.RENDERER_TYPE)
 public class AutoCompleteRenderer extends HtmlBasicRenderer {
@@ -24,7 +23,7 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlAutoComplete autoComplete = (HtmlAutoComplete) component;
 
-        writer.startElement("div", autoComplete);
+        writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, autoComplete);
         writeIdAttribute(context, writer, autoComplete);
         writer.writeAttribute("class", "butter-component-autocomplete butter-dropdownlist-container", null);
         if (!autoComplete.getCachedAutoCompleteValues().isEmpty()) {
@@ -51,6 +50,6 @@ public class AutoCompleteRenderer extends HtmlBasicRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        writer.endElement("div");
+        writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
     }
 }

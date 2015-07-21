@@ -1,10 +1,13 @@
 package de.larmic.butterfaces.event;
 
 /**
- * Created by larmic on 06.11.14.
+ * Handle single tree node selection on {@link de.larmic.butterfaces.component.html.tree.HtmlTree} component if registered.
  */
 public interface TreeNodeSelectionListener {
 
-    public void processValueChange(final TreeNodeSelectionEvent event);
+    /**
+     * Called if a single click is processed by user interaction.
+     */
+    void processValueChange(final TreeNodeSelectionEvent event);
 
 }

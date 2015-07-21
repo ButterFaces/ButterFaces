@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
- * Created by larmic on 03.11.14.
+ * Base butterfaces component renderer class. Should be used if possible.
  */
 public class HtmlBasicRenderer extends Renderer {
 

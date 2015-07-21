@@ -3,7 +3,7 @@ package de.larmic.butterfaces.resolver;
 import javax.faces.component.UIComponentBase;
 
 /**
- * Created by larmic on 20.03.15.
+ * Factory of {@link AjaxRequest} to wrap some code.
  */
 public class AjaxRequestFactory {
 

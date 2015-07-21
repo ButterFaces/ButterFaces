@@ -54,7 +54,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
         webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
-        responseWriter.startElement("div", tableHeader);
+        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader);
         this.writeIdAttribute(context, responseWriter, tableHeader);
         responseWriter.writeAttribute("class", "butter-table-toolbar", null);
         responseWriter.writeAttribute("data-table-html-id", cachedTableComponent.getClientId(), null);
@@ -66,10 +66,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         if (component.getChildCount() > 0) {
             final ResponseWriter responseWriter = context.getResponseWriter();
 
-            responseWriter.startElement("div", component);
+            responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
             responseWriter.writeAttribute("class", "butter-table-toolbar-custom pull-left", null);
             super.encodeChildren(context, component);
-            responseWriter.endElement("div");
+            responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         }
     }
 
@@ -81,8 +81,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
-        responseWriter.startElement("div", tableHeader); // start right toolbar
-        responseWriter.startElement("div", tableHeader); // start button group
+        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader); // start right toolbar
+        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader); // start button group
         responseWriter.writeAttribute("class", "btn-group pull-right table-toolbar-default", null);
 
         this.renderFacet(context, component, "default-options-left");
@@ -91,10 +91,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         this.renderTableToolbarToggleColumnButton(responseWriter, tableHeader);
         this.renderFacet(context, component, "default-options-right");
 
-        responseWriter.endElement("div"); // end button group
-        responseWriter.endElement("div"); // end right toolbar
+        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV); // end button group
+        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV); // end right toolbar
 
-        responseWriter.endElement("div");
+        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV);
 
         RenderUtils.renderJQueryPluginCall(component.getClientId(), "fixBootstrapDropDown()", responseWriter, component);
     }
@@ -155,7 +155,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 orderAjaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
             }
 
-            writer.startElement("div", tableToolbar);
+            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
             // show and hide option toggle
@@ -203,7 +203,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             }
             writer.endElement("ul");
 
-            writer.endElement("div");
+            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         }
     }
 

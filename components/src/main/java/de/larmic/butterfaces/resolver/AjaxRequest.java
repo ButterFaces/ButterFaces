@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by larmic on 19.03.15.
+ * First try to create a jsf.ajax.request factory. I think there is a nicer way to implement this but up to now it works.
  */
 public class AjaxRequest {
 
@@ -115,7 +115,7 @@ public class AjaxRequest {
 
         boolean enabledAjaxEventFound = false;
 
-        if (refreshBehaviors != null && !refreshBehaviors.isEmpty()) {
+        if (!refreshBehaviors.isEmpty()) {
             for (ClientBehavior refreshBehavior : refreshBehaviors) {
                 if (refreshBehavior instanceof AjaxBehavior) {
                     final AjaxBehavior ajaxBehavior = (AjaxBehavior) refreshBehavior;

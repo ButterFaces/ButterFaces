@@ -3,7 +3,7 @@ package de.larmic.butterfaces.event;
 import de.larmic.butterfaces.model.tree.Node;
 
 /**
- * Created by larmic on 06.11.14.
+ * {@link TreeNodeSelectionListener} corresponding event. Holding old value (is present) and new selected value.
  */
 public class TreeNodeSelectionEvent {
 

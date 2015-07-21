@@ -15,7 +15,6 @@ import java.io.IOException;
 @FacesRenderer(componentFamily = HtmlPrettyPrint.COMPONENT_FAMILY, rendererType = HtmlPrettyPrint.RENDERER_TYPE)
 public class PrettyPrintRenderer extends HtmlBasicRenderer {
 
-    public static final String ELEMENT_DIV = "div";
     public static final String ELEMENT_PRE = "pre";
     public static final String ATTRIBUTE_STYLE = "style";
     public static final String ATTRIBUTE_CLASS = "class";

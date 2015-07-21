@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.partrenderer;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
 
@@ -21,9 +22,9 @@ public class MaxLengthPartRenderer {
     }
 
     private void renderMaxLengthElement(final ResponseWriter writer, final UIInput uiComponent) throws IOException {
-        writer.startElement("div", uiComponent);
+        writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, uiComponent);
         writer.writeAttribute("class", Constants.TEXT_AREA_MAXLENGTH_COUNTER_CLASS, null);
-        writer.endElement("div");
+        writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
     }
 
 
