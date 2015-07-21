@@ -79,6 +79,7 @@
         <version.jbossas>9.0.0.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
         <javax.faces-api.version>2.2</javax.faces-api.version>
+        <assertj-core.version>2.1.0</assertj-core.version>
     </properties>
 
     <build>
@@ -190,6 +191,11 @@
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito-all.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
