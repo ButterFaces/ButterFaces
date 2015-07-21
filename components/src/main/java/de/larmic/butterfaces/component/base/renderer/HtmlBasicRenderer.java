@@ -22,6 +22,7 @@ public class HtmlBasicRenderer extends Renderer {
     public static final String ELEMENT_SPAN = "span";
     public static final String ELEMENT_SECTION = "section";
 
+    public static final String ATTRIBUTE_ID = "id";
     public static final String ATTRIBUTE_STYLE = "style";
     public static final String ATTRIBUTE_CLASS = "class";
 
@@ -30,8 +31,7 @@ public class HtmlBasicRenderer extends Renderer {
         notNull("component", component);
     }
 
-    private void notNull(String varname, Object var) {
-
+    private void notNull(final String varname, final Object var) {
         if (var == null) {
             throw new NullPointerException(varname);
         }
@@ -55,7 +55,7 @@ public class HtmlBasicRenderer extends Renderer {
                                       final ResponseWriter writer,
                                       final UIComponent component) throws IOException {
         final String clientId = component.getClientId(context);
-        writer.writeAttribute("id", clientId, "id");
+        writer.writeAttribute(ATTRIBUTE_ID, clientId, ATTRIBUTE_ID);
         return clientId;
     }
 
@@ -120,7 +120,6 @@ public class HtmlBasicRenderer extends Renderer {
      * <code>rendered</code> property of <code>true</code>.
      */
     protected Iterator<UIComponent> getChildren(UIComponent component) {
-
         int childCount = component.getChildCount();
         if (childCount > 0) {
             return component.getChildren().iterator();
@@ -138,15 +137,7 @@ public class HtmlBasicRenderer extends Renderer {
      * set to <code>true</code>.
      */
     protected UIComponent getFacet(UIComponent component, String name) {
-
-        UIComponent facet = null;
-        if (component.getFacetCount() > 0) {
-            facet = component.getFacet(name);
-            if ((facet != null) && !facet.isRendered()) {
-                facet = null;
-            }
-        }
-        return (facet);
-
+        final UIComponent facet = component.getFacet(name);
+        return facet != null &&  facet.isRendered() ? facet : null;
     }
 }
