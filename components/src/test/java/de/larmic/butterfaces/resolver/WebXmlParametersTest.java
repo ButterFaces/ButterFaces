@@ -7,6 +7,7 @@ import org.mockito.Mock;
 
 import javax.faces.context.ExternalContext;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -68,32 +69,30 @@ public class WebXmlParametersTest {
 
     @Test
     public void testResourceParameters() throws Exception {
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isProvideBoostrap());
-        Assert.assertEquals(false, new WebXmlParameters(overriddenValueExternalContext).isProvideBoostrap());
+        assertThat(new WebXmlParameters(defaultValueExternalContext).isProvideBoostrap()).isTrue();
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).isProvideBoostrap()).isFalse();
 
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isProvideJQuery());
-        Assert.assertEquals(false, new WebXmlParameters(overriddenValueExternalContext).isProvideJQuery());
+        assertThat(new WebXmlParameters(defaultValueExternalContext).isProvideJQuery()).isTrue();
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).isProvideJQuery()).isFalse();
 
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isProvidePrettyprint());
-        Assert.assertEquals(false, new WebXmlParameters(overriddenValueExternalContext).isProvidePrettyprint());
+        assertThat(new WebXmlParameters(defaultValueExternalContext).isProvidePrettyprint()).isTrue();
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).isProvidePrettyprint()).isFalse();
     }
 
     @Test
     public void testIsUsedCompressedResources() throws Exception {
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isUseCompressedResources());
-        Assert.assertEquals(false, new WebXmlParameters(overriddenValueExternalContext).isUseCompressedResources());
+        assertThat(new WebXmlParameters(defaultValueExternalContext).isUseCompressedResources()).isTrue();
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).isUseCompressedResources()).isFalse();
     }
 
     @Test
     public void testSortParameters() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_SORT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getSortUnknownGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_SORT_UNKNOWN, new WebXmlParameters(overriddenValueExternalContext).getSortUnknownGlyphicon());
-
-        Assert.assertEquals(WebXmlParameters.DEFAULT_SORT_ASC_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getSortAscGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_SORT_ASC, new WebXmlParameters(overriddenValueExternalContext).getSortAscGlyphicon());
-
-        Assert.assertEquals(WebXmlParameters.DEFAULT_SORT_DESC_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getSortDescGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_SORT_DESC, new WebXmlParameters(overriddenValueExternalContext).getSortDescGlyphicon());
+        assertThat(new WebXmlParameters(defaultValueExternalContext).getSortUnknownGlyphicon()).isEqualTo(WebXmlParameters.DEFAULT_SORT_GLYPHICON);
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).getSortUnknownGlyphicon()).isEqualTo(OVERRIDDEN_SORT_UNKNOWN);
+        assertThat(new WebXmlParameters(defaultValueExternalContext).getSortAscGlyphicon()).isEqualTo(WebXmlParameters.DEFAULT_SORT_ASC_GLYPHICON);
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).getSortAscGlyphicon()).isEqualTo(OVERRIDDEN_SORT_ASC);
+        assertThat(new WebXmlParameters(defaultValueExternalContext).getSortDescGlyphicon()).isEqualTo(WebXmlParameters.DEFAULT_SORT_DESC_GLYPHICON);
+        assertThat(new WebXmlParameters(overriddenValueExternalContext).getSortDescGlyphicon()).isEqualTo(OVERRIDDEN_SORT_DESC);
     }
 
     @Test
