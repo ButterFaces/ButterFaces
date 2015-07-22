@@ -40,7 +40,6 @@ public class HtmlActivateLibrariesTest {
     @Test
     public void testAssertThatAllResourcesAreAnnotatedInResourceComponent() throws Exception {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
-        final String resourceFolder = "/META-INF/resources/";
 
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-configurable");
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-css");
