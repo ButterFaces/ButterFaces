@@ -155,6 +155,11 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     /**
      * Copy from {@link UIComponent#invokeOnComponent} because super call will trigger {@link UIData#invokeOnComponent(FacesContext, String, ContextCallback)}.
+     *
+     * @param context  context
+     * @param clientId table client id
+     * @param callback callback
+     * @return true if component is found
      */
     public boolean invokeOnComponentFromUIComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
         if (null == context || null == clientId || null == callback) {
