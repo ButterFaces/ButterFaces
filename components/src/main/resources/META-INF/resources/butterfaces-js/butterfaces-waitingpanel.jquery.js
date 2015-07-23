@@ -18,16 +18,16 @@
         function processAjaxUpdate() {
             var ajaxRequestRunning = false;
 
-            // console.log('Setting waiting panel delay to ' + waitingPanelOpeningDelay);
+            //console.log('waitingPanel - setting waiting panel delay to ' + waitingPanelOpeningDelay);
 
             function processEvent(data) {
                 if (data.status == 'begin') {
-                    // console.log('Begin ajax event');
+                    //console.log('waitingPanel - begin ajax event, showing overlay');
                     ajaxRequestRunning = true;
                     butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
 
                 } else if (data.status == 'success') {
-                    // console.log('End ajax event');
+                    //console.log('waitingPanel - end ajax event, hiding overlay');
                     ajaxRequestRunning = false;
                     butter.overlay.hide();
                 }
@@ -50,7 +50,7 @@
             // no waiting panel appears anymore.
             // Actually on each rendering of this component a new callback is put on event listener collection.
             if (!eventRegistered) {
-                // console.log('Register: ' + _elementId);
+                //console.log('waitingPanel - register: ' + _elementId);
 
                 jsf.ajax.addOnEvent(processAjaxUpdate());
                 eventRegistered = true;
