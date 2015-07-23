@@ -69,6 +69,8 @@
         <javax.javaee-api.version>7.0</javax.javaee-api.version>
         <jsf.version>2.2.7</jsf.version>
 
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+
         <!-- maven plugin dependency version -->
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
