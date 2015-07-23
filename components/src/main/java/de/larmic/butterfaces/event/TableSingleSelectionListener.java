@@ -15,6 +15,8 @@ public interface TableSingleSelectionListener<T> {
     /**
      * @return true if actual value is selected. if a selected row is found remaining rows will not be checked because
      * only single row selection is available.
+     *
+     * @param data selected row data
      */
     public boolean isValueSelected(final T data);
 

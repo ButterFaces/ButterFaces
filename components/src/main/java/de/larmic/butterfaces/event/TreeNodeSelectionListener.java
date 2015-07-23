@@ -7,6 +7,8 @@ public interface TreeNodeSelectionListener {
 
     /**
      * Called if a single click is processed by user interaction.
+     *
+     * @param event corresponding {@link TreeNodeSelectionEvent}
      */
     void processValueChange(final TreeNodeSelectionEvent event);
 
