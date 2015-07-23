@@ -6,7 +6,8 @@ package de.larmic.butterfaces.model.table;
 public interface TableRowSortingModel {
 
     /**
-     * @param columnUniqueIdentifier column unique identifier (client id if unique identifier is not set)
+     * @param tableUniqueIdentifier  table unique identifier (component client if if unique identifier is empty)
+     * @param columnUniqueIdentifier column unique identifier (component client if if unique identifier is empty)
      * @param sortBy   optional column component attribute
      * @param sortType the {@link de.larmic.butterfaces.model.table.SortType}
      */
