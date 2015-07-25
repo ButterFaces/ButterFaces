@@ -359,7 +359,7 @@
                 $("body").append(self.$resultContainer);
             }
 
-            self.$resultListContainer.empty();
+            self._detachResultListElements();
             self.$selectedOption = null;
 
             $.each(self._optionList.getFilteredResultElements(searchText), function (index, element) {
@@ -370,6 +370,7 @@
         _hideOptionResultList: function () {
             var self = this;
             if (self.$resultContainer !== null) {
+                self._detachResultListElements();
                 self.$resultContainer.remove();
                 self.$resultContainer = null;
                 self.$resultListContainer = null;
@@ -391,18 +392,22 @@
                 .removeClass("butter-dropdownlist-resultItem-selected");
         },
 
+        _detachResultListElements: function () {
+            this.$resultListContainer.children().detach();
+        },
+
         /**
          * @inheritdoc
          */
         onResultItemMouseDown: function (value) {
-            console.log("onResultItemMouseDown: %s", value);
+            console.log("FilterableCombobox.onResultItemMouseDown: %s", value);
         },
 
         /**
          * @inheritdoc
          */
         onResultItemMouseEnter: function (value) {
-            console.log("onResultItemMouseEnter: %s", value);
+            console.log("FilterableCombobox.onResultItemMouseEnter: %s", value);
         },
 
         _moveResultOptionElementSelectionCursor: function (direction) {
