@@ -107,7 +107,7 @@
             this._initResultItem();
             this.getResultElement()
                 .removeClass("butter-dropdownlist-resultItem")
-                .addClass(".butter-dropdownlist-noResultItem");
+                .addClass("butter-dropdownlist-noResultItem");
         },
 
         /**
