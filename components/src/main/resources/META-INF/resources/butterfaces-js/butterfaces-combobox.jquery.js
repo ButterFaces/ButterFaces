@@ -41,11 +41,6 @@
             this._$optionElement = $(optionElement);
             this._mouseEventListener = mouseEventListener;
             this._$resultElement;
-
-            this._$noResultOption = $("<li>")
-                .text("Keine Einträge vorhanden!")
-                .addClass("butter-dropdownlist-container-noResultItems");
-
             this._initResultItem($template);
         },
 
@@ -61,15 +56,19 @@
                 })
             }
 
-            this._$resultElement = $("<li>")
+            self._$resultElement = $("<li>")
                 .html(resultItemHtml)
-                .addClass("butter-dropdownlist-resultItem")
-                .on("mousedown", function () {
-                    self._mouseEventListener.onResultItemMouseDown(self.getValue());
-                })
-                .on("mouseenter", function () {
-                    self._mouseEventListener.onResultItemMouseEnter(self.getValue());
-                });
+                .addClass("butter-dropdownlist-resultItem");
+
+            if (self._mouseEventListener !== undefined) {
+                self._$resultElement.
+                    on("mousedown", function () {
+                        self._mouseEventListener.onResultItemMouseDown(self.getValue());
+                    })
+                    .on("mouseenter", function () {
+                        self._mouseEventListener.onResultItemMouseEnter(self.getValue());
+                    });
+            }
         },
 
         /**
@@ -77,6 +76,13 @@
          */
         getValue: function () {
             return this._$optionElement.val();
+        },
+
+        /**
+         * @returns {String} the option's label text. This is the text between the option tags.
+         */
+        getLabel: function () {
+            return this._$optionElement.text();
         },
 
         /**
@@ -90,19 +96,46 @@
     /**
      * @class
      */
+    var FilterableComboboxEmtpyOption = FilterableComboboxOption.extend({
+        /**
+         * @constructs
+         */
+        init: function () {
+            this._$optionElement = $("<option>")
+                .text("Keine Einträge gefunden!");
+            this._$resultElement;
+            this._initResultItem();
+            this.getResultElement()
+                .removeClass("butter-dropdownlist-resultItem")
+                .addClass(".butter-dropdownlist-noResultItem");
+        },
+
+        /**
+         * @inheritDoc
+         */
+        getValue: function () {
+            return "butter-noResultItem";
+        },
+    });
+
+    /**
+     * @class
+     */
     var FilterableComboboxOptionList = Class.extend({
         /**
          * @constructs
          */
         init: function () {
-            this._options = {};
+            this._options = [];
+            this._filteredOptions = [];
+            this._selectedIndex = -1;
         },
 
         /**
          * @param {FilterableComboboxOption} resultOption
          */
         add: function (resultOption) {
-            this._options[resultOption.getValue()] = resultOption;
+            this._options.push(resultOption);
         },
 
         /**
@@ -110,18 +143,28 @@
          * @param filter {String} the filter text
          * @returns {Array} the array with the filtered option elements
          */
-        getFilteredResultElements: function (filter) {
-            var filteredElements = [];
-            for (var key in this._options) {
-                var $resultElement = this._options[key];
-                $resultElement.getResultElement().highlight(filter);
+        getFilteredOptions: function (filter) {
+            //console.log("FilterableComboboxOptionList - getting filtered options for '%s'", filter);
+            var self = this;
+            self.unselect();
+            self._filteredOptions = [];
+
+            $.each(self._options, function (index, element) {
+                element.getResultElement().highlight(filter);
                 if (filter === undefined || filter === "") {
-                    filteredElements.push($resultElement.getResultElement());
-                } else if ($resultElement.getResultElement().find(".search-highlighted").length > 0) {
-                    filteredElements.push($resultElement.getResultElement());
+                    self._filteredOptions.push(element);
+                } else if (element.getResultElement().find(".search-highlighted").length > 0) {
+                    self._filteredOptions.push(element);
                 }
+            });
+
+            if (this.hasResultOptions()) {
+                //console.log("FilterableComboboxOptionList - returning %s results", self._filteredOptions.length);
+                return self._filteredOptions;
+            } else {
+                //console.log("FilterableComboboxOptionList - found no result returning empty result option");
+                return [new FilterableComboboxEmtpyOption()];
             }
-            return filteredElements;
         },
 
         /**
@@ -129,31 +172,100 @@
          * @param {String} value the value of the options that should be selected
          */
         select: function (value) {
+            if (!this.hasResultOptions()) {
+                return;
+            }
+
             this.unselect();
-            // TODO implementieren
+            for (var i = 0; i < this._filteredOptions.length; i++) {
+                if (this._filteredOptions[i].getValue() === value) {
+                    this._doSelectAndMarkElement(i);
+                    break;
+                }
+            }
         },
 
-        selectPrevious: function (value) {
-            // TODO implementieren
+        /**
+         * Select the previous element in the filtered list. If there is no previous element the last will be selected.
+         */
+        selectPrevious: function () {
+            if (!this.hasResultOptions()) {
+                return;
+            }
+
+            this._unmarkSelectedElement();
+            if (this.hasSelected()) {
+                if (this._selectedIndex - 1 >= 0) {
+                    this._doSelectAndMarkElement(this._selectedIndex - 1);
+                } else {
+                    this._doSelectAndMarkElement(this._filteredOptions.length - 1);
+                }
+            } else {
+                this._doSelectAndMarkElement(0);
+            }
         },
 
-        selectNext: function (value) {
-            // TODO implementieren
+        /**
+         * Select the nex element in the filtered list. If there is no next element the first will be selected.
+         */
+        selectNext: function () {
+            if (!this.hasResultOptions()) {
+                return;
+            }
+
+            this._unmarkSelectedElement();
+            if (this.hasSelected()) {
+                if (this._selectedIndex + 1 < this._filteredOptions.length) {
+                    this._doSelectAndMarkElement(this._selectedIndex + 1);
+                } else {
+                    this._doSelectAndMarkElement(0);
+                }
+            } else {
+                this._doSelectAndMarkElement(0);
+            }
         },
 
         /**
          * Unselect possible selected option
          */
         unselect: function () {
-            // TODO implementieren
+            if (this.hasResultOptions()) {
+                this._unmarkSelectedElement();
+            }
+            this._selectedIndex = -1;
+        },
+
+        _unmarkSelectedElement: function () {
+            if (this.hasSelected()) {
+                //console.log("FilterableComboboxOptionList - unmark selected element on position %s", this._selectedIndex);
+                this.getSelected().getResultElement().removeClass("butter-dropdownlist-resultItem-selected");
+            }
         },
 
         /**
          * * @returns {FilterableComboboxOption} the option that is selected
          */
         getSelected: function () {
-            // TODO implementieren
-            return;
+            return this.hasSelected() ? this._filteredOptions[this._selectedIndex] : null;
+        },
+
+        /**
+         * @returns {boolean} true if an element is selected
+         */
+        hasSelected: function () {
+            return this._selectedIndex >= 0;
+        },
+
+        /**
+         * @returns {boolean} true if there elements in the filtered list
+         */
+        hasResultOptions: function () {
+            return this._filteredOptions.length > 0;
+        },
+
+        _doSelectAndMarkElement: function (index) {
+            this._filteredOptions[index].getResultElement().addClass("butter-dropdownlist-resultItem-selected");
+            this._selectedIndex = index;
         }
     });
 
@@ -272,11 +384,11 @@
         },
 
         _handleEnterKeyDown: function (event) {
-            if (this.$selectedOption !== null) {
+            if (this._optionList.hasSelected() && this._isResultContainerShown()) {
                 this._stopEvent(event);
                 this._setSelectedValue();
                 this._selectCompleteTextInGhostInput();
-            } else if (this.$selectedOption === null && this.$resultContainer !== null) {
+            } else if (!this._optionList.hasSelected() && this._isResultContainerShown()) {
                 // deactivate enter key if result list is opened but nothing is selected
                 this._stopEvent(event);
             } else {
@@ -286,26 +398,15 @@
 
         _handleArrowUpAndDownKeyDown: function (event) {
             this._stopEvent(event);
-            // TODO
-            /* if (this.optionResultList.length === 0) {
-             this._createOptionResultList();
-             }
-             if (this.$resultContainer === null) {
-             this._showOptionResultList();
-             }*/
-
-            // don't select the no result items message
-            if (this.$resultListContainer.find(".butter-dropdownlist-container-noResultItems").length === 0) {
-                if (this.$selectedOption === null) {
-                    this._selectResultOptionElement(this.$resultListContainer.children()[0]);
-                } else {
-                    this._moveResultOptionElementSelectionCursor(event.which === this._keyCodes.arrow_up ? -1 : 1);
-                }
+            if (!this._isResultContainerShown()) {
+                this._showOptionResultList();
             }
+
+            this._moveResultOptionElementSelectionCursor(event.which === this._keyCodes.arrow_up ? -1 : 1);
         },
 
         _handleEscapeKeyDown: function (event) {
-            if (this.$resultContainer !== null) {
+            if (this._isResultContainerShown()) {
                 this._hideOptionResultList();
                 this._resetDisplayValue();
                 this._selectCompleteTextInGhostInput();
@@ -337,7 +438,7 @@
             var self = this;
 
             // create container elements if necessary
-            if (self.$resultContainer === null) {
+            if (!self._isResultContainerShown()) {
                 var $inputGroup = self.$ghostInput.parent();
                 var inputGroupOffset = $inputGroup.offset();
                 self.$resultContainer = $("<div>")
@@ -353,7 +454,7 @@
                 self.$resultListContainer = $("<ul>")
                     .addClass("butter-dropdownlist-resultList")
                     .on("mouseleave", function () {
-                        self._clearResultOptionSelection();
+                        self._optionList.unselect();
                     })
                     .appendTo(self.$resultContainer);
                 $("body").append(self.$resultContainer);
@@ -362,37 +463,24 @@
             self._detachResultListElements();
             self.$selectedOption = null;
 
-            $.each(self._optionList.getFilteredResultElements(searchText), function (index, element) {
-                self.$resultListContainer.append(element);
+            $.each(self._optionList.getFilteredOptions(searchText), function (index, element) {
+                self.$resultListContainer.append(element.getResultElement());
             });
         },
 
         _hideOptionResultList: function () {
             var self = this;
-            if (self.$resultContainer !== null) {
+            if (self._isResultContainerShown()) {
                 self._detachResultListElements();
                 self.$resultContainer.remove();
                 self.$resultContainer = null;
                 self.$resultListContainer = null;
-                this.$selectedOption = null;
+                this._optionList.unselect();
             }
         },
 
-        _selectResultOptionElement: function (optionElement) {
-            this._clearResultOptionSelection();
-            var $selectedOptionElement = $(optionElement);
-            $selectedOptionElement.addClass("butter-dropdownlist-resultItem-selected");
-            this.$selectedOption = $selectedOptionElement;
-        },
-
-        _clearResultOptionSelection: function () {
-            this.$selectedOption = null;
-            this.$resultListContainer
-                .find(".butter-dropdownlist-resultItem-selected")
-                .removeClass("butter-dropdownlist-resultItem-selected");
-        },
-
         _detachResultListElements: function () {
+            this._optionList.unselect();
             this.$resultListContainer.children().detach();
         },
 
@@ -400,14 +488,14 @@
          * @inheritdoc
          */
         onResultItemMouseDown: function (value) {
-            console.log("FilterableCombobox.onResultItemMouseDown: %s", value);
+            this._setSelectedValue();
         },
 
         /**
          * @inheritdoc
          */
         onResultItemMouseEnter: function (value) {
-            console.log("FilterableCombobox.onResultItemMouseEnter: %s", value);
+            this._optionList.select(value);
         },
 
         _moveResultOptionElementSelectionCursor: function (direction) {
@@ -419,16 +507,13 @@
         },
 
         _setSelectedValue: function () {
-            var $selectedOption = this.$selectedOption;
-            if ($selectedOption !== null) {
-                var valueData = $selectedOption.attr("data-select-value");
-                if (valueData !== undefined) {
-                    this.$select
-                        .val(valueData)
-                        .change();
-                    this.$ghostInput.val($selectedOption.attr("data-select-label"));
-                    this._hideOptionResultList();
-                }
+            if (this._optionList.hasSelected()) {
+                var selectOption = this._optionList.getSelected();
+                this.$select
+                    .val(selectOption.getValue())
+                    .change();
+                this.$ghostInput.val(selectOption.getLabel());
+                this._hideOptionResultList();
             }
         },
 
@@ -444,6 +529,10 @@
 
         _selectCompleteTextInGhostInput: function () {
             this.$ghostInput[0].setSelectionRange(0, this.$ghostInput.val().length);
+        },
+
+        _isResultContainerShown: function () {
+            return this.$resultContainer !== null;
         }
     });
 }(jQuery));
