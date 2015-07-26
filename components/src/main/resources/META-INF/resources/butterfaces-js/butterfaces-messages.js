@@ -31,18 +31,18 @@ butter.message = {
     _detectBrowserLocale: function () {
         var detectedLocale = window.navigator.userLanguage || window.navigator.language;
         if (butter._msgProperties[detectedLocale] !== undefined) {
-            console.log("_detectBrowserLocale - found locale '%s' in message properties, setting it as locale", detectedLocale);
+            //console.log("_detectBrowserLocale - found locale '%s' in message properties, setting it as locale", detectedLocale);
             butter.message._locale = detectedLocale;
         } else {
             // couldn't find locale in the exisiting message properties, setting to fallback locale
-            console.log("_detectBrowserLocale - couldn't find locale '%s 'in the exisiting message properties, setting to fallback locale", detectedLocale);
+            //console.log("_detectBrowserLocale - couldn't find locale '%s 'in the exisiting message properties, setting to fallback locale", detectedLocale);
             butter.message._locale = butter.message._fallbackLocale;
         }
     },
 
     /**
-     * Returns the localized message to the given key. If the key doesn't exists in the deteteced language it tries to
-     * find the key in the fallback locale (en). Otherwise a warning message will be returned.
+     * Returns the localized message to the given key. If the key doesn't exist in the detected language it tries to
+     * find the key in the fallback locale (en). Otherwise the key will be returned.
      *
      * @param {String} key the message key
      * @returns {String} the message to the key
@@ -57,9 +57,10 @@ butter.message = {
         }
 
         if (message === undefined) {
-            //key not found in fallback locale
-            message = "message key '" + key + "' not found";
+            //key not found in fallback locale returning key
+            message = key;
         }
+
         return message;
     }
 };
