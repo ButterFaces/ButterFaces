@@ -102,7 +102,7 @@
          */
         init: function () {
             this._$optionElement = $("<option>")
-                .text("Keine Einträge gefunden!");
+                .text(butter.message.get("combobox.noResultsFound"));
             this._$resultElement;
             this._initResultItem();
             this.getResultElement()
