@@ -286,7 +286,8 @@
             this._optionList;
             this._hasFocus = false;
             this._disabled = this.$select.is('[disabled=disabled]');
-            this.isMouseClickBlocked = false;
+            this._isMouseClickBlocked = false;
+            this._isMouseEnterBlocked = false;
 
             this._keyCodes = {
                 //backspace: 8,
@@ -338,10 +339,10 @@
                 .on("blur", function () {
                     self._hasFocus = false;
                     // block next mouse click only if the result list is opened
-                    self.isMouseClickBlocked = self.$resultContainer !== null;
+                    self._isMouseClickBlocked = self.$resultContainer !== null;
 
                     window.setTimeout(function () {
-                        self.isMouseClickBlocked = false;
+                        self._isMouseClickBlocked = false;
                         if (!self._hasFocus) {
                             self._hideOptionResultList();
                             self._resetDisplayValue();
@@ -422,7 +423,7 @@
                     .on("click", function (event) {
                         self._stopEvent(event);
 
-                        if (self.isMouseClickBlocked) {
+                        if (self._isMouseClickBlocked) {
                             return;
                         }
 
@@ -495,15 +496,28 @@
          * @inheritdoc
          */
         onResultItemMouseEnter: function (value) {
-            this._optionList.select(value);
+            if (!this._isMouseEnterBlocked) {
+                this._optionList.select(value);
+            }
         },
 
         _moveResultOptionElementSelectionCursor: function (direction) {
+            var self = this;
+
             if (direction > 0) {
-                this._optionList.selectNext();
+                self._optionList.selectNext();
             } else {
-                this._optionList.selectPrevious();
+                self._optionList.selectPrevious();
             }
+
+            self._isMouseEnterBlocked = true;
+            self._scrollToSelectedOptionElementIfNecessary();
+
+            // this is necessary because if the mouse cursor is over a result item after the list has been scrolled a
+            // mouse enter event will be triggered and the result item under the mouse cursor will be selected unintentionally.
+            window.setTimeout(function () {
+                self._isMouseEnterBlocked = false;
+            }, 100);
         },
 
         _setSelectedValue: function () {
@@ -533,6 +547,28 @@
 
         _isResultContainerShown: function () {
             return this.$resultContainer !== null;
+        },
+
+        _scrollToSelectedOptionElementIfNecessary: function () {
+            if (this._optionList.hasSelected()) {
+                var $item = this._optionList.getSelected().getResultElement();
+                var containerHeight = this.$resultContainer.innerHeight();
+                var containerScrollTop = this.$resultContainer.scrollTop();
+                //console.log("FilterableCombobox - containerHeight: %s", containerHeight);
+                //console.log("FilterableCombobox - containerScrollTop: %s", containerScrollTop);
+                var itemHeight = $item.outerHeight();
+                //console.log("FilterableCombobox - itemHeight: %s", itemHeight);
+                var itemTop = $item.position().top;
+                //console.log("FilterableCombobox - itemTop: %s", itemTop);
+
+                if (itemTop < 0) {
+                    // resultItem is scrolled out to top
+                    this.$resultContainer.scrollTop(containerScrollTop + itemTop);
+                } else if (itemTop + itemHeight > containerHeight) {
+                    // resultItem is scrolled out to bottom
+                    this.$resultContainer.scrollTop(containerScrollTop + ((itemTop + itemHeight) - containerHeight));
+                }
+            }
         }
     });
 }(jQuery));
