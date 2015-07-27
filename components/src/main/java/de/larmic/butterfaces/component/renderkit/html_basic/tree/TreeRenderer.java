@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.tree;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
@@ -73,6 +73,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (renderNode) {
             writer.startElement("ul", tree);
             writer.startElement("li", tree);
+
+            if (tree.getNodeSelectionListener() != null && tree.getNodeSelectionListener().isValueSelected(node)) {
+                writer.writeAttribute("class", "butter-component-tree-node-selected", null);
+            }
 
             final String nodeNumber = "" + nodes.size();
             nodes.put(nodeNumber, node);
@@ -148,8 +152,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
             }
         }
 
-        writer.endElement("li");
-        writer.endElement("ul");
+        if (renderNode) {
+            writer.endElement("li");
+            writer.endElement("ul");
+        }
     }
 
     @Override

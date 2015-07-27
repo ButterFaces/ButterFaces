@@ -66,6 +66,11 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     @Override
+    public boolean isValueSelected(Node data) {
+        return selectedNode != null && data.getTitle().equals(selectedNode.getTitle());
+    }
+
+    @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());

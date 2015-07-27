@@ -10,7 +10,7 @@ public interface TableSingleSelectionListener<T> {
      *
      * @param data selected row data
      */
-    public void processTableSelection(final T data);
+    void processTableSelection(final T data);
 
     /**
      * @return true if actual value is selected. if a selected row is found remaining rows will not be checked because
@@ -18,6 +18,6 @@ public interface TableSingleSelectionListener<T> {
      *
      * @param data selected row data
      */
-    public boolean isValueSelected(final T data);
+    boolean isValueSelected(final T data);
 
 }
