@@ -1,6 +1,5 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:b="http://butterfaces.larmic.de/components"
@@ -12,12 +11,12 @@
 
     <ui:define name="tagsContainers">
         <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{comboBoxShowcase.label}" />
-            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}" />
-            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}" />
-            <showcase:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}" />
-            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}" />
+            <showcase:tagStringControl label="label" value="#{comboBoxShowcase.label}"/>
+            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}"/>
+            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}"/>
+            <showcase:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}"/>
+            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{comboBoxShowcase.styleClass}"
                                      values="#{comboBoxShowcase.styleClasses}"/>
@@ -40,16 +39,17 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}" />
+            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}"/>
             <showcase:tagEnumControl label="facets"
                                      value="#{comboBoxShowcase.selectedFacetType}"
                                      values="#{comboBoxShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false" />
+                                     renderChildrenPopover="false"/>
         </showcase:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox" component="#{comboBoxShowcase}">
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox"
+                                         component="#{comboBoxShowcase}">
             <b:comboBox label="#{comboBoxShowcase.label}"
                         value="#{comboBoxShowcase.value}"
                         hideLabel="#{comboBoxShowcase.hideLabel}"
@@ -59,15 +59,25 @@
                         autoFocus="#{comboBoxShowcase.autoFocus}"
                         disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
-                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'NONE'}">
-                <f:selectItems value="#{comboBoxShowcase.values}" />
+                        rendered="#{comboBoxShowcase.rendered and !(comboBoxShowcase.comboBoxValueType eq 'TEMPLATE')}">
+                <f:selectItems value="#{comboBoxShowcase.values}"/>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not comboBoxShowcase.ajax}" />
+                        disabled="#{not comboBoxShowcase.ajax}"/>
                 <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
+                    <f:facet name="input-group-addon-left">
+                        Left input-group-addon
+                    </f:facet>
+                </c:if>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}">
+                    <f:facet name="input-group-btn-left">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </f:facet>
+                </c:if>
                 <c:if test="#{comboBoxShowcase.converterActive}">
                     <f:converter converterId="fooConverter"/>
                 </c:if>
@@ -80,53 +90,45 @@
                         readonly="#{comboBoxShowcase.readonly}"
                         required="#{comboBoxShowcase.required}"
                         autoFocus="#{comboBoxShowcase.autoFocus}"
+                        disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
-                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
-                <f:selectItems value="#{comboBoxShowcase.values}" />
+                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.comboBoxValueType eq 'TEMPLATE'}">
+                <f:selectItems value="#{comboBoxShowcase.episodes}" var="foo" itemLabel="#{foo.title}"
+                               itemValue="#{foo}"
+                               noSelectionValue="please choose"/>
+                <f:facet name="resultListItemTemplate">
+                    <div class="showcaseResultItem">
+                        <div>
+                            <label>Title:</label><span>{{title}}</span>
+                        </div>
+                        <div>
+                            <label>by:</label><span>{{writtenBy}}</span>
+                        </div>
+                    </div>
+                </f:facet>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not comboBoxShowcase.ajax}" />
+                        disabled="#{not comboBoxShowcase.ajax}"/>
                 <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
-                <f:facet name="input-group-addon-left">
-                    Left input-group-addon
-                </f:facet>
-                <c:if test="#{comboBoxShowcase.converterActive}">
-                    <f:converter converterId="fooConverter"/>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
+                    <f:facet name="input-group-addon-left">
+                        Left input-group-addon
+                    </f:facet>
                 </c:if>
-            </b:comboBox>
-
-            <b:comboBox label="#{comboBoxShowcase.label}"
-                        value="#{comboBoxShowcase.value}"
-                        hideLabel="#{comboBoxShowcase.hideLabel}"
-                        tooltip="#{comboBoxShowcase.tooltip}"
-                        readonly="#{comboBoxShowcase.readonly}"
-                        required="#{comboBoxShowcase.required}"
-                        autoFocus="#{comboBoxShowcase.autoFocus}"
-                        styleClass="#{comboBoxShowcase.styleClass}"
-                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}">
-                <f:selectItems value="#{comboBoxShowcase.values}" />
-                <f:ajax event="change"
-                        execute="@this"
-                        render="output:outputComponent:outputValues output:other"
-                        disabled="#{not comboBoxShowcase.ajax}" />
-                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
-                    #{comboBoxShowcase.tooltip}
-                </b:tooltip>
-                <f:facet name="input-group-btn-left">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </f:facet>
-                <c:if test="#{comboBoxShowcase.converterActive}">
-                    <f:converter converterId="fooConverter"/>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}">
+                    <f:facet name="input-group-btn-left">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </f:facet>
                 </c:if>
             </b:comboBox>
         </showcase:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{comboBoxShowcase}" />
+        <showcase:codeExamples component="#{comboBoxShowcase}"/>
     </ui:define>
 
 </ui:composition>
