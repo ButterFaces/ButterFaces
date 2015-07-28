@@ -279,7 +279,7 @@
          */
         init: function (rootElement) {
             this.$select = $(rootElement).find("select");
-            this.$template = this.$select.parent().siblings(".butter-component-combobox-resultListItemTemplate").html();
+            this.$template = this.$select.parent().siblings(".butter-component-combobox-template").html();
             this.$ghostInput = null;
             this.$resultContainer = null;
             this.$resultListContainer = null;

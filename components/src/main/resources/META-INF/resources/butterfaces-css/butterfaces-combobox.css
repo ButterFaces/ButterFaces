@@ -4,6 +4,6 @@
 }
 
 .butter-component-combobox select,
-.butter-component-combobox-resultListItemTemplate {
+.butter-component-combobox-template {
    display: none !important;
 }

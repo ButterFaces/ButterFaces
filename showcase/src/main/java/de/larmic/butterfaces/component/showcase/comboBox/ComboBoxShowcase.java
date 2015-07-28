@@ -26,7 +26,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     private final List<SelectItem> foos = new ArrayList<>();
     private final List<SelectItem> enums = new ArrayList<>();
     private final List<SelectItem> strings = new ArrayList<>();
-    private final List<Episode> episodes = new ArrayList<>();
 
     private Episode chosenEpisode;
 
@@ -34,7 +33,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         this.initFoos();
         this.initStrings();
         this.initEnums();
-        this.initEpisodes();
     }
 
     @Override
@@ -91,6 +89,17 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
             xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>    ");
+        } else if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
+            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.episodes}\">");
+            xhtmlCodeExample.appendInnerContent("                           var=\"episode\"");
+            xhtmlCodeExample.appendInnerContent("                           itemLabel=\"#{episode.title}\"");
+            xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{episode}\"");
+            xhtmlCodeExample.appendInnerContent("                           noSelectionValue=\"please choose\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
+            xhtmlCodeExample.appendInnerContent("                <div class=\"showcaseResultItem\">");
+            xhtmlCodeExample.appendInnerContent("                </div>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:comboBox>", false);
@@ -114,6 +123,8 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
                 return ((Foo) super.getValue()).getValue();
             } else if (super.getValue() instanceof FooType) {
                 return ((FooType) super.getValue()).label;
+            } else if (super.getValue() instanceof Episode) {
+                return ((Episode) super.getValue()).getTitle();
             }
 
             return (String) super.getValue();
@@ -195,40 +206,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         this.strings.add(new SelectItem("2020", "Year 2020"));
     }
 
-    private void initEpisodes() {
-        this.episodes.add(createEpisode(1, "Children of the Gods 1/2", "Mario Azzopardi", "Jonathan Glassner & Brad Wright", "July 27, 1997"));
-        this.episodes.add(createEpisode(2, "Children of the Gods 2/2", "Mario Azzopardi", "Jonathan Glassner & Brad Wright", "July 27, 1997"));
-        this.episodes.add(createEpisode(3, "The Enemy Within", "Dennis Berry", "Brad Wright", "August 1, 1997"));
-        this.episodes.add(createEpisode(4, "Emancipation", "Jeff Woolnough", "Katharyn Michaelian Powers", "August 8, 1997"));
-        this.episodes.add(createEpisode(5, "The Broca Divide", "Bill Gereghty", "Jonathan Glassner", "August 15, 1997"));
-        this.episodes.add(createEpisode(6, "The First Commandment", "Dennis Berry", "Robert C. Cooper", "August 22, 1997"));
-        this.episodes.add(createEpisode(7, "Cold Lazarus", "Kenneth J. Girotti", "Jeff F. King", "August 29, 1997"));
-        this.episodes.add(createEpisode(8, "The Nox", "Brad Turner", "Hart Hanson", "September 12, 1997"));
-        this.episodes.add(createEpisode(9, "Brief Candle", "Kenneth J. Girotti", "Jeff F. King", "September 19, 1997"));
-        this.episodes.add(createEpisode(10, "Thor's Hammer", "Brad Turner", "Katharyn Michaelian Powers", "September 26, 1997"));
-        this.episodes.add(createEpisode(11, "The Torment of Tantalus", "Jonathan Glassner", "Robert C. Cooper", "October 3, 1997"));
-        this.episodes.add(createEpisode(12, "Bloodlines", "Mario Azzopardi", "Jeff F. King", "October 10, 1997"));
-        this.episodes.add(createEpisode(13, "Fire and Water", "Allan Eastman", "Katharyn Michaelian Powers", "October 17, 1997"));
-        this.episodes.add(createEpisode(14, "Hathor", "Brad Turner", "Story: David Bennett Carren & J. Larry Carroll", "October 24, 1997"));
-        this.episodes.add(createEpisode(15, "Singularity", "Mario Azzopardi", "Robert C. Cooper", "October 31, 1997"));
-        this.episodes.add(createEpisode(17, "Enigma", "Bill Gereghty", "Katharyn Michaelian Powers", "January 30, 1998"));
-        this.episodes.add(createEpisode(18, "Solitudes", "Martin Wood", "Brad Wright", "February 6, 1998"));
-        this.episodes.add(createEpisode(19, "Tin Man", "Jimmy Kaufman", "Jeff F. King", "February 13, 1998"));
-        this.episodes.add(createEpisode(20, "There But for the Grace of God", "David Warry-Smith", "Robert C. Cooper", "February 20, 1998"));
-        this.episodes.add(createEpisode(21, "Politics", "Martin Wood", "Brad Wright", "February 27, 1998"));
-        this.episodes.add(createEpisode(22, "Within the Serpent's Grasp", "David Warry-Smith", "Story: James Crocker", "March 6, 1998"));
-    }
-
-    private Episode createEpisode(int numberInSeries, String title, String directedBy, String writtenBy, String originalAirDate) {
-        Episode episode = new Episode();
-        episode.setNumberInSeries(numberInSeries);
-        episode.setTitle(title);
-        episode.setDirectedBy(directedBy);
-        episode.setWrittenBy(writtenBy);
-        episode.setOriginalAirDate(originalAirDate);
-        return episode;
-    }
-
     public FacetType getSelectedFacetType() {
         return selectedFacetType;
     }
@@ -238,7 +215,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     public List<Episode> getEpisodes() {
-        return episodes;
+        return EpisodeConverter.EPISODES;
     }
 
     public Episode getChosenEpisode() {

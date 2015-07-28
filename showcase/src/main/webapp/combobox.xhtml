@@ -93,10 +93,12 @@
                         disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
                         rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.comboBoxValueType eq 'TEMPLATE'}">
-                <f:selectItems value="#{comboBoxShowcase.episodes}" var="foo" itemLabel="#{foo.title}"
-                               itemValue="#{foo}"
+                <f:selectItems value="#{comboBoxShowcase.episodes}"
+                               var="episode"
+                               itemLabel="#{episode.title}"
+                               itemValue="#{episode}"
                                noSelectionValue="please choose"/>
-                <f:facet name="resultListItemTemplate">
+                <f:facet name="template">
                     <div class="showcaseResultItem">
                         <div>
                             <label>Title:</label><span>{{title}}</span>
@@ -123,6 +125,7 @@
                         <button class="btn btn-default" type="button">Go!</button>
                     </f:facet>
                 </c:if>
+                <f:converter converterId="episodeConverter"/>
             </b:comboBox>
         </showcase:showcaseOuputComponent>
     </ui:define>

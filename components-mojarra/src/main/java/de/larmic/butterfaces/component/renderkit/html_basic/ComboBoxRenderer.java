@@ -95,11 +95,11 @@ public class ComboBoxRenderer extends MenuRenderer {
         // TODO [larmic] switch to regex
 
         if (!comboBox.isReadonly()) {
-            final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
-            if (resultListItemTemplateFacet != null) {
+            final UIComponent templateFacet = component.getFacet("template");
+            if (templateFacet != null) {
                 final StringWriter stringWriter = new StringWriter();
                 final FacesContextStringResolverWrapper facesContextStringResolverWrapper = new FacesContextStringResolverWrapper(context, stringWriter);
-                resultListItemTemplateFacet.encodeAll(facesContextStringResolverWrapper);
+                templateFacet.encodeAll(facesContextStringResolverWrapper);
                 final String encodedFacet = stringWriter.toString();
                 final String[] possibleKeys = encodedFacet.split("\\{\\{");
                 for (String possibleKey : possibleKeys) {
@@ -135,11 +135,11 @@ public class ComboBoxRenderer extends MenuRenderer {
         renderTooltipIfNecessary(context, component);
 
         if (!htmlComponent.isReadonly()) {
-            final UIComponent resultListItemTemplateFacet = component.getFacet("resultListItemTemplate");
-            if (resultListItemTemplateFacet != null) {
+            final UIComponent templateFacet = component.getFacet("template");
+            if (templateFacet != null) {
                 writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
-                writer.writeAttribute("class", "butter-component-combobox-resultListItemTemplate", "styleClass");
-                resultListItemTemplateFacet.encodeAll(context);
+                writer.writeAttribute("class", "butter-component-combobox-template", "styleClass");
+                templateFacet.encodeAll(context);
                 writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
             }
 
