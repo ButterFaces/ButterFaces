@@ -50,7 +50,8 @@ public class ReadonlyPartRenderer {
         if (value == null || "".equals(value)) {
             return "-";
         } else if (converter != null) {
-            return converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+            final String asString = converter.getAsString(FacesContext.getCurrentInstance(), component, value);
+            return asString == null ? "-" : asString;
         }
 
         if (component instanceof HtmlCheckBox) {
