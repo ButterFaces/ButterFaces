@@ -25,7 +25,6 @@ butter._msgProperties = {
 butter.message = {
     _fallbackLocale: "en",
 
-    // initially set with fallback locale
     _locale: null,
 
     _detectBrowserLocale: function () {

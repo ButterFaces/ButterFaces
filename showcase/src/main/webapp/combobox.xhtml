@@ -98,14 +98,20 @@
                                itemLabel="#{episode.title}"
                                itemValue="#{episode}"
                                noSelectionValue="please choose"/>
-                <f:facet name="template">
-                    <div>
-                        <label>Title:</label><span>{{title}}</span>
-                    </div>
-                    <div>
-                        <label>by:</label><span>{{writtenBy}}</span>
-                    </div>
-                </f:facet>
+               <f:facet name="template">
+                  <div class="stargateEpisodeItem">
+                     <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
+                     <div class="stargateEpisodeDetails">
+                        <h4>{{title}} <small>({{originalAirDate}})</small></h4>
+                        <div>
+                           <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1 , Season 1</span>
+                        </div>
+                        <div>
+                           <label>written by:</label><span>{{writtenBy}}</span>
+                        </div>
+                     </div>
+                  </div>
+               </f:facet>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
