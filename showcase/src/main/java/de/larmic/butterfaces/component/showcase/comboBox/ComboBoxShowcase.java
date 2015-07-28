@@ -1,18 +1,19 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -56,9 +57,12 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     private JavaCodeExample createEpisodeJavaCodeExample() {
         final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
 
+        javaCodeExample.appendInnerContent("    private int numberInSeries;\n");
         javaCodeExample.appendInnerContent("    private String title;\n");
         javaCodeExample.appendInnerContent("    private String writtenBy;\n");
-        javaCodeExample.appendInnerContent("    // getter +  setter");
+        javaCodeExample.appendInnerContent("    private String originalAirDate;\n");
+        javaCodeExample.appendInnerContent("    private String image;\n");
+        javaCodeExample.appendInnerContent("    // [..] getter +  setter");
 
         return javaCodeExample;
     }
@@ -118,14 +122,23 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{episode}\"");
             xhtmlCodeExample.appendInnerContent("                           noSelectionValue=\"please choose\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
-            xhtmlCodeExample.appendInnerContent("                <div>");
-            xhtmlCodeExample.appendInnerContent("                   <label>Title:</label>");
-            xhtmlCodeExample.appendInnerContent("                   <span>{{title}}</span>");
-            xhtmlCodeExample.appendInnerContent("                </div>");
-            xhtmlCodeExample.appendInnerContent("                <div>");
-            xhtmlCodeExample.appendInnerContent("                   <label>by:</label>");
-            xhtmlCodeExample.appendInnerContent("                   <span>{{writtenBy}}</span>");
-            xhtmlCodeExample.appendInnerContent("                </div>");
+            xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
+            xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg\" src=\"{{image}}\" alt=\"{{title}}\"/>");
+            xhtmlCodeExample.appendInnerContent("                      <div class=\"stargateEpisodeDetails\">");
+            xhtmlCodeExample.appendInnerContent("                           <h4>{{title}} <small>({{originalAirDate}})</small></h4>");
+            xhtmlCodeExample.appendInnerContent("                           <div>");
+            xhtmlCodeExample.appendInnerContent("                                <label>Episode:</label>");
+            xhtmlCodeExample.appendInnerContent("                                <span>");
+            xhtmlCodeExample.appendInnerContent("                                     No. {{numberInSeries}} of Stargate - Kommando SG-1, ");
+            xhtmlCodeExample.appendInnerContent("                                     Season 1</span>");
+            xhtmlCodeExample.appendInnerContent("                                </span>");
+            xhtmlCodeExample.appendInnerContent("                           </div>");
+            xhtmlCodeExample.appendInnerContent("                           <div>");
+            xhtmlCodeExample.appendInnerContent("                                <label>written by:</label>");
+            xhtmlCodeExample.appendInnerContent("                                <span>{{writtenBy}}</span>");
+            xhtmlCodeExample.appendInnerContent("                           </div>");
+            xhtmlCodeExample.appendInnerContent("                      </div>");
+            xhtmlCodeExample.appendInnerContent("                 </div>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         }
 

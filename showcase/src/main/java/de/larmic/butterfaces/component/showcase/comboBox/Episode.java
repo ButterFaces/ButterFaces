@@ -1,8 +1,5 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-/**
- * Created by stephan on 13.07.15.
- */
 public class Episode {
    private int numberInSeries;
    private String title;
