@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.comboBox;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 
@@ -42,6 +43,27 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        final XhtmlCodeExample xhtmlCodeExample = createXhtmlExample();
+        final JavaCodeExample episodeJavaCodeExample = createEpisodeJavaCodeExample();
+
+        codeExamples.add(xhtmlCodeExample);
+        if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
+            codeExamples.add(episodeJavaCodeExample);
+        }
+        generateDemoCSS(codeExamples);
+    }
+
+    private JavaCodeExample createEpisodeJavaCodeExample() {
+        final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
+
+        javaCodeExample.appendInnerContent("    private String title;\n");
+        javaCodeExample.appendInnerContent("    private String writtenBy;\n");
+        javaCodeExample.appendInnerContent("    // getter +  setter");
+
+        return javaCodeExample;
+    }
+
+    private XhtmlCodeExample createXhtmlExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:comboBox id=\"input\"");
@@ -110,10 +132,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("        </b:comboBox>", false);
 
         this.addOutputExample(xhtmlCodeExample);
-
-        codeExamples.add(xhtmlCodeExample);
-
-        generateDemoCSS(codeExamples);
+        return xhtmlCodeExample;
     }
 
     @Override
