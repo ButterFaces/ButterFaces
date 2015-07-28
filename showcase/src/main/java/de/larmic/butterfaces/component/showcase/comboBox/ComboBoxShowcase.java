@@ -90,16 +90,21 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>    ");
         } else if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.episodes}\">");
+            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.episodes}\"");
             xhtmlCodeExample.appendInnerContent("                           var=\"episode\"");
             xhtmlCodeExample.appendInnerContent("                           itemLabel=\"#{episode.title}\"");
             xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{episode}\"");
             xhtmlCodeExample.appendInnerContent("                           noSelectionValue=\"please choose\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
-            xhtmlCodeExample.appendInnerContent("                <div class=\"showcaseResultItem\">");
+            xhtmlCodeExample.appendInnerContent("                <div>");
+            xhtmlCodeExample.appendInnerContent("                   <label>Title:</label>");
+            xhtmlCodeExample.appendInnerContent("                   <span>{{title}}</span>");
+            xhtmlCodeExample.appendInnerContent("                </div>");
+            xhtmlCodeExample.appendInnerContent("                <div>");
+            xhtmlCodeExample.appendInnerContent("                   <label>by:</label>");
+            xhtmlCodeExample.appendInnerContent("                   <span>{{writtenBy}}</span>");
             xhtmlCodeExample.appendInnerContent("                </div>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
-
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:comboBox>", false);
