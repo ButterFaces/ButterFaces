@@ -697,6 +697,7 @@
       <attribute>
          <name>placement</name>
          <type>java.lang.String</type>
+         <description>If no placement is set tooltip placement will be automatically calculated by offeset to bottom and right browser border. Ordered positions are bottom, right, left, top.</description>
       </attribute>
       <attribute>
          <name>placementFunction</name>

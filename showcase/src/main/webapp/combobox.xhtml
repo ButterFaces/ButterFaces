@@ -65,7 +65,7 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not comboBoxShowcase.ajax}"/>
-                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}" placement="top">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
                 <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
@@ -116,7 +116,7 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not comboBoxShowcase.ajax}"/>
-                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}">
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}" placement="top">
                     #{comboBoxShowcase.tooltip}
                 </b:tooltip>
                 <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
