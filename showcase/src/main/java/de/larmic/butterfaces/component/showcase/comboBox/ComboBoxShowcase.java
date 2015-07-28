@@ -1,13 +1,5 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
@@ -15,6 +7,13 @@ import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -49,8 +48,8 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            codeExamples.add(createEpisodeCssCodeExample());
             codeExamples.add(createEpisodeJavaCodeExample());
+            codeExamples.add(createEpisodeCssCodeExample());
         }
         generateDemoCSS(codeExamples);
     }
