@@ -11,6 +11,7 @@ import javax.inject.Named;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
@@ -45,11 +46,11 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = createXhtmlExample();
-        final JavaCodeExample episodeJavaCodeExample = createEpisodeJavaCodeExample();
 
         codeExamples.add(xhtmlCodeExample);
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            codeExamples.add(episodeJavaCodeExample);
+            codeExamples.add(createEpisodeCssCodeExample());
+            codeExamples.add(createEpisodeJavaCodeExample());
         }
         generateDemoCSS(codeExamples);
     }
@@ -57,14 +58,28 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     private JavaCodeExample createEpisodeJavaCodeExample() {
         final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
 
-        javaCodeExample.appendInnerContent("    private int numberInSeries;\n");
-        javaCodeExample.appendInnerContent("    private String title;\n");
-        javaCodeExample.appendInnerContent("    private String writtenBy;\n");
-        javaCodeExample.appendInnerContent("    private String originalAirDate;\n");
-        javaCodeExample.appendInnerContent("    private String image;\n");
-        javaCodeExample.appendInnerContent("    // [..] getter +  setter");
+        javaCodeExample.appendInnerContent("    private int numberInSeries;");
+        javaCodeExample.appendInnerContent("    private String title;");
+        javaCodeExample.appendInnerContent("    private String writtenBy;");
+        javaCodeExample.appendInnerContent("    private String originalAirDate;");
+        javaCodeExample.appendInnerContent("    private String image;");
+        javaCodeExample.appendInnerContent("    // [...] getter + setter");
 
         return javaCodeExample;
+    }
+
+    private CssCodeExample createEpisodeCssCodeExample() {
+        final CssCodeExample cssCodeExample = new CssCodeExample();
+
+        cssCodeExample.addCss(".stargateEpisodeItem", "display: flex", "align-items: stretch");
+        cssCodeExample.addCss(".stargateEpisodeItem img", "height: 75px");
+        cssCodeExample.addCss(".stargateEpisodeItem h4", "font-size: 16px", "margin-top: 5px");
+        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails", "font-size: 12px", "margin-left: 5px");
+        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails > div", "display: flex", "align-items: baseline");
+        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails label", "width: 80px", "font-weight: bold");
+        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails span", "flex: 1");
+
+        return cssCodeExample;
     }
 
     private XhtmlCodeExample createXhtmlExample() {
