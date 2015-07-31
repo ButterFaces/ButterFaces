@@ -67,7 +67,7 @@
 
         <!-- dependency versions -->
         <javax.javaee-api.version>7.0</javax.javaee-api.version>
-        <jsf.version>2.2.7</jsf.version>
+        <jsf.version>2.2.12</jsf.version>
 
         <!-- maven plugin dependency version -->
         <maven-release-plugin.version>2.5</maven-release-plugin.version>

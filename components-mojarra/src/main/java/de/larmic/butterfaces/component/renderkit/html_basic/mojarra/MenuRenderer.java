@@ -61,7 +61,6 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.logging.Level;
 
@@ -82,63 +81,51 @@ public class MenuRenderer extends com.sun.faces.renderkit.html_basic.MenuRendere
                                 UIComponent component) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
-        assert (writer != null);
+
+        assert writer != null;
 
         if (logger.isLoggable(Level.FINER)) {
-            logger.log(Level.FINER, "Rendering 'select'");
+            logger.log(Level.FINER, "Rendering \'select\'");
         }
-        writer.startElement("select", component);
-        //writeIdAttributeIfNecessary(context, writer, component);
-        writer.writeAttribute("name", component.getClientId(context),
-                "clientId");
 
+        writer.startElement("select", component);
+        this.writeIdAttributeIfNecessary(context, writer, component);
+        writer.writeAttribute("name", component.getClientId(context), "clientId");
+
+        final HtmlInputComponent inputComponent = (HtmlInputComponent) component;
         final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
                 Constants.BOOTSTRAP_FORM_CONTROL,
-                !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+                !inputComponent.isValid() ? Constants.INVALID_STYLE_CLASS : null,
+                " " + StringUtils.getNullSafeValue(inputComponent.getStyleClass()));
 
+        // ************************************************************* CHANGED style class
         if (StringUtils.isNotEmpty(styleClass)) {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
 
-        if (!getMultipleText(component).equals("")) {
-            writer.writeAttribute("multiple", true, "multiple");
+        if (!this.getMultipleText(component).equals("")) {
+            writer.writeAttribute("multiple", Boolean.valueOf(true), "multiple");
         }
 
-        // Determine how many option(s) we need to render, and update
-        // the component's "size" attribute accordingly;  The "size"
-        // attribute will be rendered as one of the "pass thru" attributes
-        SelectItemsIterator<SelectItem> items = RenderKitUtils.getSelectItems(context, component);
-
-        // render the options to a buffer now so that we can determine
-        // the size
+        SelectItemsIterator items = RenderKitUtils.getSelectItems(context, component);
         FastStringWriter bufferedWriter = new FastStringWriter(128);
         context.setResponseWriter(writer.cloneWithWriter(bufferedWriter));
-        int count = renderOptions(context, component, items);
+        int count = this.renderOptions(context, component, items);
         context.setResponseWriter(writer);
-        // If "size" is *not* set explicitly, we have to default it correctly
         Integer size = (Integer) component.getAttributes().get("size");
-        if (size == null || size == Integer.MIN_VALUE) {
-            size = count;
+        if (size == null || size.intValue() == -2147483648) {
+            size = Integer.valueOf(count);
         }
-        writeDefaultSize(writer, size);
 
         // *** BEGIN HTML 5 CHANGED **************************
         this.renderHtmlFeatures(component, writer);
         // *** END HTML 5 CHANGED ****************************
 
-        RenderKitUtils.renderPassThruAttributes(context,
-                writer,
-                component,
-                ATTRIBUTES,
-                getNonOnChangeBehaviors(component));
-        RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer,
-                component);
-
+        this.writeDefaultSize(writer, size.intValue());
+        RenderKitUtils.renderPassThruAttributes(context, writer, component, ATTRIBUTES, getNonOnChangeBehaviors(component));
+        RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
         RenderKitUtils.renderOnchange(context, component, false);
-
-        // Now, write the buffered option content
         writer.write(bufferedWriter.toString());
-
         writer.endElement("select");
 
     }
