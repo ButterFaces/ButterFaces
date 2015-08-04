@@ -46,7 +46,8 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
         }
 
         if (column.isSortColumnEnabled() && table.getModel() != null && ajaxRequest != null) {
-            writer.writeAttribute("onclick", ajaxRequest.createJavaScriptCall("sort_" + columnNumber, table.isAjaxDisableRenderRegionsOnRequest()), null);
+            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), ajaxRequest.getRenderIds(), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
+            writer.writeAttribute("onclick", ajax, null);
         }
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);

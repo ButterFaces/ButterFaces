@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -211,8 +212,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                        final HtmlTableToolbar tableToolbar,
                                        final List<String> renderIds,
                                        final int columnNumber) throws IOException {
-        final String ajaxColumnOrderLeft = createModelJavaScriptCall(tableToolbar, renderIds, "orderColumn", "true, " + columnNumber);
-        final String ajaxColumnOrderRight = createModelJavaScriptCall(tableToolbar, renderIds, "orderColumn", "false, " + columnNumber);
+        final String ajaxColumnOrderLeft = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), "true, " + columnNumber);
+        final String ajaxColumnOrderRight = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), "false, " + columnNumber);
 
         writer.startElement("span", tableToolbar);
         writer.writeAttribute("class", "butter-table-toolbar-column-order-item butter-table-toolbar-column-order-item-up " + webXmlParameters.getOrderLeftGlyphicon(), "styleClass");
@@ -231,7 +232,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
 
-        final String ajax = createModelJavaScriptCall(tableToolbar, renderIds, "toggleColumnVisibilty", null);
+        final String ajax = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "toggleColumnVisibilty", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), null);
 
         writer.writeAttribute("onclick", ajax, null);
 
@@ -241,22 +242,29 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         writer.endElement("input");
     }
 
-    private String createModelJavaScriptCall(final HtmlTableToolbar tableToolbar,
-                                             final List<String> renderIds,
-                                             final String javaScriptMethodName,
-                                             final String optionalParameter) {
+    public static String createModelJavaScriptCall(final String clientId,
+                                                   final List<String> renderIds,
+                                                   final String javaScriptMethodName,
+                                                   final boolean ajaxDisableRenderRegionsOnRequest,
+                                                   final String optionalParameter) {
         final StringBuilder ajax = new StringBuilder("jQuery(document.getElementById('");
-        ajax.append(tableToolbar.getClientId());
+        ajax.append(clientId);
         ajax.append("'))." + javaScriptMethodName + "([");
-        for (String renderId : renderIds) {
+        final Iterator<String> iterator = renderIds.iterator();
+        while (iterator.hasNext()) {
+            final String renderId = iterator.next();
             ajax.append("'");
             ajax.append(renderId);
             ajax.append("'");
+
+            if (iterator.hasNext()) {
+                ajax.append(", ");
+            }
         }
         if (StringUtils.isNotEmpty(optionalParameter)) {
-            ajax.append("], " + tableToolbar.isAjaxDisableRenderRegionsOnRequest() + ", " + optionalParameter + ");");
+            ajax.append("], " + ajaxDisableRenderRegionsOnRequest + ", " + optionalParameter + ");");
         } else {
-            ajax.append("], " + tableToolbar.isAjaxDisableRenderRegionsOnRequest() + ");");
+            ajax.append("], " + ajaxDisableRenderRegionsOnRequest + ");");
         }
         return ajax.toString();
     }

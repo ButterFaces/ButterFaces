@@ -45,6 +45,14 @@
         }
     };
 
+    $.fn.sortRow = function (renderIds, disableRenderIds, columnNumber) {
+        return this.each(function () {
+            var $table = $(this);
+
+            butter.ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
+        });
+    }
+
     $.fn.orderColumn = function (renderIds, disableRenderIds, toLeft, columnNumber) {
 
         return this.each(function () {
