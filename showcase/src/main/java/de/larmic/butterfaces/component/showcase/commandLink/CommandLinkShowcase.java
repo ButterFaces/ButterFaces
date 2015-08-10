@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.commandLink;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
+import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.faces.model.SelectItem;
@@ -54,6 +55,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
         codeExamples.add(xhtmlCodeExample);
         codeExamples.add(javaCodeExample);
+        codeExamples.add(createWebXmlExample());
     }
 
     private JavaCodeExample createJavaCodeExample() {
@@ -85,6 +87,19 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         javaCodeExample.appendInnerContent("    }");
 
         return javaCodeExample;
+    }
+
+    private AbstractCodeExample createWebXmlExample() {
+        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
+
+        webXmlCodeExample.appendInnerContent("  <!-- Button text when ajax request is running -->");
+        webXmlCodeExample.appendInnerContent("  <!-- default is Processing -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>Processing</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+
+        return webXmlCodeExample;
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
