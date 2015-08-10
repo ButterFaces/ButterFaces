@@ -70,6 +70,9 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         if (link.isDisabled()) {
             generatedStyleClass.append(" btn-disabled");
         }
+        if (StringUtils.isEmpty(link.getGlyphicon())) {
+            generatedStyleClass.append(" no-glyphicon");
+        }
 
         if (generatedStyleClass.length() > 0) {
             writer.writeAttribute("class", generatedStyleClass.toString(), "styleClass");

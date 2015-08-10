@@ -24,6 +24,10 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
                 $glyphicon.removeAttr('class');
                 $glyphicon.addClass('butter-component-glyphicon');
                 $glyphicon.addClass(linkProcessingGlyphicon);
+                if (linkProcessingText.length > 0 && linkGlyphicon.length == 0) {
+                    // glyphicon only appears on ajax request
+                    $glyphicon.addClass('butter-component-glyphicon-width-margin');
+                }
             }
 
             if (showDots) {
@@ -51,13 +55,13 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
             }
 
             var $glyphicon = $commandLink.find('.butter-component-glyphicon');
+            $glyphicon.removeAttr('class');
+            $glyphicon.addClass('butter-component-glyphicon');
 
             if (hideGlyphicon) {
                 $glyphicon.show();
             }
             if (linkGlyphicon.length > 0) {
-                $glyphicon.removeAttr('class');
-                $glyphicon.addClass('butter-component-glyphicon');
                 $glyphicon.addClass(linkGlyphicon);
             }
 
