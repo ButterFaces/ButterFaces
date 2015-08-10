@@ -124,8 +124,12 @@ select.butter-input-component {
     color: #a94442;
 }
 
-.butter-component-glyphicon {
-    margin-right: 5px;
+.butter-component-glyphicon-text {
+    margin-left: 5px;
+}
+
+.butter-component-glyphicon-text:empty {
+    margin-left: 0;
 }
 
 .butter-component-expandable-original {
