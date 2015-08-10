@@ -3,7 +3,7 @@ if (typeof butter === 'undefined') {
 }
 butter.link = {};
 
-butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingText, hideGlyphicon, disableRenderRegionsIds) {
+butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingText, linkGlyphicon, linkProcessingGlyphicon, hideGlyphicon, disableRenderRegionsIds) {
     var status = data.status;
 
     // console.log(data.source.id);
@@ -14,13 +14,22 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
         case "begin": // Before the ajax request is sent.
             // console.log('ajax request begin');
             $commandLink.addClass("disabled");
+
+            var $glyphicon = $commandLink.find('.butter-component-glyphicon');
+
+            if (hideGlyphicon) {
+                $glyphicon.hide();
+            }
+            if (linkProcessingGlyphicon.length > 0) {
+                $glyphicon.removeAttr('class');
+                $glyphicon.addClass('butter-component-glyphicon');
+                $glyphicon.addClass(linkProcessingGlyphicon);
+            }
+
             if (showDots) {
                 $commandLink.find('.butter-component-glyphicon-processing').startDots();
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'inline-block');
                 $commandLink.find('.butter-component-glyphicon-text').html(linkProcessingText);
-                if (hideGlyphicon) {
-                    $commandLink.find('.butter-component-glyphicon ').hide();
-                }
             }
             if (disableRenderRegionsIds != 'undefined') {
                 // console.log('Disable field');
@@ -40,9 +49,18 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'none');
                 $commandLink.find('.butter-component-glyphicon-text').html(linkText);
             }
+
+            var $glyphicon = $commandLink.find('.butter-component-glyphicon');
+
             if (hideGlyphicon) {
-                $commandLink.find('.butter-component-glyphicon ').show();
+                $glyphicon.show();
             }
+            if (linkGlyphicon.length > 0) {
+                $glyphicon.removeAttr('class');
+                $glyphicon.addClass('butter-component-glyphicon');
+                $glyphicon.addClass(linkGlyphicon);
+            }
+
             if (disableRenderRegionsIds != 'undefined') {
                 // console.log('Enable field');
                 $(disableRenderRegionsIds).butterEnableElements();

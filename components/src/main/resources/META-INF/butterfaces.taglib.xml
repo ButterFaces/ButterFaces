@@ -1460,6 +1460,13 @@
          <type>java.lang.String</type>
       </attribute>
       <attribute>
+         <description>Displayed processing glyphicon while (ajax) request is running. Needs disableOnClick to be true.
+            Default is empty (no special glyphicon is rendered).
+         </description>
+         <name>ajaxProcessingGlyphiconOnRequest</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
          <description>Hides glyphicon while (ajax) request is running. Needs disableOnClick to be true. Default is
             'true'.
          </description>

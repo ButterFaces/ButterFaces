@@ -26,6 +26,9 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_COLLAPSING = "o_collape";
     private static final String OVERRIDDEN_EXPANSION = "o_expand";
 
+    private static final String OVERRIDDEN_AJAX_PROCESSING_TEXT = "Loading";
+    private static final String OVERRIDDEN_AJAX_PROCESSING_GLYPHICON = "fa fa-refresh fa-spin";
+
     @Mock
     private ExternalContext defaultValueExternalContext;
 
@@ -53,6 +56,9 @@ public class WebXmlParametersTest {
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_JQUERY)).thenReturn("false");
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_PRETTYPRINT)).thenReturn("false");
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_USE_COMPRESSED_RESOURCES)).thenReturn("false");
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_TEXT)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_TEXT);
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_GLYPHICON)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON);
     }
 
     @Test
@@ -111,5 +117,17 @@ public class WebXmlParametersTest {
 
         Assert.assertEquals(WebXmlParameters.DEFAULT_EXPANSION_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getExpansionGlyphicon());
         Assert.assertEquals(OVERRIDDEN_EXPANSION, new WebXmlParameters(overriddenValueExternalContext).getExpansionGlyphicon());
+    }
+
+    @Test
+    public void testAjaxProcessingTextOnRequest() {
+        Assert.assertEquals(WebXmlParameters.DEFAULT_AJAX_PROCESSING_TEXT, new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingTextOnRequest());
+        Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_TEXT, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingTextOnRequest());
+    }
+
+    @Test
+    public void testAjaxProcessingGlyphiconOnRequest() {
+        Assert.assertEquals("", new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
+        Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
     }
 }

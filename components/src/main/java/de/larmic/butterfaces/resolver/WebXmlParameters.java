@@ -24,6 +24,9 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_COLLAPSING_GLYPHICON = "de.larmic.butterfaces.glyhicon.collapsing";
     public static final String CTX_PARAM_EXPANSION_GLYPHICON = "de.larmic.butterfaces.glyhicon.expansion";
 
+    public static final String CTX_PARAM_AJAX_PROCESSING_TEXT = "de.larmic.butterfaces.ajaxProcessingTextOnRequest";
+    public static final String CTX_PARAM_AJAX_PROCESSING_GLYPHICON = "de.larmic.butterfaces.ajaxProcessingGlyphiconOnRequest";
+
     public static final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
     public static final String DEFAULT_OPTIONS_GLYPHICON = "glyphicon glyphicon-th";
     public static final String DEFAULT_SORT_GLYPHICON = "glyphicon glyphicon-chevron-right";
@@ -33,6 +36,8 @@ public class WebXmlParameters {
     public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
     public static final String DEFAULT_COLLAPSING_GLYPHICON = "glyphicon glyphicon-minus-sign";
     public static final String DEFAULT_EXPANSION_GLYPHICON = "glyphicon glyphicon-plus-sign";
+
+    public static final String DEFAULT_AJAX_PROCESSING_TEXT = "Processing";
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
@@ -48,6 +53,9 @@ public class WebXmlParameters {
     private final String orderRightGlyphicon;
     private final String collapsingGlyphicon;
     private final String expansionGlyphicon;
+
+    private final String ajaxProcessingTextOnRequest;
+    private final String ajaxProcessingGlyphiconOnRequest;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -66,6 +74,9 @@ public class WebXmlParameters {
 
         this.collapsingGlyphicon = this.readParameter(CTX_PARAM_COLLAPSING_GLYPHICON, DEFAULT_COLLAPSING_GLYPHICON, externalContext);
         this.expansionGlyphicon = this.readParameter(CTX_PARAM_EXPANSION_GLYPHICON, DEFAULT_EXPANSION_GLYPHICON, externalContext);
+
+        this.ajaxProcessingTextOnRequest = this.readParameter(CTX_PARAM_AJAX_PROCESSING_TEXT, DEFAULT_AJAX_PROCESSING_TEXT, externalContext);
+        this.ajaxProcessingGlyphiconOnRequest = this.readParameter(CTX_PARAM_AJAX_PROCESSING_GLYPHICON, "", externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -128,5 +139,13 @@ public class WebXmlParameters {
 
     public String getExpansionGlyphicon() {
         return expansionGlyphicon;
+    }
+
+    public String getAjaxProcessingTextOnRequest() {
+        return ajaxProcessingTextOnRequest;
+    }
+
+    public String getAjaxProcessingGlyphiconOnRequest() {
+        return ajaxProcessingGlyphiconOnRequest;
     }
 }

@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.action;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -25,7 +26,7 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlCommandLink.COMPONENT_FAMILY, rendererType = HtmlCommandLink.RENDERER_TYPE)
 public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.CommandLinkRenderer {
 
-    private static final String WEB_XML_AJAX_PROCESSING_TEXT = "de.larmic.butterfaces.ajaxProcessingTextOnRequest";
+    private WebXmlParameters webXmlParameters;
 
     /**
      * Will be set in renderAsActive if f:ajax child with onevent attribute exists.
@@ -38,6 +39,8 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter writer = context.getResponseWriter();
+
+        webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         if (!link.isDisabled()) {
             super.encodeBegin(context, component);
@@ -122,6 +125,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                 }
 
                 final String processingText = createAjaxProcessingText(link);
+                final String processingGlyphicon = createAjaxProcessingGlypicon(link);
 
                 final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
                 final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
@@ -130,7 +134,9 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                 writer.writeText("    butter.link.disableOnClick(data, " +
                         link.isAjaxShowWaitingDotsOnRequest() + ",'" +
                         link.getValue() + "','" +
-                        processingText + "'," +
+                        processingText + "','" +
+                        link.getGlyphicon() + "','" +
+                        processingGlyphicon + "'," +
                         link.isAjaxHideGlyphiconOnRequest() + ",'" +
                         jQueryIDSelector + "');", null);
                 writer.writeText("}", null);
@@ -148,9 +154,15 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             return link.getAjaxProcessingTextOnRequest();
         }
 
-        final String ajaxProcessingTextByWebXml = FacesContext.getCurrentInstance().getExternalContext().getInitParameter(WEB_XML_AJAX_PROCESSING_TEXT);
+        return webXmlParameters.getAjaxProcessingTextOnRequest();
+    }
 
-        return StringUtils.isEmpty(ajaxProcessingTextByWebXml) ? "Processing" : ajaxProcessingTextByWebXml;
+    private String createAjaxProcessingGlypicon(final HtmlCommandLink link) {
+        if (StringUtils.isNotEmpty(link.getAjaxProcessingGlyphiconOnRequest())) {
+            return link.getAjaxProcessingGlyphiconOnRequest();
+        }
+
+        return webXmlParameters.getAjaxProcessingGlyphiconOnRequest();
     }
 
     @Override
@@ -213,12 +225,10 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
     protected void writeGlyphiconIfNecessary(final HtmlCommandLink commandLink,
                                              final ResponseWriter writer) throws IOException {
-        final String glyphicon = commandLink.getGlyphicon();
+        final String glyphicon = StringUtils.getNotNullValue(commandLink.getGlyphicon(), "");
 
-        if (glyphicon != null && !"".equals(glyphicon)) {
-            writer.startElement("span", commandLink);
-            writer.writeAttribute("class", "butter-component-glyphicon " + glyphicon, null);
-            writer.endElement("span");
-        }
+        writer.startElement("span", commandLink);
+        writer.writeAttribute("class", "butter-component-glyphicon " + glyphicon, null);
+        writer.endElement("span");
     }
 }

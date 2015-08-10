@@ -40,6 +40,10 @@
 		<param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>
 		<param-value>Processing</param-value>
 	</context-param>
+	<context-param>
+		<param-name>de.larmic.butterfaces.ajaxProcessingGlyphiconOnRequest</param-name>
+		<param-value></param-value>
+	</context-param>
 
 	<context-param>
         <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>

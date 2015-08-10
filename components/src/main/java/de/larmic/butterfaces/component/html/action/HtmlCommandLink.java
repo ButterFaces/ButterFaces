@@ -30,6 +30,7 @@ public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink 
     protected static final String PROPERTY_AJAX_DISABLE_LINK_ON_REQUEST = "ajaxDisableLinkOnRequest";
     protected static final String PROPERTY_AJAX_SHOW_WAITING_DOTS_ON_REQUEST = "ajaxShowWaitingDotsOnRequest";
     protected static final String PROPERTY_AJAX_PROCESSING_TEXT_ON_REQUEST = "ajaxProcessingTextOnRequest";
+    protected static final String PROPERTY_AJAX_PROCESSING_GLYPHICON_ON_REQUEST = "ajaxProcessingGlyphiconOnRequest";
     protected static final String PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST = "ajaxHideGlyphiconOnRequest";
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
 
@@ -104,6 +105,14 @@ public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink 
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
         this.updateStateHelper(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST, ajaxDisableRenderRegionsOnRequest);
+    }
+
+    public String getAjaxProcessingGlyphiconOnRequest() {
+        return (String) this.getStateHelper().eval(PROPERTY_AJAX_PROCESSING_GLYPHICON_ON_REQUEST);
+    }
+
+    public void setAjaxProcessingGlyphiconOnRequest(String ajaxProcessingGlyphiconOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_PROCESSING_GLYPHICON_ON_REQUEST, ajaxProcessingGlyphiconOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase.commandLink;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
@@ -25,9 +26,10 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     private int clicks = 0;
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
-    private boolean ajaxHideGlyphiconOnRequest = true;
+    private boolean ajaxHideGlyphiconOnRequest = false;
     private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String ajaxProcessingText = "Processing";
+    private String ajaxProcessingGlyphicon = "fa fa-refresh fa-spin";
     private String render = "clicks disabledOnRequest otherDisabledOnRequest";
     private CommandLinkExampleType commandLinkExampleType = CommandLinkExampleType.AJAX;
 
@@ -98,6 +100,12 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
         webXmlCodeExample.appendInnerContent("     <param-value>Processing</param-value>");
         webXmlCodeExample.appendInnerContent("  </context-param>");
+        webXmlCodeExample.appendInnerContent("  <!-- Glyphicon when ajax request is running -->");
+        webXmlCodeExample.appendInnerContent("  <!-- default is empty -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value></param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
 
         return webXmlCodeExample;
     }
@@ -157,6 +165,9 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
         if (!"Processing".equals(this.getAjaxProcessingText())) {
             xhtmlCodeExample.appendInnerContent("                       ajaxProcessingText=\"" + this.getAjaxProcessingText() + "\"");
+        }
+        if (StringUtils.isNotEmpty(ajaxProcessingGlyphicon)) {
+            xhtmlCodeExample.appendInnerContent("                       ajaxProcessingGlyphicon=\"" + ajaxProcessingGlyphicon + "\"");
         }
 
         xhtmlCodeExample.appendInnerContent("                       action=\"#{myBean.increaseClick}\"");
@@ -294,6 +305,14 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
     public void setCommandLinkExampleType(CommandLinkExampleType commandLinkExampleType) {
         this.commandLinkExampleType = commandLinkExampleType;
+    }
+
+    public String getAjaxProcessingGlyphicon() {
+        return ajaxProcessingGlyphicon;
+    }
+
+    public void setAjaxProcessingGlyphicon(String ajaxProcessingGlyphicon) {
+        this.ajaxProcessingGlyphicon = ajaxProcessingGlyphicon;
     }
 
     public String getResetValue() {
