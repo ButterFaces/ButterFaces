@@ -45,7 +45,7 @@ public class CssCodeExample extends AbstractCodeExample {
             for (String rule : rules.get(name)) {
                 stringBuilder.append("    ");
                 stringBuilder.append(rule);
-                stringBuilder.append("\n");
+                stringBuilder.append(";\n");
             }
             stringBuilder.append("}\n\n");
         }
