@@ -60,6 +60,7 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
         xhtmlCodeExample.appendInnerContent("        <b:text id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                type=\"" + this.getType() + "\"");
