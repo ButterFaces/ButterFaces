@@ -41,6 +41,7 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
         xhtmlCodeExample.appendInnerContent("        <b:tags id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                allowDuplicates=\"" + allowDuplicates + "\"");
         //  plugin error trim value does not work correclty

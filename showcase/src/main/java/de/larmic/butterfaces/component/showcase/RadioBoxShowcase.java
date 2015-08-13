@@ -1,13 +1,5 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
@@ -16,6 +8,13 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -55,6 +54,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
 		xhtmlCodeExample.appendInnerContent("        <b:radioBox id=\"input\"");
 		xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");

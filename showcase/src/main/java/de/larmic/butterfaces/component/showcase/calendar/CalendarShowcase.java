@@ -47,6 +47,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
         xhtmlCodeExample.appendInnerContent("        <b:calendar id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                    label=\"" + getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");

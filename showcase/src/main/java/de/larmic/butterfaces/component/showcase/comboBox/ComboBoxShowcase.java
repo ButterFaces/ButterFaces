@@ -86,6 +86,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         xhtmlCodeExample.appendInnerContent("        <b:comboBox id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");

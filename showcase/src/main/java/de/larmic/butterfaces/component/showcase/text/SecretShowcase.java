@@ -38,6 +38,7 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
 
         xhtmlCodeExample.appendInnerContent("        <b:secret id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                  label=\"" + this.getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                  hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                  value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                  placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                  styleClass=\"" + this.getStyleClass() + "\"");
