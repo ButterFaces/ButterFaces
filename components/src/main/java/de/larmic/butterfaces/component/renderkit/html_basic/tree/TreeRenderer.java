@@ -74,9 +74,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
             writer.startElement("ul", tree);
             writer.startElement("li", tree);
 
-            if (tree.getNodeSelectionListener() != null && tree.getNodeSelectionListener().isValueSelected(node)) {
-                writer.writeAttribute("class", "butter-component-tree-node-selected", null);
-            }
+            final boolean nodeSelected = tree.getNodeSelectionListener() != null && tree.getNodeSelectionListener().isValueSelected(node);
+            final String styleClass = StringUtils.getNullSafeValue(node.getStyleClass())
+                    + (nodeSelected ? " butter-component-tree-node-selected butter-tree-node" : " butter-tree-node");
+
+            writer.writeAttribute("class", styleClass, null);
 
             final String nodeNumber = "" + nodes.size();
             nodes.put(nodeNumber, node);

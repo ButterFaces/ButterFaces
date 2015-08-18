@@ -34,6 +34,11 @@ public interface Node<T> {
     String getGlyphiconIcon();
 
     /**
+     * @return optional node style class.
+     */
+    String getStyleClass();
+
+    /**
      * @return true if children (existing or not) should be rendered in tree component.
      */
     boolean isLeaf();

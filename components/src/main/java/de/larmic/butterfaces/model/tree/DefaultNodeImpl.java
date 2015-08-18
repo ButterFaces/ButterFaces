@@ -13,6 +13,7 @@ public class DefaultNodeImpl<T> implements Node<T> {
     private String title;
     private String imageIcon;
     private String glyphiconIcon;
+    private String styleClass;
     private boolean isCollapsed;
 
     public DefaultNodeImpl(final String title) {
@@ -80,5 +81,14 @@ public class DefaultNodeImpl<T> implements Node<T> {
     @Override
     public void setCollapsed(boolean isCollapsed) {
         this.isCollapsed = isCollapsed;
+    }
+
+    @Override
+    public String getStyleClass() {
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 }
