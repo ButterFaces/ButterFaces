@@ -79,11 +79,11 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
             writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
             writer.endElement("span");
+        }
 
-            if (tooltip != null) {
-                tooltip.setFor("[data-tooltip-identifier=\"" + this.createTooltipIdentifier(column) + "\"]");
-                tooltip.encodeAll(context);
-            }
+        if (tooltip != null) {
+            tooltip.setFor("[data-tooltip-identifier=\"" + this.createTooltipIdentifier(column) + "\"]");
+            tooltip.encodeAll(context);
         }
     }
 
