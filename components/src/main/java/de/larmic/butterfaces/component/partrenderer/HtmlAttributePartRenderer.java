@@ -50,11 +50,6 @@ public class HtmlAttributePartRenderer {
         writeHtmlAttributeIfNotEmpty(writer, "max", attributeValue);
     }
 
-    public void writeTypeAttribute(final ResponseWriter writer,
-                                   final String attributeValue) throws IOException {
-        writeHtmlAttributeIfNotEmpty(writer, "type", attributeValue, "text");
-    }
-
     private void writeHtmlAttributeIfNotEmpty(final ResponseWriter writer,
                                               final String attributeName,
                                               final String attributeValue) throws IOException {

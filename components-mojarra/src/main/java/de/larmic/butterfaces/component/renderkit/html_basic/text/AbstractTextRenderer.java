@@ -4,7 +4,6 @@ import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.renderkit.RenderKitUtils;
-import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
@@ -17,7 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
+public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer {
 
     private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
 
@@ -27,9 +26,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     }
 
     public void encodeBegin(final FacesContext context, final UIComponent component, final String additionalStyleClass) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -51,9 +48,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -170,50 +165,57 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
      * Method copied from super class to add html features.
      */
     @Override
-    protected void getEndTextToRender(final FacesContext context, final UIComponent component, final String currentValue)
-            throws IOException {
-
+    protected void getEndTextToRender(final FacesContext context,
+                                      final UIComponent component,
+                                      final String currentValue) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
-        assert (writer != null);
 
         if (component instanceof UIInput) {
             writer.startElement("input", component);
 
             writer.writeAttribute("name", (component.getClientId(context)), "clientId");
 
-            // only output the autocomplete attribute if the value
-            // is 'off' since its lack of presence will be interpreted
-            // as 'on' by the browser
-            if ("off".equals(component.getAttributes().get("autocomplete"))) {
-                writer.writeAttribute("autocomplete", "off", "autocomplete");
-            }
-
-            // render default text specified
             if (currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");
             }
 
-            final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
-                    Constants.BOOTSTRAP_FORM_CONTROL,
-                    !((HtmlInputComponent) component).isValid() ? Constants.INVALID_STYLE_CLASS : null);
+            this.renderBooleanValue(component, writer, "disabled");
+            this.renderBooleanValue(component, writer, "ismap");
+            this.renderBooleanValue(component, writer, "readonly");
 
-            if (StringUtils.isNotEmpty(styleClass)) {
-                writer.writeAttribute("class", styleClass, "styleClass");
-            }
+            this.renderStringValue(component, writer, "autocomplete", "off");
 
-            // *** BEGIN HTML 5 CHANGED **************************
-            this.renderHtmlFeatures(component, writer);
-            // *** END HTML 5 CHANGED ****************************
+            this.renderStyleClass((HtmlInputComponent) component, writer);
+            this.renderHtml5Features(component, writer);
 
-            // style is rendered as a passthur attribute
-            renderAdditionalInputAttributes(context, component, writer);
-            RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES,
-                    getNonOnChangeBehaviors(component));
-            RenderKitUtils.renderXHTMLStyleBooleanAttributes(writer, component);
+            this.renderAdditionalInputAttributes(context, component, writer);
 
+            RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES, getNonOnChangeBehaviors(component));
             RenderKitUtils.renderOnchange(context, component, false);
 
+            this.renderStringValue(component, writer, "type");
+
             writer.endElement("input");
+        }
+    }
+
+    protected void renderStyleClass(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
+        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+                Constants.BOOTSTRAP_FORM_CONTROL,
+                !component.isValid() ? Constants.INVALID_STYLE_CLASS : null);
+        writer.writeAttribute("class", styleClass, "styleClass");
+    }
+
+    protected void renderHtml5Features(final UIComponent component, final ResponseWriter writer) throws IOException {
+        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
+
+        if (component instanceof HtmlText) {
+            final HtmlText inputComponent = (HtmlText) component;
+
+            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
+            htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
+            htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
+            htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
         }
     }
 
@@ -235,7 +237,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         rendererParamsNotNull(context, component);
 
-        if (!shouldEncodeChildren(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -246,22 +248,4 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         }
 
     }
-
-    protected void renderHtmlFeatures(UIComponent component, ResponseWriter writer) throws IOException {
-        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
-
-        if (component instanceof HtmlText) {
-            final HtmlText inputComponent = (HtmlText) component;
-
-            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
-            htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
-            htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
-            htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
-            htmlAttributePartRenderer.writeTypeAttribute(writer, inputComponent.getType());
-        }
-
-        writer.writeAttribute("type", "text", null);
-    }
-
-
 }

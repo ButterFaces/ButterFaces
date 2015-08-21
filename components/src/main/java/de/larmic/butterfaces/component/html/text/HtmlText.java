@@ -1,23 +1,18 @@
 package de.larmic.butterfaces.component.html.text;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.feature.*;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
-
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Label;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
-import de.larmic.butterfaces.component.html.feature.Readonly;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
@@ -30,7 +25,7 @@ import de.larmic.butterfaces.component.html.feature.Tooltip;
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head")
 })
 @FacesComponent(HtmlText.COMPONENT_TYPE)
-public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder, Tooltip, Label, Readonly {
+public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoFocus, Placeholder, Tooltip, Label, Readonly, AutoComplete {
 
 	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.text";
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
