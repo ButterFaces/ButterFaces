@@ -1,20 +1,22 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import com.sun.faces.config.WebConfiguration;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.AttributeManager;
-import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_basic.MojarraRenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer {
 
@@ -179,44 +181,70 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
                 writer.writeAttribute("value", currentValue, "value");
             }
 
+            // default
             this.renderBooleanValue(component, writer, "disabled");
             this.renderBooleanValue(component, writer, "ismap");
             this.renderBooleanValue(component, writer, "readonly");
 
+            // html 5
             this.renderStringValue(component, writer, "autocomplete", "off");
+            this.renderStringValue(component, writer, "placeholder");
+            this.renderBooleanValue(component, writer, "autofocus");
+            this.renderBooleanValue(component, writer, "pattern");
+            this.renderBooleanValue(component, writer, "min");
+            this.renderBooleanValue(component, writer, "max");
 
-            this.renderStyleClass((HtmlInputComponent) component, writer);
-            this.renderHtml5Features(component, writer);
+            // html
+            this.renderStringValue(component, writer, "alt");
+            this.renderStringValue(component, writer, "dir");
+            this.renderStringValue(component, writer, "lang");
+            this.renderStringValue(component, writer, "maxlength");
+            this.renderStringValue(component, writer, "role");
+            this.renderStringValue(component, writer, "size");
+            this.renderStringValue(component, writer, "style");
+            this.renderStringValue(component, writer, "tabindex");
+            this.renderStringValue(component, writer, "title");
+
+            // events
+            final Map<String, List<ClientBehavior>> nonOnChangeBehaviors = getNonOnChangeBehaviors(component);
+            this.renderEventValue(component, writer, "onblur", "blur", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onclick", "click", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "ondblclick", "dblclick", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onfocus", "focus", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onkeydown", "keydown", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onkeypress", "keypress", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onkeyup", "keyup", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onmousedown", "mousedown", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onmousemove", "mousemove", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onmouseout", "mouseout", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onmouseover", "mouseover", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onmouseup", "mouseup", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onselect", "select", nonOnChangeBehaviors);
+
+            this.renderInputStyleClass((HtmlInputComponent) component, writer);
+
+            this.renderStringValue(component, writer, "type");
 
             this.renderAdditionalInputAttributes(context, component, writer);
 
-            RenderKitUtils.renderPassThruAttributes(context, writer, component, INPUT_ATTRIBUTES, getNonOnChangeBehaviors(component));
-            RenderKitUtils.renderOnchange(context, component, false);
-
-            this.renderStringValue(component, writer, "type");
+            MojarraRenderUtils.renderOnchange(context, component, false);
 
             writer.endElement("input");
         }
     }
 
-    protected void renderStyleClass(final HtmlInputComponent component, final ResponseWriter writer) throws IOException {
-        final String styleClass = StringUtils.concatWithSpace(Constants.INPUT_COMPONENT_MARKER,
+    /**
+     * When using {@link AbstractTextRenderer} input component will be wrapped. Component style class will be set to
+     * component wrapper. This method renders inner input component bootstrap classes and validation markers.
+     */
+    protected void renderInputStyleClass(final HtmlInputComponent component,
+                                         final ResponseWriter writer) throws IOException {
+        final String validationMarkerClass = !component.isValid() ? Constants.INVALID_STYLE_CLASS : null;
+        final String styleClass = StringUtils.concatWithSpace(
+                Constants.INPUT_COMPONENT_MARKER,
                 Constants.BOOTSTRAP_FORM_CONTROL,
-                !component.isValid() ? Constants.INVALID_STYLE_CLASS : null);
+                validationMarkerClass);
         writer.writeAttribute("class", styleClass, "styleClass");
-    }
-
-    protected void renderHtml5Features(final UIComponent component, final ResponseWriter writer) throws IOException {
-        new HtmlAttributePartRenderer().renderHtmlFeatures(component, writer);
-
-        if (component instanceof HtmlText) {
-            final HtmlText inputComponent = (HtmlText) component;
-
-            final HtmlAttributePartRenderer htmlAttributePartRenderer = new HtmlAttributePartRenderer();
-            htmlAttributePartRenderer.writePatternAttribute(writer, inputComponent.getPattern());
-            htmlAttributePartRenderer.writeMinAttribute(writer, inputComponent.getMin());
-            htmlAttributePartRenderer.writeMaxAttribute(writer, inputComponent.getMax());
-        }
     }
 
     protected void renderAdditionalInputAttributes(final FacesContext context,
@@ -225,27 +253,51 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     }
 
     @Override
-    public void encodeChildren(FacesContext context, UIComponent component)
-            throws IOException {
-
-        boolean renderChildren = WebConfiguration.getInstance()
-                .isOptionEnabled(WebConfiguration.BooleanWebContextInitParameter.AllowTextChildren);
-
-        if (!renderChildren) {
-            return;
-        }
-
-        rendererParamsNotNull(context, component);
-
+    public void encodeChildren(final FacesContext context,
+                               final UIComponent component) throws IOException {
         if (!component.isRendered()) {
             return;
         }
 
         if (component.getChildCount() > 0) {
-            for (UIComponent kid : component.getChildren()) {
-                encodeRecursive(context, kid);
+            for (UIComponent child : component.getChildren()) {
+                // ignore tooltips (will be rendered before)
+                if (!(child instanceof HtmlTooltip)) {
+                    encodeRecursive(context, child);
+                }
+            }
+        }
+    }
+
+    protected static Map<String, List<ClientBehavior>> getNonOnChangeBehaviors(UIComponent component) {
+        return getPassThruBehaviors(component, "change", "valueChange");
+    }
+
+    protected static Map<String, List<ClientBehavior>> getPassThruBehaviors(
+            UIComponent component,
+            String domEventName,
+            String componentEventName) {
+
+        if (!(component instanceof ClientBehaviorHolder)) {
+            return null;
+        }
+
+        Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
+
+        int size = behaviors.size();
+
+        if ((size == 1) || (size == 2)) {
+            boolean hasDomBehavior = behaviors.containsKey(domEventName);
+            boolean hasComponentBehavior = behaviors.containsKey(componentEventName);
+
+            // If the behavior map only contains behaviors for non-pass
+            // thru attributes, return null.
+            if (((size == 1) && (hasDomBehavior || hasComponentBehavior)) ||
+                    ((size == 2) && hasDomBehavior && hasComponentBehavior)) {
+                return null;
             }
         }
 
+        return behaviors;
     }
 }

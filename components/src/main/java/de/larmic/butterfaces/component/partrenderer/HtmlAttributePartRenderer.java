@@ -35,21 +35,6 @@ public class HtmlAttributePartRenderer {
         writeHtmlAttributeIfNotEmpty(writer, "placeholder", attributeValue);
     }
 
-    public void writePatternAttribute(final ResponseWriter writer,
-                                      final String attributeValue) throws IOException {
-        writeHtmlAttributeIfNotEmpty(writer, "pattern", attributeValue);
-    }
-
-    public void writeMinAttribute(final ResponseWriter writer,
-                                  final String attributeValue) throws IOException {
-        writeHtmlAttributeIfNotEmpty(writer, "min", attributeValue);
-    }
-
-    public void writeMaxAttribute(final ResponseWriter writer,
-                                  final String attributeValue) throws IOException {
-        writeHtmlAttributeIfNotEmpty(writer, "max", attributeValue);
-    }
-
     private void writeHtmlAttributeIfNotEmpty(final ResponseWriter writer,
                                               final String attributeName,
                                               final String attributeValue) throws IOException {
