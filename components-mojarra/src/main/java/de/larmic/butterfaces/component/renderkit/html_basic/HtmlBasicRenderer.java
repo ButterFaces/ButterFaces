@@ -3,13 +3,10 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by larmic on 20.08.15.
@@ -53,9 +50,8 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
     protected void renderEventValue(final UIComponent component,
                                     final ResponseWriter writer,
                                     final String attributeName,
-                                    final String eventName,
-                                    final Map<String, List<ClientBehavior>> nonOnChangeBehaviors) throws IOException {
-        MojarraRenderUtils.renderPassThruAttributes(writer, component, attributeName, eventName, nonOnChangeBehaviors);
+                                    final String eventName) throws IOException {
+        MojarraRenderUtils.renderPassThruAttributes(writer, component, attributeName, eventName);
     }
 
     protected void encodeRecursive(final FacesContext context,

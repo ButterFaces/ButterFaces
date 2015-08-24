@@ -6,17 +6,12 @@ import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_basic.MojarraRenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer {
 
@@ -206,28 +201,26 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             this.renderStringValue(component, writer, "title");
 
             // events
-            final Map<String, List<ClientBehavior>> nonOnChangeBehaviors = getNonOnChangeBehaviors(component);
-            this.renderEventValue(component, writer, "onblur", "blur", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onclick", "click", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "ondblclick", "dblclick", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onfocus", "focus", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onkeydown", "keydown", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onkeypress", "keypress", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onkeyup", "keyup", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onmousedown", "mousedown", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onmousemove", "mousemove", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onmouseout", "mouseout", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onmouseover", "mouseover", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onmouseup", "mouseup", nonOnChangeBehaviors);
-            this.renderEventValue(component, writer, "onselect", "select", nonOnChangeBehaviors);
+            this.renderEventValue(component, writer, "onblur", "blur");
+            this.renderEventValue(component, writer, "onclick", "click");
+            this.renderEventValue(component, writer, "ondblclick", "dblclick");
+            this.renderEventValue(component, writer, "onfocus", "focus");
+            this.renderEventValue(component, writer, "onkeydown", "keydown");
+            this.renderEventValue(component, writer, "onkeypress", "keypress");
+            this.renderEventValue(component, writer, "onkeyup", "keyup");
+            this.renderEventValue(component, writer, "onmousedown", "mousedown");
+            this.renderEventValue(component, writer, "onmousemove", "mousemove");
+            this.renderEventValue(component, writer, "onmouseout", "mouseout");
+            this.renderEventValue(component, writer, "onmouseover", "mouseover");
+            this.renderEventValue(component, writer, "onmouseup", "mouseup");
+            this.renderEventValue(component, writer, "onselect", "select");
+            this.renderEventValue(component, writer, "onchange", "change");
 
             this.renderInputStyleClass((HtmlInputComponent) component, writer);
 
             this.renderStringValue(component, writer, "type");
 
             this.renderAdditionalInputAttributes(context, component, writer);
-
-            MojarraRenderUtils.renderOnchange(context, component, false);
 
             writer.endElement("input");
         }
@@ -267,37 +260,5 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
                 }
             }
         }
-    }
-
-    protected static Map<String, List<ClientBehavior>> getNonOnChangeBehaviors(UIComponent component) {
-        return getPassThruBehaviors(component, "change", "valueChange");
-    }
-
-    protected static Map<String, List<ClientBehavior>> getPassThruBehaviors(
-            UIComponent component,
-            String domEventName,
-            String componentEventName) {
-
-        if (!(component instanceof ClientBehaviorHolder)) {
-            return null;
-        }
-
-        Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
-
-        int size = behaviors.size();
-
-        if ((size == 1) || (size == 2)) {
-            boolean hasDomBehavior = behaviors.containsKey(domEventName);
-            boolean hasComponentBehavior = behaviors.containsKey(componentEventName);
-
-            // If the behavior map only contains behaviors for non-pass
-            // thru attributes, return null.
-            if (((size == 1) && (hasDomBehavior || hasComponentBehavior)) ||
-                    ((size == 2) && hasDomBehavior && hasComponentBehavior)) {
-                return null;
-            }
-        }
-
-        return behaviors;
     }
 }

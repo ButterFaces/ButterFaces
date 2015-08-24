@@ -45,9 +45,10 @@
 
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import com.sun.faces.renderkit.Attribute;
-
-import javax.faces.component.*;
+import javax.faces.component.ActionSource;
+import javax.faces.component.ActionSource2;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHint;
@@ -86,52 +87,16 @@ public class MojarraRenderUtils {
     public static void renderPassThruAttributes(ResponseWriter writer,
                                                 UIComponent component,
                                                 String attributeName,
-                                                String eventName,
-                                                Map<String, List<ClientBehavior>> behaviors) throws IOException {
+                                                String eventName) throws IOException {
         final FacesContext context = FacesContext.getCurrentInstance();
-        final Attribute attribute = Attribute.attr(attributeName, eventName);
-        final Attribute[] attributes = {attribute};
 
-        if (behaviors == null) {
-            behaviors = Collections.emptyMap();
-        }
+        Map<String, List<ClientBehavior>> behaviors = Collections.emptyMap();
 
-        renderPassThruAttributesUnoptimized(context, writer, component, attributes, behaviors);
-    }
-
-    // Renders the onchange handler for input components.  Handles
-    // chaining together the user-provided onchange handler with
-    // any Behavior scripts.
-    public static void renderOnchange(FacesContext context, UIComponent component, boolean incExec)
-            throws IOException {
-
-        final String handlerName = "onchange";
-        final Object userHandler = component.getAttributes().get(handlerName);
-        String behaviorEventName = "valueChange";
         if (component instanceof ClientBehaviorHolder) {
-            Map behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
-            if (null != behaviors && behaviors.containsKey("change")) {
-                behaviorEventName = "change";
-            }
+            behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
         }
 
-
-        List<ClientBehaviorContext.Parameter> params;
-        if (!incExec) {
-            params = Collections.emptyList();
-        } else {
-            params = new LinkedList<ClientBehaviorContext.Parameter>();
-            params.add(new ClientBehaviorContext.Parameter("incExec", true));
-        }
-        renderHandler(context,
-                component,
-                params,
-                handlerName,
-                userHandler,
-                behaviorEventName,
-                null,
-                false,
-                incExec);
+        renderPassThruAttributesUnoptimized(context, writer, component, attributeName, eventName, behaviors);
     }
 
     public static String prefixAttribute(final String attrName,
@@ -153,53 +118,34 @@ public class MojarraRenderUtils {
     /**
      * <p>Loops over all known attributes and attempts to render each one.
      *
-     * @param context         the {@link FacesContext} of the current request
-     * @param writer          the current writer
-     * @param component       the component whose attributes we're rendering
-     * @param knownAttributes an array of pass-through attributes supported by
-     *                        this component
-     * @param behaviors       the non-null behaviors map for this request.
+     * @param context   the {@link FacesContext} of the current request
+     * @param writer    the current writer
+     * @param component the component whose attributes we're rendering
+     * @param behaviors the non-null behaviors map for this request.
      * @throws IOException if an error occurs during the write
      */
     private static void renderPassThruAttributesUnoptimized(FacesContext context,
                                                             ResponseWriter writer,
                                                             UIComponent component,
-                                                            Attribute[] knownAttributes,
-                                                            Map<String, List<ClientBehavior>> behaviors)
-            throws IOException {
-
+                                                            String attributeName,
+                                                            String eventName,
+                                                            Map<String, List<ClientBehavior>> behaviors) throws IOException {
         boolean isXhtml = XHTML_CONTENT_TYPE.equals(writer.getContentType());
 
         Map<String, Object> attrMap = component.getAttributes();
 
-        for (Attribute attribute : knownAttributes) {
-            String attrName = attribute.getName();
-            String[] events = attribute.getEvents();
-            boolean hasBehavior = ((events != null) &&
-                    (events.length > 0) &&
-                    (behaviors.containsKey(events[0])));
+        boolean hasBehavior = ((eventName != null) && (behaviors.containsKey(eventName)));
 
-            Object value = attrMap.get(attrName);
+        Object value = attrMap.get(attributeName);
 
-            if (value != null && shouldRenderAttribute(value) && !hasBehavior) {
-                writer.writeAttribute(prefixAttribute(attrName, isXhtml),
-                        value,
-                        attrName);
-            } else if (hasBehavior) {
+        if (value != null && shouldRenderAttribute(value) && !hasBehavior) {
+            writer.writeAttribute(prefixAttribute(attributeName, isXhtml), value, attributeName);
+        } else if (hasBehavior) {
 
-                // If we've got a behavior for this attribute,
-                // we may need to chain scripts together, so use
-                // renderHandler().
-                renderHandler(context,
-                        component,
-                        null,
-                        attrName,
-                        value,
-                        events[0],
-                        null,
-                        false,
-                        false);
-            }
+            // If we've got a behavior for this attribute,
+            // we may need to chain scripts together, so use
+            // renderHandler().
+            renderHandler(context, component, attributeName, value, eventName, null, false);
         }
     }
 
@@ -542,12 +488,7 @@ public class MojarraRenderUtils {
                                                    String behaviorEventName,
                                                    String submitTarget,
                                                    boolean needsSubmit) {
-
-        ClientBehaviorContext bContext = createClientBehaviorContext(context,
-                component,
-                behaviorEventName,
-                params);
-
+        final ClientBehaviorContext bContext = createClientBehaviorContext(context, component, behaviorEventName, params);
         String script = behavior.getScript(bContext);
 
         boolean preventDefault = ((needsSubmit || isSubmitting(behavior)) &&
@@ -593,8 +534,6 @@ public class MojarraRenderUtils {
      *
      * @param context           the FacesContext for this request.
      * @param component         the UIComponent that we are rendering
-     * @param params            any parameters that should be included by "submitting"
-     *                          scripts.
      * @param handlerName       the name of the handler attribute to render (eg.
      *                          "onclick" or "ommouseover")
      * @param handlerValue      the user-specified value for the handler attribute
@@ -610,14 +549,11 @@ public class MojarraRenderUtils {
      */
     private static void renderHandler(FacesContext context,
                                       UIComponent component,
-                                      Collection<ClientBehaviorContext.Parameter> params,
                                       String handlerName,
                                       Object handlerValue,
                                       String behaviorEventName,
                                       String submitTarget,
-                                      boolean needsSubmit,
-                                      boolean includeExec)
-            throws IOException {
+                                      boolean needsSubmit) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         String userHandler = getNonEmptyUserHandler(handlerValue);
@@ -630,11 +566,9 @@ public class MojarraRenderUtils {
             behaviors = null;
         }
 
-        if (params == null) {
-            params = Collections.emptyList();
-        }
+        Collection<ClientBehaviorContext.Parameter> params = Collections.emptyList();
         String handler = null;
-        switch (getHandlerType(behaviors, params, userHandler, needsSubmit, includeExec)) {
+        switch (getHandlerType(behaviors, params, userHandler, needsSubmit)) {
 
             case USER_HANDLER_ONLY:
                 handler = userHandler;
@@ -687,15 +621,14 @@ public class MojarraRenderUtils {
     private static HandlerType getHandlerType(List<ClientBehavior> behaviors,
                                               Collection<ClientBehaviorContext.Parameter> params,
                                               String userHandler,
-                                              boolean needsSubmit,
-                                              boolean includeExec) {
+                                              boolean needsSubmit) {
 
         if ((behaviors == null) || (behaviors.isEmpty())) {
 
             // No behaviors and no params means user handler only,
             // if we have a param only because of includeExec while having
             // no behaviors, also, user handler only
-            if ((params.isEmpty() && !needsSubmit) || includeExec)
+            if ((params.isEmpty() && !needsSubmit))
                 return HandlerType.USER_HANDLER_ONLY;
 
             // We've got params.  If we've also got a user handler, we need
@@ -723,7 +656,7 @@ public class MojarraRenderUtils {
 
     // Little utility enum that we use to identify the type of
     // handler that we are going to render.
-    private static enum HandlerType {
+    private enum HandlerType {
 
         // Indicates that we only have a user handler - nothing else
         USER_HANDLER_ONLY,
@@ -738,8 +671,5 @@ public class MojarraRenderUtils {
         CHAIN
     }
 
-    // ---------------------------------------------------------- Nested Classes
-
-
-} // END RenderKitUtils
+}
 
