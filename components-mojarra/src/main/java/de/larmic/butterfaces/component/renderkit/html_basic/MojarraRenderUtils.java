@@ -46,7 +46,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import javax.faces.component.ActionSource;
-import javax.faces.component.ActionSource2;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.behavior.ClientBehavior;
@@ -63,23 +62,6 @@ import java.util.*;
  * <p>A set of utilities for use in {@link RenderKit}s.</p>
  */
 public class MojarraRenderUtils {
-
-    public static final String XHTML_CONTENT_TYPE = "application/xhtml+xml";
-
-    /**
-     * <p>The prefix to append to certain attributes when renderking
-     * <code>XHTML Transitional</code> content.
-     */
-    private static final String XHTML_ATTR_PREFIX = "xml:";
-
-    /**
-     * <p>An array of attributes that must be prefixed by
-     * {@link #XHTML_ATTR_PREFIX} when rendering
-     * <code>XHTML Transitional</code> content.
-     */
-    private static final String[] XHTML_PREFIX_ATTRIBUTES = {
-            "lang"
-    };
 
     private MojarraRenderUtils() {
     }
@@ -99,20 +81,6 @@ public class MojarraRenderUtils {
         renderPassThruAttributesUnoptimized(context, writer, component, attributeName, eventName, behaviors);
     }
 
-    public static String prefixAttribute(final String attrName,
-                                         boolean isXhtml) {
-        if (isXhtml) {
-            if (Arrays.binarySearch(XHTML_PREFIX_ATTRIBUTES, attrName) > -1) {
-                return XHTML_ATTR_PREFIX + attrName;
-            } else {
-                return attrName;
-            }
-        } else {
-            return attrName;
-        }
-
-    }
-
     // --------------------------------------------------------- Private Methods
 
     /**
@@ -130,67 +98,19 @@ public class MojarraRenderUtils {
                                                             String attributeName,
                                                             String eventName,
                                                             Map<String, List<ClientBehavior>> behaviors) throws IOException {
-        boolean isXhtml = XHTML_CONTENT_TYPE.equals(writer.getContentType());
-
         Map<String, Object> attrMap = component.getAttributes();
 
         boolean hasBehavior = ((eventName != null) && (behaviors.containsKey(eventName)));
 
         Object value = attrMap.get(attributeName);
 
-        if (value != null && shouldRenderAttribute(value) && !hasBehavior) {
-            writer.writeAttribute(prefixAttribute(attributeName, isXhtml), value, attributeName);
-        } else if (hasBehavior) {
+        if (hasBehavior) {
 
             // If we've got a behavior for this attribute,
             // we may need to chain scripts together, so use
             // renderHandler().
-            renderHandler(context, component, attributeName, value, eventName, null, false);
+            renderHandler(context, component, attributeName, value, eventName);
         }
-    }
-
-    /**
-     * <p>Determines if an attribute should be rendered based on the
-     * specified #attributeVal.</p>
-     *
-     * @param attributeVal the attribute value
-     * @return <code>true</code> if and only if #attributeVal is
-     * an instance of a wrapper for a primitive type and its value is
-     * equal to the default value for that type as given in the specification.
-     */
-    private static boolean shouldRenderAttribute(Object attributeVal) {
-
-        if (attributeVal instanceof String) {
-            return true;
-        } else if (attributeVal instanceof Boolean &&
-                Boolean.FALSE.equals(attributeVal)) {
-            return false;
-        } else if (attributeVal instanceof Integer &&
-                (Integer) attributeVal == Integer.MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Double &&
-                (Double) attributeVal == Double.MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Character &&
-                (Character) attributeVal
-                        == Character
-                        .MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Float &&
-                (Float) attributeVal == Float.MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Short &&
-                (Short) attributeVal == Short.MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Byte &&
-                (Byte) attributeVal == Byte.MIN_VALUE) {
-            return false;
-        } else if (attributeVal instanceof Long &&
-                (Long) attributeVal == Long.MIN_VALUE) {
-            return false;
-        }
-        return true;
-
     }
 
     /**
@@ -247,7 +167,7 @@ public class MojarraRenderUtils {
         }
 
         if (builder.length() == 0) {
-            builder.append("jsf.util.chain(this,event,");
+            builder.append("butter.util.chain(this,event,");
         }
 
         if (builder.charAt(builder.length() - 1) != ',')
@@ -385,7 +305,6 @@ public class MojarraRenderUtils {
     private static String getSubmitHandler(FacesContext context,
                                            UIComponent component,
                                            Collection<ClientBehaviorContext.Parameter> params,
-                                           String submitTarget,
                                            boolean preventDefault) {
 
         StringBuilder builder = new StringBuilder(256);
@@ -406,11 +325,6 @@ public class MojarraRenderUtils {
         }
 
         builder.append("},'");
-
-        if (submitTarget != null) {
-            builder.append(submitTarget);
-        }
-
         builder.append("')");
 
         if (preventDefault) {
@@ -428,7 +342,6 @@ public class MojarraRenderUtils {
                                             Collection<ClientBehaviorContext.Parameter> params,
                                             String behaviorEventName,
                                             String userHandler,
-                                            String submitTarget,
                                             boolean needsSubmit) {
 
 
@@ -450,11 +363,7 @@ public class MojarraRenderUtils {
         // If we've got parameters but we didn't render a "submitting"
         // behavior script, we need to explicitly render a submit script.
         if (!submitting && (hasParams || needsSubmit)) {
-            String submitHandler = getSubmitHandler(context,
-                    component,
-                    params,
-                    submitTarget,
-                    false);
+            String submitHandler = getSubmitHandler(context, component, params, false);
 
             appendScriptToChain(builder, submitHandler);
 
@@ -472,8 +381,7 @@ public class MojarraRenderUtils {
         // a submit script), we need to return false to prevent the
         // default button/link action.
         if (submitting &&
-                ("action".equals(behaviorEventName) ||
-                        "click".equals(behaviorEventName))) {
+                ("action".equals(behaviorEventName) || "click".equals(behaviorEventName))) {
             builder.append(";return false");
         }
 
@@ -486,21 +394,15 @@ public class MojarraRenderUtils {
                                                    ClientBehavior behavior,
                                                    Collection<ClientBehaviorContext.Parameter> params,
                                                    String behaviorEventName,
-                                                   String submitTarget,
                                                    boolean needsSubmit) {
         final ClientBehaviorContext bContext = createClientBehaviorContext(context, component, behaviorEventName, params);
         String script = behavior.getScript(bContext);
 
-        boolean preventDefault = ((needsSubmit || isSubmitting(behavior)) &&
-                (component instanceof ActionSource || component instanceof ActionSource2));
+        boolean preventDefault = ((needsSubmit || isSubmitting(behavior)) && (component instanceof ActionSource));
 
         if (script == null) {
             if (needsSubmit) {
-                script = getSubmitHandler(context,
-                        component,
-                        params,
-                        submitTarget,
-                        preventDefault);
+                script = getSubmitHandler(context, component, params, preventDefault);
             }
         } else if (preventDefault) {
             script = script + ";return false";
@@ -515,11 +417,7 @@ public class MojarraRenderUtils {
                                                                      String behaviorEventName,
                                                                      Collection<ClientBehaviorContext.Parameter> params) {
 
-        return ClientBehaviorContext.createClientBehaviorContext(context,
-                component,
-                behaviorEventName,
-                null,
-                params);
+        return ClientBehaviorContext.createClientBehaviorContext(context, component, behaviorEventName, null, params);
     }
 
     // Tests whether the specified behavior is submitting
@@ -539,21 +437,12 @@ public class MojarraRenderUtils {
      * @param handlerValue      the user-specified value for the handler attribute
      * @param behaviorEventName the name of the behavior event that corresponds
      *                          to this handler (eg. "action" or "mouseover").
-     * @param needsSubmit       indicates whether the mojarra.jsfcljs()
-     *                          "submit" script is required by the component.  Most components
-     *                          do not need this, either because they submit themselves
-     *                          (eg. commandButton), or because they do not perform submits
-     *                          (eg. non-command components).  This flag is mainly here for
-     *                          the commandLink case, where we need to render the submit
-     *                          script to make the link submit.
      */
     private static void renderHandler(FacesContext context,
                                       UIComponent component,
                                       String handlerName,
                                       Object handlerValue,
-                                      String behaviorEventName,
-                                      String submitTarget,
-                                      boolean needsSubmit) throws IOException {
+                                      String behaviorEventName) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         String userHandler = getNonEmptyUserHandler(handlerValue);
@@ -568,7 +457,7 @@ public class MojarraRenderUtils {
 
         Collection<ClientBehaviorContext.Parameter> params = Collections.emptyList();
         String handler = null;
-        switch (getHandlerType(behaviors, params, userHandler, needsSubmit)) {
+        switch (getHandlerType(behaviors, params, userHandler, false)) {
 
             case USER_HANDLER_ONLY:
                 handler = userHandler;
@@ -580,15 +469,13 @@ public class MojarraRenderUtils {
                         behaviors.get(0),
                         params,
                         behaviorEventName,
-                        submitTarget,
-                        needsSubmit);
+                        false);
                 break;
 
             case SUBMIT_ONLY:
                 handler = getSubmitHandler(context,
                         component,
                         params,
-                        submitTarget,
                         true);
                 break;
 
@@ -599,8 +486,7 @@ public class MojarraRenderUtils {
                         params,
                         behaviorEventName,
                         userHandler,
-                        submitTarget,
-                        needsSubmit);
+                        false);
                 break;
             default:
                 assert (false);

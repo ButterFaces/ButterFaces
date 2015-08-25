@@ -40,6 +40,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tagsinput.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-ajax.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tree.jquery.js", target = "head"),

@@ -17,8 +17,13 @@ butter.fix.updateMojarraScriptSourceId = function (/*String*/ innerInputComponen
 
             //console.log(onEvent);
 
-            if (onEvent !== undefined) {
+            if (onEvent !== undefined && onEvent.indexOf('mojarra.ab') > -1) {
                 var replacedFunction = onEvent.replace('mojarra.ab(this,', 'mojarra.ab(\'' + innerInputComponentId + '\',');
+
+                if (onEvent.indexOf('butter.util.chain') > -1) {
+                    replacedFunction = onEvent.replace('mojarra.ab(this,', 'mojarra.ab(\\\'' + innerInputComponentId + '\\\',');
+                }
+
                 //console.log(replacedFunction);
                 $(document.getElementById(innerInputComponentId)).find('input[' + event + ']').attr(event, replacedFunction);
             }

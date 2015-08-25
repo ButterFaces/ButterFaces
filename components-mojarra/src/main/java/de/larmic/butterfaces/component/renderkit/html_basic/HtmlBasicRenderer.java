@@ -30,7 +30,9 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
     protected void renderStringValue(final UIComponent component,
                                      final ResponseWriter writer,
                                      final String attributeName) throws IOException {
-        if (component.getAttributes().get(attributeName) != null && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())) {
+        if (component.getAttributes().get(attributeName) != null
+                && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
+                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, component.getAttributes().get(attributeName), attributeName);
         }
     }
@@ -42,7 +44,9 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
                                      final ResponseWriter writer,
                                      final String attributeName,
                                      final String matchingValue) throws IOException {
-        if (component.getAttributes().get(attributeName) != null && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())) {
+        if (component.getAttributes().get(attributeName) != null
+                && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())
+                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, matchingValue, attributeName);
         }
     }
@@ -52,6 +56,32 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
                                     final String attributeName,
                                     final String eventName) throws IOException {
         MojarraRenderUtils.renderPassThruAttributes(writer, component, attributeName, eventName);
+    }
+
+    protected boolean shouldRenderAttribute(Object value) {
+        if (value == null)
+            return false;
+
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        } else if (value instanceof Number) {
+            final Number number = (Number) value;
+
+            if (value instanceof Integer)
+                return number.intValue() != Integer.MIN_VALUE;
+            else if (value instanceof Double)
+                return number.doubleValue() != Double.MIN_VALUE;
+            else if (value instanceof Long)
+                return number.longValue() != Long.MIN_VALUE;
+            else if (value instanceof Byte)
+                return number.byteValue() != Byte.MIN_VALUE;
+            else if (value instanceof Float)
+                return number.floatValue() != Float.MIN_VALUE;
+            else if (value instanceof Short)
+                return number.shortValue() != Short.MIN_VALUE;
+        }
+
+        return true;
     }
 
     protected void encodeRecursive(final FacesContext context,

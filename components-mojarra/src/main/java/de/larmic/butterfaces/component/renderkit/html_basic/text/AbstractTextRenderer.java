@@ -1,7 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
@@ -14,8 +12,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer {
-
-    private static final Attribute[] INPUT_ATTRIBUTES = AttributeManager.getAttributes(AttributeManager.Key.INPUTTEXT);
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {

@@ -21,6 +21,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-number.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
