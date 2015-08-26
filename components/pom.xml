@@ -167,6 +167,7 @@
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- needed by copy of mojarra table component -->

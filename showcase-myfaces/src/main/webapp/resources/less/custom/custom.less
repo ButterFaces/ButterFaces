@@ -1,0 +1,104 @@
+sub {
+  bottom: 0.4em !important;
+}
+
+.fulWidthPart {
+  background-image: linear-gradient(120deg, #155799, #159957);
+  padding: 20px 0 35px 0;
+  margin-bottom: 20px;
+  & * {
+    color: white;
+  }
+}
+
+.butter-component-info {
+  margin-top: 15px;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.tagsContainer .input-group .input-group-addon {
+  min-width: 130px;
+}
+
+.outputComponent .input-group-addon {
+  width: 130px;
+}
+
+.outputComponent .form-control {
+  height: auto;
+  min-height: 34px;
+  white-space: pre-wrap;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.butter-component .input-group {
+  margin-bottom: 0;
+}
+
+.prettyprint ol.linenums > li {
+  list-style-type: decimal;
+}
+
+.prettyprint {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+li.experimental {
+  color: @experimental-color;
+}
+
+li.newFeature {
+  color: @new-feature-color;
+}
+
+li.mojarra {
+  color: @mojarra-color;
+}
+
+.hideMojarraAttention,
+.hideNewFeatureAttention,
+.hideExperimentalAttention {
+  display: none;
+}
+
+.code-examples .tab-content {
+  margin-top: 10px;
+}
+
+.linkTagMinWidth {
+  min-width: 275px !important;
+}
+
+.largeBooleanControl {
+  min-width: 285px !important;
+}
+
+/*** LARMIC COMPONENTS - START *********************************************************/
+
+.demo-big-label .butter-component-label {
+  width: 250px;
+}
+
+.demo-big-label .butter-component-value {
+  width: ~"calc(100% - 250px)";
+}
+
+.logo {
+  background-image: url('data:image/png;base64,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');
+  height: 30px;
+  width: 42px;
+  margin-top: -4px;
+  float: left;
+}
+
+.jumbotron h2 {
+  margin-top: -20px;
+}

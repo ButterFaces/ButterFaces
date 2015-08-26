@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://butterfaces.larmic.de/components"
+        >
+
+<h:body>
+    <composite:interface>
+        <composite:attribute name="date"
+                             type="java.util.Date"
+                             required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <h:outputText value="#{cc.attrs.date}" />
+
+    </composite:implementation>
+</h:body>
+</html>

@@ -17,6 +17,7 @@
         <module>components</module>
         <module>components-mojarra</module>
         <module>showcase</module>
+        <module>showcase-myfaces</module>
     </modules>
 
     <licenses>

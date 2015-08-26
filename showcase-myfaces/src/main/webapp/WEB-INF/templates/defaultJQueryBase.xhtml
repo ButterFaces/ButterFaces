@@ -1,0 +1,23 @@
+<ui:composition template="/WEB-INF/templates/customComponentBase.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="content">
+
+        <div class="jQueryShowcase">
+            <b:section label="Example">
+                <ui:insert name="example"/>
+            </b:section>
+
+            <ui:insert name="codeExample"/>
+
+            <h:panelGroup id="other" layout="block">
+                <ui:insert name="other"/>
+            </h:panelGroup>
+        </div>
+
+        <b:activateLibraries/>
+    </ui:define>
+
+</ui:composition>

@@ -8,10 +8,10 @@
         <version>1.8.14-SNAPSHOT</version>
     </parent>
 
-    <artifactId>showcase</artifactId>
+    <artifactId>showcase-myfaces</artifactId>
     <packaging>war</packaging>
 
-    <name>ButterFaces showcase (Mojarra)</name>
+    <name>ButterFaces showcase (MyFaces)</name>
 
     <dependencies>
         <dependency>
@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>de.larmic.butterfaces</groupId>
-            <artifactId>components-mojarra</artifactId>
+            <artifactId>components</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -32,6 +32,17 @@
     <build>
         <finalName>${artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.openejb.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>1.7.1</version>
+                <configuration>
+                    <tomeeVersion>1.7.1</tomeeVersion>
+                    <tomeeClassifier>plus</tomeeClassifier>
+                    <debug>false</debug>
+                    <debugPort>5005</debugPort>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>templating-maven-plugin</artifactId>
@@ -60,14 +71,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.0.2.Final</version>
-                <configuration>
-                    <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.lesscss</groupId>

@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://butterfaces.larmic.de/components"
+        >
+
+<h:body>
+    <composite:interface>
+        <composite:attribute name="component"
+                             type="de.larmic.butterfaces.component.showcase.AbstractCodeShowcase"
+                             required="true"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+        <h:panelGroup layout="block" styleClass="code-examples">
+            <!-- Tabs-Navs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <ui:repeat value="#{cc.attrs.component.codeExamples}" var="example">
+                    <li role="presentation">
+                        <a href="##{example.tabId}" role="tab" data-toggle="tab">#{example.tabName}</a>
+                    </li>
+                </ui:repeat>
+            </ul>
+
+            <!-- Tab-Inhalte -->
+            <div class="tab-content">
+                <ui:repeat value="#{cc.attrs.component.codeExamples}" var="example">
+                    <div role="tabpanel" class="tab-pane fade" id="#{example.tabId}">
+                        <b:prettyprint language="#{example.prettyPrintLang}">
+                            #{example.toString()}
+                        </b:prettyprint>
+                    </div>
+                </ui:repeat>
+            </div>
+
+            <ui:remove>
+                <!-- Don't know why calling butter.prettyprint.cleanup() but after changing panel to tab is does not work out of the box anymore. -->
+            </ui:remove>
+            <script type="text/javascript">
+                butter.prettyprint.cleanup();
+
+                $(function() {
+                    $("li[role='presentation']").first().addClass("active");
+                    $("div[role='tabpanel']").first().addClass("in active");
+                });
+            </script>
+        </h:panelGroup>
+
+    </composite:implementation>
+</h:body>
+</html>
