@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.partrenderer;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTextArea;
+import de.larmic.butterfaces.component.html.feature.MaxLength;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
@@ -29,6 +30,6 @@ public class MaxLengthPartRenderer {
 
 
     private boolean isMaxLengthNecessary(final HtmlInputComponent component) {
-        return ((HtmlTextArea) component).getMaxLength() != null;
+        return ((MaxLength) component).getMaxLength() != null;
     }
 }

@@ -18,22 +18,24 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-maxlength.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
 })
-@FacesComponent(HtmlTextArea.COMPONENT_TYPE)
-public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label, Readonly, MaxLength {
+@FacesComponent(HtmlMarkdown.COMPONENT_TYPE)
+public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label, Readonly, MaxLength {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.textArea";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.markdown";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TextAreaRenderer";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.MarkdownRenderer";
 
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
-    protected static final String PROPERTY_EXPANDABLE = "expandable";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
 
-    public HtmlTextArea() {
+    public HtmlMarkdown() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }
@@ -83,14 +85,6 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setMaxLength(final Integer maxLength) {
         this.updateStateHelper(PROPERTY_MAXLENGTH, maxLength);
-    }
-
-    public Boolean getExpandable() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_EXPANDABLE);
-    }
-
-    public void setExpandable(final Boolean expandable) {
-        this.updateStateHelper(PROPERTY_EXPANDABLE, expandable);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

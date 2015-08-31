@@ -59,16 +59,25 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         // Close inner component wrapper div
         new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer);
 
-        renderTooltipIfNecessary(context, component);
+        this.renderTooltipIfNecessary(context, component);
+        this.renderAdditionalScript(context, component);
 
         // Render textarea counter
         new MaxLengthPartRenderer().renderMaxLength(htmlComponent, writer);
 
         // Render textarea expandable script call
-        new ExpandablePartRenderer().renderExpandable(htmlComponent, writer);
+        this.renderExpandable(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    protected void renderExpandable(HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
+        new ExpandablePartRenderer().renderExpandable(htmlComponent, writer);
+    }
+
+    protected void renderAdditionalScript(final FacesContext context, final UIComponent component) throws IOException {
+        // implement me
     }
 
     protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
