@@ -5,9 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
-/**
- * Created by larmic on 09.03.15.
- */
 @Named
 @ViewScoped
 public class DependencyExample implements Serializable {

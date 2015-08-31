@@ -1,19 +1,17 @@
 package de.larmic.butterfaces.event;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Removes web.xml configurable resources (jquery, bootstrap and prettyprint). Provides a compresses and minified
@@ -149,19 +147,6 @@ public class HandleResourceListener implements SystemEventListener {
       resource.setRendererType("javax.faces.resource.Stylesheet");
       resource.getAttributes().put("library", "butterfaces-generated");
       context.getViewRoot().addComponentResource(context, resource, HEAD);
-   }
-
-   /**
-    * Reads boolean context parameter from web.xml. If context parameter is not set Boolean.TRUE will be returned.
-    *
-    * @param externalContext      external context from faces context
-    * @param contextParameterName web.xml context parameter name
-    *
-    * @return true if context is not set
-    */
-   private boolean readContextParameter(final ExternalContext externalContext, final String contextParameterName) {
-      final String provideJQueryParam = externalContext.getInitParameter(contextParameterName);
-      return Boolean.parseBoolean(provideJQueryParam == null ? Boolean.TRUE.toString() : provideJQueryParam);
    }
 
    private void removeHeadResource(FacesContext context, UIComponent resource) {
