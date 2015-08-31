@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:markdown</strong> The markdown tag renders an HTML "textarea" element using <a href="http://www.codingdrama.com/bootstrap-markdown/" target="_blank">Bootstrap Markdown</a> as markdown plugin.
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <showcase:tagsContainer label="Tag attributes">
+            <showcase:tagStringControl label="label" value="#{markdownShowcase.label}" />
+            <showcase:tagBooleanControl label="hideLabel" value="#{markdownShowcase.hideLabel}"/>
+            <showcase:tagBooleanControl label="readonly" value="#{markdownShowcase.readonly}" />
+            <showcase:tagBooleanControl label="required" value="#{markdownShowcase.required}" />
+            <showcase:tagBooleanControl label="disabled" value="#{markdownShowcase.disabled}" />
+            <showcase:tagBooleanControl label="rendered" value="#{markdownShowcase.rendered}" />
+            <showcase:tagStringControl label="maxLength" value="#{markdownShowcase.maxLength}" />
+            <showcase:tagEnumControl label="styleClass"
+                                     value="#{markdownShowcase.styleClass}"
+                                     values="#{markdownShowcase.styleClasses}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="HTML5 tag attributes">
+            <showcase:tagStringControl label="placeholder" value="#{markdownShowcase.placeholder}"/>
+            <showcase:tagBooleanControl label="autofocus" value="#{markdownShowcase.autoFocus}"/>
+        </showcase:tagsContainer>
+
+        <showcase:tagsContainer label="Tag controls">
+            <showcase:tagEnumControl label="ajax"
+                                     value="#{markdownShowcase.ajaxType}"
+                                     values="#{markdownShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+            <showcase:tagStringControl label="tooltip" value="#{markdownShowcase.tooltip}" />
+            <showcase:tagBooleanControl label="validate" value="#{markdownShowcase.validation}" />
+        </showcase:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="markdown" component="#{markdownShowcase}">
+            <b:markdown id="markdown"
+                        label="#{markdownShowcase.label}"
+                        hideLabel="#{markdownShowcase.hideLabel}"
+                        value="#{markdownShowcase.value}"
+                        readonly="#{markdownShowcase.readonly}"
+                        required="#{markdownShowcase.required}"
+                        disabled="#{markdownShowcase.disabled}"
+                        rendered="#{markdownShowcase.rendered}"
+                        maxLength="#{markdownShowcase.maxLength}"
+                        placeholder="#{markdownShowcase.placeholder}"
+                        autoFocus="#{markdownShowcase.autoFocus}"
+                        styleClass="#{markdownShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="textArea"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not markdownShowcase.ajax}" />
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not markdownShowcase.validation}" />
+                <b:tooltip rendered="#{not empty markdownShowcase.tooltip}">
+                    #{markdownShowcase.tooltip}
+                </b:tooltip>
+            </b:markdown>
+        </showcase:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <showcase:codeExamples component="#{markdownShowcase}" />
+        <b:activateLibraries />
+    </ui:define>
+
+</ui:composition>
