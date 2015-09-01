@@ -18,11 +18,13 @@ public class MarkdownRenderer extends TextAreaRenderer {
         final ResponseWriter writer = context.getResponseWriter();
         final HtmlMarkdown markdown = (HtmlMarkdown) component;
 
+        writer.startElement("script", markdown);
         if (!markdown.isReadonly()) {
-            writer.startElement("script", markdown);
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "textarea", createJQueryPluginCall(markdown)), null);
-            writer.endElement("script");
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "textarea", createJQueryMarkdownPluginCall(markdown)), null);
+        } else {
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryMarkdownToHtmlPluginCall(markdown)), null);
         }
+        writer.endElement("script");
     }
 
     @Override
@@ -30,13 +32,21 @@ public class MarkdownRenderer extends TextAreaRenderer {
         // do nothing. no expandable support!
     }
 
-    private String createJQueryPluginCall(HtmlMarkdown markdown) {
+    private String createJQueryMarkdownPluginCall(HtmlMarkdown markdown) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         jQueryPluginCall.append("markdown({");
         jQueryPluginCall.append("autofocus: false,");
         jQueryPluginCall.append("savable: false");
         jQueryPluginCall.append("})");
+
+        return jQueryPluginCall.toString();
+    }
+
+    private String createJQueryMarkdownToHtmlPluginCall(HtmlMarkdown markdown) {
+        final StringBuilder jQueryPluginCall = new StringBuilder();
+
+        jQueryPluginCall.append("markdownReadonly()");
 
         return jQueryPluginCall.toString();
     }
