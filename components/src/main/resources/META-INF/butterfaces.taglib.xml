@@ -545,6 +545,10 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>language</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>autoFocus</name>
             <type>java.lang.Boolean</type>
         </attribute>

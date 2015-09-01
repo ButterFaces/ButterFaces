@@ -17,6 +17,7 @@ public class MarkdownShowcase extends AbstractInputShowcase implements Serializa
     private Integer maxLength;
     private boolean autoFocus;
 
+    private String language = "en";
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
 
     @Override
@@ -43,6 +44,7 @@ public class MarkdownShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + placeholder + "\"");
+        xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
@@ -89,5 +91,13 @@ public class MarkdownShowcase extends AbstractInputShowcase implements Serializa
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

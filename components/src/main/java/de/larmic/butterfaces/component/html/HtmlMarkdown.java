@@ -22,6 +22,23 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.ar.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.cs.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.da.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.de.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.es.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.fr.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.ja.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.kr.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.nb.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.nl.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.pl.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.ru.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.sl.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.sv.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.tr.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.ua.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.zh.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
 })
 @FacesComponent(HtmlMarkdown.COMPONENT_TYPE)
@@ -35,6 +52,7 @@ public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponen
     protected static final String PROPERTY_MAXLENGTH = "maxLength";
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
+    protected static final String PROPERTY_LANGUAGE = "language";
 
     public HtmlMarkdown() {
         super();
@@ -86,6 +104,15 @@ public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setMaxLength(final Integer maxLength) {
         this.updateStateHelper(PROPERTY_MAXLENGTH, maxLength);
+    }
+
+    public String getLanguage() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_LANGUAGE);
+        return eval == null ? "en" : (String) eval;
+    }
+
+    public void setLanguage(String language) {
+        this.updateStateHelper(PROPERTY_LANGUAGE, language);;
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

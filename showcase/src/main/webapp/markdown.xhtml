@@ -18,6 +18,7 @@
             <showcase:tagBooleanControl label="disabled" value="#{markdownShowcase.disabled}" />
             <showcase:tagBooleanControl label="rendered" value="#{markdownShowcase.rendered}" />
             <showcase:tagStringControl label="maxLength" value="#{markdownShowcase.maxLength}" />
+            <showcase:tagStringControl label="language" value="#{markdownShowcase.language}"/>
             <showcase:tagEnumControl label="styleClass"
                                      value="#{markdownShowcase.styleClass}"
                                      values="#{markdownShowcase.styleClasses}"/>
@@ -53,6 +54,7 @@
                         maxLength="#{markdownShowcase.maxLength}"
                         placeholder="#{markdownShowcase.placeholder}"
                         autoFocus="#{markdownShowcase.autoFocus}"
+                        language="#{markdownShowcase.language}"
                         styleClass="#{markdownShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"

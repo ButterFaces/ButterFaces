@@ -37,7 +37,8 @@ public class MarkdownRenderer extends TextAreaRenderer {
 
         jQueryPluginCall.append("markdown({");
         jQueryPluginCall.append("autofocus: false,");
-        jQueryPluginCall.append("savable: false");
+        jQueryPluginCall.append("savable: false,");
+        jQueryPluginCall.append("language: '" + markdown.getLanguage() + "'");
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
