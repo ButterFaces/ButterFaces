@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite">
 
 <h:body>
@@ -23,7 +23,7 @@
                         if (jQuery('a.experimental').size() != 0) {
                             jQuery('li.experimental').removeClass('hideExperimentalAttention');
                             jQuery('a.experimental').each(function () {
-                                jQuery(this).append(' <sub><span class="fa fa-warning"></span></sub>');
+                                jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-warning"&gt;&lt;/span&gt;&lt;/sub&gt;');
                             });
                         }
 
@@ -32,7 +32,7 @@
                         if (jQuery('a.mojarra').size() != 0) {
                             jQuery('li.mojarra').removeClass('hideMojarraAttention');
                             jQuery('a.mojarra').each(function () {
-                                jQuery(this).append(' <sub class="mojarra"><span class="fa fa-recycle"></span></sub>');
+                                jQuery(this).append(' &lt;sub class="mojarra"&gt;&lt;span class="fa fa-recycle"&gt;&lt;/span&gt;&lt;/sub&gt;');
                             });
                         }
 
@@ -41,7 +41,7 @@
                         if (jQuery('a.newFeature').size() != 0) {
                             jQuery('li.newFeature').removeClass('hideNewFeatureAttention');
                             jQuery('a.newFeature').each(function () {
-                                jQuery(this).append(' <sub><span class="fa fa-star"></span></sub>');
+                                jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-star"&gt;&lt;/span&gt;&lt;/sub&gt;');
                             });
                         }
 
