@@ -2,7 +2,6 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlTextArea;
 import de.larmic.butterfaces.component.html.feature.MaxLength;
 
 import javax.faces.component.UIInput;
@@ -18,7 +17,7 @@ public class MaxLengthPartRenderer {
         if (isMaxLengthNecessary(component)) {
             renderMaxLengthElement(writer, uiComponent);
             RenderUtils.renderJQueryPluginCall(outerComponentId, "butterMaxLength({maxLength:"
-                    + ((HtmlTextArea) component).getMaxLength() + "})", writer, uiComponent);
+                    + ((MaxLength) component).getMaxLength() + "})", writer, uiComponent);
         }
     }
 
@@ -30,6 +29,6 @@ public class MaxLengthPartRenderer {
 
 
     private boolean isMaxLengthNecessary(final HtmlInputComponent component) {
-        return ((MaxLength) component).getMaxLength() != null;
+        return component instanceof MaxLength && ((MaxLength) component).getMaxLength() != null;
     }
 }
