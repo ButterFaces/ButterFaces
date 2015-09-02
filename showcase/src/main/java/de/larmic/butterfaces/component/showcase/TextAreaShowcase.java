@@ -45,7 +45,6 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + placeholder + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
         if (this.getMaxLength() != null) {
             xhtmlCodeExample.appendInnerContent("                    maxLength=\"" + this.getMaxLength() + "\"");
@@ -54,6 +53,8 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         if (Boolean.TRUE.equals(this.getExpandable())) {
             xhtmlCodeExample.appendInnerContent("                    expandable=\"" + this.getExpandable() + "\"");
         }
+
+        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "keyup");
 

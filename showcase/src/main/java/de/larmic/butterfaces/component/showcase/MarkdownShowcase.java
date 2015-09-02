@@ -46,11 +46,12 @@ public class MarkdownShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + placeholder + "\"");
         xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
         if (this.getMaxLength() != null) {
             xhtmlCodeExample.appendInnerContent("                    maxLength=\"" + this.getMaxLength() + "\"");
         }
+
+        xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "keyup");
 
