@@ -33,7 +33,7 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         // Open outer component wrapper div
-        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer);
+        new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, getComponentNameStyleClass());
 
         // Render label if components label attribute is set
         new LabelPartRenderer().renderLabel(component, writer);
@@ -43,6 +43,13 @@ public class TextAreaRenderer extends HtmlBasicInputRenderer {
 
         // Render readonly span if components readonly attribute is set
         new ReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+    }
+
+    /**
+     * @return additional component style class for outer div.
+     */
+    protected String getComponentNameStyleClass() {
+        return "butter-component-textarea";
     }
 
     @Override

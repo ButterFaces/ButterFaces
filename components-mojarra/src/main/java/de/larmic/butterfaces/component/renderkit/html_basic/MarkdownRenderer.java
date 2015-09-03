@@ -22,7 +22,7 @@ public class MarkdownRenderer extends TextAreaRenderer {
         if (!markdown.isReadonly()) {
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "textarea", createJQueryMarkdownPluginCall(markdown)), null);
         } else {
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryMarkdownToHtmlPluginCall(markdown)), null);
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryMarkdownToHtmlPluginCall()), null);
         }
         writer.endElement("script");
     }
@@ -30,6 +30,11 @@ public class MarkdownRenderer extends TextAreaRenderer {
     @Override
     protected void renderExpandable(final HtmlInputComponent htmlComponent, final ResponseWriter writer) throws IOException {
         // do nothing. no expandable support!
+    }
+
+    @Override
+    protected String getComponentNameStyleClass() {
+        return "butter-component-markdown";
     }
 
     private String createJQueryMarkdownPluginCall(HtmlMarkdown markdown) {
@@ -44,11 +49,7 @@ public class MarkdownRenderer extends TextAreaRenderer {
         return jQueryPluginCall.toString();
     }
 
-    private String createJQueryMarkdownToHtmlPluginCall(HtmlMarkdown markdown) {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-
-        jQueryPluginCall.append("markdownReadonly()");
-
-        return jQueryPluginCall.toString();
+    private String createJQueryMarkdownToHtmlPluginCall() {
+        return "markdownReadonly()";
     }
 }
