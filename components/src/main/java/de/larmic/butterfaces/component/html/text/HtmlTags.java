@@ -11,16 +11,13 @@ import java.util.List;
 @ResourceDependencies({
 		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
-		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
+		@ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
+		@ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
+		@ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-external", name = "bootstrap-tagsinput.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-tags.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tagsinput.jquery.js", target = "head")
+		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tagsinput.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)
 public class HtmlTags extends HtmlText {
@@ -57,6 +54,14 @@ public class HtmlTags extends HtmlText {
 
 	public void setMaxTags(Integer maxTags) {
 		this.updateStateHelper(PROPERTY_MAX_TAGS, maxTags);
+	}
+
+	public Integer getMaxChars() {
+		return (Integer) this.getStateHelper().eval(PROPERTY_MAX_CHARS);
+	}
+
+	public void setMaxChars(Integer maxChars) {
+		this.updateStateHelper(PROPERTY_MAX_CHARS, maxChars);
 	}
 
 	public boolean isTrimValue() {
