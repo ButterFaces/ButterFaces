@@ -299,18 +299,8 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>maxChars</name>
-            <description>Defines the maximum length of a single tag. (default: undefined)</description>
-            <type>java.lang.Integer</type>
-        </attribute>
-        <attribute>
-            <name>trimValue</name>
-            <description>When true, automatically removes all whitespace around tags. (default: false)</description>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>allowDuplicates</name>
-            <description>When true, the same tag can be added multiple times. (default: false)</description>
+            <name>distinct</name>
+            <description>When true, the same tag can be added multiple times. (default: true)</description>
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>

@@ -10,6 +10,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
 public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
@@ -36,46 +39,69 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         final HtmlTags htmlTags = (HtmlTags) component;
 
         writer.startElement("script", component);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCall(htmlTags)), null);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallback(htmlTags)), null);
-        if (htmlTags.isReadonly()) {
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "markTagsInputAsReadonly()"), null);
-        } else if (htmlTags.isDisabled()) {
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "markTagsInputAsDisabled()"), null);
-        }
+        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallback(HtmlTags tags) {
+    private String createJQueryPluginCallTivial(final HtmlTags tags) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
-        jQueryPluginCall.append("on(\"itemAdded\", function (e) {");
-        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(tags.getClientId(), ".butter-input-component") + "trigger('keyup');");
-        jQueryPluginCall.append("})");
-        jQueryPluginCall.append(".on(\"itemRemoved\", function (e) {");
-        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(tags.getClientId(), ".butter-input-component") + "trigger('keyup');");
-        jQueryPluginCall.append("})");
+
+        final String editable = getEditingMode(tags);
+
+        jQueryPluginCall.append("TrivialTagBox({");
+        jQueryPluginCall.append("\n    autoComplete: false,");
+        jQueryPluginCall.append("\n    allowFreeText: true,");
+        jQueryPluginCall.append("\n    showTrigger: false,");
+        jQueryPluginCall.append("\n    distinct: " + tags.isDistinct() + ",");
+        jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
+        if (tags.getMaxTags() != null) {
+            jQueryPluginCall.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
+        }
+        final String selectedEntries = this.getSelectedEntries(tags);
+        if (StringUtils.isNotEmpty(selectedEntries)) {
+            jQueryPluginCall.append("\n    selectedEntries: [" + selectedEntries + "],");
+        }
+        jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
+        jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
+        //jQueryPluginCall.append("\n    freeTextSeparators: ['" + tags.getConfirmKeys() + "']");
+        jQueryPluginCall.append("\n    freeTextSeparators: [',',' '],");
+        jQueryPluginCall.append("\n    valueSeparator: [',']");
+        jQueryPluginCall.append("});");
+
         return jQueryPluginCall.toString();
     }
 
-    private String createJQueryPluginCall(HtmlTags tags) {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-
-        jQueryPluginCall.append("tagsinput({");
-
-        if (tags.getMaxChars() != null) {
-            jQueryPluginCall.append("maxChars: " + tags.getMaxChars() + ",");
-        }
-        if (tags.getMaxTags() != null) {
-            jQueryPluginCall.append("maxTags: " + tags.getMaxChars() + ",");
-        }
-        if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
-            jQueryPluginCall.append("confirmKeys: [" + tags.getConfirmKeys() + "],");
+    private String getSelectedEntries(final HtmlTags tags) {
+        if (tags.getValue() == null) {
+            return null;
         }
 
-        jQueryPluginCall.append("trimValue: " + tags.isTrimValue() + ",");
-        jQueryPluginCall.append("allowDuplicates: " + tags.isAllowDuplicates() + ",");
-        jQueryPluginCall.append("disabled: " + tags.isDisabled());
-        jQueryPluginCall.append("})");
-        return jQueryPluginCall.toString();
+        final String componentValue = tags.getValue().toString();
+
+        final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(",| "))).iterator();
+
+        final StringBuilder sb = new StringBuilder();
+
+        while (iterator.hasNext()) {
+            final String next = iterator.next();
+            if (StringUtils.isNotEmpty(next)) {
+                sb.append("{displayValue:'" + next + "'}");
+                if (iterator.hasNext()) {
+                    sb.append(", ");
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private String getEditingMode(final HtmlTags tags) {
+        if (tags.isReadonly()) {
+            return "readonly";
+        } else if (tags.isDisabled()) {
+            return "disabled";
+        }
+
+        return "editable";
     }
 }

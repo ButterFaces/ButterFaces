@@ -20,10 +20,9 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
     private String placeholder = "Enter text...";
     private ConfirmKeyType selectedConfirmKeyType = ConfirmKeyType.DEFAULT;
     private boolean autoFocus;
-    private boolean allowDuplicates;
+    private boolean distinct = true;
     private boolean trimValue;
     private Integer maxTags;
-    private Integer maxChars;
 
     @Override
     protected Object initValue() {
@@ -43,11 +42,8 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                allowDuplicates=\"" + allowDuplicates + "\"");
-        //  plugin error trim value does not work correclty
-        //xhtmlCodeExample.appendInnerContent("                trimValue=\"" + trimValue + "\"");
+        xhtmlCodeExample.appendInnerContent("                distinct=\"" + distinct + "\"");
         xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
-        xhtmlCodeExample.appendInnerContent("                maxChars=\"" + maxChars + "\"");
         xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + getConfirmKeys() + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
@@ -57,7 +53,7 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                autoFocus=\"" + this.isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
-        this.addAjaxTag(xhtmlCodeExample, "keyup");
+        this.addAjaxTag(xhtmlCodeExample, "change");
 
         if (this.isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
@@ -103,12 +99,12 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         this.autoFocus = autoFocus;
     }
 
-    public boolean isAllowDuplicates() {
-        return allowDuplicates;
+    public boolean isDistinct() {
+        return distinct;
     }
 
-    public void setAllowDuplicates(boolean allowDuplicates) {
-        this.allowDuplicates = allowDuplicates;
+    public void setDistinct(boolean distinct) {
+        this.distinct = distinct;
     }
 
     public boolean isTrimValue() {
@@ -125,14 +121,6 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setMaxTags(Integer maxTags) {
         this.maxTags = maxTags;
-    }
-
-    public Integer getMaxChars() {
-        return maxChars;
-    }
-
-    public void setMaxChars(Integer maxChars) {
-        this.maxChars = maxChars;
     }
 
     public String getConfirmKeys() {

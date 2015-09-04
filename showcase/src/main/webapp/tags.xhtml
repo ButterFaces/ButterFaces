@@ -1,12 +1,11 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:tags</strong> The tags tag renders a HTML input element of the type "text" using <a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/" target="_blank">Bootstrap Tags input</a> as jQuery plugin
+        <strong>b:tags</strong> The tags tag renders a HTML input element of the type "text" using <a href="https://trivial-components.github.io/trivial-components/tagBox.html" target="_blank">Trivial Components Tagbox</a>.
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -20,10 +19,7 @@
             <showcase:tagEnumControl label="styleClass"
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
-            <showcase:tagBooleanControl label="allowDuplicates" value="#{tagsShowcase.allowDuplicates}"/>
-            <!-- plugin error trim value does not work correclty -->
-            <!--showcase:tagBooleanControl label="trimValue" value="#{tagsShowcase.trimValue}"/-->
-            <showcase:tagStringControl label="maxChars" value="#{tagsShowcase.maxChars}"/>
+            <showcase:tagBooleanControl label="distinct" value="#{tagsShowcase.distinct}"/>
             <showcase:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
             <showcase:tagEnumControl label="confirmKeys"
                                      value="#{tagsShowcase.selectedConfirmKeyType}"
@@ -54,9 +50,8 @@
                     label="#{tagsShowcase.label}"
                     hideLabel="#{tagsShowcase.hideLabel}"
                     value="#{tagsShowcase.value}"
-                    allowDuplicates="#{tagsShowcase.allowDuplicates}"
+                    distinct="#{tagsShowcase.distinct}"
                     trimValue="#{tagsShowcase.trimValue}"
-                    maxChars="#{tagsShowcase.maxChars}"
                     maxTags="#{tagsShowcase.maxTags}"
                     confirmKeys="#{tagsShowcase.confirmKeys}"
                     tooltip="#{tagsShowcase.tooltip}"
@@ -67,7 +62,7 @@
                     placeholder="#{tagsShowcase.placeholder}"
                     autoFocus="#{tagsShowcase.autoFocus}"
                     styleClass="#{tagsShowcase.styleClass}">
-                <f:ajax event="keyup"
+                <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not tagsShowcase.ajax}"/>
