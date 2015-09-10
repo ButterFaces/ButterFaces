@@ -16,19 +16,20 @@
     $.fn.waitingPanel = function (data) {
 
         function processAjaxUpdate() {
-            var ajaxRequestRunning = false;
-
-            //console.log('waitingPanel - setting waiting panel delay to ' + waitingPanelOpeningDelay);
+            var ajaxRequestsRunning = 0;
 
             function processEvent(data) {
+                console.log("processEvent: " + data.status);
                 if (data.status == 'begin') {
-                    //console.log('waitingPanel - begin ajax event, showing overlay');
-                    ajaxRequestRunning = true;
+                    ajaxRequestsRunning++;
+                } else if (data.status == 'complete') {
+                    ajaxRequestsRunning--;
+                }
+                if (ajaxRequestsRunning > 0) {
+                    console.log(" -> " + ajaxRequestsRunning + " active ajax requests. Showing waitingPanel.");
                     butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
-
-                } else if (data.status == 'success') {
-                    //console.log('waitingPanel - end ajax event, hiding overlay');
-                    ajaxRequestRunning = false;
+                } else {
+                    console.log(" -> No more active requests. Hiding waitingPanel.");
                     butter.overlay.hide();
                 }
             }
