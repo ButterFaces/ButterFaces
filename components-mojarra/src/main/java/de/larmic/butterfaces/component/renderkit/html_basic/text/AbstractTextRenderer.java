@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.*;
 
 import javax.faces.component.UIComponent;
@@ -251,7 +252,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         if (component.getChildCount() > 0) {
             for (UIComponent child : component.getChildren()) {
                 // ignore tooltips (will be rendered before)
-                if (!(child instanceof HtmlTooltip)) {
+                if (!(child instanceof HtmlTooltip) && !(child instanceof HtmlAutoComplete)) {
                     encodeRecursive(context, child);
                 }
             }
