@@ -40,6 +40,7 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
 
         writer.startElement("script", component);
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
+        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
     }
 
