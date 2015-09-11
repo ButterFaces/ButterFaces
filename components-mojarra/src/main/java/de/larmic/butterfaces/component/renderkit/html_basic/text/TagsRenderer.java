@@ -23,6 +23,11 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
     }
 
     @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.encodeBegin(context, component, "butter-component-tags");
+    }
+
+    @Override
     protected void encodeInnerEnd(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlTags htmlTags = (HtmlTags) component;
 
