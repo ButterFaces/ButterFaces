@@ -28,6 +28,7 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
     private String min;
     private String max;
     private boolean autoFocus;
+    private boolean useConverter;
 
     @PostConstruct
     public void init() {
@@ -51,7 +52,11 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
     @Override
     public String getReadableValue() {
-        return (String) this.getValue();
+        if (this.getValue() != null) {
+            return this.getValue().toString();
+        }
+
+        return "";
     }
 
     @Override
@@ -192,5 +197,17 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setSelectedFacetType(FacetType selectedFacetType) {
         this.selectedFacetType = selectedFacetType;
+        if (this.selectedFacetType != FacetType.NONE) {
+            this.useConverter = false;
+        }
+    }
+
+    public boolean isUseConverter() {
+        return useConverter;
+    }
+
+    public void setUseConverter(boolean useConverter) {
+        this.useConverter = useConverter;
+        this.selectedFacetType = FacetType.NONE;
     }
 }

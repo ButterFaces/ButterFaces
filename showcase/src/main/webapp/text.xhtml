@@ -43,9 +43,11 @@
             <showcase:tagEnumControl label="facets"
                                      value="#{textShowcase.selectedFacetType}"
                                      values="#{textShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false" />
+                                     renderChildrenPopover="false"/>
             <showcase:tagBooleanControl label="validate"
                                         value="#{textShowcase.validation}"/>
+            <showcase:tagBooleanControl label="converter"
+                                        value="#{textShowcase.useConverter}"/>
         </showcase:tagsContainer>
     </ui:define>
 
@@ -57,12 +59,11 @@
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
-                    tooltip="demo"
                     value="#{textShowcase.value}"
                     readonly="#{textShowcase.readonly}"
                     disabled="#{textShowcase.disabled}"
                     required="#{textShowcase.required}"
-                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
+                    rendered="#{textShowcase.rendered and not textShowcase.useConverter and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
                     placeholder="#{textShowcase.placeholder}"
                     type="#{textShowcase.type}"
                     pattern="#{textShowcase.pattern}"
@@ -84,13 +85,42 @@
                 </b:tooltip>
             </b:text>
 
+            <b:text id="textWithConverter"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    readonly="#{textShowcase.readonly}"
+                    disabled="#{textShowcase.disabled}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.useConverter}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    styleClass="#{textShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        listener="#{textShowcase.someListenerAction}"
+                        disabled="#{not textShowcase.ajax}" />
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}" />
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+                <f:converter converterId="urlConverter" />
+            </b:text>
+
             <b:text id="textWithInputGroupAddon"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
                     value="#{textShowcase.value}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
-                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON' and not textShowcase.useConverter}"
                     placeholder="#{textShowcase.placeholder}"
                     type="#{textShowcase.type}"
                     pattern="#{textShowcase.pattern}"
@@ -123,7 +153,7 @@
                     value="#{textShowcase.value}"
                     readonly="#{textShowcase.readonly}"
                     required="#{textShowcase.required}"
-                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN' and not textShowcase.useConverter}"
                     placeholder="#{textShowcase.placeholder}"
                     type="#{textShowcase.type}"
                     pattern="#{textShowcase.pattern}"
