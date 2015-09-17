@@ -13,7 +13,10 @@ import java.util.logging.Logger;
 
 /**
  * Base butterfaces component renderer class. Should be used if possible.
+ *
+ * @deprecated use {@link HtmlBasicRenderer} instead.
  */
+@Deprecated
 public class HtmlDeprecatedBasicRenderer extends Renderer {
 
     private static final Logger LOGGER = Logger.getLogger(HtmlDeprecatedBasicRenderer.class.getName());
@@ -138,6 +141,6 @@ public class HtmlDeprecatedBasicRenderer extends Renderer {
      */
     protected UIComponent getFacet(UIComponent component, String name) {
         final UIComponent facet = component.getFacet(name);
-        return facet != null &&  facet.isRendered() ? facet : null;
+        return facet != null && facet.isRendered() ? facet : null;
     }
 }

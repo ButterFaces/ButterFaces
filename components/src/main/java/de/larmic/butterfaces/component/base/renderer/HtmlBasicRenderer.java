@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.base.renderer;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 

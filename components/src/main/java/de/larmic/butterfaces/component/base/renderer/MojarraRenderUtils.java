@@ -43,7 +43,7 @@
  * Mojarra dependencies are removed.
  **/
 
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.base.renderer;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -312,6 +312,7 @@ public class MojarraRenderUtils {
         String formClientId = getFormClientId(component, context);
         String componentClientId = component.getClientId(context);
 
+        // TODO fixed mojarra call
         builder.append("mojarra.jsfcljs(document.getElementById('");
         builder.append(formClientId);
         builder.append("'),{");
