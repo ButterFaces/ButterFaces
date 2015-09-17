@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.ajax;
 import de.larmic.butterfaces.component.html.ajax.WaitingPanel;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,7 +15,7 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = WaitingPanel.COMPONENT_FAMILY, rendererType = WaitingPanel.RENDERER_TYPE)
-public class WaitingPanelRenderer extends HtmlBasicRenderer {
+public class WaitingPanelRenderer extends HtmlDeprecatedBasicRenderer {
 
     public static final int DEFAULT_WAITING_PANEL_DELAY = 500;
 

@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlSection;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlSection.COMPONENT_FAMILY, rendererType = HtmlSection.RENDERER_TYPE)
-public class SectionRenderer extends HtmlBasicRenderer {
+public class SectionRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {

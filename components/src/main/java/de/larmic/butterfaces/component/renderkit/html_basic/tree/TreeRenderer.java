@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.tree;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
@@ -26,7 +26,7 @@ import java.util.Map;
  * Created by larmic on 24.10.14.
  */
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
-public class TreeRenderer extends HtmlBasicRenderer {
+public class TreeRenderer extends HtmlDeprecatedBasicRenderer {
 
     private final Map<String, Node> nodes = new HashMap<>();
     private Node selectedNode = null;

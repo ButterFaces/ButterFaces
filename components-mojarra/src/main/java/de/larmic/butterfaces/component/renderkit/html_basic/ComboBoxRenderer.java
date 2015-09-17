@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
@@ -54,7 +54,7 @@ public class ComboBoxRenderer extends MenuRenderer {
         new ReadonlyPartRenderer().renderReadonly(comboBox, writer);
 
         if (!comboBox.isReadonly()) {
-            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+            writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
             writer.writeAttribute("class", "input-group", "styleClass");
 
             final UIComponent inputGroupAddonLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_LEFT);
@@ -85,7 +85,7 @@ public class ComboBoxRenderer extends MenuRenderer {
             writer.endElement("span");
             writer.endElement("span");
 
-            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+            writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
         }
     }
 
@@ -137,10 +137,10 @@ public class ComboBoxRenderer extends MenuRenderer {
         if (!htmlComponent.isReadonly()) {
             final UIComponent templateFacet = component.getFacet("template");
             if (templateFacet != null) {
-                writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+                writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
                 writer.writeAttribute("class", "butter-component-combobox-template", "styleClass");
                 templateFacet.encodeAll(context);
-                writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+                writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
             }
 
             // Render textarea expandable script call

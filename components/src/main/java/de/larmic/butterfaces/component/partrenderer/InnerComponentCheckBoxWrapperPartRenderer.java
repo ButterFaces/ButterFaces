@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 
 import javax.faces.context.ResponseWriter;
@@ -22,11 +22,11 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
 
             defaultStyleClass.append(" butter-component-checkbox");
 
-            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+            writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
             writer.writeAttribute("class", defaultStyleClass.toString(), null);
 
             if (!StringUtils.isEmpty(component.getDescription())) {
-                writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+                writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
                 writer.writeAttribute("class", "checkbox withDescription", null);
                 writer.startElement("label", component);
             } else {
@@ -44,7 +44,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 writer.writeText(component.getDescription(), null);
                 writer.endElement("span");
                 writer.endElement("label");
-                writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+                writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
             }
 
             final Set<String> eventNames = component.getClientBehaviors().keySet();
@@ -69,7 +69,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 RenderUtils.renderJavaScriptCall(function, writer, component);
             }
 
-            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+            writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
         }
     }
 }

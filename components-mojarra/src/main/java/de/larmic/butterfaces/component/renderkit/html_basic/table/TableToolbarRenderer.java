@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by larmic on 10.09.14.
  */
 @FacesRenderer(componentFamily = HtmlTableToolbar.COMPONENT_FAMILY, rendererType = HtmlTableToolbar.RENDERER_TYPE)
-public class TableToolbarRenderer extends HtmlBasicRenderer {
+public class TableToolbarRenderer extends HtmlDeprecatedBasicRenderer {
 
     private HtmlTable cachedTableComponent;
     private WebXmlParameters webXmlParameters;
@@ -55,7 +55,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
         webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
-        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader);
+        responseWriter.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, tableHeader);
         this.writeIdAttribute(context, responseWriter, tableHeader);
         responseWriter.writeAttribute("class", "butter-table-toolbar", null);
         responseWriter.writeAttribute("data-table-html-id", cachedTableComponent.getClientId(), null);
@@ -67,10 +67,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         if (component.getChildCount() > 0) {
             final ResponseWriter responseWriter = context.getResponseWriter();
 
-            responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+            responseWriter.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
             responseWriter.writeAttribute("class", "butter-table-toolbar-custom pull-left", null);
             super.encodeChildren(context, component);
-            responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+            responseWriter.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
         }
     }
 
@@ -82,8 +82,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
 
-        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader); // start right toolbar
-        responseWriter.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableHeader); // start button group
+        responseWriter.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, tableHeader); // start right toolbar
+        responseWriter.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, tableHeader); // start button group
         responseWriter.writeAttribute("class", "btn-group pull-right table-toolbar-default", null);
 
         this.renderFacet(context, component, "default-options-left");
@@ -92,10 +92,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         this.renderTableToolbarToggleColumnButton(responseWriter, tableHeader);
         this.renderFacet(context, component, "default-options-right");
 
-        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV); // end button group
-        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV); // end right toolbar
+        responseWriter.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV); // end button group
+        responseWriter.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV); // end right toolbar
 
-        responseWriter.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+        responseWriter.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
 
         RenderUtils.renderJQueryPluginCall(component.getClientId(), "fixBootstrapDropDown()", responseWriter, component);
     }
@@ -156,7 +156,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 orderAjaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
             }
 
-            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, tableToolbar);
+            writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
             // show and hide option toggle
@@ -204,7 +204,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             }
             writer.endElement("ul");
 
-            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+            writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
         }
     }
 

@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
@@ -20,7 +20,7 @@ import java.util.Iterator;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlTooltip.COMPONENT_FAMILY, rendererType = HtmlTooltip.RENDERER_TYPE)
-public class TooltipRenderer extends HtmlBasicRenderer {
+public class TooltipRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -135,7 +135,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             if (component.getClientId().equals(clientIdWithMessages)) {
                 final Iterator<FacesMessage> componentMessages = context.getMessages(clientIdWithMessages);
 
-                writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
+                writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
                 writer.writeAttribute("class", "butter-component-tooltip-validation-error", null);
                 writer.startElement("ul", component);
 
@@ -146,7 +146,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
                 }
 
                 writer.endElement("ul");
-                writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+                writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
             }
         }
     }

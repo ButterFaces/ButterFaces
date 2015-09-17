@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 /**
  * Base butterfaces component renderer class. Should be used if possible.
  */
-public class HtmlBasicRenderer extends Renderer {
+public class HtmlDeprecatedBasicRenderer extends Renderer {
 
-    private static final Logger LOGGER = Logger.getLogger(HtmlBasicRenderer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HtmlDeprecatedBasicRenderer.class.getName());
 
     public static final String ELEMENT_DIV = "div";
     public static final String ELEMENT_SPAN = "span";

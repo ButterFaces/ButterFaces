@@ -2,7 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.RenderKitUtils;
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
@@ -147,11 +147,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                     final Attribute[] attributes) throws IOException {
         final HtmlTable table = (HtmlTable) component;
 
-        writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
+        writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, table);
         writer.writeAttribute("id", component.getClientId(context), "id");
         writer.writeAttribute("class", "butter-table", null);
 
-        writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
+        writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, table);
 
         final String styleClass = (String) table.getAttributes().get("styleClass");
         if (styleClass != null) {
@@ -187,8 +187,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                   final UIComponent component,
                                   final ResponseWriter writer) throws IOException {
         super.renderTableEnd(context, component, writer);
-        writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
-        writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+        writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
+        writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
     }
 
     @Override
