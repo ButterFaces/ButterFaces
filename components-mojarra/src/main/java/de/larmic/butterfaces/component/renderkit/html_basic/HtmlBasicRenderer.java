@@ -3,15 +3,122 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.ValueHolder;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by larmic on 20.08.15.
+ * Basic butterfaces renderer.
  */
-public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer {
+public class HtmlBasicRenderer extends Renderer {
+
+    @Override
+    public void encodeChildren(final FacesContext context,
+                               final UIComponent component) throws IOException {
+        if (!component.isRendered()) {
+            return;
+        }
+
+        if (component.getChildCount() > 0) {
+            for (UIComponent child : component.getChildren()) {
+                encodeRecursive(context, child);
+            }
+        }
+    }
+
+    @Override
+    public void encodeEnd(final FacesContext context,
+                          final UIComponent component) throws IOException {
+        if (!component.isRendered()) {
+            return;
+        }
+
+        getEndTextToRender(context, component, getCurrentValue(context, component));
+    }
+
+    @Override
+    public void decode(final FacesContext context,
+                       final UIComponent component) {
+        if (!component.isRendered()) {
+            return;
+        }
+
+        if (!(component instanceof UIInput)) {
+            return;
+        }
+
+        String clientId = decodeBehaviors(context, component);
+
+        if (clientId == null) {
+            clientId = component.getClientId(context);
+        }
+
+        final Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
+
+        final String newValue = requestMap.get(clientId);
+        if (newValue != null) {
+            setSubmittedValue(component, newValue);
+        }
+    }
+
+    protected final String decodeBehaviors(final FacesContext context,
+                                           final UIComponent component) {
+        if (!(component instanceof ClientBehaviorHolder)) {
+            return null;
+        }
+
+        final ClientBehaviorHolder holder = (ClientBehaviorHolder) component;
+        final Map<String, List<ClientBehavior>> behaviors = holder.getClientBehaviors();
+
+        if (behaviors.isEmpty()) {
+            return null;
+        }
+
+        final ExternalContext external = context.getExternalContext();
+        final Map<String, String> params = external.getRequestParameterMap();
+        final String behaviorEvent = params.get("javax.faces.behavior.event");
+
+        if (behaviorEvent != null) {
+            final List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
+
+            if (behaviorsForEvent != null && behaviorsForEvent.size() > 0) {
+                final String behaviorSource = params.get("javax.faces.source");
+                final String clientId = component.getClientId();
+                if (isBehaviorSource(behaviorSource, clientId)) {
+                    for (ClientBehavior behavior : behaviorsForEvent) {
+                        behavior.decode(context, component);
+                    }
+                }
+
+                return clientId;
+            }
+        }
+
+        return null;
+    }
+
+    protected boolean isBehaviorSource(final String behaviorSourceId,
+                                       final String componentClientId) {
+        return (behaviorSourceId != null && behaviorSourceId.equals(componentClientId));
+    }
+
+    protected void setSubmittedValue(final UIComponent component,
+                                     final Object value) {
+        if (component instanceof UIInput) {
+            ((UIInput) component).setSubmittedValue(value);
+        }
+    }
 
     /**
      * Render boolean value if attribute is set to true.
@@ -56,6 +163,40 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
                                     final String attributeName,
                                     final String eventName) throws IOException {
         MojarraRenderUtils.renderPassThruAttributes(writer, component, attributeName, eventName);
+    }
+
+    protected String getCurrentValue(FacesContext context, final UIComponent component) {
+
+        if (component instanceof UIInput) {
+            Object submittedValue = ((UIInput) component).getSubmittedValue();
+            if (submittedValue != null) {
+                // value may not be a String...
+                return submittedValue.toString();
+            }
+        }
+
+        if (component instanceof ValueHolder) {
+            final ValueHolder valueHolder = (ValueHolder) component;
+            final Object value = valueHolder.getValue();
+            final Converter converter = valueHolder.getConverter();
+
+            if (converter != null && value != null) {
+                return converter.getAsString(context, component, value);
+            }
+
+            if (value != null) {
+                return value.toString();
+            }
+        }
+
+        return null;
+
+    }
+
+    protected void getEndTextToRender(final FacesContext context,
+                                      final UIComponent component,
+                                      final String currentValue) throws IOException {
+        // no-op unless overridden
     }
 
     protected boolean shouldRenderAttribute(Object value) {
@@ -104,17 +245,12 @@ public class HtmlBasicRenderer extends com.sun.faces.renderkit.html_basic.HtmlBa
         component.encodeEnd(context);
     }
 
-    @Override
-    public void encodeChildren(final FacesContext context,
-                               final UIComponent component) throws IOException {
-        if (!component.isRendered()) {
-            return;
+    protected Iterator<UIComponent> getChildren(UIComponent component) {
+        if (component.getChildCount() > 0) {
+            return component.getChildren().iterator();
+        } else {
+            return Collections.<UIComponent>emptyList().iterator();
         }
 
-        if (component.getChildCount() > 0) {
-            for (UIComponent child : component.getChildren()) {
-                encodeRecursive(context, child);
-            }
-        }
     }
 }

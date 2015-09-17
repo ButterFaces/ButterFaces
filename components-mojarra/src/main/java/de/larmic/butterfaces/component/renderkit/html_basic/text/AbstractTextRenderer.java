@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicInputRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -12,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicRenderer {
+public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -63,6 +64,11 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    @Override
+    public boolean getRendersChildren() {
+        return true;
     }
 
     protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
@@ -181,10 +187,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             // html 5
             this.renderStringValue(component, writer, "autocomplete", "off");
             this.renderStringValue(component, writer, "placeholder");
-            this.renderBooleanValue(component, writer, "autofocus");
+            this.renderBooleanValue(component, writer, "autoFocus");
             this.renderBooleanValue(component, writer, "pattern");
-            this.renderBooleanValue(component, writer, "min");
-            this.renderBooleanValue(component, writer, "max");
+            this.renderStringValue(component, writer, "min");
+            this.renderStringValue(component, writer, "max");
 
             // html
             this.renderStringValue(component, writer, "alt");

@@ -1,26 +1,23 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
