@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.text;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 import javax.annotation.PostConstruct;
@@ -61,12 +62,25 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        final XhtmlCodeExample xhtmlCodeExample = this.createXhtmlCodeExample();
+
+        codeExamples.add(xhtmlCodeExample);
+        codeExamples.add(createMyBeanCodeExample());
+        if (useConverter) {
+            codeExamples.add(createUrlConverterCodeExample());
+            codeExamples.add(createUrlBookmarkCodeExample());
+        }
+
+        generateDemoCSS(codeExamples);
+    }
+
+    private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:text id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                value=\"#{myBean.value}\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                type=\"" + this.getType() + "\"");
         xhtmlCodeExample.appendInnerContent("                pattern=\"" + this.getPattern() + "\"");
@@ -89,6 +103,10 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
             xhtmlCodeExample.appendInnerContent("                " + getTooltip());
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+        }
+
+        if (useConverter) {
+            xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"urlConverter\" />");
         }
 
         if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {
@@ -125,9 +143,96 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
 
         this.addOutputExample(xhtmlCodeExample);
 
-        codeExamples.add(xhtmlCodeExample);
+        return xhtmlCodeExample;
+    }
 
-        generateDemoCSS(codeExamples);
+    private JavaCodeExample createMyBeanCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "myBean", "text.demo", "MyBean", true);
+
+        if (useConverter) {
+            myBean.appendInnerContent("   private URLBookmark value;\n");
+            myBean.appendInnerContent("   public URLBookmark getValue() {");
+            myBean.appendInnerContent("       return value;");
+            myBean.appendInnerContent("   }");
+            myBean.appendInnerContent("   public void setValue(URLBookmark value) {");
+            myBean.appendInnerContent("       this.value = value;");
+            myBean.appendInnerContent("   }");
+        } else {
+            myBean.appendInnerContent("   private String value;\n");
+            myBean.appendInnerContent("   public String getValue() {");
+            myBean.appendInnerContent("       return value;");
+            myBean.appendInnerContent("   }");
+            myBean.appendInnerContent("   public void setValue(String value) {");
+            myBean.appendInnerContent("       this.value = value;");
+            myBean.appendInnerContent("   }");
+        }
+
+        return myBean;
+    }
+
+    private JavaCodeExample createUrlBookmarkCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("URLBookmark.java", "uRLBookmark", "text.demo", "URLBookmark", false);
+
+        myBean.appendInnerContent("   private String fullURL;\n");
+        myBean.appendInnerContent("   public URLBookmark(String fullURL) {");
+        myBean.appendInnerContent("       this.fullURL = fullURL;");
+        myBean.appendInnerContent("   }");
+        myBean.appendInnerContent("   public String getFullURL() {");
+        myBean.appendInnerContent("       return fullURL;");
+        myBean.appendInnerContent("   }");
+        myBean.appendInnerContent("   public void setFullURL(String fullURL) {");
+        myBean.appendInnerContent("       this.fullURL = fullURL;");
+        myBean.appendInnerContent("   }");
+        myBean.appendInnerContent("   public String toString(){");
+        myBean.appendInnerContent("       return fullURL;");
+        myBean.appendInnerContent("   }");
+
+        return myBean;
+    }
+
+    private JavaCodeExample createUrlConverterCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("UrlConverter.java", "urlConverter", "text.demo", "UrlConverter", false, "@FacesConverter(\"urlConverter\")");
+
+        myBean.addImport("org.apache.commons.validator.routines.UrlValidator");
+        myBean.addImport("\njavax.faces.application.FacesMessage");
+        myBean.addImport("javax.faces.component.UIComponent");
+        myBean.addImport("javax.faces.context.FacesContext");
+        myBean.addImport("javax.faces.convert.Converter");
+        myBean.addImport("javax.faces.convert.ConverterException");
+        myBean.addImport("javax.faces.convert.FacesConverter");
+
+        myBean.addInterfaces("Converter");
+
+        myBean.appendInnerContent("   public static final String HTTP = \"http://\";\n");
+        myBean.appendInnerContent("   @Override");
+        myBean.appendInnerContent("   public Object getAsObject(final FacesContext context,");
+        myBean.appendInnerContent("                             final UIComponent component,");
+        myBean.appendInnerContent("                             final String value) {");
+        myBean.appendInnerContent("      final StringBuilder url = new StringBuilder();\n");
+        myBean.appendInnerContent("      this.appendHttpIfNecessary(value, url);\n");
+        myBean.appendInnerContent("      //use Apache common URL validator to validate URL");
+        myBean.appendInnerContent("      if(!new UrlValidator().isValid(url.toString())){");
+        myBean.appendInnerContent("          final FacesMessage msg = new FacesMessage(\"URL Conversion error.\", \"Invalid URL format.\");");
+        myBean.appendInnerContent("          msg.setSeverity(FacesMessage.SEVERITY_ERROR);");
+        myBean.appendInnerContent("          throw new ConverterException(msg);");
+        myBean.appendInnerContent("      }\n");
+        myBean.appendInnerContent("      return new URLBookmark(url.toString());");
+        myBean.appendInnerContent("   }\n");
+        myBean.appendInnerContent("   @Override");
+        myBean.appendInnerContent("   public String getAsString(final FacesContext context,");
+        myBean.appendInnerContent("                             final UIComponent component,");
+        myBean.appendInnerContent("                             final Object value) {");
+        myBean.appendInnerContent("      return value.toString();");
+        myBean.appendInnerContent("   }\n");
+        myBean.appendInnerContent("   private void appendHttpIfNecessary(final String value,");
+        myBean.appendInnerContent("                                      final StringBuilder url) {");
+        myBean.appendInnerContent("      if(!value.startsWith(HTTP, 0)){");
+        myBean.appendInnerContent("          url.append(HTTP);");
+        myBean.appendInnerContent("      }");
+        myBean.appendInnerContent("      url.append(value);");
+        myBean.appendInnerContent("   }");
+
+        return myBean;
     }
 
     public void someListenerAction(AjaxBehaviorEvent event) {

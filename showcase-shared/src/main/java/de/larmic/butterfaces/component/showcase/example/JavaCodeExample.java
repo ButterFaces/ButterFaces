@@ -18,6 +18,7 @@ public class JavaCodeExample extends AbstractCodeExample {
     private final String subPackage;
     private final String className;
     private final boolean cdiBean;
+    private final String classAnnotation;
 
     public JavaCodeExample(final String subPackage,
                            final String className,
@@ -30,10 +31,20 @@ public class JavaCodeExample extends AbstractCodeExample {
                            final String subPackage,
                            final String className,
                            final boolean cdiBean) {
+        this(tabName, tabId, subPackage, className, cdiBean, null);
+    }
+
+    public JavaCodeExample(final String tabName,
+                           final String tabId,
+                           final String subPackage,
+                           final String className,
+                           final boolean cdiBean,
+                           final String classAnnotation) {
         super(tabName, tabId);
         this.subPackage = subPackage;
         this.className = className;
         this.cdiBean = cdiBean;
+        this.classAnnotation = classAnnotation;
     }
 
     @Override
@@ -46,7 +57,7 @@ public class JavaCodeExample extends AbstractCodeExample {
     }
 
     public boolean addInterfaces(String anInterface) {
-        return interfaces.add(anInterface);
+        return interfaces.add(" " + anInterface);
     }
 
     public StringBuilder appendInnerContent(final String content) {
@@ -106,6 +117,9 @@ public class JavaCodeExample extends AbstractCodeExample {
     private void buildClassAnnotations(StringBuilder stringBuilder) {
         if (cdiBean) {
             stringBuilder.append("@ViewScoped\n@Named\n");
+        }
+        if (classAnnotation != null) {
+            stringBuilder.append(classAnnotation + "\n");
         }
     }
 
