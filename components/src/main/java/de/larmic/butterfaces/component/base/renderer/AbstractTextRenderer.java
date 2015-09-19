@@ -1,11 +1,10 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.text;
+package de.larmic.butterfaces.component.base.renderer;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_basic.HtmlBasicInputRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;

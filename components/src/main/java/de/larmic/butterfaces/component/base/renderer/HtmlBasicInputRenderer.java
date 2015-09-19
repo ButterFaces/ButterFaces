@@ -1,6 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
-
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+package de.larmic.butterfaces.component.base.renderer;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
