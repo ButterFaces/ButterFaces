@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.ajax;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.ajax.WaitingPanel;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,15 +15,13 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = WaitingPanel.COMPONENT_FAMILY, rendererType = WaitingPanel.RENDERER_TYPE)
-public class WaitingPanelRenderer extends HtmlDeprecatedBasicRenderer {
+public class WaitingPanelRenderer extends HtmlBasicRenderer {
 
     public static final int DEFAULT_WAITING_PANEL_DELAY = 500;
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -50,9 +48,7 @@ public class WaitingPanelRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
