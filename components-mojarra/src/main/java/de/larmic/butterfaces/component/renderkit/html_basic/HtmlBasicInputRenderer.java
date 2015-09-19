@@ -1,12 +1,10 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import com.sun.faces.util.MessageFactory;
-import com.sun.faces.util.MessageUtils;
-import com.sun.faces.util.RequestStateManager;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -113,21 +111,11 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
         }
 
         if (converter != null) {
-            // If the conversion eventually falls to needing to use EL type coercion,
-            // make sure our special ConverterPropertyEditor knows about this value.
-            RequestStateManager.set(context,
-                    RequestStateManager.TARGET_COMPONENT_ATTRIBUTE_NAME,
-                    component);
             return converter.getAsObject(context, component, newValue);
         } else {
-            // throw converter exception.
-            Object[] params = {
-                    newValue,
-                    "null Converter"
-            };
-
-            throw new ConverterException(MessageFactory.getMessage(
-                    context, MessageUtils.CONVERSION_ERROR_MESSAGE_ID, params));
+            final FacesMessage msg = new FacesMessage("null Converter", "Could not convert " + newValue);
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ConverterException(msg);
         }
 
     }
