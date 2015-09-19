@@ -56,6 +56,18 @@ public class HtmlBasicRenderer extends Renderer {
         getEndTextToRender(context, component, getCurrentValue(context, component));
     }
 
+    /**
+     * @param component Component from which to return a facet
+     * @param name      Name of the desired facet
+     * @return the specified facet from the specified component, but
+     * <strong>only</strong> if its <code>rendered</code> property is
+     * set to <code>true</code>.
+     */
+    protected UIComponent getFacet(UIComponent component, String name) {
+        final UIComponent facet = component.getFacet(name);
+        return facet != null && facet.isRendered() ? facet : null;
+    }
+
     @Override
     public void decode(final FacesContext context,
                        final UIComponent component) {
