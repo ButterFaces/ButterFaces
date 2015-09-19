@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 
@@ -10,13 +11,11 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlAutoComplete.COMPONENT_FAMILY, rendererType = HtmlAutoComplete.RENDERER_TYPE)
-public class AutoCompleteRenderer extends HtmlDeprecatedBasicRenderer {
+public class AutoCompleteRenderer extends HtmlBasicRenderer {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -42,9 +41,7 @@ public class AutoCompleteRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
