@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
@@ -28,7 +28,7 @@ public class ReadonlyPartRenderer {
         final Object value = component.getValue();
 
         if (readonly) {
-            writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, uiComponent);
+            writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, uiComponent);
             final StringBuilder sb = new StringBuilder("butter-component-value butter-component-value-readonly");
             if (component.isHideLabel()) {
                 sb.append(" butter-component-value-hiddenLabel");
@@ -38,7 +38,7 @@ public class ReadonlyPartRenderer {
             writer.writeAttribute("class", "butter-component-value-readonly-wrapper", "styleClass");
             writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
             writer.endElement("span");
-            writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
+            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         }
     }
 

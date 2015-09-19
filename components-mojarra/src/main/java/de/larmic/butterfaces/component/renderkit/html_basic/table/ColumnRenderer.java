@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
@@ -50,7 +50,7 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
             writer.writeAttribute("onclick", ajax, null);
         }
 
-        writer.startElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV, component);
+        writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
         writer.writeAttribute("data-tooltip-identifier", this.createTooltipIdentifier(column), null);
         writer.writeAttribute("class", column.getHeaderStyleClass(), null);
         writer.writeAttribute("style", column.getHeaderStyle(), null);
@@ -107,7 +107,7 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        writer.endElement(HtmlDeprecatedBasicRenderer.ELEMENT_DIV);
+        writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         writer.endElement("th");
     }
 
