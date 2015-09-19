@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlPrettyPrint;
 
 import javax.faces.component.UIComponent;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlPrettyPrint.COMPONENT_FAMILY, rendererType = HtmlPrettyPrint.RENDERER_TYPE)
-public class PrettyPrintRenderer extends HtmlDeprecatedBasicRenderer {
+public class PrettyPrintRenderer extends HtmlBasicRenderer {
 
     public static final String ELEMENT_PRE = "pre";
     public static final String ATTRIBUTE_STYLE = "style";
@@ -21,9 +21,7 @@ public class PrettyPrintRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
@@ -52,9 +50,7 @@ public class PrettyPrintRenderer extends HtmlDeprecatedBasicRenderer {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 

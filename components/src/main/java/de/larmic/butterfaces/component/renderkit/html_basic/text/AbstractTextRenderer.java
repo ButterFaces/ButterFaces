@@ -173,7 +173,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         if (component instanceof UIInput) {
             writer.startElement("input", component);
 
-            writer.writeAttribute("name", (component.getClientId(context)), "clientId");
+            writer.writeAttribute("name", component.getClientId(context), "clientId");
 
             if (currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");

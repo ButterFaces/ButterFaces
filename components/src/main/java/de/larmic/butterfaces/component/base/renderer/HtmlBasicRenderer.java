@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -22,6 +23,14 @@ import java.util.Map;
  * Basic butterfaces renderer.
  */
 public class HtmlBasicRenderer extends Renderer {
+
+    public static final String ELEMENT_DIV = "div";
+    public static final String ELEMENT_SPAN = "span";
+    public static final String ELEMENT_SECTION = "section";
+
+    public static final String ATTRIBUTE_ID = "id";
+    public static final String ATTRIBUTE_STYLE = "style";
+    public static final String ATTRIBUTE_CLASS = "class";
 
     @Override
     public void encodeChildren(final FacesContext context,
@@ -223,6 +232,31 @@ public class HtmlBasicRenderer extends Renderer {
         }
 
         return true;
+    }
+
+    protected String writeIdAttributeIfNecessary(final FacesContext context,
+                                                 final ResponseWriter writer,
+                                                 final UIComponent component) throws IOException {
+        if (shouldWriteIdAttribute(component)) {
+            return this.writeIdAttribute(context, writer, component);
+        }
+        return null;
+    }
+
+    protected String writeIdAttribute(final FacesContext context,
+                                      final ResponseWriter writer,
+                                      final UIComponent component) throws IOException {
+        final String clientId = component.getClientId(context);
+        writer.writeAttribute(ATTRIBUTE_ID, clientId, ATTRIBUTE_ID);
+        return clientId;
+    }
+
+    protected boolean shouldWriteIdAttribute(UIComponent component) {
+        String id;
+        return (null != (id = component.getId()) &&
+                (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
+                        ((component instanceof ClientBehaviorHolder) &&
+                                !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
     }
 
     protected void encodeRecursive(final FacesContext context,
