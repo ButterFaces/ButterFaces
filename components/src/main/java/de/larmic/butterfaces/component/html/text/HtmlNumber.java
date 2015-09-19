@@ -1,5 +1,7 @@
-package de.larmic.butterfaces.component.html;
+package de.larmic.butterfaces.component.html.text;
 
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;

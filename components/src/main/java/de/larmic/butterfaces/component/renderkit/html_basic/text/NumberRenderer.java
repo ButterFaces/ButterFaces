@@ -1,10 +1,9 @@
-package de.larmic.butterfaces.component.renderkit.html_basic;
+package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import de.larmic.butterfaces.component.html.HtmlNumber;
+import de.larmic.butterfaces.component.html.text.HtmlNumber;
 import de.larmic.butterfaces.component.html.text.HtmlMaskedText;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.base.renderer.AbstractTextRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

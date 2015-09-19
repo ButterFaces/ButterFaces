@@ -1,11 +1,11 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import de.larmic.butterfaces.component.base.renderer.AbstractTextRenderer;
 import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractTextRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

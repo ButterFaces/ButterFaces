@@ -1,5 +1,6 @@
-package de.larmic.butterfaces.component.base.renderer;
+package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
