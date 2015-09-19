@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.base.renderer.HtmlDeprecatedBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -20,13 +21,11 @@ import java.util.Iterator;
  * Created by larmic on 31.07.14.
  */
 @FacesRenderer(componentFamily = HtmlTooltip.COMPONENT_FAMILY, rendererType = HtmlTooltip.RENDERER_TYPE)
-public class TooltipRenderer extends HtmlDeprecatedBasicRenderer {
+public class TooltipRenderer extends HtmlBasicRenderer {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
-        rendererParamsNotNull(context, component);
-
-        if (!shouldEncode(component)) {
+        if (!component.isRendered()) {
             return;
         }
 
