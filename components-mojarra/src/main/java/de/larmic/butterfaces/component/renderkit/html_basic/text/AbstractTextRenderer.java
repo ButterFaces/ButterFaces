@@ -181,10 +181,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
             // html 5
             this.renderStringValue(component, writer, "autocomplete", "off");
             this.renderStringValue(component, writer, "placeholder");
-            this.renderBooleanValue(component, writer, "autofocus");
+            this.renderBooleanValue(component, writer, "autoFocus");
             this.renderBooleanValue(component, writer, "pattern");
-            this.renderBooleanValue(component, writer, "min");
-            this.renderBooleanValue(component, writer, "max");
+            this.renderStringValue(component, writer, "min");
+            this.renderStringValue(component, writer, "max");
 
             // html
             this.renderStringValue(component, writer, "alt");
