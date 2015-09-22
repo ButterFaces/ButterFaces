@@ -19,17 +19,17 @@
             var ajaxRequestsRunning = 0;
 
             function processEvent(data) {
-                console.log("processEvent: " + data.status);
+                //console.log("processEvent: " + data.status);
                 if (data.status == 'begin') {
                     ajaxRequestsRunning++;
                 } else if (data.status == 'complete') {
                     ajaxRequestsRunning--;
                 }
                 if (ajaxRequestsRunning > 0) {
-                    console.log(" -> " + ajaxRequestsRunning + " active ajax requests. Showing waitingPanel.");
+                    //console.log(" -> " + ajaxRequestsRunning + " active ajax requests. Showing waitingPanel.");
                     butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
                 } else {
-                    console.log(" -> No more active requests. Hiding waitingPanel.");
+                    //console.log(" -> No more active requests. Hiding waitingPanel.");
                     butter.overlay.hide();
                 }
             }
