@@ -1,0 +1,196 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:text</strong> The text tag renders an HTML input element of the type "text".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{textShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{textShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
+            <common:tagEnumControl label="styleClass"
+                                     value="#{textShowcase.styleClass}"
+                                     values="#{textShowcase.styleClasses}"/>
+        </common:tagsContainer>
+
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
+            <common:tagStringControl label="type" value="#{textShowcase.type}"/>
+            <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
+            <common:tagStringControl label="min" value="#{textShowcase.min}"/>
+            <common:tagStringControl label="max" value="#{textShowcase.max}"/>
+            <common:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
+        </common:tagsContainer>
+
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
+                                     value="#{textShowcase.ajaxType}"
+                                     values="#{textShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+            <common:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
+            <common:tagEnumControl label="facets"
+                                     value="#{textShowcase.selectedFacetType}"
+                                     values="#{textShowcase.availableFacetTypes}"
+                                     renderChildrenPopover="false"/>
+            <common:tagBooleanControl label="validate"
+                                        value="#{textShowcase.validation}"/>
+            <common:tagBooleanControl label="converter"
+                                        value="#{textShowcase.useConverter}"/>
+        </common:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <common:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="text"
+                                         component="#{textShowcase}">
+
+            <b:text id="text"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    readonly="#{textShowcase.readonly}"
+                    disabled="#{textShowcase.disabled}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and not textShowcase.useConverter and textShowcase.selectedFacetType != 'INPUT_GROUP_ADDON' and textShowcase.selectedFacetType != 'INPUT_GROUP_BTN'}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    pt:passThroughTest="demoPassThrough"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    styleClass="#{textShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        listener="#{textShowcase.someListenerAction}"
+                        disabled="#{not textShowcase.ajax}" />
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}" />
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+            </b:text>
+
+            <b:text id="textWithConverter"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    readonly="#{textShowcase.readonly}"
+                    disabled="#{textShowcase.disabled}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.useConverter}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    styleClass="#{textShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        listener="#{textShowcase.someListenerAction}"
+                        disabled="#{not textShowcase.ajax}" />
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}" />
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+                <f:converter converterId="urlConverter" />
+            </b:text>
+
+            <b:text id="textWithInputGroupAddon"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    readonly="#{textShowcase.readonly}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON' and not textShowcase.useConverter}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    styleClass="#{textShowcase.styleClass}">
+                <f:ajax event="keyup"
+                        execute="@this"
+                        listener="#{textShowcase.someListenerAction}"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not textShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}"/>
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+                <f:facet name="input-group-addon-left">
+                    Left input-group-addon
+                </f:facet>
+                <f:facet name="input-group-addon-right">
+                    Right input-group-addon
+                </f:facet>
+            </b:text>
+
+            <b:text id="textWithInputGroupBtn"
+                    label="#{textShowcase.label}"
+                    hideLabel="#{textShowcase.hideLabel}"
+                    value="#{textShowcase.value}"
+                    readonly="#{textShowcase.readonly}"
+                    required="#{textShowcase.required}"
+                    rendered="#{textShowcase.rendered and textShowcase.selectedFacetType eq 'INPUT_GROUP_BTN' and not textShowcase.useConverter}"
+                    placeholder="#{textShowcase.placeholder}"
+                    type="#{textShowcase.type}"
+                    pattern="#{textShowcase.pattern}"
+                    min="#{textShowcase.min}"
+                    max="#{textShowcase.max}"
+                    autoFocus="#{textShowcase.autoFocus}"
+                    styleClass="#{textShowcase.styleClass}">
+                <b:tooltip rendered="#{not empty textShowcase.tooltip}">
+                    #{textShowcase.tooltip}
+                </b:tooltip>
+                <f:ajax event="keyup"
+                        execute="@this"
+                        listener="#{textShowcase.someListenerAction}"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not textShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10"
+                                  disabled="#{not textShowcase.validation}"/>
+                <f:facet name="input-group-btn-left">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </f:facet>
+                <f:facet name="input-group-btn-right">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </f:facet>
+            </b:text>
+        </common:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <common:codeExamples component="#{textShowcase}"/>
+    </ui:define>
+</ui:composition>
