@@ -2,6 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -9,17 +10,17 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{autoCompleteShowcase.rendered}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="Tag attributes">
+            <common:tagBooleanControl label="rendered" value="#{autoCompleteShowcase.rendered}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagBooleanControl label="ajax" value="#{autoCompleteShowcase.ajaxEnabled}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="Tag controls">
+            <common:tagBooleanControl label="ajax" value="#{autoCompleteShowcase.ajaxEnabled}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="autoComplete"
                                          component="#{autoCompleteShowcase}">
             <b:text id="text"
@@ -36,11 +37,11 @@
                     Try it with <strong>ButterFaces</strong> or <strong>test</strong>
                 </b:tooltip>
             </b:text>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{autoCompleteShowcase}"/>
+        <common:codeExamples component="#{autoCompleteShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 </ui:composition>

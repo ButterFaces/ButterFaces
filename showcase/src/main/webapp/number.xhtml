@@ -2,6 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -9,39 +10,39 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{numberShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{numberShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{numberShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{numberShowcase.required}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{numberShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{numberShowcase.rendered}"/>
-            <showcase:tagStringControl label="min" value="#{numberShowcase.min}"/>
-            <showcase:tagStringControl label="max" value="#{numberShowcase.max}"/>
-            <showcase:tagStringControl label="step" value="#{numberShowcase.step}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{numberShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{numberShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{numberShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{numberShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{numberShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{numberShowcase.rendered}"/>
+            <common:tagStringControl label="min" value="#{numberShowcase.min}"/>
+            <common:tagStringControl label="max" value="#{numberShowcase.max}"/>
+            <common:tagStringControl label="step" value="#{numberShowcase.step}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{numberShowcase.styleClass}"
                                      values="#{numberShowcase.styleClasses}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{numberShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
+            <common:tagBooleanControl label="autofocus" value="#{numberShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
                                      value="#{numberShowcase.ajaxType}"
                                      values="#{numberShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagStringControl label="tooltip" value="#{numberShowcase.tooltip}"/>
-        </showcase:tagsContainer>
+            <common:tagStringControl label="tooltip" value="#{numberShowcase.tooltip}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="number"
                                          component="#{numberShowcase}">
             <b:number label="#{numberShowcase.label}"
@@ -66,11 +67,11 @@
                     #{numberShowcase.tooltip}
                 </b:tooltip>
             </b:number>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{numberShowcase}"/>
+        <common:codeExamples component="#{numberShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 </ui:composition>

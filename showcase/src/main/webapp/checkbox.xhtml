@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -10,36 +11,36 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
-            <showcase:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{checkBoxShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
+            <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{checkBoxShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcase.styleClass}"
                                      values="#{checkBoxShowcase.styleClasses}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagBooleanControl label="autofocus" value="#{checkBoxShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagBooleanControl label="autofocus" value="#{checkBoxShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag control">
-            <showcase:tagEnumControl label="ajax"
+        <common:tagsContainer label="Tag control">
+            <common:tagEnumControl label="ajax"
                                      value="#{checkBoxShowcase.ajaxType}"
                                      values="#{checkBoxShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
-        </showcase:tagsContainer>
+            <common:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
+        <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
                                          component="#{checkBoxShowcase}">
             <b:checkBox label="#{checkBoxShowcase.label}"
                         value="#{checkBoxShowcase.value}"
@@ -59,11 +60,11 @@
                     #{checkBoxShowcase.tooltip}
                 </b:tooltip>
             </b:checkBox>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{checkBoxShowcase}"/>
+        <common:codeExamples component="#{checkBoxShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 

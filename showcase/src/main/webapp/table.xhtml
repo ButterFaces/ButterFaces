@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
@@ -10,36 +11,36 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagBooleanControl label="rendered" value="#{tableShowcase.rendered}"/>
-            <showcase:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
-            <showcase:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
-            <showcase:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
-            <showcase:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
-            <showcase:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
-            <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagBooleanControl label="rendered" value="#{tableShowcase.rendered}"/>
+            <common:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
+            <common:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
+            <common:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
+            <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
+            <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
+            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
                                         value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax selection"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax selection"
                                      value="#{tableShowcase.selectionAjaxType}"
                                      values="#{tableShowcase.ajaxSelectionTypes}"/>
-            <showcase:tagEnumControl label="custom toolbar"
+            <common:tagEnumControl label="custom toolbar"
                                      value="#{tableShowcase.toolBarType}"
                                      values="#{tableShowcase.toolBarTypes}"/>
-            <showcase:tagEnumControl label="column width"
+            <common:tagEnumControl label="column width"
                                      value="#{tableShowcase.fourthColumnWidthType}"
                                      values="#{tableShowcase.twoColumnWidthTypes}"/>
-            <showcase:tagEnumControl label="toolbar facets"
+            <common:tagEnumControl label="toolbar facets"
                                      value="#{tableShowcase.toolbarFacetType}"
                                      values="#{tableShowcase.toolBarFacetTypes}"/>
-            <showcase:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
-            <showcase:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
-            <showcase:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
-            <showcase:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
-            <showcase:tagBooleanControl label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
-        </showcase:tagsContainer>
+            <common:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
+            <common:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
+            <common:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
+            <common:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
+            <common:tagBooleanControl label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -248,7 +249,7 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{tableShowcase}"/>
+        <common:codeExamples component="#{tableShowcase}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -17,13 +18,13 @@
     <ui:define name="content">
         <div class="row">
             <div class="col-md-4">
-                <showcase:tagsContainer label="Tag attributes">
-                    <showcase:tagBooleanControl label="rendered" value="#{activateLibrariesShowcase.rendered}"/>
-                </showcase:tagsContainer>
+                <common:tagsContainer label="Tag attributes">
+                    <common:tagBooleanControl label="rendered" value="#{activateLibrariesShowcase.rendered}"/>
+                </common:tagsContainer>
             </div>
 
             <h:form id="output" prependId="true" styleClass="col-md-8">
-                <showcase:codeExamples component="#{activateLibrariesShowcase}"/>
+                <common:codeExamples component="#{activateLibrariesShowcase}"/>
 
                 <div class="arquillian_activateLibraries_selector">
                     <b:activateLibraries id="link"

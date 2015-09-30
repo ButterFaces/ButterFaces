@@ -2,6 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -12,42 +13,42 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="value" value="#{commandLinkShowcase.value}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{commandLinkShowcase.rendered}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{commandLinkShowcase.disabled}"/>
-            <showcase:tagEnumControl label="glyphicon"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="value" value="#{commandLinkShowcase.value}"/>
+            <common:tagBooleanControl label="rendered" value="#{commandLinkShowcase.rendered}"/>
+            <common:tagBooleanControl label="disabled" value="#{commandLinkShowcase.disabled}"/>
+            <common:tagEnumControl label="glyphicon"
                                      value="#{commandLinkShowcase.glyphicon}"
                                      values="#{commandLinkShowcase.glyphicons}"/>
-            <showcase:tagBooleanControl label="ajaxDisableLinkOnRequest"
+            <common:tagBooleanControl label="ajaxDisableLinkOnRequest"
                                         labelStyleClass="largeBooleanControl"
                                         value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
+            <common:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
                                         labelStyleClass="largeBooleanControl"
                                         value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
+            <common:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
                                         labelStyleClass="largeBooleanControl"
                                         value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}"/>
-            <showcase:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
                                         labelStyleClass="largeBooleanControl"
                                         value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}"/>
-            <showcase:tagStringControl label="ajaxProcessingTextOnRequest"
+            <common:tagStringControl label="ajaxProcessingTextOnRequest"
                                        value="#{commandLinkShowcase.ajaxProcessingText}"/>
-            <showcase:tagStringControl label="ajaxProcessingGlyphicon"
+            <common:tagStringControl label="ajaxProcessingGlyphicon"
                                        value="#{commandLinkShowcase.ajaxProcessingGlyphicon}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="examples"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="examples"
                                      value="#{commandLinkShowcase.commandLinkExampleType}"
                                      values="#{commandLinkShowcase.commandLinkExamples}"/>
-            <showcase:tagEnumControl label="link type"
+            <common:tagEnumControl label="link type"
                                      value="#{commandLinkShowcase.style}"
                                      values="#{commandLinkShowcase.styles}"/>
-            <showcase:tagEnumControl label="ajax rendering"
+            <common:tagEnumControl label="ajax rendering"
                                      value="#{commandLinkShowcase.render}"
                                      values="#{commandLinkShowcase.renders}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -202,7 +203,7 @@
 
     <ui:define name="other">
 
-        <showcase:codeExamples component="#{commandLinkShowcase}"/>
+        <common:codeExamples component="#{commandLinkShowcase}"/>
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

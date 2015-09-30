@@ -2,6 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -9,41 +10,41 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{tagsShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{tagsShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{tagsShowcase.required}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{tagsShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{tagsShowcase.rendered}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{tagsShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{tagsShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{tagsShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{tagsShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{tagsShowcase.rendered}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
-            <showcase:tagBooleanControl label="distinct" value="#{tagsShowcase.distinct}"/>
-            <showcase:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
-            <showcase:tagEnumControl label="confirmKeys"
+            <common:tagBooleanControl label="distinct" value="#{tagsShowcase.distinct}"/>
+            <common:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
+            <common:tagEnumControl label="confirmKeys"
                                      value="#{tagsShowcase.selectedConfirmKeyType}"
                                      values="#{tagsShowcase.confirmKeyTypes}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{tagsShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
+            <common:tagBooleanControl label="autofocus" value="#{tagsShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
                                      value="#{tagsShowcase.ajaxType}"
                                      values="#{tagsShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
-            <showcase:tagStringControl label="tooltip" value="#{tagsShowcase.tooltip}"/>
-        </showcase:tagsContainer>
+            <common:tagStringControl label="tooltip" value="#{tagsShowcase.tooltip}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="tags"
                                          component="#{tagsShowcase}">
             <b:tags id="tags"
@@ -71,11 +72,11 @@
                 </b:tooltip>
             </b:tags>
 
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{tagsShowcase}"/>
+        <common:codeExamples component="#{tagsShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 </ui:composition>

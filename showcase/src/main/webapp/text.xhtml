@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -11,48 +12,48 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{textShowcase.required}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{textShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{textShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{textShowcase.styleClass}"
                                      values="#{textShowcase.styleClasses}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
-            <showcase:tagStringControl label="type" value="#{textShowcase.type}"/>
-            <showcase:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
-            <showcase:tagStringControl label="min" value="#{textShowcase.min}"/>
-            <showcase:tagStringControl label="max" value="#{textShowcase.max}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
+            <common:tagStringControl label="type" value="#{textShowcase.type}"/>
+            <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
+            <common:tagStringControl label="min" value="#{textShowcase.min}"/>
+            <common:tagStringControl label="max" value="#{textShowcase.max}"/>
+            <common:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
                                      value="#{textShowcase.ajaxType}"
                                      values="#{textShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
-            <showcase:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
-            <showcase:tagEnumControl label="facets"
+            <common:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
+            <common:tagEnumControl label="facets"
                                      value="#{textShowcase.selectedFacetType}"
                                      values="#{textShowcase.availableFacetTypes}"
                                      renderChildrenPopover="false"/>
-            <showcase:tagBooleanControl label="validate"
+            <common:tagBooleanControl label="validate"
                                         value="#{textShowcase.validation}"/>
-            <showcase:tagBooleanControl label="converter"
+            <common:tagBooleanControl label="converter"
                                         value="#{textShowcase.useConverter}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="text"
                                          component="#{textShowcase}">
 
@@ -186,10 +187,10 @@
                     </ul>
                 </f:facet>
             </b:text>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{textShowcase}"/>
+        <common:codeExamples component="#{textShowcase}"/>
     </ui:define>
 </ui:composition>

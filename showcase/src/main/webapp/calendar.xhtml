@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -11,43 +12,43 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{calendarShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{calendarShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="pickDate" value="#{calendarShowcase.pickDate}"/>
-            <showcase:tagBooleanControl label="pickTime" value="#{calendarShowcase.pickTime}"/>
-            <showcase:tagBooleanControl label="sideBySide" value="#{calendarShowcase.sideBySise}"/>
-            <showcase:tagStringControl label="language" value="#{calendarShowcase.language}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{calendarShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
+            <common:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
+            <common:tagBooleanControl label="disabled" value="#{calendarShowcase.disabled}"/>
+            <common:tagBooleanControl label="pickDate" value="#{calendarShowcase.pickDate}"/>
+            <common:tagBooleanControl label="pickTime" value="#{calendarShowcase.pickTime}"/>
+            <common:tagBooleanControl label="sideBySide" value="#{calendarShowcase.sideBySise}"/>
+            <common:tagStringControl label="language" value="#{calendarShowcase.language}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{calendarShowcase.styleClass}"
                                      values="#{calendarShowcase.styleClasses}"/>
-            <showcase:tagEnumControl label="glyphicon"
+            <common:tagEnumControl label="glyphicon"
                                      value="#{calendarShowcase.selectedIconType}"
                                      values="#{calendarShowcase.calendarIconTypes}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
-            <showcase:tagBooleanControl label="autofocus" value="#{calendarShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
+            <common:tagBooleanControl label="autofocus" value="#{calendarShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="ajax"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
                                      value="#{calendarShowcase.ajaxType}"
                                      values="#{calendarShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
-            <showcase:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
-        </showcase:tagsContainer>
+            <common:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="calendar"
                                          component="#{calendarShowcase}">
 
@@ -83,11 +84,11 @@
                 </b:tooltip>
             </b:calendar>
 
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{calendarShowcase}"/>
+        <common:codeExamples component="#{calendarShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 </ui:composition>

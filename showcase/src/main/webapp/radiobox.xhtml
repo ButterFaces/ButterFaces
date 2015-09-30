@@ -3,6 +3,7 @@
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -10,43 +11,43 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{radioBoxShowcase.label}" />
-            <showcase:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}" />
-            <showcase:tagBooleanControl label="required" value="#{radioBoxShowcase.required}" />
-            <showcase:tagBooleanControl label="disabled" value="#{radioBoxShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}" />
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{radioBoxShowcase.label}" />
+            <common:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}" />
+            <common:tagBooleanControl label="required" value="#{radioBoxShowcase.required}" />
+            <common:tagBooleanControl label="disabled" value="#{radioBoxShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}" />
+            <common:tagEnumControl label="styleClass"
                                      value="#{radioBoxShowcase.styleClass}"
                                      values="#{radioBoxShowcase.styleClasses}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="radio box"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="radio box"
                                      value="#{radioBoxShowcase.comboBoxValueType}"
                                      values="#{radioBoxShowcase.comboBoxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="comboboxPopoverContent"/>
-            <showcase:tagEnumControl label="radio box"
+            <common:tagEnumControl label="radio box"
                                      value="#{radioBoxShowcase.radioBoxLayoutType}"
                                      values="#{radioBoxShowcase.radioLayoutTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="radioboxLayoutPopoverContent"/>
-            <showcase:tagEnumControl label="ajax"
+            <common:tagEnumControl label="ajax"
                                      value="#{radioBoxShowcase.ajaxType}"
                                      values="#{radioBoxShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagStringControl label="tooltip" value="#{radioBoxShowcase.tooltip}" />
-        </showcase:tagsContainer>
+            <common:tagStringControl label="tooltip" value="#{radioBoxShowcase.tooltip}" />
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent"
+        <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="radiobox"
                                          component="#{radioBoxShowcase}">
             <b:radioBox label="#{radioBoxShowcase.label}"
@@ -70,11 +71,11 @@
                     <f:converter converterId="fooConverter"/>
                 </c:if>
             </b:radioBox>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{radioBoxShowcase}"/>
+        <common:codeExamples component="#{radioBoxShowcase}"/>
         <b:activateLibraries />
     </ui:define>
 

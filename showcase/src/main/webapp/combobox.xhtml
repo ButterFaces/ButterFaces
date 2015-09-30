@@ -3,6 +3,7 @@
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
@@ -11,45 +12,45 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{comboBoxShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}"/>
-            <showcase:tagBooleanControl label="required" value="#{comboBoxShowcase.required}"/>
-            <showcase:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}"/>
-            <showcase:tagEnumControl label="styleClass"
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{comboBoxShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{comboBoxShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{comboBoxShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{comboBoxShowcase.required}"/>
+            <common:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}"/>
+            <common:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}"/>
+            <common:tagEnumControl label="styleClass"
                                      value="#{comboBoxShowcase.styleClass}"
                                      values="#{comboBoxShowcase.styleClasses}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="HTML5 tag attributes">
-            <showcase:tagBooleanControl label="autofocus" value="#{comboBoxShowcase.autoFocus}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagBooleanControl label="autofocus" value="#{comboBoxShowcase.autoFocus}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="combo box"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="combo box"
                                      value="#{comboBoxShowcase.comboBoxValueType}"
                                      values="#{comboBoxShowcase.comboBoxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add selectItems children"
                                      popoverContentMarkerClass="comboboxPopoverContent"/>
-            <showcase:tagEnumControl label="ajax"
+            <common:tagEnumControl label="ajax"
                                      value="#{comboBoxShowcase.ajaxType}"
                                      values="#{comboBoxShowcase.ajaxTypes}"
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <showcase:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}"/>
-            <showcase:tagEnumControl label="facets"
+            <common:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}"/>
+            <common:tagEnumControl label="facets"
                                      value="#{comboBoxShowcase.selectedFacetType}"
                                      values="#{comboBoxShowcase.availableFacetTypes}"
                                      renderChildrenPopover="false"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <showcase:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox"
+        <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox"
                                          component="#{comboBoxShowcase}">
             <b:comboBox label="#{comboBoxShowcase.label}"
                         value="#{comboBoxShowcase.value}"
@@ -132,11 +133,11 @@
                 </c:if>
                 <f:converter converterId="episodeConverter"/>
             </b:comboBox>
-        </showcase:showcaseOuputComponent>
+        </common:showcaseOuputComponent>
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{comboBoxShowcase}"/>
+        <common:codeExamples component="#{comboBoxShowcase}"/>
     </ui:define>
 
 </ui:composition>

@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+      xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
 	  xmlns:composite="http://java.sun.com/jsf/composite" 
 	  xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -11,14 +11,14 @@
 	</composite:interface>
 
 	<composite:implementation>
-        <showcase:tagcontrol label="#{cc.attrs.label}">
+        <common:tagcontrol label="#{cc.attrs.label}">
             <h:inputText value="#{cc.attrs.value}"
                          styleClass="form-control arquillian_#{cc.attrs.label}"
                          maxlength="40">
                 <f:ajax event="keyup" execute="@this" render="output"/>
                 <composite:insertChildren />
             </h:inputText>
-        </showcase:tagcontrol>
+        </common:tagcontrol>
 	</composite:implementation>
 </h:body>
 </html>

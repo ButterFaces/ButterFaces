@@ -3,6 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
@@ -10,11 +11,11 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
-            <showcase:tagBooleanControl label="blockpage" value="#{waitingPanelShowcase.blockpage}" />
-            <showcase:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
+            <common:tagBooleanControl label="blockpage" value="#{waitingPanelShowcase.blockpage}" />
+            <common:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -50,7 +51,7 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{waitingPanelShowcase}"/>
+        <common:codeExamples component="#{waitingPanelShowcase}"/>
         <b:activateLibraries />
 
         <script type="text/javascript">

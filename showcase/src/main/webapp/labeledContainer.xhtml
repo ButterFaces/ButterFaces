@@ -2,6 +2,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="header">
@@ -9,17 +10,17 @@
     </ui:define>
 
     <ui:define name="tagsContainers">
-        <showcase:tagsContainer label="Tag attributes">
-            <showcase:tagStringControl label="label" value="#{labeledContainerShowcase.label}"/>
-            <showcase:tagBooleanControl label="hideLabel" value="#{labeledContainerShowcase.hideLabel}"/>
-            <showcase:tagBooleanControl label="rendered" value="#{labeledContainerShowcase.rendered}"/>
-        </showcase:tagsContainer>
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{labeledContainerShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{labeledContainerShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="rendered" value="#{labeledContainerShowcase.rendered}"/>
+        </common:tagsContainer>
 
-        <showcase:tagsContainer label="Tag controls">
-            <showcase:tagEnumControl label="example"
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="example"
                                      value="#{labeledContainerShowcase.exampleType}"
                                      values="#{labeledContainerShowcase.exampleTypes}"/>
-        </showcase:tagsContainer>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
@@ -37,7 +38,7 @@
     </ui:define>
 
     <ui:define name="other">
-        <showcase:codeExamples component="#{labeledContainerShowcase}"/>
+        <common:codeExamples component="#{labeledContainerShowcase}"/>
         <b:activateLibraries/>
 
         <script type="text/javascript">
