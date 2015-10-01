@@ -249,6 +249,7 @@ public class MojarraRenderUtils {
         ClientBehaviorContext bContext = createClientBehaviorContext(context,
                 component,
                 behaviorEventName,
+                null,
                 params);
 
         boolean submitting = false;
@@ -396,7 +397,7 @@ public class MojarraRenderUtils {
                                                    Collection<ClientBehaviorContext.Parameter> params,
                                                    String behaviorEventName,
                                                    boolean needsSubmit) {
-        final ClientBehaviorContext bContext = createClientBehaviorContext(context, component, behaviorEventName, params);
+        final ClientBehaviorContext bContext = createClientBehaviorContext(context, component, behaviorEventName, component.getClientId(), params);
         String script = behavior.getScript(bContext);
 
         boolean preventDefault = ((needsSubmit || isSubmitting(behavior)) && (component instanceof ActionSource));
@@ -416,9 +417,9 @@ public class MojarraRenderUtils {
     private static ClientBehaviorContext createClientBehaviorContext(FacesContext context,
                                                                      UIComponent component,
                                                                      String behaviorEventName,
+                                                                     final String sourceId,
                                                                      Collection<ClientBehaviorContext.Parameter> params) {
-
-        return ClientBehaviorContext.createClientBehaviorContext(context, component, behaviorEventName, null, params);
+        return ClientBehaviorContext.createClientBehaviorContext(context, component, behaviorEventName, sourceId, params);
     }
 
     // Tests whether the specified behavior is submitting
