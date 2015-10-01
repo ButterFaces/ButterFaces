@@ -1,0 +1,94 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <strong>b:calendar</strong> The calendar tag renders a HTML input element of the type "text" using <a href="http://eonasdan.github.io/bootstrap-datetimepicker/" target="_blank">Bootstrap Datepicker</a> as jQuery plugin
+        <p>See <a href="https://github.com/moment/moment/tree/develop/locale" target="_blank">Moment JS</a> for detailed language support.</p>
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <common:tagsContainer label="Tag attributes">
+            <common:tagStringControl label="label" value="#{calendarShowcase.label}"/>
+            <common:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
+            <common:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
+            <common:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
+            <common:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
+            <common:tagBooleanControl label="disabled" value="#{calendarShowcase.disabled}"/>
+            <common:tagBooleanControl label="pickDate" value="#{calendarShowcase.pickDate}"/>
+            <common:tagBooleanControl label="pickTime" value="#{calendarShowcase.pickTime}"/>
+            <common:tagBooleanControl label="sideBySide" value="#{calendarShowcase.sideBySise}"/>
+            <common:tagStringControl label="language" value="#{calendarShowcase.language}"/>
+            <common:tagEnumControl label="styleClass"
+                                     value="#{calendarShowcase.styleClass}"
+                                     values="#{calendarShowcase.styleClasses}"/>
+            <common:tagEnumControl label="glyphicon"
+                                     value="#{calendarShowcase.selectedIconType}"
+                                     values="#{calendarShowcase.calendarIconTypes}"/>
+        </common:tagsContainer>
+
+        <common:tagsContainer label="HTML5 tag attributes">
+            <common:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
+            <common:tagBooleanControl label="autofocus" value="#{calendarShowcase.autoFocus}"/>
+        </common:tagsContainer>
+
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax"
+                                     value="#{calendarShowcase.ajaxType}"
+                                     values="#{calendarShowcase.ajaxTypes}"
+                                     renderChildrenPopover="true"
+                                     popoverTitle="Add ajax child"
+                                     popoverContentMarkerClass="ajaxPopoverContent" />
+            <common:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
+        </common:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <common:showcaseOuputComponent id="outputComponent"
+                                         activeComponentNavigationId="calendar"
+                                         component="#{calendarShowcase}">
+
+            <h:panelGroup layout="block" styleClass="alert alert-warning" rendered="#{not calendarShowcase.pickDate and not calendarShowcase.pickTime}">
+                Bootstrap Datetimepicker plugin is disabled if you would not select a date or a time.
+            </h:panelGroup>
+
+            <b:calendar id="calendar"
+                        label="#{calendarShowcase.label}"
+                        language="#{calendarShowcase.language}"
+                        glyphiconTime="#{calendarShowcase.glyphiconTime}"
+                        glyphiconDate="#{calendarShowcase.glyphiconDate}"
+                        glyphiconUp="#{calendarShowcase.glyphiconUp}"
+                        glyphiconDown="#{calendarShowcase.glyphiconDown}"
+                        pickDate="#{calendarShowcase.pickDate}"
+                        pickTime="#{calendarShowcase.pickTime}"
+                        sideBySide="#{calendarShowcase.sideBySise}"
+                        hideLabel="#{calendarShowcase.hideLabel}"
+                        value="#{calendarShowcase.value}"
+                        readonly="#{calendarShowcase.readonly}"
+                        required="#{calendarShowcase.required}"
+                        disabled="#{calendarShowcase.disabled}"
+                        rendered="#{calendarShowcase.rendered}"
+                        placeholder="#{calendarShowcase.placeholder}"
+                        autoFocus="#{calendarShowcase.autoFocus}"
+                        styleClass="#{calendarShowcase.styleClass}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not calendarShowcase.ajax}"/>
+                <b:tooltip rendered="#{not empty calendarShowcase.tooltip}">
+                    #{calendarShowcase.tooltip}
+                </b:tooltip>
+            </b:calendar>
+
+        </common:showcaseOuputComponent>
+    </ui:define>
+
+    <ui:define name="other">
+        <common:codeExamples component="#{calendarShowcase}"/>
+        <b:activateLibraries />
+    </ui:define>
+</ui:composition>
