@@ -3,5 +3,3 @@ Welcome to ButterFaces, a lightweight and modern JSF framework that combines the
 In Addition to that it allows to activate tooltips and marks input fields if an validation error occurs.
 
 ![Foo](https://bytebucket.org/butterfaces/butterfaces/raw/9870966fb3c4c093f8c07e4b49979802001502b4/showcase.png)
-
-Our project page is available under [butterfaces.org](http://www.butterfaces.org/).
