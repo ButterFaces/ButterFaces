@@ -11,7 +11,7 @@
 
     <description>ButterFaces is a JSF2 component library.</description>
 
-    <url>https://bitbucket.org/butterfaces/butterfaces</url>
+    <url>https://github.com/ButterFaces/ButterFaces</url>
 
     <modules>
         <module>components</module>
@@ -40,9 +40,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</connection>
-        <url>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</url>
-        <developerConnection>scm:git:git@bitbucket.org:butterfaces/butterfaces.git</developerConnection>
+        <connection>scm:git:git://github.com/ButterFaces/ButterFaces.git</connection>
+        <url>https://github.com/ButterFaces/ButterFaces</url>
+        <developerConnection>scm:git:git@github.com:ButterFaces/ButterFaces.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
