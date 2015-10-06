@@ -68,7 +68,24 @@
 
             $originalElement.find('li').removeClass('butter-component-tree-node-selected');
             var listItems = $originalElement.find('li:has(span[treenode=' + data.nodeNumber + '])');
-            $(listItems[listItems.length-1]).addClass('butter-component-tree-node-selected');
+            $(listItems[listItems.length - 1]).addClass('butter-component-tree-node-selected');
+        });
+    };
+}(jQuery));
+
+(function ($) {
+    // extend jQuery --------------------------------------------------------------------
+    $.fn.selectTreeNodeNew = function () {
+
+        return this.each(function () {
+            var $originalElement = $(this);
+
+            var treeClientId = $originalElement.parent().attr('id');
+
+            $originalElement.change(function () {
+                // console.log('Selected node: ' + $originalElement.val());
+                butter.ajax.sendRequest(treeClientId, 'click', [], $originalElement.val(), false);
+            });
         });
     };
 }(jQuery));

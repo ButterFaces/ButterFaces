@@ -15,7 +15,6 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,8 +24,8 @@ import java.util.Map;
 /**
  * Created by larmic on 24.10.14.
  */
-@FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
-public class TreeRenderer extends HtmlBasicRenderer {
+//@FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
+public class OldTreeRenderer extends HtmlBasicRenderer {
 
     private final Map<String, Node> nodes = new HashMap<>();
     private Node selectedNode = null;
