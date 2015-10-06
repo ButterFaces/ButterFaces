@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 
@@ -14,15 +15,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
     private static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
+
+    private final Map<Integer, Node> cachedNodes = new HashMap<>();
+    private Node selectedNode = null;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -41,6 +42,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.startElement("input", tree);
         writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-original-input", null);
         writer.endElement("input");
+
+        cachedNodes.clear();
     }
 
 
@@ -54,9 +57,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final HtmlTree tree = (HtmlTree) component;
         final ResponseWriter writer = context.getResponseWriter();
 
+        final List<ClientBehavior> click = tree.getClientBehaviors().get("click");
+
         writer.startElement("script", component);
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "input", createJQueryPluginCallTivial(tree)), null);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-component-tree-original-input", "selectTreeNodeNew()"), null);
+
+        if (!click.isEmpty()) {
+            // TODO render ids...
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-component-tree-original-input", "selectTreeNodeNew('output:nodeTitle')"), null);
+        }
         writer.endElement("script");
 
         writer.endElement(ELEMENT_DIV);
@@ -80,8 +89,16 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null) {
-
+        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
+            try {
+                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Node node = cachedNodes.get(nodeNumber);
+                nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                selectedNode = node;
+            } catch (NumberFormatException e) {
+                // here is nothing to do
+                return;
+            }
         }
     }
 
@@ -102,7 +119,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Node rootNode = tree.getValue();
 
         stringBuilder.append("[");
-        renderNodes(stringBuilder, Arrays.asList(rootNode), 1);
+        renderNodes(stringBuilder, tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode), 0);
         stringBuilder.append("]");
 
         return stringBuilder.toString();
@@ -128,6 +145,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 stringBuilder.append("\"imageStyle\": \"display:none\",");
             }
             stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
+
+            cachedNodes.put(newIndex, node);
+
             newIndex++;
 
             if (node.getSubNodes().size() > 0) {
