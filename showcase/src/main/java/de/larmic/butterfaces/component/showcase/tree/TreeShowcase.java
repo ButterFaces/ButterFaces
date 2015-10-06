@@ -33,28 +33,28 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private Node selectedNode;
 
     public Node getTree() {
-        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder-16.png", "glyphicon-folder-open");
-        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/excel-16.png", "glyphicon-film"));
+        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder.png", "glyphicon-folder-open");
+        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/clipboard.png", "glyphicon-film"));
 
-        final Node firstChild = createNode("firstChild", "resources/images/excel-16.png", "glyphicon-film");
-        final Node secondChild = createNode("secondChild", "resources/images/folder-16.png", "glyphicon-folder-open");
+        final Node firstChild = createNode("firstChild", "resources/images/clipboard.png", "glyphicon-film");
+        final Node secondChild = createNode("secondChild", "resources/images/folder.png", "glyphicon-folder-open");
         if (!allExpanded) {
             secondChild.setCollapsed(true);
         }
-        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder-16.png", "glyphicon-folder-open");
-        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/excel-16.png", "glyphicon-film"));
-        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/word-16.png", "glyphicon-file"));
-        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/ppt-16.png", "glyphicon-signal"));
+        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder.png", "glyphicon-folder-open");
+        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/clipboard.png", "glyphicon-film"));
+        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/mail.png", "glyphicon-file"));
+        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/contacts.png", "glyphicon-signal"));
         secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/excel-16.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/clipboard.png", "glyphicon-film"));
         secondChild.getSubNodes().add(secondThirdChild);
-        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/excel-16.png", "glyphicon-film"));
-        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/excel-16.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/clipboard.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/clipboard.png", "glyphicon-film"));
 
-        final Node rootNode = createNode("rootNode", "resources/images/folder-16.png", "glyphicon-folder-open");
+        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open");
         rootNode.getSubNodes().add(firstChild);
         rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/excel-16.png", "glyphicon-film"));
+        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/clipboard.png", "glyphicon-film"));
 
         return rootNode;
     }
