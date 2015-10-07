@@ -65,7 +65,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "input", createJQueryPluginCallTivial(tree)), null);
 
         if (clicks != null && !clicks.isEmpty()) {
-            // TODO check ajax disabled
             final ClientBehavior clientBehavior = clicks.get(0);
 
             if (clientBehavior instanceof AjaxBehavior) {
