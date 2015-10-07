@@ -293,8 +293,7 @@
         </attribute>
         <attribute>
             <name>confirmKeys</name>
-            <description>Array of keycodes which will add a tag when typing in the input. (default: [13, 188], which are
-                ENTER and comma)
+            <description>String of characters used as separator. Default is ' ,' (space and comma). Enter is always a separator.
             </description>
             <type>java.lang.String</type>
         </attribute>

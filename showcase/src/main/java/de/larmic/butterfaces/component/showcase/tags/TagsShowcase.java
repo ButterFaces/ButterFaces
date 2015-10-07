@@ -5,11 +5,9 @@ import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -18,7 +16,7 @@ import java.util.List;
 public class TagsShowcase extends AbstractInputShowcase implements Serializable {
 
     private String placeholder = "Enter text...";
-    private ConfirmKeyType selectedConfirmKeyType = ConfirmKeyType.DEFAULT;
+    private String confirmKeys;
     private boolean autoFocus;
     private boolean distinct = true;
     private boolean trimValue;
@@ -44,9 +42,9 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                distinct=\"" + distinct + "\"");
         xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
-        xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + getConfirmKeys() + "\"");
+        xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + StringUtils.getNotNullValue(confirmKeys, "") + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
+        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
@@ -72,15 +70,6 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         codeExamples.add(xhtmlCodeExample);
 
         generateDemoCSS(codeExamples);
-    }
-
-    public List<SelectItem> getConfirmKeyTypes() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        for (final ConfirmKeyType type : ConfirmKeyType.values()) {
-            items.add(new SelectItem(type, type.label));
-        }
-        return items;
     }
 
     public String getPlaceholder() {
@@ -124,23 +113,10 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
     }
 
     public String getConfirmKeys() {
-        switch (selectedConfirmKeyType) {
-            case COMMA:
-                return "44";
-            case ENTER:
-                return "13";
-            case SPACE:
-                return "32";
-            default:
-                return null;
-        }
+        return confirmKeys;
     }
 
-    public ConfirmKeyType getSelectedConfirmKeyType() {
-        return selectedConfirmKeyType;
-    }
-
-    public void setSelectedConfirmKeyType(ConfirmKeyType selectedConfirmKeyType) {
-        this.selectedConfirmKeyType = selectedConfirmKeyType;
+    public void setConfirmKeys(String confirmKeys) {
+        this.confirmKeys = confirmKeys;
     }
 }

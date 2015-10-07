@@ -69,11 +69,32 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
         jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
         //jQueryPluginCall.append("\n    freeTextSeparators: ['" + tags.getConfirmKeys() + "']");
-        jQueryPluginCall.append("\n    freeTextSeparators: [',',' '],");
+        jQueryPluginCall.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
         jQueryPluginCall.append("\n    valueSeparator: [',']");
         jQueryPluginCall.append("});");
 
         return jQueryPluginCall.toString();
+    }
+
+    private String createFreeTextSeparators(final HtmlTags tags) {
+        if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
+            final StringBuilder freeTextSeparators = new StringBuilder("[");
+            final Iterator<String> iterator = Arrays.asList(tags.getConfirmKeys().split("(?!^)")).iterator();
+
+            while (iterator.hasNext()) {
+                final String separator = iterator.next();
+                freeTextSeparators.append("'");
+                freeTextSeparators.append(separator);
+                freeTextSeparators.append("'");
+                if (iterator.hasNext()) {
+                    freeTextSeparators.append(",");
+                }
+            }
+            freeTextSeparators.append("]");
+            return freeTextSeparators.toString();
+        }
+
+        return "[',',' ']";
     }
 
     private String getSelectedEntries(final HtmlTags tags) {
