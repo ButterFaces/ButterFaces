@@ -66,15 +66,6 @@
         <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>
         <param-value>fa fa-sort-up</param-value>
     </context-param>
-
-    <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.collapsing</param-name>
-        <param-value>fa fa-minus-square-o</param-value>
-    </context-param>
-    <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.expansion</param-name>
-        <param-value>fa fa-plus-square-o</param-value>
-    </context-param>
 	-->
 
 	<servlet>
