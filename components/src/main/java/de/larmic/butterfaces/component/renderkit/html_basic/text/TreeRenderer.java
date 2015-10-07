@@ -9,6 +9,8 @@ import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -57,14 +59,23 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final HtmlTree tree = (HtmlTree) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        final List<ClientBehavior> click = tree.getClientBehaviors().get("click");
+        final List<ClientBehavior> clicks = tree.getClientBehaviors().get("click");
 
         writer.startElement("script", component);
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "input", createJQueryPluginCallTivial(tree)), null);
 
-        if (!click.isEmpty()) {
-            // TODO render ids...
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-component-tree-original-input", "selectTreeNodeNew('output:nodeTitle')"), null);
+        if (clicks != null && !clicks.isEmpty()) {
+            // TODO check ajax disabled
+            final ClientBehavior clientBehavior = clicks.get(0);
+
+            if (clientBehavior instanceof AjaxBehavior) {
+                final AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;
+                if (!ajaxBehavior.isDisabled()) {
+                    final String renderIds = createRenderIds(tree, ajaxBehavior.getRender());
+                    writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-component-tree-original-input", "selectTreeNodeNew('" + renderIds + "')"), null);
+                }
+            }
+
         }
         writer.endElement("script");
 
@@ -164,5 +175,50 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return newIndex;
+    }
+
+    private static String createRenderIds(final UIComponent component,
+                                          final Collection<String> ids) {
+        final StringBuilder builder = new StringBuilder();
+
+        if ((null == ids) || ids.isEmpty()) {
+            builder.append('0');
+            return builder.toString();
+        }
+
+        boolean first = true;
+
+        for (String id : ids) {
+            if (id.trim().length() == 0) {
+                continue;
+            }
+            if (!first) {
+                builder.append(' ');
+            } else {
+                first = false;
+            }
+
+            if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
+                builder.append(id);
+            } else {
+                builder.append(getResolvedId(component, id));
+            }
+        }
+
+        return builder.toString();
+    }
+
+    // Returns the resolved (client id) for a particular id.
+    private static String getResolvedId(UIComponent component, String id) {
+
+        UIComponent resolvedComponent = component.findComponent(id);
+        if (resolvedComponent == null) {
+            if (id.charAt(0) == UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
+                return id.substring(1);
+            }
+            return id;
+        }
+
+        return resolvedComponent.getClientId();
     }
 }
