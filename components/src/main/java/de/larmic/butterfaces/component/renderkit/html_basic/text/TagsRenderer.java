@@ -68,7 +68,6 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         }
         jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
         jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
-        //jQueryPluginCall.append("\n    freeTextSeparators: ['" + tags.getConfirmKeys() + "']");
         jQueryPluginCall.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
         jQueryPluginCall.append("\n    valueSeparator: [',']");
         jQueryPluginCall.append("});");
