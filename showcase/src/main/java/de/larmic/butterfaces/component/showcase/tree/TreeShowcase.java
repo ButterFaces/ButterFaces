@@ -3,7 +3,6 @@ package de.larmic.butterfaces.component.showcase.tree;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
-import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
@@ -74,7 +73,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
-        codeExamples.add(this.createWebXmlExample());
     }
 
     private JavaCodeExample createMyBeanCodeExample() {
@@ -186,24 +184,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         }
 
         return xhtmlCodeExample;
-    }
-
-    private AbstractCodeExample createWebXmlExample() {
-        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
-
-        webXmlCodeExample.appendInnerContent("  <!-- override tree glyphicons by context param -->");
-        webXmlCodeExample.appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
-        webXmlCodeExample.appendInnerContent("  <!-- showcase shows default glyphicons -->");
-        webXmlCodeExample.appendInnerContent("  <context-param>");
-        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.collapsing</param-name>");
-        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-minus-square-o</param-value>");
-        webXmlCodeExample.appendInnerContent("  </context-param>");
-        webXmlCodeExample.appendInnerContent("  <context-param>");
-        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.expansion</param-name>");
-        webXmlCodeExample.appendInnerContent("     <param-value>fa fa-plus-square-o</param-value>");
-        webXmlCodeExample.appendInnerContent("  </context-param>");
-
-        return webXmlCodeExample;
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {

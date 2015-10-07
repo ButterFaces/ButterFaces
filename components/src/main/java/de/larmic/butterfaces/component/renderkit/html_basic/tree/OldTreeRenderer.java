@@ -89,7 +89,7 @@ public class OldTreeRenderer extends HtmlBasicRenderer {
 
             // collapse
             writer.startElement(ELEMENT_SPAN, tree);
-            final String collapsingClass = node.isCollapsed() ? webXmlParameters.getExpansionGlyphicon() : webXmlParameters.getCollapsingGlyphicon();
+            final String collapsingClass = node.isCollapsed() ? "" : "";
             final String nodeClass = node.isLeaf() ? "butter-component-tree-leaf" : "butter-component-tree-node " + collapsingClass;
             writer.writeAttribute("class", "butter-component-tree-jquery-marker " + nodeClass, null);
 
@@ -212,8 +212,8 @@ public class OldTreeRenderer extends HtmlBasicRenderer {
         final Map<String, List<ClientBehavior>> behaviors = htmlTree.getClientBehaviors();
         final boolean treeIconsEnabled = behaviors.containsKey("click");
 
-        return "{expansionClass: '" + webXmlParameters.getExpansionGlyphicon() +
-                "', collapsingClass: '" + webXmlParameters.getCollapsingGlyphicon() +
+        return "{expansionClass: '" + "" +
+                "', collapsingClass: '" + "" +
                 "', treeSelectionEnabled: '" + treeIconsEnabled +
                 "', treeIconsEnabled: '" + nodeIconsFound + "'}";
     }

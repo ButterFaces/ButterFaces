@@ -111,15 +111,6 @@ public class WebXmlParametersTest {
     }
 
     @Test
-    public void testCollapsingParameters() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_COLLAPSING_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getCollapsingGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_COLLAPSING, new WebXmlParameters(overriddenValueExternalContext).getCollapsingGlyphicon());
-
-        Assert.assertEquals(WebXmlParameters.DEFAULT_EXPANSION_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getExpansionGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_EXPANSION, new WebXmlParameters(overriddenValueExternalContext).getExpansionGlyphicon());
-    }
-
-    @Test
     public void testAjaxProcessingTextOnRequest() {
         Assert.assertEquals(WebXmlParameters.DEFAULT_AJAX_PROCESSING_TEXT, new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingTextOnRequest());
         Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_TEXT, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingTextOnRequest());
