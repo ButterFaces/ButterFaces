@@ -157,6 +157,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             if (StringUtils.isNotEmpty(node.getDescription())) {
                 stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
             }
+            stringBuilder.append("\"expanded\": " + Boolean.toString(!node.isCollapsed()) + ",");
             stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
 
             cachedNodes.put(newIndex, node);
