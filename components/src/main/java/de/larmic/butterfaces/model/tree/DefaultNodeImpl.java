@@ -11,6 +11,7 @@ public class DefaultNodeImpl<T> implements Node<T> {
     private final List<Node> subNodes = new ArrayList<>();
     private final T data;
     private String title;
+    private String description;
     private String imageIcon;
     private String glyphiconIcon;
     private String styleClass;
@@ -37,6 +38,15 @@ public class DefaultNodeImpl<T> implements Node<T> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

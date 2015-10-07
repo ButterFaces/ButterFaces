@@ -33,28 +33,28 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private Node selectedNode;
 
     public Node getTree() {
-        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder.png", "glyphicon-folder-open");
-        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/clipboard.png", "glyphicon-film"));
+        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
+        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
 
-        final Node firstChild = createNode("firstChild", "resources/images/clipboard.png", "glyphicon-film");
-        final Node secondChild = createNode("secondChild", "resources/images/folder.png", "glyphicon-folder-open");
+        final Node firstChild = createNode("firstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread");
+        final Node secondChild = createNode("secondChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
         if (!allExpanded) {
             secondChild.setCollapsed(true);
         }
-        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder.png", "glyphicon-folder-open");
-        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/clipboard.png", "glyphicon-film"));
-        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/mail.png", "glyphicon-file"));
-        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/contacts.png", "glyphicon-signal"));
+        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
+        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
+        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/mail.png", "glyphicon-file", "23 unread"));
+        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/contacts.png", "glyphicon-signal", "23 unread"));
         secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/clipboard.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
         secondChild.getSubNodes().add(secondThirdChild);
-        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/clipboard.png", "glyphicon-film"));
-        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/clipboard.png", "glyphicon-film"));
+        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
+        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
 
-        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open");
+        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
         rootNode.getSubNodes().add(firstChild);
         rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/clipboard.png", "glyphicon-film"));
+        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
 
         return rootNode;
     }
@@ -99,6 +99,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         myBean.appendInnerContent("    public Node getTreeModel() {");
 
         myBean.appendInnerContent("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
+        myBean.appendInnerContent("        firstChild.setDescription(\"23 unread\");");
         if (selectedIconType == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("        firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
@@ -205,12 +206,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return webXmlCodeExample;
     }
 
-    private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon) {
+    private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
         if (selectedIconType == TreeIconType.IMAGE) {
-            return new DefaultNodeImpl(title, null, icon);
+            final DefaultNodeImpl node = new DefaultNodeImpl(title, null, icon);
+            node.setDescription(description);
+            return node;
         } else if (selectedIconType == TreeIconType.GLYPHICON) {
             final DefaultNodeImpl node = new DefaultNodeImpl(title);
             node.setGlyphiconIcon("glyphicon " + glyphicon);
+            node.setDescription(description);
             return node;
         }
 

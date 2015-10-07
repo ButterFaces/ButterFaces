@@ -13,6 +13,11 @@ public interface Node<T> {
     String getTitle();
 
     /**
+     * @return the (optional) node description.
+     */
+    String getDescription();
+
+    /**
      * @return optional object data.
      */
     T getData();

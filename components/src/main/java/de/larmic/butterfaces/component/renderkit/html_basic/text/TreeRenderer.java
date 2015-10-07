@@ -154,6 +154,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
             } else {
                 stringBuilder.append("\"imageStyle\": \"display:none\",");
             }
+            if (StringUtils.isNotEmpty(node.getDescription())) {
+                stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
+            }
             stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
 
             cachedNodes.put(newIndex, node);
