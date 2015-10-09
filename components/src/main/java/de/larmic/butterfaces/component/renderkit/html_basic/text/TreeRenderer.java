@@ -22,7 +22,7 @@ import java.util.*;
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
-    private static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
+    private static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
 
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
     private Node selectedNode = null;
@@ -151,9 +151,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
             }
             if (StringUtils.isNotEmpty(node.getImageIcon())) {
                 stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
-            } else {
+            } else if (StringUtils.isNotEmpty(node.getGlyphiconIcon())) {
+                stringBuilder.append("\"imageClass\": \"" + node.getGlyphiconIcon() + "\",");
+            }else {
                 stringBuilder.append("\"imageStyle\": \"display:none\",");
             }
+
             if (StringUtils.isNotEmpty(node.getDescription())) {
                 stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
             }
