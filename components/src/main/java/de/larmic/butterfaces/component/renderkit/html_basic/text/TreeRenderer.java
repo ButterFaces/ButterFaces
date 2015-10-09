@@ -152,7 +152,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             if (StringUtils.isNotEmpty(node.getImageIcon())) {
                 stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
             } else if (StringUtils.isNotEmpty(node.getGlyphiconIcon())) {
-                stringBuilder.append("\"imageClass\": \"" + node.getGlyphiconIcon() + "\",");
+                stringBuilder.append("\"imageClass\": \"" + node.getGlyphiconIcon() + " glyphicon-node\",");
             }else {
                 stringBuilder.append("\"imageStyle\": \"display:none\",");
             }

@@ -187,18 +187,16 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
+        final DefaultNodeImpl node = new DefaultNodeImpl(title);
+        node.setDescription(description);
         if (selectedIconType == TreeIconType.IMAGE) {
-            final DefaultNodeImpl node = new DefaultNodeImpl(title, null, icon);
+            node.setImageIcon(icon);
             node.setDescription(description);
-            return node;
         } else if (selectedIconType == TreeIconType.GLYPHICON) {
-            final DefaultNodeImpl node = new DefaultNodeImpl(title);
             node.setGlyphiconIcon("glyphicon " + glyphicon);
-            node.setDescription(description);
-            return node;
         }
 
-        return new DefaultNodeImpl(title);
+        return node;
     }
 
     public boolean isHideRootNode() {
