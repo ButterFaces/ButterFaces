@@ -1,3 +1,12 @@
 .butter-component-tree .glyphicon-node {
     margin-top: 4px;
 }
+
+.butter-component-tree .tr-tree-entryTree {
+    display: inline-table;
+    width: 100%;
+}
+
+.butter-component-tree .tr-tree {
+    border: none;
+}
