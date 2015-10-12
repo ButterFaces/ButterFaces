@@ -10,3 +10,9 @@
 .butter-component-tree .tr-tree {
     border: none;
 }
+
+.butter-component-tree .tr-tree.focus.focus {
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
+}
