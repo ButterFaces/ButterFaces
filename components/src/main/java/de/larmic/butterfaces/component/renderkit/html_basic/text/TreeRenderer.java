@@ -116,7 +116,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         jQueryPluginCall.append("TrivialTree({");
-        jQueryPluginCall.append("\n    showSearchField: false,");
+        jQueryPluginCall.append("\n    searchBarMode: 'none',");
         jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
         jQueryPluginCall.append("\n    entries: " + this.renderEntries(tree));
         jQueryPluginCall.append("})");
