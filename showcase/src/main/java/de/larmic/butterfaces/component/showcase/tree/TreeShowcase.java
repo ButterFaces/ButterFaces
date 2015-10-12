@@ -27,33 +27,42 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
-    private boolean allExpanded = true;
+    private boolean allExpanded = false;
 
     private Node selectedNode;
 
     public Node getTree() {
-        final Node secondFirstChild = createNode("secondFirstChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
-        secondFirstChild.getSubNodes().add(createNode("secondFirstFirstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
+        final Node inbox = createNode("Inbox", "resources/images/arrow-down.png", "glyphicon-download", "43 unread");
+        final Node drafts = createNode("Drafts", "resources/images/compose.png", "glyphicon-edit", "5");
+        final Node sent = createNode("Sent", "resources/images/arrow-up.png", "glyphicon-send", "529 sent, 1 sending");
 
-        final Node firstChild = createNode("firstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread");
-        final Node secondChild = createNode("secondChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
-        if (!allExpanded) {
-            secondChild.setCollapsed(true);
+        final Node tagged = createNode("Tagged", "resources/images/shop.png", "glyphicon-tag", "9 unread");
+        tagged.setCollapsed(true);
+        tagged.getSubNodes().add(createNode("Important", "resources/images/shop.png", "glyphicon-tag", null));
+        tagged.getSubNodes().add(createNode("Private", "resources/images/shop.png", "glyphicon-tag", null));
+
+        final Node folders = createNode("Folders", "resources/images/folder.png", "glyphicon-folder-open", "27 files");
+        folders.setCollapsed(true);
+        folders.getSubNodes().add(createNode("Office", "resources/images/folder.png", "glyphicon-folder-open", "13 files"));
+        folders.getSubNodes().add(createNode("Building", "resources/images/folder.png", "glyphicon-folder-open", "2 files"));
+        folders.getSubNodes().add(createNode("Bills", "resources/images/folder.png", "glyphicon-folder-open", "12 files"));
+        final Node trash = createNode("Trash", "resources/images/recycle.png", "glyphicon-trash", "7293 kB");
+
+        final Node mail = createNode("Mail", "resources/images/mail.png", "glyphicon-envelope", "43 unread");
+        mail.getSubNodes().add(inbox);
+        mail.getSubNodes().add(drafts);
+        mail.getSubNodes().add(sent);
+        mail.getSubNodes().add(tagged);
+        mail.getSubNodes().add(folders);
+        mail.getSubNodes().add(trash);
+
+        if (allExpanded) {
+            tagged.setCollapsed(false);
+            folders.setCollapsed(false);
         }
-        final Node secondThirdChild = createNode("secondThirdChild", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
-        secondThirdChild.getSubNodes().add(createNode("thirdFirstChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
-        secondThirdChild.getSubNodes().add(createNode("thirdSecondChild", "resources/images/mail.png", "glyphicon-file", "23 unread"));
-        secondThirdChild.getSubNodes().add(createNode("thirdThirdChild", "resources/images/contacts.png", "glyphicon-signal", "23 unread"));
-        secondChild.getSubNodes().add(secondFirstChild);
-        secondChild.getSubNodes().add(createNode("secondSecondChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
-        secondChild.getSubNodes().add(secondThirdChild);
-        secondChild.getSubNodes().add(createNode("secondFourthChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
-        secondChild.getSubNodes().add(createNode("secondFifthChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
 
-        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "23 unread");
-        rootNode.getSubNodes().add(firstChild);
-        rootNode.getSubNodes().add(secondChild);
-        rootNode.getSubNodes().add(createNode("thirdChild", "resources/images/clipboard.png", "glyphicon-film", "23 unread"));
+        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
+        rootNode.getSubNodes().add(mail);
 
         return rootNode;
     }
