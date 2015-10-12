@@ -152,19 +152,13 @@
                       colWidth="#{tableShowcase.colWidthColumn1}"
                       label="Readonly text">
                 #{rowItem.a}
+                <b:tooltip placement="top">
+                    <strong>Attention: </strong> tooltips could be attended to columns.
+                </b:tooltip>
             </b:column>
             <b:column id="column2"
                       uniqueIdentifier="column2"
                       colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="Input text">
-                <h:inputText value="#{rowItem.b}"/>
-                <b:tooltip placement="top">
-                    <strong>Attention: </strong> it seems a mojarra bug that input fields in tables are not sortable.
-                </b:tooltip>
-            </b:column>
-            <b:column id="column3"
-                      uniqueIdentifier="column3"
-                      colWidth="#{tableShowcase.colWidthColumn3}"
                       sortColumnEnabled="false"
                       label="Action">
                 <b:commandLink value="doSomething"
@@ -173,15 +167,15 @@
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column id="column4"
-                      uniqueIdentifier="column4"
-                      colWidth="#{tableShowcase.colWidthColumn4}"
+            <b:column id="column3"
+                      uniqueIdentifier="column3"
+                      colWidth="#{tableShowcase.colWidthColumn3}"
                       sortColumnEnabled="true"
                       label="Creation Date">
                 <showcase:date date="#{rowItem.date}" />
             </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn5}"
-                      uniqueIdentifier="column5"
+            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+                      uniqueIdentifier="column4"
                       hideColumn="true"
                       sortColumnEnabled="false"
                       label="Readonly text (default hide)">
@@ -200,11 +194,6 @@
             </b:column>
             <b:column id="column2"
                       colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="Input text">
-                <h:inputText value="#{rowItem.b}"/>
-            </b:column>
-            <b:column id="column3"
-                      colWidth="#{tableShowcase.colWidthColumn3}"
                       label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
@@ -212,7 +201,7 @@
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
             </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
+            <b:column colWidth="#{tableShowcase.colWidthColumn3}"
                       hideColumn="true"
                       label="Readonly text (default hide)">
                 #{rowItem.a}
