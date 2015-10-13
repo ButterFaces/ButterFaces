@@ -28,6 +28,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
     private boolean allExpanded = false;
+    private boolean allowInlineSearch = false;
 
     private Node selectedNode;
 
@@ -172,7 +173,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         if (isAjaxRendered()) {
             xhtmlCodeExample.appendInnerContent("                nodeSelectionListener=\"#{myBean}\"");
         }
-        xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + this.isHideRootNode() + "\"");
+        xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + hideRootNode + "\"");
+        xhtmlCodeExample.appendInnerContent("                allowInlineSearch=\"" + allowInlineSearch + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (isAjaxRendered()) {
@@ -214,6 +216,14 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setHideRootNode(boolean hideRootNode) {
         this.hideRootNode = hideRootNode;
+    }
+
+    public boolean isAllowInlineSearch() {
+        return allowInlineSearch;
+    }
+
+    public void setAllowInlineSearch(boolean allowInlineSearch) {
+        this.allowInlineSearch = allowInlineSearch;
     }
 
     public boolean isAjaxRendered() {

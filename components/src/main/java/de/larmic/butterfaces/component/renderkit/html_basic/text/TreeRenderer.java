@@ -115,8 +115,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
     private String createJQueryPluginCallTivial(final HtmlTree tree) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
+        final String allowInlineSearch = tree.isAllowInlineSearch() ? "show-if-filled" : "none";
+
         jQueryPluginCall.append("TrivialTree({");
-        jQueryPluginCall.append("\n    searchBarMode: 'none',");
+        jQueryPluginCall.append("\n    searchBarMode: '" + allowInlineSearch + "',");
         jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
         jQueryPluginCall.append("\n    entries: " + this.renderEntries(tree));
         jQueryPluginCall.append("})");
@@ -153,7 +155,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
             } else if (StringUtils.isNotEmpty(node.getGlyphiconIcon())) {
                 stringBuilder.append("\"imageClass\": \"" + node.getGlyphiconIcon() + " glyphicon-node\",");
-            }else {
+            } else {
                 stringBuilder.append("\"imageStyle\": \"display:none\",");
             }
 

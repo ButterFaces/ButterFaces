@@ -1587,6 +1587,11 @@
             <name>hideRootNode</name>
             <type>java.lang.Boolean</type>
         </attribute>
+        <attribute>
+            <description>If true sets searchBarMode to 'show-if-filled' otherwise to 'none'.</description>
+            <name>allowInlineSearch</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
     </tag>
 
     <tag>
