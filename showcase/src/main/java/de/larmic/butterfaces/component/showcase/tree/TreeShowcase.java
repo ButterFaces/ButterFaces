@@ -27,8 +27,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
+    private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.NONE;
     private boolean allExpanded = false;
-    private boolean allowInlineSearch = false;
 
     private Node selectedNode;
 
@@ -165,6 +165,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return items;
     }
 
+    public List<SelectItem> getSeachBarModeTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TreeSearchBarModeType type : TreeSearchBarModeType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
     private XhtmlCodeExample createXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
@@ -174,7 +183,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
             xhtmlCodeExample.appendInnerContent("                nodeSelectionListener=\"#{myBean}\"");
         }
         xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + hideRootNode + "\"");
-        xhtmlCodeExample.appendInnerContent("                allowInlineSearch=\"" + allowInlineSearch + "\"");
+        xhtmlCodeExample.appendInnerContent("                searchBarMode=\"" + selectedSearchBarModeType.label + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (isAjaxRendered()) {
@@ -218,14 +227,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         this.hideRootNode = hideRootNode;
     }
 
-    public boolean isAllowInlineSearch() {
-        return allowInlineSearch;
-    }
-
-    public void setAllowInlineSearch(boolean allowInlineSearch) {
-        this.allowInlineSearch = allowInlineSearch;
-    }
-
     public boolean isAjaxRendered() {
         return SelectionAjaxType.NONE != selectionAjaxType;
     }
@@ -260,5 +261,13 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setSelectedIconType(TreeIconType selectedIconType) {
         this.selectedIconType = selectedIconType;
+    }
+
+    public TreeSearchBarModeType getSelectedSearchBarModeType() {
+        return selectedSearchBarModeType;
+    }
+
+    public void setSelectedSearchBarModeType(TreeSearchBarModeType selectedSearchBarModeType) {
+        this.selectedSearchBarModeType = selectedSearchBarModeType;
     }
 }

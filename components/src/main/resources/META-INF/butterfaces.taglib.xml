@@ -1588,9 +1588,9 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <description>If true sets searchBarMode to 'show-if-filled' otherwise to 'none'.</description>
-            <name>allowInlineSearch</name>
-            <type>java.lang.Boolean</type>
+            <description>Default is 'none'. Available options: 'none', 'show-if-filled', 'always-visible' </description>
+            <name>searchBarMode</name>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
 

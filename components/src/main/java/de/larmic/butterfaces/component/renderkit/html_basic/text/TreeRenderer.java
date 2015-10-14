@@ -124,8 +124,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
     private String createJQueryPluginCallTivial(final HtmlTree tree) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String allowInlineSearch = tree.isAllowInlineSearch() ? "show-if-filled" : "none";
-
         final String entries = this.renderEntries(tree);
 
         final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
@@ -133,7 +131,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         // TODO open path to selected node
 
         jQueryPluginCall.append("TrivialTree({");
-        jQueryPluginCall.append("\n    searchBarMode: '" + allowInlineSearch + "',");
+        jQueryPluginCall.append("\n    searchBarMode: '" + determineSearchBarMode(tree) + "',");
         if (selectedNodeNumber != null) {
             jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
 
@@ -143,6 +141,18 @@ public class TreeRenderer extends HtmlBasicRenderer {
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
+    }
+
+    private String determineSearchBarMode(final HtmlTree tree) {
+        if ("show-if-filled".equals(tree.getSearchBarMode())) {
+            return "show-if-filled";
+        }
+
+        if ("always-visible".equals(tree.getSearchBarMode())) {
+            return "always-visible";
+        }
+
+        return "none";
     }
 
     private Integer getSelectedNodeNumber(final HtmlTree tree) {

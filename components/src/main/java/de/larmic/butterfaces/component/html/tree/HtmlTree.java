@@ -31,7 +31,7 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String PROPERTY_EXPANSION_CLASS = "expansionClass";
     protected static final String PROPERTY_COLLAPSING_CLASS = "collapsingClass";
     protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
-    protected static final String ALLOW_INLINE_SEARCH = "allowInlineSearch";
+    protected static final String SEARCH_BAR_MODE = "searchBarMode";
     protected static final String PROPERTY_NODE_SELECTION_LISTENER = "nodeSelectionListener";
 
     public HtmlTree() {
@@ -94,12 +94,12 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
         getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
     }
 
-    public boolean isAllowInlineSearch() {
-        return Boolean.valueOf(getStateHelper().eval(ALLOW_INLINE_SEARCH, Boolean.TRUE).toString());
+    public String getSearchBarMode() {
+        return (String) getStateHelper().eval(SEARCH_BAR_MODE);
     }
 
-    public void setAllowInlineSearch(final boolean allowInlineSearch) {
-        getStateHelper().put(ALLOW_INLINE_SEARCH, allowInlineSearch);
+    public void setSearchBarMode(final String searchBarMode) {
+        getStateHelper().put(SEARCH_BAR_MODE, searchBarMode);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
