@@ -16,3 +16,8 @@
     box-shadow:none;
     border-color:transparent;
 }
+
+.butter-component-tree .tr-tree .tr-tree-entryTree {
+    -webkit-flex: none;
+    flex: none;
+}
