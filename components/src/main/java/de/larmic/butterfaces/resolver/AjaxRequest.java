@@ -2,9 +2,12 @@ package de.larmic.butterfaces.resolver;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,16 +22,22 @@ public class AjaxRequest {
     private final UIComponentBase component;
     private final String onevent;
     private final String eventName;
+    private final String params;
 
     public AjaxRequest(final UIComponentBase component, final String event) {
         this(component, event, null);
     }
 
     public AjaxRequest(final UIComponentBase component, final String event, final String onEvent) {
+        this(component, event, onEvent, null);
+    }
+
+    public AjaxRequest(final UIComponentBase component, final String event, final String onEvent, final String params) {
         this.renderIds = this.createRefreshIds(component, event);
         this.component = component;
         this.onevent = onEvent;
         this.eventName = event;
+        this.params = params;
     }
 
     public String createJavaScriptCall() {
@@ -43,10 +52,10 @@ public class AjaxRequest {
         final String render = this.createRender(this.renderIds);
 
         if (StringUtils.isEmpty(customOnEvent)) {
-            return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "'javax.faces.behavior.event':'" + customEventName + "'});";
+            return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + createParamsPart(params) + "'javax.faces.behavior.event':'" + customEventName + "'});";
         }
 
-        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + "onevent: " + customOnEvent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
+        return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + createParamsPart(params) + "onevent: " + customOnEvent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
     }
 
     public String createJavaScriptCall(final String customEventName, final boolean disableElements) {
@@ -77,6 +86,14 @@ public class AjaxRequest {
     private String createRenderPart(final String render) {
         if (StringUtils.isNotEmpty(render)) {
             return "render: '" + render + "', ";
+        }
+
+        return "";
+    }
+
+    private String createParamsPart(final String params) {
+        if (StringUtils.isNotEmpty(params)) {
+            return "params: " + params + ", ";
         }
 
         return "";
@@ -123,7 +140,7 @@ public class AjaxRequest {
                     if (!ajaxBehavior.isDisabled()) {
                         if (ajaxBehavior.getRender() != null && !ajaxBehavior.getRender().isEmpty()) {
                             for (String singleRender : ajaxBehavior.getRender()) {
-                                idsToRender.add(singleRender);
+                                idsToRender.add(getResolvedId(component, singleRender));
                             }
                         }
 
@@ -138,5 +155,23 @@ public class AjaxRequest {
         }
 
         return idsToRender;
+    }
+
+    // Returns the resolved (client id) for a particular id.
+    private static String getResolvedId(final UIComponent component, final String id) {
+        if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
+            return id;
+        }
+
+        UIComponent resolvedComponent = component.findComponent(id);
+        if (resolvedComponent == null) {
+            final FacesContext context = FacesContext.getCurrentInstance();
+            if (context != null && id.charAt(0) == UINamingContainer.getSeparatorChar(context)) {
+                return id.substring(1);
+            }
+            return id;
+        }
+
+        return resolvedComponent.getClientId();
     }
 }

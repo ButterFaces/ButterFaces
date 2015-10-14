@@ -7,6 +7,8 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.resolver.AjaxRequest;
+import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -70,8 +72,16 @@ public class TreeRenderer extends HtmlBasicRenderer {
             if (clientBehavior instanceof AjaxBehavior) {
                 final AjaxBehavior ajaxBehavior = (AjaxBehavior) clientBehavior;
                 if (!ajaxBehavior.isDisabled()) {
-                    final String renderIds = createRenderIds(tree, ajaxBehavior.getRender());
-                    writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-component-tree-original-input", "selectTreeNodeNew('" + renderIds + "')"), null);
+                    final String originalInput = "jQuery(document.getElementById(\"" + component.getClientId() + "\")).find(\".butter-component-tree-original-input\")";
+
+                    final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "click", ajaxBehavior.getOnevent(), originalInput + ".val()");
+                    final String javaScriptCall = click.createJavaScriptCall();
+
+                    writer.writeText("jQuery(function () {", null);
+                    writer.writeText(originalInput + ".change(function () {", null);
+                    writer.writeText(javaScriptCall, null);
+                    writer.writeText("});", null);
+                    writer.writeText("});", null);
                 }
             }
 

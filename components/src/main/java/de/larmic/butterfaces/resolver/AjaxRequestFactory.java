@@ -11,12 +11,12 @@ public class AjaxRequestFactory {
     }
 
     public AjaxRequest createRequest(final UIComponentBase component, final String event) {
-        return this.createRequest(component, event, null);
+        return this.createRequest(component, event, null, null);
     }
 
-    public AjaxRequest createRequest(final UIComponentBase component, final String event, final String onevent) {
+    public AjaxRequest createRequest(final UIComponentBase component, final String event, final String onevent, final String params) {
         try {
-            return new AjaxRequest(component, event, onevent);
+            return new AjaxRequest(component, event, onevent, params);
         } catch (IllegalStateException e) {
             // thrown if event is found but disabled
             return null;
