@@ -11,7 +11,6 @@ import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
@@ -127,13 +126,37 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         final String allowInlineSearch = tree.isAllowInlineSearch() ? "show-if-filled" : "none";
 
+        final String entries = this.renderEntries(tree);
+
+        final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
+
+        // TODO open path to selected node
+
         jQueryPluginCall.append("TrivialTree({");
         jQueryPluginCall.append("\n    searchBarMode: '" + allowInlineSearch + "',");
+        if (selectedNodeNumber != null) {
+            jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
+
+        }
         jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-        jQueryPluginCall.append("\n    entries: " + this.renderEntries(tree));
+        jQueryPluginCall.append("\n    entries: " + entries);
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
+    }
+
+    private Integer getSelectedNodeNumber(final HtmlTree tree) {
+        if (tree.getNodeSelectionListener() != null) {
+            for (Integer nodeNumber : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(nodeNumber);
+                if (tree.getNodeSelectionListener().isValueSelected(node)) {
+                    return nodeNumber;
+                }
+
+            }
+        }
+
+        return null;
     }
 
     private String renderEntries(final HtmlTree tree) {
@@ -193,50 +216,5 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return newIndex;
-    }
-
-    private static String createRenderIds(final UIComponent component,
-                                          final Collection<String> ids) {
-        final StringBuilder builder = new StringBuilder();
-
-        if ((null == ids) || ids.isEmpty()) {
-            builder.append('0');
-            return builder.toString();
-        }
-
-        boolean first = true;
-
-        for (String id : ids) {
-            if (id.trim().length() == 0) {
-                continue;
-            }
-            if (!first) {
-                builder.append(' ');
-            } else {
-                first = false;
-            }
-
-            if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
-                builder.append(id);
-            } else {
-                builder.append(getResolvedId(component, id));
-            }
-        }
-
-        return builder.toString();
-    }
-
-    // Returns the resolved (client id) for a particular id.
-    private static String getResolvedId(UIComponent component, String id) {
-
-        UIComponent resolvedComponent = component.findComponent(id);
-        if (resolvedComponent == null) {
-            if (id.charAt(0) == UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
-                return id.substring(1);
-            }
-            return id;
-        }
-
-        return resolvedComponent.getClientId();
     }
 }
