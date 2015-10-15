@@ -14,6 +14,7 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagBooleanControl label="rendered" value="#{treeShowcase.rendered}"/>
             <common:tagBooleanControl label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
+            <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
             <common:tagEnumControl label="searchBarMode"
                                    value="#{treeShowcase.selectedSearchBarModeType}"
                                    values="#{treeShowcase.seachBarModeTypes}"/>
@@ -42,6 +43,7 @@
                 value="#{treeShowcase.tree}"
                 nodeSelectionListener="#{treeShowcase}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
+                placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and not treeShowcase.ajaxRendered}"/>
 
@@ -49,6 +51,7 @@
                 value="#{treeShowcase.tree}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
                 nodeSelectionListener="#{treeShowcase}"
+                placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and treeShowcase.ajaxRendered}">
             <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}" />

@@ -43,6 +43,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree", null);
 
         writer.startElement("input", tree);
+
+        if (StringUtils.isNotEmpty(tree.getPlaceholder())) {
+            writer.writeAttribute(ATTRIBUTE_PLACEHOLDER, tree.getPlaceholder(), null);
+        }
+
         writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-original-input", null);
         writer.endElement("input");
 

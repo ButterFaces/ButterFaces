@@ -32,6 +32,7 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String PROPERTY_COLLAPSING_CLASS = "collapsingClass";
     protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
     protected static final String SEARCH_BAR_MODE = "searchBarMode";
+    protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_NODE_SELECTION_LISTENER = "nodeSelectionListener";
 
     public HtmlTree() {
@@ -92,6 +93,14 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public void setHideRootNode(final boolean hideRootNode) {
         getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
+    }
+
+    public String getPlaceholder() {
+        return (String) this.getStateHelper().eval(PROPERTY_HTML5_PLACEHOLDER);
+    }
+
+    public void setPlaceholder(final String placeholder) {
+        this.updateStateHelper(PROPERTY_HTML5_PLACEHOLDER, placeholder);
     }
 
     public String getSearchBarMode() {

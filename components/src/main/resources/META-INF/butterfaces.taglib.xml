@@ -1588,7 +1588,12 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
-            <description>Default is 'none'. Available options: 'none', 'show-if-filled', 'always-visible' </description>
+            <description>A placeholder if using searchBarMode 'show-if-filled' or 'always-visible'.</description>
+            <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Default is 'none'. Available options: 'none', 'show-if-filled', 'always-visible'.</description>
             <name>searchBarMode</name>
             <type>java.lang.String</type>
         </attribute>

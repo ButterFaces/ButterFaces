@@ -31,6 +31,7 @@ public class HtmlBasicRenderer extends Renderer {
     public static final String ATTRIBUTE_ID = "id";
     public static final String ATTRIBUTE_STYLE = "style";
     public static final String ATTRIBUTE_CLASS = "class";
+    public static final String ATTRIBUTE_PLACEHOLDER = "placeholder";
 
     @Override
     public void encodeChildren(final FacesContext context,

@@ -16,9 +16,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by larmic on 11.09.14.
- */
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
@@ -27,8 +24,9 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
-    private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.NONE;
+    private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.ALWAYS_VISIBLE;
     private boolean allExpanded = false;
+    private String placeholder = "Search...";
 
     private Node selectedNode;
 
@@ -184,6 +182,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         }
         xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + hideRootNode + "\"");
         xhtmlCodeExample.appendInnerContent("                searchBarMode=\"" + selectedSearchBarModeType.label + "\"");
+        xhtmlCodeExample.appendInnerContent("                placeholder=\"" + placeholder + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (isAjaxRendered()) {
@@ -269,5 +268,13 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setSelectedSearchBarModeType(TreeSearchBarModeType selectedSearchBarModeType) {
         this.selectedSearchBarModeType = selectedSearchBarModeType;
+    }
+
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
     }
 }
