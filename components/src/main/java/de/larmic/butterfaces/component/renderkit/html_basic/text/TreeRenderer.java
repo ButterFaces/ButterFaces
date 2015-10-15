@@ -124,23 +124,44 @@ public class TreeRenderer extends HtmlBasicRenderer {
     private String createJQueryPluginCallTivial(final HtmlTree tree) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String entries = this.renderEntries(tree);
+        final Node rootNode = tree.getValue();
+        initCachedNodes(tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode), 0);
 
         final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
 
-        // TODO open path to selected node
+        if (selectedNodeNumber != null) {
+            openPathToNode(cachedNodes.get(selectedNodeNumber));
+        }
 
         jQueryPluginCall.append("TrivialTree({");
         jQueryPluginCall.append("\n    searchBarMode: '" + determineSearchBarMode(tree) + "',");
         if (selectedNodeNumber != null) {
             jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
-
         }
         jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-        jQueryPluginCall.append("\n    entries: " + entries);
+        jQueryPluginCall.append("\n    entries: " + this.renderEntries(tree));
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
+    }
+
+    private void openPathToNode(final Node node) {
+        final Node parent = getParent(node);
+
+        if (parent != null) {
+            parent.setCollapsed(false);
+            openPathToNode(parent);
+        }
+    }
+
+    private Node getParent(final Node child) {
+        for (Node node : cachedNodes.values()) {
+            if (node.getSubNodes().contains(child)) {
+                return node;
+            }
+        }
+
+        return null;
     }
 
     private String determineSearchBarMode(final HtmlTree tree) {
@@ -180,6 +201,22 @@ public class TreeRenderer extends HtmlBasicRenderer {
         return stringBuilder.toString();
     }
 
+    private int initCachedNodes(final List<Node> nodes,
+                                final int index) {
+        int newIndex = index;
+
+        for (Node node : nodes) {
+            cachedNodes.put(newIndex, node);
+            newIndex++;
+
+            if (node.getSubNodes().size() > 0) {
+                newIndex = initCachedNodes(node.getSubNodes(), newIndex);
+            }
+        }
+
+        return newIndex;
+    }
+
     private int renderNodes(final StringBuilder stringBuilder,
                             final List<Node> nodes,
                             final int index) {
@@ -205,10 +242,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
             if (StringUtils.isNotEmpty(node.getDescription())) {
                 stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
             }
-            stringBuilder.append("\"expanded\": " + Boolean.toString(!node.isCollapsed()) + ",");
+            stringBuilder.append("\"expanded\": " + Boolean.toString(isNodeExpanded(newIndex, node)) + ",");
             stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
-
-            cachedNodes.put(newIndex, node);
 
             newIndex++;
 
@@ -226,5 +261,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return newIndex;
+    }
+
+    private boolean isNodeExpanded(final int nodeIndex, final Node originalNode) {
+        final Node cachedNode = cachedNodes.get(nodeIndex);
+
+        if (cachedNode != null) {
+            return !cachedNode.isCollapsed();
+        }
+
+        return !originalNode.isCollapsed();
     }
 }
