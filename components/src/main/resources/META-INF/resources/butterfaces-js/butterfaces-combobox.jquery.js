@@ -51,7 +51,7 @@
                 var dataFields = self._$optionElement.data();
                 resultItemHtml = $template;
                 $template.replace(/\{\{(.*?)\}\}/g, function (group0, group1) {
-                    resultItemHtml = resultItemHtml.replace("{{" + group1 + "}}", dataFields[group1.toLowerCase()])
+                    resultItemHtml = resultItemHtml.replace("{{" + group1 + "}}", dataFields[group1.toLowerCase()] || '')
                     return;
                 })
             }
