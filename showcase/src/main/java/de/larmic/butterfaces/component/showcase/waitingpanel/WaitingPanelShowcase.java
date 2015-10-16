@@ -1,15 +1,14 @@
 package de.larmic.butterfaces.component.showcase.waitingpanel;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by larmic on 11.09.14.
@@ -35,12 +34,6 @@ public class WaitingPanelShowcase extends AbstractCodeShowcase implements Serial
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void doWaitingClickEndless() {
-        while(true) {
-            // endless loop
         }
     }
 
