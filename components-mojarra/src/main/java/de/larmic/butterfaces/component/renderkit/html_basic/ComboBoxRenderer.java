@@ -243,6 +243,8 @@ public class ComboBoxRenderer extends MenuRenderer {
                 if (StringUtils.isNotEmpty(value)) {
                     writer.writeAttribute("data-" + key, value, null);
                 }
+
+                // TODO render alternative entry if value is null?
             }
         }
     }

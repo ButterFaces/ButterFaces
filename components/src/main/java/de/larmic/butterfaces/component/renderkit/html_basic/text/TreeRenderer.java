@@ -63,27 +63,38 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         final HtmlTree tree = (HtmlTree) component;
-        final ResponseWriter writer = context.getResponseWriter();
+        // HINT: getValue() should only called once because getValue() could create a new root node each time
+        final Node rootNode = tree.getValue();
+        final List<Node> nodes = tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
 
-        final List<ClientBehavior> clicks = tree.getClientBehaviors().get("click");
+        this.initCachedNodes(nodes, 0);
+
+        final String searchBarMode = determineSearchBarMode(tree);
+
+        final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("script", component);
 
         writer.writeText("jQuery(function () {", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(tree);
+        final String pluginCall = createJQueryPluginCallTrivial(nodes, searchBarMode, getSelectedNodeNumber(tree));
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
-        final AjaxBehavior ajaxClickBehavior = findFirstActiveAjaxBehavior(clicks);
-
-        if (ajaxClickBehavior != null) {
+        final AjaxBehavior ajaxClickBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("click"));
+        if (ajaxClickBehavior != null && tree.getNodeSelectionListener() != null) {
             writer.writeText("trivialTree.onSelectedEntryChanged.addListener(function(node) {", null);
             final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "click", ajaxClickBehavior.getOnevent(), "node.id");
             final String javaScriptCall = click.createJavaScriptCall();
             writer.writeText(javaScriptCall, null);
             writer.writeText("});", null);
+        }
+
+        final AjaxBehavior ajaxToggleBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("toggle"));
+        if (ajaxToggleBehavior != null) {
             writer.writeText("trivialTree.onNodeExpansionStateChanged.addListener(function(node) {", null);
-            writer.writeText("console.log(node.id);", null);
+            final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "toggle", ajaxToggleBehavior.getOnevent(), "node.id");
+            final String javaScriptCall = click.createJavaScriptCall();
+            writer.writeText(javaScriptCall, null);
             writer.writeText("});", null);
         }
 
@@ -137,25 +148,22 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String createJQueryPluginCallTrivial(final HtmlTree tree) {
+    private String createJQueryPluginCallTrivial(final List<Node> nodes,
+                                                 final String searchBarMode,
+                                                 final Integer selectedNodeNumber) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
-
-        final Node rootNode = tree.getValue();
-        initCachedNodes(tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode), 0);
-
-        final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
 
         if (selectedNodeNumber != null) {
             openPathToNode(cachedNodes.get(selectedNodeNumber));
         }
 
         jQueryPluginCall.append("TrivialTree({");
-        jQueryPluginCall.append("\n    searchBarMode: '" + determineSearchBarMode(tree) + "',");
+        jQueryPluginCall.append("\n    searchBarMode: '" + searchBarMode + "',");
         if (selectedNodeNumber != null) {
             jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
         }
         jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-        jQueryPluginCall.append("\n    entries: " + this.renderEntries(tree));
+        jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes));
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
@@ -206,12 +214,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
         return null;
     }
 
-    private String renderEntries(final HtmlTree tree) {
+    private String renderEntries(final List<Node> nodes) {
         final StringBuilder stringBuilder = new StringBuilder();
-        final Node rootNode = tree.getValue();
 
         stringBuilder.append("[");
-        renderNodes(stringBuilder, tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode), 0);
+        renderNodes(stringBuilder, nodes, 0);
         stringBuilder.append("]");
 
         return stringBuilder.toString();
@@ -286,6 +293,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             return !cachedNode.isCollapsed();
         }
 
+        // failsave: should not occur
         return !originalNode.isCollapsed();
     }
 }

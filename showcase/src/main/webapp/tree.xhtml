@@ -55,6 +55,7 @@
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and treeShowcase.ajaxRendered}">
             <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}" />
+            <f:ajax event="toggle" render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}" />
         </b:tree>
 
         <h:panelGroup rendered="#{treeShowcase.ajaxRendered}">

@@ -42,7 +42,7 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return Arrays.asList("click");
+        return Arrays.asList("click", "toggle");
     }
 
     @Override
