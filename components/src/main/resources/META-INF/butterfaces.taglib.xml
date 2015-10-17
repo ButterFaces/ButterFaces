@@ -1584,6 +1584,11 @@
             <type>de.larmic.butterfaces.event.TreeNodeSelectionListener</type>
         </attribute>
         <attribute>
+            <description>Expansion listener called on node expanding or collapsing.</description>
+            <name>nodeExpansionListener</name>
+            <type>de.larmic.butterfaces.event.TreeNodeExpansionListener</type>
+        </attribute>
+        <attribute>
             <name>hideRootNode</name>
             <type>java.lang.Boolean</type>
         </attribute>

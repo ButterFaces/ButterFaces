@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
@@ -19,7 +20,7 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TreeShowcase extends AbstractCodeShowcase implements Serializable, TreeNodeSelectionListener {
+public class TreeShowcase extends AbstractCodeShowcase implements Serializable, TreeNodeSelectionListener, TreeNodeExpansionListener {
 
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
@@ -75,6 +76,21 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     @Override
     public boolean isValueSelected(Node data) {
         return selectedNode != null && data.getTitle().equals(selectedNode.getTitle());
+    }
+
+    @Override
+    public void expandNode(Node node) {
+
+    }
+
+    @Override
+    public void collapseNode(Node node) {
+
+    }
+
+    @Override
+    public boolean isValueExpanded(Node data) {
+        return false;
     }
 
     @Override
@@ -187,9 +203,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
         if (isAjaxRendered()) {
             if (isAjaxDisabled()) {
-                xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"nodeTitle\" disabled=\"true\"/>");
+                xhtmlCodeExample.appendInnerContent("            <!-- use toggle to activate selection listener -->");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"click\" render=\"nodeTitle\" disabled=\"true\"/>");
+                xhtmlCodeExample.appendInnerContent("            <!-- use toggle to activate expansion listener -->");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"toggle\" render=\"nodeTitle\" disabled=\"true\"/>");
             } else {
-                xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"nodeTitle\"/>");
+                xhtmlCodeExample.appendInnerContent("            <!-- use toggle to activate selection listener -->");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"click\" render=\"nodeTitle\"/>");
+                xhtmlCodeExample.appendInnerContent("            <!-- use toggle to activate expansion listener -->");
+                xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"toggle\" render=\"nodeTitle\"/>");
             }
         }
 

@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.html.tree;
 
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 
@@ -34,6 +35,7 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String SEARCH_BAR_MODE = "searchBarMode";
     protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_NODE_SELECTION_LISTENER = "nodeSelectionListener";
+    protected static final String PROPERTY_NODE_EXPANSION_LISTENER = "nodeExpansionListener";
 
     public HtmlTree() {
         super();
@@ -69,6 +71,14 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public void setNodeSelectionListener(final TreeNodeSelectionListener nodeSelectionListener) {
         this.updateStateHelper(PROPERTY_NODE_SELECTION_LISTENER, nodeSelectionListener);
+    }
+
+    public TreeNodeExpansionListener getNodeExpansionListener() {
+        return (TreeNodeExpansionListener) this.getStateHelper().eval(PROPERTY_NODE_EXPANSION_LISTENER);
+    }
+
+    public void setNodeExpansionListener(final TreeNodeExpansionListener nodeExpansionListener) {
+        this.updateStateHelper(PROPERTY_NODE_EXPANSION_LISTENER, nodeExpansionListener);
     }
 
     public String getExpansionClass() {

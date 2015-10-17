@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
@@ -90,7 +91,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         final AjaxBehavior ajaxToggleBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("toggle"));
-        if (ajaxToggleBehavior != null) {
+        if (ajaxToggleBehavior != null && tree.getNodeExpansionListener() != null) {
             writer.writeText("trivialTree.onNodeExpansionStateChanged.addListener(function(node) {", null);
             final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "toggle", ajaxToggleBehavior.getOnevent(), "node.id");
             final String javaScriptCall = click.createJavaScriptCall();
@@ -121,11 +122,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
     public void decode(final FacesContext context, final UIComponent component) {
         final HtmlTree htmlTree = (HtmlTree) component;
         final TreeNodeSelectionListener nodeSelectionListener = htmlTree.getNodeSelectionListener();
+        final TreeNodeExpansionListener nodeExpansionListener = htmlTree.getNodeExpansionListener();
         final Map<String, List<ClientBehavior>> behaviors = htmlTree.getClientBehaviors();
-
-        if (nodeSelectionListener == null) {
-            return;
-        }
 
         if (behaviors.isEmpty()) {
             return;
@@ -135,11 +133,25 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
+        if (behaviorEvent != null && "click".equals(behaviorEvent) && nodeSelectionListener != null) {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node node = cachedNodes.get(nodeNumber);
                 nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                selectedNode = node;
+            } catch (NumberFormatException e) {
+                // here is nothing to do
+                return;
+            }
+        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent) && nodeExpansionListener != null) {
+            try {
+                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Node node = cachedNodes.get(nodeNumber);
+                if (node.isCollapsed()) {
+                    nodeExpansionListener.expandNode(node);
+                } else {
+                    nodeExpansionListener.collapseNode(node);
+                }
                 selectedNode = node;
             } catch (NumberFormatException e) {
                 // here is nothing to do
