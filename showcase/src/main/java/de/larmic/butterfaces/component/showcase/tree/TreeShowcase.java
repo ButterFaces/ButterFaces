@@ -10,6 +10,7 @@ import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 
+import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -31,7 +32,10 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     private Node selectedNode;
 
-    public Node getTree() {
+    private Node rootNode;
+
+    @PostConstruct
+    public void init() {
         final Node inbox = createNode("Inbox", "resources/images/arrow-down.png", "glyphicon-download", "43 unread");
         final Node drafts = createNode("Drafts", "resources/images/compose.png", "glyphicon-edit", "5");
         final Node sent = createNode("Sent", "resources/images/arrow-up.png", "glyphicon-send", "529 sent, 1 sending");
@@ -56,14 +60,11 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         mail.getSubNodes().add(folders);
         mail.getSubNodes().add(trash);
 
-        if (allExpanded) {
-            tagged.setCollapsed(false);
-            folders.setCollapsed(false);
-        }
-
-        final Node rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
+        rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
         rootNode.getSubNodes().add(mail);
+    }
 
+    public Node getTree() {
         return rootNode;
     }
 
@@ -86,11 +87,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     @Override
     public void collapseNode(Node node) {
 
-    }
-
-    @Override
-    public boolean isValueExpanded(Node data) {
-        return false;
     }
 
     @Override

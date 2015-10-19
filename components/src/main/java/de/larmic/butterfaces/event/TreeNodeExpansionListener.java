@@ -20,10 +20,4 @@ public interface TreeNodeExpansionListener {
      * @param node the collapsing node
      */
     void collapseNode(final Node node);
-
-    /**
-     * @param data selected row data
-     * @return true if actual value is expanded.
-     */
-    boolean isValueExpanded(final Node data);
 }

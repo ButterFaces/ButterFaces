@@ -74,11 +74,6 @@ public class DefaultNodeImpl<T> implements Node<T> {
     }
 
     @Override
-    public boolean isLeaf() {
-        return this.subNodes.isEmpty();
-    }
-
-    @Override
     public List<Node> getSubNodes() {
         return subNodes;
     }

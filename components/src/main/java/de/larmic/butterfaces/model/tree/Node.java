@@ -44,11 +44,6 @@ public interface Node<T> {
     String getStyleClass();
 
     /**
-     * @return true if children (existing or not) should be rendered in tree component.
-     */
-    boolean isLeaf();
-
-    /**
      * @return true if node and all sub nodes are collapsed.
      */
     boolean isCollapsed();

@@ -78,7 +78,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.writeText("jQuery(function () {", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(nodes, searchBarMode, getSelectedNodeNumber(tree));
+        final String pluginCall = createJQueryPluginCallTrivial(tree.getNodeExpansionListener(), nodes, searchBarMode, getSelectedNodeNumber(tree));
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
         final AjaxBehavior ajaxClickBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("click"));
@@ -148,8 +148,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node node = cachedNodes.get(nodeNumber);
                 if (node.isCollapsed()) {
+                    node.setCollapsed(false);
                     nodeExpansionListener.expandNode(node);
                 } else {
+                    node.setCollapsed(true);
                     nodeExpansionListener.collapseNode(node);
                 }
                 selectedNode = node;
@@ -160,13 +162,14 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String createJQueryPluginCallTrivial(final List<Node> nodes,
+    private String createJQueryPluginCallTrivial(final TreeNodeExpansionListener nodeExpansionListener,
+                                                 final List<Node> nodes,
                                                  final String searchBarMode,
                                                  final Integer selectedNodeNumber) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         if (selectedNodeNumber != null) {
-            openPathToNode(cachedNodes.get(selectedNodeNumber));
+            openPathToNode(cachedNodes.get(selectedNodeNumber), nodeExpansionListener);
         }
 
         jQueryPluginCall.append("TrivialTree({");
@@ -181,12 +184,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         return jQueryPluginCall.toString();
     }
 
-    private void openPathToNode(final Node node) {
+    private void openPathToNode(final Node node, final TreeNodeExpansionListener nodeExpansionListener) {
         final Node parent = getParent(node);
 
         if (parent != null) {
-            parent.setCollapsed(false);
-            openPathToNode(parent);
+            if (parent.isCollapsed()) {
+                parent.setCollapsed(false);
+                nodeExpansionListener.expandNode(node);
+            }
+            openPathToNode(parent, nodeExpansionListener);
         }
     }
 
@@ -277,7 +283,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             if (StringUtils.isNotEmpty(node.getDescription())) {
                 stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
             }
-            stringBuilder.append("\"expanded\": " + Boolean.toString(isNodeExpanded(newIndex, node)) + ",");
+            stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
             stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
 
             newIndex++;
@@ -296,16 +302,5 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return newIndex;
-    }
-
-    private boolean isNodeExpanded(final int nodeIndex, final Node originalNode) {
-        final Node cachedNode = cachedNodes.get(nodeIndex);
-
-        if (cachedNode != null) {
-            return !cachedNode.isCollapsed();
-        }
-
-        // failsave: should not occur
-        return !originalNode.isCollapsed();
     }
 }
