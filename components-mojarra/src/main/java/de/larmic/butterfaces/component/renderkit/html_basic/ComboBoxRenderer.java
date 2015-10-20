@@ -1,25 +1,34 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.HtmlText;
-import de.larmic.butterfaces.component.partrenderer.*;
-import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
-import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
-import de.larmic.butterfaces.context.StringHtmlEncoder;
-import de.larmic.butterfaces.resolver.MustacheResolver;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.HtmlText;
+import de.larmic.butterfaces.component.partrenderer.HtmlAttributePartRenderer;
+import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.resolver.MustacheResolver;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlComboBox.RENDERER_TYPE)
 public class ComboBoxRenderer extends MenuRenderer {
@@ -156,7 +165,7 @@ public class ComboBoxRenderer extends MenuRenderer {
         String valueString = getFormattedValue(context, component,
                 curItem.getValue(), converter);
         boolean containsValue;
-        if (submittedValues != null) {
+        if (submittedValues != null && ((UIInput) component).isValid()) {
             containsValue = containsaValue(submittedValues);
             if (containsValue) {
                 valuesArray = submittedValues;

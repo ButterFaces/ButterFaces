@@ -4,7 +4,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="header">
         <strong>b:comboBox</strong> The comboBox tag renders an HTML "select" element with a "size" of 1 without the "multiple" attribute. This component is designed for situations where you want to display a single-select list of options to the user in a menu that displays one item at a time. The main difference between select lists and menus in JSF is the "size" attribute. Menus always have a size of one, while lists can have a variable size.
@@ -95,11 +95,11 @@
                         disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
                         rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.comboBoxValueType eq 'TEMPLATE'}">
+                <f:selectItem itemValue="#{null}" itemLabel="Choose one..." noSelectionOption="true" />
                 <f:selectItems value="#{comboBoxShowcase.episodes}"
                                var="episode"
                                itemLabel="#{episode.title}"
-                               itemValue="#{episode}"
-                               noSelectionValue="please choose"/>
+                               itemValue="#{episode}"/>
                <f:facet name="template">
                   <div class="stargateEpisodeItem">
                      <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
