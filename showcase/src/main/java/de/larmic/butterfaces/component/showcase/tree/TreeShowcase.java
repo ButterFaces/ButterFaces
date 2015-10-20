@@ -114,34 +114,36 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         if (isAjaxRendered()) {
             myBean.appendInnerContent("    private Node selectedNode;\n");
         }
+        myBean.appendInnerContent("    private Node rootNode;\n");
         myBean.appendInnerContent("    public Node getTreeModel() {");
-
-        myBean.appendInnerContent("        final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
-        myBean.appendInnerContent("        firstChild.setDescription(\"23 unread\");");
+        myBean.appendInnerContent("        if (rootNode == null) {");
+        myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
+        myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
         if (selectedIconType == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("        firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("        firstChild.setImageIcon(\"some/path/16.png\");");
+            myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
         }
-        myBean.appendInnerContent("        final Node secondChild = new DefaultNodeImpl(\"second\");");
+        myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
         if (!allExpanded) {
-            myBean.appendInnerContent("        secondChild.setCollapsed(true);");
+            myBean.appendInnerContent("            secondChild.setCollapsed(true);");
         }
         if (selectedIconType == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("        secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("        secondChild.setImageIcon(\"some/path/16.png\");");
+            myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
         }
-        myBean.appendInnerContent("        secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
-        myBean.appendInnerContent("        ...");
-        myBean.appendInnerContent("        final Node rootNode = new DefaultNodeImpl(\"rootNode\");");
+        myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
+        myBean.appendInnerContent("            ...");
+        myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
         if (selectedIconType == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("        rootNode.setImageIcon(\"some/path/16.png\");");
+            myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
         } else if (selectedIconType == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("        rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         }
-        myBean.appendInnerContent("        rootNode.getSubNodes().add(firstChild);");
-        myBean.appendInnerContent("        rootNode.getSubNodes().add(secondChild);");
+        myBean.appendInnerContent("            rootNode.getSubNodes().add(firstChild);");
+        myBean.appendInnerContent("            rootNode.getSubNodes().add(secondChild);");
+        myBean.appendInnerContent("        }");
         myBean.appendInnerContent("        return rootNode;");
         myBean.appendInnerContent("    }\n");
         if (isAjaxRendered()) {
