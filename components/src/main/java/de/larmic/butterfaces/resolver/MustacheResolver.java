@@ -3,7 +3,9 @@ package de.larmic.butterfaces.resolver;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MustacheResolver {
 
@@ -12,7 +14,7 @@ public class MustacheResolver {
      * @return empty list if no mustache key is found.
      */
     public static List<String> getMustacheKeys(final String text) {
-        final List<String> keys = new ArrayList<>();
+        final Set<String> keys = new HashSet<>();
 
         if (StringUtils.isNotEmpty(text)) {
             // TODO [larmic] switch to regex
@@ -25,7 +27,7 @@ public class MustacheResolver {
             }
         }
 
-        return keys;
+        return new ArrayList<>(keys);
     }
 
 }
