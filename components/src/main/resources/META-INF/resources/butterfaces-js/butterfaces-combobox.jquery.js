@@ -49,11 +49,14 @@
             var resultItemHtml = self._$optionElement.text();
             if ($template !== undefined) {
                 var dataFields = self._$optionElement.data();
-                resultItemHtml = $template;
-                $template.replace(/\{\{(.*?)\}\}/g, function (group0, group1) {
-                    resultItemHtml = resultItemHtml.replace("{{" + group1 + "}}", dataFields[group1.toLowerCase()] || '')
-                    return;
-                })
+                // for the no selection option there are no data fields. don't take the template in this case!
+                if(!$.isEmptyObject(dataFields)) {
+                    resultItemHtml = $template;
+                    $template.replace(/\{\{(.*?)\}\}/g, function (group0, group1) {
+                        resultItemHtml = resultItemHtml.replace("{{" + group1 + "}}", dataFields[group1.toLowerCase()] || '')
+                        return;
+                    })
+                }
             }
 
             self._$resultElement = $("<li>")
