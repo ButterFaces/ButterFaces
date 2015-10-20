@@ -1,24 +1,27 @@
 package de.larmic.butterfaces.context;
 
-import com.sun.faces.renderkit.html_basic.HtmlResponseWriter;
-
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextWrapper;
 import javax.faces.context.ResponseWriter;
 import java.io.StringWriter;
 
 /**
- * Created by larmic on 03.07.15.
+ * Wrappes {@link FacesContext} and inner {@link ResponseWriter} to enable {@link StringWriter}.
  */
 public class FacesContextStringResolverWrapper extends FacesContextWrapper {
 
+    private final StringWriter stringWriter;
     private final FacesContext context;
-    private final HtmlResponseWriter responseWriter;
+    private final ResponseWriter responseWriter;
 
-
-    public FacesContextStringResolverWrapper(final FacesContext context, final StringWriter writer) {
+    public FacesContextStringResolverWrapper(final FacesContext context) {
+        this.stringWriter = new StringWriter();
         this.context = context;
-        this.responseWriter = new HtmlResponseWriter(writer, context.getResponseWriter().getContentType(), context.getResponseWriter().getCharacterEncoding());
+        this.responseWriter = context.getResponseWriter().cloneWithWriter(stringWriter);
+    }
+
+    public StringWriter getStringWriter() {
+        return stringWriter;
     }
 
     @Override

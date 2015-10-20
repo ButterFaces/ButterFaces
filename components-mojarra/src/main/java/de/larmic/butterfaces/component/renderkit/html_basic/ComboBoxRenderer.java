@@ -8,7 +8,8 @@ import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.partrenderer.*;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
-import de.larmic.butterfaces.context.FacesContextStringResolverWrapper;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.resolver.MustacheResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,7 +18,6 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class ComboBoxRenderer extends MenuRenderer {
         final HtmlComboBox comboBox = (HtmlComboBox) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        ruleListItemTemplateKeys = extractRuleListItemTemplateKeys(context, component, comboBox);
+        ruleListItemTemplateKeys = extractRuleListItemTemplateKeys(context, comboBox);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, "butter-component-combobox");
@@ -89,29 +89,17 @@ public class ComboBoxRenderer extends MenuRenderer {
         }
     }
 
-    protected List<String> extractRuleListItemTemplateKeys(FacesContext context, UIComponent component, HtmlComboBox comboBox) throws IOException {
-        final List<String> keys = new ArrayList<>();
-
-        // TODO [larmic] switch to regex
-
+    protected List<String> extractRuleListItemTemplateKeys(final FacesContext context,
+                                                           final HtmlComboBox comboBox) throws IOException {
         if (!comboBox.isReadonly()) {
-            final UIComponent templateFacet = component.getFacet("template");
+            final UIComponent templateFacet = comboBox.getFacet("template");
             if (templateFacet != null) {
-                final StringWriter stringWriter = new StringWriter();
-                final FacesContextStringResolverWrapper facesContextStringResolverWrapper = new FacesContextStringResolverWrapper(context, stringWriter);
-                templateFacet.encodeAll(facesContextStringResolverWrapper);
-                final String encodedFacet = stringWriter.toString();
-                final String[] possibleKeys = encodedFacet.split("\\{\\{");
-                for (String possibleKey : possibleKeys) {
-                    if (possibleKey.contains("}}")) {
-                        final String[] split = possibleKey.split("\\}\\}");
-                        keys.add(split[0]);
-                    }
-                }
+                final String encodedFacet = StringHtmlEncoder.encodeComponent(context, templateFacet);
+                return MustacheResolver.getMustacheKeys(encodedFacet);
             }
         }
 
-        return keys;
+        return new ArrayList<>();
     }
 
     @Override
