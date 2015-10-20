@@ -224,16 +224,22 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
-        final DefaultNodeImpl node = new DefaultNodeImpl(title);
-        node.setDescription(description);
-        if (selectedIconType == TreeIconType.IMAGE) {
-            node.setImageIcon(icon);
-            node.setDescription(description);
-        } else if (selectedIconType == TreeIconType.GLYPHICON) {
-            node.setGlyphiconIcon("glyphicon " + glyphicon);
-        }
+        return new DefaultNodeImpl(title) {
+            @Override
+            public String getDescription() {
+                return description;
+            }
 
-        return node;
+            @Override
+            public String getImageIcon() {
+                return selectedIconType == TreeIconType.IMAGE ? icon : null;
+            }
+
+            @Override
+            public String getGlyphiconIcon() {
+                return selectedIconType == TreeIconType.GLYPHICON ? "glyphicon " + glyphicon : null;
+            }
+        };
     }
 
     public boolean isHideRootNode() {
@@ -270,6 +276,16 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setAllExpanded(boolean allExpanded) {
         this.allExpanded = allExpanded;
+
+        toggleNodeExpansion(rootNode, allExpanded);
+    }
+
+    private void toggleNodeExpansion(final Node node, final boolean expanded) {
+        node.setCollapsed(!expanded);
+
+        for (Object subNode : node.getSubNodes()) {
+            toggleNodeExpansion((Node) subNode, expanded);
+        }
     }
 
     public TreeIconType getSelectedIconType() {
