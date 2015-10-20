@@ -1,15 +1,16 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.type.PrettyPrintType;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.type.PrettyPrintType;
 
 @Named
 @ViewScoped
@@ -21,6 +22,7 @@ public class PrettyPrintShowcase extends AbstractCodeShowcase implements Seriali
     @Override
     public void buildCodeExamples(List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+        xhtmlCodeExample.setWrappedByForm(false);
 
         xhtmlCodeExample.appendInnerContent("\n        <b:prettyprint id=\"pretty\"");
         xhtmlCodeExample.appendInnerContent("                       language=\"" + getLanguage() + "\"");

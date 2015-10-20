@@ -1,15 +1,16 @@
 package de.larmic.butterfaces.component.showcase.tooltip;
 
-import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 @Named
 @ViewScoped
@@ -28,6 +29,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         if (selectedTooltTipType == TooltipType.A) {
+            xhtmlCodeExample.setWrappedByForm(false);
             xhtmlCodeExample.appendInnerContent("        <a id=\"btn\" class=\"btn btn-default\">" + trigger + " me!</a>");
 
             xhtmlCodeExample.appendInnerContent("        <b:tooltip id=\"input\"");

@@ -1,16 +1,17 @@
 package de.larmic.butterfaces.component.showcase.text;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 @Named
 @ViewScoped
@@ -35,6 +36,7 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+        xhtmlCodeExample.setWrappedByForm(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:secret id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                  label=\"" + this.getLabel() + "\"");

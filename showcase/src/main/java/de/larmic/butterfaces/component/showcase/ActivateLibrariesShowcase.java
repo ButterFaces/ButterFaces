@@ -1,13 +1,14 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
+
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 @Named
 @ViewScoped
@@ -17,6 +18,7 @@ public class ActivateLibrariesShowcase extends AbstractCodeShowcase implements S
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
+        xhtmlCodeExample.setWrappedByForm(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:activateLibraries id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                             rendered=\"" + this.isRendered() + "\">");

@@ -9,6 +9,7 @@ public class XhtmlCodeExample extends AbstractCodeExample {
 
     private final boolean useFontAwesome;
     private final boolean usePassThrough;
+    private boolean wrappedByForm = true;
 
     public XhtmlCodeExample(final boolean useFontAwesome) {
         this("xhtml", "xhtml", useFontAwesome, false);
@@ -63,13 +64,21 @@ public class XhtmlCodeExample extends AbstractCodeExample {
         }
         stringBuilder.append("<body>");
         stringBuilder.append("\n");
-        stringBuilder.append("    <h:form id=\"formId\">");
-        stringBuilder.append("\n");
+        if (wrappedByForm) {
+            stringBuilder.append("    <h:form id=\"formId\">");
+            stringBuilder.append("\n");
+        }
         stringBuilder.append(innerContent.toString());
         stringBuilder.append("\n");
-        stringBuilder.append("    </h:form> \n");
+        if (wrappedByForm) {
+            stringBuilder.append("    </h:form> \n");
+        }
         stringBuilder.append("</body> \n");
         stringBuilder.append("</html>");
         return stringBuilder.toString();
+    }
+
+    public void setWrappedByForm(boolean wrappedByForm) {
+        this.wrappedByForm = wrappedByForm;
     }
 }
