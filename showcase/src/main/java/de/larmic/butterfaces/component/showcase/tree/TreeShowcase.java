@@ -26,6 +26,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
+    private TreeTemplateType selectedTreeTemplateType = TreeTemplateType.DEFAULT;
     private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.ALWAYS_VISIBLE;
     private boolean allExpanded = false;
     private String placeholder = "Search...";
@@ -199,6 +200,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + placeholder + "\"");
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node data-->");
+            xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
+            xhtmlCodeExample.appendInnerContent("                <strong>{{title}}</strong>");
+            xhtmlCodeExample.appendInnerContent("                Created: {{createDate}}");
+            xhtmlCodeExample.appendInnerContent("            </facet>");
+        }
+
         if (isAjaxRendered()) {
             if (isAjaxDisabled()) {
                 xhtmlCodeExample.appendInnerContent("            <!-- use toggle to activate selection listener -->");
@@ -226,7 +236,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
-        return new DefaultNodeImpl(title) {
+        return new DefaultNodeImpl<NodeData>(title, new NodeData()) {
             @Override
             public String getDescription() {
                 return description;
@@ -242,6 +252,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
                 return selectedIconType == TreeIconType.GLYPHICON ? "glyphicon " + glyphicon : null;
             }
         };
+    }
+
+    public List<SelectItem> getTreeTemplateTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TreeTemplateType type : TreeTemplateType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
     }
 
     public boolean isHideRootNode() {
@@ -312,5 +331,13 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
+    }
+
+    public TreeTemplateType getSelectedTreeTemplateType() {
+        return selectedTreeTemplateType;
+    }
+
+    public void setSelectedTreeTemplateType(TreeTemplateType selectedTreeTemplateType) {
+        this.selectedTreeTemplateType = selectedTreeTemplateType;
     }
 }

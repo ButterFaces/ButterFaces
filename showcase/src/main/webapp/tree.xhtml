@@ -1,13 +1,15 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components">
 
     <ui:define name="header">
-        <strong>b:tree</strong> The tree tag renders an HTML element of the type "div" using <a href="https://trivial-components.github.io/trivial-components/tree.html" target="_blank">Trivial Components Tree</a>.
+        <strong>b:tree</strong> The tree tag renders an HTML element of the type "div" using <a
+            href="https://trivial-components.github.io/trivial-components/tree.html"
+            target="_blank">Trivial Components Tree</a>.
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -21,12 +23,18 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="template"
+                                   value="#{treeShowcase.selectedTreeTemplateType}"
+                                   values="#{treeShowcase.treeTemplateTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Using templates"
+                                   popoverContentMarkerClass="treePopoverContent"/>
             <common:tagEnumControl label="ajax selection"
-                                     value="#{treeShowcase.selectionAjaxType}"
-                                     values="#{treeShowcase.ajaxSelectionTypes}"/>
+                                   value="#{treeShowcase.selectionAjaxType}"
+                                   values="#{treeShowcase.ajaxSelectionTypes}"/>
             <common:tagEnumControl label="icons"
-                                     value="#{treeShowcase.selectedIconType}"
-                                     values="#{treeShowcase.iconTypes}"/>
+                                   value="#{treeShowcase.selectedIconType}"
+                                   values="#{treeShowcase.iconTypes}"/>
             <common:tagBooleanControl label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
         </common:tagsContainer>
     </ui:define>
@@ -46,7 +54,14 @@
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
                 placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
-                rendered="#{treeShowcase.rendered and not treeShowcase.ajaxRendered}"/>
+                rendered="#{treeShowcase.rendered and not treeShowcase.ajaxRendered}">
+            <c:if test="#{treeShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                <f:facet name="template">
+                    <strong>{{title}}</strong>
+                    <div>Created: {{createDate}}</div>
+                </f:facet>
+            </c:if>
+        </b:tree>
 
         <b:tree id="treeWithAjax"
                 value="#{treeShowcase.tree}"
@@ -56,8 +71,14 @@
                 placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 rendered="#{treeShowcase.rendered and treeShowcase.ajaxRendered}">
-            <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}" />
-            <f:ajax event="toggle" render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}" />
+            <c:if test="#{treeShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                <f:facet name="template">
+                    <strong>{{title}}</strong>
+                    <div>Created: {{createDate}}</div>
+                </f:facet>
+            </c:if>
+            <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}"/>
+            <f:ajax event="toggle" render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}"/>
         </b:tree>
 
         <h:panelGroup rendered="#{treeShowcase.ajaxRendered}">
