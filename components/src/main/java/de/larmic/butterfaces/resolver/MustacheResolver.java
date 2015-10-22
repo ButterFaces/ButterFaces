@@ -2,23 +2,20 @@ package de.larmic.butterfaces.resolver;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MustacheResolver {
 
     /**
-     * Scans given text for mustache keys (syntax {{value}}).
+     * Scans given template for mustache keys (syntax {{value}}).
      * @return empty list if no mustache key is found.
      */
-    public static List<String> getMustacheKeys(final String text) {
+    public static List<String> getMustacheKeys(final String template) {
         final Set<String> keys = new HashSet<>();
 
-        if (StringUtils.isNotEmpty(text)) {
+        if (StringUtils.isNotEmpty(template)) {
             // TODO [larmic] switch to regex
-            final String[] possibleKeys = text.split("\\{\\{");
+            final String[] possibleKeys = template.split("\\{\\{");
             for (String possibleKey : possibleKeys) {
                 if (possibleKey.contains("}}")) {
                     final String[] split = possibleKey.split("\\}\\}");
@@ -28,6 +25,13 @@ public class MustacheResolver {
         }
 
         return new ArrayList<>(keys);
+    }
+
+    public static List<String> getMustacheKeysForTree(final String template) {
+        final List<String> mustacheKeys = getMustacheKeys(template);
+        // TODO test and remove ignore case
+        mustacheKeys.removeAll(Arrays.asList("id", "title", "expanded", "description", "imageStyle", "imageClass", "styleClass"));
+        return mustacheKeys;
     }
 
 }

@@ -4,12 +4,15 @@ import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
+import de.larmic.butterfaces.resolver.MustacheResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -70,15 +73,13 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         this.initCachedNodes(nodes, 0);
 
-        final String searchBarMode = determineSearchBarMode(tree);
-
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("script", component);
 
         writer.writeText("jQuery(function () {", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(tree.getNodeExpansionListener(), nodes, searchBarMode, getSelectedNodeNumber(tree));
+        final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
         final AjaxBehavior ajaxClickBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("click"));
@@ -162,14 +163,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String createJQueryPluginCallTrivial(final TreeNodeExpansionListener nodeExpansionListener,
+    private String createJQueryPluginCallTrivial(final HtmlTree tree,
                                                  final List<Node> nodes,
-                                                 final String searchBarMode,
-                                                 final Integer selectedNodeNumber) {
+                                                 final FacesContext context) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
+        final String searchBarMode = determineSearchBarMode(tree);
+        final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
 
         if (selectedNodeNumber != null) {
-            openPathToNode(cachedNodes.get(selectedNodeNumber), nodeExpansionListener);
+            openPathToNode(cachedNodes.get(selectedNodeNumber), tree.getNodeExpansionListener());
         }
 
         jQueryPluginCall.append("TrivialTree({");
@@ -177,8 +179,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (selectedNodeNumber != null) {
             jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
         }
-        jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-        jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes));
+        if (tree.getFacet("template") != null) {
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
+            final List<String> mustacheKeys = MustacheResolver.getMustacheKeysForTree(encodedTemplate);
+            jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
+            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, mustacheKeys));
+        } else {
+            jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
+            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes));
+        }
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
@@ -233,10 +242,14 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private String renderEntries(final List<Node> nodes) {
+        return this.renderEntries(nodes, new ArrayList<String>());
+    }
+
+    private String renderEntries(final List<Node> nodes, final List<String> mustacheKeys) {
         final StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("[");
-        renderNodes(stringBuilder, nodes, 0);
+        new TrivialComponentsEntriesNodePartRenderer().renderNodes(stringBuilder, nodes, 0, mustacheKeys, cachedNodes);
         stringBuilder.append("]");
 
         return stringBuilder.toString();
@@ -252,52 +265,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
             if (node.getSubNodes().size() > 0) {
                 newIndex = initCachedNodes(node.getSubNodes(), newIndex);
-            }
-        }
-
-        return newIndex;
-    }
-
-    private int renderNodes(final StringBuilder stringBuilder,
-                            final List<Node> nodes,
-                            final int index) {
-        int newIndex = index;
-
-        final Iterator<Node> iterator = nodes.iterator();
-
-        while (iterator.hasNext()) {
-            final Node node = iterator.next();
-            stringBuilder.append("{");
-            stringBuilder.append("\"id\": " + newIndex + ",");
-            if (StringUtils.isNotEmpty(node.getStyleClass())) {
-                stringBuilder.append("\"styleClass\": \"" + node.getStyleClass() + "\",");
-            }
-            if (StringUtils.isNotEmpty(node.getImageIcon())) {
-                stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
-            } else if (StringUtils.isNotEmpty(node.getGlyphiconIcon())) {
-                stringBuilder.append("\"imageClass\": \"" + node.getGlyphiconIcon() + " glyphicon-node\",");
-            } else {
-                stringBuilder.append("\"imageStyle\": \"display:none\",");
-            }
-
-            if (StringUtils.isNotEmpty(node.getDescription())) {
-                stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
-            }
-            stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
-            stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
-
-            newIndex++;
-
-            if (node.getSubNodes().size() > 0) {
-                stringBuilder.append(",\"children\": [");
-                newIndex = renderNodes(stringBuilder, node.getSubNodes(), newIndex);
-                stringBuilder.append("]");
-            }
-
-            stringBuilder.append("}");
-
-            if (iterator.hasNext()) {
-                stringBuilder.append(",");
             }
         }
 

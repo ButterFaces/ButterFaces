@@ -16,7 +16,14 @@ public class StringHtmlEncoder {
                                          final UIComponent component) throws IOException {
         final FacesContextStringResolverWrapper resolver = new FacesContextStringResolverWrapper(context);
         component.encodeAll(resolver);
-        return resolver.getStringWriter().toString();
+        return resolver.getStringWriter().toString().replace("\n", "").trim();
     }
 
+    /**
+     * Encodes complete component by calling {@link UIComponent#encodeAll(FacesContext)}.
+     */
+    public static String encodeComponentWithSurroundingDiv(final FacesContext context,
+                                                           final UIComponent component) throws IOException {
+        return "<div>" + encodeComponent(context, component) + "</div>";
+    }
 }
