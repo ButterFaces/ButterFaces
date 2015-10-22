@@ -1,0 +1,73 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+   >
+
+   <ui:define name="header">
+      <strong>b:messages</strong> The messages tag renders faces messages with the Boostrap alert style.
+   </ui:define>
+
+   <ui:define name="tagsContainers">
+      <common:tagsContainer label="Tag attributes">
+         <common:tagBooleanControl label="showDetail" value="#{messagesShowcase.showDetail}"/>
+         <common:tagBooleanControl label="globalOnly" value="#{messagesShowcase.globalOnly}"/>
+         <common:tagBooleanControl label="rendered" value="#{messagesShowcase.rendered}"/>
+      </common:tagsContainer>
+   </ui:define>
+
+   <ui:define name="output">
+      <b:messages showDetail="#{messagesShowcase.showDetail}"
+                  globalOnly="#{messagesShowcase.globalOnly}"
+                  rendered="#{messagesShowcase.rendered}"
+                  styleClass="arquillian_component"/>
+
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
+
+      <hr/>
+
+      <b:text label="Some text" value="#{messagesShowcase.testText}" required="true" placeholder="text is required">
+         <f:facet name="input-group-btn-right">
+            <b:commandLink value="submit" styleClass="btn btn-default">
+               <f:ajax execute="@form" render="@form"/>
+            </b:commandLink>
+         </f:facet>
+      </b:text>
+
+      <div class="btn-group">
+         <b:commandLink value="add fatal message" styleClass="btn btn-default"
+                        action="#{messagesShowcase.addFatalMessageToContext()}">
+            <f:ajax execute="@this" render="@form"/>
+         </b:commandLink>
+         <b:commandLink value="add error message" styleClass="btn btn-default"
+                        action="#{messagesShowcase.addErrorMessageToContext()}">
+            <f:ajax execute="@this" render="@form"/>
+         </b:commandLink>
+         <b:commandLink value="add warn message" styleClass="btn btn-default"
+                        action="#{messagesShowcase.addWarnMessageToContext()}">
+            <f:ajax execute="@this" render="@form"/>
+         </b:commandLink>
+         <b:commandLink value="add info message" styleClass="btn btn-default"
+                        action="#{messagesShowcase.addInfoMessageToContext()}">
+            <f:ajax execute="@this" render="@form"/>
+         </b:commandLink>
+         <b:commandLink value="clear messages" styleClass="btn btn-default"
+                        action="#{messagesShowcase.clearFacesMessages()}">
+            <f:ajax execute="@this" render="@form"/>
+         </b:commandLink>
+      </div>
+   </ui:define>
+
+   <ui:define name="other">
+      <common:codeExamples component="#{messagesShowcase}"/>
+      <b:activateLibraries/>
+
+      <script type="text/javascript">
+         jQuery(document).ready(function () {
+            setActiveNavigation('messages');
+         });
+      </script>
+   </ui:define>
+</ui:composition>

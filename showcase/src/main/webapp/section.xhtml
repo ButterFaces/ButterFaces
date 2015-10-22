@@ -7,7 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:text</strong> The section tag renders an HTML input element of the type "section".
+        <strong>b:section</strong> The section tag renders an HTML input element of the type "section".
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -25,7 +25,7 @@
     </ui:define>
 
     <ui:define name="output">
-        <b:section label="#{sectionShowcase.label}"
+        <b:messages label="#{sectionShowcase.label}"
                    rendered="#{sectionShowcase.rendered}"
                    badgeText="#{sectionShowcase.badgeText}"
                    styleClass="arquillian_component">
@@ -38,7 +38,7 @@
                 </h:panelGroup>
             </f:facet>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-        </b:section>
+        </b:messages>
 
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
     </ui:define>
