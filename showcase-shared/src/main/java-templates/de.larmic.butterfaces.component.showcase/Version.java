@@ -10,7 +10,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Version implements Serializable {
 
-    private static final String ERROR_VERSION = "1.9.0.CR4";
+    private static final String ERROR_VERSION = "1.9.0.CR5";
 
     private static final String VERSION = "${project.version}";
     private static final String GROUPID = "${project.groupId}";
