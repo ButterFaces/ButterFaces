@@ -94,6 +94,22 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
+
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            codeExamples.add(this.createNodeDataCodeExample());
+        }
+
+    }
+
+    private JavaCodeExample createNodeDataCodeExample() {
+        final JavaCodeExample codeExample = new JavaCodeExample("NodeData.java", "nodeData", "tree.demo", "NodeData", false);
+
+        codeExample.appendInnerContent("    private final UUID uuid = UUID.randomUUID();\n");
+        codeExample.appendInnerContent("    private final Date createDate = new Date();\n");
+        codeExample.appendInnerContent("    // GETTER");
+
+
+        return codeExample;
     }
 
     private JavaCodeExample createMyBeanCodeExample() {
@@ -118,14 +134,22 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         myBean.appendInnerContent("    private Node rootNode;\n");
         myBean.appendInnerContent("    public Node getTreeModel() {");
         myBean.appendInnerContent("        if (rootNode == null) {");
-        myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
+        } else {
+            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
+        }
         myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
         if (selectedIconType == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (selectedIconType == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
         }
-        myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
+        } else {
+            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
+        }
         if (!allExpanded) {
             myBean.appendInnerContent("            secondChild.setCollapsed(true);");
         }
@@ -134,9 +158,17 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         } else if (selectedIconType == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
         }
-        myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
+        } else {
+            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
+        }
         myBean.appendInnerContent("            ...");
-        myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
+        } else {
+            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
+        }
         if (selectedIconType == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
         } else if (selectedIconType == TreeIconType.GLYPHICON) {
@@ -205,7 +237,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
             xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
             xhtmlCodeExample.appendInnerContent("                <strong>{{title}}</strong>");
-            xhtmlCodeExample.appendInnerContent("                Created: {{createDate}}");
+            xhtmlCodeExample.appendInnerContent("                <div>Created: {{createDate}}</div>");
+            xhtmlCodeExample.appendInnerContent("                <div>UUID: {{uuid}}</div>");
             xhtmlCodeExample.appendInnerContent("            </facet>");
         }
 

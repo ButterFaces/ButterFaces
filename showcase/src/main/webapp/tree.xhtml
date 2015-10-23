@@ -59,6 +59,7 @@
                 <f:facet name="template">
                     <strong>{{title}}</strong>
                     <div>Created: {{createDate}}</div>
+                    <div>UUID: {{uuid}}</div>
                 </f:facet>
             </c:if>
         </b:tree>
@@ -75,6 +76,7 @@
                 <f:facet name="template">
                     <strong>{{title}}</strong>
                     <div>Created: {{createDate}}</div>
+                    <div>UUID: {{uuid}}</div>
                 </f:facet>
             </c:if>
             <f:ajax render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}"/>
