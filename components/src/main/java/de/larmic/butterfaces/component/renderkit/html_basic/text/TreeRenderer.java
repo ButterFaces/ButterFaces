@@ -27,7 +27,7 @@ import java.util.*;
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
-    private static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
+    public static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
 
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
     private Node selectedNode = null;
@@ -186,7 +186,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, mustacheKeys));
         } else {
             jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes));
+            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, new ArrayList<String>()));
         }
         jQueryPluginCall.append("})");
 
@@ -239,10 +239,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return null;
-    }
-
-    private String renderEntries(final List<Node> nodes) {
-        return this.renderEntries(nodes, new ArrayList<String>());
     }
 
     private String renderEntries(final List<Node> nodes, final List<String> mustacheKeys) {

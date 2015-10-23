@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.tags;
+package de.larmic.butterfaces.component.showcase.tree;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
@@ -13,13 +13,10 @@ import java.util.List;
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
-public class TagsShowcase extends AbstractInputShowcase implements Serializable {
+public class TreeBoxShowcase extends AbstractInputShowcase implements Serializable {
 
     private String placeholder = "Enter text...";
-    private String confirmKeys;
     private boolean autoFocus;
-    private boolean distinct = true;
-    private Integer maxTags;
 
     @Override
     protected Object initValue() {
@@ -39,9 +36,6 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                distinct=\"" + distinct + "\"");
-        xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
-        xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + StringUtils.getNotNullValue(confirmKeys, "") + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
@@ -85,29 +79,5 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
-    }
-
-    public boolean isDistinct() {
-        return distinct;
-    }
-
-    public void setDistinct(boolean distinct) {
-        this.distinct = distinct;
-    }
-
-    public Integer getMaxTags() {
-        return maxTags;
-    }
-
-    public void setMaxTags(Integer maxTags) {
-        this.maxTags = maxTags;
-    }
-
-    public String getConfirmKeys() {
-        return confirmKeys;
-    }
-
-    public void setConfirmKeys(String confirmKeys) {
-        this.confirmKeys = confirmKeys;
     }
 }
