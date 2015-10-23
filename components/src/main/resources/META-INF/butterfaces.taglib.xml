@@ -319,6 +319,10 @@
          <required>true</required>
       </attribute>
       <attribute>
+         <name>values</name>
+         <required>true</required>
+      </attribute>
+      <attribute>
          <name>hideLabel</name>
          <type>java.lang.Boolean</type>
       </attribute>

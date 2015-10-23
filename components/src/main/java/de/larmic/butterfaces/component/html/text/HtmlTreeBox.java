@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html.text;
 
 import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -27,6 +28,8 @@ public class HtmlTreeBox extends HtmlText {
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TreeBoxRenderer";
 
+	protected static final String PROPERTY_VALUES = "values";
+
 	public HtmlTreeBox() {
 		super();
 		this.setRendererType(RENDERER_TYPE);
@@ -42,4 +45,11 @@ public class HtmlTreeBox extends HtmlText {
 		return COMPONENT_FAMILY;
 	}
 
+	public Node getValues() {
+		return (Node) this.getStateHelper().eval(PROPERTY_VALUES);
+	}
+
+	public void setValues(Node values) {
+		this.updateStateHelper(PROPERTY_VALUES, values);
+	}
 }

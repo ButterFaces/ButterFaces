@@ -15,6 +15,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TreeBoxShowcase extends AbstractInputShowcase implements Serializable {
 
+    private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
     private String placeholder = "Enter text...";
     private boolean autoFocus;
 
@@ -79,5 +80,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public ShowcaseTreeNode getShowcaseTreeNode() {
+        return showcaseTreeNode;
     }
 }

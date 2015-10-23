@@ -7,10 +7,8 @@ import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 
-import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -23,61 +21,22 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TreeShowcase extends AbstractCodeShowcase implements Serializable, TreeNodeSelectionListener, TreeNodeExpansionListener {
 
+    private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
     private boolean hideRootNode = false;
     private SelectionAjaxType selectionAjaxType = SelectionAjaxType.AJAX;
-    private TreeIconType selectedIconType = TreeIconType.IMAGE;
     private TreeTemplateType selectedTreeTemplateType = TreeTemplateType.DEFAULT;
     private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.ALWAYS_VISIBLE;
     private boolean allExpanded = false;
     private String placeholder = "Search...";
 
-    private Node selectedNode;
-
-    private Node rootNode;
-
-    @PostConstruct
-    public void init() {
-        final Node inbox = createNode("Inbox", "resources/images/arrow-down.png", "glyphicon-download", "43 unread");
-        final Node drafts = createNode("Drafts", "resources/images/compose.png", "glyphicon-edit", "5");
-        final Node sent = createNode("Sent", "resources/images/arrow-up.png", "glyphicon-send", "529 sent, 1 sending");
-
-        final Node tagged = createNode("Tagged", "resources/images/shop.png", "glyphicon-tag", "9 unread");
-        tagged.setCollapsed(true);
-        tagged.getSubNodes().add(createNode("Important", "resources/images/shop.png", "glyphicon-tag", null));
-        tagged.getSubNodes().add(createNode("Private", "resources/images/shop.png", "glyphicon-tag", null));
-
-        final Node folders = createNode("Folders", "resources/images/folder.png", "glyphicon-folder-open", "27 files");
-        folders.setCollapsed(true);
-        folders.getSubNodes().add(createNode("Office", "resources/images/folder.png", "glyphicon-folder-open", "13 files"));
-        folders.getSubNodes().add(createNode("Building", "resources/images/folder.png", "glyphicon-folder-open", "2 files"));
-        folders.getSubNodes().add(createNode("Bills", "resources/images/folder.png", "glyphicon-folder-open", "12 files"));
-        final Node trash = createNode("Trash", "resources/images/recycle.png", "glyphicon-trash", "7293 kB");
-
-        final Node mail = createNode("Mail", "resources/images/mail.png", "glyphicon-envelope", "43 unread");
-        mail.getSubNodes().add(inbox);
-        mail.getSubNodes().add(drafts);
-        mail.getSubNodes().add(sent);
-        mail.getSubNodes().add(tagged);
-        mail.getSubNodes().add(folders);
-        mail.getSubNodes().add(trash);
-
-        rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
-        rootNode.getSubNodes().add(mail);
-    }
-
-    public Node getTree() {
-        return rootNode;
-    }
-
-
     @Override
     public void processValueChange(final TreeNodeSelectionEvent event) {
-        selectedNode = event.getNewValue();
+        showcaseTreeNode.setSelectedNode(event.getNewValue());
     }
 
     @Override
     public boolean isValueSelected(Node data) {
-        return selectedNode != null && data.getTitle().equals(selectedNode.getTitle());
+        return showcaseTreeNode.getSelectedNode() != null && data.getTitle().equals(showcaseTreeNode.getSelectedNode().getTitle());
     }
 
     @Override
@@ -140,9 +99,9 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
             myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
         }
         myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
-        if (selectedIconType == TreeIconType.GLYPHICON) {
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (selectedIconType == TreeIconType.IMAGE) {
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
         }
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
@@ -153,9 +112,9 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         if (!allExpanded) {
             myBean.appendInnerContent("            secondChild.setCollapsed(true);");
         }
-        if (selectedIconType == TreeIconType.GLYPHICON) {
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (selectedIconType == TreeIconType.IMAGE) {
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
         }
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
@@ -169,9 +128,9 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         } else {
             myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
         }
-        if (selectedIconType == TreeIconType.IMAGE) {
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
-        } else if (selectedIconType == TreeIconType.GLYPHICON) {
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         }
         myBean.appendInnerContent("            rootNode.getSubNodes().add(firstChild);");
@@ -268,25 +227,6 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return xhtmlCodeExample;
     }
 
-    private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
-        return new DefaultNodeImpl<NodeData>(title, new NodeData()) {
-            @Override
-            public String getDescription() {
-                return description;
-            }
-
-            @Override
-            public String getImageIcon() {
-                return selectedIconType == TreeIconType.IMAGE ? icon : null;
-            }
-
-            @Override
-            public String getGlyphiconIcon() {
-                return selectedIconType == TreeIconType.GLYPHICON ? "glyphicon " + glyphicon : null;
-            }
-        };
-    }
-
     public List<SelectItem> getTreeTemplateTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
@@ -321,7 +261,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     public Node getSelectedNode() {
-        return selectedNode;
+        return showcaseTreeNode.getSelectedNode();
     }
 
     public boolean isAllExpanded() {
@@ -331,23 +271,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public void setAllExpanded(boolean allExpanded) {
         this.allExpanded = allExpanded;
 
-        toggleNodeExpansion(rootNode, allExpanded);
-    }
-
-    private void toggleNodeExpansion(final Node node, final boolean expanded) {
-        node.setCollapsed(!expanded);
-
-        for (Object subNode : node.getSubNodes()) {
-            toggleNodeExpansion((Node) subNode, expanded);
-        }
-    }
-
-    public TreeIconType getSelectedIconType() {
-        return selectedIconType;
-    }
-
-    public void setSelectedIconType(TreeIconType selectedIconType) {
-        this.selectedIconType = selectedIconType;
+        showcaseTreeNode.toggleNodeExpansion(allExpanded);
     }
 
     public TreeSearchBarModeType getSelectedSearchBarModeType() {
@@ -372,5 +296,9 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setSelectedTreeTemplateType(TreeTemplateType selectedTreeTemplateType) {
         this.selectedTreeTemplateType = selectedTreeTemplateType;
+    }
+
+    public ShowcaseTreeNode getShowcaseTreeNode() {
+        return showcaseTreeNode;
     }
 }

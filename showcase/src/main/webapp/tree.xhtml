@@ -33,7 +33,7 @@
                                    value="#{treeShowcase.selectionAjaxType}"
                                    values="#{treeShowcase.ajaxSelectionTypes}"/>
             <common:tagEnumControl label="icons"
-                                   value="#{treeShowcase.selectedIconType}"
+                                   value="#{treeShowcase.showcaseTreeNode.selectedIconType}"
                                    values="#{treeShowcase.iconTypes}"/>
             <common:tagBooleanControl label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
         </common:tagsContainer>
@@ -48,7 +48,7 @@
         </h:panelGroup>
 
         <b:tree id="tree"
-                value="#{treeShowcase.tree}"
+                value="#{treeShowcase.showcaseTreeNode.tree}"
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
@@ -65,7 +65,7 @@
         </b:tree>
 
         <b:tree id="treeWithAjax"
-                value="#{treeShowcase.tree}"
+                value="#{treeShowcase.showcaseTreeNode.tree}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"
