@@ -699,7 +699,7 @@
    </tag>
 
    <tag>
-      <tag-name>messages</tag-name>
+      <tag-name>section</tag-name>
       <component>
          <component-type>de.larmic.butterfaces.component.section</component-type>
       </component>
