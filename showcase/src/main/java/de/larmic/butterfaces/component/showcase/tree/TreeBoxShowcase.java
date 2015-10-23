@@ -33,17 +33,17 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
-        xhtmlCodeExample.appendInnerContent("        <b:tags id=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                label=\"" + this.getLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                hideLabel=\"" + isHideLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
-        xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
-        xhtmlCodeExample.appendInnerContent("                disabled=\"" + this.isDisabled() + "\"");
-        xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
-        xhtmlCodeExample.appendInnerContent("                autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
+        xhtmlCodeExample.appendInnerContent("        <b:treeBox id=\"input\"");
+        xhtmlCodeExample.appendInnerContent("                   label=\"" + this.getLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   hideLabel=\"" + isHideLabel() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   value=\"" + this.getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   placeholder=\"" + this.getPlaceholder() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
+        xhtmlCodeExample.appendInnerContent("                   readonly=\"" + this.isReadonly() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   disabled=\"" + this.isDisabled() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   required=\"" + this.isRequired() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   autoFocus=\"" + this.isAutoFocus() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "change");
 
