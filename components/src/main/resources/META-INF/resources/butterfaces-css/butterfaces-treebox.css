@@ -1,0 +1,3 @@
+.tr-dropdown {
+    z-index: 3 !important; /* bootstrap form-control has 2, should be fixed in trivial components */
+}
