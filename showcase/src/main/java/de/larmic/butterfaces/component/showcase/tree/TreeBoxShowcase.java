@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -26,7 +27,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     @Override
     public String getReadableValue() {
-        return (String) this.getValue();
+        return this.getValue() != null ? ((Node) this.getValue()).getTitle() : null;
     }
 
     @Override

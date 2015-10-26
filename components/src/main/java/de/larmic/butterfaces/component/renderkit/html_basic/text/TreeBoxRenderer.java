@@ -8,6 +8,7 @@ import de.larmic.butterfaces.model.tree.Node;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.*;
@@ -28,18 +29,6 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
     }
 
     @Override
-    protected void encodeInnerEnd(UIComponent component, ResponseWriter writer) throws IOException {
-        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
-
-        if (treeBox.isReadonly()) {
-            writer.startElement(ELEMENT_DIV, component);
-            writer.writeAttribute("class", "butter-component-value", null);
-            super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
-            writer.endElement(ELEMENT_DIV);
-        }
-    }
-
-    @Override
     protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlTreeBox treeBox = (HtmlTreeBox) component;
 
@@ -53,6 +42,15 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         writer.startElement("script", component);
         writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(treeBox, nodes)), null);
         writer.endElement("script");
+    }
+
+    @Override
+    public Object getConvertedValue(final FacesContext context,
+                                    final UIComponent component,
+                                    final Object submittedValue) throws ConverterException {
+        final String newValue = (String) submittedValue;
+        final Integer selectedIndex = Integer.valueOf(newValue);
+        return cachedNodes.get(selectedIndex);
     }
 
     private String createJQueryPluginCallTivial(final HtmlTreeBox treeBox, final List<Node> nodes) {
