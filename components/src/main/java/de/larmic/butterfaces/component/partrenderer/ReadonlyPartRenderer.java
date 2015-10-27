@@ -57,7 +57,7 @@ public class ReadonlyPartRenderer {
         if (component instanceof HtmlCheckBox) {
             HtmlCheckBox checkBoxComponent = (HtmlCheckBox) component;
             final StringBuilder sb = new StringBuilder();
-            if(StringUtils.isNotEmpty(checkBoxComponent.getDescription())){
+            if (StringUtils.isNotEmpty(checkBoxComponent.getDescription())) {
                 sb.append(checkBoxComponent.getDescription()).append(": ");
             }
             sb.append((Boolean) value ? "ja" : "nein");
@@ -74,14 +74,21 @@ public class ReadonlyPartRenderer {
     private String getReadableValueFrom(final HtmlComboBox comboBox, final Object value) {
         for (final UIComponent child : comboBox.getChildren()) {
             if (child instanceof UISelectItems) {
-                final List<SelectItem> items = (List<SelectItem>) ((UISelectItems) child).getValue();
+                final UISelectItems uiSelectItems = (UISelectItems) child;
+                final List items = (List) uiSelectItems.getValue();
+                for (Object item : items) {
+                    if (item instanceof SelectItem) {
+                        final SelectItem selectItem = (SelectItem) item;
+                        if (this.isMatchingLabel(selectItem, value)) {
+                            return selectItem.getLabel();
+                        }
+                    } else {
+                        // TODO check matching
+                        //((UISelectItems) child).getValueExpression("itemLabel").getValue(FacesContext.getCurrentInstance().getELContext())
 
-                for (final SelectItem item : items) {
-                    if (this.isMatchingLabel(item, value)) {
-                        return item.getLabel();
                     }
                 }
-            } else  if (child instanceof UISelectItem) {
+            } else if (child instanceof UISelectItem) {
                 final UISelectItem item = (UISelectItem) child;
 
                 if (this.isMatchingLabel(item, value)) {
