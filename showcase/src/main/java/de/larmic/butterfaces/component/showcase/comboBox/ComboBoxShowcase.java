@@ -26,7 +26,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     private boolean autoFocus;
 
     private final List<SelectItem> foos = new ArrayList<>();
-    private final List<SelectItem> enums = new ArrayList<>();
+    private final List<FooType> enums = new ArrayList<>();
     private final List<SelectItem> strings = new ArrayList<>();
 
     private Episode chosenEpisode;
@@ -194,7 +194,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         return items;
     }
 
-    public List<SelectItem> getValues() {
+    public List getValues() {
         switch (this.comboBoxValueType) {
             case OBJECT:
                 return this.foos;
@@ -244,10 +244,11 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     private void initEnums() {
-        this.enums.add(new SelectItem(null, "Choose one..."));
+        //this.enums.add(new SelectItem(null, "Choose one..."));
 
         for (final FooType fooType : FooType.values()) {
-            this.enums.add(new SelectItem(fooType.label));
+            //this.enums.add(new SelectItem(fooType.label));
+            this.enums.add(fooType);
         }
     }
 

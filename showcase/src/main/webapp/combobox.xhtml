@@ -1,14 +1,14 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
-                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
         <strong>b:comboBox</strong> The comboBox tag renders an HTML "select" element with a "size" of 1 without the "multiple" attribute. This component is designed for situations where you want to display a single-select list of options to the user in a menu that displays one item at a time. The main difference between select lists and menus in JSF is the "size" attribute. Menus always have a size of one, while lists can have a variable size.
-        <br/>Inspired by <a href="https://trivial-components.github.io/trivial-components/" target="_blank">trivial components</a>.
+        <br/>Inspired by <a href="https://trivial-components.github.io/trivial-components/"
+                            target="_blank">trivial components</a>.
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -20,8 +20,8 @@
             <common:tagBooleanControl label="disabled" value="#{comboBoxShowcase.disabled}"/>
             <common:tagBooleanControl label="rendered" value="#{comboBoxShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
-                                     value="#{comboBoxShowcase.styleClass}"
-                                     values="#{comboBoxShowcase.styleClasses}"/>
+                                   value="#{comboBoxShowcase.styleClass}"
+                                   values="#{comboBoxShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -30,28 +30,28 @@
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="combo box"
-                                     value="#{comboBoxShowcase.comboBoxValueType}"
-                                     values="#{comboBoxShowcase.comboBoxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add selectItems children"
-                                     popoverContentMarkerClass="comboboxPopoverContent"/>
+                                   value="#{comboBoxShowcase.comboBoxValueType}"
+                                   values="#{comboBoxShowcase.comboBoxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add selectItems children"
+                                   popoverContentMarkerClass="comboboxPopoverContent"/>
             <common:tagEnumControl label="ajax"
-                                     value="#{comboBoxShowcase.ajaxType}"
-                                     values="#{comboBoxShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+                                   value="#{comboBoxShowcase.ajaxType}"
+                                   values="#{comboBoxShowcase.ajaxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add ajax child"
+                                   popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{comboBoxShowcase.tooltip}"/>
             <common:tagEnumControl label="facets"
-                                     value="#{comboBoxShowcase.selectedFacetType}"
-                                     values="#{comboBoxShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false"/>
+                                   value="#{comboBoxShowcase.selectedFacetType}"
+                                   values="#{comboBoxShowcase.availableFacetTypes}"
+                                   renderChildrenPopover="false"/>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="combobox"
-                                         component="#{comboBoxShowcase}">
+                                       component="#{comboBoxShowcase}">
             <b:comboBox label="#{comboBoxShowcase.label}"
                         value="#{comboBoxShowcase.value}"
                         hideLabel="#{comboBoxShowcase.hideLabel}"
@@ -61,7 +61,7 @@
                         autoFocus="#{comboBoxShowcase.autoFocus}"
                         disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
-                        rendered="#{comboBoxShowcase.rendered and !(comboBoxShowcase.comboBoxValueType eq 'TEMPLATE')}">
+                        rendered="#{comboBoxShowcase.rendered and (comboBoxShowcase.comboBoxValueType eq 'STRING' or comboBoxShowcase.comboBoxValueType eq 'OBJECT')}">
                 <f:selectItems value="#{comboBoxShowcase.values}"/>
                 <f:ajax event="change"
                         execute="@this"
@@ -94,26 +94,68 @@
                         autoFocus="#{comboBoxShowcase.autoFocus}"
                         disabled="#{comboBoxShowcase.disabled}"
                         styleClass="#{comboBoxShowcase.styleClass}"
+                        rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.comboBoxValueType eq 'ENUM'}">
+                <f:selectItem value="#{null}"
+                              itemLabel="Choose one..."
+                              noSelectionOption="true"/>
+                <f:selectItems value="#{comboBoxShowcase.values}"
+                               var="item"
+                               itemLabel="#{item.label}"
+                               itemValue="#{item}"/>
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not comboBoxShowcase.ajax}"/>
+                <b:tooltip rendered="#{not empty comboBoxShowcase.tooltip}" placement="top">
+                    #{comboBoxShowcase.tooltip}
+                </b:tooltip>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_ADDON'}">
+                    <f:facet name="input-group-addon-left">
+                        Left input-group-addon
+                    </f:facet>
+                </c:if>
+                <c:if test="#{comboBoxShowcase.selectedFacetType eq 'INPUT_GROUP_BTN'}">
+                    <f:facet name="input-group-btn-left">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </f:facet>
+                </c:if>
+                <c:if test="#{comboBoxShowcase.converterActive}">
+                    <f:converter converterId="fooConverter"/>
+                </c:if>
+            </b:comboBox>
+
+            <b:comboBox label="#{comboBoxShowcase.label}"
+                        value="#{comboBoxShowcase.value}"
+                        hideLabel="#{comboBoxShowcase.hideLabel}"
+                        tooltip="#{comboBoxShowcase.tooltip}"
+                        readonly="#{comboBoxShowcase.readonly}"
+                        required="#{comboBoxShowcase.required}"
+                        autoFocus="#{comboBoxShowcase.autoFocus}"
+                        disabled="#{comboBoxShowcase.disabled}"
+                        styleClass="#{comboBoxShowcase.styleClass}"
                         rendered="#{comboBoxShowcase.rendered and comboBoxShowcase.comboBoxValueType eq 'TEMPLATE'}">
-                <f:selectItem itemValue="#{null}" itemLabel="Choose one..." noSelectionOption="true" />
+                <f:selectItem itemValue="#{null}" itemLabel="Choose one..." noSelectionOption="true"/>
                 <f:selectItems value="#{comboBoxShowcase.episodes}"
                                var="episode"
                                itemLabel="#{episode.title}"
                                itemValue="#{episode}"/>
-               <f:facet name="template">
-                  <div class="stargateEpisodeItem">
-                     <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
-                     <div class="stargateEpisodeDetails">
-                        <h4>{{title}} <small>({{originalAirDate}})</small></h4>
-                        <div>
-                           <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                <f:facet name="template">
+                    <div class="stargateEpisodeItem">
+                        <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
+
+                        <div class="stargateEpisodeDetails">
+                            <h4>{{title}}
+                                <small>({{originalAirDate}})</small>
+                            </h4>
+                            <div>
+                                <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                            </div>
+                            <div>
+                                <label>written by:</label><span>{{writtenBy}}</span>
+                            </div>
                         </div>
-                        <div>
-                           <label>written by:</label><span>{{writtenBy}}</span>
-                        </div>
-                     </div>
-                  </div>
-               </f:facet>
+                    </div>
+                </f:facet>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

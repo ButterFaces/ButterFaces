@@ -10,4 +10,8 @@ public enum FooType {
 	FooType(final String label) {
 		this.label = label;
 	}
+
+	public String getLabel() {
+		return label;
+	}
 }
