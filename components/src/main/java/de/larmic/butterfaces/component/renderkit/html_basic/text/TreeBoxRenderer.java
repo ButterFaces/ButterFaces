@@ -48,7 +48,10 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
     public Object getConvertedValue(final FacesContext context,
                                     final UIComponent component,
                                     final Object submittedValue) throws ConverterException {
-        // TODO exception handling
+        if (submittedValue == null || "".equals(submittedValue)) {
+            return null;
+        }
+
         final String newValue = (String) submittedValue;
         final Integer selectedIndex = Integer.valueOf(newValue);
         return cachedNodes.get(selectedIndex);
