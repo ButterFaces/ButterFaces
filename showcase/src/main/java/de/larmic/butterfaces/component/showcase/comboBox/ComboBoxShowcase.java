@@ -2,10 +2,7 @@ package de.larmic.butterfaces.component.showcase.comboBox;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
-import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.example.*;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
 
 import javax.faces.model.SelectItem;
@@ -50,8 +47,27 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
             codeExamples.add(createEpisodeJavaCodeExample());
             codeExamples.add(createEpisodeCssCodeExample());
+        } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
+            codeExamples.add(createFooTypeJavaCodeExample());
         }
         generateDemoCSS(codeExamples);
+    }
+
+    private EnumCodeExample createFooTypeJavaCodeExample() {
+        final EnumCodeExample enumCodeExample = new EnumCodeExample("FooType.java", "fooType", "combobox.demo", "FooType", null);
+
+        enumCodeExample.appendInnerContent("    FOO_TYPE_1(\"FooTypeEnumLabel1\"),");
+        enumCodeExample.appendInnerContent("    FOO_TYPE_2(\"FooTypeEnumLabel2\"),");
+        enumCodeExample.appendInnerContent("    FOO_TYPE_3(\"FooTypeEnumLabel3\");\n");
+
+        enumCodeExample.appendInnerContent("    private String label;\n");
+
+        enumCodeExample.appendInnerContent("    FooType(final String label) {");
+        enumCodeExample.appendInnerContent("        this.label = label;");
+        enumCodeExample.appendInnerContent("    }\n");
+        enumCodeExample.appendInnerContent("    // [...] getter");
+
+        return enumCodeExample;
     }
 
     private JavaCodeExample createEpisodeJavaCodeExample() {
@@ -98,12 +114,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         this.addAjaxTag(xhtmlCodeExample, "change");
 
-        if (StringUtils.isNotEmpty(getTooltip())) {
-            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
-            xhtmlCodeExample.appendInnerContent("                " + getTooltip());
-            xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
-        }
-
         if (selectedFacetType == FacetType.INPUT_GROUP_ADDON) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-addon-left\">");
             xhtmlCodeExample.appendInnerContent("                Left input-group-addon");
@@ -126,7 +136,13 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2020\"");
             xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2020\"/>");
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:selectItem value=\"#{null}\"");
+            xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Choose one...\"");
+            xhtmlCodeExample.appendInnerContent("                          noSelectionOption=\"true\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"");
+            xhtmlCodeExample.appendInnerContent("                           var=\"item\"");
+            xhtmlCodeExample.appendInnerContent("                           itemLabel=\"#{item.label}\"");
+            xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{item}\"/>");
         } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
             xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>    ");
@@ -155,6 +171,11 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("                      </div>");
             xhtmlCodeExample.appendInnerContent("                 </div>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
+            if (StringUtils.isNotEmpty(getTooltip())) {
+                xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+                xhtmlCodeExample.appendInnerContent("                " + getTooltip());
+                xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
+            }
         }
 
         xhtmlCodeExample.appendInnerContent("        </b:comboBox>", false);
@@ -174,7 +195,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             if (super.getValue() instanceof Foo) {
                 return ((Foo) super.getValue()).getValue();
             } else if (super.getValue() instanceof FooType) {
-                return ((FooType) super.getValue()).label;
+                return ((FooType) super.getValue()).getLabel();
             } else if (super.getValue() instanceof Episode) {
                 return ((Episode) super.getValue()).getTitle();
             }

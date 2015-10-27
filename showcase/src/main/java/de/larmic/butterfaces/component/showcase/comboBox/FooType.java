@@ -5,7 +5,7 @@ public enum FooType {
 	FOO_TYPE_2("FooTypeEnumLabel2"),
 	FOO_TYPE_3("FooTypeEnumLabel3");
 
-	public String label;
+	private String label;
 
 	FooType(final String label) {
 		this.label = label;

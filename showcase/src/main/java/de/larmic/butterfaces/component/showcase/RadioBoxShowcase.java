@@ -111,7 +111,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 			if (super.getValue() instanceof Foo) {
 				return ((Foo) super.getValue()).getValue();
 			} else if (super.getValue() instanceof FooType) {
-				return ((FooType) super.getValue()).label;
+				return ((FooType) super.getValue()).getLabel();
 			}
 
 			return (String) super.getValue();
@@ -178,7 +178,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
 	private void initEnums() {
 		for (final FooType fooType : FooType.values()) {
-			this.enums.add(new SelectItem(fooType.label));
+			this.enums.add(new SelectItem(fooType.getLabel()));
 		}
 	}
 
