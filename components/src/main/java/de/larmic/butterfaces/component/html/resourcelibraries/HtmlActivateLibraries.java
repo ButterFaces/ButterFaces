@@ -30,6 +30,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-dropdownlist.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-labeled-container.css", target = "head"),
         @ResourceDependency(library = "butterfaces-css", name = "butterfaces-markdown.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-treebox.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tags.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
