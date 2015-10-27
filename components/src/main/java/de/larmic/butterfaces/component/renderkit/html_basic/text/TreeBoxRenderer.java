@@ -40,7 +40,7 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         this.initCachedNodes(nodes, 0);
 
         writer.startElement("script", component);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(treeBox, nodes)), null);
+        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTrivial(treeBox, nodes)), null);
         writer.endElement("script");
     }
 
@@ -57,8 +57,21 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         return cachedNodes.get(selectedIndex);
     }
 
-    private String createJQueryPluginCallTivial(final HtmlTreeBox treeBox, final List<Node> nodes) {
+    private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox, final List<Node> nodes) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
+
+        final ArrayList<String> mustacheKeys = new ArrayList<>();
+
+        if (treeBox.getValue() != null) {
+            for (Integer index : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(index);
+                if (node == treeBox.getValue()) {
+                    final String selectedNode = new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, cachedNodes, index, node);
+                    // TODO create selected entry string
+                    break;
+                }
+            }
+        }
 
         jQueryPluginCall.append("TrivialTreeComboBox({");
         jQueryPluginCall.append("\n    allowFreeText: true,");
@@ -68,7 +81,7 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
         //jQueryPluginCall.append("\n    },");
         jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_TEMPLATE + "'],");
-        jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, new ArrayList<String>()));
+        jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, mustacheKeys));
         jQueryPluginCall.append("});");
 
         return jQueryPluginCall.toString();
