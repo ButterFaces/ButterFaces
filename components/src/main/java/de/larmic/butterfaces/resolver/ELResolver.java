@@ -7,30 +7,26 @@ import javax.faces.context.FacesContext;
 
 public class ELResolver {
 
-    public static Object resolve(final FacesContext facesContext,
-                                 final UIComponent component,
-                                 final String expressionString,
-                                 final String valueExpressionString,
-                                 final Object value) {
-        final ValueExpression valueExpression = component.getValueExpression(expressionString);
-        final ELContext elContext = facesContext.getELContext();
-
-        Object valueFromValueExpression = null;
+    public static Object resolveValueFromValueExpression(final FacesContext context,
+                                                         final UIComponent component,
+                                                         final String expressionAttribute,
+                                                         final String expressionValue,
+                                                         final Object value) {
+        final ValueExpression valueExpression = component.getValueExpression(expressionAttribute);
+        final ELContext elContext = context.getELContext();
 
         if (valueExpression != null) {
-            setValue2ValueExpression(value, "#{" + valueExpressionString + "}");
+            setValue2ValueExpression(value, "#{" + expressionValue + "}", context);
             return valueExpression.getValue(elContext);
         }
 
-        return valueFromValueExpression;
+        return null;
     }
 
-    private static void setValue2ValueExpression(final Object value, final String expression) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ELContext elContext = facesContext.getELContext();
-
-        ValueExpression targetExpression =
+    public static void setValue2ValueExpression(final Object value, final String expression, final FacesContext facesContext) {
+        final ELContext elContext = facesContext.getELContext();
+        final ValueExpression valueExpression =
                 facesContext.getApplication().getExpressionFactory().createValueExpression(elContext, expression, Object.class);
-        targetExpression.setValue(elContext, value);
+        valueExpression.setValue(elContext, value);
     }
 }
