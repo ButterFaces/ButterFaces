@@ -3,23 +3,28 @@ package de.larmic.butterfaces.resolver;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MustacheResolver {
 
+    public static final Pattern MUSTACHE_PATTERN = Pattern.compile(".*?\\{\\{(.*?)\\}\\}.*?");
+
     /**
      * Scans given template for mustache keys (syntax {{value}}).
+     *
      * @return empty list if no mustache key is found.
      */
     public static List<String> getMustacheKeys(final String template) {
         final Set<String> keys = new HashSet<>();
 
         if (StringUtils.isNotEmpty(template)) {
-            // TODO [larmic] switch to regex
-            final String[] possibleKeys = template.split("\\{\\{");
-            for (String possibleKey : possibleKeys) {
-                if (possibleKey.contains("}}")) {
-                    final String[] split = possibleKey.split("\\}\\}");
-                    keys.add(split[0]);
+            for (String value : template.split("\\{\\{")) {
+                final String textValue = value.equals(template) ? template : "{{" + value;
+
+                final Matcher matcher = MUSTACHE_PATTERN.matcher(textValue);
+                if (matcher.matches()) {
+                    keys.add(matcher.group(1));
                 }
             }
         }
