@@ -7,10 +7,7 @@
     width: 100%;
 }
 
-.butter-component-tree .tr-tree {
-    border: none;
-}
-
+.butter-component-tree .tr-tree,
 .butter-component-tree .tr-tree.focus.focus {
     outline-style:none;
     box-shadow:none;
