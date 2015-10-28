@@ -63,10 +63,9 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("                      required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                      disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                      autoFocus=\"" + this.isAutoFocus() + "\"");
-        if (selectedInputMaskType == InputMaskType.PHONE) {
+        if (selectedInputMaskType == InputMaskType.PHONE || selectedInputMaskType == InputMaskType.ALPHA_NUMERIC) {
             xhtmlCodeExample.appendInnerContent("                      maskedInput=\"" + inputMask + "\"");
-        }
-        if (selectedInputMaskType == InputMaskType.CURRENCY_BY_DATA) {
+        } else if (selectedInputMaskType == InputMaskType.CURRENCY_BY_DATA) {
             xhtmlCodeExample.appendInnerContent("                      p:data-inputmask=\"" + dataInputMask + "\"");
         }
         xhtmlCodeExample.appendInnerContent("                      rendered=\"" + this.isRendered() + "\">");
