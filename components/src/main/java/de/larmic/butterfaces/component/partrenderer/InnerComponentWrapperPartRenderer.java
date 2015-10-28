@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -42,7 +43,8 @@ public class InnerComponentWrapperPartRenderer {
         final StringBuilder componentStyleClass = new StringBuilder();
         componentStyleClass.append(this.createDefaultStyleClass(component));
 
-        if (component instanceof SupportedFacets) {
+        // HINT: combobox renders its own input-group
+        if (component instanceof SupportedFacets && !(component instanceof HtmlComboBox)) {
             final SupportedFacets supportedFacets = (SupportedFacets) component;
             if (hasLeftInputGroup(component, supportedFacets)
                     || hasRightInputGroup(component, supportedFacets)

@@ -93,8 +93,8 @@ public class ReadonlyPartRenderer {
                         final Object var = child.getAttributes().get("var");
 
                         if (var != null) {
-                            final Object itemValue = ELResolver.resolve(facesContext, child, "itemValue", var.toString(), item);
-                            final Object itemLabel = ELResolver.resolve(facesContext, child, "itemLabel", var.toString(), item);
+                            final Object itemValue = ELResolver.resolveValueFromValueExpression(facesContext, child, "itemValue", var.toString(), item);
+                            final Object itemLabel = ELResolver.resolveValueFromValueExpression(facesContext, child, "itemLabel", var.toString(), item);
 
                             if (itemValue != null && itemValue.toString().equals(value) && itemLabel != null) {
                                 return itemLabel.toString();
