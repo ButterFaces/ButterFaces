@@ -156,6 +156,7 @@
                 this._isValueSet = true;
             }
             this.$input.val(this._counter);
+            this.$input.change();
         },
 
         decreaseCounter: function () {
@@ -165,6 +166,7 @@
                 this._isValueSet = true;
             }
             this.$input.val(this._counter);
+            this.$input.change();
         },
 
         _isStringEmpty: function (value) {
