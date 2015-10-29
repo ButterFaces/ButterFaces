@@ -48,9 +48,10 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             codeExamples.add(createEpisodeJavaCodeExample());
             codeExamples.add(createEpisodeCssCodeExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-            codeExamples.add(createMyBeanEnumeCodeExample());
+            codeExamples.add(createMyBeanEnumCodeExample());
             codeExamples.add(createEnumJavaCodeExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
+            codeExamples.add(createMyBeanObjectCodeExample());
             codeExamples.add(createObjectConverterJavaCodeExample());
             codeExamples.add(createObjectJavaCodeExample());
         }
@@ -131,7 +132,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         return enumCodeExample;
     }
 
-    private JavaCodeExample createMyBeanEnumeCodeExample() {
+    private JavaCodeExample createMyBeanEnumCodeExample() {
         final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
 
         myBean.addImport("import javax.faces.view.ViewScoped");
@@ -146,6 +147,28 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         return myBean;
     }
 
+    private JavaCodeExample createMyBeanObjectCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
+
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
+
+        myBean.appendInnerContent("    private final List<Foo> foos;\n");
+
+        myBean.appendInnerContent("    @PostConstruct");
+        myBean.appendInnerContent("    public void init() {");
+        myBean.appendInnerContent("        for (final String key : FooConverter.fooMap.keySet()) {");
+        myBean.appendInnerContent("            final Foo foo = FooConverter.fooMap.get(key);");
+        myBean.appendInnerContent("            this.foos.add(foo);");
+        myBean.appendInnerContent("        }");
+        myBean.appendInnerContent("    }\n");
+
+        myBean.appendInnerContent("    public List<Foo> getFoos() {");
+        myBean.appendInnerContent("        return foos;");
+        myBean.appendInnerContent("    }");
+
+        return myBean;
+    }
 
     private JavaCodeExample createEpisodeJavaCodeExample() {
         final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
