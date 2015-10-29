@@ -51,6 +51,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             codeExamples.add(createMyBeanEnumeCodeExample());
             codeExamples.add(createEnumJavaCodeExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
+            codeExamples.add(createObjectConverterJavaCodeExample());
             codeExamples.add(createObjectJavaCodeExample());
         }
         generateDemoCSS(codeExamples);
@@ -68,9 +69,48 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         enumCodeExample.appendInnerContent("    }\n");
 
         enumCodeExample.appendInnerContent("    // [...] getter + setter");
-        enumCodeExample.appendInnerContent("    // [...] equals + hashCode");
 
         return enumCodeExample;
+    }
+
+    private JavaCodeExample createObjectConverterJavaCodeExample() {
+        final JavaCodeExample codeExample = new JavaCodeExample("FooConverter.java", "fooConverter", "tree.demo", "FooConverter", false, "@FacesConverter(\"fooConverter\")");
+
+        codeExample.addInterfaces("Converter");
+
+        codeExample.addImport("javax.faces.component.UIComponent");
+        codeExample.addImport("javax.faces.context.FacesContext");
+        codeExample.addImport("javax.faces.convert.Converter");
+        codeExample.addImport("javax.faces.convert.FacesConverter");
+        codeExample.addImport("java.util.LinkedHashMap");
+        codeExample.addImport("java.util.Map");
+
+
+        codeExample.appendInnerContent("    public static Map<String, Foo> fooMap;\n");
+        codeExample.appendInnerContent("    static {");
+        codeExample.appendInnerContent("        fooMap = new LinkedHashMap<>();");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey1\", new Foo(\"fooKey1\", \"fooValue1\"));");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey2\", new Foo(\"fooKey2\", \"fooValue2\"));");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey3\", new Foo(\"fooKey3\", \"fooValue3\"));");
+        codeExample.appendInnerContent("    }\n");
+        codeExample.appendInnerContent("    @Override");
+        codeExample.appendInnerContent("    public Object getAsObject(final FacesContext context,");
+        codeExample.appendInnerContent("                              final UIComponent component,");
+        codeExample.appendInnerContent("                              final String value) {");
+        codeExample.appendInnerContent("        return fooMap.get(value);");
+        codeExample.appendInnerContent("    }\n");
+        codeExample.appendInnerContent("    @Override");
+        codeExample.appendInnerContent("    public String getAsString(final FacesContext context,");
+        codeExample.appendInnerContent("                              final UIComponent component,");
+        codeExample.appendInnerContent("                              final Object value) {");
+        codeExample.appendInnerContent("        if (value instanceof Foo) {");
+        codeExample.appendInnerContent("            return ((Foo) value).getKey();");
+        codeExample.appendInnerContent("        }");
+        codeExample.appendInnerContent("        ");
+        codeExample.appendInnerContent("        return null;");
+        codeExample.appendInnerContent("    }");
+
+        return codeExample;
     }
 
     private EnumCodeExample createEnumJavaCodeExample() {

@@ -25,7 +25,7 @@ public class FooConverter implements Converter {
 
 	@Override
 	public String getAsString(final FacesContext context, final UIComponent component, final Object value) {
-		if (value != null && value instanceof Foo) {
+		if (value instanceof Foo) {
 			return ((Foo) value).getKey();
 		}
 
