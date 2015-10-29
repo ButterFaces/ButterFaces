@@ -23,7 +23,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     private boolean autoFocus;
 
-    private final List<SelectItem> foos = new ArrayList<>();
+    private final List<Foo> foos = new ArrayList<>();
     private final List<FooType> enums = Arrays.asList(FooType.values());
     private final List<SelectItem> strings = new ArrayList<>();
 
@@ -243,10 +243,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         }
     }
 
-    public boolean isConverterActive() {
-        return this.comboBoxValueType == ComboBoxValueType.OBJECT;
-    }
-
     public List<SelectItem> getComboBoxTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
@@ -273,11 +269,9 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     private void initFoos() {
-        this.foos.add(new SelectItem(null, "Choose one..."));
-
         for (final String key : FooConverter.fooMap.keySet()) {
             final Foo foo = FooConverter.fooMap.get(key);
-            this.foos.add(new SelectItem(foo, foo.getKey()));
+            this.foos.add(foo);
         }
     }
 
