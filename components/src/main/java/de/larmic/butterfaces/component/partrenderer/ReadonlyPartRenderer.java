@@ -6,10 +6,6 @@ import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.resolver.ELResolver;
 
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
@@ -112,21 +108,6 @@ public class ReadonlyPartRenderer {
         }
 
         return String.valueOf(value);
-    }
-
-    private static Object executeExpressionInElContext (Application application, ELContext elContext, String expression) {
-        ExpressionFactory expressionFactory = application.getExpressionFactory();
-        ValueExpression exp = expressionFactory.createValueExpression(elContext, expression, Object.class);
-        return exp.getValue(elContext);
-    }
-
-    public static void setValue2ValueExpression(final Object value, final String expression) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ELContext elContext = facesContext.getELContext();
-
-        ValueExpression targetExpression =
-                facesContext.getApplication().getExpressionFactory().createValueExpression(elContext, expression, Object.class);
-        targetExpression.setValue(elContext, value);
     }
 
     private boolean isMatchingLabel(final SelectItem item, final Object value) {

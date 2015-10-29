@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class MustacheResolver {
 
-    public static final Pattern MUSTACHE_PATTERN = Pattern.compile(".*?\\{\\{(.*?)\\}\\}.*?");
+    public static final Pattern MUSTACHE_PATTERN = Pattern.compile("\\{\\{(.*?)\\}\\}");
 
     /**
      * Scans given template for mustache keys (syntax {{value}}).
@@ -19,14 +19,12 @@ public class MustacheResolver {
         final Set<String> keys = new HashSet<>();
 
         if (StringUtils.isNotEmpty(template)) {
-            for (String value : template.split("\\{\\{")) {
-                final String textValue = value.equals(template) ? template : "{{" + value;
+            final Matcher matcher = MUSTACHE_PATTERN.matcher(template);
 
-                final Matcher matcher = MUSTACHE_PATTERN.matcher(textValue);
-                if (matcher.matches()) {
-                    keys.add(matcher.group(1));
-                }
+            while(matcher.find()) {
+                keys.add(matcher.group(1));
             }
+
         }
 
         return new ArrayList<>(keys);
