@@ -1,6 +1,8 @@
 package de.larmic.butterfaces.component.showcase;
 
 import java.io.Serializable;
+import java.lang.String;
+import java.lang.StringBuilder;
 
 /**
  * Contains butterfaces maven pom.xml informations. templating-maven-plugin is used in pom.xml.
@@ -9,8 +11,6 @@ import java.io.Serializable;
 @javax.faces.view.ViewScoped
 @SuppressWarnings("serial")
 public class Version implements Serializable {
-
-    private static final String ERROR_VERSION = "1.9.0.CR7";
 
     private static final String VERSION = "${project.version}";
     private static final String GROUPID = "${project.groupId}";
@@ -26,33 +26,19 @@ public class Version implements Serializable {
         if (VERSION.endsWith("SNAPSHOT")) {
             final String version = VERSION.replaceAll("-SNAPSHOT", "");
             final String[] splitted = version.split("\\.");
-            final Integer minorVersion = getMinorVersion(splitted[splitted.length - 1]);
+            final String newMinorVersion = Integer.valueOf(splitted[splitted.length-1])-1 + "";
 
-            if (minorVersion != null) {
-                final StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0; i < splitted.length - 1; i++) {
-                    stringBuilder.append(splitted[i]);
-                    stringBuilder.append(".");
-                }
-                stringBuilder.append(minorVersion);
+            final StringBuilder stringBuilder = new StringBuilder();
+            for (int i=0; i<splitted.length-1; i++) {
+                stringBuilder.append(splitted[i]);
+                stringBuilder.append(".");
             }
+            stringBuilder.append(newMinorVersion);
 
-            return ERROR_VERSION;
+            return stringBuilder.toString();
         }
 
         return VERSION;
-    }
-
-    /**
-     * @return null if value is not parsable or value is less than 0.
-     */
-    private Integer getMinorVersion(final String value) {
-        try {
-            final Integer newMinorVersion = Integer.valueOf(value) - 1;
-            return newMinorVersion >= 0 ? newMinorVersion : null;
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 
     public String getGroupId() {
