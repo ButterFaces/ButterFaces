@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -23,7 +24,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     private boolean autoFocus;
 
     private final List<SelectItem> foos = new ArrayList<>();
-    private final List<FooType> enums = new ArrayList<>();
+    private final List<FooType> enums = Arrays.asList(FooType.values());
     private final List<SelectItem> strings = new ArrayList<>();
 
     private Episode chosenEpisode;
@@ -31,7 +32,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     public ComboBoxShowcase() {
         this.initFoos();
         this.initStrings();
-        this.initEnums();
     }
 
     @Override
@@ -48,12 +48,13 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             codeExamples.add(createEpisodeJavaCodeExample());
             codeExamples.add(createEpisodeCssCodeExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-            codeExamples.add(createFooTypeJavaCodeExample());
+            codeExamples.add(createMyBeanEnumeCodeExample());
+            codeExamples.add(createEnumJavaCodeExample());
         }
         generateDemoCSS(codeExamples);
     }
 
-    private EnumCodeExample createFooTypeJavaCodeExample() {
+    private EnumCodeExample createEnumJavaCodeExample() {
         final EnumCodeExample enumCodeExample = new EnumCodeExample("FooType.java", "fooType", "combobox.demo", "FooType", null);
 
         enumCodeExample.appendInnerContent("    FOO_TYPE_1(\"FooTypeEnumLabel1\"),");
@@ -69,6 +70,22 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         return enumCodeExample;
     }
+
+    private JavaCodeExample createMyBeanEnumeCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
+
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
+
+        myBean.appendInnerContent("    private final List<FooType> foos = Arrays.asList(FooType.values());\n");
+        myBean.appendInnerContent("    public List<FooType> getFoos() {");
+        myBean.appendInnerContent("        return foos;");
+        myBean.appendInnerContent("    }");
+
+
+        return myBean;
+    }
+
 
     private JavaCodeExample createEpisodeJavaCodeExample() {
         final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
@@ -139,7 +156,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("            <f:selectItem value=\"#{null}\"");
             xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Choose one...\"");
             xhtmlCodeExample.appendInnerContent("                          noSelectionOption=\"true\"/>");
-            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"");
+            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.foos}\"");
             xhtmlCodeExample.appendInnerContent("                           var=\"item\"");
             xhtmlCodeExample.appendInnerContent("                           itemLabel=\"#{item.label}\"");
             xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{item}\"/>");
@@ -261,15 +278,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         for (final String key : FooConverter.fooMap.keySet()) {
             final Foo foo = FooConverter.fooMap.get(key);
             this.foos.add(new SelectItem(foo, foo.getKey()));
-        }
-    }
-
-    private void initEnums() {
-        //this.enums.add(new SelectItem(null, "Choose one..."));
-
-        for (final FooType fooType : FooType.values()) {
-            //this.enums.add(new SelectItem(fooType.label));
-            this.enums.add(fooType);
         }
     }
 
