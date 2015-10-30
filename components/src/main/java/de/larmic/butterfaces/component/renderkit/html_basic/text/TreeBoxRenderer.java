@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.model.tree.Node;
 
@@ -62,12 +63,13 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
 
         final ArrayList<String> mustacheKeys = new ArrayList<>();
 
+        String selectedEntryId = null;
+
         if (treeBox.getValue() != null) {
             for (Integer index : cachedNodes.keySet()) {
                 final Node node = cachedNodes.get(index);
-                if (node == treeBox.getValue()) {
-                    final String selectedNode = new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, cachedNodes, index, node);
-                    // TODO create selected entry string
+                if (treeBox.getValue().equals(node)) {
+                    selectedEntryId = String.valueOf(index);
                     break;
                 }
             }
@@ -80,6 +82,9 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
         //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
         //jQueryPluginCall.append("\n    },");
+        if (StringUtils.isNotEmpty(selectedEntryId)) {
+            jQueryPluginCall.append("\n    selectedEntryId: " + selectedEntryId + ",");
+        }
         jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_TEMPLATE + "'],");
         jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, mustacheKeys));
         jQueryPluginCall.append("});");
