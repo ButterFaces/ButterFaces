@@ -8,7 +8,8 @@
 }
 
 .butter-component-tree .tr-tree,
-.butter-component-tree .tr-tree.focus.focus {
+.butter-component-tree .tr-tree:focus,
+.butter-component-tree .tr-tree.focus {
     outline-style:none;
     box-shadow:none;
     border-color:transparent;
