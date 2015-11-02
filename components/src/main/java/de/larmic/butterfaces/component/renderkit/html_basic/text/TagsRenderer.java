@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 import de.larmic.butterfaces.component.html.text.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -51,7 +52,7 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
     private String createJQueryPluginCallTivial(final HtmlTags tags) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String editable = getEditingMode(tags);
+        final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
 
         jQueryPluginCall.append("TrivialTagBox({");
         jQueryPluginCall.append("\n    autoComplete: false,");
@@ -118,15 +119,5 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         }
 
         return sb.toString();
-    }
-
-    private String getEditingMode(final HtmlTags tags) {
-        if (tags.isReadonly()) {
-            return "readonly";
-        } else if (tags.isDisabled()) {
-            return "disabled";
-        }
-
-        return "editable";
     }
 }

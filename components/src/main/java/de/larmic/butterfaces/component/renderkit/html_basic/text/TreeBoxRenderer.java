@@ -46,6 +46,18 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
     }
 
     @Override
+    protected void encodeInnerEnd(UIComponent component, ResponseWriter writer) throws IOException {
+        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
+
+        if (treeBox.isReadonly()) {
+            writer.startElement(ELEMENT_DIV, component);
+            writer.writeAttribute("class", "butter-component-value", null);
+            super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
+            writer.endElement(ELEMENT_DIV);
+        }
+    }
+
+    @Override
     public Object getConvertedValue(final FacesContext context,
                                     final UIComponent component,
                                     final Object submittedValue) throws ConverterException {
@@ -75,6 +87,8 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
             }
         }
 
+        final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
+
         jQueryPluginCall.append("TrivialTreeComboBox({");
         jQueryPluginCall.append("\n    allowFreeText: true,");
         //jQueryPluginCall.append("\n    emptyEntry: {");
@@ -82,6 +96,7 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
         //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
         //jQueryPluginCall.append("\n    },");
+        jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
         if (StringUtils.isNotEmpty(selectedEntryId)) {
             jQueryPluginCall.append("\n    selectedEntryId: " + selectedEntryId + ",");
         }

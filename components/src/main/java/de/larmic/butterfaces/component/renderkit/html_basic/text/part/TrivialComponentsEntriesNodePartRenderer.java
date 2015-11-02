@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
 import de.larmic.butterfaces.model.tree.Node;
 
+import javax.faces.component.html.HtmlInputText;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,17 @@ public class TrivialComponentsEntriesNodePartRenderer {
         return renderString.toString();
     }
 
-    public int renderNode(final StringBuilder stringBuilder,
+    public static String getEditingMode(final HtmlInputText text) {
+        if (text.isReadonly()) {
+            return "readonly";
+        } else if (text.isDisabled()) {
+            return "disabled";
+        }
+
+        return "editable";
+    }
+
+    private int renderNode(final StringBuilder stringBuilder,
                           final List<String> mustacheKeys,
                           final Map<Integer, Node> cachedNodes,
                           final int index,
