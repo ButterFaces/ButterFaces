@@ -22,7 +22,7 @@
                 //console.log("processEvent: " + data.status);
                 if (data.status == 'begin') {
                     ajaxRequestsRunning++;
-                } else if (data.status == 'complete') {
+                } else if (data.status == 'success' || data.status == 'error') {
                     ajaxRequestsRunning--;
                 }
                 if (ajaxRequestsRunning > 0) {

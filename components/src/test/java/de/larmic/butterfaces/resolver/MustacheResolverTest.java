@@ -33,7 +33,7 @@ public class MustacheResolverTest {
 
     @Test
     public void testGetMustacheKeysWithMultipleMatch() throws Exception {
-        assertThat(MustacheResolver.getMustacheKeys("{{foo}}and{{bar}}")).containsExactly("foo", "bar");
+        assertThat(MustacheResolver.getMustacheKeys("{{foo}}and{{bar}}")).contains("foo", "bar");
     }
 
 }

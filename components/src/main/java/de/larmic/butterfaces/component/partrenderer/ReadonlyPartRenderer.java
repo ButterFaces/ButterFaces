@@ -84,7 +84,6 @@ public class ReadonlyPartRenderer {
                             return selectItem.getLabel();
                         }
                     } else {
-                        // TODO check converter???
                         final FacesContext facesContext = FacesContext.getCurrentInstance();
                         final Object var = child.getAttributes().get("var");
 

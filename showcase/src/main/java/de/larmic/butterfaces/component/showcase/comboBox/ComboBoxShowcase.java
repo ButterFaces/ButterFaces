@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -22,8 +23,8 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
     private boolean autoFocus;
 
-    private final List<SelectItem> foos = new ArrayList<>();
-    private final List<FooType> enums = new ArrayList<>();
+    private final List<Foo> foos = new ArrayList<>();
+    private final List<FooType> enums = Arrays.asList(FooType.values());
     private final List<SelectItem> strings = new ArrayList<>();
 
     private Episode chosenEpisode;
@@ -31,7 +32,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     public ComboBoxShowcase() {
         this.initFoos();
         this.initStrings();
-        this.initEnums();
     }
 
     @Override
@@ -48,12 +48,73 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             codeExamples.add(createEpisodeJavaCodeExample());
             codeExamples.add(createEpisodeCssCodeExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-            codeExamples.add(createFooTypeJavaCodeExample());
+            codeExamples.add(createMyBeanEnumCodeExample());
+            codeExamples.add(createEnumJavaCodeExample());
+        } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
+            codeExamples.add(createMyBeanObjectCodeExample());
+            codeExamples.add(createObjectConverterJavaCodeExample());
+            codeExamples.add(createObjectJavaCodeExample());
         }
         generateDemoCSS(codeExamples);
     }
 
-    private EnumCodeExample createFooTypeJavaCodeExample() {
+    private EnumCodeExample createObjectJavaCodeExample() {
+        final EnumCodeExample enumCodeExample = new EnumCodeExample("Foo.java", "foo", "combobox.demo", "Foo", null);
+
+        enumCodeExample.appendInnerContent("    private String key;");
+        enumCodeExample.appendInnerContent("    private String value;\n");
+
+        enumCodeExample.appendInnerContent("    public Foo(final String key, final String value) {");
+        enumCodeExample.appendInnerContent("        this.key = key;");
+        enumCodeExample.appendInnerContent("        this.value = value;");
+        enumCodeExample.appendInnerContent("    }\n");
+
+        enumCodeExample.appendInnerContent("    // [...] getter + setter");
+
+        return enumCodeExample;
+    }
+
+    private JavaCodeExample createObjectConverterJavaCodeExample() {
+        final JavaCodeExample codeExample = new JavaCodeExample("FooConverter.java", "fooConverter", "tree.demo", "FooConverter", false, "@FacesConverter(\"fooConverter\")");
+
+        codeExample.addInterfaces("Converter");
+
+        codeExample.addImport("javax.faces.component.UIComponent");
+        codeExample.addImport("javax.faces.context.FacesContext");
+        codeExample.addImport("javax.faces.convert.Converter");
+        codeExample.addImport("javax.faces.convert.FacesConverter");
+        codeExample.addImport("java.util.LinkedHashMap");
+        codeExample.addImport("java.util.Map");
+
+
+        codeExample.appendInnerContent("    public static Map<String, Foo> fooMap;\n");
+        codeExample.appendInnerContent("    static {");
+        codeExample.appendInnerContent("        fooMap = new LinkedHashMap<>();");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey1\", new Foo(\"fooKey1\", \"fooValue1\"));");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey2\", new Foo(\"fooKey2\", \"fooValue2\"));");
+        codeExample.appendInnerContent("        fooMap.put(\"fooKey3\", new Foo(\"fooKey3\", \"fooValue3\"));");
+        codeExample.appendInnerContent("    }\n");
+        codeExample.appendInnerContent("    @Override");
+        codeExample.appendInnerContent("    public Object getAsObject(final FacesContext context,");
+        codeExample.appendInnerContent("                              final UIComponent component,");
+        codeExample.appendInnerContent("                              final String value) {");
+        codeExample.appendInnerContent("        return fooMap.get(value);");
+        codeExample.appendInnerContent("    }\n");
+        codeExample.appendInnerContent("    @Override");
+        codeExample.appendInnerContent("    public String getAsString(final FacesContext context,");
+        codeExample.appendInnerContent("                              final UIComponent component,");
+        codeExample.appendInnerContent("                              final Object value) {");
+        codeExample.appendInnerContent("        if (value instanceof Foo) {");
+        codeExample.appendInnerContent("            return ((Foo) value).getKey();");
+        codeExample.appendInnerContent("        }");
+        codeExample.appendInnerContent("        ");
+        codeExample.appendInnerContent("        return null;");
+        codeExample.appendInnerContent("    }");
+
+        return codeExample;
+    }
+
+    private EnumCodeExample createEnumJavaCodeExample() {
         final EnumCodeExample enumCodeExample = new EnumCodeExample("FooType.java", "fooType", "combobox.demo", "FooType", null);
 
         enumCodeExample.appendInnerContent("    FOO_TYPE_1(\"FooTypeEnumLabel1\"),");
@@ -65,9 +126,48 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         enumCodeExample.appendInnerContent("    FooType(final String label) {");
         enumCodeExample.appendInnerContent("        this.label = label;");
         enumCodeExample.appendInnerContent("    }\n");
+
         enumCodeExample.appendInnerContent("    // [...] getter");
 
         return enumCodeExample;
+    }
+
+    private JavaCodeExample createMyBeanEnumCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
+
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
+
+        myBean.appendInnerContent("    private final List<FooType> foos = Arrays.asList(FooType.values());\n");
+        myBean.appendInnerContent("    public List<FooType> getFoos() {");
+        myBean.appendInnerContent("        return foos;");
+        myBean.appendInnerContent("    }");
+
+
+        return myBean;
+    }
+
+    private JavaCodeExample createMyBeanObjectCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "tree.demo", "MyBean", true);
+
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
+
+        myBean.appendInnerContent("    private final List<Foo> foos;\n");
+
+        myBean.appendInnerContent("    @PostConstruct");
+        myBean.appendInnerContent("    public void init() {");
+        myBean.appendInnerContent("        for (final String key : FooConverter.fooMap.keySet()) {");
+        myBean.appendInnerContent("            final Foo foo = FooConverter.fooMap.get(key);");
+        myBean.appendInnerContent("            this.foos.add(foo);");
+        myBean.appendInnerContent("        }");
+        myBean.appendInnerContent("    }\n");
+
+        myBean.appendInnerContent("    public List<Foo> getFoos() {");
+        myBean.appendInnerContent("        return foos;");
+        myBean.appendInnerContent("    }");
+
+        return myBean;
     }
 
     private JavaCodeExample createEpisodeJavaCodeExample() {
@@ -135,17 +235,14 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2010\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2020\"");
             xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2020\"/>");
-        } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
+        } else if (this.comboBoxValueType == ComboBoxValueType.ENUM || this.comboBoxValueType == ComboBoxValueType.OBJECT) {
             xhtmlCodeExample.appendInnerContent("            <f:selectItem value=\"#{null}\"");
             xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Choose one...\"");
             xhtmlCodeExample.appendInnerContent("                          noSelectionOption=\"true\"/>");
-            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"");
+            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.foos}\"");
             xhtmlCodeExample.appendInnerContent("                           var=\"item\"");
             xhtmlCodeExample.appendInnerContent("                           itemLabel=\"#{item.label}\"");
             xhtmlCodeExample.appendInnerContent("                           itemValue=\"#{item}\"/>");
-        } else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
-            xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>");
-            xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>    ");
         } else if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
             xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.episodes}\"");
             xhtmlCodeExample.appendInnerContent("                           var=\"episode\"");
@@ -226,10 +323,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         }
     }
 
-    public boolean isConverterActive() {
-        return this.comboBoxValueType == ComboBoxValueType.OBJECT;
-    }
-
     public List<SelectItem> getComboBoxTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
@@ -256,20 +349,9 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     private void initFoos() {
-        this.foos.add(new SelectItem(null, "Choose one..."));
-
         for (final String key : FooConverter.fooMap.keySet()) {
             final Foo foo = FooConverter.fooMap.get(key);
-            this.foos.add(new SelectItem(foo, foo.getKey()));
-        }
-    }
-
-    private void initEnums() {
-        //this.enums.add(new SelectItem(null, "Choose one..."));
-
-        for (final FooType fooType : FooType.values()) {
-            //this.enums.add(new SelectItem(fooType.label));
-            this.enums.add(fooType);
+            this.foos.add(foo);
         }
     }
 
