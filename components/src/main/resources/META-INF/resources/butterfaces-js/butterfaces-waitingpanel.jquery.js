@@ -22,7 +22,7 @@
                 //console.log("processEvent: " + data.status);
                 if (data.status == 'begin') {
                     ajaxRequestsRunning++;
-                } else if (data.status == 'success' || data.status == 'error') {
+                } else if (data.status == 'success') {
                     ajaxRequestsRunning--;
                 }
                 if (ajaxRequestsRunning > 0) {
@@ -35,6 +35,13 @@
             }
 
             return processEvent;
+        }
+
+        function processOnError(data) {
+            if (data) {
+                console.error('An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
+                butter.overlay.hide();
+            }
         }
 
         return this.each(function () {
@@ -54,6 +61,7 @@
                 //console.log('waitingPanel - register: ' + _elementId);
 
                 jsf.ajax.addOnEvent(processAjaxUpdate());
+                jsf.ajax.addOnError(processOnError);
                 eventRegistered = true;
             }
         });

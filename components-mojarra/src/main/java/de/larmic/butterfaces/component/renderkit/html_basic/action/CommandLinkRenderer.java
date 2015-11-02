@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
-import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -15,10 +15,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
+
+import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 /**
  * Created by larmic on 16.09.14.
@@ -199,6 +200,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                     }
 
                     ajaxBehavior.setOnevent(getOnEventListenerName(component));
+                    ajaxBehavior.setOnerror(getOnEventListenerName(component));
                 }
             }
         }

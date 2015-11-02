@@ -4,7 +4,7 @@ if (typeof butter === 'undefined') {
 butter.link = {};
 
 butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingText, linkGlyphicon, linkProcessingGlyphicon, hideGlyphicon, disableRenderRegionsIds) {
-    var status = data.status;
+    var status = data.type === "error" ? "error" : data.status;
 
     // console.log(data.source.id);
 
@@ -46,6 +46,7 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
             break;
 
         case "success": // After update of HTML DOM based on ajax response..
+        case "error": // After update of HTML DOM based on ajax response..
             // console.log('ajax request success');
             $commandLink.removeClass("disabled");
             if (showDots) {
