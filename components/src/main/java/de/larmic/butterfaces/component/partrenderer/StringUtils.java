@@ -22,7 +22,7 @@ public class StringUtils {
     }
 
     public static final boolean isEmpty(final String value) {
-        return !(value != null && !"".equals(value));
+        return value == null || BLANK.equals(value);
     }
 
     public static final boolean isNotEmpty(final String value) {
