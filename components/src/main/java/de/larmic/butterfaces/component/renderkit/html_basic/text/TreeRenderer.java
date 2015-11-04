@@ -1,20 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
@@ -28,6 +13,16 @@ import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.MustacheResolver;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
@@ -87,29 +82,27 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
-        final AjaxBehavior ajaxClickBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("click"));
-        if (ajaxClickBehavior != null && tree.getNodeSelectionListener() != null) {
-            writer.writeText("trivialTree.onSelectedEntryChanged.addListener(function(node) {", null);
-            final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "click", ajaxClickBehavior.getOnevent(), "node.id");
-            final String javaScriptCall = click.createJavaScriptCall();
-            writer.writeText(javaScriptCall, null);
-            writer.writeText("});", null);
-        }
-
-        final AjaxBehavior ajaxToggleBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get("toggle"));
-        if (ajaxToggleBehavior != null && tree.getNodeExpansionListener() != null) {
-            writer.writeText("trivialTree.onNodeExpansionStateChanged.addListener(function(node) {", null);
-            final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, "toggle", ajaxToggleBehavior.getOnevent(), "node.id");
-            final String javaScriptCall = click.createJavaScriptCall();
-            writer.writeText(javaScriptCall, null);
-            writer.writeText("});", null);
-        }
+        this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
+        this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
 
         writer.writeText("});", null);
 
         writer.endElement("script");
 
         writer.endElement(ELEMENT_DIV);
+    }
+
+    private void encodeAjaxEvent(final HtmlTree tree,
+                                 final ResponseWriter writer,
+                                 final String eventName, String trivialCallback) throws IOException {
+        final AjaxBehavior ajaxBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get(eventName));
+        if (ajaxBehavior != null && tree.getNodeExpansionListener() != null) {
+            writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
+            final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, eventName, ajaxBehavior.getOnevent(), "node.id");
+            final String javaScriptCall = click.createJavaScriptCall();
+            writer.writeText(javaScriptCall, null);
+            writer.writeText("});", null);
+        }
     }
 
     private AjaxBehavior findFirstActiveAjaxBehavior(final List<ClientBehavior> behaviors) {

@@ -4,7 +4,10 @@ import javax.faces.component.UIComponentBase;
 
 /**
  * Factory of {@link AjaxRequest} to wrap some code.
+ *
+ *  @deprecated Use {@link JsfAjaxRequestBuilder} instead.
  */
+@Deprecated
 public class AjaxRequestFactory {
 
     public AjaxRequestFactory() {

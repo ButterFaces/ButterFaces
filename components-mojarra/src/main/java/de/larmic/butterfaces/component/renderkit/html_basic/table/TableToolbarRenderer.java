@@ -21,7 +21,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -248,17 +247,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final StringBuilder ajax = new StringBuilder("jQuery(document.getElementById('");
         ajax.append(clientId);
         ajax.append("'))." + javaScriptMethodName + "([");
-        final Iterator<String> iterator = renderIds.iterator();
-        while (iterator.hasNext()) {
-            final String renderId = iterator.next();
-            ajax.append("'");
-            ajax.append(renderId);
-            ajax.append("'");
-
-            if (iterator.hasNext()) {
-                ajax.append(", ");
-            }
-        }
+        ajax.append(StringUtils.convertToCommaSeparated(renderIds, true));
         if (StringUtils.isNotEmpty(optionalParameter)) {
             ajax.append("], " + ajaxDisableRenderRegionsOnRequest + ", " + optionalParameter + ");");
         } else {

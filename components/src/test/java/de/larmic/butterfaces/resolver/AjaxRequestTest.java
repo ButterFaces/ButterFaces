@@ -72,16 +72,6 @@ public class AjaxRequestTest {
         activeBehaviorsWithOnEventAndRenderId.add(onEventAndRenderBehavior);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFoundNoEventOnComponent() throws Exception {
-        new AjaxRequest(componentMock, notExistingEvent);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void testFoundNotActiveEvent() throws Exception {
-        new AjaxRequest(componentMock, existingButNotActiveEvent);
-    }
-
     @Test
     public void testCreateJavaScriptCall() throws Exception {
         final AjaxRequest ajaxRequest = new AjaxRequest(componentMock, existingEvent);

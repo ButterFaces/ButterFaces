@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
 public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
@@ -79,17 +80,8 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
     private String createFreeTextSeparators(final HtmlTags tags) {
         if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
             final StringBuilder freeTextSeparators = new StringBuilder("[");
-            final Iterator<String> iterator = Arrays.asList(tags.getConfirmKeys().split("(?!^)")).iterator();
-
-            while (iterator.hasNext()) {
-                final String separator = iterator.next();
-                freeTextSeparators.append("'");
-                freeTextSeparators.append(separator);
-                freeTextSeparators.append("'");
-                if (iterator.hasNext()) {
-                    freeTextSeparators.append(",");
-                }
-            }
+            final List<String> tagValues = Arrays.asList(tags.getConfirmKeys().split("(?!^)"));
+            freeTextSeparators.append(StringUtils.convertToCommaSeparated(tagValues, true));
             freeTextSeparators.append("]");
             return freeTextSeparators.toString();
         }

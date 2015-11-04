@@ -1,7 +1,16 @@
 package de.larmic.butterfaces.resolver;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static de.larmic.butterfaces.component.partrenderer.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
@@ -64,6 +73,67 @@ public class JsfAjaxRequestBuilder {
       this.render = render;
       return this;
    }
+
+    public JsfAjaxRequestBuilder setRender(final UIComponentBase component, final String eventName) {
+        this.render = StringUtils.convertToCommaSeparated(createRefreshIds(component, eventName), true);
+        return this;
+    }
+
+    public static List<String> createRefreshIds(final UIComponentBase component, final String eventName) {
+        final List<String> idsToRender = new ArrayList<>();
+        final Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();
+        final List<ClientBehavior> refreshBehaviors = behaviors.get(eventName);
+
+        if (refreshBehaviors == null) {
+            return new ArrayList<>();
+            //throw new IllegalArgumentException("Ajax event '" + eventName + "' not found on component '" + component.getClientId() + "'.");
+        }
+
+        boolean enabledAjaxEventFound = false;
+
+        if (!refreshBehaviors.isEmpty()) {
+            for (ClientBehavior refreshBehavior : refreshBehaviors) {
+                if (refreshBehavior instanceof AjaxBehavior) {
+                    final AjaxBehavior ajaxBehavior = (AjaxBehavior) refreshBehavior;
+
+                    if (!ajaxBehavior.isDisabled()) {
+                        if (ajaxBehavior.getRender() != null && !ajaxBehavior.getRender().isEmpty()) {
+                            for (String singleRender : ajaxBehavior.getRender()) {
+                                idsToRender.add(getResolvedId(component, singleRender));
+                            }
+                        }
+
+                        enabledAjaxEventFound = true;
+                    }
+                }
+            }
+        }
+
+        if (!enabledAjaxEventFound) {
+            return new ArrayList<>();
+            //throw new IllegalStateException("Ajax event '" + eventName + "' on component '" + component.getClientId() + "' is disabled.");
+        }
+
+        return idsToRender;
+    }
+
+    // Returns the resolved (client id) for a particular id.
+    public static String getResolvedId(final UIComponent component, final String id) {
+        if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
+            return id;
+        }
+
+        UIComponent resolvedComponent = component.findComponent(id);
+        if (resolvedComponent == null) {
+            final FacesContext context = FacesContext.getCurrentInstance();
+            if (context != null && id.charAt(0) == UINamingContainer.getSeparatorChar(context)) {
+                return id.substring(1);
+            }
+            return id;
+        }
+
+        return resolvedComponent.getClientId();
+    }
 
    /**
     * @param params object containing parameters to include in the request
