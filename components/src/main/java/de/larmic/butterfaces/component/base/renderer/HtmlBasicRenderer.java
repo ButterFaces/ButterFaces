@@ -144,6 +144,11 @@ public class HtmlBasicRenderer extends Renderer {
 
     /**
      * Render boolean value if attribute is set to true.
+     *
+     * @param attributeName attribute name
+     * @param component     the component
+     * @param writer        html response writer
+     * @throws IOException thrown by writer
      */
     protected void renderBooleanValue(final UIComponent component,
                                       final ResponseWriter writer,
@@ -155,6 +160,11 @@ public class HtmlBasicRenderer extends Renderer {
 
     /**
      * Render string value if attribute is not empty.
+     *
+     * @param attributeName attribute name
+     * @param component     the component
+     * @param writer        html response writer
+     * @throws IOException thrown by writer
      */
     protected void renderStringValue(final UIComponent component,
                                      final ResponseWriter writer,
@@ -168,6 +178,12 @@ public class HtmlBasicRenderer extends Renderer {
 
     /**
      * Render string value if attribute is equals to matching value.
+     *
+     * @param attributeName attribute name
+     * @param component     the component
+     * @param writer        html response writer
+     * @param matchingValue matchingValue
+     * @throws IOException thrown by writer
      */
     protected void renderStringValue(final UIComponent component,
                                      final ResponseWriter writer,

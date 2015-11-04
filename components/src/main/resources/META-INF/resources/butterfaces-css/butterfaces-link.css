@@ -33,7 +33,7 @@
     background: #FFF;
     width: 10px;
     height: 4em;
-    margin: 3px;
+    margin: 4px;
 }
 .butter-component-spinner > div:nth-child(1) {
     -webkit-animation: load1 1s infinite ease-in-out;

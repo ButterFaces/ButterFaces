@@ -156,6 +156,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     /**
      * Helper to call super end from sub classes without calling encodeEnd of this class. This is not nice but is works at this time.
      * TODO fix it.
+     *
+     * @param component the component
+     * @param context   {@link FacesContext}
+     * @throws IOException thrown by writer
      */
     protected void encodeSuperEnd(final FacesContext context, final UIComponent component) throws IOException {
         super.encodeEnd(context, component);
@@ -232,6 +236,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     /**
      * When using {@link AbstractTextRenderer} input component will be wrapped. Component style class will be set to
      * component wrapper. This method renders inner input component bootstrap classes and validation markers.
+     *
+     * @param component the component
+     * @param writer    html response writer
+     * @throws IOException thrown by writer
      */
     protected void renderInputStyleClass(final HtmlInputComponent component,
                                          final ResponseWriter writer) throws IOException {
