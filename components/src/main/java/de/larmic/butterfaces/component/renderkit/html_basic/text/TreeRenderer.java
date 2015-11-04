@@ -103,10 +103,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (ajaxBehavior != null) {
             writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
             final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true)
-                  .setEvent(eventName)
-                  .setRender(tree, eventName)
-                  .setParams("node.id")
-                  .setBehaviorEvent(eventName).toString();
+                    .setEvent(eventName)
+                    .setRender(tree, eventName)
+                    .setParams("node.id")
+                    .addOnEventHandler(ajaxBehavior.getOnevent())
+                    .addOnErrorHandler(ajaxBehavior.getOnerror())
+                    .setBehaviorEvent(eventName).toString();
             writer.writeText(ajaxRequest, null);
             writer.writeText("});", null);
         }
