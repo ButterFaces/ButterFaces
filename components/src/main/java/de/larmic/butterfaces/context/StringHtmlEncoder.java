@@ -11,6 +11,11 @@ public class StringHtmlEncoder {
 
     /**
      * Encodes complete component by calling {@link UIComponent#encodeAll(FacesContext)}.
+     *
+     * @param component component
+     * @param context   {@link FacesContext}
+     * @return the rendered string.
+     * @throws IOException thrown by writer
      */
     public static String encodeComponent(final FacesContext context,
                                          final UIComponent component) throws IOException {
@@ -21,6 +26,11 @@ public class StringHtmlEncoder {
 
     /**
      * Encodes complete component by calling {@link UIComponent#encodeAll(FacesContext)}.
+     *
+     * @param component component
+     * @param context   {@link FacesContext}
+     * @return the rendered string.
+     * @throws IOException thrown by writer
      */
     public static String encodeComponentWithSurroundingDiv(final FacesContext context,
                                                            final UIComponent component) throws IOException {

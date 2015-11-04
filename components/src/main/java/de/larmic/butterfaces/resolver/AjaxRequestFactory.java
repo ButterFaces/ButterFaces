@@ -5,7 +5,7 @@ import javax.faces.component.UIComponentBase;
 /**
  * Factory of {@link AjaxRequest} to wrap some code.
  *
- *  @deprecated Use {@link JsfAjaxRequestBuilder} instead.
+ *  @deprecated Use {@link de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest} instead.
  */
 @Deprecated
 public class AjaxRequestFactory {

@@ -14,10 +14,11 @@ public class TrivialComponentsEntriesNodePartRenderer {
     /**
      * Renders a list of entities required by trivial components tree.
      *
-     * @param nodes        a list of nodes that should be rendered
-     * @param index        index of corresponding node (should match cachedNodes
-     * @param mustacheKeys optional mustache keys
-     * @param cachedNodes  a map of node number to node
+     * @param nodes         a list of nodes that should be rendered
+     * @param index         index of corresponding node (should match cachedNodes
+     * @param mustacheKeys  optional mustache keys
+     * @param cachedNodes   a map of node number to node
+     * @param stringBuilder the builder
      * @return the last rendered index + 1
      */
     public int renderNodes(final StringBuilder stringBuilder,
@@ -63,11 +64,11 @@ public class TrivialComponentsEntriesNodePartRenderer {
     }
 
     private int renderNode(final StringBuilder stringBuilder,
-                          final List<String> mustacheKeys,
-                          final Map<Integer, Node> cachedNodes,
-                          final int index,
-                          final Node node,
-                          final boolean renderChildren) {
+                           final List<String> mustacheKeys,
+                           final Map<Integer, Node> cachedNodes,
+                           final int index,
+                           final Node node,
+                           final boolean renderChildren) {
         int newIndex = index;
 
         stringBuilder.append("{");
