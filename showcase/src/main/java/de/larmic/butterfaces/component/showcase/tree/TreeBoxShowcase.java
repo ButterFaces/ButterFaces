@@ -19,6 +19,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
     private String placeholder = "Enter text...";
     private boolean autoFocus;
+    private boolean hideRootNode;
 
     @Override
     protected Object initValue() {
@@ -85,5 +86,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public ShowcaseTreeNode getShowcaseTreeNode() {
         return showcaseTreeNode;
+    }
+
+    public void setHideRootNode(boolean hideRootNode) {
+        this.hideRootNode = hideRootNode;
+    }
+
+    public boolean isHideRootNode() {
+        return hideRootNode;
     }
 }

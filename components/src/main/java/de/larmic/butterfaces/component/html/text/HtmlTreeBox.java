@@ -29,6 +29,7 @@ public class HtmlTreeBox extends HtmlText {
 	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
 	public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TreeBoxRenderer";
 
+    protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
 	protected static final String PROPERTY_VALUES = "values";
 
 	public HtmlTreeBox() {
@@ -53,4 +54,12 @@ public class HtmlTreeBox extends HtmlText {
 	public void setValues(Node values) {
 		this.updateStateHelper(PROPERTY_VALUES, values);
 	}
+
+    public boolean isHideRootNode() {
+        return Boolean.valueOf(getStateHelper().eval(PROPERTY_HIDE_ROOT_NODE, Boolean.TRUE).toString());
+    }
+
+    public void setHideRootNode(final boolean hideRootNode) {
+        getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
+    }
 }

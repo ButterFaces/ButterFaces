@@ -36,7 +36,7 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
         final Node rootNode = treeBox.getValues();
         // TODO add hideRootNode
         //final List<Node> nodes = treeBox.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
-        final List<Node> nodes = false ? rootNode.getSubNodes() : Arrays.asList(rootNode);
+        final List<Node> nodes = treeBox.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
 
         this.initCachedNodes(nodes, 0);
 
