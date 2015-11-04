@@ -75,11 +75,11 @@ public class JsfAjaxRequestBuilder {
    }
 
     public JsfAjaxRequestBuilder setRender(final UIComponentBase component, final String eventName) {
-        this.render = StringUtils.convertToCommaSeparated(createRefreshIds(component, eventName), true);
+        this.render = StringUtils.convertToSeparated(createRerenderIds(component, eventName));
         return this;
     }
 
-    public static List<String> createRefreshIds(final UIComponentBase component, final String eventName) {
+    public static List<String> createRerenderIds(final UIComponentBase component, final String eventName) {
         final List<String> idsToRender = new ArrayList<>();
         final Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();
         final List<ClientBehavior> refreshBehaviors = behaviors.get(eventName);

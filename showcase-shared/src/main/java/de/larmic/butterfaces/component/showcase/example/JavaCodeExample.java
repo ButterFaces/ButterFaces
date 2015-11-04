@@ -3,7 +3,6 @@ package de.larmic.butterfaces.component.showcase.example;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,16 +99,7 @@ public class JavaCodeExample extends AbstractCodeExample {
             stringBuilder.append(", ");
         }
 
-        final Iterator<String> iterator = interfaces.iterator();
-
-        while (iterator.hasNext()) {
-            final String anInterface = iterator.next();
-
-            stringBuilder.append(anInterface);
-            if (iterator.hasNext()) {
-                stringBuilder.append(", ");
-            }
-        }
+        stringBuilder.append(StringUtils.convertToCommaSeparated(interfaces));
 
         stringBuilder.append(" {\n\n");
     }

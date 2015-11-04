@@ -32,4 +32,10 @@ public class StringUtilsTest {
         assertThat(StringUtils.convertToCommaSeparated(values, false)).isEqualTo("ding, dong, test, me");
         assertThat(StringUtils.convertToCommaSeparated(values, true)).isEqualTo("'ding', 'dong', 'test', 'me'");
     }
+
+    @Test
+    public void testConvertToSeparated() throws Exception {
+        final List<String> values = Arrays.asList("ding", "dong", "test", "me");
+        assertThat(StringUtils.convertToSeparated(values)).isEqualTo("ding dong test me");
+    }
 }

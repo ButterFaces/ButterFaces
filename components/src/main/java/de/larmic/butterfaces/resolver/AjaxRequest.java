@@ -29,7 +29,7 @@ public class AjaxRequest {
     }
 
     public AjaxRequest(final UIComponentBase component, final String event, final String onEvent, final String params) {
-        this.renderIds = JsfAjaxRequestBuilder.createRefreshIds(component, event);
+        this.renderIds = JsfAjaxRequestBuilder.createRerenderIds(component, event);
         this.component = component;
         this.onevent = onEvent;
         this.eventName = event;
