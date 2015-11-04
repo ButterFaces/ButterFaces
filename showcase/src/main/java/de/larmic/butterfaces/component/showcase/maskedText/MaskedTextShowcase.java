@@ -212,6 +212,10 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
                 inputMask = null;
                 dataInputMask = "'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'";
                 break;
+            case CURRENCY_GERMAN:
+                inputMask = null;
+                dataInputMask = "'alias': 'numeric', 'groupSeparator': '.', 'radixPoint': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'suffix': ' €', 'placeholder': '0'";
+                break;
             case ALPHA_NUMERIC:
                 inputMask = "*****/***/*****";
                 dataInputMask = null;
