@@ -21,7 +21,7 @@ butter.overlay.show = function (/* object */ options) {
         }
 
         //console.log("butter.overlay.show - appending not displayed overlay to body");
-        var $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner" /></div>');
+        var $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
         $("body").append($overlay);
 
         if (isTransparentBlockingOverlayActive) {

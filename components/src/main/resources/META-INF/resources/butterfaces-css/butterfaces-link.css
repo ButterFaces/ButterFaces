@@ -21,71 +21,73 @@
     position: absolute;
     display: none;
 }
-
-.butter-component-spinner,
-.butter-component-spinner:before,
-.butter-component-spinner:after {
+.butter-component-spinner {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: calc(50% - 25px);
+    right: 0;
+    left: 0;
+}
+.butter-component-spinner > div {
     background: #FFF;
+    width: 10px;
+    height: 4em;
+    margin: 3px;
+}
+.butter-component-spinner > div:nth-child(1) {
     -webkit-animation: load1 1s infinite ease-in-out;
     animation: load1 1s infinite ease-in-out;
-    width: 1em;
-    height: 4em;
 }
-.butter-component-spinner:before,
-.butter-component-spinner:after {
-    position: absolute;
-    top: 0;
-    content: '';
+.butter-component-spinner > div:nth-child(2) {
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    -webkit-animation-delay: -0.1s;
+    animation-delay: -0.1s;
 }
-.butter-component-spinner:before {
-    right: 1.6em;
+.butter-component-spinner > div:nth-child(3) {
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    -webkit-animation-delay: -0.2s;
+    animation-delay: -0.2s;
 }
-.butter-component-spinner {
-    text-indent: -9999em;
-    margin: auto;
-    position: relative;
-    font-size: 11px;
-    top: calc(50% - 22px);
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
+.butter-component-spinner > div:nth-child(4) {
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    -webkit-animation-delay: -0.3s;
+    animation-delay: -0.3s;
 }
-.butter-component-spinner:after {
-    left: 1.6em;
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-}
-
 @-webkit-keyframes load1 {
     0% {
         box-shadow: 0 0 #FFF;
-        height: 4em;
+        height: 2em;
         opacity: 1;
     }
     50% {
         box-shadow: 0 -2em #ffffff;
-        height: 5em;
-        opacity: .6;
+        height: 4em;
+        opacity: .4;
     }
     100% {
         box-shadow: 0 0 #FFF;
-        height: 4em;
+        height: 2em;
         opacity: 1;
     }
 }
 @keyframes load1 {
     0% {
         box-shadow: 0 0 #FFF;
-        height: 4em;
+        height: 2em;
         opacity: 1;
     }
     50% {
         box-shadow: 0 -2em #ffffff;
-        height: 5em;
-        opacity: .6;
+        height: 4em;
+        opacity: .4;
     }
     100% {
         box-shadow: 0 0 #FFF;
-        height: 4em;
+        height: 2em;
         opacity: 1;
     }
 }

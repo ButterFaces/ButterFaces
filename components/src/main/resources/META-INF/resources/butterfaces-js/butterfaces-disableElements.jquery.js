@@ -4,7 +4,7 @@
         return this.each(function () {
             var $originalElement = $(this);
 
-            var $overlay = $('<div class="butter-component-link-overlay"><div class="butter-component-spinner" /></div>');
+            var $overlay = $('<div class="butter-component-link-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
             $overlay.offset($originalElement.offset());
             $overlay.width($originalElement.outerWidth());
             $overlay.height($originalElement.outerHeight());
