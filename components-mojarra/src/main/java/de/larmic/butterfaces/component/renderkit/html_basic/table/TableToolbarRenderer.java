@@ -1,5 +1,16 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
@@ -13,16 +24,6 @@ import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by larmic on 10.09.14.
@@ -247,7 +248,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final StringBuilder ajax = new StringBuilder("jQuery(document.getElementById('");
         ajax.append(clientId);
         ajax.append("'))." + javaScriptMethodName + "([");
-        ajax.append(StringUtils.convertToCommaSeparated(renderIds, true));
+        ajax.append(StringUtils.joinWithCommaSeparator(renderIds, true));
         if (StringUtils.isNotEmpty(optionalParameter)) {
             ajax.append("], " + ajaxDisableRenderRegionsOnRequest + ", " + optionalParameter + ");");
         } else {

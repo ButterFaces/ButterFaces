@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.showcase.example;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 /**
  * Created by larmic on 12.12.14.
@@ -76,7 +76,7 @@ public class EnumCodeExample extends AbstractCodeExample {
             stringBuilder.append(" implements");
         }
 
-        stringBuilder.append(StringUtils.convertToCommaSeparated(interfaces));
+        stringBuilder.append(StringUtils.joinWithCommaSeparator(interfaces));
 
         stringBuilder.append(" {\n\n");
     }

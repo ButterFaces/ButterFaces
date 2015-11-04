@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,16 +26,23 @@ public class StringUtilsTest {
    }
 
     @Test
-    public void testConvertToCommaSeparated() throws Exception {
+    public void testJoinWithCommaSeparator() throws Exception {
         final List<String> values = Arrays.asList("ding", "dong", "test", "me");
-        assertThat(StringUtils.convertToCommaSeparated(values)).isEqualTo("ding, dong, test, me");
-        assertThat(StringUtils.convertToCommaSeparated(values, false)).isEqualTo("ding, dong, test, me");
-        assertThat(StringUtils.convertToCommaSeparated(values, true)).isEqualTo("'ding', 'dong', 'test', 'me'");
+        assertThat(StringUtils.joinWithCommaSeparator(values)).isEqualTo("ding, dong, test, me");
+        assertThat(StringUtils.joinWithCommaSeparator(values, false)).isEqualTo("ding, dong, test, me");
+        assertThat(StringUtils.joinWithCommaSeparator(values, true)).isEqualTo("'ding', 'dong', 'test', 'me'");
     }
 
     @Test
-    public void testConvertToSeparated() throws Exception {
+    public void testJoinWithSpaceSeparator() throws Exception {
         final List<String> values = Arrays.asList("ding", "dong", "test", "me");
-        assertThat(StringUtils.convertToSeparated(values)).isEqualTo("ding dong test me");
+        assertThat(StringUtils.joinWithSpaceSeparator(values)).isEqualTo("ding dong test me");
+    }
+
+    @Test
+    public void testJoin() throws Exception {
+        final List<String> values = Arrays.asList("ding", "dong", "test", "me");
+        assertThat(StringUtils.join(values, " | ", false)).isEqualTo("ding | dong | test | me");
+        assertThat(StringUtils.join(values, " | ", true)).isEqualTo("'ding' | 'dong' | 'test' | 'me'");
     }
 }

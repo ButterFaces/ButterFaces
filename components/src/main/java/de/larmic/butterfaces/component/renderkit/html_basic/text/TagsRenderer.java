@@ -1,19 +1,20 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import de.larmic.butterfaces.component.html.text.HtmlTags;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
+import de.larmic.butterfaces.component.html.text.HtmlTags;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
 public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
@@ -81,7 +82,7 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
         if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
             final StringBuilder freeTextSeparators = new StringBuilder("[");
             final List<String> tagValues = Arrays.asList(tags.getConfirmKeys().split("(?!^)"));
-            freeTextSeparators.append(StringUtils.convertToCommaSeparated(tagValues, true));
+            freeTextSeparators.append(StringUtils.joinWithCommaSeparator(tagValues, true));
             freeTextSeparators.append("]");
             return freeTextSeparators.toString();
         }
