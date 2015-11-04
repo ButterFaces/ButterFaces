@@ -68,6 +68,11 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "inputmask.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "inputmask.date.extensions.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "inputmask.numeric.extensions.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "inputmask.phone.extensions.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "inputmask.regex.extensions.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
