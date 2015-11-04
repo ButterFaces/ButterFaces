@@ -226,7 +226,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("            <f:ajax render=\"formId:selectedRow\" disabled=\"true\"/>");
         }
 
-        xhtmlCodeExample.appendInnerContent("            <column id=\"column1\"");
+        xhtmlCodeExample.appendInnerContent("            <b:column id=\"column1\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"10%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
@@ -234,48 +234,48 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"5*\"");
         }
-        xhtmlCodeExample.appendInnerContent("                    label=\"C1\">");
+        xhtmlCodeExample.appendInnerContent("                    label=\"Readonly text\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
         xhtmlCodeExample.appendInnerContent("                <b:tooltip placement=\"top\">");
         xhtmlCodeExample.appendInnerContent("                   /* tooltip text */");
         xhtmlCodeExample.appendInnerContent("                </b:tooltip>");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
-        xhtmlCodeExample.appendInnerContent("            <column id=\"column2\"");
+        xhtmlCodeExample.appendInnerContent("            <b:column id=\"column2\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"65%\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"65%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"30px\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"30px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"1*\"");
         }
-        xhtmlCodeExample.appendInnerContent("                    sortColumnEnabled=\"false\"");
-        xhtmlCodeExample.appendInnerContent("                    label=\"C2\">");
+        xhtmlCodeExample.appendInnerContent("                      sortColumnEnabled=\"false\"");
+        xhtmlCodeExample.appendInnerContent("                      label=\"Action\">");
         xhtmlCodeExample.appendInnerContent("                /* action */");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
-        xhtmlCodeExample.appendInnerContent("            <column id=\"column3\"");
+        xhtmlCodeExample.appendInnerContent("            <b:column id=\"column3\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"15%\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"15%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10px\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"10px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"1*\"");
         }
-        xhtmlCodeExample.appendInnerContent("                    label=\"C3\">");
+        xhtmlCodeExample.appendInnerContent("                      label=\"Creation date\">");
         xhtmlCodeExample.appendInnerContent("                /* date */");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
-        xhtmlCodeExample.appendInnerContent("            <column id=\"column4\"");
+        xhtmlCodeExample.appendInnerContent("            <b:column id=\"column4\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10%\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"10%\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.PX) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"10px\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"10px\"");
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
-            xhtmlCodeExample.appendInnerContent("                    colWidth=\"1*\"");
+            xhtmlCodeExample.appendInnerContent("                      colWidth=\"1*\"");
         }
-        xhtmlCodeExample.appendInnerContent("                    sortColumnEnabled=\"false\"");
-        xhtmlCodeExample.appendInnerContent("                    label=\"C4\">");
+        xhtmlCodeExample.appendInnerContent("                      sortColumnEnabled=\"false\"");
+        xhtmlCodeExample.appendInnerContent("                      label=\"Readonly text (default hide)\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
         xhtmlCodeExample.appendInnerContent("            </column>");
 
