@@ -81,8 +81,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
-        this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
-        this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
+        if (tree.getNodeSelectionListener() != null) {
+            this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
+        }
+        if (tree.getNodeExpansionListener() != null) {
+            this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
+        }
 
         writer.writeText("});", null);
 
@@ -96,9 +100,13 @@ public class TreeRenderer extends HtmlBasicRenderer {
                                  final String eventName,
                                  final String trivialCallback) throws IOException {
         final AjaxBehavior ajaxBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get(eventName));
-        if (ajaxBehavior != null && tree.getNodeExpansionListener() != null) {
+        if (ajaxBehavior != null) {
             writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
-            final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true).setEvent(eventName).setRender(tree, eventName).setParams("node.id").setBehaviorEvent(eventName).toString();
+            final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true)
+                  .setEvent(eventName)
+                  .setRender(tree, eventName)
+                  .setParams("node.id")
+                  .setBehaviorEvent(eventName).toString();
             writer.writeText(ajaxRequest, null);
             writer.writeText("});", null);
         }
