@@ -117,6 +117,13 @@ public class JsfAjaxRequest {
         return this;
     }
 
+    public JsfAjaxRequest addRender(final String render) {
+        if (StringUtils.isNotEmpty(render)) {
+            this.render = this.render == null ? render : this.render + " " + render;
+        }
+        return this;
+    }
+
     /**
      * @param params object containing parameters to include in the request
      * @return the actual instance of {@link JsfAjaxRequest}
@@ -206,6 +213,21 @@ public class JsfAjaxRequest {
         }
         sb.append(");");
         return sb.toString();
+    }
+
+    public static AjaxBehavior findFirstActiveAjaxBehavior(final UIComponentBase component, final String eventName) {
+        if (component != null) {
+            final List<ClientBehavior> behaviors = component.getClientBehaviors().get(eventName);
+            if (behaviors != null) {
+                for (ClientBehavior behavior : behaviors) {
+                    if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
+                        return (AjaxBehavior) behavior;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public static List<String> createRerenderIds(final UIComponentBase component, final String eventName) {

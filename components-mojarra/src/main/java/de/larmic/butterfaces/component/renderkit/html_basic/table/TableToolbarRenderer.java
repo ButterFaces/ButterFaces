@@ -1,17 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
@@ -24,6 +14,18 @@ import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by larmic on 10.09.14.
@@ -271,18 +273,32 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
                                                  final HtmlTableToolbar tableToolbar) throws IOException {
-        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, "refresh");
+        final String eventName = "refresh";
 
+        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(tableToolbar, eventName);
+        if (ajaxBehavior != null) {
+            final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(tableToolbar.getClientId(), true)
+                    .setRender(tableToolbar, eventName)
+                    .addRender(cachedTableComponent.getClientId())
+                    .setEvent(eventName)
+                    .addOnEventHandler(ajaxBehavior.getOnevent())
+                    .addOnErrorHandler(ajaxBehavior.getOnerror())
+                    .setBehaviorEvent(eventName);
 
-        if (ajaxRequest != null) {
-            ajaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
-            final String ajaxCall = ajaxRequest.createJavaScriptCall("refresh", tableToolbar.isAjaxDisableRenderRegionsOnRequest());
+            if (tableToolbar.isAjaxDisableRenderRegionsOnRequest()) {
+                final List<String> renderIds = new ArrayList<>(ajaxBehavior.getRender());
+                renderIds.add(cachedTableComponent.getClientId());
+                final StringBuilder onEvent = new StringBuilder("butter.ajax.disableElementsOnRequest(data, [");
+                onEvent.append(StringUtils.joinWithCommaSeparator(renderIds, true));
+                onEvent.append("])");
+                jsfAjaxRequest.addOnEventHandler(onEvent.toString());
+            }
 
             writer.startElement("a", tableToolbar);
             writer.writeAttribute("class", "btn btn-default", null);
             writer.writeAttribute("role", "button", null);
             writer.writeAttribute("title", tableToolbar.getRefreshTooltip(), null);
-            writer.writeAttribute("onclick", ajaxCall, null);
+            writer.writeAttribute("onclick", jsfAjaxRequest.toString(), null);
 
             writer.startElement("i", tableToolbar);
             writer.writeAttribute("class", webXmlParameters.getRefreshGlyphicon(), null);
