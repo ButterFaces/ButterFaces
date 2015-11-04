@@ -28,6 +28,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private TreeSearchBarModeType selectedSearchBarModeType = TreeSearchBarModeType.ALWAYS_VISIBLE;
     private boolean allExpanded = false;
     private String placeholder = "Search...";
+    private Integer toManyVisibleItemsRenderDelay;
+    private Integer toManyVisibleItemsThreshold;
 
     @Override
     public void processValueChange(final TreeNodeSelectionEvent event) {
@@ -300,5 +302,21 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public ShowcaseTreeNode getShowcaseTreeNode() {
         return showcaseTreeNode;
+    }
+
+    public Integer getToManyVisibleItemsRenderDelay() {
+        return toManyVisibleItemsRenderDelay;
+    }
+
+    public void setToManyVisibleItemsRenderDelay(Integer toManyVisibleItemsRenderDelay) {
+        this.toManyVisibleItemsRenderDelay = toManyVisibleItemsRenderDelay;
+    }
+
+    public Integer getToManyVisibleItemsThreshold() {
+        return toManyVisibleItemsThreshold;
+    }
+
+    public void setToManyVisibleItemsThreshold(Integer toManyVisibleItemsThreshold) {
+        this.toManyVisibleItemsThreshold = toManyVisibleItemsThreshold;
     }
 }

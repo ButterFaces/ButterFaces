@@ -36,6 +36,8 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String PROPERTY_HTML5_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_NODE_SELECTION_LISTENER = "nodeSelectionListener";
     protected static final String PROPERTY_NODE_EXPANSION_LISTENER = "nodeExpansionListener";
+    protected static final String PROPERTY_TO_MANY_VISIBLE_ITEMS_RENDER_DELAY = "toManyVisibleItemsRenderDelay";
+    protected static final String PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD = "toManyVisibleItemsThreshold";
 
     public HtmlTree() {
         super();
@@ -119,6 +121,22 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public void setSearchBarMode(final String searchBarMode) {
         getStateHelper().put(SEARCH_BAR_MODE, searchBarMode);
+    }
+
+    public Integer getToManyVisibleItemsRenderDelay() {
+        return (Integer) getStateHelper().eval(PROPERTY_TO_MANY_VISIBLE_ITEMS_RENDER_DELAY);
+    }
+
+    public void setToManyVisibleItemsRenderDelay(Integer toManyVisibleItemsRenderDelay) {
+        getStateHelper().put(PROPERTY_TO_MANY_VISIBLE_ITEMS_RENDER_DELAY, toManyVisibleItemsRenderDelay);
+    }
+
+    public Integer getToManyVisibleItemsThreshold() {
+        return (Integer) getStateHelper().eval(PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD);
+    }
+
+    public void setToManyVisibleItemsThreshold(Integer toManyVisibleItemsThreshold) {
+        getStateHelper().put(PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD, toManyVisibleItemsThreshold);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

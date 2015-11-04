@@ -71,6 +71,8 @@
                 nodeExpansionListener="#{treeShowcase}"
                 placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
+                toManyVisibleItemsRenderDelay="#{treeShowcase.toManyVisibleItemsRenderDelay}"
+                toManyVisibleItemsThreshold="#{treeShowcase.toManyVisibleItemsThreshold}"
                 rendered="#{treeShowcase.rendered and treeShowcase.ajaxRendered}">
             <c:if test="#{treeShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
                 <f:facet name="template">

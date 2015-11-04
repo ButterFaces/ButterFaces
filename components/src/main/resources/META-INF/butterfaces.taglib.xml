@@ -1653,6 +1653,24 @@
          <type>java.lang.Boolean</type>
       </attribute>
       <attribute>
+         <description>
+            If the result of a query run (user input on the search field) exceeds the number specified by "toManyVisibleItemsThreshold",
+            the component delays the node rendering by the specified time (in ms).
+            This parameter can be adjusted to encounter performance issues particularly seen with IE.
+            Defaults to the trivial-components default value.
+         </description>
+         <name>toManyVisibleItemsRenderDelay</name>
+         <type>java.lang.Integer</type>
+      </attribute>
+      <attribute>
+         <description>
+            The maximum number of nodes returned by a query run (user input on the search field) that the components renders immediately.
+            If the number of nodes exceeds this limit, the rendering is delayed by toManyVisibleItemsRenderDelay.
+         </description>
+         <name>toManyVisibleItemsThreshold</name>
+         <type>java.lang.Integer</type>
+      </attribute>
+      <attribute>
          <description>A placeholder if using searchBarMode 'show-if-filled' or 'always-visible'.</description>
          <name>placeholder</name>
          <type>java.lang.String</type>

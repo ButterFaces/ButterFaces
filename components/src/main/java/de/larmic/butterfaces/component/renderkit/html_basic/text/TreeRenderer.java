@@ -184,6 +184,16 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (selectedNodeNumber != null) {
             jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
         }
+        if (tree.getToManyVisibleItemsRenderDelay() != null || tree.getToManyVisibleItemsThreshold() != null) {
+            jQueryPluginCall.append("\n    performanceOptimizationSettings: {");
+            if (tree.getToManyVisibleItemsRenderDelay() != null) {
+                jQueryPluginCall.append("\n        toManyVisibleItemsRenderDelay: " + tree.getToManyVisibleItemsRenderDelay() + ",");
+            }
+            if (tree.getToManyVisibleItemsThreshold() != null) {
+                jQueryPluginCall.append("\n        toManyVisibleItemsThreshold: " + tree.getToManyVisibleItemsThreshold() + ",");
+            }
+            jQueryPluginCall.append("\n    },");
+        }
         if (tree.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
             final List<String> mustacheKeys = MustacheResolver.getMustacheKeysForTree(encodedTemplate);
