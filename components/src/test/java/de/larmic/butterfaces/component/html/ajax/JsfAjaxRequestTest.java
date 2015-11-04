@@ -1,41 +1,44 @@
 package de.larmic.butterfaces.resolver;
 
-import org.junit.Test;
-
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+
+import org.junit.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class JsfAjaxRequestBuilderTest {
+import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
+
+public class JsfAjaxRequestTest {
 
     @Test
     public void testCreateNewInstanceForSourceId() throws Exception {
-        final JsfAjaxRequestBuilder request = new JsfAjaxRequestBuilder("mySourceId", true);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceId", true);
         assertThat(request.toString()).isEqualTo("jsf.ajax.request('mySourceId');");
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreateNewInstanceThrowsNpeForSourceIsNull() throws Exception {
-        new JsfAjaxRequestBuilder(null, false);
+        new JsfAjaxRequest(null, false);
     }
 
     @Test
     public void testCreateNewInstanceForSourceElement() throws Exception {
-        final JsfAjaxRequestBuilder request = new JsfAjaxRequestBuilder("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
         assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement);");
     }
 
     @Test
     public void testSetMultipleRender() throws Exception {
-        final JsfAjaxRequestBuilder request = new JsfAjaxRequestBuilder("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
         request.setRender("someId someOtherId");
 
         assertThat(request.toString())
@@ -44,7 +47,7 @@ public class JsfAjaxRequestBuilderTest {
 
     @Test
     public void testSetDifferentParametersOnInstance() throws Exception {
-        final JsfAjaxRequestBuilder request = new JsfAjaxRequestBuilder("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
 
         request.setEvent("onchange");
         assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, 'onchange');");
@@ -80,7 +83,7 @@ public class JsfAjaxRequestBuilderTest {
 
     @Test
     public void testAddOnEventHandlerForDifferentFunctionCalls() throws Exception {
-        final JsfAjaxRequestBuilder request = new JsfAjaxRequestBuilder("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
         request.addOnEventHandler("myEventHandlerAsCall(data)");
         request.addOnEventHandler("myEventHandlerAsVariable");
 
@@ -92,7 +95,7 @@ public class JsfAjaxRequestBuilderTest {
 
     @Test
     public void testChaining() throws Exception {
-        final String jsString = new JsfAjaxRequestBuilder("mySourceElement", false)
+        final String jsString = new JsfAjaxRequest("mySourceElement", false)
                 .setEvent("onchange")
                 .setExecute("@this")
                 .setRender("@form")
@@ -116,7 +119,7 @@ public class JsfAjaxRequestBuilderTest {
         final UIComponentBase uiComponentMock = mock(UIComponentBase.class);
         when(uiComponentMock.getClientBehaviors()).thenReturn(behaviors);
 
-        final JsfAjaxRequestBuilder requestBuilder = new JsfAjaxRequestBuilder("mySourceElement", false);
+        final JsfAjaxRequest requestBuilder = new JsfAjaxRequest("mySourceElement", false);
 
         assertThat(requestBuilder.setRender(uiComponentMock, "toggle").toString())
                 .isEqualTo("jsf.ajax.request(mySourceElement);");
