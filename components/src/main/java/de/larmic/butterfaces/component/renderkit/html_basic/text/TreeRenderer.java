@@ -1,20 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
@@ -26,9 +11,17 @@ import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
-import de.larmic.butterfaces.resolver.AjaxRequest;
-import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.MustacheResolver;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
@@ -105,10 +98,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final AjaxBehavior ajaxBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get(eventName));
         if (ajaxBehavior != null && tree.getNodeExpansionListener() != null) {
             writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
-            final String test = new JsfAjaxRequest(tree.getClientId(), true).setRender(tree, eventName).toString();
-            final AjaxRequest click = new AjaxRequestFactory().createRequest(tree, eventName, ajaxBehavior.getOnevent(), "node.id");
-            final String javaScriptCall = click.createJavaScriptCall();
-            writer.writeText(javaScriptCall, null);
+            final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true).setEvent(eventName).setRender(tree, eventName).setParams("node.id").setBehaviorEvent(eventName).toString();
+            writer.writeText(ajaxRequest, null);
             writer.writeText("});", null);
         }
     }

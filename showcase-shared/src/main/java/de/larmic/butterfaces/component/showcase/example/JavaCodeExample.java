@@ -56,7 +56,7 @@ public class JavaCodeExample extends AbstractCodeExample {
     }
 
     public boolean addInterfaces(String anInterface) {
-        return interfaces.add(" " + anInterface);
+        return interfaces.add(anInterface);
     }
 
     public StringBuilder appendInnerContent(final String content) {

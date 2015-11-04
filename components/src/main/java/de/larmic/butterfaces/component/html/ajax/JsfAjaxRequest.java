@@ -1,9 +1,6 @@
 package de.larmic.butterfaces.component.html.ajax;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -11,11 +8,13 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import static de.larmic.butterfaces.component.partrenderer.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
-
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 /**
  * Builds an ajax request call that depends on the JSF Javascript API under https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
@@ -240,7 +239,7 @@ public class JsfAjaxRequest {
             isAtLeastOneOptionSet = true;
          }
 
-         if (isNotEmpty(params)) {
+         if (isNotEmpty(behaviorEvent)) {
             writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
             sb.append("'javax.faces.behavior.event': '").append(behaviorEvent).append("'");
          }

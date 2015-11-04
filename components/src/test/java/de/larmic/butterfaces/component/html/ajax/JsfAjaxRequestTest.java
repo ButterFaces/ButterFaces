@@ -1,15 +1,14 @@
 package de.larmic.butterfaces.component.html.ajax;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
-
-import org.junit.Test;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -75,7 +74,7 @@ public class JsfAjaxRequestTest {
                 .isEqualTo("jsf.ajax.request(mySourceElement, 'onchange', {execute: '@this', render: 'someId'"
                         + ", onevent: function(data){myEventHandler(data);}"
                         + ", onerror: function(data){myErrorHandler(data);}"
-                        + ", params: 'myParams'"
+                        + ", params: myParams"
                         + "});");
 
         request.setBehaviorEvent("myBehaviorEvent");
@@ -83,8 +82,8 @@ public class JsfAjaxRequestTest {
                 .isEqualTo("jsf.ajax.request(mySourceElement, 'onchange', {execute: '@this', render: 'someId'"
                         + ", onevent: function(data){myEventHandler(data);}"
                         + ", onerror: function(data){myErrorHandler(data);}"
-                        + ", params: 'myParams'"
-                        + ", javax.faces.behavior.event.: 'myBehaviorEvent'"
+                        + ", params: myParams"
+                        + ", 'javax.faces.behavior.event': 'myBehaviorEvent'"
                         + "});");
     }
 
