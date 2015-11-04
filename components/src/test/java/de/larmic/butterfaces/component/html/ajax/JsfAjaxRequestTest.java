@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.resolver;
+package de.larmic.butterfaces.component.html.ajax;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,8 +14,6 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 
 public class JsfAjaxRequestTest {
 
@@ -78,6 +76,15 @@ public class JsfAjaxRequestTest {
                         + ", onevent: function(data){myEventHandler(data);}"
                         + ", onerror: function(data){myErrorHandler(data);}"
                         + ", params: 'myParams'"
+                        + "});");
+
+        request.setBehaviorEvent("myBehaviorEvent");
+        assertThat(request.toString())
+                .isEqualTo("jsf.ajax.request(mySourceElement, 'onchange', {execute: '@this', render: 'someId'"
+                        + ", onevent: function(data){myEventHandler(data);}"
+                        + ", onerror: function(data){myErrorHandler(data);}"
+                        + ", params: 'myParams'"
+                        + ", javax.faces.behavior.event.: 'myBehaviorEvent'"
                         + "});");
     }
 

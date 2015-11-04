@@ -1,15 +1,17 @@
 package de.larmic.butterfaces.resolver;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-
-import javax.faces.component.UIComponentBase;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.faces.component.UIComponentBase;
+
+import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 /**
  * First try to create a jsf.ajax.request factory. I think there is a nicer way to implement this but up to now it works.
  *
- * @deprecated Use {@link JsfAjaxRequestBuilder} instead.
+ * @deprecated Use {@link JsfAjaxRequest} instead.
  */
 @Deprecated
 public class AjaxRequest {
@@ -29,7 +31,7 @@ public class AjaxRequest {
     }
 
     public AjaxRequest(final UIComponentBase component, final String event, final String onEvent, final String params) {
-        this.renderIds = JsfAjaxRequestBuilder.createRerenderIds(component, event);
+        this.renderIds = JsfAjaxRequest.createRerenderIds(component, event);
         this.component = component;
         this.onevent = onEvent;
         this.eventName = event;
