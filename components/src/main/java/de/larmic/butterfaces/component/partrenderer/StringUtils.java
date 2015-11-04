@@ -11,6 +11,8 @@ public class StringUtils {
     public static final String BLANK = "";
     public static final String SPACE = " ";
 
+    public static final String SEPARATOR_COMMA = ", ";
+
     public static String concatWithSpace(final String... styles) {
         final StringBuilder sb = new StringBuilder();
 
@@ -40,13 +42,19 @@ public class StringUtils {
         return getNotNullValue(value, "");
     }
 
-
-
-    public static String convertToCommaSeparated(final Collection<String> values) {
-        return convertToCommaSeparated(values, false);
+    public static String joinWithCommaSeparator(final Collection<String> values) {
+        return join(values, SEPARATOR_COMMA, false);
     }
 
-    public static String convertToCommaSeparated(final Collection<String> values, boolean escape) {
+    public static String joinWithCommaSeparator(final Collection<String> values, boolean escape) {
+        return join(values, SEPARATOR_COMMA, escape);
+    }
+
+    public static String joinWithSpaceSeparator(final Collection<String> values) {
+        return join(values, SPACE, false);
+    }
+
+    public static String join(final Collection<String> values, final String separator, boolean escape) {
         final StringBuilder value = new StringBuilder();
         final Iterator<String> iterator = values.iterator();
 
@@ -61,24 +69,7 @@ public class StringUtils {
             }
 
             if (iterator.hasNext()) {
-                value.append(", ");
-            }
-        }
-
-        return value.toString();
-    }
-
-    public static String convertToSeparated(final Collection<String> values) {
-        final StringBuilder value = new StringBuilder();
-
-        final Iterator<String> iterator = values.iterator();
-
-        while (iterator.hasNext()) {
-            final String valueToAdd = iterator.next();
-            value.append(valueToAdd);
-
-            if (iterator.hasNext()) {
-                value.append(" ");
+                value.append(separator);
             }
         }
 

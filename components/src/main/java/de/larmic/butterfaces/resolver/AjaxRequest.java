@@ -59,7 +59,7 @@ public class AjaxRequest {
     public String createJavaScriptCall(final String customEventName, final boolean disableElements) {
         if (disableElements && !renderIds.isEmpty()) {
             final StringBuilder onEvent = new StringBuilder("(function(data) { butter.ajax.disableElementsOnRequest(data, [");
-            onEvent.append(StringUtils.convertToCommaSeparated(renderIds, true));
+            onEvent.append(StringUtils.joinWithCommaSeparator(renderIds, true));
             onEvent.append("]) })");
 
             return this.createJavaScriptCall(customEventName, onEvent.toString());
