@@ -43,6 +43,20 @@ public class JsfAjaxRequestTest {
     }
 
     @Test
+    public void testAddRender() throws Exception {
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        request.setRender("someId");
+
+        assertThat(request.toString())
+                .isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId'});");
+
+        request.addRender("someOtherId");
+
+        assertThat(request.toString())
+                .isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId someOtherId'});");
+    }
+
+    @Test
     public void testSetDifferentParametersOnInstance() throws Exception {
         final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
 

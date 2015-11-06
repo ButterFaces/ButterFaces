@@ -99,29 +99,20 @@ public class TreeRenderer extends HtmlBasicRenderer {
                                  final ResponseWriter writer,
                                  final String eventName,
                                  final String trivialCallback) throws IOException {
-        final AjaxBehavior ajaxBehavior = findFirstActiveAjaxBehavior(tree.getClientBehaviors().get(eventName));
+        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(tree, eventName);
+
         if (ajaxBehavior != null) {
             writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
             final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true)
-                  .setEvent(eventName)
-                  .setRender(tree, eventName)
-                  .setParams("node.id")
-                  .setBehaviorEvent(eventName).toString();
+                    .setEvent(eventName)
+                    .setRender(tree, eventName)
+                    .setParams("node.id")
+                    .addOnEventHandler(ajaxBehavior.getOnevent())
+                    .addOnErrorHandler(ajaxBehavior.getOnerror())
+                    .setBehaviorEvent(eventName).toString();
             writer.writeText(ajaxRequest, null);
             writer.writeText("});", null);
         }
-    }
-
-    private AjaxBehavior findFirstActiveAjaxBehavior(final List<ClientBehavior> behaviors) {
-        if (behaviors != null) {
-            for (ClientBehavior behavior : behaviors) {
-                if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
-                    return (AjaxBehavior) behavior;
-                }
-            }
-        }
-
-        return null;
     }
 
     @Override

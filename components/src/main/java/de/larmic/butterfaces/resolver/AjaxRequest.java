@@ -1,12 +1,11 @@
 package de.larmic.butterfaces.resolver;
 
-import java.util.Iterator;
-import java.util.List;
-
-import javax.faces.component.UIComponentBase;
-
 import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
+import javax.faces.component.UIComponentBase;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * First try to create a jsf.ajax.request factory. I think there is a nicer way to implement this but up to now it works.
@@ -54,18 +53,6 @@ public class AjaxRequest {
         }
 
         return "jsf.ajax.request('" + component.getClientId() + "','" + customEventName + "',{" + createRenderPart(render) + createParamsPart(params) + "onevent: " + customOnEvent + ", 'javax.faces.behavior.event':'" + customEventName + "'});";
-    }
-
-    public String createJavaScriptCall(final String customEventName, final boolean disableElements) {
-        if (disableElements && !renderIds.isEmpty()) {
-            final StringBuilder onEvent = new StringBuilder("(function(data) { butter.ajax.disableElementsOnRequest(data, [");
-            onEvent.append(StringUtils.joinWithCommaSeparator(renderIds, true));
-            onEvent.append("]) })");
-
-            return this.createJavaScriptCall(customEventName, onEvent.toString());
-        }
-
-        return this.createJavaScriptCall(customEventName, null);
     }
 
     private String createRenderPart(final String render) {

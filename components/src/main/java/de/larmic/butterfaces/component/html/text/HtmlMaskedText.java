@@ -13,12 +13,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "inputmask.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "inputmask.date.extensions.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "inputmask.numeric.extensions.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "inputmask.phone.extensions.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "inputmask.regex.extensions.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.bundle.js", target = "head")
 })
 @FacesComponent(HtmlMaskedText.COMPONENT_TYPE)
 public class HtmlMaskedText extends HtmlText implements Masked {
