@@ -96,11 +96,13 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
 
         jQueryPluginCall.append("TrivialTreeComboBox({");
         jQueryPluginCall.append("\n    allowFreeText: true,");
-        //jQueryPluginCall.append("\n    emptyEntry: {");
-        //jQueryPluginCall.append("\n    \"displayValue\": \"Please select...\",");
-        //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
-        //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
-        //jQueryPluginCall.append("\n    },");
+        if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
+           jQueryPluginCall.append("\n    emptyEntry: {");
+           jQueryPluginCall.append("\n    \"title\": \"" + treeBox.getPlaceholder() + "\"");
+           //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
+           //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
+           jQueryPluginCall.append("\n    },");
+        }
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
         if (StringUtils.isNotEmpty(selectedEntryId)) {
             jQueryPluginCall.append("\n    selectedEntryId: " + selectedEntryId + ",");
