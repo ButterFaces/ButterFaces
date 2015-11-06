@@ -1,18 +1,23 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
-import de.larmic.butterfaces.model.tree.Node;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.*;
+
+import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.model.tree.Node;
 
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
 public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
@@ -26,7 +31,7 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        super.encodeBegin(context, component, "butter-component-tags");
+        super.encodeBegin(context, component, "butter-component-treebox");
     }
 
     @Override

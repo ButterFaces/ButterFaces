@@ -1,3 +1,11 @@
 .tr-dropdown {
     z-index: 3 !important; /* bootstrap form-control has 2, should be fixed in trivial components */
 }
+
+.treebox .tr-template-icon-2-lines .content-wrapper .main-line {
+    line-height: 13px;
+}
+.treebox .tr-template-icon-2-lines .content-wrapper .additional-info {
+    font-size: 82%;
+    color: #777;
+}
