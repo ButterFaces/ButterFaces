@@ -355,6 +355,8 @@
                 .on("keydown", function (event) {
                     if (event.which === self._keyCodes.enter) {
                         self._handleEnterKeyDown(event);
+                    }else if (event.which === self._keyCodes.tab) {
+                        self._handleTabKeyDown(event);
                     } else if (event.which === self._keyCodes.arrow_up || event.which === self._keyCodes.arrow_down) {
                         self._handleArrowUpAndDownKeyDown(event);
                     } else if (event.which === self._keyCodes.escape) {
@@ -394,6 +396,19 @@
                 this._selectCompleteTextInGhostInput();
             } else if (!this._optionList.hasSelected() && this._isResultContainerShown()) {
                 // deactivate enter key if result list is opened but nothing is selected
+                this._stopEvent(event);
+            } else {
+                this._resetDisplayValue();
+            }
+        },
+
+        _handleTabKeyDown: function (event) {
+            if (this._optionList.hasSelected() && this._isResultContainerShown()) {
+                // set selected value and allow tab event to bubble for tabbing to the next form field
+                this._setSelectedValue();
+                this._selectCompleteTextInGhostInput();
+            } else if (!this._optionList.hasSelected() && this._isResultContainerShown()) {
+                // deactivate tab key if result list is opened but nothing is selected
                 this._stopEvent(event);
             } else {
                 this._resetDisplayValue();
