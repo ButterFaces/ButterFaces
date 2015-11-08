@@ -74,9 +74,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         final ResponseWriter writer = context.getResponseWriter();
 
+        final List<String> mustacheKeys = this.createMustacheKeys(context, tree);
+
         writer.startElement("script", component);
 
-        writer.writeText("jQuery(function () {", null);
+        writer.writeText("jQuery(function () {\n", null);
+        writer.writeText("var entries_" + tree.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
         final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
@@ -93,6 +96,15 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.endElement("script");
 
         writer.endElement(ELEMENT_DIV);
+    }
+
+    private List<String> createMustacheKeys(FacesContext context, HtmlTree tree) throws IOException {
+        if (tree.getFacet("template") != null) {
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
+            return MustacheResolver.getMustacheKeysForTree(encodedTemplate);
+        }
+
+        return Collections.emptyList();
     }
 
     private void encodeAjaxEvent(final HtmlTree tree,
@@ -187,13 +199,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
         if (tree.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
-            final List<String> mustacheKeys = MustacheResolver.getMustacheKeysForTree(encodedTemplate);
             jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
-            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, mustacheKeys));
         } else {
             jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
-            jQueryPluginCall.append("\n    entries: " + this.renderEntries(nodes, new ArrayList<String>()));
         }
+        jQueryPluginCall.append("\n    entries: entries_" + tree.getClientId().replace(":", "_"));
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
@@ -247,16 +257,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return null;
-    }
-
-    private String renderEntries(final List<Node> nodes, final List<String> mustacheKeys) {
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("[");
-        new TrivialComponentsEntriesNodePartRenderer().renderNodes(stringBuilder, nodes, 0, mustacheKeys, cachedNodes);
-        stringBuilder.append("]");
-
-        return stringBuilder.toString();
     }
 
     private int initCachedNodes(final List<Node> nodes,

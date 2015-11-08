@@ -42,6 +42,18 @@ public class TrivialComponentsEntriesNodePartRenderer {
         return newIndex;
     }
 
+    public String renderEntriesAsJSON(final List<Node> nodes,
+                                      final List<String> mustacheKeys,
+                                      final Map<Integer, Node> cachedNodes) {
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("[");
+        new TrivialComponentsEntriesNodePartRenderer().renderNodes(stringBuilder, nodes, 0, mustacheKeys, cachedNodes);
+        stringBuilder.append("]");
+
+        return stringBuilder.toString();
+    }
+
     public String renderNode(final List<String> mustacheKeys,
                              final Map<Integer, Node> cachedNodes,
                              final int index,
