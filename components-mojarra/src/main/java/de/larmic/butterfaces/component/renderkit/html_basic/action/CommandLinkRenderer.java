@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
-import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
+import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -15,11 +15,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by larmic on 16.09.14.
@@ -135,14 +134,11 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                 final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
                         ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
 
-                writer.writeText("    butter.link.disableOnClick(data, " +
-                        link.isAjaxShowWaitingDotsOnRequest() + ",'" +
-                        link.getValue() + "','" +
-                        processingText + "','" +
-                        link.getGlyphicon() + "','" +
-                        processingGlyphicon + "'," +
-                        link.isAjaxHideGlyphiconOnRequest() + ",'" +
-                        jQueryIDSelector + "');", null);
+                writer.writeText(
+                        createDisableOnClickFunctionCall(link, processingText, processingGlyphicon, jQueryIDSelector),
+                        null
+                );
+
                 writer.writeText("}", null);
                 writer.endElement("script");
             }
@@ -151,6 +147,28 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         } else {
             writer.endElement("span");
         }
+    }
+
+    private String createDisableOnClickFunctionCall(HtmlCommandLink link, String processingText,
+                                                    String processingGlyphicon, String jQueryIDSelector) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("    butter.link.disableOnClick(data, ");
+        sb.append(link.isAjaxShowWaitingDotsOnRequest()).append(",");
+
+        if (link.getValue() != null) {
+            sb.append("'").append(link.getValue()).append("'");
+        } else {
+            sb.append("null");
+        }
+        sb.append(",'");
+
+        sb.append(processingText).append("','");
+        sb.append(link.getGlyphicon()).append("','");
+        sb.append(processingGlyphicon).append("',");
+        sb.append(link.isAjaxHideGlyphiconOnRequest()).append(",'");
+        sb.append(jQueryIDSelector).append("');");
+
+        return sb.toString();
     }
 
     private String createAjaxProcessingText(final HtmlCommandLink link) {

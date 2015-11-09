@@ -52,7 +52,7 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
             if (showDots) {
                 $commandLink.find('.butter-component-glyphicon-processing').stopDots();
                 $commandLink.find('.butter-component-glyphicon-processing').css('display', 'none');
-                $commandLink.find('.butter-component-glyphicon-text').html(linkText);
+                $commandLink.find('.butter-component-glyphicon-text').html(linkText ? linkText : '');
             }
 
             var $glyphicon = $commandLink.find('.butter-component-glyphicon');
