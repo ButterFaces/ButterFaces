@@ -44,7 +44,7 @@ gulp.task('dist:_clean', function (cb) {
     del(paths.destination.standard, {force: true}, cb);
 });
 
-gulp.task('dist:_bower', ['dist:_clean'], function () {
+gulp.task('dist:_bower', function () {
     // https://github.com/bower/bower/issues/1019#issuecomment-52700170
     return bower({force: false})
         .pipe(gulp.dest('bower_components/'));
@@ -82,7 +82,7 @@ gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist'], function
         .pipe(gulp.dest(paths.destination.standard + '/js'));
 });
 
-gulp.task('dist:_less', ['dist:_clean'], function () {
+gulp.task('dist:_less', function () {
     return gulp.src([paths.source.less])
         .pipe(less())
         .pipe(postcss([autoprefixer({browsers: ['> 2%']})]))
@@ -101,6 +101,6 @@ gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript']);
 
 // MAIN GOALS ===============================================================================
 
-gulp.task('dist:build', ['dist:_compileRessources']);
+gulp.task('dist:build', ['dist:_clean', 'dist:_compileRessources']);
 
 gulp.task('default', ['dist:build']);
