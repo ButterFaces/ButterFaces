@@ -9,13 +9,16 @@ import java.util.List;
 public class DefaultNodeImpl<T> implements Node<T> {
 
     private final List<Node> subNodes = new ArrayList<>();
-    private final T data;
+    private T data;
     private String title;
     private String description;
     private String imageIcon;
     private String glyphiconIcon;
     private String styleClass;
     private boolean isCollapsed;
+
+    public DefaultNodeImpl() {
+    }
 
     public DefaultNodeImpl(final String title) {
         this(title, null, null);
@@ -95,5 +98,9 @@ public class DefaultNodeImpl<T> implements Node<T> {
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
