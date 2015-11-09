@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-section.css", target = "head"), // TODO why is section included?
         @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-autocomplete.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-dropdownlist.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
