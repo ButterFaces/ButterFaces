@@ -37,7 +37,7 @@
     "gulp-concat": "2.x",
     "gulp-sourcemaps": "1.x",
     "gulp-watch": "latest",
-    "del": "1.x",
+    "gulp-clean": "latest",
     "gulp-less": "3.x",
     "gulp-mirror": "latest",
     "gulp-postcss": "5.x",
