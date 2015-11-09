@@ -7,7 +7,7 @@ var tsd = require('gulp-tsd');
 var ts = require('gulp-typescript');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
-var clean = require('gulp-clean');
+var del = require('del');
 var watch = require('gulp-watch');
 var pipe = require('multipipe');
 var less = require('gulp-less');
@@ -40,9 +40,8 @@ var paths = {
 
 // DIST GOALS ===============================================================================
 
-gulp.task('dist:_clean', function () {
-    return gulp.src(paths.destination.standard, {read: false})
-        .pipe(clean({force: true}));
+gulp.task('dist:_clean', function (cb) {
+    del(paths.destination.standard, {force: true}, cb);
 });
 
 gulp.task('dist:_bower', ['dist:_clean'], function () {

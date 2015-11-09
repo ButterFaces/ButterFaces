@@ -37,7 +37,7 @@
     "gulp-concat": "2.6.0",
     "gulp-sourcemaps": "1.6.0",
     "gulp-watch": "4.3.5",
-    "gulp-clean": "0.3.1",
+    "del": "2.0.2",
     "gulp-less": "3.0.3",
     "gulp-mirror": "0.4.0",
     "gulp-postcss": "5.1.10",
