@@ -7,9 +7,6 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 
-/**
- * Created by larmic on 16.09.14.
- */
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-link.css", target = "head"),

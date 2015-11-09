@@ -1,3 +1,5 @@
+@import "butterfaces-spinner";
+
 .butter-component-glyphicon-processing {
     text-align: left;
     width: 20px;
@@ -20,74 +22,4 @@
     border: 2px solid rgba(0,0,0,.2);
     position: absolute;
     display: none;
-}
-.butter-component-spinner {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: calc(50% - 19px);
-    right: 0;
-    left: 0;
-}
-.butter-component-spinner > div {
-    background: #FFF;
-    width: 10px;
-    height: 4em;
-    margin: 4px;
-}
-.butter-component-spinner > div:nth-child(1) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-}
-.butter-component-spinner > div:nth-child(2) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.1s;
-    animation-delay: -0.1s;
-}
-.butter-component-spinner > div:nth-child(3) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.2s;
-    animation-delay: -0.2s;
-}
-.butter-component-spinner > div:nth-child(4) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.3s;
-    animation-delay: -0.3s;
-}
-@-webkit-keyframes load1 {
-    0% {
-        box-shadow: 0 0 #FFF;
-        height: 2em;
-        opacity: 1;
-    }
-    50% {
-        box-shadow: 0 -2em #ffffff;
-        height: 4em;
-        opacity: .4;
-    }
-    100% {
-        box-shadow: 0 0 #FFF;
-        height: 2em;
-        opacity: 1;
-    }
-}
-@keyframes load1 {
-    0% {
-        box-shadow: 0 0 #FFF;
-        height: 2em;
-        opacity: 1;
-    }
-    50% {
-        box-shadow: 0 -2em #ffffff;
-        height: 4em;
-        opacity: .4;
-    }
-    100% {
-        box-shadow: 0 0 #FFF;
-        height: 2em;
-        opacity: 1;
-    }
 }
