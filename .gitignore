@@ -4,7 +4,11 @@
 # generated files
 bin/
 gen/
-components/src/main/resources/META-INF/resources/butterfaces-css-prefixed
+components/src/main/resources/META-INF/resources/butterfaces-dist
+components/nodejs/bower_components
+components/nodejs/etc
+components/nodejs/node
+components/nodejs/node-modules
 
 # Local configuration file (sdk path, etc)
 local.properties

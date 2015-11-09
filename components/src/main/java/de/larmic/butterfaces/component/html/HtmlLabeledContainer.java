@@ -8,8 +8,8 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-labeled-container.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-labeled-container.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head")
 })
 @FacesComponent(HtmlLabeledContainer.COMPONENT_TYPE)

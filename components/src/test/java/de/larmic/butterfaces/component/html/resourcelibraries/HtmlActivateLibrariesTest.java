@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by larmic on 28.01.15.
- */
 public class HtmlActivateLibrariesTest {
 
     @Test
@@ -22,6 +19,11 @@ public class HtmlActivateLibrariesTest {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         for (ResourceDependency resourceDependency : resourceDependencies) {
+            if ("butterfaces-dist".equals(resourceDependency.library())) {
+                // will be checked in other test
+                continue;
+            }
+
             final List<String> fileNames = this.loadResourcesFileNamesFromResourceSubDirectory(resourceDependency.library());
 
             boolean foundResourceByName = false;
@@ -38,11 +40,35 @@ public class HtmlActivateLibrariesTest {
     }
 
     @Test
+    public void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFoldersCreatedByLess() throws Exception {
+        final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
+
+        for (ResourceDependency resourceDependency : resourceDependencies) {
+            if (!"butterfaces-dist".equals(resourceDependency.library())) {
+                // will be checked in other test
+                continue;
+            }
+
+            final List<String> fileNames = this.loadResourcesFileNamesFromResourceSubDirectory(resourceDependency.library() + "/css");
+
+            boolean foundResourceByName = false;
+
+            for (String fileName : fileNames) {
+                if (("css/" + fileName).equals(resourceDependency.name())) {
+                    foundResourceByName = true;
+                    break;
+                }
+            }
+
+            Assert.assertTrue("Resource '" + resourceDependency.name() + "' not found", foundResourceByName);
+        }
+    }
+
+    @Test
     public void testAssertThatAllResourcesAreAnnotatedInResourceComponent() throws Exception {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-configurable");
-        this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-css");
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-external");
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-js");
     }

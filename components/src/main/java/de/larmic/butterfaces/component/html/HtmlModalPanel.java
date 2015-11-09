@@ -7,7 +7,7 @@ import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),

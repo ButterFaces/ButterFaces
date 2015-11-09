@@ -1,0 +1,53 @@
+{
+  "name": "ButterFaces",
+  "version": "0.0.1",
+  "description": "TODO",
+  "main": "butterfaces.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ButterFaces/ButterFaces"
+  },
+  "keywords": [
+    "jsf",
+    "bootstrap",
+    "butterfaces"
+  ],
+  "author": "Lars Michaelis",
+  "contributors": [
+    {
+      "name": "Lars Michaelis",
+      "email": "mail@larmic.de",
+      "url": "https://github.com/larmic"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ButterFaces/ButterFaces",
+  "devDependencies": {
+    "autoprefixer-core": "5.x",
+    "bower": "1.x",
+    "gulp": "3.x",
+    "gulp-bower": "latest",
+    "gulp-util": "3.x",
+    "gulp-tsd": "latest",
+    "typescript": "1.5.x",
+    "gulp-typescript": "2.x",
+    "gulp-concat": "2.x",
+    "gulp-sourcemaps": "1.x",
+    "gulp-watch": "latest",
+    "del": "1.x",
+    "gulp-less": "3.x",
+    "gulp-mirror": "latest",
+    "gulp-postcss": "5.x",
+    "gulp-rename": "1.x",
+    "gulp-livereload": "3.x",
+    "multipipe": "latest",
+    "gulp-tslint": "latest",
+    "gulp-inject": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-uglify": "1.x",
+    "gulp-strip-debug": "1.x"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "angular-livecoding",
+  "version": "0.0.0",
+  "homepage": "http://www.butterfaces.org",
+  "authors": [
+    "Lars Michaelis"
+  ],
+  "license": "MIT" ,
+
+  "dependencies": {
+    "jquery": "2.1.4"
+  }
+}

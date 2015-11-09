@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.ajax;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.ajax.WaitingPanel;
+import de.larmic.butterfaces.component.html.ajax.HtmlWaitingPanel;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by larmic on 31.07.14.
  */
-@FacesRenderer(componentFamily = WaitingPanel.COMPONENT_FAMILY, rendererType = WaitingPanel.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlWaitingPanel.COMPONENT_FAMILY, rendererType = HtmlWaitingPanel.RENDERER_TYPE)
 public class WaitingPanelRenderer extends HtmlBasicRenderer {
 
     public static final int DEFAULT_WAITING_PANEL_DELAY = 500;
@@ -26,7 +26,7 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-        final WaitingPanel waitingPanel = (WaitingPanel) component;
+        final HtmlWaitingPanel waitingPanel = (HtmlWaitingPanel) component;
 
         final String style = waitingPanel.getStyle();
         final String styleClass = waitingPanel.getStyleClass();
@@ -53,7 +53,7 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-        final WaitingPanel waitingPanel = (WaitingPanel) component;
+        final HtmlWaitingPanel waitingPanel = (HtmlWaitingPanel) component;
 
         writer.endElement(ELEMENT_DIV); // component div
 
@@ -61,13 +61,13 @@ public class WaitingPanelRenderer extends HtmlBasicRenderer {
         RenderUtils.renderJQueryPluginCall(component.getClientId(), pluginFunctionCall, writer, component);
     }
 
-    private String createButterTreeJQueryParameter(final WaitingPanel waitingPanel) {
+    private String createButterTreeJQueryParameter(final HtmlWaitingPanel waitingPanel) {
         final int waitingPanelDelay = getWaitingPanelDelay(waitingPanel);
 
         return "{waitingPanelDelay: '" + waitingPanelDelay + "', blockpage: " + waitingPanel.isBlockpage() + "}";
     }
 
-    private int getWaitingPanelDelay(final WaitingPanel waitingPanel) {
+    private int getWaitingPanelDelay(final HtmlWaitingPanel waitingPanel) {
         if (waitingPanel.getDelay() != null) {
             return waitingPanel.getDelay() > 0 ? waitingPanel.getDelay() : 0;
         }

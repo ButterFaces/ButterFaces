@@ -9,7 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 @ResourceDependencies({
-		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-default.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-default.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-tags.css", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
@@ -19,7 +20,6 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
-		@ResourceDependency(library = "butterfaces-css", name = "butterfaces-tags.css", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tags.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)

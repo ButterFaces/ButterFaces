@@ -15,6 +15,64 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.26</version>
+                <configuration>
+                    <workingDirectory>nodejs</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <nodeVersion>v0.12.3</nodeVersion>
+                            <npmVersion>2.10.0</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>gulp build</id>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>default</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>nodejs</directory>
+                            <followSymlinks>false</followSymlinks>
+                            <excludes>
+                                <exclude>bower.json</exclude>
+                                <exclude>gulpfile.js</exclude>
+                                <exclude>package.json</exclude>
+                            </excludes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>minify-maven-plugin</artifactId>
                 <version>1.7.4</version>
@@ -25,12 +83,6 @@
                         <!-- When omitted defaults to 'process-resources' -->
                         <configuration>
                             <charset>UTF-8</charset>
-                            <cssSourceDir>.</cssSourceDir>
-                            <cssSourceIncludes>
-                                <cssSourceInclude>butterfaces-css/**</cssSourceInclude>
-                                <cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
-                            </cssSourceIncludes>
-                            <cssFinalFile>butterfaces-only.css</cssFinalFile>
                             <jsSourceDir>.</jsSourceDir>
                             <jsSourceIncludes>
                                 <jsSourceInclude>butterfaces-js/**</jsSourceInclude>
@@ -54,12 +106,6 @@
                         <!-- When omitted defaults to 'process-resources' -->
                         <configuration>
                             <charset>UTF-8</charset>
-                            <cssSourceDir>.</cssSourceDir>
-                            <cssSourceIncludes>
-                                <cssSourceInclude>butterfaces-css/**</cssSourceInclude>
-                                <cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
-                            </cssSourceIncludes>
-                            <cssFinalFile>butterfaces-jquery.css</cssFinalFile>
                             <jsSourceDir>.</jsSourceDir>
                             <jsSourceFiles>
                                 <jsSourceFile>butterfaces-configurable/jquery.min.js</jsSourceFile>
@@ -86,15 +132,6 @@
                         <!-- When omitted defaults to 'process-resources' -->
                         <configuration>
                             <charset>UTF-8</charset>
-                            <cssSourceDir>.</cssSourceDir>
-                            <cssSourceFiles>
-                                <cssSourceFile>butterfaces-configurable/bootstrap.min.css</cssSourceFile>
-                            </cssSourceFiles>
-                            <cssSourceIncludes>
-                                <cssSourceInclude>butterfaces-css/**</cssSourceInclude>
-                                <cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
-                            </cssSourceIncludes>
-                            <cssFinalFile>butterfaces-jquery-bootstrap.css</cssFinalFile>
                             <jsSourceDir>.</jsSourceDir>
                             <jsSourceFiles>
                                 <jsSourceFile>butterfaces-configurable/jquery.min.js</jsSourceFile>
@@ -122,16 +159,6 @@
                         <!-- When omitted defaults to 'process-resources' -->
                         <configuration>
                             <charset>UTF-8</charset>
-                            <cssSourceDir>.</cssSourceDir>
-                            <cssSourceFiles>
-                                <cssSourceFile>butterfaces-configurable/bootstrap.min.css</cssSourceFile>
-                                <cssSourceFile>butterfaces-configurable/prettify.css</cssSourceFile>
-                            </cssSourceFiles>
-                            <cssSourceIncludes>
-                                <cssSourceInclude>butterfaces-css/**</cssSourceInclude>
-                                <cssSourceInclude>butterfaces-external/*.css</cssSourceInclude>
-                            </cssSourceIncludes>
-                            <cssFinalFile>butterfaces-all.css</cssFinalFile>
                             <jsSourceDir>.</jsSourceDir>
                             <jsSourceFiles>
                                 <jsSourceFile>butterfaces-configurable/jquery.min.js</jsSourceFile>
