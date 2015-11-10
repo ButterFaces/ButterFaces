@@ -20,6 +20,7 @@ var tslint = require('gulp-tslint');
 var inject = require('gulp-inject');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
+var gzip = require('gulp-gzip');
 var stripDebug = require('gulp-strip-debug');
 
 // CONSTANTS ===============================================================================
@@ -101,6 +102,12 @@ gulp.task('dist:_less', function () {
 });
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript']);
+
+gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
+    return gulp.src([paths.destination.standard + '/css/**/*', paths.destination.standard + '/js/**/*', "!dist/**/*.gz"], {base: '.'})
+            .pipe(gzip())
+            .pipe(gulp.dest('.'));
+});
 
 // MAIN GOALS ===============================================================================
 
