@@ -34,20 +34,23 @@ var paths = {
         less: '../src/main/resources/META-INF/resources/butterfaces-less/*.less'
     },
     destination: {
-        standard: '../src/main/resources/META-INF/resources//butterfaces-dist',
-        bower: '../src/main/webapp/dist/bower'
+        root: '../src/main/resources/META-INF/resources//butterfaces-dist',
+        css: '../src/main/resources/META-INF/resources//butterfaces-dist-css',
+        js: '../src/main/resources/META-INF/resources//butterfaces-dist-js',
+        bower: '../src/main/resources/META-INF/resources//butterfaces-dist-lib'
     }
 };
 
 // DIST GOALS ===============================================================================
 
 gulp.task('dist:_clean', function (cb) {
-    del(paths.destination.standard, {force: true}, cb);
+    del([paths.destination.css, paths.destination.js, paths.destination.bower], {force: true}, cb);
 });
+
 
 gulp.task('dist:_bower', function () {
     // https://github.com/bower/bower/issues/1019#issuecomment-52700170
-    return bower({force: false})
+    return bower({force: true})
         .pipe(gulp.dest('bower_components/'));
 });
 
@@ -59,10 +62,9 @@ gulp.task('dist:_tslint', ['dist:_bower'], function () {
 
 gulp.task('dist:_copyLibsToDist', ['dist:_bower'], function () {
     return gulp.src([
-            './bower_components/jquery/dist/jquery.js',
-            './bower_components/jquery/dist/jquery.min.js'
+            paths.bower.jquery
         ])
-        .pipe(gulp.dest(paths.destination.standard + '/js/lib'));
+        .pipe(gulp.dest(paths.destination.bower));
 });
 
 gulp.task('dist:_typescript_bundle', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
@@ -82,7 +84,7 @@ gulp.task('dist:_typescript_bundle', ['dist:_tslint', 'dist:_copyLibsToDist'], f
                 uglify()
             )
         ))
-        .pipe(gulp.dest(paths.destination.standard + '-js'));
+        .pipe(gulp.dest(paths.destination.root + '-js'));
 });
 
 gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
@@ -101,7 +103,7 @@ gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], f
                 uglify()
             )
         ))
-        .pipe(gulp.dest(paths.destination.standard + '-js'));
+        .pipe(gulp.dest(paths.destination.root + '-js'));
 });
 
 gulp.task('dist:_less', function () {
@@ -116,15 +118,15 @@ gulp.task('dist:_less', function () {
                 minifyCSS()
             )
         ))
-        .pipe(gulp.dest(paths.destination.standard + '-css'));
+        .pipe(gulp.dest(paths.destination.root + '-css'));
 });
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript_bundle', 'dist:_typescript_single']);
 
 gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
-    return gulp.src([paths.destination.standard + '-css/**/*', paths.destination.standard + '-js/**/*', "!dist/**/*.gz"], {base: '.'})
-            .pipe(gzip())
-            .pipe(gulp.dest('.'));
+    return gulp.src([paths.destination.root + '-css/**/*', paths.destination.root + '-js/**/*', "!dist/**/*.gz"], {base: '.'})
+        .pipe(gzip())
+        .pipe(gulp.dest('.'));
 });
 
 // MAIN GOALS ===============================================================================
