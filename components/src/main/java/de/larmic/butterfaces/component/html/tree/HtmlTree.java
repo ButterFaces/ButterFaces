@@ -16,7 +16,7 @@ import java.util.Collection;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-tree.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tree.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head")

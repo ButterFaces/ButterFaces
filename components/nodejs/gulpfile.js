@@ -66,6 +66,7 @@ gulp.task('dist:_copyLibsToDist', ['dist:_bower'], function () {
 });
 
 //gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist', 'dev:_tsd'], function () {
+//gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist', "dist:_copyFontsToDist"], function () {
 gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(ts({
@@ -83,7 +84,7 @@ gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist'], function
                 uglify()
             )
         ))
-        .pipe(gulp.dest(paths.destination.standard + '/js'));
+        .pipe(gulp.dest(paths.destination.standard + '-js'));
 });
 
 gulp.task('dist:_less', function () {
@@ -98,13 +99,13 @@ gulp.task('dist:_less', function () {
                 minifyCSS()
             )
         ))
-        .pipe(gulp.dest(paths.destination.standard + '/css'));
+        .pipe(gulp.dest(paths.destination.standard + '-css'));
 });
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript']);
 
 gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
-    return gulp.src([paths.destination.standard + '/css/**/*', paths.destination.standard + '/js/**/*', "!dist/**/*.gz"], {base: '.'})
+    return gulp.src([paths.destination.standard + '-css/**/*', paths.destination.standard + '-js/**/*', "!dist/**/*.gz"], {base: '.'})
             .pipe(gzip())
             .pipe(gulp.dest('.'));
 });

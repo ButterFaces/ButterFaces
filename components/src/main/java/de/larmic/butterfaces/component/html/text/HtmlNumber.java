@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.List;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist", name = "css/butterfaces-number.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-number.css", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),

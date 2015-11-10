@@ -4,7 +4,7 @@
 # generated files
 bin/
 gen/
-components/src/main/resources/META-INF/resources/butterfaces-dist
+components/src/main/resources/META-INF/resources/butterfaces-dist-*
 components/nodejs/bower_components
 components/nodejs/etc
 components/nodejs/node

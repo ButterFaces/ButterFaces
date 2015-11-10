@@ -80,16 +80,16 @@ public class HandleResourceListener implements SystemEventListener {
       }
 
       if (provideBootstrap && provideJQuery && providePrettyPrint) {
-         this.addGeneratedCSSResource(context, "css/dist-butterfaces-all.min.css");
+         this.addGeneratedCSSResource(context, "dist-butterfaces-all.min.css");
          this.addGeneratedJSResource(context, "butterfaces-all.min.js");
       } else if (provideJQuery && provideBootstrap) {
-         this.addGeneratedCSSResource(context, "css/dist-butterfaces-bootstrap.min.css");
+         this.addGeneratedCSSResource(context, "dist-butterfaces-bootstrap.min.css");
          this.addGeneratedJSResource(context, "butterfaces-jquery-bootstrap.min.js");
       } else if (provideJQuery) {
-         this.addGeneratedCSSResource(context, "css/dist-butterfaces-only.min.css");
+         this.addGeneratedCSSResource(context, "dist-butterfaces-only.min.css");
          this.addGeneratedJSResource(context, "butterfaces-jquery.min.js");
       } else {
-         this.addGeneratedCSSResource(context, "css/dist-butterfaces-only.min.css");
+         this.addGeneratedCSSResource(context, "dist-butterfaces-only.min.css");
          this.addGeneratedJSResource(context, "butterfaces-only.min.js");
       }
    }
@@ -145,7 +145,7 @@ public class HandleResourceListener implements SystemEventListener {
       final UIOutput resource = new UIOutput();
       resource.getAttributes().put("name", resourceName);
       resource.setRendererType("javax.faces.resource.Stylesheet");
-      resource.getAttributes().put("library", "butterfaces-dist");
+      resource.getAttributes().put("library", "butterfaces-dist-css");
       context.getViewRoot().addComponentResource(context, resource, HEAD);
    }
 
