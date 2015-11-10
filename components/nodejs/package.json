@@ -2,6 +2,7 @@
   "name": "ButterFaces",
   "version": "0.0.0",
   "description": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
+  "readme": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
   "main": "butterfaces.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +22,11 @@
       "name": "Lars Michaelis",
       "email": "mail@larmic.de",
       "url": "https://github.com/larmic"
+    },
+    {
+      "name": "Stephan Zerhusen",
+      "email": "stephan.zerhusen@gmail.com",
+      "url": "https://github.com/stzerhus"
     }
   ],
   "license": "MIT",

@@ -57,7 +57,10 @@ gulp.task('dist:_tslint', ['dist:_bower'], function () {
 });
 
 gulp.task('dist:_copyLibsToDist', ['dist:_bower'], function () {
-    return gulp.src(['./bower_components/jquery/dist/jquery.min.js'])
+    return gulp.src([
+            './bower_components/jquery/dist/jquery.js',
+            './bower_components/jquery/dist/jquery.min.js'
+        ])
         .pipe(gulp.dest(paths.destination.standard + '/js/lib'));
 });
 
