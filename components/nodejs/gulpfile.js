@@ -65,9 +65,7 @@ gulp.task('dist:_copyLibsToDist', ['dist:_bower'], function () {
         .pipe(gulp.dest(paths.destination.standard + '/js/lib'));
 });
 
-//gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist', 'dev:_tsd'], function () {
-//gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist', "dist:_copyFontsToDist"], function () {
-gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
+gulp.task('dist:_typescript_bundle', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(ts({
             noImplicitAny: true
@@ -75,6 +73,25 @@ gulp.task('dist:_typescript', ['dist:_tslint', 'dist:_copyLibsToDist'], function
 
     return tsResult.js
         .pipe(concat('butterfaces.js'))
+        .pipe(stripDebug())
+        .pipe(mirror(
+            pipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                uglify()
+            )
+        ))
+        .pipe(gulp.dest(paths.destination.standard + '-js'));
+});
+
+gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
+    var tsResult = gulp.src(paths.source.typescripts)
+        .pipe(ts({
+            noImplicitAny: true
+        }));
+
+    return tsResult.js
         .pipe(stripDebug())
         .pipe(mirror(
             pipe(
@@ -102,7 +119,7 @@ gulp.task('dist:_less', function () {
         .pipe(gulp.dest(paths.destination.standard + '-css'));
 });
 
-gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript']);
+gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript_bundle', 'dist:_typescript_single']);
 
 gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
     return gulp.src([paths.destination.standard + '-css/**/*', paths.destination.standard + '-js/**/*', "!dist/**/*.gz"], {base: '.'})
