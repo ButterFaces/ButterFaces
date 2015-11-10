@@ -123,14 +123,19 @@ gulp.task('dist:_less', function () {
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript_bundle', 'dist:_typescript_single']);
 
-gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
-    return gulp.src([paths.destination.css + '/**/*', paths.destination.js + '/**/*', "!dist/**/*.gz"], {base: '.'})
-            .pipe(gzip())
-            .pipe(gulp.dest('.'));
+gulp.task('zip-dist', ['dist:_compileRessources'], function () {
+    return gulp.src([
+            paths.destination.css + '/**/*',
+            paths.destination.js + '/**/*',
+            paths.destination.bower + '/**/*',
+            "!dist/**/*.gz"
+        ], {base: '.'})
+        .pipe(gzip())
+        .pipe(gulp.dest('.'));
 });
 
 // MAIN GOALS ===============================================================================
 
-gulp.task('dist:build', ['dist:_compileRessources']);
+gulp.task('dist:build', ['dist:_compileRessources', 'zip-dist']);
 
 gulp.task('default', ['dist:build']);
