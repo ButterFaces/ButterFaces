@@ -1,7 +1,7 @@
 {
   "name": "ButterFaces",
-  "version": "0.0.1",
-  "description": "TODO",
+  "version": "0.0.0",
+  "description": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
   "main": "butterfaces.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/ButterFaces/ButterFaces",
   "devDependencies": {
     "autoprefixer-core": "5.2.1",
-    "bower": "1.x",
+    "bower": "1.6.5",
     "gulp": "3.9.0",
     "gulp-bower": "0.0.10",
     "gulp-util": "3.0.7",
