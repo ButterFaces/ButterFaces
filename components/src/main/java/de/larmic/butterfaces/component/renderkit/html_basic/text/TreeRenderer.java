@@ -1,5 +1,20 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
@@ -12,16 +27,6 @@ import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
@@ -152,18 +157,22 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 // here is nothing to do
                 return;
             }
-        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent) && nodeExpansionListener != null) {
+        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
-                final Node node = cachedNodes.get(nodeNumber);
-                if (node.isCollapsed()) {
-                    node.setCollapsed(false);
-                    nodeExpansionListener.expandNode(node);
+                final Node cachedNode = cachedNodes.get(nodeNumber);
+                if (cachedNode.isCollapsed()) {
+                    cachedNode.setCollapsed(false);
+                    if (nodeExpansionListener != null) {
+                        nodeExpansionListener.expandNode(cachedNode);
+                    }
                 } else {
-                    node.setCollapsed(true);
-                    nodeExpansionListener.collapseNode(node);
+                    cachedNode.setCollapsed(true);
+                    if (nodeExpansionListener != null) {
+                        nodeExpansionListener.collapseNode(cachedNode);
+                    }
                 }
-                selectedNode = node;
+                selectedNode = cachedNode;
             } catch (NumberFormatException e) {
                 // here is nothing to do
                 return;
