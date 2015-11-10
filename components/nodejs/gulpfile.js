@@ -19,9 +19,11 @@ var livereload = require('gulp-livereload');
 var tslint = require('gulp-tslint');
 var inject = require('gulp-inject');
 var uglify = require('gulp-uglify');
+var UglifyJS = require('uglify-js');
 var minifyCSS = require('gulp-minify-css');
 var gzip = require('gulp-gzip');
 var stripDebug = require('gulp-strip-debug');
+var sizereport = require('gulp-sizereport');
 
 // CONSTANTS ===============================================================================
 
@@ -143,8 +145,31 @@ gulp.task('zip-dist', ['dist:_compileRessources'], function () {
         .pipe(gulp.dest('.'));
 });
 
+gulp.task('sizereport-css', function () {
+    return gulp.src(paths.destination.css + '/*.css')
+        .pipe(sizereport({gzip: true}));
+});
+
+gulp.task('sizereport-js', function () {
+    return gulp.src([
+            paths.destination.js + '/*.js',
+            "!*.min.js"
+        ])
+        .pipe(sizereport({
+            gzip: true,
+            minifier: function (contents, filepath) {
+                if (filepath.match(/\.min\./g)) {
+                    return contents
+                }
+                return UglifyJS.minify(contents, {fromString: true}).code;
+            }
+        }));
+});
+
 // MAIN GOALS ===============================================================================
 
 gulp.task('dist:build', ['dist:_compileRessources', 'zip-dist']);
 
-gulp.task('default', ['dist:build']);
+gulp.task('sizereports', ['sizereport-js', 'sizereport-css', 'dist:build']);
+
+gulp.task('default', ['dist:build', 'sizereports']);
