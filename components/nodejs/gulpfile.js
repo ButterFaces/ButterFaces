@@ -38,7 +38,7 @@ var paths = {
         root: '../src/main/resources/META-INF/resources//butterfaces-dist',
         css: '../src/main/resources/META-INF/resources//butterfaces-dist-css',
         js: '../src/main/resources/META-INF/resources//butterfaces-dist-js',
-        bower: '../src/main/resources/META-INF/resources//butterfaces-dist-lib'
+        bower: '../src/main/resources/META-INF/resources//butterfaces-dist-configurable'
     }
 };
 
@@ -108,6 +108,7 @@ gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], f
 
 gulp.task('dist:_less', function () {
     return gulp.src([paths.source.less])
+        .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(postcss([autoprefixer({browsers: ['> 2%']})]))
         .pipe(mirror(
@@ -116,6 +117,14 @@ gulp.task('dist:_less', function () {
                     path.basename += ".min";
                 }),
                 minifyCSS()
+            )
+        ))
+        .pipe(mirror(
+            pipe(
+                rename(function (path) {
+                    path.basename += ".sourcemaps";
+                }),
+                pipe(sourcemaps.write())
             )
         ))
         .pipe(gulp.dest(paths.destination.css));
