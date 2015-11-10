@@ -89,12 +89,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
-        if (tree.getNodeSelectionListener() != null) {
-            this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
-        }
-        if (tree.getNodeExpansionListener() != null) {
-            this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
-        }
+        this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
+        this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
 
         writer.writeText("});", null);
 
@@ -147,15 +143,16 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null && "click".equals(behaviorEvent) && nodeSelectionListener != null) {
+        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node node = cachedNodes.get(nodeNumber);
-                nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                if (nodeSelectionListener != null) {
+                   nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                }
                 selectedNode = node;
             } catch (NumberFormatException e) {
                 // here is nothing to do
-                return;
             }
         } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
             try {
@@ -175,7 +172,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 selectedNode = cachedNode;
             } catch (NumberFormatException e) {
                 // here is nothing to do
-                return;
             }
         }
     }
