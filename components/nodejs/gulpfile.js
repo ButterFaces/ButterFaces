@@ -111,6 +111,6 @@ gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
 
 // MAIN GOALS ===============================================================================
 
-gulp.task('dist:build', ['dist:_clean', 'dist:_compileRessources']);
+gulp.task('dist:build', ['dist:_compileRessources']);
 
 gulp.task('default', ['dist:build']);
