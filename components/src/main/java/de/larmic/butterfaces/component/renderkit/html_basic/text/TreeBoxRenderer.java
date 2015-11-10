@@ -76,13 +76,15 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        String selectedEntryId = null;
+        Integer selectedEntryId = null;
+        Node selectedNode = null;
 
         if (treeBox.getValue() != null) {
             for (Integer index : cachedNodes.keySet()) {
                 final Node node = cachedNodes.get(index);
                 if (treeBox.getValue().equals(node)) {
-                    selectedEntryId = String.valueOf(index);
+                    selectedEntryId = index;
+                    selectedNode = node;
                     break;
                 }
             }
@@ -100,8 +102,8 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
             jQueryPluginCall.append("\n    },");
         }
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
-        if (StringUtils.isNotEmpty(selectedEntryId)) {
-            jQueryPluginCall.append("\n    selectedEntryId: " + selectedEntryId + ",");
+        if (selectedEntryId != null && selectedNode != null) {
+            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(Collections.<String>emptyList(), cachedNodes, selectedEntryId, selectedNode) + ",");
         }
         jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_TEMPLATE + "'],");
         jQueryPluginCall.append("\n    entries: entries_" + treeBox.getClientId().replace(":", "_"));
