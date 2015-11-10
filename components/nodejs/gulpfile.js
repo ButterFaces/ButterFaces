@@ -27,6 +27,7 @@ var stripDebug = require('gulp-strip-debug');
 
 var paths = {
     bower: {
+        root: './bower_components/',
         jquery: './bower_components/jquery/dist/**/*.{js,map}'
     },
     source: {
@@ -47,11 +48,10 @@ gulp.task('dist:_clean', function (cb) {
     del([paths.destination.css, paths.destination.js, paths.destination.bower], {force: true}, cb);
 });
 
-
 gulp.task('dist:_bower', function () {
     // https://github.com/bower/bower/issues/1019#issuecomment-52700170
-    return bower({force: true})
-        .pipe(gulp.dest('bower_components/'));
+    return bower({force: false})
+        .pipe(gulp.dest(paths.bower.root));
 });
 
 gulp.task('dist:_tslint', ['dist:_bower'], function () {
@@ -84,7 +84,7 @@ gulp.task('dist:_typescript_bundle', ['dist:_tslint', 'dist:_copyLibsToDist'], f
                 uglify()
             )
         ))
-        .pipe(gulp.dest(paths.destination.root + '-js'));
+        .pipe(gulp.dest(paths.destination.js));
 });
 
 gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
@@ -103,7 +103,7 @@ gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], f
                 uglify()
             )
         ))
-        .pipe(gulp.dest(paths.destination.root + '-js'));
+        .pipe(gulp.dest(paths.destination.js));
 });
 
 gulp.task('dist:_less', function () {
@@ -118,15 +118,15 @@ gulp.task('dist:_less', function () {
                 minifyCSS()
             )
         ))
-        .pipe(gulp.dest(paths.destination.root + '-css'));
+        .pipe(gulp.dest(paths.destination.css));
 });
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript_bundle', 'dist:_typescript_single']);
 
 gulp.task('gz-css-dist', ['dist:_compileRessources'], function () {
-    return gulp.src([paths.destination.root + '-css/**/*', paths.destination.root + '-js/**/*', "!dist/**/*.gz"], {base: '.'})
-        .pipe(gzip())
-        .pipe(gulp.dest('.'));
+    return gulp.src([paths.destination.css + '/**/*', paths.destination.js + '/**/*', "!dist/**/*.gz"], {base: '.'})
+            .pipe(gzip())
+            .pipe(gulp.dest('.'));
 });
 
 // MAIN GOALS ===============================================================================
