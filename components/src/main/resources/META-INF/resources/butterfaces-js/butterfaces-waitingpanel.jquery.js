@@ -17,10 +17,10 @@
         function processOnEvent(data) {
             //console.log("processEvent: " + data.status);
             if (data.status == 'begin') {
-                console.log('show');
+                console.log('butter.waitingpanel - show');
                 overlay.show();
             } else if (data.status == 'success') {
-                console.log('hide');
+                console.log('butter.waitingpanel - hide');
                 overlay.hide();
             }
         }
