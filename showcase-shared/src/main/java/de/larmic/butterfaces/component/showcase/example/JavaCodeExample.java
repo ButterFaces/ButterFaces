@@ -1,9 +1,9 @@
 package de.larmic.butterfaces.component.showcase.example;
 
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
 /**
  * Created by larmic on 12.12.14.
@@ -90,7 +90,7 @@ public class JavaCodeExample extends AbstractCodeExample {
         stringBuilder.append("public class ");
         stringBuilder.append(className);
         if (!interfaces.isEmpty() || cdiBean) {
-            stringBuilder.append(" implements");
+            stringBuilder.append(" implements ");
         }
         if (cdiBean) {
             stringBuilder.append(" Serializable");

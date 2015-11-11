@@ -3,6 +3,7 @@ package de.larmic.butterfaces.component.showcase.tree;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.model.tree.Node;
 
@@ -33,6 +34,16 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
+        codeExamples.add(buildXhtmlCodeExample());
+
+        if (isValidation()) {
+            codeExamples.add(buildValidatorCodeExample());
+        }
+
+        generateDemoCSS(codeExamples);
+    }
+
+    private XhtmlCodeExample buildXhtmlCodeExample() {
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <b:treeBox id=\"input\"");
@@ -40,7 +51,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                   value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                   placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
+        xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "") + "\"");
         xhtmlCodeExample.appendInnerContent("                   readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                   disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                   required=\"" + this.isRequired() + "\"");
@@ -50,7 +61,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.addAjaxTag(xhtmlCodeExample, "change");
 
         if (this.isValidation()) {
-            xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
+            xhtmlCodeExample.appendInnerContent("            <f:validator validatorId=\"treeBoxValidator\" />");
         }
 
         if (StringUtils.isNotEmpty(getTooltip())) {
@@ -63,9 +74,36 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
         this.addOutputExample(xhtmlCodeExample);
 
-        codeExamples.add(xhtmlCodeExample);
+        return xhtmlCodeExample;
+    }
 
-        generateDemoCSS(codeExamples);
+    private AbstractCodeExample buildValidatorCodeExample() {
+        final JavaCodeExample codeExample = new JavaCodeExample("TreeBoxValidator.java", "validator", "treeBox", "TreeBoxValidator", false, "@FacesValidator");
+
+        codeExample.addInterfaces("Validator");
+
+        codeExample.addImport("de.larmic.butterfaces.model.tree.Node");
+
+        codeExample.addImport("javax.faces.application.FacesMessage");
+        codeExample.addImport("javax.faces.component.UIComponent");
+        codeExample.addImport("javax.faces.context.FacesContext");
+        codeExample.addImport("javax.faces.validator.FacesValidator");
+        codeExample.addImport("javax.faces.validator.Validator");
+        codeExample.addImport("javax.faces.validator.ValidatorException");
+
+        codeExample.appendInnerContent("   private static final String ERROR_MESSAGE = \"Selecting root node is not allowed\";\n");
+        codeExample.appendInnerContent("   @Override");
+        codeExample.appendInnerContent("   public void validate(FacesContext context,");
+        codeExample.appendInnerContent("                        UIComponent component,");
+        codeExample.appendInnerContent("                        Object value) throws ValidatorException {");
+        codeExample.appendInnerContent("      if (value instanceof Node");
+        codeExample.appendInnerContent("            && \"rootNode\".equals(((Node) value).getTitle())) {");
+        codeExample.appendInnerContent("         final FacesMessage message = new FacesMessage(ERROR_MESSAGE);");
+        codeExample.appendInnerContent("         throw new ValidatorException(message);");
+        codeExample.appendInnerContent("      }");
+        codeExample.appendInnerContent("   }");
+
+        return codeExample;
     }
 
     public String getPlaceholder() {
