@@ -10,34 +10,21 @@
     // extend jQuery --------------------------------------------------------------------
     var $waitingPanelDialog = null;
     var eventRegistered = false;
-    var waitingPanelOpeningDelay = null;
-    var blockpage = null;
+    var overlay = null;
 
     $.fn.waitingPanel = function (data) {
 
-        function processAjaxUpdate() {
-            var ajaxRequestsRunning = 0;
-            var overlay = new ButterFaces.Overlay();
-
-            function processEvent(data) {
-                //console.log("processEvent: " + data.status);
-                if (data.status == 'begin') {
-                    ajaxRequestsRunning++;
-                } else if (data.status == 'success') {
-                    ajaxRequestsRunning--;
-                }
-                if (ajaxRequestsRunning > 0) {
-                    //console.log(" -> " + ajaxRequestsRunning + " active ajax requests. Showing waitingPanel.");
-                    overlay.show(waitingPanelOpeningDelay, blockpage);
-                    //butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
-                } else {
-                    //console.log(" -> No more active requests. Hiding waitingPanel.");
-                    overlay.hide();
-                }
+        function processOnEvent(data) {
+            //console.log("processEvent: " + data.status);
+            if (data.status == 'begin') {
+                console.log('show');
+                overlay.show();
+            } else if (data.status == 'success') {
+                console.log('hide');
+                overlay.hide();
             }
-
-            return processEvent;
         }
+
 
         function processOnError(data) {
             if (data) {
@@ -52,8 +39,8 @@
             var _msg = document.getElementById(_elementId);
 
             $waitingPanelDialog = $(_msg);
-            waitingPanelOpeningDelay = data.waitingPanelDelay;
-            blockpage = data.blockpage;
+            overlay = new ButterFaces.Overlay(data.waitingPanelDelay, data.blockpage);
+
 
             // I found no way to remove event listener from jsf js.
             // I tried to register a callback once and change it on render waiting panel but after this
@@ -61,8 +48,7 @@
             // Actually on each rendering of this component a new callback is put on event listener collection.
             if (!eventRegistered) {
                 //console.log('waitingPanel - register: ' + _elementId);
-
-                jsf.ajax.addOnEvent(processAjaxUpdate());
+                jsf.ajax.addOnEvent(processOnEvent);
                 jsf.ajax.addOnError(processOnError);
                 eventRegistered = true;
             }
