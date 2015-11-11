@@ -50,7 +50,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>dist:_clean</arguments>
+                            <arguments>clean</arguments>
                         </configuration>
                     </execution>
                     <execution>

@@ -46,7 +46,7 @@ var paths = {
 
 // DIST GOALS ===============================================================================
 
-gulp.task('dist:_clean', function (cb) {
+gulp.task('clean', function (cb) {
     del([paths.destination.css, paths.destination.js, paths.destination.bower], {force: true}, cb);
 });
 
@@ -146,14 +146,17 @@ gulp.task('zip-dist', ['dist:_compileRessources'], function () {
 });
 
 gulp.task('sizereport-css', function () {
-    return gulp.src(paths.destination.css + '/*.css')
+    return gulp.src([
+            paths.destination.css + '/*.css',
+            '!'+paths.destination.css + '/*.sourcemaps.css'
+        ])
         .pipe(sizereport({gzip: true}));
 });
 
 gulp.task('sizereport-js', function () {
     return gulp.src([
             paths.destination.js + '/*.js',
-            "!*.min.js"
+            '!' + paths.destination.js + '/*.min.js',
         ])
         .pipe(sizereport({
             gzip: true,
