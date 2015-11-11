@@ -17,6 +17,7 @@
 
         function processAjaxUpdate() {
             var ajaxRequestsRunning = 0;
+            var overlay = new ButterFaces.Overlay();
 
             function processEvent(data) {
                 //console.log("processEvent: " + data.status);
@@ -27,10 +28,11 @@
                 }
                 if (ajaxRequestsRunning > 0) {
                     //console.log(" -> " + ajaxRequestsRunning + " active ajax requests. Showing waitingPanel.");
-                    butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
+                    overlay.show(waitingPanelOpeningDelay, blockpage);
+                    //butter.overlay.show({delay: waitingPanelOpeningDelay, blockpage: blockpage})
                 } else {
                     //console.log(" -> No more active requests. Hiding waitingPanel.");
-                    butter.overlay.hide();
+                    overlay.hide();
                 }
             }
 

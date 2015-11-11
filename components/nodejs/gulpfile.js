@@ -96,7 +96,6 @@ gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], f
         }));
 
     return tsResult.js
-        .pipe(stripDebug())
         .pipe(mirror(
             pipe(
                 rename(function (path) {
@@ -139,7 +138,9 @@ gulp.task('zip-dist', ['dist:_compileRessources'], function () {
             paths.destination.css + '/**/*',
             paths.destination.js + '/**/*',
             paths.destination.bower + '/**/*',
-            "!dist/**/*.gz"
+            '!' + paths.destination.css + '/**/*.gz',
+            '!' + paths.destination.js + '/**/*.gz',
+            '!' + paths.destination.bower + '/**/*.gz'
         ], {base: '.'})
         .pipe(gzip())
         .pipe(gulp.dest('.'));
@@ -148,7 +149,7 @@ gulp.task('zip-dist', ['dist:_compileRessources'], function () {
 gulp.task('sizereport-css', function () {
     return gulp.src([
             paths.destination.css + '/*.css',
-            '!'+paths.destination.css + '/*.sourcemaps.css'
+            '!' + paths.destination.css + '/*.sourcemaps.css'
         ])
         .pipe(sizereport({gzip: true}));
 });

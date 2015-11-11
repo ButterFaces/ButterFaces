@@ -10,9 +10,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by larmic on 11.09.14.
- */
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
