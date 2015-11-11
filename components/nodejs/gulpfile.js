@@ -175,4 +175,5 @@ gulp.task('dist:build', ['dist:_compileRessources', 'zip-dist']);
 
 gulp.task('sizereports', ['sizereport-js', 'sizereport-css', 'dist:build']);
 
-gulp.task('default', ['dist:build', 'sizereports']);
+// gulp.task('default', ['dist:build', 'sizereports']);
+gulp.task('default', ['dist:build']);
