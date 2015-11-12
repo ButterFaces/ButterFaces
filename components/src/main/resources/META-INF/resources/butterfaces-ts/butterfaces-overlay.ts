@@ -22,7 +22,7 @@ module ButterFaces {
                 this.isHiding = false;
 
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
-                var $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
+                let $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
                 $elementToDisable.append($overlay);
 
                 if (this.isTransparentBlockingOverlayActive) {
