@@ -39,7 +39,7 @@
         function processOnError(data) {
             if (data) {
                 console.error('An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
-                butter.overlay.hide();
+                overlay.hide();
             }
         }
 
