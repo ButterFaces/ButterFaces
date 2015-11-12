@@ -107,7 +107,7 @@ gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], f
                             uglify()
                     )
             ))
-            .pipe(pipe(sourcemaps.write()))
+            .pipe(sourcemaps.write())
             .pipe(gulp.dest(paths.destination.js));
 });
 
@@ -124,7 +124,7 @@ gulp.task('dist:_less', function () {
                             minifyCSS()
                     )
             ))
-            .pipe(pipe(sourcemaps.write()))
+            .pipe(sourcemaps.write())
             .pipe(gulp.dest(paths.destination.css));
 });
 
