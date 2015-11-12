@@ -31,7 +31,7 @@ module ButterFaces {
                 }
 
                 window.setTimeout(function () {
-                    if (!this.isTransparentBlockingOverlayActive) {
+                    if (!this.isHiding && !this.isTransparentBlockingOverlayActive) {
                         console.log("ButterFaces.Overlay.show - deferred: isTransparentBlockingOverlayActive is false, showing transparent overlay after delay");
                         $overlay.show();
                     }

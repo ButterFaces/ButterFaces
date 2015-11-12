@@ -39,7 +39,6 @@
             var _msg = document.getElementById(_elementId);
 
             $waitingPanelDialog = $(_msg);
-            overlay = new ButterFaces.Overlay(data.waitingPanelDelay, data.blockpage);
 
 
             // I found no way to remove event listener from jsf js.
@@ -48,10 +47,14 @@
             // Actually on each rendering of this component a new callback is put on event listener collection.
             if (!eventRegistered) {
                 //console.log('waitingPanel - register: ' + _elementId);
+                overlay = new ButterFaces.Overlay(data.waitingPanelDelay, data.blockpage);
                 jsf.ajax.addOnEvent(processOnEvent);
                 jsf.ajax.addOnError(processOnError);
                 eventRegistered = true;
             }
+
+            overlay.delay = data.waitingPanelDelay;
+            overlay.isTransparentBlockingOverlayActive = data.blockpage;
         });
 
     };
