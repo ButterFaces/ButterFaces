@@ -14,17 +14,27 @@
 
     $.fn.waitingPanel = function (data) {
 
-        function processOnEvent(data) {
-            //console.log("processEvent: " + data.status);
-            if (data.status == 'begin') {
-                console.log('butter.waitingpanel - show');
-                overlay.show();
-            } else if (data.status == 'success') {
-                console.log('butter.waitingpanel - hide');
-                overlay.hide();
-            }
-        }
+        function processAjaxUpdate() {
+            var ajaxRequestsRunning = 0;
 
+            function processEvent(data) {
+                //console.log("processEvent: " + data.status);
+                if (data.status == 'begin') {
+                    ajaxRequestsRunning++;
+                } else if (data.status == 'success') {
+                    ajaxRequestsRunning--;
+                }
+                if (ajaxRequestsRunning > 0) {
+                    console.log('butter.waitingpanel - show ' + ajaxRequestsRunning);
+                    overlay.show();
+                } else {
+                    console.log('butter.waitingpanel - hide ' + ajaxRequestsRunning);
+                    overlay.hide();
+                }
+            }
+
+            return processEvent;
+        }
 
         function processOnError(data) {
             if (data) {
@@ -48,7 +58,7 @@
             if (!eventRegistered) {
                 //console.log('waitingPanel - register: ' + _elementId);
                 overlay = new ButterFaces.Overlay(data.waitingPanelDelay, data.blockpage);
-                jsf.ajax.addOnEvent(processOnEvent);
+                jsf.ajax.addOnEvent(processAjaxUpdate());
                 jsf.ajax.addOnError(processOnError);
                 eventRegistered = true;
             }

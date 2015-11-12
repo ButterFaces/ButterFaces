@@ -15,7 +15,7 @@ module ButterFaces {
             console.log('ButterFaces.Overlay.constructor - creating overlay with delay is ' + this.delay + ' and isTransparentBlockingOverlayActive is ' + this.isTransparentBlockingOverlayActive);
         }
 
-        show() {
+        public show() {
             var $elementToDisable = $('body');
 
             if ($elementToDisable.find(".butter-component-overlay").length === 0) {
@@ -30,7 +30,7 @@ module ButterFaces {
                     $overlay.show();
                 }
 
-                window.setTimeout(function () {
+                window.setTimeout(() => {
                     if (!this.isHiding && !this.isTransparentBlockingOverlayActive) {
                         console.log("ButterFaces.Overlay.show - deferred: isTransparentBlockingOverlayActive is false, showing transparent overlay after delay");
                         $overlay.show();
@@ -42,7 +42,7 @@ module ButterFaces {
                             .stop(true)
                             .animate({
                                 opacity: 1
-                            }, 300, function () {
+                            }, 300, () => {
                                 console.log("ButterFaces.Overlay.show - deferred: animation ended to make overlay intransparent");
                             });
                     }
@@ -50,7 +50,7 @@ module ButterFaces {
             }
         }
 
-        hide() {
+        public hide() {
             console.log("ButterFaces.Overlay.hide - starting animation to make overlay transparent");
             var $overlay = $("body > .butter-component-overlay");
             this.isHiding = true;
@@ -58,8 +58,8 @@ module ButterFaces {
                 .stop(true)
                 .animate({
                     opacity: 0
-                }, 300, function () {
-                    $(this).remove();
+                }, 300, () => {
+                    $overlay.remove();
                     console.log("ButterFaces.Overlay.hide - animation ended to make overlay transparent, OVERLAY REMOVED");
                 });
         }
