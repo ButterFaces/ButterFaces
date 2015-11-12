@@ -53,121 +53,118 @@ gulp.task('clean', function (cb) {
 gulp.task('dist:_bower', function () {
     // https://github.com/bower/bower/issues/1019#issuecomment-52700170
     return bower({force: false})
-        .pipe(gulp.dest(paths.bower.root));
+            .pipe(gulp.dest(paths.bower.root));
 });
 
 gulp.task('dist:_tslint', ['dist:_bower'], function () {
     return gulp.src(paths.source.typescripts)
-        .pipe(tslint())
-        .pipe(tslint.report('verbose'));
+            .pipe(tslint())
+            .pipe(tslint.report('verbose'));
 });
 
 gulp.task('dist:_copyLibsToDist', ['dist:_bower'], function () {
     return gulp.src([
-            paths.bower.jquery
-        ])
-        .pipe(gulp.dest(paths.destination.bower));
+                paths.bower.jquery
+            ])
+            .pipe(gulp.dest(paths.destination.bower));
 });
 
 gulp.task('dist:_typescript_bundle', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
     var tsResult = gulp.src(paths.source.typescripts)
-        .pipe(ts({
-            noImplicitAny: true
-        }));
+            .pipe(ts({
+                noImplicitAny: true,
+                target: 'es5'
+            }));
 
     return tsResult.js
-        .pipe(concat('butterfaces.js'))
-        .pipe(stripDebug())
-        .pipe(mirror(
-            pipe(
-                rename(function (path) {
-                    path.basename += ".min";
-                }),
-                uglify()
-            )
-        ))
-        .pipe(gulp.dest(paths.destination.js));
+            .pipe(concat('butterfaces.js'))
+            .pipe(stripDebug())
+            .pipe(mirror(
+                    pipe(
+                            rename(function (path) {
+                                path.basename += ".min";
+                            }),
+                            uglify()
+                    )
+            ))
+            .pipe(gulp.dest(paths.destination.js));
 });
 
 gulp.task('dist:_typescript_single', ['dist:_tslint', 'dist:_copyLibsToDist'], function () {
     var tsResult = gulp.src(paths.source.typescripts)
-        .pipe(ts({
-            noImplicitAny: true
-        }));
+            .pipe(sourcemaps.init())
+            .pipe(ts({
+                noImplicitAny: true,
+                target: 'es5'
+            }));
 
     return tsResult.js
-        .pipe(mirror(
-            pipe(
-                rename(function (path) {
-                    path.basename += ".min";
-                }),
-                uglify()
-            )
-        ))
-        .pipe(gulp.dest(paths.destination.js));
+            .pipe(mirror(
+                    pipe(
+                            rename(function (path) {
+                                path.basename += ".min";
+                            }),
+                            uglify()
+                    )
+            ))
+            .pipe(pipe(sourcemaps.write()))
+            .pipe(gulp.dest(paths.destination.js));
 });
 
 gulp.task('dist:_less', function () {
     return gulp.src([paths.source.less])
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(postcss([autoprefixer({browsers: ['> 2%']})]))
-        .pipe(mirror(
-            pipe(
-                rename(function (path) {
-                    path.basename += ".min";
-                }),
-                minifyCSS()
-            )
-        ))
-        .pipe(mirror(
-            pipe(
-                rename(function (path) {
-                    path.basename += ".sourcemaps";
-                }),
-                pipe(sourcemaps.write())
-            )
-        ))
-        .pipe(gulp.dest(paths.destination.css));
+            .pipe(sourcemaps.init())
+            .pipe(less())
+            .pipe(postcss([autoprefixer({browsers: ['> 2%']})]))
+            .pipe(mirror(
+                    pipe(
+                            rename(function (path) {
+                                path.basename += ".min";
+                            }),
+                            minifyCSS()
+                    )
+            ))
+            .pipe(pipe(sourcemaps.write()))
+            .pipe(gulp.dest(paths.destination.css));
 });
 
 gulp.task('dist:_compileRessources', ['dist:_less', 'dist:_typescript_bundle', 'dist:_typescript_single']);
 
 gulp.task('zip-dist', ['dist:_compileRessources'], function () {
     return gulp.src([
-            paths.destination.css + '/**/*',
-            paths.destination.js + '/**/*',
-            paths.destination.bower + '/**/*',
-            '!' + paths.destination.css + '/**/*.gz',
-            '!' + paths.destination.js + '/**/*.gz',
-            '!' + paths.destination.bower + '/**/*.gz'
-        ], {base: '.'})
-        .pipe(gzip())
-        .pipe(gulp.dest('.'));
+                paths.destination.css + '/**/*',
+                paths.destination.js + '/**/*',
+                paths.destination.bower + '/**/*',
+                '!' + paths.destination.css + '/**/*.gz',
+                '!' + paths.destination.js + '/**/*.gz',
+                '!' + paths.destination.bower + '/**/*.gz'
+            ], {base: '.'})
+            .pipe(gzip())
+            .pipe(gulp.dest('.'));
 });
 
 gulp.task('sizereport-css', function () {
     return gulp.src([
-            paths.destination.css + '/*.css',
-            '!' + paths.destination.css + '/*.sourcemaps.css'
-        ])
-        .pipe(sizereport({gzip: true}));
+                paths.destination.css + '/*.css',
+                '!' + paths.destination.css + '/*.sourcemaps.css'
+            ])
+            .pipe(sizereport({gzip: true}));
 });
 
 gulp.task('sizereport-js', function () {
     return gulp.src([
-            paths.destination.js + '/*.js',
-            '!' + paths.destination.js + '/*.min.js',
-        ])
-        .pipe(sizereport({
-            gzip: true,
-            minifier: function (contents, filepath) {
-                if (filepath.match(/\.min\./g)) {
-                    return contents
+                paths.destination.js + '/*.js',
+                '!' + paths.destination.js + '/*.min.js',
+            ])
+            .pipe(sizereport({
+                gzip: true,
+                minifier: function (contents, filepath) {
+                    if (filepath.match(/\.min\./g)) {
+                        return contents
+                    }
+                    return UglifyJS.minify(contents, {fromString: true}).code;
                 }
-                return UglifyJS.minify(contents, {fromString: true}).code;
-            }
-        }));
+            }));
 });
 
 // MAIN GOALS ===============================================================================
