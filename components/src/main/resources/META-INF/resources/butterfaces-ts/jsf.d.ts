@@ -5,4 +5,9 @@ interface jsf {
     }
 }
 
+interface ajax {
+    status: string;
+    description: string;
+}
+
 declare var jsf:jsf;
