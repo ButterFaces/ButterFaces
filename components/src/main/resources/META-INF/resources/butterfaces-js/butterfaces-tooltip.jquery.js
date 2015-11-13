@@ -27,7 +27,7 @@
     $.fn.butterTooltip = function (/* object */ data) {
         return this.each(function () {
             var root = $(this);
-            var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : butter.tooltip.calculateTooltipPosition);
+            var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : new ButterFaces.Tooltip().calculateTooltipPosition);
             var trigger = data.trigger ? data.trigger : 'hover';
 
             //console.log(data);
