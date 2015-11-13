@@ -14,17 +14,17 @@ module ButterFaces {
             var ajaxRequestsRunning = 0;
 
             return ({status}) => {
-                //console.log("processEvent: " + data.status);
+                console.log("ButterFaces.WaitingPanel.onEvent - processEvent: " + status);
                 if (status == 'begin') {
                     ajaxRequestsRunning++;
                 } else if (status == 'success') {
                     ajaxRequestsRunning--;
                 }
                 if (ajaxRequestsRunning > 0) {
-                    console.log('butter.waitingpanel - show ' + ajaxRequestsRunning);
+                    console.log('ButterFaces.WaitingPanel.onEvent  - show ' + ajaxRequestsRunning);
                     this.overlay.show();
                 } else {
-                    console.log('butter.waitingpanel - hide ' + ajaxRequestsRunning);
+                    console.log('ButterFaces.WaitingPanel.onEvent  - hide ' + ajaxRequestsRunning);
                     this.overlay.hide();
                 }
             }
@@ -32,7 +32,7 @@ module ButterFaces {
 
         public processOnError(data: ajax) {
             if (data) {
-                console.error('An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
+                console.error('ButterFaces.WaitingPanel.onError  - An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
                 this.overlay.hide();
             }
         }
