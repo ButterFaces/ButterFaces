@@ -27,7 +27,7 @@
     $.fn.butterTooltip = function (/* object */ data) {
         return this.each(function () {
             var root = $(this);
-            var placement = data.placement ? data.placement : (data.placementFunction ? data.placementFunction : new ButterFaces.Tooltip().calculateTooltipPosition);
+            var tooltip = new ButterFaces.Tooltip();
             var trigger = data.trigger ? data.trigger : 'hover';
 
             //console.log(data);
@@ -48,7 +48,9 @@
 
             root.popover({
                 trigger: trigger,
-                placement: placement,
+                placement: function(popover, source) {
+                    return data.placement ? data.placement : (data.placementFunction ? data.placementFunction : new ButterFaces.Tooltip().calculateTooltipPosition(popover, source));
+                },
                 title: data.title,
                 html: 'true',
                 content: data.content,
