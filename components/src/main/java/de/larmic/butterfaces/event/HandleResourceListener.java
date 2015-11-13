@@ -79,7 +79,6 @@ public class HandleResourceListener implements SystemEventListener {
             }
         }
 
-        this.addGeneratedJSResource(context, "butterfaces.min.js", "butterfaces-dist-js");
 
         if (provideBootstrap && provideJQuery && providePrettyPrint) {
             this.addGeneratedCSSResource(context, "dist-butterfaces-all.min.css");
@@ -94,6 +93,8 @@ public class HandleResourceListener implements SystemEventListener {
             this.addGeneratedCSSResource(context, "dist-butterfaces-only.min.css");
             this.addGeneratedJSResource(context, "butterfaces-only.min.js", "butterfaces-generated");
         }
+
+        this.addGeneratedJSResource(context, "butterfaces.min.js", "butterfaces-dist-js");
     }
 
     private void handleSingleResources(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
