@@ -15,8 +15,8 @@ module ButterFaces {
 
         public calculateTooltipPosition(popover:any, source:any) {
 
-            var offsetBottom = $(window).height() - $(source).offset().top - $(source).outerHeight();
-            var offsetRight = $(window).width() - $(source).offset().left - $(source).outerWidth();
+            let offsetBottom = $(window).height() - $(source).offset().top - $(source).outerHeight();
+            let offsetRight = $(window).width() - $(source).offset().left - $(source).outerWidth();
 
             console.log('ButterFaces.Tooltip.calculateTooltipPosition - offsetBottom is ' + offsetBottom);
             console.log('ButterFaces.Tooltip.calculateTooltipPosition - offsetRight is ' + offsetRight);
@@ -31,9 +31,10 @@ module ButterFaces {
                     console.log('ButterFaces.Tooltip.calculateTooltipPosition - left offset is NOT smaller than popoverMaxWidthByBootstrap (' + this.popoverMaxWidthByBootstrap + ') -> position is left');
                     return 'left';
                 }
+                console.log('ButterFaces.Tooltip.calculateTooltipPosition - offsetRight (' + offsetRight + ') is greater than popoverMaxWidthByBootstrap (' + this.popoverMaxWidthByBootstrap + ') -> position is right');
                 return 'right';
             }
-
+            console.log('ButterFaces.Tooltip.calculateTooltipPosition - offsetBottom (' + offsetBottom + ') is greater than popoverMaxHeightByButterFaces (' + this.popoverMaxHeightByButterFaces + ') -> position is bottom');
             return 'bottom';
         };
     }

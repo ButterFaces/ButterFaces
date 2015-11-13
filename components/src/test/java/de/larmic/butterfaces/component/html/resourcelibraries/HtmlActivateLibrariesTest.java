@@ -19,7 +19,7 @@ public class HtmlActivateLibrariesTest {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         for (ResourceDependency resourceDependency : resourceDependencies) {
-            if ("butterfaces-dist".equals(resourceDependency.library())) {
+            if ("butterfaces-dist-js".equals(resourceDependency.library())) {
                 // will be checked in other test
                 continue;
             }
