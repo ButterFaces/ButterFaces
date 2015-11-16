@@ -5,24 +5,37 @@ module ButterFaces {
     export class Overlay {
         isHiding:boolean;
         delay:number;
+        selector:string;
         isTransparentBlockingOverlayActive:boolean;
 
-        constructor(delay = 500, isTransparentBlockingOverlayActive = true) {
+        constructor(delay = 500, isTransparentBlockingOverlayActive = true, selector = 'body') {
             this.isHiding = true;
             this.delay = delay;
             this.isTransparentBlockingOverlayActive = isTransparentBlockingOverlayActive;
+            this.selector = selector
 
-            console.log('ButterFaces.Overlay.constructor - creating overlay with delay is ' + this.delay + ' and isTransparentBlockingOverlayActive is ' + this.isTransparentBlockingOverlayActive);
+            console.log('ButterFaces.Overlay.constructor - creating overlay with delay is ' + this.delay + ', isTransparentBlockingOverlayActive is ' + this.isTransparentBlockingOverlayActive + ', selector is ' + this.selector);
         }
 
         public show() {
-            var $elementToDisable = $('body');
+            let $elementToDisable = $(this.selector);
 
             if ($elementToDisable.find(".butter-component-overlay").length === 0) {
                 this.isHiding = false;
 
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
+
                 let $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
+
+                if (this.selector === 'body') {
+                    $overlay.addClass('overlay-body');
+                } else {
+                    $overlay.offset($elementToDisable.offset());
+                    $overlay.width($elementToDisable.outerWidth());
+                    $overlay.height($elementToDisable.outerHeight());
+                    //$overlay.css({'position':'absolute'}); // IE overrides css position so set it here
+                }
+
                 $elementToDisable.append($overlay);
 
                 if (this.isTransparentBlockingOverlayActive) {
@@ -52,7 +65,7 @@ module ButterFaces {
 
         public hide() {
             console.log("ButterFaces.Overlay.hide - starting animation to make overlay transparent");
-            var $overlay = $("body > .butter-component-overlay");
+            var $overlay = $("body .butter-component-overlay");
             this.isHiding = true;
             $overlay
                 .stop(true)
