@@ -18,25 +18,32 @@ module ButterFaces {
         }
 
         public show() {
-            let $elementToDisable = $(this.selector);
+            let $elementsToDisable = $(this.selector);
 
-            if ($elementToDisable.find(".butter-component-overlay").length === 0) {
+            $elementsToDisable.each(function () {
+
+                let $elementToDisable = $(this);
+
+                //if ($elementToDisable.find(".butter-component-overlay").length === 0) {
                 this.isHiding = false;
 
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
 
                 let $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
 
+
                 if (this.selector === 'body') {
                     $overlay.addClass('overlay-body');
                 } else {
+                    // TODO if blockpage is true set it to max size
                     $overlay.offset($elementToDisable.offset());
                     $overlay.width($elementToDisable.outerWidth());
                     $overlay.height($elementToDisable.outerHeight());
-                    //$overlay.css({'position':'absolute'}); // IE overrides css position so set it here
+                    $overlay.addClass('overlay-body-child');
+                    $overlay.css({'position': 'absolute'}); // IE overrides css position so set it here
                 }
 
-                $elementToDisable.append($overlay);
+                $('body').append($overlay);
 
                 if (this.isTransparentBlockingOverlayActive) {
                     console.log("ButterFaces.Overlay.show - isTransparentBlockingOverlayActive is true, showing transparent overlay direcly");
@@ -60,7 +67,8 @@ module ButterFaces {
                             });
                     }
                 }, this.delay);
-            }
+                //}
+            });
         }
 
         public hide() {
