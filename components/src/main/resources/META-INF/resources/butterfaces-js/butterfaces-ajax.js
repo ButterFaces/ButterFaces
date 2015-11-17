@@ -18,7 +18,7 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of 
 
                 if ($elementToDisable.length !== 0) {
                     //console.log('disable ' + ids[i]);
-                    $(document.getElementById(ids[i])).butterDisableElements();
+                    new ButterFaces.Overlay(0, false, document.getElementById(ids[i])).show();
                     //console.log('disablee ' + ids[i]);
                 }
             }
@@ -37,7 +37,7 @@ butter.ajax.disableElementsOnRequest =  function(/* object */ data, /* array of 
 
                 if ($elementToEmable.length !== 0) {
                     //console.log('enable ' + ids[i]);
-                    $(document.getElementById(ids[i])).butterEnableElements();
+                    new ButterFaces.Overlay(0, false, document.getElementById(ids[i])).hide();
                     //console.log('enabled ' + ids[i]);
                 }
             }
