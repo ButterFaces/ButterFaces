@@ -31,7 +31,6 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tags.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head"),

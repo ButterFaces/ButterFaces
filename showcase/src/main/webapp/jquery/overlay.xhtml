@@ -3,12 +3,12 @@
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common">
 
     <ui:define name="header">
-        <strong>butterDisableElements</strong> is a jQuery plugin that disables or enabled element by putting an overlay on it.
+        <strong>ButterFaces.Overlay</strong> is a javascript plugin that disables or enabled element by putting an overlay on it.
     </ui:define>
 
     <ui:define name="example">
-        <span id="disableBtn" class="btn btn-default" onclick="jQuery('.disableElementsContainer').butterDisableElements();">Disable</span>
-        <span id="enableBtn" class="btn btn-default" onclick="jQuery('.disableElementsContainer').butterEnableElements()">Enable</span>
+        <span id="disableBtn" class="btn btn-default" onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').show();">Disable</span>
+        <span id="enableBtn" class="btn btn-default" onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').hide();">Enable</span>
 
         <div class="alert alert-info disableElementsContainer">
             <div>Some text...</div>

@@ -19,11 +19,11 @@ public class disableElementsShowcase extends AbstractCodeShowcase implements Ser
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
 
         xhtmlCodeExample.appendInnerContent("        <span class=\"btn btn-default\"");
-        xhtmlCodeExample.appendInnerContent("              onclick=\"jQuery('.disableElementsContainer').butterDisableElements();\">");
+        xhtmlCodeExample.appendInnerContent("              onclick=\"new ButterFaces.Overlay(0, false, '.disableElementsContainer').show();\">");
         xhtmlCodeExample.appendInnerContent("            Disable");
         xhtmlCodeExample.appendInnerContent("        </span>");
         xhtmlCodeExample.appendInnerContent("        <span class=\"btn btn-default\"");
-        xhtmlCodeExample.appendInnerContent("              onclick=\"jQuery('.disableElementsContainer').butterEnableElements();\">");
+        xhtmlCodeExample.appendInnerContent("              onclick=\"new ButterFaces.Overlay(0, false, '.disableElementsContainer').hide();\">");
         xhtmlCodeExample.appendInnerContent("            Enable");
         xhtmlCodeExample.appendInnerContent("        </span>");
 

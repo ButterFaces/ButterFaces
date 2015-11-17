@@ -101,7 +101,11 @@ public class HandleResourceListener implements SystemEventListener {
                                        boolean providePrettyPrint, List<UIComponent> resources) {
         // the ordering of the resources is not supported in JSF spec, so we have to do it manually
         removeAllResourcesFromViewRoot(context, resources);
-        Collections.sort(resources, new ResourceComparator());
+        try {
+            Collections.sort(resources, new ResourceComparator());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
         addResourcesToViewRoot(context, provideJQuery, provideBootstrap, providePrettyPrint, resources);
     }
 

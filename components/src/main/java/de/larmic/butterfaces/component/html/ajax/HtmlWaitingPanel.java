@@ -14,29 +14,28 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-waitingpanel.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head") })
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head")})
 @FacesComponent(HtmlWaitingPanel.COMPONENT_TYPE)
 public class HtmlWaitingPanel extends UIComponentBase {
 
-	public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.waitingPanel";
-	public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-	public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.WaitingPanelRenderer";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.waitingPanel";
+    public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.WaitingPanelRenderer";
 
     protected static final String PROPERTY_DELAY = "delay";
     protected static final String PROPERTY_BLOCKPAGE = "blockpage";
     protected static final String PROPERTY_STYLE_CLASS = "styleClass";
     protected static final String PROPERTY_STYLE = "style";
 
-	public HtmlWaitingPanel() {
-		super();
-		this.setRendererType(RENDERER_TYPE);
-	}
+    public HtmlWaitingPanel() {
+        super();
+        this.setRendererType(RENDERER_TYPE);
+    }
 
-	@Override
-	public String getFamily() {
-		return COMPONENT_FAMILY;
-	}
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
+    }
 
     public String getStyleClass() {
         return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
