@@ -20,9 +20,9 @@ module ButterFaces {
         public show() {
             let $elementsToDisable = $(this.selector);
 
-            $elementsToDisable.each(() => {
+            $elementsToDisable.each((index, elementToDisable) => {
 
-                let $elementToDisable = $(this);
+                let $elementToDisable = $(elementToDisable);
 
                 //if ($elementToDisable.find(".butter-component-overlay").length === 0) {
                 this.isHiding = false;
@@ -30,7 +30,6 @@ module ButterFaces {
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
 
                 let $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
-
 
                 if (this.selector === 'body') {
                     $overlay.addClass('overlay-body');

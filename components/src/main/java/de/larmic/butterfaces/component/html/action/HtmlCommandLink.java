@@ -10,9 +10,10 @@ import javax.faces.component.FacesComponent;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-link.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-disableElements.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head")})
