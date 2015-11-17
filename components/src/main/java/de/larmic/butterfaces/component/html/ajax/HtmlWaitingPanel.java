@@ -10,7 +10,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-waiting.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-waitingpanel.jquery.js", target = "head"),

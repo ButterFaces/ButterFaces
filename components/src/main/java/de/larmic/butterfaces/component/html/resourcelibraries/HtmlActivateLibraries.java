@@ -20,7 +20,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table-toolbar.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tags.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tree.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-waiting.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-combobox.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tooltip.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-autocomplete.css", target = "head"),

@@ -20,7 +20,7 @@ module ButterFaces {
         public show() {
             let $elementsToDisable = $(this.selector);
 
-            $elementsToDisable.each(function () {
+            $elementsToDisable.each(() => {
 
                 let $elementToDisable = $(this);
 
