@@ -4,7 +4,7 @@
 
     <groupId>de.larmic.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>1.9.7</version>
+    <version>1.9.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -43,7 +43,7 @@
         <connection>scm:git:git://github.com/ButterFaces/ButterFaces.git</connection>
         <url>https://github.com/ButterFaces/ButterFaces</url>
         <developerConnection>scm:git:git@github.com:ButterFaces/ButterFaces.git</developerConnection>
-        <tag>butterfaces-1.9.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
