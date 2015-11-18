@@ -58,6 +58,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-datetimepicker.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),

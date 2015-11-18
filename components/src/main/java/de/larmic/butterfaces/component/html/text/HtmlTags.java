@@ -1,25 +1,27 @@
 package de.larmic.butterfaces.component.html.text;
 
-import de.larmic.butterfaces.component.html.InputComponentFacet;
+import java.util.Collections;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import java.util.Collections;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 
 @ResourceDependencies({
 		@ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
 		@ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tags.css", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-util.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
+      @ResourceDependency(library = "butterfaces-configurable", name = "jquery.min.js", target = "head"),
+      @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head"),
+      @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.js", target = "head"),
+      @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
+      @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
+      @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
+      @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
 		@ResourceDependency(library = "butterfaces-js", name = "butterfaces-tags.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)

@@ -1,13 +1,14 @@
 package de.larmic.butterfaces.component.html.text;
 
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.model.tree.Node;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import java.util.Collections;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.model.tree.Node;
 
 @ResourceDependencies({
 		@ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
@@ -20,6 +21,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
+		@ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head")
 })
 @FacesComponent(HtmlTreeBox.COMPONENT_TYPE)
@@ -39,7 +41,7 @@ public class HtmlTreeBox extends HtmlText {
 
 	@Override
 	public List<InputComponentFacet> getSupportedFacets() {
-		return Collections.emptyList();
+		return Arrays.asList(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON, InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN);
 	}
 
 	@Override

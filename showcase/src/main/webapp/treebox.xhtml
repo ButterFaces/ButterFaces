@@ -37,6 +37,10 @@
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{treeBoxShowcase.tooltip}"/>
+            <common:tagEnumControl label="facets"
+                                   value="#{treeBoxShowcase.selectedFacetType}"
+                                   values="#{treeBoxShowcase.availableFacetTypes}"
+                                   renderChildrenPopover="false"/>
             <common:tagBooleanControl label="validate"
                                       value="#{treeBoxShowcase.validation}"/>
         </common:tagsContainer>
@@ -64,7 +68,7 @@
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"
                        disabled="#{treeBoxShowcase.disabled}"
-                       rendered="#{treeBoxShowcase.rendered}"
+                       rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'NONE'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        styleClass="#{treeBoxShowcase.styleClass}">
@@ -76,6 +80,60 @@
                     #{treeBoxShowcase.tooltip}
                 </b:tooltip>
                 <f:validator validatorId="treeBoxValidator" disabled="#{not treeBoxShowcase.validation}"/>
+            </b:treeBox>
+
+            <b:treeBox id="treeBoxWithGroupAddon"
+                       label="#{treeBoxShowcase.label}"
+                       hideLabel="#{treeBoxShowcase.hideLabel}"
+                       value="#{treeBoxShowcase.value}"
+                       values="#{treeBoxShowcase.showcaseTreeNode.tree}"
+                       hideRootNode="#{treeBoxShowcase.hideRootNode}"
+                       tooltip="#{treeBoxShowcase.tooltip}"
+                       readonly="#{treeBoxShowcase.readonly}"
+                       required="#{treeBoxShowcase.required}"
+                       disabled="#{treeBoxShowcase.disabled}"
+                       rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'INPUT_GROUP_ADDON'}"
+                       placeholder="#{treeBoxShowcase.placeholder}"
+                       autoFocus="#{treeBoxShowcase.autoFocus}"
+                       styleClass="#{treeBoxShowcase.styleClass}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not treeBoxShowcase.ajax}"/>
+                <b:tooltip>
+                    #{treeBoxShowcase.tooltip}
+                </b:tooltip>
+                <f:validator validatorId="treeBoxValidator" disabled="#{not treeBoxShowcase.validation}"/>
+                <f:facet name="input-group-addon-left">
+                    Left input-group-addon
+                </f:facet>
+            </b:treeBox>
+
+            <b:treeBox id="treeBoxWithGroupBtn"
+                       label="#{treeBoxShowcase.label}"
+                       hideLabel="#{treeBoxShowcase.hideLabel}"
+                       value="#{treeBoxShowcase.value}"
+                       values="#{treeBoxShowcase.showcaseTreeNode.tree}"
+                       hideRootNode="#{treeBoxShowcase.hideRootNode}"
+                       tooltip="#{treeBoxShowcase.tooltip}"
+                       readonly="#{treeBoxShowcase.readonly}"
+                       required="#{treeBoxShowcase.required}"
+                       disabled="#{treeBoxShowcase.disabled}"
+                       rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'INPUT_GROUP_BTN'}"
+                       placeholder="#{treeBoxShowcase.placeholder}"
+                       autoFocus="#{treeBoxShowcase.autoFocus}"
+                       styleClass="#{treeBoxShowcase.styleClass}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not treeBoxShowcase.ajax}"/>
+                <b:tooltip>
+                    #{treeBoxShowcase.tooltip}
+                </b:tooltip>
+                <f:validator validatorId="treeBoxValidator" disabled="#{not treeBoxShowcase.validation}"/>
+                <f:facet name="input-group-btn-left">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </f:facet>
             </b:treeBox>
 
         </common:showcaseOuputComponent>

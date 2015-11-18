@@ -1,0 +1,2 @@
+/*! Trivial Components | (c) 2015 Yann Massard and others | Apache License, Version 2.0 (https://raw.githubusercontent.com/trivial-components/trivial-components/master/LICENSE) */
+.input-group .tr-input-wrapper:not(:first-child){border-top-left-radius:0;border-bottom-left-radius:0}.input-group .tr-input-wrapper:not(:last-child){border-top-right-radius:0;border-bottom-right-radius:0}

@@ -1,16 +1,20 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.model.tree.Node;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -18,6 +22,7 @@ import java.util.List;
 public class TreeBoxShowcase extends AbstractInputShowcase implements Serializable {
 
     private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
+    private FacetType selectedFacetType = FacetType.NONE;
     private String placeholder = "Enter text...";
     private boolean autoFocus;
     private boolean hideRootNode;
@@ -106,6 +111,15 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         return codeExample;
     }
 
+    public List<SelectItem> getAvailableFacetTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final FacetType type : FacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
     public String getPlaceholder() {
         return this.placeholder;
     }
@@ -132,5 +146,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public boolean isHideRootNode() {
         return hideRootNode;
+    }
+
+    public FacetType getSelectedFacetType() {
+        return selectedFacetType;
+    }
+
+    public void setSelectedFacetType(FacetType selectedFacetType) {
+        this.selectedFacetType = selectedFacetType;
     }
 }

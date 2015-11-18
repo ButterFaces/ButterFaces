@@ -1,8 +1,7 @@
 package de.larmic.butterfaces.component.html.tree;
 
-import de.larmic.butterfaces.event.TreeNodeExpansionListener;
-import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.Node;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -10,8 +9,10 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
+
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.Node;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
@@ -19,6 +20,7 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tree.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
+      @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head")
 })
 @FacesComponent(HtmlTree.COMPONENT_TYPE)
