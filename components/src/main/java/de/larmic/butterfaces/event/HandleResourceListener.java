@@ -101,12 +101,43 @@ public class HandleResourceListener implements SystemEventListener {
                                        boolean providePrettyPrint, List<UIComponent> resources) {
         // the ordering of the resources is not supported in JSF spec, so we have to do it manually
         removeAllResourcesFromViewRoot(context, resources);
+
+
+        final List<UIComponent> cleanedResources = removeDuplicates(resources);
+
         try {
-            Collections.sort(resources, new ResourceComparator());
+            Collections.sort(cleanedResources, new ResourceComparator());
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
-        addResourcesToViewRoot(context, provideJQuery, provideBootstrap, providePrettyPrint, resources);
+
+        addResourcesToViewRoot(context, provideJQuery, provideBootstrap, providePrettyPrint, cleanedResources);
+    }
+
+    /**
+     * In case of localhost resource dependencies will be duplicated. Up to now I don't know the reason but post processing
+     * does the job. Maybe mark processed resource dependency...
+     */
+    private List<UIComponent> removeDuplicates(List<UIComponent> resources) {
+        final List<UIComponent> distinctResources = new ArrayList<>();
+
+        for (UIComponent resource : resources) {
+            boolean foundResource = false;
+
+            for (UIComponent distinctResource : distinctResources) {
+                if (resource.getAttributes().get("name").equals(distinctResource.getAttributes().get("name"))
+                        && resource.getAttributes().get("library").equals(distinctResource.getAttributes().get("library"))) {
+                    foundResource = true;
+                    break;
+                }
+            }
+
+            if (!foundResource) {
+                distinctResources.add(resource);
+            }
+        }
+
+        return distinctResources;
     }
 
     private void removeAllResourcesFromViewRoot(FacesContext context, List<UIComponent> resources) {
