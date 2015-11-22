@@ -1,4 +1,5 @@
 ///<reference path="jquery.d.ts"/>
+///<reference path="butterfaces-guid.ts"/>
 
 module ButterFaces {
 
@@ -12,7 +13,7 @@ module ButterFaces {
             this.isHiding = true;
             this.delay = delay;
             this.isTransparentBlockingOverlayActive = isTransparentBlockingOverlayActive;
-            this.selector = selector
+            this.selector = selector;
 
             console.log('ButterFaces.Overlay.constructor - creating overlay with delay is ' + this.delay + ', isTransparentBlockingOverlayActive is ' + this.isTransparentBlockingOverlayActive + ', selector is ' + this.selector);
         }
@@ -24,12 +25,23 @@ module ButterFaces {
 
                 let $elementToDisable = $(elementToDisable);
 
-                //if ($elementToDisable.find(".butter-component-overlay").length === 0) {
                 this.isHiding = false;
 
-                console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
+                if ($elementToDisable.attr('data-overlay-uuid') !== undefined) {
+                    if (ButterFaces.Overlay.findOverlay($elementToDisable.attr('data-overlay-uuid')).length > 0) {
+                        console.log("ButterFaces.Overlay.show - overlay already existing. Skip showing overlay");
+                        return;
+                    } else {
+                        $elementToDisable.removeAttr('data-overlay-uuid');
+                    }
+                }
 
-                let $overlay = $('<div class="butter-component-overlay"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
+                console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
+                var uuid = ButterFaces.Guid.newGuid();
+
+                let $overlay = $('<div class="butter-component-overlay" data-overlay-uuid="' + uuid + '"><div class="butter-component-spinner"><div></div><div></div><div></div><div></div></div></div>');
+
+                $elementToDisable.attr('data-overlay-uuid', uuid);
 
                 if (this.selector === 'body') {
                     $overlay.addClass('overlay-body');
@@ -72,8 +84,33 @@ module ButterFaces {
 
         public hide() {
             console.log("ButterFaces.Overlay.hide - starting animation to make overlay transparent");
-            var $overlay = $("body .butter-component-overlay");
+
+            let $elementsToDisable = $(this.selector);
             this.isHiding = true;
+
+            $elementsToDisable.each((index, elementToDisable) => {
+                let $elementToDisable = $(elementToDisable);
+                let overlayUuid = $elementToDisable.attr('data-overlay-uuid');
+
+                if (overlayUuid !== undefined && ButterFaces.Overlay.findOverlay(overlayUuid).length > 0) {
+                    let $overlay = ButterFaces.Overlay.findOverlay($elementToDisable.attr('data-overlay-uuid'));
+
+                    this.removeOverlay($overlay);
+                }
+
+                // remove unbinded elements
+                $('.butter-component-overlay').each((index, elementToCheck) => {
+                    let $overlay = $(elementToCheck);
+                    let uuidToCheck = $(elementToCheck).attr('data-overlay-uuid');
+                    if ($('[data-overlay-uuid='+uuidToCheck+']').length == 1) {
+                        this.removeOverlay($overlay);
+                    }
+                });
+
+            });
+        }
+
+        private removeOverlay($overlay: any) {
             $overlay
                 .stop(true)
                 .animate({
@@ -82,6 +119,10 @@ module ButterFaces {
                     $overlay.remove();
                     console.log("ButterFaces.Overlay.hide - animation ended to make overlay transparent, OVERLAY REMOVED");
                 });
+        };
+
+        private static findOverlay(uuid:String) {
+            return $("body .butter-component-overlay[data-overlay-uuid='" + uuid + "']");
         }
     }
 }
