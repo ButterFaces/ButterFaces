@@ -21,11 +21,14 @@ module ButterFaces {
         public show() {
             let $elementsToDisable = $(this.selector);
 
+            this.fadeOutDetachtedOverlays();
+
             $elementsToDisable.each((index, elementToDisable) => {
 
                 let $elementToDisable = $(elementToDisable);
 
                 this.isHiding = false;
+
 
                 if ($elementToDisable.attr('data-overlay-uuid') !== undefined) {
                     if (ButterFaces.Overlay.findOverlay($elementToDisable.attr('data-overlay-uuid')).length > 0) {
@@ -88,6 +91,8 @@ module ButterFaces {
             let $elementsToDisable = $(this.selector);
             this.isHiding = true;
 
+            this.fadeOutDetachtedOverlays();
+
             $elementsToDisable.each((index, elementToDisable) => {
                 let $elementToDisable = $(elementToDisable);
                 let overlayUuid = $elementToDisable.attr('data-overlay-uuid');
@@ -95,22 +100,24 @@ module ButterFaces {
                 if (overlayUuid !== undefined && ButterFaces.Overlay.findOverlay(overlayUuid).length > 0) {
                     let $overlay = ButterFaces.Overlay.findOverlay($elementToDisable.attr('data-overlay-uuid'));
 
-                    this.removeOverlay($overlay);
+                    this.fadeOutOverlay($overlay);
                 }
-
-                // remove unbinded elements
-                $('.butter-component-overlay').each((index, elementToCheck) => {
-                    let $overlay = $(elementToCheck);
-                    let uuidToCheck = $(elementToCheck).attr('data-overlay-uuid');
-                    if ($('[data-overlay-uuid='+uuidToCheck+']').length == 1) {
-                        this.removeOverlay($overlay);
-                    }
-                });
 
             });
         }
 
-        private removeOverlay($overlay: any) {
+        private fadeOutDetachtedOverlays() {
+            // remove unbinded elements
+            $('.butter-component-overlay').each((index, elementToCheck) => {
+                let $overlay = $(elementToCheck);
+                let uuidToCheck = $(elementToCheck).attr('data-overlay-uuid');
+                if ($('[data-overlay-uuid=' + uuidToCheck + ']').length == 1) {
+                    this.fadeOutOverlay($overlay);
+                }
+            });
+        };
+
+        private fadeOutOverlay($overlay:any) {
             $overlay
                 .stop(true)
                 .animate({
