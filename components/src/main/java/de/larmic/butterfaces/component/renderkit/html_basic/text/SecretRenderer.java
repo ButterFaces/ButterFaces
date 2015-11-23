@@ -5,6 +5,6 @@ import de.larmic.butterfaces.component.html.text.HtmlSecret;
 import javax.faces.render.FacesRenderer;
 
 @FacesRenderer(componentFamily = HtmlSecret.COMPONENT_FAMILY, rendererType = HtmlSecret.RENDERER_TYPE)
-public class SecretRenderer extends AbstractTextRenderer<HtmlSecret> {
+public class SecretRenderer extends AbstractHtmlTagRenderer<HtmlSecret> {
 
 }

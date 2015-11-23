@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlNumber;
-import de.larmic.butterfaces.component.html.text.HtmlMaskedText;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlNumber.COMPONENT_FAMILY, rendererType = HtmlNumber.RENDERER_TYPE)
-public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
+public class NumberRenderer extends AbstractHtmlTagRenderer<HtmlNumber> {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -22,9 +21,7 @@ public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
     }
 
     @Override
-    protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
-        final HtmlNumber numberComponent = (HtmlNumber) component;
-
+    protected void encodeEnd(HtmlNumber numberComponent, ResponseWriter writer) throws IOException {
         if (!numberComponent.isReadonly()) {
             Map<String, String> options = new HashMap<>();
             if (StringUtils.isNotEmpty(numberComponent.getMin())) {
@@ -41,7 +38,7 @@ public class NumberRenderer extends AbstractTextRenderer<HtmlMaskedText> {
             }
 
             RenderUtils.renderJQueryPluginCall(
-                    component.getClientId(),
+                    numberComponent.getClientId(),
                     "butterNumberSpinner(" + RenderUtils.createOptionsStringForJQueryPluginCall(options) + ")",
                     writer,
                     numberComponent

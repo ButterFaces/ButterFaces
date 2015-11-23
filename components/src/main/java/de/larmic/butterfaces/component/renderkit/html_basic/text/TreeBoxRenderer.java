@@ -1,26 +1,21 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.model.tree.Node;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.*;
+
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
-public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
+public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
 
@@ -35,18 +30,16 @@ public class TreeBoxRenderer extends AbstractTextRenderer<HtmlTreeBox> {
     }
 
     @Override
-    protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
-        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
-
+    protected void encodeEnd(HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
         final Node rootNode = treeBox.getValues();
         final List<Node> nodes = treeBox.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
 
         this.initCachedNodes(nodes, 0);
 
-        writer.startElement("script", component);
+        writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
         writer.writeText("var entries_" + treeBox.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, Collections.<String>emptyList(), cachedNodes)+";\n", null);
-        final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
+        final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
         final String pluginCall = createJQueryPluginCallTrivial(treeBox);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
         writer.writeText("});", null);

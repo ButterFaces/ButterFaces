@@ -5,7 +5,6 @@ import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRen
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractTextRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -14,7 +13,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
-public class CalendarRenderer extends AbstractTextRenderer<HtmlCalendar> {
+public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {

@@ -1,23 +1,22 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import de.larmic.butterfaces.component.html.text.HtmlTags;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.text.HtmlTags;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
-
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
-public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
+public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
 
     @Override
     protected boolean encodeReadonly() {
@@ -42,12 +41,10 @@ public class TagsRenderer extends AbstractTextRenderer<HtmlTags> {
     }
 
     @Override
-    protected void encodeEnd(UIComponent component, ResponseWriter writer) throws IOException {
-        final HtmlTags htmlTags = (HtmlTags) component;
-
-        writer.startElement("script", component);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
-        writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, "_butterTagsInit();"), null);
+    protected void encodeEnd(HtmlTags htmlTags, ResponseWriter writer) throws IOException {
+        writer.startElement("script", htmlTags);
+        writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
+        writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
     }
 

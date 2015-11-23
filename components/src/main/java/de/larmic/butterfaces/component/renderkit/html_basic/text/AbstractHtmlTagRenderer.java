@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
+public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
 
     @Override
     public void encodeBegin(final FacesContext context, final UIComponent component) throws IOException {
@@ -60,7 +60,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
         renderTooltipIfNecessary(context, component);
 
-        this.encodeEnd(component, writer);
+        this.encodeEnd(htmlComponent, writer);
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
@@ -69,6 +69,10 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
     @Override
     public boolean getRendersChildren() {
         return true;
+    }
+
+    protected String getHtmlTagName() {
+        return "input";
     }
 
     protected void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
@@ -149,7 +153,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         // override me
     }
 
-    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
+    protected void encodeEnd(final T component, final ResponseWriter writer) throws IOException {
         // override me
     }
 
@@ -175,7 +179,7 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
         final ResponseWriter writer = context.getResponseWriter();
 
         if (component instanceof UIInput) {
-            writer.startElement("input", component);
+            writer.startElement(getHtmlTagName(), component);
 
             writer.writeAttribute("name", component.getClientId(context), "clientId");
 
@@ -229,12 +233,12 @@ public abstract class AbstractTextRenderer<T extends HtmlInputComponent> extends
 
             this.renderAdditionalInputAttributes(context, component, writer);
 
-            writer.endElement("input");
+            writer.endElement(getHtmlTagName());
         }
     }
 
     /**
-     * When using {@link AbstractTextRenderer} input component will be wrapped. Component style class will be set to
+     * When using {@link AbstractHtmlTagRenderer} input component will be wrapped. Component style class will be set to
      * component wrapper. This method renders inner input component bootstrap classes and validation markers.
      *
      * @param component the component

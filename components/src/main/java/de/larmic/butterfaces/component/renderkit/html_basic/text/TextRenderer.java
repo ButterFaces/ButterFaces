@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlText.COMPONENT_FAMILY, rendererType = HtmlText.RENDERER_TYPE)
-public class TextRenderer extends AbstractTextRenderer<HtmlText> {
+public class TextRenderer extends AbstractHtmlTagRenderer<HtmlText> {
 
     @Override
-    protected void encodeEnd(final UIComponent component, final ResponseWriter writer) throws IOException {
+    protected void encodeEnd(final HtmlText component, final ResponseWriter writer) throws IOException {
         final HtmlAutoComplete autoCompleteChild = findAutoCompleteChild(component);
         if (autoCompleteChild != null) {
             RenderUtils.renderJQueryPluginCall(autoCompleteChild.getClientId(), "_butterAutoCompleteInit()", writer, component);

@@ -1,8 +1,9 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlMarkdown;
+import de.larmic.butterfaces.component.partrenderer.MaxLengthPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,30 +12,29 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlMarkdown.COMPONENT_FAMILY, rendererType = HtmlMarkdown.RENDERER_TYPE)
-public class MarkdownRenderer extends TextAreaRenderer {
+public class MarkdownRenderer extends AbstractHtmlTagRenderer<HtmlMarkdown> {
 
     @Override
-    protected void renderAdditionalScript(final FacesContext context, final UIComponent component) throws IOException {
-        final ResponseWriter writer = context.getResponseWriter();
-        final HtmlMarkdown markdown = (HtmlMarkdown) component;
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.encodeBegin(context, component, "butter-component-markdown");
+    }
+
+    protected String getHtmlTagName() {
+        return "textarea";
+    }
+
+    @Override
+    protected void encodeEnd(final HtmlMarkdown markdown, final ResponseWriter writer) throws IOException {
+        // Render textarea counter
+        new MaxLengthPartRenderer().renderMaxLength(markdown, writer);
 
         writer.startElement("script", markdown);
         if (!markdown.isReadonly()) {
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), "textarea", createJQueryMarkdownPluginCall(markdown)), null);
+            writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), "textarea", createJQueryMarkdownPluginCall(markdown)), null);
         } else {
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryMarkdownToHtmlPluginCall()), null);
+            writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), null, createJQueryMarkdownToHtmlPluginCall()), null);
         }
         writer.endElement("script");
-    }
-
-    @Override
-    protected void renderExpandable(final HtmlInputComponent htmlComponent, final ResponseWriter writer) throws IOException {
-        // do nothing. no expandable support!
-    }
-
-    @Override
-    protected String getComponentNameStyleClass() {
-        return "butter-component-markdown";
     }
 
     private String createJQueryMarkdownPluginCall(HtmlMarkdown markdown) {
