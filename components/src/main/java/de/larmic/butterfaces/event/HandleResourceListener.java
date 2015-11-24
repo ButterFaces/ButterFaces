@@ -10,7 +10,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +19,8 @@ import java.util.List;
 public class HandleResourceListener implements SystemEventListener {
 
     private static final String HEAD = "head";
-    private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-configurable";
+    private static final String TARGET = "target";
+    private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-dist-bower";
     public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
     public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
 
@@ -45,7 +45,7 @@ public class HandleResourceListener implements SystemEventListener {
         if (useCompressedResources && !localhost) {
             handleCompressedResources(context, provideJQuery, provideBootstrap, resources);
         } else {
-            handleSingleResources(context, provideJQuery, provideBootstrap, resources);
+            handleConfigurableResources(context, provideJQuery, provideBootstrap, resources);
         }
     }
 
@@ -54,7 +54,6 @@ public class HandleResourceListener implements SystemEventListener {
                                            boolean provideBootstrap,
                                            List<UIComponent> resources) {
         removeAllResourcesFromViewRoot(context, resources);
-
 
         if (provideBootstrap && provideJQuery) {
             this.addGeneratedCSSResource(context, "dist-butterfaces-bootstrap.min.css");
@@ -71,51 +70,6 @@ public class HandleResourceListener implements SystemEventListener {
         }
     }
 
-    private void handleSingleResources(FacesContext context,
-                                       boolean provideJQuery,
-                                       boolean provideBootstrap,
-                                       List<UIComponent> resources) {
-        // the ordering of the resources is not supported in JSF spec, so we have to do it manually
-        removeAllResourcesFromViewRoot(context, resources);
-
-
-        final List<UIComponent> cleanedResources = removeDuplicates(resources);
-
-        try {
-            Collections.sort(cleanedResources, new ResourceComparator());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
-
-        addResourcesToViewRoot(context, provideJQuery, provideBootstrap, resources);
-    }
-
-    /**
-     * In case of localhost resource dependencies will be duplicated. Up to now I don't know the reason but post processing
-     * does the job. Maybe mark processed resource dependency...
-     */
-    private List<UIComponent> removeDuplicates(List<UIComponent> resources) {
-        final List<UIComponent> distinctResources = new ArrayList<>();
-
-        for (UIComponent resource : resources) {
-            boolean foundResource = false;
-
-            for (UIComponent distinctResource : distinctResources) {
-                if (resource.getAttributes().get("name").equals(distinctResource.getAttributes().get("name"))
-                        && resource.getAttributes().get("library").equals(distinctResource.getAttributes().get("library"))) {
-                    foundResource = true;
-                    break;
-                }
-            }
-
-            if (!foundResource) {
-                distinctResources.add(resource);
-            }
-        }
-
-        return distinctResources;
-    }
-
     private void removeAllResourcesFromViewRoot(FacesContext context, List<UIComponent> resources) {
         for (UIComponent resource : resources) {
             final String resourceLibrary = (String) resource.getAttributes().get("library");
@@ -126,12 +80,10 @@ public class HandleResourceListener implements SystemEventListener {
         }
     }
 
-    private void addResourcesToViewRoot(FacesContext context,
-                                        boolean provideJQuery,
-                                        boolean provideBootstrap,
-                                        List<UIComponent> resources) {
-        // if no compression is used each component will provide its own css and js resources
-        // so remove configurable resources if not provide by application
+    private void handleConfigurableResources(FacesContext context,
+                                             boolean provideJQuery,
+                                             boolean provideBootstrap,
+                                             List<UIComponent> resources) {
         for (UIComponent resource : resources) {
             final String resourceLibrary = (String) resource.getAttributes().get("library");
             final String resourceName = (String) resource.getAttributes().get("name");
@@ -145,31 +97,31 @@ public class HandleResourceListener implements SystemEventListener {
                 }
             }
 
-            if (isResourceAccepted) {
-                context.getViewRoot().addComponentResource(context, resource, HEAD);
+            if (!isResourceAccepted) {
+                context.getViewRoot().removeComponentResource(context, resource, HEAD);
+                context.getViewRoot().removeComponentResource(context, resource, TARGET);
             }
         }
     }
 
-    private void addGeneratedJSResource(final FacesContext context,
-                                        final String resourceName,
-                                        final String library) {
-        final UIOutput resource = new UIOutput();
-        resource.getAttributes().put("name", resourceName);
-        resource.setRendererType("javax.faces.resource.Script");
-        resource.getAttributes().put("library", library);
-        context.getViewRoot().addComponentResource(context, resource, HEAD);
+    private void addGeneratedJSResource(final FacesContext context, final String resourceName, final String library) {
+        addGeneratedResource(context, resourceName, "javax.faces.resource.Script", library);
     }
 
     private void addGeneratedCSSResource(final FacesContext context, final String resourceName) {
+        addGeneratedResource(context, resourceName, "javax.faces.resource.Stylesheet", "butterfaces-dist-css");
+    }
+
+    private void addGeneratedResource(FacesContext context, String resourceName, String rendererType, String value) {
         final UIOutput resource = new UIOutput();
         resource.getAttributes().put("name", resourceName);
-        resource.setRendererType("javax.faces.resource.Stylesheet");
-        resource.getAttributes().put("library", "butterfaces-dist-css");
+        resource.setRendererType(rendererType);
+        resource.getAttributes().put("library", value);
         context.getViewRoot().addComponentResource(context, resource, HEAD);
     }
 
     private void removeHeadResource(FacesContext context, UIComponent resource) {
         context.getViewRoot().removeComponentResource(context, resource, HEAD);
+        context.getViewRoot().removeComponentResource(context, resource, TARGET);
     }
 }
