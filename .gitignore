@@ -6,6 +6,7 @@ bin/
 gen/
 components/src/main/resources/META-INF/resources/butterfaces-dist-*
 components/src/main/resources/META-INF/resources/butterfaces-ts/*.js*
+components/src/main/resources/META-INF/resources/fonts/*
 components/nodejs/bower_components
 components/nodejs/etc
 components/nodejs/node
