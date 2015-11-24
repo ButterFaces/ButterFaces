@@ -54,7 +54,6 @@ public class WebXmlParametersTest {
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_BOOTSTRAP)).thenReturn("false");
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_JQUERY)).thenReturn("false");
-        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_PRETTYPRINT)).thenReturn("false");
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_USE_COMPRESSED_RESOURCES)).thenReturn("false");
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_TEXT)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_TEXT);
@@ -80,9 +79,6 @@ public class WebXmlParametersTest {
 
         assertThat(new WebXmlParameters(defaultValueExternalContext).isProvideJQuery()).isTrue();
         assertThat(new WebXmlParameters(overriddenValueExternalContext).isProvideJQuery()).isFalse();
-
-        assertThat(new WebXmlParameters(defaultValueExternalContext).isProvidePrettyprint()).isTrue();
-        assertThat(new WebXmlParameters(overriddenValueExternalContext).isProvidePrettyprint()).isFalse();
     }
 
     @Test

@@ -23,7 +23,6 @@ public class HandleResourceListener implements SystemEventListener {
     private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-configurable";
     public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
     public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
-    public static final String PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER = "prettify";
 
     @Override
     public boolean isListenerForSource(Object source) {
@@ -36,7 +35,6 @@ public class HandleResourceListener implements SystemEventListener {
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
         final boolean provideJQuery = webXmlParameters.isProvideJQuery();
         final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
-        final boolean providePrettyPrint = webXmlParameters.isProvidePrettyprint();
         final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
 
         final boolean localhost = "localhost".equals(context.getExternalContext().getRequestServerName());
@@ -45,60 +43,38 @@ public class HandleResourceListener implements SystemEventListener {
                 new ArrayList<>(context.getViewRoot().getComponentResources(context, HEAD));
 
         if (useCompressedResources && !localhost) {
-            handleCompressedResources(context, provideJQuery, provideBootstrap, providePrettyPrint, resources);
+            handleCompressedResources(context, provideJQuery, provideBootstrap, resources);
         } else {
-            handleSingleResources(context, provideJQuery, provideBootstrap, providePrettyPrint, resources);
+            handleSingleResources(context, provideJQuery, provideBootstrap, resources);
         }
     }
 
-    private void handleCompressedResources(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                           boolean providePrettyPrint, List<UIComponent> resources) {
-        for (UIComponent resource : resources) {
-            final String resourceLibrary = (String) resource.getAttributes().get("library");
-            final String resourceName = (String) resource.getAttributes().get("name");
-
-            if (resourceLibrary.startsWith("butterfaces-configurable")) {
-                final boolean handlePrettyPrintResource = providePrettyPrint && (!provideJQuery || !provideBootstrap);
-                final boolean ignorePrettyPringResource =
-                        handlePrettyPrintResource && resourceName.startsWith(PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER);
-                final boolean handleBootStrapResource = provideBootstrap && !provideJQuery;
-                final boolean ignoreBootStrapResource =
-                        handleBootStrapResource && resourceName.startsWith(BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER);
-
-                // minified bootstrap without jquery is not supported so do not remove it
-                // minified prettyprint without jquery or bootstrap is not supported so do not remove it
-                final boolean ignoreResourceRemoval = ignorePrettyPringResource || ignoreBootStrapResource;
-
-                if (!ignoreResourceRemoval) {
-                    removeHeadResource(context, resource);
-                }
-            } else if (resourceLibrary.startsWith("butterfaces")) {
-                // remove all resources coming from each component except butterfaces-configurable (handled above)
-                // compressed and minified resoources will be added later
-                removeHeadResource(context, resource);
-            }
-        }
+    private void handleCompressedResources(FacesContext context,
+                                           boolean provideJQuery,
+                                           boolean provideBootstrap,
+                                           List<UIComponent> resources) {
+        removeAllResourcesFromViewRoot(context, resources);
 
 
-        if (provideBootstrap && provideJQuery && providePrettyPrint) {
-            this.addGeneratedCSSResource(context, "dist-butterfaces-all.min.css");
-            this.addGeneratedJSResource(context, "butterfaces-all.min.js", "butterfaces-generated");
-        } else if (provideJQuery && provideBootstrap) {
+        if (provideBootstrap && provideJQuery) {
             this.addGeneratedCSSResource(context, "dist-butterfaces-bootstrap.min.css");
-            this.addGeneratedJSResource(context, "butterfaces-jquery-bootstrap.min.js", "butterfaces-generated");
+            this.addGeneratedJSResource(context, "butterfaces-all-with-jquery-and-bootstrap-bundle.min.js", "butterfaces-dist-bundle-js");
+        } else if (provideBootstrap) {
+            this.addGeneratedCSSResource(context, "dist-butterfaces-bootstrap.min.css");
+            this.addGeneratedJSResource(context, "butterfaces-all-with-bootstrap-bundle.min.js", "butterfaces-dist-bundle-js");
         } else if (provideJQuery) {
             this.addGeneratedCSSResource(context, "dist-butterfaces-only.min.css");
-            this.addGeneratedJSResource(context, "butterfaces-jquery.min.js", "butterfaces-generated");
+            this.addGeneratedJSResource(context, "butterfaces-all-with-jquery-bundle.min.js", "butterfaces-dist-bundle-js");
         } else {
             this.addGeneratedCSSResource(context, "dist-butterfaces-only.min.css");
-            this.addGeneratedJSResource(context, "butterfaces-only.min.js", "butterfaces-generated");
+            this.addGeneratedJSResource(context, "butterfaces-all-bundle.min.js", "butterfaces-dist-bundle-js");
         }
-
-        this.addGeneratedJSResource(context, "butterfaces.min.js", "butterfaces-dist-js");
     }
 
-    private void handleSingleResources(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                       boolean providePrettyPrint, List<UIComponent> resources) {
+    private void handleSingleResources(FacesContext context,
+                                       boolean provideJQuery,
+                                       boolean provideBootstrap,
+                                       List<UIComponent> resources) {
         // the ordering of the resources is not supported in JSF spec, so we have to do it manually
         removeAllResourcesFromViewRoot(context, resources);
 
@@ -111,7 +87,7 @@ public class HandleResourceListener implements SystemEventListener {
             System.out.println(e);
         }
 
-        addResourcesToViewRoot(context, provideJQuery, provideBootstrap, providePrettyPrint, cleanedResources);
+        addResourcesToViewRoot(context, provideJQuery, provideBootstrap, resources);
     }
 
     /**
@@ -142,12 +118,18 @@ public class HandleResourceListener implements SystemEventListener {
 
     private void removeAllResourcesFromViewRoot(FacesContext context, List<UIComponent> resources) {
         for (UIComponent resource : resources) {
-            removeHeadResource(context, resource);
+            final String resourceLibrary = (String) resource.getAttributes().get("library");
+
+            if (resourceLibrary.startsWith("butterfaces")) {
+                removeHeadResource(context, resource);
+            }
         }
     }
 
-    private void addResourcesToViewRoot(FacesContext context, boolean provideJQuery, boolean provideBootstrap,
-                                        boolean providePrettyPrint, List<UIComponent> resources) {
+    private void addResourcesToViewRoot(FacesContext context,
+                                        boolean provideJQuery,
+                                        boolean provideBootstrap,
+                                        List<UIComponent> resources) {
         // if no compression is used each component will provide its own css and js resources
         // so remove configurable resources if not provide by application
         for (UIComponent resource : resources) {
@@ -159,8 +141,6 @@ public class HandleResourceListener implements SystemEventListener {
                 if (!provideJQuery && resourceName.startsWith(JQUERY_PREFIX_RESOURCE_IDENTIFIER)) {
                     isResourceAccepted = false;
                 } else if (!provideBootstrap && resourceName.startsWith(BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER)) {
-                    isResourceAccepted = false;
-                } else if (!providePrettyPrint && resourceName.startsWith(PRETTYPRINT_PREFIX_RESOURCE_IDENTIFIER)) {
                     isResourceAccepted = false;
                 }
             }

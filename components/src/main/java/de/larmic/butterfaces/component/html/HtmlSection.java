@@ -9,7 +9,7 @@ import javax.faces.component.FacesComponent;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-section.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-configurable", name = "bootstrap.min.css", target = "head") })
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head") })
 @FacesComponent(HtmlSection.COMPONENT_TYPE)
 public class HtmlSection extends UIComponentBase implements Label {
 

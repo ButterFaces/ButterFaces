@@ -11,7 +11,6 @@ public class WebXmlParameters {
 
     public static final String CTX_PARAM_JQUERY = "de.larmic.butterfaces.provideJQuery";
     public static final String CTX_PARAM_BOOTSTRAP = "de.larmic.butterfaces.provideBootstrap";
-    public static final String CTX_PARAM_PRETTYPRINT = "de.larmic.butterfaces.providePrettify";
     public static final String CTX_PARAM_USE_COMPRESSED_RESOURCES = "de.larmic.butterfaces.useCompressedResources";
 
     public static final String CTX_PARAM_REFRESH_GLYPHICON = "de.larmic.butterfaces.glyhicon.refresh";
@@ -39,7 +38,6 @@ public class WebXmlParameters {
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
-    private final boolean providePrettyprint;
     private final boolean useCompressedResources;
 
     private final String refreshGlyphicon;
@@ -56,7 +54,6 @@ public class WebXmlParameters {
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
         this.provideBoostrap = this.readBooleanParameter(CTX_PARAM_BOOTSTRAP, externalContext);
-        this.providePrettyprint = this.readBooleanParameter(CTX_PARAM_PRETTYPRINT, externalContext);
         this.useCompressedResources = this.readBooleanParameter(CTX_PARAM_USE_COMPRESSED_RESOURCES, externalContext);
 
         this.refreshGlyphicon = this.readParameter(CTX_PARAM_REFRESH_GLYPHICON, DEFAULT_REFRESH_GLYPHICON, externalContext);
@@ -96,10 +93,6 @@ public class WebXmlParameters {
 
     public boolean isProvideBoostrap() {
         return provideBoostrap;
-    }
-
-    public boolean isProvidePrettyprint() {
-        return providePrettyprint;
     }
 
     public boolean isUseCompressedResources() {
