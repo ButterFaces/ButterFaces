@@ -174,8 +174,8 @@ gulp.task('javascript:buildAllBundle', ['javascript:compileResources'], function
     return gulp.src([
             paths.destination.bower + '/prettify.js',
             paths.destination.external + '/*.js',
-            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js',
-            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js'
+            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
+            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
         .pipe(concat('butterfaces-all-bundle.min.js'))
         .pipe(gulp.dest(paths.destination.bundle_js));
@@ -186,8 +186,8 @@ gulp.task('javascript:buildAllWithJQueryBundle', ['javascript:compileResources']
             paths.destination.bower + '/jquery.min.js',
             paths.destination.bower + '/prettify.js',
             paths.destination.external + '/*.js',
-            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js',
-            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js'
+            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
+            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
         .pipe(concat('butterfaces-all-with-jquery-bundle.min.js'))
         .pipe(gulp.dest(paths.destination.bundle_js));
@@ -198,8 +198,8 @@ gulp.task('javascript:buildAllWithBootstrapBundle', ['javascript:compileResource
             paths.destination.bower + '/prettify.js',
             paths.destination.bower + '/bootstrap.js',
             paths.destination.external + '/*.js',
-            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js',
-            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js'
+            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
+            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
         .pipe(stripDebug())
         .pipe(uglify())
@@ -213,8 +213,8 @@ gulp.task('javascript:buildAllWithJQueryAndBootstrapBundle', ['javascript:compil
             paths.destination.bower + '/prettify.js',
             paths.destination.bower + '/bootstrap.js',
             paths.destination.external + '/*.js',
-            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js',
-            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js'
+            paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
+            paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
         .pipe(concat('butterfaces-all-with-jquery-and-bootstrap-bundle.min.js'))
         .pipe(stripDebug())
