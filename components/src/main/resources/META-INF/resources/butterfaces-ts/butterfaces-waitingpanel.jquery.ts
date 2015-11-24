@@ -33,7 +33,7 @@ module ButterFaces {
         public processOnError(data: ajax) {
             if (data) {
                 console.error('ButterFaces.WaitingPanel.onError  - An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
-                this.overlay.hide();
+                ButterFaces.Overlay.hideAll();
             }
         }
     }

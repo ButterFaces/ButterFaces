@@ -21,7 +21,7 @@ module ButterFaces {
         public show() {
             let $elementsToDisable = $(this.selector);
 
-            this.fadeOutDetachtedOverlays();
+            ButterFaces.Overlay.fadeOutDetachtedOverlays();
 
             $elementsToDisable.each((index, elementToDisable) => {
 
@@ -91,7 +91,7 @@ module ButterFaces {
             let $elementsToDisable = $(this.selector);
             this.isHiding = true;
 
-            this.fadeOutDetachtedOverlays();
+            ButterFaces.Overlay.fadeOutDetachtedOverlays();
 
             $elementsToDisable.each((index, elementToDisable) => {
                 let $elementToDisable = $(elementToDisable);
@@ -100,24 +100,48 @@ module ButterFaces {
                 if (overlayUuid !== undefined && ButterFaces.Overlay.findOverlay(overlayUuid).length > 0) {
                     let $overlay = ButterFaces.Overlay.findOverlay($elementToDisable.attr('data-overlay-uuid'));
 
-                    this.fadeOutOverlay($overlay);
+                    ButterFaces.Overlay.fadeOutOverlay($overlay);
                 }
 
             });
         }
 
-        private fadeOutDetachtedOverlays() {
+        public static hideAll() {
+            console.log("ButterFaces.Overlay.hideAll - starting animation to make all overlays transparent");
+
+            ButterFaces.Overlay.fadeOutDetachtedOverlays();
+            ButterFaces.Overlay.fadeOutAttachtedOverlays();
+        }
+
+        private static fadeOutDetachtedOverlays() {
             // remove unbinded elements
             $('.butter-component-overlay').each((index, elementToCheck) => {
                 let $overlay = $(elementToCheck);
                 let uuidToCheck = $(elementToCheck).attr('data-overlay-uuid');
                 if ($('[data-overlay-uuid=' + uuidToCheck + ']').length == 1) {
-                    this.fadeOutOverlay($overlay);
+                    ButterFaces.Overlay.fadeOutOverlay($overlay);
                 }
             });
         };
 
-        private fadeOutOverlay($overlay:any) {
+        private static fadeOutAttachtedOverlays() {
+            // remove binded elements
+            $('.butter-component-overlay').each((index, elementToCheck) => {
+                let $overlay = $(elementToCheck);
+                let uuidToCheck = $(elementToCheck).attr('data-overlay-uuid');
+                let elements = $('[data-overlay-uuid=' + uuidToCheck + ']');
+                if (elements.length > 1) {
+                    ButterFaces.Overlay.fadeOutOverlay($overlay);
+
+                    elements.each((index, element) => {
+                        let $element = $(element);
+                        $element.removeAttr('data-overlay-uuid');
+                    });
+                }
+            });
+        };
+
+        private static fadeOutOverlay($overlay:any) {
             $overlay
                 .stop(true)
                 .animate({
