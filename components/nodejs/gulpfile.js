@@ -177,6 +177,8 @@ gulp.task('javascript:buildAllBundle', ['javascript:compileResources'], function
             paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
             paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
+        .pipe(stripDebug())
+        .pipe(uglify())
         .pipe(concat('butterfaces-all-bundle.min.js'))
         .pipe(gulp.dest(paths.destination.bundle_js));
 });
@@ -189,6 +191,8 @@ gulp.task('javascript:buildAllWithJQueryBundle', ['javascript:compileResources']
             paths.destination.bundle_js + '/butterfaces-ts-bundle.min.js',
             paths.destination.bundle_js + '/butterfaces-js-bundle.min.js'
         ])
+        .pipe(stripDebug())
+        .pipe(uglify())
         .pipe(concat('butterfaces-all-with-jquery-bundle.min.js'))
         .pipe(gulp.dest(paths.destination.bundle_js));
 });
