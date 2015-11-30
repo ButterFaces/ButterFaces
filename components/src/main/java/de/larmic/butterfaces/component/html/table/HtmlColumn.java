@@ -3,16 +3,12 @@ package de.larmic.butterfaces.component.html.table;
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIColumn;
 
-/**
- * Created by larmic on 10.09.14.
- */
 @FacesComponent(HtmlColumn.COMPONENT_TYPE)
 public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
@@ -33,7 +29,6 @@ public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
     // dirty: should find a better way to update field in table renderer
     private int columnNumberUsedByTable;
-    private AjaxRequest tableAjaxClickRequest;
     private WebXmlParameters webXmlParameters;
 
     public HtmlColumn() {
@@ -138,14 +133,6 @@ public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
     public void setColumnNumberUsedByTable(int columnNumberUsedByTable) {
         this.columnNumberUsedByTable = columnNumberUsedByTable;
-    }
-
-    public AjaxRequest getTableAjaxClickRequest() {
-        return tableAjaxClickRequest;
-    }
-
-    public void setTableAjaxClickRequest(AjaxRequest tableAjaxClickRequest) {
-        this.tableAjaxClickRequest = tableAjaxClickRequest;
     }
 
     public WebXmlParameters getWebXmlParameters() {

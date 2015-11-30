@@ -10,7 +10,6 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.AjaxRequest;
-import de.larmic.butterfaces.resolver.AjaxRequestFactory;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
@@ -112,15 +111,9 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         int columnNumber = 0;
 
-        final AjaxRequest ajaxRequest = new AjaxRequestFactory().createRequest(htmlTable, "click");
-        if (ajaxRequest != null) {
-            ajaxRequest.getRenderIds().add(htmlTable.getClientId());
-        }
-
         for (HtmlColumn column : htmlTable.getCachedColumns()) {
             column.setWebXmlParameters(webXmlParameters);
             column.setColumnNumberUsedByTable(columnNumber);
-            column.setTableAjaxClickRequest(ajaxRequest);
             column.encodeAll(context);
             columnNumber++;
         }

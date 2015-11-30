@@ -2,10 +2,10 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.model.table.SortType;
-import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by larmic on 10.09.14.
@@ -28,7 +29,6 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
         final HtmlColumn column = (HtmlColumn) component;
         final HtmlTable table = this.findParentTable(component);
         final int columnNumber = column.getColumnNumberUsedByTable();
-        final AjaxRequest ajaxRequest = column.getTableAjaxClickRequest();
         final WebXmlParameters webXmlParameters = column.getWebXmlParameters();
         final HtmlTooltip tooltip = this.findTooltip(component);
 
@@ -45,8 +45,10 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
             writer.writeAttribute("style", "display:none", null);
         }
 
-        if (column.isSortColumnEnabled() && table.getModel() != null && ajaxRequest != null) {
-            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), ajaxRequest.getRenderIds(), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
+        final List<String> renderIds = JsfAjaxRequest.createRerenderIds(table, "click");
+        if (column.isSortColumnEnabled() && table.getModel() != null && !renderIds.isEmpty()) {
+            renderIds.add(table.getClientId());
+            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), renderIds, "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
             writer.writeAttribute("onclick", ajax, null);
         }
 
@@ -61,7 +63,7 @@ public class ColumnRenderer extends com.sun.faces.renderkit.html_basic.HtmlBasic
         writer.writeText(column.getLabel(), null);
         writer.endElement("span");
 
-        if (column.isSortColumnEnabled() && table.getTableSortModel() != null && ajaxRequest != null) {
+        if (column.isSortColumnEnabled() && table.getTableSortModel() != null && !renderIds.isEmpty()) {
             writer.startElement("span", component);
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
