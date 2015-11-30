@@ -3,16 +3,17 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 import com.sun.faces.renderkit.Attribute;
 import com.sun.faces.renderkit.RenderKitUtils;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.ajax.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
-import de.larmic.butterfaces.resolver.AjaxRequest;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
@@ -208,14 +209,16 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
-        if (behaviors.containsKey("click")) {
-            final String click = behaviors.get("click").get(0).getScript(behaviorContext);
+        if (behaviors.containsKey("click") && htmlTable.getSingleSelectionListener() != null) {
+            final ClientBehavior clientBehavior = behaviors.get("click").get(0);
 
-            if (StringUtils.isNotEmpty(click) && htmlTable.getSingleSelectionListener() != null) {
-                final String ajaxCall = new AjaxRequest(htmlTable, "click").createJavaScriptCall("click_" + rowIndex);
-                final String aThis = ajaxCall.replaceFirst(clientId, baseClientId);
+            if (clientBehavior instanceof AjaxBehavior && !((AjaxBehavior) clientBehavior).isDisabled()) {
+                final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(baseClientId, true)
+                        .setEvent("click_" + rowIndex)
+                        .setRender(htmlTable, "click")
+                        .setBehaviorEvent("click_" + rowIndex);
                 final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectRow({rowIndex:'" + rowIndex + "'})");
-                writer.writeAttribute("onclick", aThis + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
+                writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
             }
         }
 
@@ -284,6 +287,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             }
         }
     }
+
     private Object findRowObject(final HtmlTable table, final int row) {
         final Object value = table.getValue();
 
