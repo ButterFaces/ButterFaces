@@ -10,12 +10,12 @@ import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
+import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -190,9 +190,6 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                   final UIComponent component,
                                   final ResponseWriter writer) throws IOException {
         final HtmlTable htmlTable = (HtmlTable) component;
-        final ClientBehaviorContext behaviorContext =
-                ClientBehaviorContext.createClientBehaviorContext(context,
-                        htmlTable, "click", component.getClientId(context), null);
 
         final String clientId = htmlTable.getClientId();
         final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex + "").length() - 1);
@@ -208,18 +205,15 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
             writer.writeAttribute("class", rowClass, null);
         }
 
-        final Map<String, List<ClientBehavior>> behaviors = htmlTable.getClientBehaviors();
-        if (behaviors.containsKey("click") && htmlTable.getSingleSelectionListener() != null) {
-            final ClientBehavior clientBehavior = behaviors.get("click").get(0);
+        final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(htmlTable, "click");
 
-            if (clientBehavior instanceof AjaxBehavior && !((AjaxBehavior) clientBehavior).isDisabled()) {
-                final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(baseClientId, true)
-                        .setEvent("click_" + rowIndex)
-                        .setRender(htmlTable, "click")
-                        .setBehaviorEvent("click_" + rowIndex);
-                final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectRow({rowIndex:'" + rowIndex + "'})");
-                writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
-            }
+        if (clickAjaxBehavior != null && htmlTable.getSingleSelectionListener() != null) {
+            final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(baseClientId, true)
+                    .setEvent("click_" + rowIndex)
+                    .setRender(htmlTable, "click")
+                    .setBehaviorEvent("click_" + rowIndex);
+            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectRow({rowIndex:'" + rowIndex + "'})");
+            writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
         }
 
         writer.writeText("\n", htmlTable, null);

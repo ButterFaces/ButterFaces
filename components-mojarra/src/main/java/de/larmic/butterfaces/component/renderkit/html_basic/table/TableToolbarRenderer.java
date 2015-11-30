@@ -10,10 +10,7 @@ import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.model.json.JsonToModelConverter;
 import de.larmic.butterfaces.model.table.TableColumnOrdering;
 import de.larmic.butterfaces.model.table.TableColumnVisibility;
-import de.larmic.butterfaces.resolver.AjaxRequest;
-import de.larmic.butterfaces.resolver.AjaxRequestFactory;
-import de.larmic.butterfaces.resolver.UIComponentResolver;
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import de.larmic.butterfaces.resolver.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -144,18 +141,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarToggleColumnButton(final ResponseWriter writer,
                                                       final HtmlTableToolbar tableToolbar) throws IOException {
-        final AjaxRequest toggleAjaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
-        final AjaxRequest orderAjaxRequest = new AjaxRequestFactory().createRequest(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
+        final AjaxBehavior toggleAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
+        final AjaxBehavior orderAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
 
-        if (toggleAjaxRequest != null && cachedTableComponent.getTableColumnVisibilityModel() != null
-                || orderAjaxRequest != null && cachedTableComponent.getTableOrderingModel() != null) {
-            if (toggleAjaxRequest != null) {
-                toggleAjaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
-            }
-            if (orderAjaxRequest != null) {
-                orderAjaxRequest.getRenderIds().add(cachedTableComponent.getClientId());
-            }
-
+        if (toggleAjaxBehavior != null && cachedTableComponent.getTableColumnVisibilityModel() != null
+                || orderAjaxBehavior != null && cachedTableComponent.getTableOrderingModel() != null) {
             writer.startElement(ELEMENT_DIV, tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
@@ -185,8 +175,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeAttribute("data-original-column", columnNumber, null);
                 writer.writeAttribute("data-column-model-identifier", cachedColumn.getModelUniqueIdentifier(), null);
 
-                if (toggleAjaxRequest != null && cachedTableComponent.getTableColumnVisibilityModel() != null) {
-                    this.renderToggleColumnInput(writer, tableToolbar, toggleAjaxRequest.getRenderIds(), cachedColumn);
+                if (toggleAjaxBehavior != null && cachedTableComponent.getTableColumnVisibilityModel() != null) {
+                    final List<String> rerenderIds = JsfAjaxRequest.createRerenderIds(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
+                    rerenderIds.add(cachedTableComponent.getClientId());
+                    this.renderToggleColumnInput(writer, tableToolbar, rerenderIds, cachedColumn);
                 }
 
                 writer.startElement("label", tableToolbar);
@@ -195,8 +187,10 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeText(cachedColumn.getLabel(), null);
                 writer.endElement("label");
 
-                if (orderAjaxRequest != null && cachedTableComponent.getTableOrderingModel() != null) {
-                    this.renderOrderColumnSpan(writer, tableToolbar, orderAjaxRequest.getRenderIds(), columnNumber);
+                if (orderAjaxBehavior != null && cachedTableComponent.getTableOrderingModel() != null) {
+                    final List<String> rerenderIds = JsfAjaxRequest.createRerenderIds(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
+                    rerenderIds.add(cachedTableComponent.getClientId());
+                    this.renderOrderColumnSpan(writer, tableToolbar, rerenderIds, columnNumber);
                 }
 
                 writer.endElement("li");
