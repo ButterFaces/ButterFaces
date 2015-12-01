@@ -79,6 +79,7 @@
                                 <exclude>package.json</exclude>
                                 <exclude>tsd.json</exclude>
                                 <exclude>tslint.json</exclude>
+                                <exclude>.tsdrc</exclude>
                             </excludes>
                         </fileset>
                     </filesets>
