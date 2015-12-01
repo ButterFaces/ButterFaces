@@ -6,9 +6,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by larmic on 06.07.15.
- */
 public class ReflectionUtil {
 
     public String getValueFromObject(final Object object, final String fieldName) {

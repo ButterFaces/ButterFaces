@@ -86,7 +86,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         stringBuilder.append("{");
         stringBuilder.append("\"id\": " + newIndex + ",");
         if (StringUtils.isNotEmpty(node.getStyleClass())) {
-            stringBuilder.append("\"styleClass\": \"" + node.getStyleClass() + "\",");
+            stringBuilder.append("\"styleClass\": \"" + escape(node.getStyleClass()) + "\",");
         }
         if (StringUtils.isNotEmpty(node.getImageIcon())) {
             stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
@@ -97,15 +97,15 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         if (StringUtils.isNotEmpty(node.getDescription())) {
-            stringBuilder.append("\"description\": \"" + node.getDescription() + "\",");
+            stringBuilder.append("\"description\": \"" + escape(node.getDescription()) + "\",");
         }
 
         for (String mustacheKey : mustacheKeys) {
-            stringBuilder.append("\"" + mustacheKey + "\": \"" + new ReflectionUtil().getValueFromObject(node.getData(), mustacheKey) + "\",");
+            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new ReflectionUtil().getValueFromObject(node.getData(), mustacheKey)) + "\",");
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
-        stringBuilder.append("\"title\": \"" + node.getTitle() + "\"");
+        stringBuilder.append("\"title\": \"" + escape(node.getTitle()) + "\"");
 
         newIndex++;
 
@@ -117,5 +117,9 @@ public class TrivialComponentsEntriesNodePartRenderer {
 
         stringBuilder.append("}");
         return newIndex;
+    }
+
+    private String escape(String value) {
+        return StringUtils.isNotEmpty(value) ? value.replace("\"", "\\\"") : "";
     }
 }
