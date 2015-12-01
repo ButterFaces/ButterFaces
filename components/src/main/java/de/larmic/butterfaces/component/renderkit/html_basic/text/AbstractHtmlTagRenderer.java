@@ -1,17 +1,25 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
-import de.larmic.butterfaces.component.partrenderer.*;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+import de.larmic.butterfaces.component.partrenderer.Constants;
+import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 
 public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
 
@@ -183,7 +191,8 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
 
             writer.writeAttribute("name", component.getClientId(context), "clientId");
 
-            if (currentValue != null) {
+            // for text area based components the value can't be set this way
+            if (!(component instanceof HtmlInputTextarea) && currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");
             }
 
@@ -232,6 +241,11 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
             this.renderStringValue(component, writer, "type");
 
             this.renderAdditionalInputAttributes(context, component, writer);
+
+            // for text area based components the value must be set this way
+            if (component instanceof HtmlInputTextarea && currentValue != null) {
+                writer.writeText(currentValue, null);
+            }
 
             writer.endElement(getHtmlTagName());
         }
