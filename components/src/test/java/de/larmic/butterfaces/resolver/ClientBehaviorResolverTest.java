@@ -2,7 +2,6 @@ package de.larmic.butterfaces.resolver;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ClientBehaviorResolverTest {
@@ -25,7 +23,6 @@ public class ClientBehaviorResolverTest {
     private final List<ClientBehavior> activeBehaviors = new ArrayList<>();
     private final List<ClientBehavior> notActiveBehaviors = new ArrayList<>();
 
-    @Mock
     private UIComponentBase componentMock;
 
     private Map<String, List<ClientBehavior>> clientBehaviorsMock;
@@ -38,7 +35,18 @@ public class ClientBehaviorResolverTest {
         clientBehaviorsMock.put(existingButNotActiveEvent, notActiveBehaviors);
         clientBehaviorsMock.put(existingEvent, activeBehaviors);
 
-        when(componentMock.getClientBehaviors()).thenReturn(clientBehaviorsMock);
+        componentMock = new UIComponentBase() {
+
+            @Override
+            public Map<String, List<ClientBehavior>> getClientBehaviors() {
+                return clientBehaviorsMock;
+            }
+
+            @Override
+            public String getFamily() {
+                return null;
+            }
+        };
 
         final AjaxBehavior disabledBehavior = new AjaxBehavior();
         disabledBehavior.setDisabled(true);

@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.html.ajax;
 
+import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import org.junit.Test;
 
 import javax.faces.component.UIComponentBase;

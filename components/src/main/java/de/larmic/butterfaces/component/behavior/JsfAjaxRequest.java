@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.html.ajax;
+package de.larmic.butterfaces.component.behavior;
 
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 
@@ -8,10 +8,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static de.larmic.butterfaces.component.partrenderer.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
@@ -43,6 +40,27 @@ public class JsfAjaxRequest {
             this.source = "'" + source + "'";
         } else {
             this.source = source;
+        }
+    }
+
+    public JsfAjaxRequest(String source, boolean isIdString, AjaxBehavior ajaxBehavior, String event) {
+        this(source, isIdString);
+
+        if (!ajaxBehavior.isDisabled()) {
+            if (ajaxBehavior.getExecute() != null) {
+                this.setExecute(StringUtils.joinWithSpaceSeparator(ajaxBehavior.getExecute()));
+            }
+            if (ajaxBehavior.getRender() != null) {
+                this.setRenderAsList(ajaxBehavior.getRender());
+            }
+            if (ajaxBehavior.getOnevent() != null) {
+                this.addOnEventHandler(ajaxBehavior.getOnevent());
+            }
+            if (ajaxBehavior.getOnerror() != null) {
+                this.addOnErrorHandler(ajaxBehavior.getOnerror());
+            }
+            this.setEvent(event);
+            this.setBehaviorEvent(event);
         }
     }
 
@@ -100,7 +118,7 @@ public class JsfAjaxRequest {
      * @param renderIds list of client identifiers
      * @return the actual instance of {@link JsfAjaxRequest}
      */
-    public JsfAjaxRequest setRenderAsList(final List<String> renderIds) {
+    public JsfAjaxRequest setRenderAsList(final Collection<String> renderIds) {
         final StringBuilder renderBuilder = new StringBuilder();
 
         if (!renderIds.isEmpty()) {

@@ -1,11 +1,14 @@
 package de.larmic.butterfaces.component.base.renderer;
 
+import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -200,7 +203,11 @@ public class HtmlBasicRenderer extends Renderer {
                                     final ResponseWriter writer,
                                     final String attributeName,
                                     final String eventName) throws IOException {
-        MojarraRenderUtils.renderPassThruAttributes(writer, component, attributeName, eventName);
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
+        if (ajaxBehavior != null) {
+            final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(component.getClientId(), true, ajaxBehavior, eventName);
+            writer.writeAttribute(attributeName, jsfAjaxRequest.toString(), null);
+        }
     }
 
     protected String getCurrentValue(FacesContext context, final UIComponent component) {
