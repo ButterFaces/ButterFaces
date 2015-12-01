@@ -77,6 +77,8 @@
                                 <exclude>bower.json</exclude>
                                 <exclude>gulpfile.js</exclude>
                                 <exclude>package.json</exclude>
+                                <exclude>tsd.json</exclude>
+                                <exclude>tslint.json</exclude>
                             </excludes>
                         </fileset>
                     </filesets>

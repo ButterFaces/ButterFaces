@@ -1,4 +1,4 @@
-///<reference path="jquery.d.ts"/>
+///<reference path="definitions/external/tsd.d.ts"/>
 
 module ButterFaces {
     export class Tooltip {
