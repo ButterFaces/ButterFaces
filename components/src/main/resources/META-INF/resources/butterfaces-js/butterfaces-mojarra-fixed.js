@@ -20,7 +20,7 @@ butter.fix.updateMojarraScriptSourceId = function (/*String*/ innerInputComponen
             if (onEvent !== undefined && onEvent.indexOf('mojarra.ab') > -1) {
                 var replacedFunction = onEvent.replace('mojarra.ab(this,', 'mojarra.ab(\'' + innerInputComponentId + '\',');
 
-                if (onEvent.indexOf('butter.util.chain') > -1) {
+                if (onEvent.indexOf('butter.fix.chain') > -1) {
                     replacedFunction = onEvent.replace('mojarra.ab(this,', 'mojarra.ab(\\\'' + innerInputComponentId + '\\\',');
                 }
 
@@ -29,4 +29,27 @@ butter.fix.updateMojarraScriptSourceId = function (/*String*/ innerInputComponen
             }
         }
     }
+};
+
+butter.fix.chain = function(source, event) {
+
+    if (arguments.length < 3) {
+        return true;
+    }
+
+    // RELEASE_PENDING rogerk - shouldn't this be getElementById instead of null
+    var thisArg = (typeof source === 'object') ? source : null;
+
+    // Call back any scripts that were passed in
+    for (var i = 2; i < arguments.length; i++) {
+
+        var f = new Function("event", arguments[i]);
+        var returnValue = f.call(thisArg, event);
+
+        if (returnValue === false) {
+            return false;
+        }
+    }
+    return true;
+
 };
