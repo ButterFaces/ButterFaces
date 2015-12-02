@@ -2,7 +2,11 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlRadioBox;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
@@ -29,8 +33,6 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
                 writer.writeAttribute("class", "checkbox withDescription", null);
                 writer.startElement("label", component);
-            } else {
-
             }
         }
     }
@@ -47,7 +49,15 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
             }
 
-            final Set<String> eventNames = component.getClientBehaviors().keySet();
+            renderMojarraFix(component, writer);
+
+            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
+        }
+    }
+
+    public static void renderMojarraFix(UIComponent component, ResponseWriter writer) throws IOException {
+        if (component instanceof HtmlComboBox || component instanceof HtmlRadioBox) {
+            final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
             final Iterator<String> eventNamesIterator = eventNames.iterator();
 
             if (eventNamesIterator.hasNext()) {
@@ -68,8 +78,6 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
                 RenderUtils.renderJavaScriptCall(function, writer, component);
             }
-
-            writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         }
     }
 }

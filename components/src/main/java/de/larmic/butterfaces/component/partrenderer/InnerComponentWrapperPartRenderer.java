@@ -2,17 +2,15 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
+import de.larmic.butterfaces.component.html.HtmlRadioBox;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.SupportedFacets;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by larmic on 27.08.14.
@@ -93,28 +91,8 @@ public class InnerComponentWrapperPartRenderer {
         if (!readonly) {
             writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
 
-            if (component instanceof UIInput) {
-                final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
-                final Iterator<String> eventNamesIterator = eventNames.iterator();
-
-                if (eventNamesIterator.hasNext()) {
-                    final StringBuilder sb = new StringBuilder("[");
-
-                    while (eventNamesIterator.hasNext()) {
-                        sb.append("'");
-                        sb.append(eventNamesIterator.next());
-                        sb.append("'");
-
-                        if (eventNamesIterator.hasNext()) {
-                            sb.append(", ");
-                        }
-                    }
-
-                    sb.append("]");
-
-                    final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
-                    RenderUtils.renderJavaScriptCall(function, writer, component);
-                }
+            if (component instanceof HtmlComboBox || component instanceof HtmlRadioBox) {
+                InnerComponentCheckBoxWrapperPartRenderer.renderMojarraFix(component, writer);
             }
         }
     }

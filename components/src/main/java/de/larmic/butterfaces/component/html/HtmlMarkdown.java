@@ -1,25 +1,18 @@
 package de.larmic.butterfaces.component.html;
 
-import java.util.Collections;
-import java.util.List;
+import de.larmic.butterfaces.component.html.feature.*;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputTextarea;
-
-import de.larmic.butterfaces.component.html.feature.AutoFocus;
-import de.larmic.butterfaces.component.html.feature.Label;
-import de.larmic.butterfaces.component.html.feature.MaxLength;
-import de.larmic.butterfaces.component.html.feature.Placeholder;
-import de.larmic.butterfaces.component.html.feature.Readonly;
-import de.larmic.butterfaces.component.html.feature.Tooltip;
+import java.util.Collections;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-markdown.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-fixed.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),

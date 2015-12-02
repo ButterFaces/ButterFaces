@@ -51,6 +51,7 @@
                         rendered="#{checkBoxShowcase.rendered}"
                         autoFocus="#{checkBoxShowcase.autoFocus}"
                         disabled="#{checkBoxShowcase.disabled}"
+                        onchange="console.log('ButterFaces.Test: check onchange')"
                         styleClass="#{checkBoxShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"
