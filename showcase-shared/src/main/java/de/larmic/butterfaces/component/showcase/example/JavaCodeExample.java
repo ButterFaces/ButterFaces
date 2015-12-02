@@ -93,7 +93,7 @@ public class JavaCodeExample extends AbstractCodeExample {
             stringBuilder.append(" implements ");
         }
         if (cdiBean) {
-            stringBuilder.append(" Serializable");
+            stringBuilder.append("Serializable");
         }
         if (cdiBean && !interfaces.isEmpty()) {
             stringBuilder.append(", ");

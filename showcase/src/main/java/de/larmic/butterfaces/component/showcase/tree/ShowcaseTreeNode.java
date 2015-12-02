@@ -38,7 +38,7 @@ public class ShowcaseTreeNode {
 
         rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
         rootNode.getSubNodes().add(mail);
-        rootNode.getSubNodes().add(createNode("Special Sign \"", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \""));
+        rootNode.getSubNodes().add(createNode("Special Sign \"\'", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \"'"));
     }
 
     public void toggleNodeExpansion(final boolean expanded) {

@@ -194,7 +194,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node data-->");
+            xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node.data-->");
             xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
             xhtmlCodeExample.appendInnerContent("                <strong>{{title}}</strong>");

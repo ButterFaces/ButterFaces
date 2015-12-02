@@ -1,13 +1,5 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.partrenderer.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
@@ -15,6 +7,13 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.model.tree.Node;
+
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -40,6 +39,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(buildXhtmlCodeExample());
+        codeExamples.add(createMyBeanCodeExample());
 
         if (isValidation()) {
             codeExamples.add(buildValidatorCodeExample());
@@ -55,6 +55,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                   hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                   value=\"" + this.getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   values=\"#{myBean.values}\"");
         xhtmlCodeExample.appendInnerContent("                   placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "") + "\"");
         xhtmlCodeExample.appendInnerContent("                   readonly=\"" + this.isReadonly() + "\"");
@@ -80,6 +81,63 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.addOutputExample(xhtmlCodeExample);
 
         return xhtmlCodeExample;
+    }
+
+    private JavaCodeExample createMyBeanCodeExample() {
+        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
+
+        myBean.addImport("import de.larmic.butterfaces.model.tree.Node");
+        myBean.addImport("import de.larmic.butterfaces.model.tree.DefaultNodeImpl");
+        myBean.addImport("import javax.faces.view.ViewScoped");
+        myBean.addImport("import javax.inject.Named");
+
+        myBean.appendInnerContent("    private Node rootNode;\n");
+        myBean.appendInnerContent("    public Node getValues() {");
+        myBean.appendInnerContent("        if (rootNode == null) {");
+        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        //    myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
+        //} else {
+            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
+        //}
+        myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+            myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+            myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
+        }
+        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        //    myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
+        //} else {
+            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
+        //}
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+            myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+            myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
+        }
+        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        //    myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
+        //} else {
+            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
+        //}
+        myBean.appendInnerContent("            ...");
+        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        //    myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
+        //} else {
+            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
+        //}
+        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+            myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
+        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+            myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+        }
+        myBean.appendInnerContent("            rootNode.getSubNodes().add(firstChild);");
+        myBean.appendInnerContent("            rootNode.getSubNodes().add(secondChild);");
+        myBean.appendInnerContent("        }");
+        myBean.appendInnerContent("        return rootNode;");
+        myBean.appendInnerContent("    }");
+
+        return myBean;
     }
 
     private AbstractCodeExample buildValidatorCodeExample() {
