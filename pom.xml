@@ -78,7 +78,7 @@
         <junit.version>4.11</junit.version>
         <el-api.version>2.2</el-api.version>
 
-        <version.jbossas>9.0.1.Final</version.jbossas>
+        <version.jbossas>9.0.2.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
         <javax.faces-api.version>2.2</javax.faces-api.version>
         <assertj-core.version>2.1.0</assertj-core.version>
