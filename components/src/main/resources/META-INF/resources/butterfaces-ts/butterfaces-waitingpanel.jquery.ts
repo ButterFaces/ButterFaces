@@ -30,7 +30,7 @@ module ButterFaces {
             }
         }
 
-        public processOnError(data: ajax) {
+        public processOnError(data: jsf.ajax.RequestData) {
             if (data) {
                 console.error('ButterFaces.WaitingPanel.onError  - An error occured, closing waiting panel. errorType: ' + data.status + ', description: ' + data.description);
                 ButterFaces.Overlay.hideAll();
