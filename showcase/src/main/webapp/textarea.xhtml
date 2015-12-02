@@ -56,6 +56,7 @@
                         expandable="#{textAreaShowcase.expandable}"
                         placeholder="#{textAreaShowcase.placeholder}"
                         autoFocus="#{textAreaShowcase.autoFocus}"
+                        onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                         styleClass="#{textAreaShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"

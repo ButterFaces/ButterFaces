@@ -71,6 +71,7 @@
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'NONE'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
+                       onchange="console.log('ButterFaces.Test: check onchange')"
                        styleClass="#{treeBoxShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"

@@ -59,6 +59,7 @@
                     rendered="#{tagsShowcase.rendered}"
                     placeholder="#{tagsShowcase.placeholder}"
                     autoFocus="#{tagsShowcase.autoFocus}"
+                    onchange="console.log('ButterFaces.Test: check onchange')"
                     styleClass="#{tagsShowcase.styleClass}">
                 <f:ajax event="change"
                         execute="@this"

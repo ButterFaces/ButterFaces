@@ -56,7 +56,6 @@
         <common:showcaseOuputComponent id="outputComponent"
                                          activeComponentNavigationId="text"
                                          component="#{textShowcase}">
-
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
@@ -71,6 +70,8 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     pt:passThroughTest="demoPassThrough"
+                    onkeydown="console.log('ButterFaces.Test: check onkeydown')"
+                    onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                     autoFocus="#{textShowcase.autoFocus}"
                     styleClass="#{textShowcase.styleClass}">
                 <f:ajax event="keyup"

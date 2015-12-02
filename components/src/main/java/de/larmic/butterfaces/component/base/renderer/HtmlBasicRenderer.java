@@ -203,10 +203,15 @@ public class HtmlBasicRenderer extends Renderer {
                                     final ResponseWriter writer,
                                     final String attributeName,
                                     final String eventName) throws IOException {
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
-        if (ajaxBehavior != null) {
-            final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(component.getClientId(), true, ajaxBehavior, eventName);
-            writer.writeAttribute(attributeName, jsfAjaxRequest.toString(), null);
+        final String componentEventFunction = createComponentEventFunction(component, attributeName);
+        final String ajaxEventFunction = createAjaxEventFunction(component, eventName);
+
+        if (componentEventFunction != null && ajaxEventFunction != null) {
+            writer.writeAttribute(attributeName, ajaxEventFunction + ";" + componentEventFunction, null);
+        } else if (componentEventFunction != null) {
+            writer.writeAttribute(attributeName, componentEventFunction, null);
+        } else if (ajaxEventFunction != null) {
+            writer.writeAttribute(attributeName, ajaxEventFunction, null);
         }
     }
 
@@ -321,6 +326,14 @@ public class HtmlBasicRenderer extends Renderer {
         } else {
             return Collections.<UIComponent>emptyList().iterator();
         }
+    }
 
+    private String createComponentEventFunction(UIComponent component, String attributeName) {
+        return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
+    }
+
+    private String createAjaxEventFunction(UIComponent component, String eventName) {
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
+        return ajaxBehavior != null ? new JsfAjaxRequest(component.getClientId(), true, ajaxBehavior, eventName).toString() : null;
     }
 }

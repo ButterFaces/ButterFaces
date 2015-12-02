@@ -76,6 +76,130 @@
          <name>max</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
    <tag>
       <tag-name>maskedText</tag-name>
@@ -148,6 +272,130 @@
          <name>inputMask</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
    <tag>
       <tag-name>calendar</tag-name>
@@ -232,6 +480,130 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
    <tag>
       <tag-name>tags</tag-name>
@@ -302,6 +674,131 @@
          <description>When true, the same tag can be added multiple times. (default: true)</description>
          <type>java.lang.Boolean</type>
       </attribute>
+
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
    <tag>
       <tag-name>treeBox</tag-name>
@@ -362,6 +859,131 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
    <tag>
       <tag-name>number</tag-name>
@@ -430,6 +1052,130 @@
          <name>step</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
 
    <tag>
@@ -483,6 +1229,130 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
 
    <tag>
@@ -544,6 +1414,130 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
 
    <tag>
@@ -605,6 +1599,131 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus.
+           </description>
+           <name>onblur</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element loses focus
+               and its value has been modified since gaining focus.
+           </description>
+           <name>onchange</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               clicked over this element.
+           </description>
+           <name>onclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               double clicked over this element.
+           </description>
+           <name>ondblclick</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when this element receives focus.
+           </description>
+           <name>onfocus</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed down over this element.
+           </description>
+           <name>onkeydown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               pressed and released over this element.
+           </description>
+           <name>onkeypress</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a key is
+               released over this element.
+           </description>
+           <name>onkeyup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               pressed down over this element.
+           </description>
+           <name>onmousedown</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved within this element.
+           </description>
+           <name>onmousemove</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved away from this element.
+           </description>
+           <name>onmouseout</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               moved onto this element.
+           </description>
+           <name>onmouseover</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when a pointer button is
+               released over this element.
+           </description>
+           <name>onmouseup</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <description>
+               Javascript code executed when text within this
+               element is selected by the user.
+           </description>
+           <name>onselect</name>
+           <required>false</required>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
 
    <tag>

@@ -57,6 +57,7 @@
                         placeholder="#{markdownShowcase.placeholder}"
                         autoFocus="#{markdownShowcase.autoFocus}"
                         language="#{markdownShowcase.language}"
+                        onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                         styleClass="#{markdownShowcase.styleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"
