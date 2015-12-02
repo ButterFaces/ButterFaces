@@ -1,7 +1,7 @@
 /*
  Recipes for using Gulp:
  https://github.com/gulpjs/gulp/tree/master/docs/recipes
-*/
+ */
 
 // DEPENDENCIES ===============================================================================
 
@@ -78,19 +78,19 @@ gulp.task("bower:loadDependencies", function () {
         .pipe(gulp.dest(paths.bower.root));
 });
 
-gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function() {
+gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function () {
     var copyDependenciesToDist = gulp.src([
-                paths.bower.jquery,
-                paths.bower.prettify,
-                paths.bower.bootstrap_css,
-                paths.bower.bootstrap_js
-            ])
-            .pipe(gulp.dest(paths.destination.bower));
+            paths.bower.jquery,
+            paths.bower.prettify,
+            paths.bower.bootstrap_css,
+            paths.bower.bootstrap_js
+        ])
+        .pipe(gulp.dest(paths.destination.bower));
 
     var copyFontDependenciesToDist = gulp.src([
-                paths.bower.bootstrap_fonts
-            ])
-            .pipe(gulp.dest(paths.destination.bower_font));
+            paths.bower.bootstrap_fonts
+        ])
+        .pipe(gulp.dest(paths.destination.bower_font));
 
     return merge(copyDependenciesToDist, copyFontDependenciesToDist);
 });
@@ -104,11 +104,11 @@ gulp.task("typescript:loadDefinitions", function (callback) {
 
 gulp.task("typescript:lint", ["typescript:loadDefinitions"], function () {
     return gulp.src([
-                paths.source.typescripts,
-                "!" + paths.destination.ts_external_definitions + "/**/*.ts"
-            ])
-            .pipe(tslint())
-            .pipe(tslint.report("verbose"));
+            paths.source.typescripts,
+            "!" + paths.destination.ts_external_definitions + "/**/*.ts"
+        ])
+        .pipe(tslint())
+        .pipe(tslint.report("verbose"));
 });
 
 gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
@@ -172,23 +172,23 @@ gulp.task("less:compile", ["bower:copyDependenciesToDist"], function () {
 
 gulp.task("javascript:buildComponentsBundle", function () {
     return gulp.src(paths.source.javascript)
-            .pipe(concat("butterfaces-js-bundle.js"))
-            .pipe(stripDebug())
-            .pipe(mirror(
-                    pipe(
-                            rename(function (path) {
-                                path.basename += ".min";
-                            }),
-                            uglify()
-                    )
-            ))
-            .pipe(gulp.dest(paths.destination.bundle_js));
+        .pipe(concat("butterfaces-js-bundle.js"))
+        .pipe(stripDebug())
+        .pipe(mirror(
+            pipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                uglify()
+            )
+        ))
+        .pipe(gulp.dest(paths.destination.bundle_js));
 });
 
 gulp.task("compileResources", ["less:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
 
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
-    return gulp.src([
+    var buildButterFacesOnlyBunde = gulp.src([
             paths.destination.bower + "/prettify.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
@@ -198,10 +198,8 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(uglify())
         .pipe(concat("butterfaces-all-bundle.min.js"))
         .pipe(gulp.dest(paths.destination.bundle_js));
-});
 
-gulp.task("javascript:buildAllWithJQueryBundle", ["compileResources"], function () {
-    return gulp.src([
+    var buildAllWithJQueryBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
             paths.destination.bower + "/prettify.js",
             paths.destination.external + "/*.js",
@@ -212,10 +210,8 @@ gulp.task("javascript:buildAllWithJQueryBundle", ["compileResources"], function 
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-jquery-bundle.min.js"))
         .pipe(gulp.dest(paths.destination.bundle_js));
-});
 
-gulp.task("javascript:buildAllWithBootstrapBundle", ["compileResources"], function () {
-    return gulp.src([
+    var buildAllWithBootstrapBundle = gulp.src([
             paths.destination.bower + "/prettify.js",
             paths.destination.bower + "/bootstrap.js",
             paths.destination.external + "/*.js",
@@ -226,10 +222,8 @@ gulp.task("javascript:buildAllWithBootstrapBundle", ["compileResources"], functi
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-bootstrap-bundle.min.js"))
         .pipe(gulp.dest(paths.destination.bundle_js));
-});
 
-gulp.task("javascript:buildAllWithJQueryAndBootstrapBundle", ["compileResources"], function () {
-    return gulp.src([
+    var buildAllWithJQueryAndBootstrapBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
             paths.destination.bower + "/prettify.js",
             paths.destination.bower + "/bootstrap.js",
@@ -241,9 +235,11 @@ gulp.task("javascript:buildAllWithJQueryAndBootstrapBundle", ["compileResources"
         .pipe(stripDebug())
         .pipe(uglify())
         .pipe(gulp.dest(paths.destination.bundle_js));
+
+    return merge(buildButterFacesOnlyBunde, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
 });
 
-gulp.task("dist:zip", ["javascript:buildAllBundle", "javascript:buildAllWithJQueryBundle", "javascript:buildAllWithBootstrapBundle", "javascript:buildAllWithJQueryAndBootstrapBundle"], function () {
+gulp.task("dist:zip", ["javascript:buildAllBundle"], function () {
     return gulp.src([
             paths.destination.css + "/**/*",
             paths.destination.js + "/**/*",
