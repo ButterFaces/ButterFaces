@@ -76,7 +76,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
-        xhtmlCodeExample.appendInnerContent("        </b:tags>", false);
+        xhtmlCodeExample.appendInnerContent("        </b:treeBox>\n", false);
 
         this.addOutputExample(xhtmlCodeExample);
 
