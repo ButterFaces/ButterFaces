@@ -4,9 +4,6 @@
  *
  * Howto under http://definitelytyped.org/guides/best-practices.html
  */
-
-// root jsf object
-
 declare module jsf {
    module ajax {
 
