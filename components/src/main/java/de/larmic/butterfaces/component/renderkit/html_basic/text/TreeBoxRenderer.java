@@ -41,7 +41,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         writer.writeText("var entries_" + treeBox.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, Collections.<String>emptyList(), cachedNodes)+";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
         final String pluginCall = createJQueryPluginCallTrivial(treeBox);
-        writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
+        writer.writeText("var trivialTree"+ treeBox.getClientId().replace(":", "_") + " = " + jQueryBySelector + pluginCall + ";", null);
         writer.writeText("});", null);
         writer.endElement("script");
     }
