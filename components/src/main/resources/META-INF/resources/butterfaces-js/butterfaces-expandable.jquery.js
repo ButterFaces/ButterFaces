@@ -304,9 +304,7 @@
                 // (http://stackoverflow.com/questions/8380759/why-isnt-this-textarea-focusing-with-focus#8380785)
                 var self = this;
                 window.setTimeout(function () {
-                    self.$originalElement.focus();
-                    self.$originalElement.keyup();
-                    self.$originalElement.blur();
+                    self.$originalElement.trigger('keyup');
                     self.blockFocusEventOnOriginal = false;
                 }, 50);
             } else {
