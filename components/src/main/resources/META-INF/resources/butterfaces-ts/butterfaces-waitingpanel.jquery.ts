@@ -1,5 +1,4 @@
 ///<reference path="definitions/external/tsd.d.ts"/>
-///<reference path="definitions/jsf.d.ts"/>
 ///<reference path="butterfaces-overlay.ts"/>
 
 module ButterFaces {
