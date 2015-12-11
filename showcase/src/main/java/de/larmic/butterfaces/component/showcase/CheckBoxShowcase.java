@@ -1,13 +1,14 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
+
+import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 
 @Named
 @ViewScoped
@@ -44,7 +45,7 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    autoFocus=\"" + this.isAutoFocus() + "\"");
         xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
-        this.addAjaxTag(xhtmlCodeExample, "keyup");
+        this.addAjaxTag(xhtmlCodeExample, "change");
 
         if (StringUtils.isNotEmpty(getTooltip())) {
             xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
