@@ -1,9 +1,17 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * @author Lars Michaelis
+ */
 public class ReflectionUtil {
 
     public String getValueFromObject(final Object object, final String fieldName) {

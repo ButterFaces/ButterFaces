@@ -33,6 +33,7 @@ public class StringJoinerTest {
     @Test
     public void testJoinWithWrapper() throws Exception {
         assertThat(StringJoiner.on('|').join(VALUES).wrappedBy("'").toString()).isEqualTo("'ding'|'dong'|'test'|'me'");
+        assertThat(StringJoiner.on('|').join(VALUES).wrappedBy('\'').toString()).isEqualTo("'ding'|'dong'|'test'|'me'");
         assertThat(StringJoiner.on(" | ").join(VALUES).wrappedBy("'").toString()).isEqualTo("'ding' | 'dong' | 'test' | 'me'");
     }
 
