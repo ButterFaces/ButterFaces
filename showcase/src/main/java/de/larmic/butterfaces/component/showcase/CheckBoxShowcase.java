@@ -1,14 +1,13 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.List;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
