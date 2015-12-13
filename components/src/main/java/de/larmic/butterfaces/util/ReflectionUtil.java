@@ -1,6 +1,4 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.reflect;
-
-import de.larmic.butterfaces.util.StringUtils;
+package de.larmic.butterfaces.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

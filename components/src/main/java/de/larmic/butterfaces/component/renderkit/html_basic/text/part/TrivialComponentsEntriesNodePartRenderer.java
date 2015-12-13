@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
 import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
+import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.component.html.HtmlInputText;

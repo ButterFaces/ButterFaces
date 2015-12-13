@@ -26,7 +26,7 @@ import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
-import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;
+import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.resolver.MustacheResolver;
 
