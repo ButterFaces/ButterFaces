@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase.example;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

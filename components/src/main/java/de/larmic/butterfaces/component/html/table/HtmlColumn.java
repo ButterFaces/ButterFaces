@@ -2,7 +2,7 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ValueExpression;

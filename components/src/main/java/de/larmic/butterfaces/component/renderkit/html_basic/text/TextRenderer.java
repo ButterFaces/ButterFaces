@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 import de.larmic.butterfaces.component.html.text.HtmlText;
 import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;

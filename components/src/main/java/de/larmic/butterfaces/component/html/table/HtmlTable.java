@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.html.table;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.json.Ordering;
 import de.larmic.butterfaces.model.table.*;

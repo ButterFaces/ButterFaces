@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.resolver.ELResolver;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;

@@ -7,6 +7,7 @@ import com.sun.faces.renderkit.html_basic.HtmlBasicInputRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

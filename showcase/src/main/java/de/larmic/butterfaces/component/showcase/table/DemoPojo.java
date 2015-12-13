@@ -46,4 +46,8 @@ public class DemoPojo {
     public Date getDate() {
         return date;
     }
+
+    public Date getActualDate() {
+        return new Date();
+    }
 }

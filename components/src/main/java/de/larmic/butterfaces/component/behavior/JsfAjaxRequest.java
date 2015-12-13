@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.behavior;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -10,7 +10,7 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.FacesContext;
 import java.util.*;
 
-import static de.larmic.butterfaces.component.partrenderer.StringUtils.isNotEmpty;
+import static de.larmic.butterfaces.util.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
 
 /**

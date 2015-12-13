@@ -18,7 +18,7 @@ import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRen
 import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 
 public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {

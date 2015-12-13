@@ -6,6 +6,7 @@ import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Required;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;

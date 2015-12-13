@@ -14,7 +14,7 @@ import javax.faces.render.FacesRenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.message.HtmlMessages;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 /**
  * The renderer for the messages component. Actual only global messages will be rendered: Inspired by

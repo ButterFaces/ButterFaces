@@ -56,7 +56,7 @@ import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.renderkit.SelectItemsIterator;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.partrenderer.Constants;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

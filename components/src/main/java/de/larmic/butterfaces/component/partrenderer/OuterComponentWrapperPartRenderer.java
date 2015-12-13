@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Style;
 import de.larmic.butterfaces.component.html.feature.StyleClass;
 import de.larmic.butterfaces.component.html.feature.Validation;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;

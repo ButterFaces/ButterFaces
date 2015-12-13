@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.base.renderer;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 
 import javax.faces.component.UIComponent;

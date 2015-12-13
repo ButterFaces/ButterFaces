@@ -4,7 +4,7 @@ import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

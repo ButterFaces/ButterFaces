@@ -5,7 +5,7 @@ import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.html.text.HtmlTags;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

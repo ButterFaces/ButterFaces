@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.resolver;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;

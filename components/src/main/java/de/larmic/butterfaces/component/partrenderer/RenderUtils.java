@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
+import de.larmic.butterfaces.util.StringUtils;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;

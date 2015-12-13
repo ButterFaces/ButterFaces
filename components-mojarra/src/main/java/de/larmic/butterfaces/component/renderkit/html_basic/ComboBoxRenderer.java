@@ -23,7 +23,7 @@ import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.mojarra.MenuRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.reflect.ReflectionUtil;

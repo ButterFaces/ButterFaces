@@ -4,7 +4,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.mojarra;
 import com.sun.faces.renderkit.html_basic.BaseTableRenderer;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;

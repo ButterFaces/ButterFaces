@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.showcase.example;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 
 /**
  * Created by larmic on 12.12.14.

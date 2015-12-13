@@ -1,10 +1,14 @@
-package de.larmic.butterfaces.component.partrenderer;
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
+package de.larmic.butterfaces.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
- * Created by larmic on 27.08.14.
+ * @author Lars Michaelis
  */
 public class StringUtils {
 
@@ -13,6 +17,10 @@ public class StringUtils {
 
     public static final String SEPARATOR_COMMA = ", ";
 
+    /**
+     * @deprecated use {@link StringJoiner} instead.
+     */
+    @Deprecated
     public static String concatWithSpace(final String... styles) {
         final StringBuilder sb = new StringBuilder();
 
@@ -42,37 +50,27 @@ public class StringUtils {
         return getNotNullValue(value, "");
     }
 
+    /**
+     * @deprecated use {@link StringJoiner} instead.
+     */
+    @Deprecated
     public static String joinWithCommaSeparator(final Collection<String> values) {
-        return join(values, SEPARATOR_COMMA, false);
+        return StringJoiner.on(SEPARATOR_COMMA).join(values).toString();
     }
 
+    /**
+     * @deprecated use {@link StringJoiner} instead.
+     */
+    @Deprecated
     public static String joinWithCommaSeparator(final Collection<String> values, boolean escape) {
-        return join(values, SEPARATOR_COMMA, escape);
+        return StringJoiner.on(SEPARATOR_COMMA).join(values).wrappedBy("'").toString();
     }
 
+    /**
+     * @deprecated use {@link StringJoiner} instead.
+     */
+    @Deprecated
     public static String joinWithSpaceSeparator(final Collection<String> values) {
-        return join(values, SPACE, false);
-    }
-
-    public static String join(final Collection<String> values, final String separator, boolean escape) {
-        final StringBuilder value = new StringBuilder();
-        final Iterator<String> iterator = values.iterator();
-
-        while (iterator.hasNext()) {
-            final String valueToAdd = iterator.next();
-            if (escape) {
-                value.append("'");
-            }
-            value.append(valueToAdd);
-            if (escape) {
-                value.append("'");
-            }
-
-            if (iterator.hasNext()) {
-                value.append(separator);
-            }
-        }
-
-        return value.toString();
+        return  StringJoiner.on(SPACE).join(values).toString();
     }
 }

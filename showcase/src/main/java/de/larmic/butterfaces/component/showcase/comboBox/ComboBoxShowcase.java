@@ -1,6 +1,6 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-import de.larmic.butterfaces.component.partrenderer.StringUtils;
+import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.*;
 import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
