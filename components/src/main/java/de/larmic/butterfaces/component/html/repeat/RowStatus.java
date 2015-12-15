@@ -35,29 +35,13 @@ public final class RowStatus implements Serializable {
         return index;
     }
 
-    public boolean isFirstElement() {
-        return firstElement;
-    }
-
-    public boolean isLastElement() {
-        return lastElement;
-    }
-
-    public Integer getRowCount() {
-        return rowCount;
-    }
-
-    public boolean isEvenElement() {
-        return evenElement;
-    }
-
     @Override
     public String toString() {
         return StringJoiner.on(',').join(Arrays.asList(
-                "index= " + index,
-                "firstElement= " + firstElement,
-                "lastElement= " + lastElement,
-                "evenElement= " + evenElement,
-                "rowCount= " + rowCount)).toString();
+                "index=" + index,
+                "firstElement=" + firstElement,
+                "lastElement=" + lastElement,
+                "evenElement=" + evenElement,
+                "rowCount=" + rowCount)).toString();
     }
 }
