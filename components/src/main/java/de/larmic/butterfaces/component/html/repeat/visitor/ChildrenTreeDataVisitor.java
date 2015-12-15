@@ -1,0 +1,65 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
+package de.larmic.butterfaces.component.html.repeat.visitor;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.context.FacesContext;
+import java.util.Iterator;
+
+/**
+ * @author Lars Michaelis
+ */
+public class ChildrenTreeDataVisitor implements DataVisitor {
+
+    private final VisitCallback callback;
+    private final VisitContext visitContext;
+    private final ChildrenTreeDataVisitorCallback childrenTreeDataVisitorCallback;
+    private boolean visitResult;
+
+    public ChildrenTreeDataVisitor(VisitCallback callback,
+                                   VisitContext visitContext,
+                                   ChildrenTreeDataVisitorCallback childrenTreeDataVisitorCallback1) {
+        this.callback = callback;
+        this.visitContext = visitContext;
+        this.childrenTreeDataVisitorCallback = childrenTreeDataVisitorCallback1;
+    }
+
+    public DataVisitResult process(FacesContext context, Object rowKey) {
+        childrenTreeDataVisitorCallback.setRowKey(context, rowKey);
+
+        if (childrenTreeDataVisitorCallback.isRowAvailable()) {
+            final Iterator<UIComponent> dataChildrenItr = childrenTreeDataVisitorCallback.dataChildren();
+
+            while (dataChildrenItr.hasNext()) {
+                final UIComponent dataChild = dataChildrenItr.next();
+
+                if (skipChild(dataChild)) {
+                    continue;
+                }
+
+                if (dataChild.visitTree(visitContext, callback)) {
+                    visitResult = true;
+
+                    return DataVisitResult.STOP;
+                }
+            }
+        }
+
+        return DataVisitResult.CONTINUE;
+    }
+
+    private boolean skipChild(UIComponent dataChild) {
+        return !dataChild.getParent().isRendered() && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED);
+    }
+
+    public boolean getVisitResult() {
+        return visitResult;
+    }
+
+}
