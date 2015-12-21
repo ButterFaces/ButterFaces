@@ -154,7 +154,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         if (columnOptionsTooltip != null) {
             xhtmlCodeExample.appendInnerContent("                        columnOptionsTooltip=\"" + columnOptionsTooltip + "\"");
         }
-        xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + ">");
+        xhtmlCodeExample.appendInnerContent("                        rendered=\"" + this.isRendered() + "\">");
         if (showRefreshButton) {
             xhtmlCodeExample.appendInnerContent("            <!-- add refresh ajax event to enable refresh button -->");
             xhtmlCodeExample.appendInnerContent("            <f:ajax event=\"refresh\" render=\"formId:numberOfRefreshes\" />");
@@ -234,12 +234,12 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         } else if (fourthColumnWidthType == FourthColumnWidthType.RELATIVE) {
             xhtmlCodeExample.appendInnerContent("                    colWidth=\"5*\"");
         }
-        xhtmlCodeExample.appendInnerContent("                    label=\"Readonly text\">");
+        xhtmlCodeExample.appendInnerContent("                      label=\"Readonly text\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
         xhtmlCodeExample.appendInnerContent("                <b:tooltip placement=\"top\">");
         xhtmlCodeExample.appendInnerContent("                   /* tooltip text */");
         xhtmlCodeExample.appendInnerContent("                </b:tooltip>");
-        xhtmlCodeExample.appendInnerContent("            </column>");
+        xhtmlCodeExample.appendInnerContent("            </b:column>");
 
         xhtmlCodeExample.appendInnerContent("            <b:column id=\"column2\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
@@ -252,7 +252,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                      sortColumnEnabled=\"false\"");
         xhtmlCodeExample.appendInnerContent("                      label=\"Action\">");
         xhtmlCodeExample.appendInnerContent("                /* action */");
-        xhtmlCodeExample.appendInnerContent("            </column>");
+        xhtmlCodeExample.appendInnerContent("            </b:column>");
 
         xhtmlCodeExample.appendInnerContent("            <b:column id=\"column3\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
@@ -264,7 +264,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
         xhtmlCodeExample.appendInnerContent("                      label=\"Creation date\">");
         xhtmlCodeExample.appendInnerContent("                /* date */");
-        xhtmlCodeExample.appendInnerContent("            </column>");
+        xhtmlCodeExample.appendInnerContent("            </b:column>");
 
         xhtmlCodeExample.appendInnerContent("            <b:column id=\"column4\"");
         if (fourthColumnWidthType == FourthColumnWidthType.PERCENT) {
@@ -277,7 +277,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                      sortColumnEnabled=\"false\"");
         xhtmlCodeExample.appendInnerContent("                      label=\"Readonly text (default hide)\">");
         xhtmlCodeExample.appendInnerContent("                /* text */");
-        xhtmlCodeExample.appendInnerContent("            </column>");
+        xhtmlCodeExample.appendInnerContent("            </b:column>");
 
         xhtmlCodeExample.appendInnerContent("        </b:table>");
 
