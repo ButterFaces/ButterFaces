@@ -13,6 +13,8 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{treeBoxShowcase.label}"/>
+            <common:tagStringControl label="spinnerText" value="#{treeBoxShowcase.spinnerText}"/>
+            <common:tagStringControl label="noEntriesText" value="#{treeBoxShowcase.noEntriesText}"/>
             <common:tagBooleanControl label="hideLabel" value="#{treeBoxShowcase.hideLabel}"/>
             <common:tagBooleanControl label="readonly" value="#{treeBoxShowcase.readonly}"/>
             <common:tagBooleanControl label="required" value="#{treeBoxShowcase.required}"/>
@@ -67,6 +69,8 @@
                        tooltip="#{treeBoxShowcase.tooltip}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"
+                       spinnerText="#{treeBoxShowcase.spinnerText}"
+                       noEntriesText="#{treeBoxShowcase.noEntriesText}"
                        disabled="#{treeBoxShowcase.disabled}"
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'NONE'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
@@ -90,6 +94,8 @@
                        values="#{treeBoxShowcase.showcaseTreeNode.tree}"
                        hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        tooltip="#{treeBoxShowcase.tooltip}"
+                       spinnerText="#{treeBoxShowcase.spinnerText}"
+                       noEntriesText="#{treeBoxShowcase.noEntriesText}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"
                        disabled="#{treeBoxShowcase.disabled}"
@@ -116,6 +122,8 @@
                        value="#{treeBoxShowcase.value}"
                        values="#{treeBoxShowcase.showcaseTreeNode.tree}"
                        hideRootNode="#{treeBoxShowcase.hideRootNode}"
+                       spinnerText="#{treeBoxShowcase.spinnerText}"
+                       noEntriesText="#{treeBoxShowcase.noEntriesText}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"

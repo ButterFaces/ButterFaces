@@ -30,6 +30,8 @@ public class HtmlTreeBox extends HtmlText {
 
     protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
     protected static final String PROPERTY_VALUES = "values";
+    protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
+    protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
 
     public HtmlTreeBox() {
         super();
@@ -60,5 +62,21 @@ public class HtmlTreeBox extends HtmlText {
 
     public void setHideRootNode(final boolean hideRootNode) {
         getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
+    }
+
+    public String getSpinnerText() {
+        return (String) getStateHelper().eval(PROPERTY_SPINNER_TEXT);
+    }
+
+    public void setSpinnerText(String spinnerText) {
+        getStateHelper().put(PROPERTY_SPINNER_TEXT, spinnerText);
+    }
+
+    public String getNoEntriesText() {
+        return (String) getStateHelper().eval(PROPERTY_NO_ENTRIES_TEXT);
+    }
+
+    public void setNoEntriesText(String noEntriesText) {
+        getStateHelper().put(PROPERTY_NO_ENTRIES_TEXT, noEntriesText);
     }
 }

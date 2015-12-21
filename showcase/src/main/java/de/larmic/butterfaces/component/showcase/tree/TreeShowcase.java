@@ -8,6 +8,7 @@ import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -30,6 +31,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private String placeholder = "Search...";
     private Integer toManyVisibleItemsRenderDelay;
     private Integer toManyVisibleItemsThreshold;
+    private String noEntriesText;
+    private String spinnerText;
 
     @Override
     public void processValueChange(final TreeNodeSelectionEvent event) {
@@ -191,6 +194,12 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         xhtmlCodeExample.appendInnerContent("                hideRootNode=\"" + hideRootNode + "\"");
         xhtmlCodeExample.appendInnerContent("                searchBarMode=\"" + selectedSearchBarModeType.label + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + placeholder + "\"");
+        if (StringUtils.isNotEmpty(spinnerText)) {
+            xhtmlCodeExample.appendInnerContent("                spinnerText=\"" + spinnerText + "\"");
+        }
+        if (StringUtils.isNotEmpty(noEntriesText)) {
+            xhtmlCodeExample.appendInnerContent("                noEntriesText=\"" + noEntriesText + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                rendered=\"" + this.isRendered() + "\">");
 
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
@@ -318,5 +327,21 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
 
     public void setToManyVisibleItemsThreshold(Integer toManyVisibleItemsThreshold) {
         this.toManyVisibleItemsThreshold = toManyVisibleItemsThreshold;
+    }
+
+    public String getNoEntriesText() {
+        return noEntriesText;
+    }
+
+    public void setNoEntriesText(String noEntriesText) {
+        this.noEntriesText = noEntriesText;
+    }
+
+    public String getSpinnerText() {
+        return spinnerText;
+    }
+
+    public void setSpinnerText(String spinnerText) {
+        this.spinnerText = spinnerText;
     }
 }

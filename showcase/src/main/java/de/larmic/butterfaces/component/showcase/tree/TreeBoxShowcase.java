@@ -25,6 +25,8 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     private String placeholder = "Enter text...";
     private boolean autoFocus;
     private boolean hideRootNode;
+    private String noEntriesText;
+    private String spinnerText;
 
     @Override
     protected Object initValue() {
@@ -62,6 +64,12 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                   required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                   autoFocus=\"" + this.isAutoFocus() + "\"");
+        if (StringUtils.isNotEmpty(spinnerText)) {
+            xhtmlCodeExample.appendInnerContent("                   spinnerText=\"" + spinnerText + "\"");
+        }
+        if (StringUtils.isNotEmpty(noEntriesText)) {
+            xhtmlCodeExample.appendInnerContent("                   noEntriesText=\"" + noEntriesText + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "change");
@@ -212,5 +220,21 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public void setSelectedFacetType(FacetType selectedFacetType) {
         this.selectedFacetType = selectedFacetType;
+    }
+
+    public String getNoEntriesText() {
+        return noEntriesText;
+    }
+
+    public void setNoEntriesText(String noEntriesText) {
+        this.noEntriesText = noEntriesText;
+    }
+
+    public String getSpinnerText() {
+        return spinnerText;
+    }
+
+    public void setSpinnerText(String spinnerText) {
+        this.spinnerText = spinnerText;
     }
 }

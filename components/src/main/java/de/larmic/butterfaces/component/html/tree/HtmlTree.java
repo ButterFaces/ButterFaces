@@ -1,7 +1,8 @@
 package de.larmic.butterfaces.component.html.tree;
 
-import java.util.Arrays;
-import java.util.Collection;
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.Node;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -9,10 +10,8 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-
-import de.larmic.butterfaces.event.TreeNodeExpansionListener;
-import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.Node;
+import java.util.Arrays;
+import java.util.Collection;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
@@ -40,6 +39,8 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String PROPERTY_NODE_EXPANSION_LISTENER = "nodeExpansionListener";
     protected static final String PROPERTY_TO_MANY_VISIBLE_ITEMS_RENDER_DELAY = "toManyVisibleItemsRenderDelay";
     protected static final String PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD = "toManyVisibleItemsThreshold";
+    protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
+    protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
 
     public HtmlTree() {
         super();
@@ -139,6 +140,22 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public void setToManyVisibleItemsThreshold(Integer toManyVisibleItemsThreshold) {
         getStateHelper().put(PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD, toManyVisibleItemsThreshold);
+    }
+
+    public String getSpinnerText() {
+        return (String) getStateHelper().eval(PROPERTY_SPINNER_TEXT);
+    }
+
+    public void setSpinnerText(String spinnerText) {
+        getStateHelper().put(PROPERTY_SPINNER_TEXT, spinnerText);
+    }
+
+    public String getNoEntriesText() {
+        return (String) getStateHelper().eval(PROPERTY_NO_ENTRIES_TEXT);
+    }
+
+    public void setNoEntriesText(String noEntriesText) {
+        getStateHelper().put(PROPERTY_NO_ENTRIES_TEXT, noEntriesText);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

@@ -17,6 +17,8 @@
             <common:tagBooleanControl label="rendered" value="#{treeShowcase.rendered}"/>
             <common:tagBooleanControl label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
             <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
+            <common:tagStringControl label="spinnerText" value="#{treeShowcase.spinnerText}"/>
+            <common:tagStringControl label="noEntriesText" value="#{treeShowcase.noEntriesText}"/>
             <common:tagEnumControl label="searchBarMode"
                                    value="#{treeShowcase.selectedSearchBarModeType}"
                                    values="#{treeShowcase.seachBarModeTypes}"/>
@@ -51,6 +53,8 @@
                 value="#{treeShowcase.showcaseTreeNode.tree}"
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"
+                spinnerText="#{treeShowcase.spinnerText}"
+                noEntriesText="#{treeShowcase.noEntriesText}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
                 placeholder="#{treeShowcase.placeholder}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
@@ -70,6 +74,8 @@
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"
                 placeholder="#{treeShowcase.placeholder}"
+                spinnerText="#{treeShowcase.spinnerText}"
+                noEntriesText="#{treeShowcase.noEntriesText}"
                 hideRootNode="#{treeShowcase.hideRootNode}"
                 toManyVisibleItemsRenderDelay="#{treeShowcase.toManyVisibleItemsRenderDelay}"
                 toManyVisibleItemsThreshold="#{treeShowcase.toManyVisibleItemsThreshold}"

@@ -17,7 +17,14 @@ import java.util.*;
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
 public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
+    public static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
+    public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
+    public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
+
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
+
+    private String noMatchingText;
+    private String spinnerText;
 
     @Override
     protected boolean encodeReadonly() {
@@ -27,6 +34,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component, "butter-component-treebox");
+
+        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
+
+        noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
     }
 
     @Override
@@ -105,6 +117,8 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(Collections.<String>emptyList(), cachedNodes, selectedEntryId, selectedNode) + ",");
         }
         jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_TEMPLATE + "'],");
+        jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
+        jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
         jQueryPluginCall.append("\n    entries: entries_" + treeBox.getClientId().replace(":", "_"));
         jQueryPluginCall.append("});");
 

@@ -859,6 +859,14 @@
          <name>placeholder</name>
          <type>java.lang.String</type>
       </attribute>
+      <attribute>
+         <name>spinnerText</name>
+         <type>java.lang.String</type>
+      </attribute>
+      <attribute>
+         <name>noEntriesText</name>
+         <type>java.lang.String</type>
+      </attribute>
 
        <attribute>
            <description>
@@ -2817,6 +2825,14 @@
          <name>searchBarMode</name>
          <type>java.lang.String</type>
       </attribute>
+       <attribute>
+           <name>spinnerText</name>
+           <type>java.lang.String</type>
+       </attribute>
+       <attribute>
+           <name>noEntriesText</name>
+           <type>java.lang.String</type>
+       </attribute>
    </tag>
 
    <tag>

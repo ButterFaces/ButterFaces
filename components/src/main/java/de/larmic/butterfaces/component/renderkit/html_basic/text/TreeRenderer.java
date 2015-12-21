@@ -1,11 +1,17 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
+import de.larmic.butterfaces.component.html.tree.HtmlTree;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.event.TreeNodeExpansionListener;
+import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
+import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.resolver.MustacheResolver;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -14,27 +20,21 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
-import de.larmic.butterfaces.component.html.tree.HtmlTree;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
-import de.larmic.butterfaces.context.StringHtmlEncoder;
-import de.larmic.butterfaces.event.TreeNodeExpansionListener;
-import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
-import de.larmic.butterfaces.event.TreeNodeSelectionListener;
-import de.larmic.butterfaces.model.tree.Node;
-import de.larmic.butterfaces.resolver.MustacheResolver;
+import java.io.IOException;
+import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
 
     public static final String DEFAULT_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
+    public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
+    public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
     private Node selectedNode = null;
+
+    private String noMatchingText;
+    private String spinnerText;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -58,6 +58,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-original-input", null);
         writer.endElement("input");
+
+        noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
         cachedNodes.clear();
     }
@@ -86,7 +89,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.writeText("jQuery(function () {\n", null);
         writer.writeText("var entries_" + tree.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(tree, nodes, context);
+        final String pluginCall = createJQueryPluginCallTrivial(tree, context);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
         this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
@@ -148,7 +151,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node node = cachedNodes.get(nodeNumber);
                 if (nodeSelectionListener != null) {
-                   nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
+                    nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
                 }
                 selectedNode = node;
             } catch (NumberFormatException e) {
@@ -177,7 +180,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTree tree,
-                                                 final List<Node> nodes,
                                                  final FacesContext context) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
         final String searchBarMode = determineSearchBarMode(tree);
@@ -208,6 +210,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         } else {
             jQueryPluginCall.append("\n    templates: ['" + DEFAULT_TEMPLATE + "'],");
         }
+        jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
+        jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
         jQueryPluginCall.append("\n    entries: entries_" + tree.getClientId().replace(":", "_"));
         jQueryPluginCall.append("})");
 
