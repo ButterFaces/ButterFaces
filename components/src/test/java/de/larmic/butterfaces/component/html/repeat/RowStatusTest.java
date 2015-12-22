@@ -16,9 +16,9 @@ public class RowStatusTest {
 
     @Test
     public void testToString() throws Exception {
-        assertThat(new RowStatus(0, 10).toString()).isEqualTo("index=0,firstElement=true,lastElement=false,evenElement=false,rowCount=10");
-        assertThat(new RowStatus(5, 10).toString()).isEqualTo("index=5,firstElement=false,lastElement=false,evenElement=true,rowCount=10");
-        assertThat(new RowStatus(9, 10).toString()).isEqualTo("index=9,firstElement=false,lastElement=true,evenElement=true,rowCount=10");
+        assertThat(new RowStatus(0, 10).toString()).isEqualTo("index=0, firstElement=true, lastElement=false, evenElement=false, rowCount=10");
+        assertThat(new RowStatus(5, 10).toString()).isEqualTo("index=5, firstElement=false, lastElement=false, evenElement=true, rowCount=10");
+        assertThat(new RowStatus(9, 10).toString()).isEqualTo("index=9, firstElement=false, lastElement=true, evenElement=true, rowCount=10");
     }
 
 }
