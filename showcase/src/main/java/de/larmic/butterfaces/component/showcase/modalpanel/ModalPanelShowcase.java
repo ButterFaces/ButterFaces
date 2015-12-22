@@ -36,6 +36,21 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
+        } else if (modalPanelType == ModalPanelType.CUSTOM_HEADER) {
+            xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
+            xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\">");
+            xhtmlCodeExample.appendInnerContent("            Lorem ipsum dolor sit amet, consectetuer ...");
+            xhtmlCodeExample.appendInnerContent("            <!-- using header facet will ignore title attribute -->");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"header\">");
+            xhtmlCodeExample.appendInnerContent("               <div>");
+            xhtmlCodeExample.appendInnerContent("                  <strong>Warning: </strong>" + title + "");
+            xhtmlCodeExample.appendInnerContent("               </div>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+            xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
+            xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("            open modal panel");
+            xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.CUSTOM_FOOTER) {
             xhtmlCodeExample.appendInnerContent("\n        <b:modalPanel id=\"modalPanel\"");
             xhtmlCodeExample.appendInnerContent("                      cancelButtonText=\"" + cancelButtonText + "\"");
