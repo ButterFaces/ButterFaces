@@ -2988,4 +2988,30 @@
       </attribute>
    </tag>
 
+    <tag>
+        <tag-name>repeat</tag-name>
+        <description>&lt;b:repeat&gt; is a non visible component used to iterate through a data model.</description>
+        <component>
+            <component-type>de.larmic.butterfaces.component.repeat</component-type>
+        </component>
+        <attribute>
+            <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit. The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>var</name>
+            <required>true</required>
+        </attribute>
+    </tag>
+
 </facelet-taglib>
