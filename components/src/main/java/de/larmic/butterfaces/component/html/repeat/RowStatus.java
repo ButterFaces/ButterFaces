@@ -37,7 +37,7 @@ public final class RowStatus implements Serializable {
 
     @Override
     public String toString() {
-        return StringJoiner.on(',').join(Arrays.asList(
+        return StringJoiner.on(", ").join(Arrays.asList(
                 "index=" + index,
                 "firstElement=" + firstElement,
                 "lastElement=" + lastElement,

@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://butterfaces.larmic.de/components"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="header">
+        <strong>b:section</strong> The section tag renders an HTML input element of the type "section".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <common:tagsContainer label="Tag attributes">
+            <common:tagBooleanControl label="rendered" value="#{repeatShowcase.rendered}"/>
+        </common:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+        <b:commandLink value="Refresh">
+            <f:ajax execute="@this" render="repeat"/>
+        </b:commandLink>
+
+        <h:panelGroup id="repeat" layout="block">
+            <b:repeat value="#{repeatShowcase.values}"
+                      rendered="#{repeatShowcase.rendered}"
+                      var="value"
+                      status="status">
+                <div class="row">
+                    <div class="col-md-1">#{value.id}</div>
+                    <b:text value="#{value.a}" hideLabel="true" styleClass="col-md-2">
+                        <f:ajax execute="@this" event="change" render="@this"/>
+                        <f:validateRequired />
+                    </b:text>
+
+                    <div class="col-md-1">#{value.b}</div>
+                    <div class="col-md-3">#{value.actualDate}</div>
+                    <div class="col-md-5">#{status}</div>
+                </div>
+            </b:repeat>
+        </h:panelGroup>
+    </ui:define>
+
+    <ui:define name="other">
+        <common:codeExamples component="#{repeatShowcase}"/>
+        <b:activateLibraries/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('repeat');
+            });
+        </script>
+    </ui:define>
+</ui:composition>
