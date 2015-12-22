@@ -46,7 +46,7 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         writer.startElement(ELEMENT_DIV, component);
         writer.writeAttribute(ATTRIBUTE_CLASS, "modal-content", null);
 
-        this.writerHeader(modalPanel, writer);
+        this.writerHeader(modalPanel, context);
 
         writer.startElement(ELEMENT_DIV, component);
         writer.writeAttribute(ATTRIBUTE_CLASS, "modal-body", null);
@@ -95,17 +95,28 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private void writerHeader(final HtmlModalPanel component, final ResponseWriter writer) throws IOException {
-        if (StringUtils.isNotEmpty(component.getTitle())) {
-            writer.startElement(ELEMENT_DIV, component);
-            writer.writeAttribute(ATTRIBUTE_CLASS, "modal-header", null);
-            writer.startElement("h4", component);
-            writer.writeAttribute(ATTRIBUTE_CLASS, "modal-title", null);
-            writer.writeText(component.getTitle(), component, null);
-            writer.endElement("h4");
-            writer.endElement(ELEMENT_DIV);
-        }
-    }
+    private void writerHeader(final HtmlModalPanel component,
+			final FacesContext context) throws IOException {
+		final ResponseWriter writer = context.getResponseWriter();
+
+		final UIComponent header = this.getFacet(component, "header");
+
+		if (header != null || StringUtils.isNotEmpty(component.getTitle())) {
+			writer.startElement(ELEMENT_DIV, component);
+			writer.writeAttribute(ATTRIBUTE_CLASS, "modal-header", null);
+
+			if (header != null) {
+				header.encodeAll(context);
+			} else {
+				writer.startElement("h4", component);
+				writer.writeAttribute(ATTRIBUTE_CLASS, "modal-title", null);
+				writer.writeText(component.getTitle(), component, null);
+				writer.endElement("h4");
+			}
+
+			writer.endElement(ELEMENT_DIV);
+		}
+	}
 
     private void writeFooter(final HtmlModalPanel component, final FacesContext context) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
