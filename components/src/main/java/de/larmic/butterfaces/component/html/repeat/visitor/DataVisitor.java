@@ -13,6 +13,6 @@ import java.io.IOException;
  */
 public interface DataVisitor {
 
-    DataVisitResult process(FacesContext context, Object rowKey) throws IOException;
+    DataVisitResult process(FacesContext context, Integer rowKey) throws IOException;
 
 }

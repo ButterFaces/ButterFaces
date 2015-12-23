@@ -42,7 +42,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected final String separatorChar;
 
     private DataModelWrapper<?> dataModelWrapper = null;
-    private Object rowKey = null;
+    private Integer rowKey = null;
     private String containerClientId;
     Stack<Object> originalVarValues = new Stack<>();
 
@@ -70,15 +70,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return UIViewRoot.UNIQUE_ID_PREFIX + ((seed == null) ? lastId : seed);
     }
 
-    public Object getRowKey() {
+    public Integer getRowKey() {
         return rowKey;
     }
 
-    public void setRowKey(FacesContext facesContext, Object rowKey) {
+    @Override
+    public void setRowKey(FacesContext facesContext, Integer rowKey) {
         this.saveChildState(facesContext);
 
         this.rowKey = rowKey;
-        int rowKeyAsInt = rowKey != null ? (Integer) rowKey : -1;
+        final int rowKeyAsInt = rowKey != null ? rowKey : -1;
 
         getDataModelWrapper().setRowIndex(rowKeyAsInt);
 
@@ -196,10 +197,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    public void setRowKey(Object rowKey) {
-        setRowKey(getFacesContext(), rowKey);
-    }
-
     protected FacesEvent wrapEvent(FacesEvent event) {
         return new RowKeyFacesEvent(this, event, getRowKey());
     }
@@ -314,7 +311,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (null == containerClientId) {
             containerClientId = super.getContainerClientId(facesContext);
 
-            Object rowKey = getRowKey();
+            final Object rowKey = getRowKey();
 
             if (rowKey != null) {
                 String rowKeyString = rowKey.toString();
@@ -329,7 +326,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         String var = getVar();
 
         if (var != null) {
-            Map<String, Object> attrs = getVariablesMap(faces);
+            final Map<String, Object> attrs = getVariablesMap(faces);
 
             if (!this.originalVarValues.isEmpty()) {
                 attrs.put(var, this.originalVarValues.pop());
@@ -366,7 +363,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public void walk(FacesContext faces, DataVisitor visitor) throws IOException {
-        final Object key = getRowKey();
+        final Integer key = getRowKey();
         getDataModelWrapper().walk(faces, visitor);
         setRowKey(faces, key);
         restoreOrigValue(faces);
@@ -398,11 +395,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public Object saveState(FacesContext context) {
         final Object parentState = super.saveState(context);
 
-        if (initialStateMarked()) {
-            if (parentState == null) {
-                // No values
-                return null;
-            }
+        if (initialStateMarked() && parentState == null) {
+            return null;
         }
 
         return new Object[]{parentState};
@@ -414,9 +408,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             return;
         }
 
-        Object[] state = (Object[]) stateObject;
-
-        super.restoreState(context, state[0]);
+        super.restoreState(context, ((Object[]) stateObject)[0]);
     }
 
     protected boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
@@ -429,25 +421,23 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     @Override
     public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
-
         if ((null == context) || (null == clientId) || (null == callback)) {
             throw new NullPointerException();
         }
 
-        String baseId = getClientId(context);
+        final String baseId = getClientId(context);
 
         if (!matchesBaseId(clientId, baseId, UINamingContainer.getSeparatorChar(context))) {
             return false;
         }
 
         boolean found = false;
-        Object oldRowKey = getRowKey();
+        Integer oldRowKey = getRowKey();
 
         try {
 
             setRowKey(context, null);
 
-            // }
             if (clientId.equals(baseId)) {
                 callback.invokeContextCallback(context, this);
                 found = true;
@@ -554,7 +544,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         // appropriate visit hints have been added to the API
         boolean visitRows = requiresRowIteration(visitContext);
 
-        Object oldRowKey = null;
+        Integer oldRowKey = null;
         if (visitRows) {
             oldRowKey = getRowKey();
             setRowKey(facesContext, null);
@@ -623,14 +613,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
-        FacesContext facesContext = getFacesContext();
-
         if (event instanceof PostAddToViewEvent) {
-            subscribeToPreRenderViewEventOncePerRequest(facesContext, ((PostAddToViewEvent) event).getComponent());
+            subscribeToPreRenderViewEventOncePerRequest();
         }
 
         if (event instanceof PostRestoreStateEvent) {
-            subscribeToPreRenderViewEventOncePerRequest(facesContext, ((PostRestoreStateEvent) event).getComponent());
+            subscribeToPreRenderViewEventOncePerRequest();
             resetState();
         }
 
@@ -639,24 +627,14 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    private void subscribeToPreRenderViewEventOncePerRequest(FacesContext facesContext, UIComponent component) {
-        Map<Object, Object> contextMap = facesContext.getAttributes();
+    private void subscribeToPreRenderViewEventOncePerRequest() {
+        final FacesContext facesContext = getFacesContext();
+        final Map<Object, Object> contextMap = facesContext.getAttributes();
         if (contextMap.get(this.getClientId() + PRE_RENDER_VIEW_EVENT_REGISTERED) == null) {
             contextMap.put(this.getClientId() + PRE_RENDER_VIEW_EVENT_REGISTERED, Boolean.TRUE);
-            UIViewRoot viewRoot = getUIViewRoot(component);
+            UIViewRoot viewRoot = facesContext.getViewRoot();
             viewRoot.subscribeToViewEvent(PreRenderViewEvent.class, this);
         }
-    }
-
-    private UIViewRoot getUIViewRoot(UIComponent component) {
-        UIComponent resolved = component;
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            if (resolved instanceof UIViewRoot) {
-                return (UIViewRoot) resolved;
-            }
-            resolved = resolved.getParent();
-        }
-        throw new IllegalStateException("No UIViewRoot found in tree");
     }
 
     @Override

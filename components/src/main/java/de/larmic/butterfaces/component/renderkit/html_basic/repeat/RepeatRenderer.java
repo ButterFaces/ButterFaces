@@ -31,7 +31,7 @@ public class RepeatRenderer extends Renderer {
 
         try {
             DataVisitor visitor = new DataVisitor() {
-                public DataVisitResult process(FacesContext context, Object rowKey) throws IOException {
+                public DataVisitResult process(FacesContext context, Integer rowKey) throws IOException {
                     repeat.setRowKey(context, rowKey);
 
                     if (repeat.isRowAvailable() && repeat.getChildCount() > 0) {

@@ -18,9 +18,9 @@ import javax.faces.event.PhaseId;
 public class RowKeyFacesEvent extends FacesEvent {
 
     private FacesEvent event;
-    private Object eventRowKey;
+    private Integer eventRowKey;
 
-    public RowKeyFacesEvent(UIDataAdaptor component, FacesEvent event, Object eventRowKey) {
+    public RowKeyFacesEvent(UIDataAdaptor component, FacesEvent event, Integer eventRowKey) {
         super(component);
 
         this.event = event;
@@ -31,7 +31,7 @@ public class RowKeyFacesEvent extends FacesEvent {
         return this.event;
     }
 
-    public Object getEventRowKey() {
+    public Integer getEventRowKey() {
         return eventRowKey;
     }
 

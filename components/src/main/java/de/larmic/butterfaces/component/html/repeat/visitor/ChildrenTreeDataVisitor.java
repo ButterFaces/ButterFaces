@@ -30,7 +30,7 @@ public class ChildrenTreeDataVisitor implements DataVisitor {
         this.childrenTreeDataVisitorCallback = childrenTreeDataVisitorCallback1;
     }
 
-    public DataVisitResult process(FacesContext context, Object rowKey) {
+    public DataVisitResult process(FacesContext context, Integer rowKey) {
         childrenTreeDataVisitorCallback.setRowKey(context, rowKey);
 
         if (childrenTreeDataVisitorCallback.isRowAvailable()) {

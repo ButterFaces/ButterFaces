@@ -14,7 +14,7 @@ import java.util.Iterator;
  */
 public interface ChildrenTreeDataVisitorCallback {
 
-    void setRowKey(FacesContext facesContext, Object rowKey);
+    void setRowKey(FacesContext facesContext, Integer rowKey);
     boolean isRowAvailable();
     Iterator<UIComponent> dataChildren();
 
