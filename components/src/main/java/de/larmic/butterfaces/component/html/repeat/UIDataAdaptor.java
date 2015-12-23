@@ -51,8 +51,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public UIDataAdaptor() {
-        super();
-        subscribeToEvents();
+        this.subscribeToEvent(PostAddToViewEvent.class, this);
+        this.subscribeToEvent(PostRestoreStateEvent.class, this);
+
         separatorChar = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
     }
 
@@ -91,10 +92,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void saveChildState(FacesContext facesContext) {
-        Iterator<UIComponent> itr = dataChildren();
+        final Iterator<UIComponent> itr = dataChildren();
 
         while (itr.hasNext()) {
-            this.saveChildState(facesContext, (UIComponent) itr.next());
+            this.saveChildState(facesContext, itr.next());
         }
     }
 
@@ -208,11 +209,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         super.queueEvent(wrapEvent(event));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.component.UIComponentBase#broadcast(javax.faces.event.FacesEvent)
-     */
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof RowKeyFacesEvent) {
@@ -263,7 +259,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.status, status);
     }
 
-    // XXX - review and probably remove - useful method, should be left
     public int getRowCount() {
         return getDataModelWrapper().getRowCount();
     }
@@ -425,17 +420,11 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
-        if (clientId.equals(baseId)) {
-            return true;
-        }
+        return clientId.equals(baseId)
+                || clientId.startsWith(baseId)
+                && (clientId.length() > baseId.length())
+                && (clientId.charAt(baseId.length()) == separatorChar);
 
-        // if clientId.startsWith(baseId + separatorChar)
-        if (clientId.startsWith(baseId) && (clientId.length() > baseId.length())
-                && (clientId.charAt(baseId.length()) == separatorChar)) {
-            return true;
-        }
-
-        return false;
     }
 
     @Override
@@ -529,7 +518,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
-
         return visitComponents(fixedChildren(), visitContext, callback);
     }
 
@@ -626,11 +614,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     private boolean requiresRowIteration(VisitContext context) {
         return !context.getHints().contains(VisitHint.SKIP_ITERATION);
-    }
-
-    private void subscribeToEvents() {
-        this.subscribeToEvent(PostAddToViewEvent.class, this);
-        this.subscribeToEvent(PostRestoreStateEvent.class, this);
     }
 
     @Override
