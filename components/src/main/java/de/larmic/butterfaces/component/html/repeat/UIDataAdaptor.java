@@ -580,7 +580,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             }
         } catch (IOException e) {
             // TODO handle exception
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, e.getMessage(), e);
         } finally {
 
             // Clean up - pop EL and restore old row index
