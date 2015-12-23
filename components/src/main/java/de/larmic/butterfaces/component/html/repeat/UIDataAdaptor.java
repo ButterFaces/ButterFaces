@@ -39,7 +39,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     private static final Logger LOG = Logger.getLogger(UIDataAdaptor.class.getName());
 
-    protected final String separatorChar;
+    protected final char separatorChar;
 
     private DataModelWrapper<?> dataModelWrapper = null;
     private Integer rowKey = null;
@@ -54,7 +54,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.subscribeToEvent(PostAddToViewEvent.class, this);
         this.subscribeToEvent(PostRestoreStateEvent.class, this);
 
-        separatorChar = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
+        separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
     }
 
     protected Map<String, Object> getVariablesMap(FacesContext facesContext) {
@@ -427,7 +427,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         final String baseId = getClientId(context);
 
-        if (!matchesBaseId(clientId, baseId, UINamingContainer.getSeparatorChar(context))) {
+        if (!matchesBaseId(clientId, baseId, separatorChar)) {
             return false;
         }
 
