@@ -1,6 +1,9 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.resolver;
-
-import com.sun.faces.component.visit.FullVisitContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -10,7 +13,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 /**
- * Created by larmic on 25.12.14.
+ * @author Lars Michaelis
  */
 public class UIComponentResolver {
 
@@ -21,7 +24,7 @@ public class UIComponentResolver {
 
         final UIComponent[] found = new UIComponent[1];
 
-        root.visitTree(new FullVisitContext(context), new VisitCallback() {
+        root.visitTree(new VisitContextImpl(context), new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent component) {
                 if(id.equals(component.getId()) && componentClass.equals(component.getClass())){

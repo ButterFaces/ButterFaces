@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -25,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by larmic on 10.09.14.
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlTableToolbar.COMPONENT_FAMILY, rendererType = HtmlTableToolbar.RENDERER_TYPE)
 public class TableToolbarRenderer extends HtmlBasicRenderer {

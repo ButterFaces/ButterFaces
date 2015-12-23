@@ -1,7 +1,6 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -19,8 +18,8 @@
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="modal type"
-                                     value="#{modalPanelShowcase.modalPanelType}"
-                                     values="#{modalPanelShowcase.modalPanelTypes}"/>
+                                   value="#{modalPanelShowcase.modalPanelType}"
+                                   values="#{modalPanelShowcase.modalPanelTypes}"/>
         </common:tagsContainer>
     </ui:define>
 
@@ -34,6 +33,21 @@
             </b:modalPanel>
 
             <span onClick="butter.modal.open('simpleModalPanel');"
+                  class="btn btn-default">
+                open modal panel
+            </span>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{modalPanelShowcase.modalPanelType eq 'CUSTOM_HEADER'}">
+            <b:modalPanel id="customHeaderModalPanel"
+                          rendered="#{modalPanelShowcase.rendered}">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+                <f:facet name="header">
+                    <div><strong>Warning: </strong>#{modalPanelShowcase.title}</div>
+                </f:facet>
+            </b:modalPanel>
+
+            <span onClick="butter.modal.open('customHeaderModalPanel');"
                   class="btn btn-default">
                 open modal panel
             </span>

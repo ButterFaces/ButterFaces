@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2015.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -11,7 +16,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * Created by larmic on 31.07.14.
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlModalPanel.COMPONENT_FAMILY, rendererType = HtmlModalPanel.RENDERER_TYPE)
 public class ModalPanelRenderer extends HtmlBasicRenderer {
@@ -96,29 +101,30 @@ public class ModalPanelRenderer extends HtmlBasicRenderer {
     }
 
     private void writerHeader(final HtmlModalPanel component,
-			final FacesContext context) throws IOException {
-		final ResponseWriter writer = context.getResponseWriter();
+                              final FacesContext context) throws IOException {
+        final ResponseWriter writer = context.getResponseWriter();
 
-		final UIComponent header = this.getFacet(component, "header");
+        final UIComponent header = this.getFacet(component, "header");
 
-		if (header != null || StringUtils.isNotEmpty(component.getTitle())) {
-			writer.startElement(ELEMENT_DIV, component);
-			writer.writeAttribute(ATTRIBUTE_CLASS, "modal-header", null);
+        if (header != null || StringUtils.isNotEmpty(component.getTitle())) {
+            writer.startElement(ELEMENT_DIV, component);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "modal-header", null);
 
-			if (header != null) {
-				header.encodeAll(context);
-			} else {
-				writer.startElement("h4", component);
-				writer.writeAttribute(ATTRIBUTE_CLASS, "modal-title", null);
-				writer.writeText(component.getTitle(), component, null);
-				writer.endElement("h4");
-			}
+            if (header != null) {
+                header.encodeAll(context);
+            } else {
+                writer.startElement("h4", component);
+                writer.writeAttribute(ATTRIBUTE_CLASS, "modal-title", null);
+                writer.writeText(component.getTitle(), component, null);
+                writer.endElement("h4");
+            }
 
-			writer.endElement(ELEMENT_DIV);
-		}
-	}
+            writer.endElement(ELEMENT_DIV);
+        }
+    }
 
-    private void writeFooter(final HtmlModalPanel component, final FacesContext context) throws IOException {
+    private void writeFooter(final HtmlModalPanel component,
+                             final FacesContext context) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement(ELEMENT_DIV, component);
