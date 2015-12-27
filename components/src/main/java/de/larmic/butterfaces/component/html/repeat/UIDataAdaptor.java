@@ -615,14 +615,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (event instanceof PostAddToViewEvent) {
             subscribeToPreRenderViewEventOncePerRequest();
-        }
-
-        if (event instanceof PostRestoreStateEvent) {
+        } else if (event instanceof PostRestoreStateEvent) {
             subscribeToPreRenderViewEventOncePerRequest();
             resetState();
-        }
-
-        if (event instanceof PreRenderViewEvent) {
+        } else if (event instanceof PreRenderViewEvent) {
             resetState();
         }
     }

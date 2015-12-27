@@ -15,6 +15,13 @@
 		<param-value>client</param-value>
 	</context-param>
 
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+        <!--param-value>Development</param-value-->
+    </context-param>
+
+
     <!--
     <context-param>
 		<param-name>de.larmic.butterfaces.provideJQuery</param-name>
