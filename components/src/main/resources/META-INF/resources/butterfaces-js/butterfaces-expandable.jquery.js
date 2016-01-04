@@ -305,6 +305,8 @@
                 var self = this;
                 window.setTimeout(function () {
                     self.$originalElement.trigger('keyup');
+                    self.$originalElement.trigger('change');
+                    self.$originalElement.trigger('blur');
                     self.blockFocusEventOnOriginal = false;
                 }, 50);
             } else {
