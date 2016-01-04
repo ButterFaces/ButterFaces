@@ -2,7 +2,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.larmic.de/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
-                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="header">
         <strong>b:treeBox</strong> The treeBox tag renders a HTML input element of the type "text" using <a
@@ -32,6 +34,12 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="template"
+                                   value="#{treeBoxShowcase.selectedTreeTemplateType}"
+                                   values="#{treeBoxShowcase.treeTemplateTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Using templates"
+                                   popoverContentMarkerClass="treePopoverContent"/>
             <common:tagEnumControl label="ajax"
                                    value="#{treeBoxShowcase.ajaxType}"
                                    values="#{treeBoxShowcase.ajaxTypes}"
@@ -77,6 +85,13 @@
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        onchange="console.log('ButterFaces.Test: check onchange')"
                        styleClass="#{treeBoxShowcase.styleClass}">
+                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                    <f:facet name="template">
+                        <strong>{{title}}</strong>
+                        <div>Created: {{createDate}}</div>
+                        <div>UUID: {{uuid}}</div>
+                    </f:facet>
+                </c:if>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -103,6 +118,13 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        styleClass="#{treeBoxShowcase.styleClass}">
+                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                    <f:facet name="template">
+                        <strong>{{title}}</strong>
+                        <div>Created: {{createDate}}</div>
+                        <div>UUID: {{uuid}}</div>
+                    </f:facet>
+                </c:if>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -132,6 +154,13 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        styleClass="#{treeBoxShowcase.styleClass}">
+                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                    <f:facet name="template">
+                        <strong>{{title}}</strong>
+                        <div>Created: {{createDate}}</div>
+                        <div>UUID: {{uuid}}</div>
+                    </f:facet>
+                </c:if>
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

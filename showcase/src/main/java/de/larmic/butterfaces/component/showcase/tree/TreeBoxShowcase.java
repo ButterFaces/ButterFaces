@@ -1,12 +1,12 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -22,6 +22,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
     private FacetType selectedFacetType = FacetType.NONE;
+    private TreeTemplateType selectedTreeTemplateType = TreeTemplateType.DEFAULT;
     private String placeholder = "Enter text...";
     private boolean autoFocus;
     private boolean hideRootNode;
@@ -43,11 +44,26 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         codeExamples.add(buildXhtmlCodeExample());
         codeExamples.add(createMyBeanCodeExample());
 
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            codeExamples.add(this.createNodeDataCodeExample());
+        }
+
         if (isValidation()) {
             codeExamples.add(buildValidatorCodeExample());
         }
 
         generateDemoCSS(codeExamples);
+    }
+
+    private JavaCodeExample createNodeDataCodeExample() {
+        final JavaCodeExample codeExample = new JavaCodeExample("NodeData.java", "nodeData", "treeBox.demo", "NodeData", false);
+
+        codeExample.appendInnerContent("    private final UUID uuid = UUID.randomUUID();\n");
+        codeExample.appendInnerContent("    private final Date createDate = new Date();\n");
+        codeExample.appendInnerContent("    // GETTER");
+
+
+        return codeExample;
     }
 
     private XhtmlCodeExample buildXhtmlCodeExample() {
@@ -73,6 +89,16 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   rendered=\"" + this.isRendered() + "\">");
 
         this.addAjaxTag(xhtmlCodeExample, "change");
+
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node.data-->");
+            xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
+            xhtmlCodeExample.appendInnerContent("                <strong>{{title}}</strong>");
+            xhtmlCodeExample.appendInnerContent("                <div>Created: {{createDate}}</div>");
+            xhtmlCodeExample.appendInnerContent("                <div>UUID: {{uuid}}</div>");
+            xhtmlCodeExample.appendInnerContent("            </facet>");
+        }
 
         if (this.isValidation()) {
             xhtmlCodeExample.appendInnerContent("            <f:validator validatorId=\"treeBoxValidator\" />");
@@ -102,38 +128,38 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         myBean.appendInnerContent("    private Node rootNode;\n");
         myBean.appendInnerContent("    public Node getValues() {");
         myBean.appendInnerContent("        if (rootNode == null) {");
-        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-        //    myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
-        //} else {
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
+        } else {
             myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
-        //}
+        }
         myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
         if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
         }
-        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-        //    myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
-        //} else {
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
+        } else {
             myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
-        //}
+        }
         if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
         }
-        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-        //    myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
-        //} else {
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
+        } else {
             myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
-        //}
+        }
         myBean.appendInnerContent("            ...");
-        //if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-        //    myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
-        //} else {
+        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
+        } else {
             myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
-        //}
+        }
         if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
         } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
@@ -181,6 +207,15 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         final List<SelectItem> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List<SelectItem> getTreeTemplateTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TreeTemplateType type : TreeTemplateType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -236,5 +271,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public void setSpinnerText(String spinnerText) {
         this.spinnerText = spinnerText;
+    }
+
+    public TreeTemplateType getSelectedTreeTemplateType() {
+        return selectedTreeTemplateType;
+    }
+
+    public void setSelectedTreeTemplateType(TreeTemplateType selectedTreeTemplateType) {
+        this.selectedTreeTemplateType = selectedTreeTemplateType;
     }
 }
