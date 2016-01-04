@@ -161,15 +161,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node cachedNode = cachedNodes.get(nodeNumber);
-                if (cachedNode.isCollapsed()) {
-                    cachedNode.setCollapsed(false);
-                    if (nodeExpansionListener != null) {
-                        nodeExpansionListener.expandNode(cachedNode);
-                    }
-                } else {
-                    cachedNode.setCollapsed(true);
-                    if (nodeExpansionListener != null) {
-                        nodeExpansionListener.collapseNode(cachedNode);
+                if (cachedNode != null) {
+                    if (cachedNode.isCollapsed()) {
+                        cachedNode.setCollapsed(false);
+                        if (nodeExpansionListener != null) {
+                            nodeExpansionListener.expandNode(cachedNode);
+                        }
+                    } else {
+                        cachedNode.setCollapsed(true);
+                        if (nodeExpansionListener != null) {
+                            nodeExpansionListener.collapseNode(cachedNode);
+                        }
                     }
                 }
                 selectedNode = cachedNode;
