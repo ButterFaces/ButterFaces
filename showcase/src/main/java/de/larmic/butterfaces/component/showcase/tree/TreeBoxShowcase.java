@@ -192,7 +192,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             case TEMPLATE:
                 return showcaseTreeNode.getTree();
             default:
-                return Arrays.asList("ding", "dong");
+                return Arrays.asList("Inbox", "Drafts", "Sent", "Tagged", "Folders", "Trash");
         }
     }
 
