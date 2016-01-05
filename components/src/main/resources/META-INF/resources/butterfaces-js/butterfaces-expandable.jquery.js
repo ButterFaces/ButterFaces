@@ -322,7 +322,11 @@
                 var range = element.createTextRange();
                 range.collapse(false);
                 range.select();
+            } else {
+                var strLength= this.$ghostElement.val().length * 2;
+                this.$ghostElement[0].setSelectionRange(strLength, strLength);
             }
+
         }
     });
 }(jQuery));
