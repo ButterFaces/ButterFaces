@@ -7,6 +7,7 @@ import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
 import de.larmic.butterfaces.util.StringUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -44,21 +45,45 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     @Override
     protected void encodeEnd(HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
-        final Node rootNode = treeBox.getValues();
-        final List<Node> nodes = treeBox.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
-
+        final List<Node> nodes = this.createNodes(treeBox);
         final List<String> mustacheKeys = this.createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
         this.initCachedNodes(nodes, 0);
 
         writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
-        writer.writeText("var entries_" + treeBox.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes)+";\n", null);
+        writer.writeText("var entries_" + treeBox.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
         final String pluginCall = createJQueryPluginCallTrivial(treeBox);
-        writer.writeText("var trivialTree"+ treeBox.getClientId().replace(":", "_") + " = " + jQueryBySelector + pluginCall + ";", null);
+        writer.writeText("var trivialTree" + treeBox.getClientId().replace(":", "_") + " = " + jQueryBySelector + pluginCall + ";", null);
         writer.writeText("});", null);
         writer.endElement("script");
+    }
+
+    // TODO extract to wrapper class?
+    private List<Node> createNodes(HtmlTreeBox treeBox) {
+        final Object values = treeBox.getValues();
+
+        final List<Node> nodes = new ArrayList<>();
+
+        if (values instanceof Node) {
+            nodes.add((Node) values);
+        } else if (values instanceof Iterable) {
+            final Iterable iterable = (Iterable) values;
+            for (Object value : iterable) {
+                if (value instanceof Node) {
+                    nodes.add((Node) value);
+                } else {
+                    // TODO implement me
+                    throw new NotImplementedException();
+                }
+            }
+        } else {
+            // TODO throw another exception? Value-unsupported-exception?
+            throw new NotImplementedException();
+        }
+
+        return nodes;
     }
 
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {

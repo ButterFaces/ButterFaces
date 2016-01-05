@@ -28,7 +28,6 @@ public class HtmlTreeBox extends HtmlText {
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TreeBoxRenderer";
 
-    protected static final String PROPERTY_HIDE_ROOT_NODE = "hideRootNode";
     protected static final String PROPERTY_VALUES = "values";
     protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
     protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
@@ -48,20 +47,12 @@ public class HtmlTreeBox extends HtmlText {
         return COMPONENT_FAMILY;
     }
 
-    public Node getValues() {
-        return (Node) this.getStateHelper().eval(PROPERTY_VALUES);
+    public Object getValues() {
+        return this.getStateHelper().eval(PROPERTY_VALUES);
     }
 
-    public void setValues(Node values) {
+    public void setValues(Object values) {
         this.updateStateHelper(PROPERTY_VALUES, values);
-    }
-
-    public boolean isHideRootNode() {
-        return Boolean.valueOf(getStateHelper().eval(PROPERTY_HIDE_ROOT_NODE, Boolean.TRUE).toString());
-    }
-
-    public void setHideRootNode(final boolean hideRootNode) {
-        getStateHelper().put(PROPERTY_HIDE_ROOT_NODE, hideRootNode);
     }
 
     public String getSpinnerText() {

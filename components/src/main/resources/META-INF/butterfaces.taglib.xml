@@ -819,10 +819,6 @@
          <name>values</name>
          <required>true</required>
       </attribute>
-       <attribute>
-           <name>hideRootNode</name>
-           <type>java.lang.Boolean</type>
-       </attribute>
       <attribute>
          <name>hideLabel</name>
          <type>java.lang.Boolean</type>

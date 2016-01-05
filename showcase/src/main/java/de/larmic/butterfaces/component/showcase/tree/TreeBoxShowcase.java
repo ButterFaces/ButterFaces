@@ -5,6 +5,8 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
+import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfNodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxRootNodeJavaExample;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -42,7 +44,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(buildXhtmlCodeExample());
-        codeExamples.add(createMyBeanCodeExample());
+        if (hideRootNode) {
+            codeExamples.add(new TreeBoxListOfNodesJavaExample(selectedTreeTemplateType, showcaseTreeNode));
+        } else {
+            codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeTemplateType, showcaseTreeNode));
+        }
 
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
             codeExamples.add(this.createNodeDataCodeExample());
@@ -61,7 +67,6 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         codeExample.appendInnerContent("    private final UUID uuid = UUID.randomUUID();\n");
         codeExample.appendInnerContent("    private final Date createDate = new Date();\n");
         codeExample.appendInnerContent("    // GETTER");
-
 
         return codeExample;
     }
@@ -115,63 +120,6 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.addOutputExample(xhtmlCodeExample);
 
         return xhtmlCodeExample;
-    }
-
-    private JavaCodeExample createMyBeanCodeExample() {
-        final JavaCodeExample myBean = new JavaCodeExample("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
-
-        myBean.addImport("import de.larmic.butterfaces.model.tree.Node");
-        myBean.addImport("import de.larmic.butterfaces.model.tree.DefaultNodeImpl");
-        myBean.addImport("import javax.faces.view.ViewScoped");
-        myBean.addImport("import javax.inject.Named");
-
-        myBean.appendInnerContent("    private Node rootNode;\n");
-        myBean.appendInnerContent("    public Node getValues() {");
-        myBean.appendInnerContent("        if (rootNode == null) {");
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
-        } else {
-            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
-        }
-        myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
-        }
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
-        } else {
-            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
-        }
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
-        }
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
-        } else {
-            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
-        }
-        myBean.appendInnerContent("            ...");
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
-        } else {
-            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
-        }
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        }
-        myBean.appendInnerContent("            rootNode.getSubNodes().add(firstChild);");
-        myBean.appendInnerContent("            rootNode.getSubNodes().add(secondChild);");
-        myBean.appendInnerContent("        }");
-        myBean.appendInnerContent("        return rootNode;");
-        myBean.appendInnerContent("    }");
-
-        return myBean;
     }
 
     private AbstractCodeExample buildValidatorCodeExample() {
@@ -237,8 +185,12 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.autoFocus = autoFocus;
     }
 
-    public ShowcaseTreeNode getShowcaseTreeNode() {
-        return showcaseTreeNode;
+    public Object getValues() {
+        if (hideRootNode) {
+            return showcaseTreeNode.getTree().getSubNodes();
+        } else {
+            return showcaseTreeNode.getTree();
+        }
     }
 
     public void setHideRootNode(boolean hideRootNode) {

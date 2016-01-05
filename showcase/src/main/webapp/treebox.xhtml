@@ -22,7 +22,6 @@
             <common:tagBooleanControl label="required" value="#{treeBoxShowcase.required}"/>
             <common:tagBooleanControl label="disabled" value="#{treeBoxShowcase.disabled}"/>
             <common:tagBooleanControl label="rendered" value="#{treeBoxShowcase.rendered}"/>
-            <common:tagBooleanControl label="hideRootNode" value="#{treeBoxShowcase.hideRootNode}"/>
             <common:tagEnumControl label="styleClass"
                                    value="#{treeBoxShowcase.styleClass}"
                                    values="#{treeBoxShowcase.styleClasses}"/>
@@ -46,6 +45,7 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
+            <common:tagBooleanControl label="hideRootNode" value="#{treeBoxShowcase.hideRootNode}"/>
             <common:tagStringControl label="tooltip" value="#{treeBoxShowcase.tooltip}"/>
             <common:tagEnumControl label="facets"
                                    value="#{treeBoxShowcase.selectedFacetType}"
@@ -72,7 +72,7 @@
                        label="#{treeBoxShowcase.label}"
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
-                       values="#{treeBoxShowcase.showcaseTreeNode.tree}"
+                       values="#{treeBoxShowcase.values}"
                        hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        readonly="#{treeBoxShowcase.readonly}"
@@ -106,7 +106,7 @@
                        label="#{treeBoxShowcase.label}"
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
-                       values="#{treeBoxShowcase.showcaseTreeNode.tree}"
+                       values="#{treeBoxShowcase.values}"
                        hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
@@ -142,7 +142,7 @@
                        label="#{treeBoxShowcase.label}"
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
-                       values="#{treeBoxShowcase.showcaseTreeNode.tree}"
+                       values="#{treeBoxShowcase.values}"
                        hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
