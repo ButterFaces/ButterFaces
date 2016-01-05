@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -24,10 +25,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     private final ShowcaseTreeNode showcaseTreeNode = new ShowcaseTreeNode();
     private FacetType selectedFacetType = FacetType.NONE;
-    private TreeTemplateType selectedTreeTemplateType = TreeTemplateType.DEFAULT;
+    private TreeBoxExampleType selectedTreeBoxExampleType = TreeBoxExampleType.ROOT_NODE;
     private String placeholder = "Enter text...";
     private boolean autoFocus;
-    private boolean hideRootNode;
     private String noEntriesText;
     private String spinnerText;
 
@@ -44,13 +44,12 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(buildXhtmlCodeExample());
-        if (hideRootNode) {
-            codeExamples.add(new TreeBoxListOfNodesJavaExample(selectedTreeTemplateType, showcaseTreeNode));
-        } else {
-            codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeTemplateType, showcaseTreeNode));
-        }
-
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        if (selectedTreeBoxExampleType == TreeBoxExampleType.NODES) {
+            codeExamples.add(new TreeBoxListOfNodesJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
+        } else if (selectedTreeBoxExampleType == TreeBoxExampleType.ROOT_NODE) {
+            codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
+        } else if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
+            codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
             codeExamples.add(this.createNodeDataCodeExample());
         }
 
@@ -95,7 +94,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
         this.addAjaxTag(xhtmlCodeExample, "change");
 
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
+        if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
             xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node.data-->");
             xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
@@ -160,10 +159,10 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         return items;
     }
 
-    public List<SelectItem> getTreeTemplateTypes() {
+    public List<SelectItem> getTreeBoxExampleTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
-        for (final TreeTemplateType type : TreeTemplateType.values()) {
+        for (final TreeBoxExampleType type : TreeBoxExampleType.values()) {
             items.add(new SelectItem(type, type.label));
         }
         return items;
@@ -186,19 +185,15 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     }
 
     public Object getValues() {
-        if (hideRootNode) {
-            return showcaseTreeNode.getTree().getSubNodes();
-        } else {
-            return showcaseTreeNode.getTree();
+        switch (selectedTreeBoxExampleType) {
+            case NODES:
+                return showcaseTreeNode.getTree().getSubNodes();
+            case ROOT_NODE:
+            case TEMPLATE:
+                return showcaseTreeNode.getTree();
+            default:
+                return Arrays.asList("ding", "dong");
         }
-    }
-
-    public void setHideRootNode(boolean hideRootNode) {
-        this.hideRootNode = hideRootNode;
-    }
-
-    public boolean isHideRootNode() {
-        return hideRootNode;
     }
 
     public FacetType getSelectedFacetType() {
@@ -225,11 +220,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.spinnerText = spinnerText;
     }
 
-    public TreeTemplateType getSelectedTreeTemplateType() {
-        return selectedTreeTemplateType;
+    public TreeBoxExampleType getSelectedTreeBoxExampleType() {
+        return selectedTreeBoxExampleType;
     }
 
-    public void setSelectedTreeTemplateType(TreeTemplateType selectedTreeTemplateType) {
-        this.selectedTreeTemplateType = selectedTreeTemplateType;
+    public void setSelectedTreeBoxExampleType(TreeBoxExampleType selectedTreeBoxExampleType) {
+        this.selectedTreeBoxExampleType = selectedTreeBoxExampleType;
     }
 }

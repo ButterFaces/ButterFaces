@@ -33,9 +33,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="template"
-                                   value="#{treeBoxShowcase.selectedTreeTemplateType}"
-                                   values="#{treeBoxShowcase.treeTemplateTypes}"
+            <common:tagEnumControl label="examples"
+                                   value="#{treeBoxShowcase.selectedTreeBoxExampleType}"
+                                   values="#{treeBoxShowcase.treeBoxExampleTypes}"
                                    renderChildrenPopover="true"
                                    popoverTitle="Using templates"
                                    popoverContentMarkerClass="treePopoverContent"/>
@@ -45,7 +45,6 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagBooleanControl label="hideRootNode" value="#{treeBoxShowcase.hideRootNode}"/>
             <common:tagStringControl label="tooltip" value="#{treeBoxShowcase.tooltip}"/>
             <common:tagEnumControl label="facets"
                                    value="#{treeBoxShowcase.selectedFacetType}"
@@ -85,7 +84,7 @@
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        onchange="console.log('ButterFaces.Test: check onchange')"
                        styleClass="#{treeBoxShowcase.styleClass}">
-                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="template">
                         <strong>{{title}}</strong>
                         <div>Created: {{createDate}}</div>
@@ -107,7 +106,6 @@
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
                        values="#{treeBoxShowcase.values}"
-                       hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
@@ -118,7 +116,7 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        styleClass="#{treeBoxShowcase.styleClass}">
-                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="template">
                         <strong>{{title}}</strong>
                         <div>Created: {{createDate}}</div>
@@ -143,7 +141,6 @@
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
                        values="#{treeBoxShowcase.values}"
-                       hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
                        tooltip="#{treeBoxShowcase.tooltip}"
@@ -154,7 +151,7 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        styleClass="#{treeBoxShowcase.styleClass}">
-                <c:if test="#{treeBoxShowcase.selectedTreeTemplateType eq 'CUSTOM'}">
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="template">
                         <strong>{{title}}</strong>
                         <div>Created: {{createDate}}</div>
