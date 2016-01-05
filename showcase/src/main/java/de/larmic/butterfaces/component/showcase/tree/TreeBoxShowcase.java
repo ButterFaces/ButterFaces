@@ -39,7 +39,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     @Override
     public String getReadableValue() {
-        return this.getValue() != null ? ((Node) this.getValue()).getTitle() : null;
+        if (this.getValue() instanceof Node) {
+            return ((Node) this.getValue()).getTitle();
+        } else if (this.getValue() instanceof String) {
+            return (String) this.getValue();
+        }
+
+        return null;
     }
 
     @Override

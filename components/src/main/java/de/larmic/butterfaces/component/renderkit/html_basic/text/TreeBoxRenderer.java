@@ -32,6 +32,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     private String noMatchingText;
     private String spinnerText;
+    private TreeBoxModelType treeBoxModelType;
 
     @Override
     protected boolean encodeReadonly() {
@@ -42,8 +43,10 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component, "butter-component-treebox");
 
+
         final HtmlTreeBox treeBox = (HtmlTreeBox) component;
 
+        treeBoxModelType = null;
         noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
         spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
     }
@@ -52,7 +55,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     protected void encodeEnd(HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
         final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
         final List<Node> nodes = treeBoxModelWrapper.getNodes();
-        final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
+        treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
 
         final List<String> mustacheKeys = this.createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
@@ -100,6 +103,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
 
         final String newValue = (String) submittedValue;
+
+        if (treeBoxModelType == TreeBoxModelType.STRINGS) {
+            return newValue;
+        }
+
         final Integer selectedIndex = Integer.valueOf(newValue);
         return cachedNodes.get(selectedIndex);
     }
@@ -124,7 +132,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
 
-        jQueryPluginCall.append("TrivialTreeComboBox({");
+        if (treeBoxModelType == TreeBoxModelType.STRINGS) {
+            jQueryPluginCall.append("TrivialComboBox({");
+        } else {
+            jQueryPluginCall.append("TrivialTreeComboBox({");
+        }
         jQueryPluginCall.append("\n    allowFreeText: true,");
         jQueryPluginCall.append("\n    inputTextProperty: 'title',");
         if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
@@ -146,7 +158,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         } else if (treeBoxModelType == TreeBoxModelType.NODES) {
             jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
         } else if (treeBoxModelType == TreeBoxModelType.STRINGS) {
-            jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "'],");
+            jQueryPluginCall.append("\n    template: '" + TreeRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
         }
         jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
         jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
