@@ -119,6 +119,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         Integer selectedEntryId = null;
         Node selectedNode = null;
 
+        // TODO larmic extract this crap
         if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBox.getValue() instanceof String) {
             for (Integer index : cachedNodes.keySet()) {
                 final Node node = cachedNodes.get(index);
