@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.TreeBoxModelType;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.TreeBoxModelWrapper;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
@@ -61,7 +62,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
 
-        this.initCachedNodes(nodes, 0);
+        cachedNodes.putAll(CachedNodesInitializer.createNodesMap(nodes));
 
         writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
@@ -174,21 +175,5 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
 
         return null;
-    }
-
-    private int initCachedNodes(final List<Node> nodes,
-                                final int index) {
-        int newIndex = index;
-
-        for (Node node : nodes) {
-            cachedNodes.put(newIndex, node);
-            newIndex++;
-
-            if (node.getSubNodes().size() > 0) {
-                newIndex = initCachedNodes(node.getSubNodes(), newIndex);
-            }
-        }
-
-        return newIndex;
     }
 }

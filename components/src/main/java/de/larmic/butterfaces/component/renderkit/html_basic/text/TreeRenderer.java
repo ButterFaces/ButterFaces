@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.tree.HtmlTree;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.event.TreeNodeExpansionListener;
@@ -79,7 +80,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Node rootNode = tree.getValue();
         final List<Node> nodes = tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
 
-        this.initCachedNodes(nodes, 0);
+        cachedNodes.putAll(CachedNodesInitializer.createNodesMap(nodes));
 
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -269,21 +270,5 @@ public class TreeRenderer extends HtmlBasicRenderer {
         }
 
         return null;
-    }
-
-    private int initCachedNodes(final List<Node> nodes,
-                                final int index) {
-        int newIndex = index;
-
-        for (Node node : nodes) {
-            cachedNodes.put(newIndex, node);
-            newIndex++;
-
-            if (node.getSubNodes().size() > 0) {
-                newIndex = initCachedNodes(node.getSubNodes(), newIndex);
-            }
-        }
-
-        return newIndex;
     }
 }
