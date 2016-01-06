@@ -116,30 +116,8 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
                                                  final TreeBoxModelType treeBoxModelType) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        Integer selectedEntryId = null;
-        Node selectedNode = null;
-
-        // TODO larmic extract this crap
-        if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBox.getValue() instanceof String) {
-            for (Integer index : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(index);
-                if (treeBox.getValue().equals(node.getTitle())) {
-                    selectedEntryId = index;
-                    selectedNode = node;
-                    break;
-                }
-            }
-        } else if (treeBoxModelType != TreeBoxModelType.STRINGS && treeBox.getValue() != null) {
-            for (Integer index : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(index);
-                if (treeBox.getValue().equals(node)) {
-                    selectedEntryId = index;
-                    selectedNode = node;
-                    break;
-                }
-            }
-        }
-
+        final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType);
+        final Node selectedNode = selectedEntryId != null ? cachedNodes.get(selectedEntryId) : null;
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
 
         if (treeBoxModelType == TreeBoxModelType.STRINGS) {
@@ -176,6 +154,26 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         jQueryPluginCall.append("});");
 
         return jQueryPluginCall.toString();
+    }
+
+    private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType) {
+        if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBoxValue instanceof String) {
+            for (Integer index : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(index);
+                if (treeBoxValue.equals(node.getTitle())) {
+                    return index;
+                }
+            }
+        } else if (treeBoxModelType != TreeBoxModelType.STRINGS && treeBoxValue != null) {
+            for (Integer index : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(index);
+                if (treeBoxValue.equals(node)) {
+                    return index;
+                }
+            }
+        }
+
+        return null;
     }
 
     private int initCachedNodes(final List<Node> nodes,
