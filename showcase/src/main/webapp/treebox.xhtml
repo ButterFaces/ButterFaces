@@ -72,7 +72,6 @@
                        hideLabel="#{treeBoxShowcase.hideLabel}"
                        value="#{treeBoxShowcase.value}"
                        values="#{treeBoxShowcase.values}"
-                       hideRootNode="#{treeBoxShowcase.hideRootNode}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"
@@ -89,6 +88,25 @@
                         <strong>{{title}}</strong>
                         <div>Created: {{createDate}}</div>
                         <div>UUID: {{uuid}}</div>
+                    </f:facet>
+                </c:if>
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
+                    <f:facet name="template">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                                <div>
+                                    <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                                </div>
+                                <div>
+                                    <label>written by:</label><span>{{writtenBy}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </f:facet>
                 </c:if>
                 <f:ajax event="change"
