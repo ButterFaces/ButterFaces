@@ -119,7 +119,16 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         Integer selectedEntryId = null;
         Node selectedNode = null;
 
-        if (treeBox.getValue() != null) {
+        if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBox.getValue() instanceof String) {
+            for (Integer index : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(index);
+                if (treeBox.getValue().equals(node.getTitle())) {
+                    selectedEntryId = index;
+                    selectedNode = node;
+                    break;
+                }
+            }
+        } else if (treeBoxModelType != TreeBoxModelType.STRINGS && treeBox.getValue() != null) {
             for (Integer index : cachedNodes.keySet()) {
                 final Node node = cachedNodes.get(index);
                 if (treeBox.getValue().equals(node)) {
