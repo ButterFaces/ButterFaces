@@ -8,7 +8,6 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text.model;
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,23 +36,28 @@ public class TreeBoxModelWrapper {
     }
 
     private TreeBoxModelType handleIterableValues(Iterable treeBoxValues) {
-        final Iterable iterable = treeBoxValues;
-
+        boolean foundNode= false;
         boolean foundString = false;
+        boolean foundObject = false;
 
-        for (Object value : iterable) {
+        if (!treeBoxValues.iterator().hasNext()) {
+            return TreeBoxModelType.UNKOWN;
+        }
+
+        for (Object value : treeBoxValues) {
             if (value instanceof Node) {
                 nodes.add((Node) value);
+                foundNode = true;
             } else if (value instanceof String) {
                 nodes.add(new DefaultNodeImpl<>((String) value, (String) value));
                 foundString = true;
             } else {
-                // TODO implement me
-                throw new NotImplementedException();
+                nodes.add(new DefaultNodeImpl(null, value));
+                foundObject = true;
             }
         }
 
-        return foundString ? TreeBoxModelType.STRINGS : TreeBoxModelType.NODES;
+        return foundObject || foundString && foundNode ? TreeBoxModelType.OBJECTS : (foundString ? TreeBoxModelType.STRINGS : TreeBoxModelType.NODES);
     }
 
     public List<Node> getNodes() {
