@@ -18,7 +18,6 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
     private Object value;
     private String label = "label";
     private String tooltip = "tooltip";
-    private String inputTextProperty = "title";
     private boolean readonly;
     private boolean required;
     private boolean validation;
@@ -161,14 +160,6 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
-    }
-
-    public String getInputTextProperty() {
-        return inputTextProperty;
-    }
-
-    public void setInputTextProperty(String inputTextProperty) {
-        this.inputTextProperty = inputTextProperty;
     }
 
     protected void generateDemoCSS(List<AbstractCodeExample> codeExamples) {

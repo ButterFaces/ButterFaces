@@ -31,6 +31,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     private FacetType selectedFacetType = FacetType.NONE;
     private TreeBoxExampleType selectedTreeBoxExampleType = TreeBoxExampleType.ROOT_NODE;
     private String placeholder = "Enter text...";
+    private String inputTextProperty;
     private boolean autoFocus;
     private String noEntriesText;
     private String spinnerText;
@@ -264,5 +265,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     public void setSelectedTreeBoxExampleType(TreeBoxExampleType selectedTreeBoxExampleType) {
         this.selectedTreeBoxExampleType = selectedTreeBoxExampleType;
+    }
+
+    public String getInputTextProperty() {
+        return inputTextProperty;
+    }
+
+    public void setInputTextProperty(String inputTextProperty) {
+        this.inputTextProperty = inputTextProperty;
     }
 }
