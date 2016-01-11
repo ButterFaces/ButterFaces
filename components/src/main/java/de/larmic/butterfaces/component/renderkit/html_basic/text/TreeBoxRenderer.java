@@ -23,10 +23,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Lars Michaelis
@@ -76,7 +73,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         writer.writeText("jQuery(function () {\n", null);
         writer.writeText("var entries_" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType);
+        final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys);
         writer.writeText("var trivialTree" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + jQueryBySelector + pluginCall + ";", null);
         writer.writeText("});", null);
         writer.endElement("script");
@@ -118,11 +115,13 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
 
         final Integer selectedIndex = Integer.valueOf(newValue);
-        return cachedNodes.get(selectedIndex);
+        final Node node = cachedNodes.get(selectedIndex);
+        return treeBoxModelType == TreeBoxModelType.OBJECTS && node != null ? node.getData() : node;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,
-                                                 final TreeBoxModelType treeBoxModelType) throws IOException {
+                                                 final TreeBoxModelType treeBoxModelType,
+                                                 final List<String> mustacheKeys) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType);
@@ -136,7 +135,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
         jQueryPluginCall.append("\n    allowFreeText: true,");
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            // TODO what should I do here?
+            jQueryPluginCall.append("\n    inputTextProperty: 'id',");
         } else {
             jQueryPluginCall.append("\n    inputTextProperty: 'title',");
         }
@@ -151,7 +150,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
         if (selectedEntryId != null && selectedNode != null) {
-            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(Collections.<String>emptyList(), cachedNodes, selectedEntryId, selectedNode) + ",");
+            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, cachedNodes, selectedEntryId, selectedNode) + ",");
         }
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), treeBox.getFacet("template"), "editor-area");
@@ -181,7 +180,14 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
                     return index;
                 }
             }
-        } else if (treeBoxModelType != TreeBoxModelType.STRINGS && treeBoxValue != null) {
+        } else if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
+            for (Integer index : cachedNodes.keySet()) {
+                final Node node = cachedNodes.get(index);
+                if (treeBoxValue.equals(node.getData())) {
+                    return index;
+                }
+            }
+        } else if (treeBoxValue != null) {
             for (Integer index : cachedNodes.keySet()) {
                 final Node node = cachedNodes.get(index);
                 if (treeBoxValue.equals(node)) {
