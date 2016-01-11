@@ -135,7 +135,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
         jQueryPluginCall.append("\n    allowFreeText: true,");
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    inputTextProperty: 'id',");
+            // TODO set correct input text property
+            jQueryPluginCall.append("\n    inputTextProperty: 'title',");
+            jQueryPluginCall.append("\n    valueProperty: 'id',");
         } else {
             jQueryPluginCall.append("\n    inputTextProperty: 'title',");
         }
