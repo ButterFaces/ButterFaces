@@ -17,6 +17,7 @@
             <common:tagStringControl label="label" value="#{treeBoxShowcase.label}"/>
             <common:tagStringControl label="spinnerText" value="#{treeBoxShowcase.spinnerText}"/>
             <common:tagStringControl label="noEntriesText" value="#{treeBoxShowcase.noEntriesText}"/>
+            <common:tagStringControl label="inputTextProperty" value="#{treeBoxShowcase.inputTextProperty}"/>
             <common:tagBooleanControl label="hideLabel" value="#{treeBoxShowcase.hideLabel}"/>
             <common:tagBooleanControl label="readonly" value="#{treeBoxShowcase.readonly}"/>
             <common:tagBooleanControl label="required" value="#{treeBoxShowcase.required}"/>
@@ -78,6 +79,7 @@
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
                        disabled="#{treeBoxShowcase.disabled}"
+                       inputTextProperty="#{treeBoxShowcase.inputTextProperty}"
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'NONE'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
@@ -127,6 +129,7 @@
                        tooltip="#{treeBoxShowcase.tooltip}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
+                       inputTextProperty="#{treeBoxShowcase.inputTextProperty}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"
                        disabled="#{treeBoxShowcase.disabled}"
@@ -161,6 +164,7 @@
                        values="#{treeBoxShowcase.values}"
                        spinnerText="#{treeBoxShowcase.spinnerText}"
                        noEntriesText="#{treeBoxShowcase.noEntriesText}"
+                       inputTextProperty="#{treeBoxShowcase.inputTextProperty}"
                        tooltip="#{treeBoxShowcase.tooltip}"
                        readonly="#{treeBoxShowcase.readonly}"
                        required="#{treeBoxShowcase.required}"

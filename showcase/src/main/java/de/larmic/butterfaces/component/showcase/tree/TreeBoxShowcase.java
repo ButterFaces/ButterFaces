@@ -97,6 +97,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "") + "\"");
         xhtmlCodeExample.appendInnerContent("                   readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                   disabled=\"" + this.isDisabled() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   inputTextProperty=\"" + this.getInputTextProperty() + "\"");
         xhtmlCodeExample.appendInnerContent("                   required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                   autoFocus=\"" + this.isAutoFocus() + "\"");
         if (StringUtils.isNotEmpty(spinnerText)) {

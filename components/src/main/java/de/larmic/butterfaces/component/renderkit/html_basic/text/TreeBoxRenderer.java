@@ -23,7 +23,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -135,12 +138,14 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
         jQueryPluginCall.append("\n    allowFreeText: true,");
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            // TODO set correct input text property
-            jQueryPluginCall.append("\n    inputTextProperty: 'title',");
+            if (StringUtils.isNotEmpty(treeBox.getInputTextProperty())) {
+                jQueryPluginCall.append("\n    inputTextProperty: '" + treeBox.getInputTextProperty() + "',");
+            }
             jQueryPluginCall.append("\n    valueProperty: 'id',");
         } else {
             jQueryPluginCall.append("\n    inputTextProperty: 'title',");
         }
+
         if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
             jQueryPluginCall.append("\n    emptyEntry: {");
             // TODO BUT-433 this does not work when use custom templates. it only replaces title attribute (if exists).

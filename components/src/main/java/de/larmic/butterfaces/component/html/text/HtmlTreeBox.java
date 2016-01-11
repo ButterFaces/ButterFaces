@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.component.html.text;
 
 import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.model.tree.Node;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -31,6 +30,7 @@ public class HtmlTreeBox extends HtmlText {
     protected static final String PROPERTY_VALUES = "values";
     protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
     protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
+    protected static final String PROPERTY_INPUT_TEXT_PROPERTY = "inputTextProperty";
 
     public HtmlTreeBox() {
         super();
@@ -69,5 +69,13 @@ public class HtmlTreeBox extends HtmlText {
 
     public void setNoEntriesText(String noEntriesText) {
         getStateHelper().put(PROPERTY_NO_ENTRIES_TEXT, noEntriesText);
+    }
+
+    public String getInputTextProperty() {
+        return (String) getStateHelper().eval(PROPERTY_INPUT_TEXT_PROPERTY);
+    }
+
+    public void setInputTextProperty(String inputTextProperty) {
+        getStateHelper().put(PROPERTY_INPUT_TEXT_PROPERTY, inputTextProperty);
     }
 }
