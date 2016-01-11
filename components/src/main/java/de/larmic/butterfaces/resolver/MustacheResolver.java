@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.resolver;
 
 import de.larmic.butterfaces.util.StringUtils;
@@ -6,6 +11,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Lars Michaelis
+ */
 public class MustacheResolver {
 
     public static final Pattern MUSTACHE_PATTERN = Pattern.compile("\\{\\{(.*?)\\}\\}");

@@ -85,7 +85,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            return MustacheResolver.getMustacheKeysForTree(encodedTemplate);
+            return MustacheResolver.getMustacheKeys(encodedTemplate);
         }
 
         return Collections.emptyList();
@@ -129,13 +129,17 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final Node selectedNode = selectedEntryId != null ? cachedNodes.get(selectedEntryId) : null;
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
 
-        if (treeBoxModelType == TreeBoxModelType.STRINGS) {
+        if (treeBoxModelType == TreeBoxModelType.STRINGS || treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("TrivialComboBox({");
         } else {
             jQueryPluginCall.append("TrivialTreeComboBox({");
         }
         jQueryPluginCall.append("\n    allowFreeText: true,");
-        jQueryPluginCall.append("\n    inputTextProperty: 'title',");
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+            // TODO what should I do here?
+        } else {
+            jQueryPluginCall.append("\n    inputTextProperty: 'title',");
+        }
         if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
             jQueryPluginCall.append("\n    emptyEntry: {");
             // TODO BUT-433 this does not work when use custom templates. it only replaces title attribute (if exists).
@@ -151,7 +155,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), treeBox.getFacet("template"), "editor-area");
-            jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
+            if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+                jQueryPluginCall.append("\n    template: '" + encodedTemplate + "',");
+            } else {
+                jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
+            }
         } else if (treeBoxModelType == TreeBoxModelType.NODES) {
             jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
         } else if (treeBoxModelType == TreeBoxModelType.STRINGS) {
