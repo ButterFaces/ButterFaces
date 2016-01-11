@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesCssExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesJavaExample;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.*;
@@ -45,8 +47,8 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            codeExamples.add(createEpisodeJavaCodeExample());
-            codeExamples.add(createEpisodeCssCodeExample());
+            codeExamples.add(new EpisodesJavaExample());
+            codeExamples.add(new EpisodesCssExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
             codeExamples.add(createMyBeanEnumCodeExample());
             codeExamples.add(createEnumJavaCodeExample());
@@ -168,33 +170,6 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
         myBean.appendInnerContent("    }");
 
         return myBean;
-    }
-
-    private JavaCodeExample createEpisodeJavaCodeExample() {
-        final JavaCodeExample javaCodeExample = new JavaCodeExample("Episode.java", "episode", "combobox.demo", "Episode", false);
-
-        javaCodeExample.appendInnerContent("    private int numberInSeries;");
-        javaCodeExample.appendInnerContent("    private String title;");
-        javaCodeExample.appendInnerContent("    private String writtenBy;");
-        javaCodeExample.appendInnerContent("    private String originalAirDate;");
-        javaCodeExample.appendInnerContent("    private String image;");
-        javaCodeExample.appendInnerContent("    // [...] getter + setter");
-
-        return javaCodeExample;
-    }
-
-    private CssCodeExample createEpisodeCssCodeExample() {
-        final CssCodeExample cssCodeExample = new CssCodeExample();
-
-        cssCodeExample.addCss(".stargateEpisodeItem", "display: flex", "align-items: stretch");
-        cssCodeExample.addCss(".stargateEpisodeItem img", "height: 75px");
-        cssCodeExample.addCss(".stargateEpisodeItem h4", "font-size: 16px", "margin-top: 5px");
-        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails", "font-size: 12px", "margin-left: 5px");
-        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails > div", "display: flex", "align-items: baseline");
-        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails label", "width: 80px", "font-weight: bold");
-        cssCodeExample.addCss(".stargateEpisodeItem .stargateEpisodeDetails span", "flex: 1");
-
-        return cssCodeExample;
     }
 
     private XhtmlCodeExample createXhtmlExample() {
