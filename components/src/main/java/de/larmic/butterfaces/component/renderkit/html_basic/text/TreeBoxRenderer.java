@@ -158,6 +158,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         if (selectedEntryId != null && selectedNode != null) {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, cachedNodes, selectedEntryId, selectedNode) + ",");
         }
+        if (treeBox.getFacet("selectedEntryTemplate") != null) {
+            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), treeBox.getFacet("selectedEntryTemplate"), "editor-area") + "',");
+        }
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), treeBox.getFacet("template"), "editor-area");
             if (treeBoxModelType == TreeBoxModelType.OBJECTS) {

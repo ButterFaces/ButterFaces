@@ -93,6 +93,17 @@
                     </f:facet>
                 </c:if>
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
+                    <f:facet name="selectedEntryTemplate">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg small" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                            </div>
+                        </div>
+                    </f:facet>
                     <f:facet name="template">
                         <div class="stargateEpisodeItem">
                             <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
@@ -144,6 +155,37 @@
                         <div>UUID: {{uuid}}</div>
                     </f:facet>
                 </c:if>
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
+                    <f:facet name="selectedEntryTemplate">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg small" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                            </div>
+                        </div>
+                    </f:facet>
+                    <f:facet name="template">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                                <div>
+                                    <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                                </div>
+                                <div>
+                                    <label>written by:</label><span>{{writtenBy}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </f:facet>
+                </c:if>
+
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -180,6 +222,37 @@
                         <div>UUID: {{uuid}}</div>
                     </f:facet>
                 </c:if>
+                <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
+                    <f:facet name="selectedEntryTemplate">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg small" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                            </div>
+                        </div>
+                    </f:facet>
+                    <f:facet name="template">
+                        <div class="stargateEpisodeItem">
+                            <img class="stargateEpisodeImg" src="{{image}}" alt="{{title}}"/>
+
+                            <div class="stargateEpisodeDetails">
+                                <h4>{{title}}
+                                    <small>({{originalAirDate}})</small>
+                                </h4>
+                                <div>
+                                    <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                                </div>
+                                <div>
+                                    <label>written by:</label><span>{{writtenBy}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </f:facet>
+                </c:if>
+
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
