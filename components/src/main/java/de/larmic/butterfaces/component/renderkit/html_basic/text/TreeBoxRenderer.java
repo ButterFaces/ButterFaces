@@ -151,6 +151,8 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
             //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
             jQueryPluginCall.append("\n    },");
+            // TODO BUT-433
+            //jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"editor-area dummy\">pubs</div>',");
         }
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
         if (selectedEntryId != null && selectedNode != null) {
