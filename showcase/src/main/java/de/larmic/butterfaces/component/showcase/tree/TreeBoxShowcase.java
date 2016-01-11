@@ -117,6 +117,26 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             xhtmlCodeExample.appendInnerContent("                <div>Created: {{createDate}}</div>");
             xhtmlCodeExample.appendInnerContent("                <div>UUID: {{uuid}}</div>");
             xhtmlCodeExample.appendInnerContent("            </facet>");
+        } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
+            xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
+            xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg\" src=\"{{image}}\" alt=\"{{title}}\"/>");
+            xhtmlCodeExample.appendInnerContent("                      <div class=\"stargateEpisodeDetails\">");
+            xhtmlCodeExample.appendInnerContent("                           <h4>{{title}} <small>({{originalAirDate}})</small></h4>");
+            xhtmlCodeExample.appendInnerContent("                           <div>");
+            xhtmlCodeExample.appendInnerContent("                                <label>Episode:</label>");
+            xhtmlCodeExample.appendInnerContent("                                <span>");
+            xhtmlCodeExample.appendInnerContent("                                     No. {{numberInSeries}} of Stargate - Kommando SG-1, ");
+            xhtmlCodeExample.appendInnerContent("                                     Season 1</span>");
+            xhtmlCodeExample.appendInnerContent("                                </span>");
+            xhtmlCodeExample.appendInnerContent("                           </div>");
+            xhtmlCodeExample.appendInnerContent("                           <div>");
+            xhtmlCodeExample.appendInnerContent("                                <label>written by:</label>");
+            xhtmlCodeExample.appendInnerContent("                                <span>{{writtenBy}}</span>");
+            xhtmlCodeExample.appendInnerContent("                           </div>");
+            xhtmlCodeExample.appendInnerContent("                      </div>");
+            xhtmlCodeExample.appendInnerContent("                 </div>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
         }
 
         if (this.isValidation()) {

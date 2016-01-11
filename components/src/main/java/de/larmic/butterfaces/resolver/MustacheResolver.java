@@ -38,7 +38,7 @@ public class MustacheResolver {
         return new ArrayList<>(keys);
     }
 
-    public static List<String> getMustacheKeysForTree(final String template) {
+    public static List<String> getMustacheKeysForTreeNode(final String template) {
         final List<String> mustacheKeys = getMustacheKeys(template);
         // TODO test and remove ignore case
         mustacheKeys.removeAll(Arrays.asList("id", "title", "expanded", "description", "imageStyle", "imageClass", "styleClass"));

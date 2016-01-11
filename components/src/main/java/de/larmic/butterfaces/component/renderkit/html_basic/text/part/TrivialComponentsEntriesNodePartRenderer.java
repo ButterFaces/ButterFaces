@@ -1,8 +1,8 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
-import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.util.ReflectionUtil;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.html.HtmlInputText;
 import java.util.Iterator;
@@ -86,7 +86,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         stringBuilder.append("{");
         stringBuilder.append("\"id\": " + newIndex + ",");
         if (StringUtils.isNotEmpty(node.getStyleClass())) {
-            stringBuilder.append("\"styleClass\": \"" + escape(node.getStyleClass()) + "\",");
+            stringBuilder.append("\"styleClass\": \"" + escape(readValue(node.getStyleClass(), "styleClass", node.getData())) + "\",");
         }
         if (StringUtils.isNotEmpty(node.getImageIcon())) {
             stringBuilder.append("\"imageStyle\": \"background-image: url(" + node.getImageIcon() + ")\",");
@@ -97,7 +97,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         if (StringUtils.isNotEmpty(node.getDescription())) {
-            stringBuilder.append("\"description\": \"" + escape(node.getDescription()) + "\",");
+            stringBuilder.append("\"description\": \"" + escape(readValue(node.getDescription(), "description", node.getData())) + "\",");
         }
 
         for (String mustacheKey : mustacheKeys) {
@@ -105,7 +105,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
-        stringBuilder.append("\"title\": \"" + escape(node.getTitle()) + "\"");
+        stringBuilder.append("\"title\": \"" + escape(readValue(node.getTitle(), "title", node.getData())) + "\"");
 
         newIndex++;
 
@@ -117,6 +117,22 @@ public class TrivialComponentsEntriesNodePartRenderer {
 
         stringBuilder.append("}");
         return newIndex;
+    }
+
+    private String readValue(final String value,
+                             final String attributeName,
+                             final Object nodeValue) {
+        if (StringUtils.isNotEmpty(value)) {
+            return value;
+        }
+
+        if (nodeValue == null) {
+            return "";
+        }
+
+        final String valueFromObject = new ReflectionUtil().getValueFromObject(nodeValue, attributeName);
+
+        return StringUtils.getNotNullValue(valueFromObject, "");
     }
 
     private String escape(String value) {

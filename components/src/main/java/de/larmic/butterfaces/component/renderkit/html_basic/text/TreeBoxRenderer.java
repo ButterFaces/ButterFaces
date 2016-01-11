@@ -85,7 +85,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            return MustacheResolver.getMustacheKeys(encodedTemplate);
+            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
         }
 
         return Collections.emptyList();

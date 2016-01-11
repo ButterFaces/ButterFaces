@@ -107,7 +107,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
     private List<String> createMustacheKeys(FacesContext context, HtmlTree tree) throws IOException {
         if (tree.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
-            return MustacheResolver.getMustacheKeysForTree(encodedTemplate);
+            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
         }
 
         return Collections.emptyList();
