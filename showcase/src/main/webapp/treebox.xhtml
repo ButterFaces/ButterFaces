@@ -93,6 +93,9 @@
                     </f:facet>
                 </c:if>
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
+                    <f:facet name="emptyEntryTemplate">
+                        Please select item...
+                    </f:facet>
                     <f:facet name="selectedEntryTemplate">
                         <div class="stargateEpisodeItem">
                             <img class="stargateEpisodeImg small" src="{{image}}" alt="{{title}}"/>
