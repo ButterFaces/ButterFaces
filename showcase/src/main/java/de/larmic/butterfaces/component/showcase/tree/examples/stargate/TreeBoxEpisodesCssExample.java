@@ -21,6 +21,5 @@ public class TreeBoxEpisodesCssExample extends CssCodeExample {
         this.addCss(".stargateEpisodeItem .stargateEpisodeDetails > div", "display: flex", "align-items: baseline");
         this.addCss(".stargateEpisodeItem .stargateEpisodeDetails label", "width: 80px", "font-weight: bold");
         this.addCss(".stargateEpisodeItem .stargateEpisodeDetails span", "flex: 1");
-        this.addCss(".emptyEntry", "height: 34px;", "display: flex;", "align-items: center;", "margin-left: 8px;", "color: gray;");
     }
 }

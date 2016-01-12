@@ -144,16 +144,10 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
 
-        if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
-            jQueryPluginCall.append("\n    emptyEntry: {");
-            jQueryPluginCall.append("\n    \"title\": \"" + treeBox.getPlaceholder() + "\"");
-            //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
-            //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
-            jQueryPluginCall.append("\n    },");
-        }
-
         if (treeBox.getFacet("emptyEntryTemplate") != null) {
             jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate"), "editor-area") + "',");
+        } else if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
+            jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"defaultEmptyEntry\">" + treeBox.getPlaceholder() + "</div>',");
         }
 
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
