@@ -57,12 +57,13 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(buildXhtmlCodeExample());
         if (selectedTreeBoxExampleType == TreeBoxExampleType.NODES) {
-            codeExamples.add(new TreeBoxListOfNodesJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
+            codeExamples.add(new TreeBoxListOfNodesJavaExample(showcaseTreeNode));
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.ROOT_NODE) {
             codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
-            codeExamples.add(this.createNodeDataCodeExample());
+            codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.STRINGS) {
             codeExamples.add(new TreeBoxListOfStringsJavaExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
@@ -76,16 +77,6 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         }
 
         generateDemoCSS(codeExamples);
-    }
-
-    private JavaCodeExample createNodeDataCodeExample() {
-        final JavaCodeExample codeExample = new JavaCodeExample("NodeData.java", "nodeData", "treeBox.demo", "NodeData", false);
-
-        codeExample.appendInnerContent("    private final UUID uuid = UUID.randomUUID();\n");
-        codeExample.appendInnerContent("    private final Date createDate = new Date();\n");
-        codeExample.appendInnerContent("    // GETTER");
-
-        return codeExample;
     }
 
     private XhtmlCodeExample buildXhtmlCodeExample() {
@@ -114,14 +105,6 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.addAjaxTag(xhtmlCodeExample, "change");
 
         if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            xhtmlCodeExample.appendInnerContent("            <!-- use attributes from node or node.data-->");
-            xhtmlCodeExample.appendInnerContent("            <!-- javascript mustache syntax is used -->");
-            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
-            xhtmlCodeExample.appendInnerContent("                <strong>{{title}}</strong>");
-            xhtmlCodeExample.appendInnerContent("                <div>Created: {{createDate}}</div>");
-            xhtmlCodeExample.appendInnerContent("                <div>UUID: {{uuid}}</div>");
-            xhtmlCodeExample.appendInnerContent("            </facet>");
-        } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"selectedEntryTemplate\">");
             xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
             xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg small\"");
@@ -238,8 +221,8 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             case NODES:
                 return showcaseTreeNode.getTree().getSubNodes();
             case ROOT_NODE:
-            case TEMPLATE:
                 return showcaseTreeNode.getTree();
+            case TEMPLATE:
             case OBJECTS:
                 return EpisodeConverter.EPISODES;
             default:

@@ -166,7 +166,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             }
         } else if (treeBoxModelType == TreeBoxModelType.NODES) {
             jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
-        } else if (treeBoxModelType == TreeBoxModelType.STRINGS) {
+        } else if (treeBoxModelType == TreeBoxModelType.STRINGS || treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("\n    template: '" + TreeRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
         }
         jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");

@@ -54,7 +54,7 @@ public class ShowcaseTreeNode {
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
-        return new DefaultNodeImpl<NodeData>(title, new NodeData()) {
+        return new DefaultNodeImpl(title) {
             @Override
             public String getDescription() {
                 return description;

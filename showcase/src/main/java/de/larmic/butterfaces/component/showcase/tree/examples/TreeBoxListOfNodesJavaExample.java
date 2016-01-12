@@ -7,16 +7,14 @@ package de.larmic.butterfaces.component.showcase.tree.examples;
 
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.tree.ShowcaseTreeNode;
-import de.larmic.butterfaces.component.showcase.tree.TreeBoxExampleType;
 import de.larmic.butterfaces.component.showcase.tree.TreeIconType;
-import de.larmic.butterfaces.component.showcase.tree.TreeTemplateType;
 
 /**
  * @author Lars Michaelis
  */
 public class TreeBoxListOfNodesJavaExample extends JavaCodeExample {
 
-    public TreeBoxListOfNodesJavaExample(TreeBoxExampleType selectedTreeBoxExampleType, ShowcaseTreeNode showcaseTreeNode) {
+    public TreeBoxListOfNodesJavaExample(ShowcaseTreeNode showcaseTreeNode) {
         super("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
 
         this.addImport("import de.larmic.butterfaces.model.tree.Node");
@@ -27,32 +25,20 @@ public class TreeBoxListOfNodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("    private List<Node> nodes = new ArrayList<Node>();\n");
         this.appendInnerContent("    public List<Node> getValues() {");
         this.appendInnerContent("        if (nodes.isEmpty()) {");
-        if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            this.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
-        } else {
-            this.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
-        }
+        this.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
         this.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
         if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             this.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             this.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
         }
-        if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            this.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
-        } else {
-            this.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
-        }
+        this.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
         if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
             this.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
         } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
             this.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
         }
-        if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            this.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
-        } else {
-            this.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
-        }
+        this.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
         this.appendInnerContent("            ...");
         this.appendInnerContent("            nodes.add(firstChild);");
         this.appendInnerContent("            nodes.add(secondChild);");
