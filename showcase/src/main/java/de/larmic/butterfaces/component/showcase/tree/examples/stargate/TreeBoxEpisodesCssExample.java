@@ -10,9 +10,9 @@ import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 /**
  * @author Lars Michaelis
  */
-public class EpisodesCssExample extends CssCodeExample {
+public class TreeBoxEpisodesCssExample extends CssCodeExample {
 
-    public EpisodesCssExample() {
+    public TreeBoxEpisodesCssExample() {
         this.addCss(".stargateEpisodeItem", "display: flex", "align-items: stretch");
         this.addCss(".stargateEpisodeItem img", "height: 75px");
         this.addCss(".stargateEpisodeItem img.small", "height: 33px");

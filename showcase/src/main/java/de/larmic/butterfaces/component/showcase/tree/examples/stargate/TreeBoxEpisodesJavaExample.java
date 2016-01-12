@@ -10,9 +10,9 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 /**
  * @author Lars Michaelis
  */
-public class EpisodesJavaExample extends JavaCodeExample {
+public class TreeBoxEpisodesJavaExample extends JavaCodeExample {
 
-    public EpisodesJavaExample() {
+    public TreeBoxEpisodesJavaExample() {
         super("Episode.java", "episode", "combobox.demo", "Episode", false);
 
         this.appendInnerContent("    private int numberInSeries;");

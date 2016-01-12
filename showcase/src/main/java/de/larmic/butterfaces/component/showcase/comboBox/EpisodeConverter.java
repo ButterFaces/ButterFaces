@@ -1,12 +1,11 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import java.util.ArrayList;
+import java.util.List;
 
 @FacesConverter("episodeConverter")
 public class EpisodeConverter implements Converter {
@@ -44,7 +43,7 @@ public class EpisodeConverter implements Converter {
 
    private static Episode createEpisode(int numberInSeries, String title, String directedBy, String writtenBy,
                                         String originalAirDate, String image) {
-      Episode episode = new Episode();
+      final Episode episode = new Episode();
       episode.setNumberInSeries(numberInSeries);
       episode.setTitle(title);
       episode.setDirectedBy(directedBy);

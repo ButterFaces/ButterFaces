@@ -9,8 +9,9 @@ import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfNodesJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfStringsJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxRootNodeJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesCssExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -65,8 +66,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.STRINGS) {
             codeExamples.add(new TreeBoxListOfStringsJavaExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
-            codeExamples.add(new EpisodesJavaExample());
-            codeExamples.add(new EpisodesCssExample());
+            codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesCssExample());
         }
 
         if (isValidation()) {

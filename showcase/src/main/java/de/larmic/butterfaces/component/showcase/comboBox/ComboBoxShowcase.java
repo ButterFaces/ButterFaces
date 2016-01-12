@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.showcase.comboBox;
 
-import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesCssExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.stargate.EpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.*;
@@ -47,8 +47,8 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            codeExamples.add(new EpisodesJavaExample());
-            codeExamples.add(new EpisodesCssExample());
+            codeExamples.add(new TreeBoxEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
             codeExamples.add(createMyBeanEnumCodeExample());
             codeExamples.add(createEnumJavaCodeExample());
