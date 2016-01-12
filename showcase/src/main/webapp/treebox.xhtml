@@ -94,7 +94,9 @@
                 </c:if>
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}">
                     <f:facet name="emptyEntryTemplate">
-                        #{treeBoxShowcase.placeholder}
+                        <div class="emptyEntry">
+                            #{treeBoxShowcase.placeholder}
+                        </div>
                     </f:facet>
                     <f:facet name="selectedEntryTemplate">
                         <div class="stargateEpisodeItem">
