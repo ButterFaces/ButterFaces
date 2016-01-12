@@ -145,13 +145,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
             jQueryPluginCall.append("\n    emptyEntry: {");
-            // TODO BUT-433 this does not work when use custom templates. it only replaces title attribute (if exists).
-            // TODO see https://github.com/trivial-components/trivial-components/issues/27
             jQueryPluginCall.append("\n    \"title\": \"" + treeBox.getPlaceholder() + "\"");
             //jQueryPluginCall.append("\n    \"imageUrl\": \"-\",");
             //jQueryPluginCall.append("\n    \"additionalInfo\": \"\"");
             jQueryPluginCall.append("\n    },");
-            // TODO BUT-433
+            // TODO BUT-433 add emptyEntryTemplate if exists
             //jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"editor-area dummy\">pubs</div>',");
         }
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");

@@ -15,7 +15,7 @@ public class EpisodesCssExample extends CssCodeExample {
     public EpisodesCssExample() {
         this.addCss(".stargateEpisodeItem", "display: flex", "align-items: stretch");
         this.addCss(".stargateEpisodeItem img", "height: 75px");
-        this.addCss(".stargateEpisodeItem img.small", "height: 30px");
+        this.addCss(".stargateEpisodeItem img.small", "height: 33px");
         this.addCss(".stargateEpisodeItem h4", "font-size: 16px", "margin-top: 5px");
         this.addCss(".stargateEpisodeItem .stargateEpisodeDetails", "font-size: 12px", "margin-left: 5px");
         this.addCss(".stargateEpisodeItem .stargateEpisodeDetails > div", "display: flex", "align-items: baseline");
