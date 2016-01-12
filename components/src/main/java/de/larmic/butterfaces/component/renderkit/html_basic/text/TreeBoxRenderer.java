@@ -137,7 +137,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         } else {
             jQueryPluginCall.append("TrivialTreeComboBox({");
         }
-        jQueryPluginCall.append("\n    allowFreeText: true,");
+        jQueryPluginCall.append("\n    allowFreeText: false,");
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("\n    valueProperty: 'id',");
         }
