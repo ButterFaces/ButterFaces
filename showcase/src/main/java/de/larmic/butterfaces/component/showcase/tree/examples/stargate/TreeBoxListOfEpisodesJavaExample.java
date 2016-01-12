@@ -21,7 +21,7 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
         this.appendInnerContent("    private List<Episode> episodes = new ArrayList<Episode>();\n");
 
-        this.appendInnerContent("    public List<String> getValues() {");
+        this.appendInnerContent("    public List<Episode> getValues() {");
         this.appendInnerContent("       if(episodes.isEmpty()) {");
         this.appendInnerContent("          episodes.add(createEpisode(1,");
         this.appendInnerContent("                                     \"Children of the Gods 1/2\",");
