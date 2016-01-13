@@ -31,7 +31,7 @@ public class TreeBoxModelWrapper {
         } else if (treeBoxValues instanceof Iterable) {
             treeBoxModelType = this.handleIterableValues((Iterable) treeBoxValues);
         } else {
-            treeBoxModelType = TreeBoxModelType.UNKOWN;
+            treeBoxModelType = TreeBoxModelType.UNKNOWN;
         }
     }
 
@@ -41,7 +41,7 @@ public class TreeBoxModelWrapper {
         boolean foundObject = false;
 
         if (!treeBoxValues.iterator().hasNext()) {
-            return TreeBoxModelType.UNKOWN;
+            return TreeBoxModelType.UNKNOWN;
         }
 
         for (Object value : treeBoxValues) {
