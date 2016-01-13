@@ -105,6 +105,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
+        stringBuilder.append("\"butterObjectToString\": \"" + escape(node.getData() != null ? node.getData().toString() : "") + "\",");
         stringBuilder.append("\"title\": \"" + escape(readValue(node.getTitle(), "title", node.getData())) + "\"");
 
         newIndex++;

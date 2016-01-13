@@ -55,4 +55,9 @@ public class Episode {
    public void setImage(String image) {
       this.image = image;
    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
