@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
 import de.larmic.butterfaces.model.tree.Node;
@@ -9,6 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Lars Michaelis
+ */
 public class TrivialComponentsEntriesNodePartRenderer {
 
     /**
@@ -105,6 +113,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
+        // TODO could toString() to be too expensive?
         stringBuilder.append("\"butterObjectToString\": \"" + escape(node.getData() != null ? node.getData().toString() : "") + "\",");
         stringBuilder.append("\"title\": \"" + escape(readValue(node.getTitle(), "title", node.getData())) + "\"");
 
