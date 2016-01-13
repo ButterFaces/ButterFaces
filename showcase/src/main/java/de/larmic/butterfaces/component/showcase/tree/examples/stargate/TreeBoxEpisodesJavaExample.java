@@ -21,5 +21,9 @@ public class TreeBoxEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("    private String originalAirDate;");
         this.appendInnerContent("    private String image;");
         this.appendInnerContent("    // [...] getter + setter");
+        this.appendInnerContent("    @Override");
+        this.appendInnerContent("    public String toString() {");
+        this.appendInnerContent("       return title;");
+        this.appendInnerContent("    }");
     }
 }
