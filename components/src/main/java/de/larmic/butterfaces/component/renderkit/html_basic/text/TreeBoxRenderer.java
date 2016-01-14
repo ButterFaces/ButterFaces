@@ -41,8 +41,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     private final Map<Integer, Node> cachedNodes = new HashMap<>();
 
-    private String noMatchingText;
-    private String spinnerText;
     private TreeBoxModelType treeBoxModelType;
 
     @Override
@@ -54,12 +52,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component, "butter-component-treebox");
 
-
-        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
-
         treeBoxModelType = null;
-        noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
-        spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
     }
 
     @Override
@@ -133,6 +126,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType);
         final Node selectedNode = selectedEntryId != null ? cachedNodes.get(selectedEntryId) : null;
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
+
+        final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
         if (treeBoxModelType == TreeBoxModelType.STRINGS || treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("TrivialComboBox({");
