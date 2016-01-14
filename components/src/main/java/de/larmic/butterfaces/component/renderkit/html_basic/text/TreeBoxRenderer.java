@@ -34,6 +34,8 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
 public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
+    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_USING_TITLE_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{title}}</div>   </div></div>";
+    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_USING_TOSTRING_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
@@ -167,9 +169,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         } else if (treeBoxModelType == TreeBoxModelType.NODES) {
             jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
         } else if (treeBoxModelType == TreeBoxModelType.STRINGS) {
-            jQueryPluginCall.append("\n    template: '" + TreeRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_USING_TITLE_TEMPLATE + "',");
+            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_USING_TITLE_TEMPLATE + "',");
         } else if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    template: '" + TreeRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_USING_TOSTRING_TEMPLATE + "',");
+            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_USING_TOSTRING_TEMPLATE + "',");
         }
         jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
         jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
