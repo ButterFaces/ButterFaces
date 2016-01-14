@@ -37,7 +37,6 @@ public class TreeBoxModelWrapper {
 
     private TreeBoxModelType handleIterableValues(Iterable treeBoxValues) {
         boolean foundNode= false;
-        boolean foundString = false;
         boolean foundObject = false;
 
         if (!treeBoxValues.iterator().hasNext()) {
@@ -50,14 +49,14 @@ public class TreeBoxModelWrapper {
                 foundNode = true;
             } else if (value instanceof String) {
                 nodes.add(new DefaultNodeImpl<>((String) value, (String) value));
-                foundString = true;
+                foundObject = true;
             } else {
                 nodes.add(new DefaultNodeImpl(null, value));
                 foundObject = true;
             }
         }
 
-        return foundObject || foundString && foundNode ? TreeBoxModelType.OBJECTS : (foundString ? TreeBoxModelType.STRINGS : TreeBoxModelType.NODES);
+        return foundObject ? TreeBoxModelType.OBJECTS : (foundNode ? TreeBoxModelType.NODES : TreeBoxModelType.UNKNOWN);
     }
 
     public List<Node> getNodes() {

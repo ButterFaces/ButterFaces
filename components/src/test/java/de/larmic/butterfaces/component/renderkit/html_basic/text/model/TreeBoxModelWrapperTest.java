@@ -20,17 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TreeBoxModelWrapperTest {
 
     @Test
-    public void testCreateWrapperWithStrings() throws Exception {
-        final HtmlTreeBox treeBox = new HtmlTreeBox();
-        treeBox.setValues(Arrays.asList("demo1", "demo2", "demo3"));
-
-        final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
-
-        assertThat(treeBoxModelWrapper.getTreeBoxModelType()).isEqualTo(TreeBoxModelType.STRINGS);
-        assertThat(treeBoxModelWrapper.getNodes()).extracting("title").containsExactly("demo1", "demo2", "demo3");
-    }
-
-    @Test
     public void testCreateWrapperWithNodes() throws Exception {
         final HtmlTreeBox treeBox = new HtmlTreeBox();
         treeBox.setValues(Arrays.asList(new DefaultNodeImpl<>("demo1"), new DefaultNodeImpl<>("demo2"), new DefaultNodeImpl<>("demo3")));

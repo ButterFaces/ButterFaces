@@ -33,8 +33,7 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
 public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
-    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_USING_TITLE_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{title}}</div>   </div></div>";
-    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_USING_TOSTRING_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
+    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
@@ -105,16 +104,12 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
         final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
 
-        if (treeBoxModelType == TreeBoxModelType.STRINGS) {
-            return newValue;
-        }
-
         final List<Node> nodes = treeBoxModelWrapper.getNodes();
         final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
 
         final Integer selectedIndex = Integer.valueOf(newValue);
         final Node node = nodesMap.get(selectedIndex);
-        return treeBoxModelType == TreeBoxModelType.OBJECTS && node != null ? node.getData() : node;
+        return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null ? node.getData() : node;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,
@@ -131,7 +126,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
         final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
-        if (treeBoxModelType == TreeBoxModelType.STRINGS || treeBoxModelType == TreeBoxModelType.OBJECTS) {
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("TrivialComboBox({");
         } else {
             jQueryPluginCall.append("TrivialTreeComboBox({");
@@ -165,10 +160,8 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             }
         } else if (treeBoxModelType == TreeBoxModelType.NODES) {
             jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
-        } else if (treeBoxModelType == TreeBoxModelType.STRINGS) {
-            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_USING_TITLE_TEMPLATE + "',");
         } else if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_USING_TOSTRING_TEMPLATE + "',");
+            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
         }
         jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
         jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
@@ -179,14 +172,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     }
 
     private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType, final Map<Integer, Node> nodesMap) {
-        if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBoxValue instanceof String) {
-            for (Integer index : nodesMap.keySet()) {
-                final Node node = nodesMap.get(index);
-                if (treeBoxValue.equals(node.getTitle())) {
-                    return index;
-                }
-            }
-        } else if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
             for (Integer index : nodesMap.keySet()) {
                 final Node node = nodesMap.get(index);
                 if (treeBoxValue.equals(node.getData())) {

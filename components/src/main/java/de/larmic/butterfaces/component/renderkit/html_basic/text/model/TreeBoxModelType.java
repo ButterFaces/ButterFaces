@@ -10,6 +10,6 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text.model;
  */
 public enum TreeBoxModelType {
 
-    NODES, STRINGS, OBJECTS, UNKNOWN
+    NODES, OBJECTS, UNKNOWN
 
 }
