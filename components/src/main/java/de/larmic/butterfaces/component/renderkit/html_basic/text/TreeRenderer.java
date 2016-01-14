@@ -31,11 +31,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
-    private final Map<Integer, Node> cachedNodes = new HashMap<>();
     private Node selectedNode = null;
-
-    private String noMatchingText;
-    private String spinnerText;
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -59,11 +55,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree-original-input", null);
         writer.endElement("input");
-
-        noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
-        spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), DEFAULT_SPINNER_TEXT);
-
-        cachedNodes.clear();
     }
 
 
@@ -77,9 +68,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final HtmlTree tree = (HtmlTree) component;
         // HINT: getValue() should only called once because getValue() could create a new root node each time
         final Node rootNode = tree.getValue();
-        final List<Node> nodes = tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
-
-        cachedNodes.putAll(CachedNodesInitializer.createNodesMap(nodes));
+        final List<Node> nodes = createNodesMap(tree, rootNode);
+        final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
 
         final ResponseWriter writer = context.getResponseWriter();
 
@@ -88,9 +78,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.startElement("script", component);
 
         writer.writeText("jQuery(function () {\n", null);
-        writer.writeText("var entries_" + tree.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
+        writer.writeText("var entries_" + tree.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(tree, context);
+        final String pluginCall = createJQueryPluginCallTrivial(tree, context, nodesMap);
         writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
 
         this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
@@ -101,6 +91,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.endElement("script");
 
         writer.endElement(ELEMENT_DIV);
+    }
+
+    private List<Node> createNodesMap(HtmlTree tree, Node rootNode) {
+        return  tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
     }
 
     private List<String> createMustacheKeys(FacesContext context, HtmlTree tree) throws IOException {
@@ -134,14 +128,18 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
-        final HtmlTree htmlTree = (HtmlTree) component;
-        final TreeNodeSelectionListener nodeSelectionListener = htmlTree.getNodeSelectionListener();
-        final TreeNodeExpansionListener nodeExpansionListener = htmlTree.getNodeExpansionListener();
-        final Map<String, List<ClientBehavior>> behaviors = htmlTree.getClientBehaviors();
+        final HtmlTree tree = (HtmlTree) component;
+        final TreeNodeSelectionListener nodeSelectionListener = tree.getNodeSelectionListener();
+        final TreeNodeExpansionListener nodeExpansionListener = tree.getNodeExpansionListener();
+        final Map<String, List<ClientBehavior>> behaviors = tree.getClientBehaviors();
 
         if (behaviors.isEmpty()) {
             return;
         }
+
+        final Node rootNode = tree.getValue();
+        final List<Node> nodes = createNodesMap(tree, rootNode);
+        final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
 
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
@@ -150,7 +148,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         if (behaviorEvent != null && "click".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
-                final Node node = cachedNodes.get(nodeNumber);
+                final Node node = nodesMap.get(nodeNumber);
                 if (nodeSelectionListener != null) {
                     nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
                 }
@@ -161,7 +159,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
-                final Node cachedNode = cachedNodes.get(nodeNumber);
+                final Node cachedNode = nodesMap.get(nodeNumber);
                 if (cachedNode != null) {
                     if (cachedNode.isCollapsed()) {
                         cachedNode.setCollapsed(false);
@@ -183,13 +181,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTree tree,
-                                                 final FacesContext context) throws IOException {
+                                                 final FacesContext context,
+                                                 final Map<Integer, Node> nodesMap) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
         final String searchBarMode = determineSearchBarMode(tree);
-        final Integer selectedNodeNumber = getSelectedNodeNumber(tree);
+        final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
+
+        final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
         if (selectedNodeNumber != null) {
-            openPathToNode(cachedNodes.get(selectedNodeNumber), tree.getNodeExpansionListener());
+            openPathToNode(nodesMap.get(selectedNodeNumber), tree.getNodeExpansionListener(), nodesMap);
         }
 
         jQueryPluginCall.append("TrivialTree({");
@@ -221,8 +223,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         return jQueryPluginCall.toString();
     }
 
-    private void openPathToNode(final Node node, final TreeNodeExpansionListener nodeExpansionListener) {
-        final Node parent = getParent(node);
+    private void openPathToNode(final Node node, final TreeNodeExpansionListener nodeExpansionListener, final Map<Integer, Node> nodesMap) {
+        final Node parent = getParent(node, nodesMap);
 
         if (parent != null) {
             if (parent.isCollapsed()) {
@@ -231,12 +233,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
                     nodeExpansionListener.expandNode(node);
                 }
             }
-            openPathToNode(parent, nodeExpansionListener);
+            openPathToNode(parent, nodeExpansionListener, nodesMap);
         }
     }
 
-    private Node getParent(final Node child) {
-        for (Node node : cachedNodes.values()) {
+    private Node getParent(final Node child, final Map<Integer, Node> nodesMap) {
+        for (Node node : nodesMap.values()) {
             if (node.getSubNodes().contains(child)) {
                 return node;
             }
@@ -257,10 +259,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
         return "none";
     }
 
-    private Integer getSelectedNodeNumber(final HtmlTree tree) {
+    private Integer getSelectedNodeNumber(final HtmlTree tree,
+                                          final Map<Integer, Node> nodesMap) {
         if (tree.getNodeSelectionListener() != null) {
-            for (Integer nodeNumber : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(nodeNumber);
+            for (Integer nodeNumber : nodesMap.keySet()) {
+                final Node node = nodesMap.get(nodeNumber);
                 if (tree.getNodeSelectionListener().isValueSelected(node)) {
                     return nodeNumber;
                 }
