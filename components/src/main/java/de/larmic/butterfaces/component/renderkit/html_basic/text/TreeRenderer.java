@@ -31,8 +31,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
-    private Node selectedNode = null;
-
     @Override
     public void encodeBegin(final FacesContext context,
                             final UIComponent component) throws IOException {
@@ -150,9 +148,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 final Integer nodeNumber = Integer.valueOf(params.get("params"));
                 final Node node = nodesMap.get(nodeNumber);
                 if (nodeSelectionListener != null) {
+                    final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
+                    final Node selectedNode = selectedNodeNumber != null ? nodesMap.get(selectedNodeNumber) : null;
                     nodeSelectionListener.processValueChange(new TreeNodeSelectionEvent(selectedNode, node));
                 }
-                selectedNode = node;
             } catch (NumberFormatException e) {
                 // here is nothing to do
             }
@@ -173,7 +172,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
                         }
                     }
                 }
-                selectedNode = cachedNode;
             } catch (NumberFormatException e) {
                 // here is nothing to do
             }
