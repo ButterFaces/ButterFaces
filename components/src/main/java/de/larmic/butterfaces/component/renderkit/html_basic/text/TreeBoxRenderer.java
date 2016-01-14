@@ -24,7 +24,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +38,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
-    private final Map<Integer, Node> cachedNodes = new HashMap<>();
-
-    private TreeBoxModelType treeBoxModelType;
-
     @Override
     protected boolean encodeReadonly() {
         return false;
@@ -51,27 +46,25 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component, "butter-component-treebox");
-
-        treeBoxModelType = null;
     }
 
     @Override
     protected void encodeEnd(HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
         final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
         final List<Node> nodes = treeBoxModelWrapper.getNodes();
-        treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
+        final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
 
         final List<String> mustacheKeys = this.createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
         final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
 
-        cachedNodes.putAll(CachedNodesInitializer.createNodesMap(nodes));
+        final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
 
         writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
-        writer.writeText("var entries_" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, cachedNodes) + ";\n", null);
+        writer.writeText("var entries_" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys);
+        final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap);
         writer.writeText("var trivialTree" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + jQueryBySelector + pluginCall + ";", null);
         writer.writeText("});", null);
         writer.endElement("script");
@@ -108,23 +101,31 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         final String newValue = (String) submittedValue;
 
+        final HtmlTreeBox treeBox = (HtmlTreeBox) component;
+        final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
+        final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
+
         if (treeBoxModelType == TreeBoxModelType.STRINGS) {
             return newValue;
         }
 
+        final List<Node> nodes = treeBoxModelWrapper.getNodes();
+        final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
+
         final Integer selectedIndex = Integer.valueOf(newValue);
-        final Node node = cachedNodes.get(selectedIndex);
+        final Node node = nodesMap.get(selectedIndex);
         return treeBoxModelType == TreeBoxModelType.OBJECTS && node != null ? node.getData() : node;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,
                                                  final TreeBoxModelType treeBoxModelType,
-                                                 final List<String> mustacheKeys) throws IOException {
+                                                 final List<String> mustacheKeys,
+                                                 final Map<Integer, Node> nodesMap) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
         final FacesContext context = FacesContext.getCurrentInstance();
 
-        final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType);
-        final Node selectedNode = selectedEntryId != null ? cachedNodes.get(selectedEntryId) : null;
+        final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType, nodesMap);
+        final Node selectedNode = selectedEntryId != null ? nodesMap.get(selectedEntryId) : null;
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
 
         final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
@@ -150,7 +151,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
         if (selectedEntryId != null && selectedNode != null) {
-            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, cachedNodes, selectedEntryId, selectedNode) + ",");
+            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
         }
         if (treeBox.getFacet("selectedEntryTemplate") != null) {
             jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate"), "editor-area") + "',");
@@ -177,24 +178,24 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         return jQueryPluginCall.toString();
     }
 
-    private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType) {
+    private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType, final Map<Integer, Node> nodesMap) {
         if (treeBoxModelType == TreeBoxModelType.STRINGS && treeBoxValue instanceof String) {
-            for (Integer index : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(index);
+            for (Integer index : nodesMap.keySet()) {
+                final Node node = nodesMap.get(index);
                 if (treeBoxValue.equals(node.getTitle())) {
                     return index;
                 }
             }
         } else if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
-            for (Integer index : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(index);
+            for (Integer index : nodesMap.keySet()) {
+                final Node node = nodesMap.get(index);
                 if (treeBoxValue.equals(node.getData())) {
                     return index;
                 }
             }
         } else if (treeBoxValue != null) {
-            for (Integer index : cachedNodes.keySet()) {
-                final Node node = cachedNodes.get(index);
+            for (Integer index : nodesMap.keySet()) {
+                final Node node = nodesMap.get(index);
                 if (treeBoxValue.equals(node)) {
                     return index;
                 }
