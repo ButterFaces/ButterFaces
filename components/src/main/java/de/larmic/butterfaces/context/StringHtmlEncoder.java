@@ -63,4 +63,24 @@ public class StringHtmlEncoder {
         }
         return "<div>" + encodeComponent(context, component) + "</div>";
     }
+
+    /**
+     * Encodes complete component by calling {@link UIComponent#encodeAll(FacesContext)}. Surrounds template with given
+     * styleclass if template does not contains it.
+     *
+     * @param component  component
+     * @param context    {@link FacesContext}
+     * @param styleClass a div wrapper style class
+     * @return the rendered string.
+     * @throws IOException thrown by writer
+     */
+    public static String encodeComponentWithSurroundingDivIfNecessary(final FacesContext context,
+                                                                      final UIComponent component,
+                                                                      final String styleClass) throws IOException {
+        final String encodedFacet = encodeComponent(context, component);
+        if (StringUtils.isNotEmpty(styleClass) && !encodedFacet.contains(styleClass)) {
+            return "<div class=\"" + styleClass + "\">" + encodedFacet + "</div>";
+        }
+        return "<div>" + encodedFacet + "</div>";
+    }
 }

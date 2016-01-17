@@ -139,7 +139,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
 
         if (treeBox.getFacet("emptyEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate"), "editor-area") + "',");
+            jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("emptyEntryTemplate"), "editor-area") + "',");
         } else if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
             jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"defaultEmptyEntry\">" + treeBox.getPlaceholder() + "</div>',");
         }
@@ -149,10 +149,10 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
         }
         if (treeBox.getFacet("selectedEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate"), "editor-area") + "',");
+            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("selectedEntryTemplate"), "editor-area") + "',");
         }
         if (treeBox.getFacet("template") != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"), "editor-area");
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("template"), "editor-area");
             if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
                 jQueryPluginCall.append("\n    template: '" + encodedTemplate + "',");
             } else {
