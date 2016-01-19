@@ -175,14 +175,14 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
             for (Integer index : nodesMap.keySet()) {
                 final Node node = nodesMap.get(index);
-                if (treeBoxValue.equals(node.getData())) {
+                if (node.getData() != null && node.getData().equals(treeBoxValue)) {
                     return index;
                 }
             }
         } else if (treeBoxValue != null) {
             for (Integer index : nodesMap.keySet()) {
                 final Node node = nodesMap.get(index);
-                if (treeBoxValue.equals(node)) {
+                if (node.equals(treeBoxValue)) {
                     return index;
                 }
             }
