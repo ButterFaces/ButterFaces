@@ -6,10 +6,7 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxExampleEnum;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfNodesJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfStringsJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxRootNodeJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.*;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
@@ -74,6 +71,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
             codeExamples.add(new TreeBoxEpisodesJavaExample());
             codeExamples.add(new TreeBoxEpisodesCssExample());
+        } else if (selectedTreeBoxExampleType == TreeBoxExampleType.ENUMS) {
+            codeExamples.add(new TreeBoxListOfEnumsJavaExample());
+            codeExamples.add(new TreeBoxExampleEnumJavaExample());
         }
 
         if (isValidation()) {

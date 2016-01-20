@@ -17,10 +17,10 @@ public class TreeBoxListOfNodesJavaExample extends JavaCodeExample {
     public TreeBoxListOfNodesJavaExample(ShowcaseTreeNode showcaseTreeNode) {
         super("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
 
-        this.addImport("import de.larmic.butterfaces.model.tree.Node");
-        this.addImport("import de.larmic.butterfaces.model.tree.DefaultNodeImpl");
-        this.addImport("import javax.faces.view.ViewScoped");
-        this.addImport("import javax.inject.Named");
+        this.addImport("de.larmic.butterfaces.model.tree.Node");
+        this.addImport("de.larmic.butterfaces.model.tree.DefaultNodeImpl");
+        this.addImport("javax.faces.view.ViewScoped");
+        this.addImport("javax.inject.Named");
 
         this.appendInnerContent("    private List<Node> nodes = new ArrayList<Node>();\n");
         this.appendInnerContent("    public List<Node> getValues() {");

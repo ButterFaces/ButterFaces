@@ -18,8 +18,8 @@ public class TreeBoxListOfStringsJavaExample extends JavaCodeExample {
     public TreeBoxListOfStringsJavaExample() {
         super("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
 
-        this.addImport("import javax.faces.view.ViewScoped");
-        this.addImport("import javax.inject.Named");
+        this.addImport("javax.faces.view.ViewScoped");
+        this.addImport("javax.inject.Named");
 
         this.appendInnerContent("    public List<String> getValues() {");
         this.appendInnerContent("        return Arrays.asList(\"Inbox\", \"Drafts\", \"Sent\", \"Tagged\", \"Folders\", \"Trash\");");
