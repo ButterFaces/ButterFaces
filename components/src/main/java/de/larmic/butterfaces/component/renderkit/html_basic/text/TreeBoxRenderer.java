@@ -12,6 +12,7 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.model.TreeBoxMo
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.TreeBoxModelWrapper;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
 import de.larmic.butterfaces.util.StringUtils;
@@ -109,7 +110,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         final Integer selectedIndex = Integer.valueOf(newValue);
         final Node node = nodesMap.get(selectedIndex);
-        return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null ? node.getData() : node;
+        return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null
+                ? (node.getData() instanceof EnumTreeBoxWrapper ? ((EnumTreeBoxWrapper) node.getData()).getEnumValue() : node.getData())
+                : node;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,

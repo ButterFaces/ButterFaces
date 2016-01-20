@@ -47,4 +47,9 @@ public class EnumTreeBoxWrapper {
     public int hashCode() {
         return enumValue.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return translation;
+    }
 }

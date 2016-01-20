@@ -46,7 +46,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
 
     @Override
     public String getReadableValue() {
-        if (this.getValue() instanceof Node) {
+        if (this.getValue() instanceof TreeBoxExampleEnum) {
+            return getEnumTranslation((TreeBoxExampleEnum) this.getValue());
+        } else if (this.getValue() instanceof Node) {
             return ((Node) this.getValue()).getTitle();
         } else if (this.getValue() instanceof String) {
             return (String) this.getValue();
@@ -232,6 +234,16 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             default:
                 return Arrays.asList("Inbox", "Drafts", "Sent", "Tagged", "Folders", "Trash");
         }
+    }
+
+    private String getEnumTranslation(final TreeBoxExampleEnum treeBoxExampleEnum) {
+        for (EnumTreeBoxWrapper enumTreeBoxWrapper : getEnumValues()) {
+            if (enumTreeBoxWrapper.getEnumValue().equals(treeBoxExampleEnum)) {
+                return enumTreeBoxWrapper.getTranslation();
+            }
+        }
+
+        return null;
     }
 
     private List<EnumTreeBoxWrapper> getEnumValues() {
