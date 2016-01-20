@@ -33,11 +33,9 @@ public class EnumTreeBoxWrapper {
             return true;
         }
 
-
-        if (o == null || getClass() != o.getClass() || enumValue.getClass() != o.getClass()) {
+        if (o == null || !(getClass() == o.getClass() || enumValue.getClass() == o.getClass())) {
             return false;
         }
-
 
         return o instanceof EnumTreeBoxWrapper ? enumValue.equals(((EnumTreeBoxWrapper) o).enumValue) : enumValue.equals(o);
 
