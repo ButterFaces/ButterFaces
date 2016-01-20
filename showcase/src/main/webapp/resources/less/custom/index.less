@@ -3,8 +3,29 @@
   font-size: smaller;
 }
 
-.panel-documentation .glyphicon {
-  color: #449d44;
+.panel.panel-simple {
+  border-color: #ddd;
+
+  .panel-heading {
+    color: #737373;
+    text-align: end;
+  }
+
+  .panel-body {
+    padding-top: 0;
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+    p {
+      margin-bottom: 0;
+      margin-top: 20px;
+    }
+
+    h5 {
+      margin-top: 0;
+    }
+  }
 }
 
 .componentsNavList .mojarra sub.mojarra {
@@ -19,7 +40,7 @@
   color: @new-feature-color;
 }
 
-.nav.componentsNavList>li>a {
+.nav.componentsNavList > li > a {
   padding: 0 20px;
 }
 
