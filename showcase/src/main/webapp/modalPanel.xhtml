@@ -97,7 +97,8 @@
                 <script type="text/javascript">
                     //<![CDATA[
                     function closeIfNoValidationErrorOccured(data) {
-                        var jsfValidation = '#{facesContext.maximumSeverity != null}';
+                        //var jsfValidation = '#{facesContext.maximumSeverity != null}';
+                        var jsfValidation = '#{facesContext.maximumSeverity.ordinal == 2}';
                         var validationFailed = jsfValidation === 'true';
                         if (data.status == 'success' && !validationFailed) {
                             butter.modal.close('complexModalPanel');
