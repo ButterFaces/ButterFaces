@@ -12,6 +12,7 @@ public enum TreeBoxExampleType {
 	ROOT_NODE("simple tree"),
 	NODES("list of nodes"),
 	STRINGS("list of strings"),
+	ENUMS("list of enums"),
 	OBJECTS("list of objects"),
 	TEMPLATE("custom template");
 	public final String label;

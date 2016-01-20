@@ -6,12 +6,14 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
+import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxExampleEnum;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfNodesJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfStringsJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxRootNodeJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -222,12 +224,24 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
                 return showcaseTreeNode.getTree().getSubNodes();
             case ROOT_NODE:
                 return showcaseTreeNode.getTree();
+            case ENUMS:
+                return this.getEnumValues();
             case TEMPLATE:
             case OBJECTS:
                 return EpisodeConverter.EPISODES;
             default:
                 return Arrays.asList("Inbox", "Drafts", "Sent", "Tagged", "Folders", "Trash");
         }
+    }
+
+    private List<EnumTreeBoxWrapper> getEnumValues() {
+        final List<EnumTreeBoxWrapper> wrappedEnums = new ArrayList<>();
+
+        wrappedEnums.add(new EnumTreeBoxWrapper(TreeBoxExampleEnum.MAIL, "E-Mail"));
+        wrappedEnums.add(new EnumTreeBoxWrapper(TreeBoxExampleEnum.PDF, "PDF"));
+        wrappedEnums.add(new EnumTreeBoxWrapper(TreeBoxExampleEnum.TXT, "plain text"));
+
+        return wrappedEnums;
     }
 
     public FacetType getSelectedFacetType() {
