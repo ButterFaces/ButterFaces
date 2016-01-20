@@ -89,7 +89,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("        <b:treeBox id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                   label=\"" + this.getLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                   hideLabel=\"" + isHideLabel() + "\"");
-        xhtmlCodeExample.appendInnerContent("                   value=\"" + this.getValue() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   value=\"#{myBean.selectedValue}\"");
         xhtmlCodeExample.appendInnerContent("                   values=\"#{myBean.values}\"");
         xhtmlCodeExample.appendInnerContent("                   placeholder=\"" + this.getPlaceholder() + "\"");
         xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "") + "\"");
@@ -150,7 +150,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
 
-        xhtmlCodeExample.appendInnerContent("        </b:treeBox>\n", false);
+        xhtmlCodeExample.appendInnerContent("        </b:treeBox>", false);
 
         this.addOutputExample(xhtmlCodeExample);
 

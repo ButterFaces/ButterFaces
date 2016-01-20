@@ -21,8 +21,12 @@ public class TreeBoxListOfStringsJavaExample extends JavaCodeExample {
         this.addImport("javax.faces.view.ViewScoped");
         this.addImport("javax.inject.Named");
 
+        this.appendInnerContent("    private String selectedValue;\n");
+
         this.appendInnerContent("    public List<String> getValues() {");
         this.appendInnerContent("        return Arrays.asList(\"Inbox\", \"Drafts\", \"Sent\", \"Tagged\", \"Folders\", \"Trash\");");
         this.appendInnerContent("    }");
+
+        this.appendInnerContent("\n    // GETTER + SETTER (selectedValue)");
     }
 }

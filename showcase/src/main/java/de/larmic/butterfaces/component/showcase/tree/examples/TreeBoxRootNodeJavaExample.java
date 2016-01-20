@@ -25,6 +25,7 @@ public class TreeBoxRootNodeJavaExample extends JavaCodeExample {
         this.addImport("import javax.inject.Named");
 
         this.appendInnerContent("    private Node rootNode;\n");
+        this.appendInnerContent("    private Node selectedValue;\n");
         this.appendInnerContent("    public Node getValues() {");
         this.appendInnerContent("        if (rootNode == null) {");
         if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
@@ -69,5 +70,7 @@ public class TreeBoxRootNodeJavaExample extends JavaCodeExample {
         this.appendInnerContent("        }");
         this.appendInnerContent("        return rootNode;");
         this.appendInnerContent("    }");
+
+        this.appendInnerContent("\n    // GETTER + SETTER (selectedValue)");
     }
 }

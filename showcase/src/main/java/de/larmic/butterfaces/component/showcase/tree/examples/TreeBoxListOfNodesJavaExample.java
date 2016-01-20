@@ -23,6 +23,7 @@ public class TreeBoxListOfNodesJavaExample extends JavaCodeExample {
         this.addImport("javax.inject.Named");
 
         this.appendInnerContent("    private List<Node> nodes = new ArrayList<Node>();\n");
+        this.appendInnerContent("    private Node selectedValue;\n");
         this.appendInnerContent("    public List<Node> getValues() {");
         this.appendInnerContent("        if (nodes.isEmpty()) {");
         this.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
@@ -45,5 +46,7 @@ public class TreeBoxListOfNodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("        }");
         this.appendInnerContent("        return nodes;");
         this.appendInnerContent("    }");
+
+        this.appendInnerContent("\n    // GETTER + SETTER (selectedValue)");
     }
 }

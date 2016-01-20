@@ -19,18 +19,17 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.addImport("import javax.inject.Named");
 
         this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
+        this.appendInnerContent("    private Episode selectedValue;\n");
         this.appendInnerContent("    private List<Episode> episodes = new ArrayList<Episode>();\n");
 
         this.appendInnerContent("    public List<Episode> getValues() {");
         this.appendInnerContent("       if(episodes.isEmpty()) {");
-        this.appendInnerContent("          episodes.add(createEpisode(1,");
-        this.appendInnerContent("                                     \"Children of the Gods 1/2\",");
+        this.appendInnerContent("          episodes.add(createEpisode(1, \"Children of the Gods 1/2\",");
         this.appendInnerContent("                                     \"Mario Azzopardi\",");
         this.appendInnerContent("                                     \"Jonathan Glassner & Brad Wright\",");
         this.appendInnerContent("                                     \"July 27, 1997\",");
         this.appendInnerContent("                                     \"ChildrenoftheGods.jpg\"));");
-        this.appendInnerContent("          episodes.add(createEpisode(2,");
-        this.appendInnerContent("                                     \"Children of the Gods 2/2\",");
+        this.appendInnerContent("          episodes.add(createEpisode(2, \"Children of the Gods 2/2\",");
         this.appendInnerContent("                                     \"Mario Azzopardi\",");
         this.appendInnerContent("                                     \"Jonathan Glassner & Brad Wright\",");
         this.appendInnerContent("                                     \"July 27, 1997\",");
@@ -39,6 +38,8 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("       }\n");
         this.appendInnerContent("        return episodes;");
         this.appendInnerContent("    }\n");
+
+        this.appendInnerContent("    // GETTER + SETTER (selectedValue)\n");
 
         this.appendInnerContent("    private static Episode createEpisode(int numberInSeries,");
         this.appendInnerContent("                                         String title,");
@@ -55,5 +56,6 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("       episode.setImage(IMAGE_PATH + image);");
         this.appendInnerContent("       return episode;");
         this.appendInnerContent("    }");
+
     }
 }

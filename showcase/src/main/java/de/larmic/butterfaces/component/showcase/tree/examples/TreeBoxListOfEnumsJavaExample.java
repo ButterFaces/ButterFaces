@@ -23,8 +23,13 @@ public class TreeBoxListOfEnumsJavaExample extends JavaCodeExample {
         this.addImport("javax.faces.view.ViewScoped");
         this.addImport("javax.inject.Named");
 
-        this.appendInnerContent("    private List<TreeBoxExampleEnum> values = new ArrayList<>();\n");
-        this.appendInnerContent("    public List<TreeBoxExampleEnum> getValues() {");
+        this.appendInnerContent("    private List<EnumTreeBoxWrapper> values = new ArrayList<>();\n");
+
+        this.appendInnerContent("    // selectedValue is enum instead of wrapper!");
+        this.appendInnerContent("    private TreeBoxExampleEnum selectedValue;\n");
+
+        this.appendInnerContent("    // Return list of EnumTreeBoxWrapper");
+        this.appendInnerContent("    public List<EnumTreeBoxWrapper> getValues() {");
         this.appendInnerContent("        if (values.isEmpty()) {");
         this.appendInnerContent("            values.add(new EnumTreeBoxWrapper(TreeBoxExampleEnum.MAIL, \"E-Mail\"));");
         this.appendInnerContent("            values.add(new EnumTreeBoxWrapper(TreeBoxExampleEnum.PDF, \"PDF\"));");
@@ -32,5 +37,7 @@ public class TreeBoxListOfEnumsJavaExample extends JavaCodeExample {
         this.appendInnerContent("        }");
         this.appendInnerContent("        return values;");
         this.appendInnerContent("    }");
+
+        this.appendInnerContent("\n    // GETTER + SETTER (selectedValue)");
     }
 }
