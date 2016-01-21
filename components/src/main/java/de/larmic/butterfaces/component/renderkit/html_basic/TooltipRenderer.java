@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -5,6 +10,7 @@ import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Tooltip;
 import de.larmic.butterfaces.component.html.text.HtmlTags;
+import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.application.FacesMessage;
@@ -17,7 +23,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Created by larmic on 31.07.14.
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlTooltip.COMPONENT_FAMILY, rendererType = HtmlTooltip.RENDERER_TYPE)
 public class TooltipRenderer extends HtmlBasicRenderer {
@@ -155,7 +161,7 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         } else if (tooltip.getParent() instanceof Tooltip) {
             final UIComponent parent = tooltip.getParent();
 
-            if (parent instanceof Readonly && !(parent instanceof HtmlTags) && ((Readonly) parent).isReadonly()) {
+            if (parent instanceof Readonly && !(parent instanceof HtmlTags) && !(parent instanceof HtmlTreeBox) && ((Readonly) parent).isReadonly()) {
                 return createParentReadonlyForElement(tooltip);
             }
 
