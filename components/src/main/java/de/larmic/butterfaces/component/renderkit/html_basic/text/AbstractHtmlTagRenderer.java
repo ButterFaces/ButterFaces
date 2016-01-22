@@ -1,25 +1,20 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicInputRenderer;
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
+import de.larmic.butterfaces.component.partrenderer.*;
+import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicInputRenderer;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.component.html.HtmlTooltip;
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-import de.larmic.butterfaces.component.html.text.part.HtmlAutoComplete;
-import de.larmic.butterfaces.component.partrenderer.Constants;
-import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.LabelPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
-import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.component.partrenderer.TooltipPartRenderer;
+import java.io.IOException;
 
 public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
 
@@ -191,8 +186,9 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
 
             writer.writeAttribute("name", component.getClientId(context), "clientId");
 
+            // TODO extract protected method
             // for text area based components the value can't be set this way
-            if (!(component instanceof HtmlInputTextarea) && currentValue != null) {
+            if (!(component instanceof HtmlInputTextarea) && !(component instanceof HtmlCheckBox) && currentValue != null) {
                 writer.writeAttribute("value", currentValue, "value");
             }
 
@@ -238,7 +234,8 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
 
             this.renderInputStyleClass((HtmlInputComponent) component, writer);
 
-            this.renderStringValue(component, writer, "type");
+            this.encodeTagType(component, writer);
+            this.encodeAdditionalTagAttributes(component, writer, currentValue);
 
             this.renderAdditionalInputAttributes(context, component, writer);
 
@@ -249,6 +246,16 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
 
             writer.endElement(getHtmlTagName());
         }
+    }
+
+    protected void encodeTagType(final UIComponent component, final ResponseWriter writer) throws IOException {
+        this.renderStringValue(component, writer, "type");
+    }
+
+    protected void encodeAdditionalTagAttributes(final UIComponent component,
+                                                 final ResponseWriter writer,
+                                                 final String currentValue) throws IOException{
+        // implement me if needed
     }
 
     /**
@@ -262,10 +269,11 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
     protected void renderInputStyleClass(final HtmlInputComponent component,
                                          final ResponseWriter writer) throws IOException {
         final String validationMarkerClass = !component.isValid() ? Constants.INVALID_STYLE_CLASS : null;
-        final String styleClass = StringUtils.concatWithSpace(
-                Constants.INPUT_COMPONENT_MARKER,
-                Constants.BOOTSTRAP_FORM_CONTROL,
-                validationMarkerClass);
+        final String styleClass = StringJoiner.on(" ")
+                .join(Constants.INPUT_COMPONENT_MARKER)
+                .join(Constants.BOOTSTRAP_FORM_CONTROL)
+                .join(validationMarkerClass)
+                .toString();
         writer.writeAttribute("class", styleClass, "styleClass");
     }
 
