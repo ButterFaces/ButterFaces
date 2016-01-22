@@ -3,7 +3,9 @@
  */
 package de.larmic.butterfaces.event;
 
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
@@ -13,9 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 /**
  * Removes web.xml configurable resources (jquery, bootstrap and prettyprint).
@@ -27,7 +28,6 @@ public class HandleResourceListener implements SystemEventListener {
     private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-dist-bower";
     public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
     public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
-    public static final String ATTRIBUTE_RESOURCE_MODIFIED = "RESOURCE_MODIFIED";
 
     /**
      * Just for the view root
@@ -37,31 +37,27 @@ public class HandleResourceListener implements SystemEventListener {
         return source instanceof UIViewRoot;
     }
 
-    /**
-     * Process event. Just the first time.
-     */
-    @Override
-    public void processEvent(SystemEvent event) throws AbortProcessingException {
-        final UIViewRoot source = (UIViewRoot) event.getSource();
+   /**
+    * Process event. Just the first time.
+    */
+   @Override
+   public void processEvent(SystemEvent event) throws AbortProcessingException {
+      final UIViewRoot source = (UIViewRoot) event.getSource();
 
-        // First render view only
-        if (!source.getAttributes().containsKey(ATTRIBUTE_RESOURCE_MODIFIED)) {
-            final FacesContext context = FacesContext.getCurrentInstance();
-            final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
-            final boolean provideJQuery = webXmlParameters.isProvideJQuery();
-            final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
-            final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
+      final FacesContext context = FacesContext.getCurrentInstance();
+      final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+      final boolean provideJQuery = webXmlParameters.isProvideJQuery();
+      final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
+      final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
 
-            final List<UIComponent> resources = new ArrayList<>(source.getComponentResources(context, HEAD));
-            // Production mode and compressed
-            if (useCompressedResources && context.getApplication().getProjectStage() == ProjectStage.Production) {
-                handleCompressedResources(context, provideJQuery, provideBootstrap, resources, source);
-            } else {
-                handleConfigurableResources(context, provideJQuery, provideBootstrap, resources, source);
-            }
-            source.getAttributes().put(ATTRIBUTE_RESOURCE_MODIFIED, true);
-        }
-    }
+      final List<UIComponent> resources = new ArrayList<>(source.getComponentResources(context, HEAD));
+      // Production mode and compressed
+      if (useCompressedResources && context.getApplication().getProjectStage() == ProjectStage.Production) {
+         handleCompressedResources(context, provideJQuery, provideBootstrap, resources, source);
+      } else {
+         handleConfigurableResources(context, provideJQuery, provideBootstrap, resources, source);
+      }
+   }
 
     /**
      * Use compressed resources.
