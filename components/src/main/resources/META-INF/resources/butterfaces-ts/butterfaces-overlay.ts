@@ -50,11 +50,11 @@ module ButterFaces {
                     $overlay.addClass('overlay-body');
                 } else {
                     // TODO if blockpage is true set it to max size
-                    $overlay.offset($elementToDisable.offset());
-                    $overlay.width($elementToDisable.outerWidth());
-                    $overlay.height($elementToDisable.outerHeight());
-                    $overlay.addClass('overlay-body-child');
-                    $overlay.css({'position': 'absolute'}); // IE overrides css position so set it here
+                    $overlay.offset($elementToDisable.offset())
+                       .width($elementToDisable.outerWidth())
+                       .height($elementToDisable.outerHeight())
+                       .addClass('overlay-body-child')
+                       .css({'position': 'absolute'}); // IE overrides css position so set it here
                 }
 
                 $('body').append($overlay);
