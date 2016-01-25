@@ -34,7 +34,7 @@ import java.util.Map;
 @FacesRenderer(componentFamily = HtmlTreeBox.COMPONENT_FAMILY, rendererType = HtmlTreeBox.RENDERER_TYPE)
 public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
-    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
+    public static final String DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper tr-editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
     public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
@@ -46,6 +46,13 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeBegin(context, component, "butter-component-treebox");
+    }
+
+    @Override
+    protected void appendEncodeBegin(final HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
+        final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
+        final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
+        writer.writeAttribute("data-tree-box-id", treeBoxReadableId, null);
     }
 
     @Override
@@ -62,10 +69,13 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
-        writer.writeText("var entries_" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
+        final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
+        writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
         final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap);
-        writer.writeText("var trivialTree" + treeBox.getClientId().replace(clientIdSeparator, "_") + " = " + jQueryBySelector + pluginCall + ";", null);
+        writer.writeText("ButterFaces.TreeBox.removeTrivialTreeDropDown('" + treeBoxReadableId + "');\n", null);
+        writer.writeText("var trivialTree" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
+        writer.writeText("$(trivialTree" + treeBoxReadableId + ".getDropDown()).attr('data-tree-box-id', '" + treeBoxReadableId + "')", null);
         writer.writeText("});", null);
         writer.endElement("script");
     }
@@ -142,7 +152,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
 
         if (treeBox.getFacet("emptyEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("emptyEntryTemplate"), "editor-area") + "',");
+            jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate")) + "',");
         } else if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
             jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"defaultEmptyEntry\">" + treeBox.getPlaceholder() + "</div>',");
         }
@@ -152,10 +162,10 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
         }
         if (treeBox.getFacet("selectedEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("selectedEntryTemplate"), "editor-area") + "',");
+            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate")) + "',");
         }
         if (treeBox.getFacet("template") != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDivIfNecessary(context, treeBox.getFacet("template"), "editor-area");
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
             if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
                 jQueryPluginCall.append("\n    template: '" + encodedTemplate + "',");
             } else {

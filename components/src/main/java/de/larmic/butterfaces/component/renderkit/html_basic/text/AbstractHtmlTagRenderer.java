@@ -37,6 +37,8 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentBegin(component, writer, additionalStyleClass);
 
+        this.appendEncodeBegin(htmlComponent, writer);
+
         // Render label if components label attribute is set
         new LabelPartRenderer().renderLabel(component, writer);
 
@@ -89,6 +91,10 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         }
 
         new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
+    }
+
+    protected void appendEncodeBegin(final T component, final ResponseWriter writer) throws IOException {
+        // implement me if needed
     }
 
     protected void encodeEndContent(FacesContext context, UIComponent component, HtmlInputComponent htmlComponent, ResponseWriter writer) throws IOException {
