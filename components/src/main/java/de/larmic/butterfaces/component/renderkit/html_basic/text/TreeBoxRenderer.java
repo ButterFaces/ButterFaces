@@ -168,6 +168,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         if (treeBox.getFacet("selectedEntryTemplate") != null) {
             jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate")) + "',");
         }
+
+        // TODO set selectedEntryTemplate?
+
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
             if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
