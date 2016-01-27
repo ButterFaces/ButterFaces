@@ -7,7 +7,6 @@ package de.larmic.butterfaces.util;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,11 +42,17 @@ public final class StringJoiner {
     }
 
     public StringJoiner join(final String value) {
-        return new StringJoiner(separator, wrapped, Arrays.asList(StringUtils.getNullSafeValue(value)));
+        final List<String> newJoins = new ArrayList<>(joins);
+        newJoins.add(value);
+        return new StringJoiner(separator, wrapped, newJoins);
     }
 
     public StringJoiner join(final Iterable<String> values) {
-        return new StringJoiner(separator, wrapped, values);
+        final List<String> newJoins = new ArrayList<>(joins);
+        for (String value : values) {
+            newJoins.add(value);
+        }
+        return new StringJoiner(separator, wrapped, newJoins);
     }
 
     public StringJoiner wrappedBy(final String wrapped) {

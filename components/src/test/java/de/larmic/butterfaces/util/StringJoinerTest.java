@@ -37,4 +37,10 @@ public class StringJoinerTest {
         assertThat(StringJoiner.on(" | ").join(VALUES).wrappedBy("'").toString()).isEqualTo("'ding' | 'dong' | 'test' | 'me'");
     }
 
+    @Test
+    public void testChainingJoins() throws Exception {
+        assertThat(StringJoiner.on(" ").join("ding").join("dong").toString()).isEqualTo("ding dong");
+        assertThat(StringJoiner.on(" ").join(VALUES).join("too").toString()).isEqualTo("ding dong test me too");
+        assertThat(StringJoiner.on(" ").join("hi").join(VALUES).toString()).isEqualTo("hi ding dong test me");
+    }
 }
