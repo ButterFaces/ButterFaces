@@ -149,7 +149,11 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             jQueryPluginCall.append("\n    valueProperty: 'id',");
         }
 
-        jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+            jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "butterObjectToString") + "',");
+        } else {
+            jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
+        }
 
         if (treeBox.getFacet("emptyEntryTemplate") != null) {
             jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate")) + "',");
