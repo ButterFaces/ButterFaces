@@ -85,7 +85,10 @@
 
 
         <b:tableNoMojarra var="rowItem"
-                          value="#{tableShowcase.stringRows}">
+                          value="#{tableShowcase.stringRows}"
+                          tableCondensed="#{tableShowcase.tableCondensed}"
+                          tableStriped="#{tableShowcase.tableStriped}"
+                          tableBordered="#{tableShowcase.tableBordered}">
             <b:columnNoMojarra id="column1"
                                label="Readonly text">
                 #{rowItem.a}

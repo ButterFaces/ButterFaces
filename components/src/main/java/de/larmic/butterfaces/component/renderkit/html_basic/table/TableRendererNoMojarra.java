@@ -50,11 +50,7 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("class", "butter-table", "styleclass");
 
             writer.startElement("table", table);
-            final String tableStyleClass = StringJoiner.on(' ')
-                    .join("table")
-                    .join("table-hover")
-                    .toString();
-            writer.writeAttribute("class", tableStyleClass, "styleclass");
+            writer.writeAttribute("class", createBootstrapTableStyleClasses(table), "styleclass");
 
             writer.startElement("thead", table);
             writer.startElement("tr", table);
@@ -73,6 +69,24 @@ public class TableRendererNoMojarra extends Renderer {
             writer.endElement("thead");
             writer.startElement("tbody", table);
         }
+    }
+
+    private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
+        StringJoiner stringJoiner = StringJoiner.on(' ')
+                .join("table")
+                .join("table-hover");
+
+        if (table.isTableCondensed()) {
+            stringJoiner = stringJoiner.join("table-condensed");
+        }
+        if (table.isTableBordered()) {
+            stringJoiner = stringJoiner.join("table-bordered");
+        }
+        if (table.isTableStriped()) {
+            stringJoiner = stringJoiner.join("table-striped");
+        }
+
+        return stringJoiner.toString();
     }
 
     @Override
