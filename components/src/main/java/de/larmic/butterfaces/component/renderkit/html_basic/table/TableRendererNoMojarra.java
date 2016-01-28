@@ -64,7 +64,7 @@ public class TableRendererNoMojarra extends Renderer {
                 writer.startElement("div", table);
                 writer.startElement("span", table);
                 writer.writeAttribute("class", "butter-component-table-column-label", "styleclass");
-                // TODO write label
+                writer.writeText(column.getLabel(), null);
                 writer.endElement("span");
                 writer.endElement("div");
                 writer.endElement("th");
