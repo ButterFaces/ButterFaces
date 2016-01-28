@@ -1,0 +1,155 @@
+<ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+                xmlns:b="http://butterfaces.larmic.de/components">
+
+    <ui:define name="header">
+        <strong>b:table</strong> The table tag renders an HTML element of the type "table".
+    </ui:define>
+
+    <ui:define name="tagsContainers">
+        <common:tagsContainer label="Tag attributes">
+            <common:tagBooleanControl label="rendered" value="#{tableShowcase.rendered}"/>
+            <common:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
+            <common:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
+            <common:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
+            <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
+            <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
+            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+                                      value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
+        </common:tagsContainer>
+
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="ajax selection"
+                                   value="#{tableShowcase.selectionAjaxType}"
+                                   values="#{tableShowcase.ajaxSelectionTypes}"/>
+            <common:tagEnumControl label="custom toolbar"
+                                   value="#{tableShowcase.toolBarType}"
+                                   values="#{tableShowcase.toolBarTypes}"/>
+            <common:tagEnumControl label="column width"
+                                   value="#{tableShowcase.fourthColumnWidthType}"
+                                   values="#{tableShowcase.twoColumnWidthTypes}"/>
+            <common:tagEnumControl label="toolbar facets"
+                                   value="#{tableShowcase.toolbarFacetType}"
+                                   values="#{tableShowcase.toolBarFacetTypes}"/>
+            <common:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
+            <common:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
+            <common:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
+            <common:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
+            <common:tagBooleanControl label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
+        </common:tagsContainer>
+    </ui:define>
+
+    <ui:define name="output">
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{!(tableShowcase.selectionAjaxType eq 'AJAX')}">
+            <strong>Attention:</strong> Table selection will only work in ajax mode. Column sorting will only work in ajax mode.
+            <h:panelGroup rendered="#{not tableShowcase.useTableModel}">Table model will only work
+                in ajax mode.</h:panelGroup>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{tableShowcase.useTableModel and tableShowcase.selectionAjaxType eq 'AJAX'}">
+            <strong>Attention:</strong> Column show and hide information will not be stored when not using a table model.
+            Try toggling columns and and press refresh button. In this case column hide information will be used by checking
+            hideColumn attribute.
+        </h:panelGroup>
+
+        <h:panelGroup layout="block"
+                      styleClass="alert alert-warning"
+                      rendered="#{not tableShowcase.useTableModel and tableShowcase.selectionAjaxType eq 'AJAX'}">
+            <strong>Attention:</strong> Column show and hide information will be stored when using a table model. When
+            using a table model column attribute hideColumn will be ignored if a corresponding information is found in model.
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" rendered="#{tableShowcase.toolBarType eq 'TEXT'}">
+            <style>
+                .butter-table-toolbar-custom {
+                    margin-top: 10px;
+                }
+            </style>
+        </h:panelGroup>
+
+        <h:panelGroup id="numberOfRefreshes"
+                      layout="block"
+                      rendered="#{tableShowcase.showRefreshButton}"
+                      styleClass="alert alert-success">
+            Number of refresh clicks: #{tableShowcase.numberOfRefreshes}
+        </h:panelGroup>
+
+
+        <b:tableNoMojarra var="rowItem"
+                          value="#{tableShowcase.stringRows}">
+            <b:columnNoMojarra id="column1"
+                               label="Readonly text">
+                #{rowItem.a}
+                <b:tooltip placement="top">
+                    <strong>Attention: </strong> tooltips could be attended to columns.
+                </b:tooltip>
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column2"
+                               label="Action">
+                <b:commandLink value="doSomething"
+                               styleClass="btn btn-warning btn-xs"
+                               action="#{tableShowcase.doSomethingWith(rowItem)}">
+                    <f:ajax execute="@this" render="output:nodeTitle"/>
+                </b:commandLink>
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column3"
+                               label="Creation Date">
+                <showcase:date date="#{rowItem.date}"/>
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column4"
+                               label="Readonly text (default hide)">
+                #{rowItem.a}
+            </b:columnNoMojarra>
+        </b:tableNoMojarra>
+
+
+        <h:panelGroup id="nodeTitle" layout="block">
+            <hr/>
+
+            <h:panelGroup layout="block" styleClass="input-group"
+                          rendered="#{tableShowcase.selectionAjaxType eq 'AJAX'}">
+                <span class="input-group-addon">Table selected value:</span>
+                <h:outputText value="#{tableShowcase.selectedValue.a}"
+                              rendered="#{not empty tableShowcase.selectedValue}"
+                              styleClass="form-control arquillian_output_value"/>
+                <h:outputText value="-"
+                              rendered="#{empty tableShowcase.selectedValue}"
+                              styleClass="form-control arquillian_output_value"/>
+            </h:panelGroup>
+
+            <div class="input-group">
+                <span class="input-group-addon">Button selected value:</span>
+                <h:outputText value="#{tableShowcase.doSomethingWithRow}"
+                              rendered="#{not empty tableShowcase.doSomethingWithRow}"
+                              styleClass="form-control arquillian_output_value"/>
+                <h:outputText value="-"
+                              rendered="#{empty tableShowcase.doSomethingWithRow}"
+                              styleClass="form-control arquillian_output_value"/>
+            </div>
+        </h:panelGroup>
+
+
+    </ui:define>
+
+    <ui:define name="other">
+        <common:codeExamples component="#{tableShowcase}"/>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setActiveNavigation('table');
+            });
+            jQuery('.jQueryPluginSelector').butterItemFilterField();
+        </script>
+
+        <b:activateLibraries/>
+    </ui:define>
+</ui:composition>
