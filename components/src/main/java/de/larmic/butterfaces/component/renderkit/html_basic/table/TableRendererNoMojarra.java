@@ -119,6 +119,7 @@ public class TableRendererNoMojarra extends Renderer {
 
                     if (table.isRowAvailable() && table.getChildCount() > 0) {
                         writer.startElement("tr", table);
+                        writer.writeAttribute("class", "butter-table-row", "styleclass");
                         for (UIComponent child : table.getChildren()) {
                             child.encodeAll(context);
                         }
