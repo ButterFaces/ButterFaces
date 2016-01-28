@@ -90,6 +90,8 @@
                           tableStriped="#{tableShowcase.tableStriped}"
                           tableBordered="#{tableShowcase.tableBordered}"
                           rendered="#{tableShowcase.rendered}">
+            <f:ajax render="output:nodeTitle"
+                    disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:columnNoMojarra id="column1"
                                label="Readonly text">
                 #{rowItem.a}

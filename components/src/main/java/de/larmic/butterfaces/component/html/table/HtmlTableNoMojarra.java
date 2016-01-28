@@ -9,6 +9,9 @@ import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
 
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * This class is experimental and still in progress
@@ -16,7 +19,7 @@ import javax.faces.component.FacesComponent;
  * @author Lars Michaelis
  */
 @FacesComponent(HtmlTableNoMojarra.COMPONENT_TYPE)
-public class HtmlTableNoMojarra extends HtmlRepeat {
+public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.tableNoMojarra";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -33,6 +36,16 @@ public class HtmlTableNoMojarra extends HtmlRepeat {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    @Override
+    public Collection<String> getEventNames() {
+        return Arrays.asList("click");
+    }
+
+    @Override
+    public String getDefaultEventName() {
+        return "click";
     }
 
     public boolean isTableCondensed() {
