@@ -137,18 +137,19 @@ public class TableRendererNoMojarra extends Renderer {
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
-        final Integer rowIndex = convertStringToInteger(params.get("params"));
 
-        if (StringUtils.isNotEmpty(behaviorEvent) && rowIndex != null) {
-            final Object value = findRowValue(table, rowIndex);
+        if (StringUtils.isNotEmpty(behaviorEvent)) {
+            if (params.get("params").startsWith("select_")) {
+                final Integer rowIndex = convertStringToInteger(params.get("params").replaceFirst("select_", ""));
+                final Object value = findRowValue(table, rowIndex);
 
-            if (value != null) {
-                final TableSingleSelectionListener listener = table.getSingleSelectionListener();
+                if (value != null) {
+                    final TableSingleSelectionListener listener = table.getSingleSelectionListener();
 
-                if (listener != null) {
-                    listener.processTableSelection(value);
+                    if (listener != null) {
+                        listener.processTableSelection(value);
+                    }
                 }
-
             }
         }
     }
@@ -174,7 +175,7 @@ public class TableRendererNoMojarra extends Renderer {
                             final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(table.getClientId(), true)
                                     .setEvent("click")
                                     .setRender(table, "click")
-                                    .setParams("'" + rowKey + "'")
+                                    .setParams("'select_" + rowKey + "'")
                                     .setBehaviorEvent("click");
                             //final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "selectRow({rowIndex:'" + rowKey + "'})");
                             //writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
