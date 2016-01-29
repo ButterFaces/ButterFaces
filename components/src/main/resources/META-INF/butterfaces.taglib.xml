@@ -2111,6 +2111,11 @@
             <type>java.lang.Boolean</type>
             <required>false</required>
         </attribute>
+        <attribute>
+            <name>singleSelectionListener</name>
+            <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
+            <required>false</required>
+        </attribute>
     </tag>
 
     <tag>
