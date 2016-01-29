@@ -6,6 +6,7 @@
 package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
+import de.larmic.butterfaces.event.TableSingleSelectionListener;
 
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
@@ -28,6 +29,8 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
+
+    protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
     public HtmlTableNoMojarra() {
         setRendererType(RENDERER_TYPE);
@@ -73,6 +76,14 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
 
     public void setTableStriped(boolean tableStriped) {
         this.updateStateHelper(PROPERTY_TABLE_STRIPED, tableStriped);
+    }
+
+    public TableSingleSelectionListener getSingleSelectionListener() {
+        return (TableSingleSelectionListener) this.getStateHelper().eval(PROPERTY_SINGLE_SELECTION_LISTENER);
+    }
+
+    public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
+        this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

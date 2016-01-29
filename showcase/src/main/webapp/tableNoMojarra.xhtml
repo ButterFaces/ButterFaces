@@ -89,6 +89,7 @@
                           tableCondensed="#{tableShowcase.tableCondensed}"
                           tableStriped="#{tableShowcase.tableStriped}"
                           tableBordered="#{tableShowcase.tableBordered}"
+                          singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                           rendered="#{tableShowcase.rendered}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
