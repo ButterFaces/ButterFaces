@@ -10,6 +10,7 @@ import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitResult;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
 import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
+import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
@@ -24,6 +25,7 @@ import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -135,9 +137,19 @@ public class TableRendererNoMojarra extends Renderer {
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
+        final Integer rowIndex = convertStringToInteger(params.get("params"));
 
-        if (StringUtils.isNotEmpty(behaviorEvent)) {
+        if (StringUtils.isNotEmpty(behaviorEvent) && rowIndex != null) {
+            final Object value = findRowValue(table, rowIndex);
 
+            if (value != null) {
+                final TableSingleSelectionListener listener = table.getSingleSelectionListener();
+
+                if (listener != null) {
+                    listener.processTableSelection(value);
+                }
+
+            }
         }
     }
 
@@ -187,6 +199,30 @@ public class TableRendererNoMojarra extends Renderer {
         }
     }
 
+
+    private Object findRowValue(final HtmlTableNoMojarra table, final int row) {
+        final Object value = table.getValue();
+
+        if (value instanceof Iterable) {
+            final Iterator iterator = ((Iterable) value).iterator();
+            int actualRow = 0;
+
+            while (iterator.hasNext()) {
+                final Object actualRowValue = iterator.next();
+
+                if (actualRow == row) {
+                    return actualRowValue;
+                }
+
+                actualRow++;
+            }
+
+            return null;
+        }
+
+        return null;
+    }
+
     private List<HtmlColumnNoMojarra> getColumns(final HtmlTableNoMojarra table) {
         final List<HtmlColumnNoMojarra> columns = new ArrayList<>();
 
@@ -197,5 +233,13 @@ public class TableRendererNoMojarra extends Renderer {
         }
 
         return columns;
+    }
+
+    private Integer convertStringToInteger(final String value) {
+        try {
+            return Integer.valueOf(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
