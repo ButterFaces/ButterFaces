@@ -12,31 +12,53 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagBooleanControl label="rendered" value="#{repeatShowcase.rendered}"/>
         </common:tagsContainer>
+
+        <common:tagsContainer label="Tag controls">
+            <common:tagEnumControl label="examples"
+                                   value="#{repeatShowcase.selectedExampleType}"
+                                   values="#{repeatShowcase.exampleTypes}"/>
+        </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <b:commandLink value="Refresh">
-            <f:ajax execute="@this" render="repeat"/>
-        </b:commandLink>
-
-        <h:panelGroup id="repeat" layout="block">
+        <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'STARGATE'}" styleClass="row">
             <b:repeat value="#{repeatShowcase.values}"
-                      rendered="#{repeatShowcase.rendered}"
-                      var="value"
+                      rendered="#{repeatShowcase.rendered and repeatShowcase.selectedExampleType == 'STARGATE'}"
+                      var="episode"
                       status="status">
-                <div class="row">
-                    <div class="col-md-1">#{value.id}</div>
-                    <b:text value="#{value.a}" hideLabel="true" styleClass="col-md-2">
-                        <f:ajax execute="@this" event="change" render="@this"/>
-                        <f:validateRequired />
-                    </b:text>
-
-                    <div class="col-md-1">#{value.b}</div>
-                    <div class="col-md-3">#{value.actualDate}</div>
-                    <div class="col-md-5">#{status}</div>
+                <div class="col-md-4">
+                    <img src="#{episode.image}" alt="#{episode.title}"/>
+                    <b:commandLink value="click" action="#{repeatShowcase.play}">
+                        <f:ajax execute="@this"/>
+                    </b:commandLink>
                 </div>
             </b:repeat>
         </h:panelGroup>
+
+        <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'SIMPLE'}">
+            <b:commandLink value="Refresh">
+                <f:ajax execute="@this" render="repeat"/>
+            </b:commandLink>
+            <h:panelGroup id="repeat" layout="block" styleClass="repeat-simple-list">
+                <b:repeat value="#{repeatShowcase.demoPojos}"
+                          rendered="#{repeatShowcase.rendered}"
+                          var="value"
+                          status="status">
+                    <div class="row">
+                        <div class="col-md-1">#{value.id}</div>
+                        <b:text value="#{value.a}" hideLabel="true" styleClass="col-md-2">
+                            <f:ajax execute="@this" event="change" render="@this"/>
+                            <f:validateRequired/>
+                        </b:text>
+
+                        <div class="col-md-1">#{value.b}</div>
+                        <div class="col-md-3">#{value.actualDate}</div>
+                        <div class="col-md-5">#{status}</div>
+                    </div>
+                </b:repeat>
+            </h:panelGroup>
+        </h:panelGroup>
+
     </ui:define>
 
     <ui:define name="other">
