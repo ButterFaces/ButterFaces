@@ -21,16 +21,22 @@
     </ui:define>
 
     <ui:define name="output">
-        <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'STARGATE'}" styleClass="row">
+        <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'STARGATE'}"
+                      styleClass="row repeat-episode-list">
             <b:repeat value="#{repeatShowcase.values}"
                       rendered="#{repeatShowcase.rendered and repeatShowcase.selectedExampleType == 'STARGATE'}"
                       var="episode"
                       status="status">
-                <div class="col-md-4">
+                <div class="col-md-4 repeat-episode-item">
                     <img src="#{episode.image}" alt="#{episode.title}"/>
-                    <b:commandLink value="click" action="#{repeatShowcase.play}">
-                        <f:ajax execute="@this"/>
-                    </b:commandLink>
+                    <div class="repeat-episode-content">
+                        <div>
+                            #{episode.title}
+                        </div>
+                        <b:commandLink value="Play" action="#{repeatShowcase.play}" styleClass="btn btn-default btn-xs">
+                            <f:ajax execute="@this"/>
+                        </b:commandLink>
+                    </div>
                 </div>
             </b:repeat>
         </h:panelGroup>
