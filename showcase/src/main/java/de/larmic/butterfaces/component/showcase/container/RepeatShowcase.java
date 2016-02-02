@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.comboBox.Episode;
 import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
 import de.larmic.butterfaces.component.showcase.container.examples.SimpleRepeatListXhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListCssCodeExample;
 import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListXhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
@@ -42,10 +43,11 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
         if (selectedExampleType == RepeatExampleType.SIMPLE) {
             codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
             final CssCodeExample cssCodeExample = new CssCodeExample();
-            cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px;", "overflow: auto;");
+            cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px", "overflow: auto");
             codeExamples.add(cssCodeExample);
         } else {
             codeExamples.add(new StargateRepeatListXhtmlCodeExample(this.isRendered()));
+            codeExamples.add(new StargateRepeatListCssCodeExample());
         }
     }
 
