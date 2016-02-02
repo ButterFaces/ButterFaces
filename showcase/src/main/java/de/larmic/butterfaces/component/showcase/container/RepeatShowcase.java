@@ -3,9 +3,9 @@ package de.larmic.butterfaces.component.showcase.container;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.comboBox.Episode;
 import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
+import de.larmic.butterfaces.component.showcase.container.examples.SimpleRepeatListXhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
 
 import javax.faces.model.SelectItem;
@@ -38,34 +38,7 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
-        final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(false);
-
-        xhtmlCodeExample.appendInnerContent("\n        <b:commandLink value=\"Refresh\">");
-        xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\" render=\"repeat\"/>");
-        xhtmlCodeExample.appendInnerContent("        </b:commandLink>");
-
-        xhtmlCodeExample.appendInnerContent("\n        <h:panelGroup id=\"repeat\" layout=\"block\" class=\"repeat-simple-list\">");
-        xhtmlCodeExample.appendInnerContent("           <b:repeat id=\"input\"");
-        xhtmlCodeExample.appendInnerContent("                     value=\"#{myBean.values}\"");
-        xhtmlCodeExample.appendInnerContent("                     var=\"value\"");
-        xhtmlCodeExample.appendInnerContent("                     status=\"status\"");
-        xhtmlCodeExample.appendInnerContent("                     rendered=\"" + this.isRendered() + "\">");
-
-        xhtmlCodeExample.appendInnerContent("              <div class=\"row\">");
-        xhtmlCodeExample.appendInnerContent("                 <div class=\"col-md-1\">#{value.id}</div>");
-        xhtmlCodeExample.appendInnerContent("                 <b:text value=\"#{value.a}\" hideLabel=\"true\" styleClass=\"col-md-2\">");
-        xhtmlCodeExample.appendInnerContent("                    <f:ajax execute=\"@this\" event=\"change\" render=\"@this\"/>");
-        xhtmlCodeExample.appendInnerContent("                    <f:validateRequired />");
-        xhtmlCodeExample.appendInnerContent("                 </b:text>");
-        xhtmlCodeExample.appendInnerContent("                 <div class=\"col-md-1\">#{value.b}</div>");
-        xhtmlCodeExample.appendInnerContent("                 <div class=\"col-md-3\">#{value.actualDate}</div>");
-        xhtmlCodeExample.appendInnerContent("                 <div class=\"col-md-5\">#{status}</div>");
-        xhtmlCodeExample.appendInnerContent("              </div>");
-
-        xhtmlCodeExample.appendInnerContent("           </b:repeat>");
-        xhtmlCodeExample.appendInnerContent("        </h:panelGroup>");
-
-        codeExamples.add(xhtmlCodeExample);
+        codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
 
         if (selectedExampleType == RepeatExampleType.SIMPLE) {
             final CssCodeExample cssCodeExample = new CssCodeExample();
