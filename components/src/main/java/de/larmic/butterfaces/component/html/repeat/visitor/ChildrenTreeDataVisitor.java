@@ -34,10 +34,10 @@ public class ChildrenTreeDataVisitor implements DataVisitor {
         childrenTreeDataVisitorCallback.setRowKey(context, rowKey);
 
         if (childrenTreeDataVisitorCallback.isRowAvailable()) {
-            final Iterator<UIComponent> dataChildrenItr = childrenTreeDataVisitorCallback.dataChildren();
+            final Iterator<UIComponent> componentIterator = childrenTreeDataVisitorCallback.dataChildren();
 
-            while (dataChildrenItr.hasNext()) {
-                final UIComponent dataChild = dataChildrenItr.next();
+            while (componentIterator.hasNext()) {
+                final UIComponent dataChild = componentIterator.next();
 
                 if (skipChild(dataChild)) {
                     continue;

@@ -9,9 +9,7 @@ import de.larmic.butterfaces.component.html.repeat.event.RowKeyEventBroadcaster;
 import de.larmic.butterfaces.component.html.repeat.event.RowKeyFacesEvent;
 import de.larmic.butterfaces.component.html.repeat.model.DataModelWrapper;
 import de.larmic.butterfaces.component.html.repeat.model.DataModelWrapperFactory;
-import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitor;
-import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitorCallback;
-import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
+import de.larmic.butterfaces.component.html.repeat.visitor.*;
 import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.el.ValueExpression;
@@ -142,7 +140,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected Iterator<UIComponent> fixedChildren() {
+    protected Iterator<UIComponent> facetChildren() {
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
@@ -442,7 +440,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 callback.invokeContextCallback(context, this);
                 found = true;
             } else {
-                Iterator<UIComponent> fixedChildrenItr = fixedChildren();
+                Iterator<UIComponent> fixedChildrenItr = facetChildren();
 
                 while (fixedChildrenItr.hasNext() && !found) {
                     UIComponent fixedChild = fixedChildrenItr.next();
@@ -508,7 +506,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
-        return visitComponents(fixedChildren(), visitContext, callback);
+        return visitComponents(facetChildren(), visitContext, callback);
     }
 
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback, boolean visitRows) throws IOException {
@@ -620,6 +618,54 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             resetState();
         } else if (event instanceof PreRenderViewEvent) {
             resetState();
+        }
+    }
+
+    @Override
+    public void processDecodes(FacesContext faces) {
+        if (!this.isRendered()) {
+            return;
+        }
+
+        pushComponentToEL(faces, this);
+
+        this.walkThroughChildren(faces, new ChildrenComponentVisitor(this) {
+            @Override
+            public void processComponent(FacesContext context, UIComponent component) {
+                component.processDecodes(context);
+            }
+        });
+
+        this.decode(faces);
+        popComponentFromEL(faces);
+    }
+
+    private void walkThroughChildren(FacesContext faces, ChildrenComponentVisitor visitor) {
+        if (!this.isRendered()) {
+            return;
+        }
+
+        final String var = getVar();
+        if (var != null) {
+            Map<String, Object> attrs = getVariablesMap(faces);
+
+            this.originalVarValues.push(attrs.get(var));
+        }
+        this.setRowKey(faces, null);
+
+        try {
+            Iterator<UIComponent> fixedChildren = facetChildren();
+
+            while (fixedChildren.hasNext()) {
+                visitor.processComponent(faces, fixedChildren.next());
+            }
+
+            walk(faces, visitor);
+        } catch (Exception e) {
+            throw new FacesException(e);
+        } finally {
+            this.setRowKey(faces, null);
+            this.restoreOrigValue(faces);
         }
     }
 
