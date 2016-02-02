@@ -31,9 +31,15 @@
                     <img src="#{episode.image}" alt="#{episode.title}"/>
                     <div class="repeat-episode-content">
                         <div>
-                            #{episode.title}
+                            <strong>#{episode.title}</strong>
                         </div>
-                        <b:commandLink value="Play" action="#{repeatShowcase.play}" styleClass="btn btn-default btn-xs">
+                        <div>
+                            <small>written by: #{episode.writtenBy}</small>
+                        </div>
+                        <b:commandLink value="Play"
+                                       action="#{repeatShowcase.play}"
+                                       glyphicon="fa fa-play-circle-o"
+                                       styleClass="btn btn-default btn-xs">
                             <f:ajax execute="@this"/>
                         </b:commandLink>
                     </div>
