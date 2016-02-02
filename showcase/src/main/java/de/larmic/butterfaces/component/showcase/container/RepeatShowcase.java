@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.comboBox.Episode;
 import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
 import de.larmic.butterfaces.component.showcase.container.examples.SimpleRepeatListXhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListXhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
@@ -38,12 +39,13 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
 
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
-        codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
-
         if (selectedExampleType == RepeatExampleType.SIMPLE) {
+            codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
             final CssCodeExample cssCodeExample = new CssCodeExample();
             cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px;", "overflow: auto;");
             codeExamples.add(cssCodeExample);
+        } else {
+            codeExamples.add(new StargateRepeatListXhtmlCodeExample(this.isRendered()));
         }
     }
 

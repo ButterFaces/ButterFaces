@@ -15,13 +15,13 @@ public class SimpleRepeatListXhtmlCodeExample extends XhtmlCodeExample {
     public SimpleRepeatListXhtmlCodeExample(boolean rendered) {
         super(false);
 
-        this.appendInnerContent("\n        <b:commandLink value=\"Refresh\">");
+        this.appendInnerContent("\n        <b:commandLink glyphicon=\"glyphicon glyphicon-refresh\"");
+        this.appendInnerContent("                           styleClass=\"btn btn-default\">");
         this.appendInnerContent("           <f:ajax execute=\"@this\" render=\"repeat\"/>");
         this.appendInnerContent("        </b:commandLink>");
 
-        this.appendInnerContent("\n        <h:panelGroup id=\"repeat\" layout=\"block\" class=\"repeat-simple-list\">");
-        this.appendInnerContent("           <b:repeat id=\"input\"");
-        this.appendInnerContent("                     value=\"#{myBean.values}\"");
+        this.appendInnerContent("\n        <h:panelGroup id=\"repeat\" layout=\"block\" styleClass=\"repeat-simple-list\">");
+        this.appendInnerContent("           <b:repeat value=\"#{myBean.values}\"");
         this.appendInnerContent("                     var=\"value\"");
         this.appendInnerContent("                     status=\"status\"");
         this.appendInnerContent("                     rendered=\"" + rendered + "\">");

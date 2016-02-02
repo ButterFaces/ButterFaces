@@ -25,17 +25,12 @@
                       styleClass="row repeat-episode-list">
             <b:repeat value="#{repeatShowcase.values}"
                       rendered="#{repeatShowcase.rendered and repeatShowcase.selectedExampleType == 'STARGATE'}"
-                      var="episode"
-                      status="status">
+                      var="episode">
                 <div class="col-md-4 repeat-episode-item">
                     <img src="#{episode.image}" alt="#{episode.title}"/>
                     <div class="repeat-episode-content">
-                        <div>
-                            <strong>#{episode.title}</strong>
-                        </div>
-                        <div>
-                            <small>written by: #{episode.writtenBy}</small>
-                        </div>
+                        <div><strong>#{episode.title}</strong></div>
+                        <div><small>written by: #{episode.writtenBy}</small></div>
                         <b:commandLink value="Play"
                                        action="#{repeatShowcase.play}"
                                        glyphicon="fa fa-play-circle-o"
@@ -48,7 +43,7 @@
         </h:panelGroup>
 
         <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'SIMPLE'}">
-            <b:commandLink value="Refresh">
+            <b:commandLink glyphicon="glyphicon glyphicon-refresh" styleClass="btn btn-default">
                 <f:ajax execute="@this" render="repeat"/>
             </b:commandLink>
             <h:panelGroup id="repeat" layout="block" styleClass="repeat-simple-list">
