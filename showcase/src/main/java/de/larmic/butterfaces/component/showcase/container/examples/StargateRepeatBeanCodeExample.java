@@ -10,16 +10,15 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 /**
  * @author Lars Michaelis
  */
-public class StargateRepeatBeanJavaCodeExample extends JavaCodeExample {
+public class StargateRepeatBeanCodeExample extends JavaCodeExample {
 
-    public StargateRepeatBeanJavaCodeExample() {
+    public StargateRepeatBeanCodeExample() {
         super("MyBean.java", "mybean", "repeat.demo", "MyBean", true);
 
         this.addImport("import javax.faces.view.ViewScoped");
         this.addImport("import javax.inject.Named");
 
         this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
-        this.appendInnerContent("    private Episode selectedValue;\n");
         this.appendInnerContent("    private List<Episode> episodes = new ArrayList<Episode>();\n");
 
         this.appendInnerContent("    public List<Episode> getValues() {");

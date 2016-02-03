@@ -3,10 +3,7 @@ package de.larmic.butterfaces.component.showcase.container;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.comboBox.Episode;
 import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
-import de.larmic.butterfaces.component.showcase.container.examples.SimpleRepeatListXhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatBeanJavaCodeExample;
-import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListCssCodeExample;
-import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListXhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.container.examples.*;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
@@ -45,13 +42,14 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         if (selectedExampleType == RepeatExampleType.SIMPLE) {
             codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
+            codeExamples.add(new SimpleRepeatBeanCodeExample());
             codeExamples.add(new DemoPojoCodeExample("repeat.demo"));
             final CssCodeExample cssCodeExample = new CssCodeExample();
             cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px", "overflow: auto");
             codeExamples.add(cssCodeExample);
         } else {
             codeExamples.add(new StargateRepeatListXhtmlCodeExample(this.isRendered()));
-            codeExamples.add(new StargateRepeatBeanJavaCodeExample());
+            codeExamples.add(new StargateRepeatBeanCodeExample());
             codeExamples.add(new TreeBoxEpisodesJavaExample("repeat.demo"));
             codeExamples.add(new StargateRepeatListCssCodeExample());
         }
