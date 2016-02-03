@@ -12,15 +12,15 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
  */
 public class TreeBoxEpisodesJavaExample extends JavaCodeExample {
 
-    public TreeBoxEpisodesJavaExample() {
-        super("Episode.java", "episode", "treeBox.demo", "Episode", false);
+    public TreeBoxEpisodesJavaExample(String subPackage) {
+        super("Episode.java", "episode", subPackage, "Episode", false);
 
         this.appendInnerContent("    private int numberInSeries;");
         this.appendInnerContent("    private String title;");
         this.appendInnerContent("    private String writtenBy;");
         this.appendInnerContent("    private String originalAirDate;");
         this.appendInnerContent("    private String image;");
-        this.appendInnerContent("    \n// [...] getter + setter\n");
+        this.appendInnerContent("\n    // [...] getter + setter\n");
         this.appendInnerContent("    @Override");
         this.appendInnerContent("    public String toString() {");
         this.appendInnerContent("       return title;");

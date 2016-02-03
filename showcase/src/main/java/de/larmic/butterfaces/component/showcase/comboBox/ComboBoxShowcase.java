@@ -47,7 +47,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
 
         codeExamples.add(xhtmlCodeExample);
         if (this.comboBoxValueType == ComboBoxValueType.TEMPLATE) {
-            codeExamples.add(new TreeBoxEpisodesJavaExample());
+            codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
             codeExamples.add(createMyBeanEnumCodeExample());

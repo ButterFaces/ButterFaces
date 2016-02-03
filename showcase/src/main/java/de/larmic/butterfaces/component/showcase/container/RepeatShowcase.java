@@ -4,11 +4,13 @@ import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.comboBox.Episode;
 import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
 import de.larmic.butterfaces.component.showcase.container.examples.SimpleRepeatListXhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatBeanJavaCodeExample;
 import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListCssCodeExample;
 import de.larmic.butterfaces.component.showcase.container.examples.StargateRepeatListXhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -47,6 +49,8 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
             codeExamples.add(cssCodeExample);
         } else {
             codeExamples.add(new StargateRepeatListXhtmlCodeExample(this.isRendered()));
+            codeExamples.add(new StargateRepeatBeanJavaCodeExample());
+            codeExamples.add(new TreeBoxEpisodesJavaExample("repeat.demo"));
             codeExamples.add(new StargateRepeatListCssCodeExample());
         }
     }
