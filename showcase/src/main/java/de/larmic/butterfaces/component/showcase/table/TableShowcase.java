@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.showcase.table;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.*;
+import de.larmic.butterfaces.component.showcase.table.example.DemoPojoCodeExample;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
@@ -55,7 +56,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
         codeExamples.add(this.createMyBeanCodeExample());
-        codeExamples.add(this.createDemoPojoCodeExample());
+        codeExamples.add(new DemoPojoCodeExample("table.demo"));
         codeExamples.add(this.createWebXmlExample());
 
         if (this.toolBarType == ToolBarType.TEXT) {
@@ -432,22 +433,6 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
 
         return myBean;
-    }
-
-    private JavaCodeExample createDemoPojoCodeExample() {
-        final JavaCodeExample DemoPojo = new JavaCodeExample("DemoPojo.java", "DemoPojo", "table.demo", "DemoPojo", false);
-        DemoPojo.appendInnerContent("    private final long id;");
-        DemoPojo.appendInnerContent("    private final String a;");
-        DemoPojo.appendInnerContent("    private final String b;");
-        DemoPojo.appendInnerContent("    private final String date;\n");
-        DemoPojo.appendInnerContent("    public DemoPojo(final long id, final String a, final String b) {");
-        DemoPojo.appendInnerContent("        this.id = id;");
-        DemoPojo.appendInnerContent("        this.a = a;");
-        DemoPojo.appendInnerContent("        this.b = b;");
-        DemoPojo.appendInnerContent("        this.date = new java.util.Date();");
-        DemoPojo.appendInnerContent("    }\n");
-        DemoPojo.appendInnerContent("    // getter");
-        return DemoPojo;
     }
 
     public List<SelectItem> getAjaxSelectionTypes() {

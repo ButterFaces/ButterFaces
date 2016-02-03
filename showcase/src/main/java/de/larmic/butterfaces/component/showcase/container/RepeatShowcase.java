@@ -10,6 +10,7 @@ import de.larmic.butterfaces.component.showcase.container.examples.StargateRepea
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
+import de.larmic.butterfaces.component.showcase.table.example.DemoPojoCodeExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 
 import javax.faces.model.SelectItem;
@@ -44,6 +45,7 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         if (selectedExampleType == RepeatExampleType.SIMPLE) {
             codeExamples.add(new SimpleRepeatListXhtmlCodeExample(this.isRendered()));
+            codeExamples.add(new DemoPojoCodeExample("repeat.demo"));
             final CssCodeExample cssCodeExample = new CssCodeExample();
             cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px", "overflow: auto");
             codeExamples.add(cssCodeExample);
