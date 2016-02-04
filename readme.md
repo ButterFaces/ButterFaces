@@ -12,3 +12,9 @@ It is simple: Because everything tastes better with butter. Plain JSF brings a l
 <br/>
 <br/>
 ButterFaces creates a simple html structure based on [twitters bootstrap](http://www.http://getbootstrap.com/) around existing JSF components. You do not have already use bootstrap in your project - it comes with ButterFaces. And if you do not want to use bootstrap styles or you have your own version you can disable it easily by configuring it in your web.xml.
+
+## What about the license?
+ButterFaces stands under [MIT License](http://opensource.org/licenses/MIT). So feel free to use it. Feel free to customize it. Feel free to sell it. But let us know how it works and what kind of problems you have.
+
+## What about a documentation?
+Take a look at our [showcase](http://www.butterfaces.org/) or [documentation](https://butterfaces.gitbooks.io/butterfaces/content/)
