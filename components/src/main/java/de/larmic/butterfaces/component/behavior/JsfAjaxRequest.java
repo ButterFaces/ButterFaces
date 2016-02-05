@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.behavior;
 
+import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -119,18 +120,9 @@ public class JsfAjaxRequest {
      * @return the actual instance of {@link JsfAjaxRequest}
      */
     public JsfAjaxRequest setRenderAsList(final Collection<String> renderIds) {
-        final StringBuilder renderBuilder = new StringBuilder();
-
         if (!renderIds.isEmpty()) {
-            final Iterator<String> iterator = renderIds.iterator();
-            while (iterator.hasNext()) {
-                renderBuilder.append(iterator.next());
-
-                if (iterator.hasNext()) {
-                    renderBuilder.append(" ");
-                }
-            }
-            render = renderBuilder.toString();
+            final StringJoiner joiner = StringJoiner.on(' ').join(renderIds);
+            render = joiner.toString();
         }
         return this;
     }
