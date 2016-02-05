@@ -42,11 +42,6 @@
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="checkbox"
                                          component="#{checkBoxShowcase}">
-            <h:selectBooleanCheckbox value="#{checkBoxShowcase.value}">
-                <f:ajax event="change"
-                        execute="@this"
-                        render="output:outputComponent:outputValues output:other demoding"/>
-            </h:selectBooleanCheckbox>
 
             <b:checkBox label="#{checkBoxShowcase.label}"
                         value="#{checkBoxShowcase.value}"
@@ -68,7 +63,6 @@
                 </b:tooltip>
             </b:checkBox>
 
-            <h:outputText id="demoding" value="#{cc.attrs.component.value}" styleClass="form-control arquillian_output_value"/>
         </common:showcaseOuputComponent>
     </ui:define>
 
