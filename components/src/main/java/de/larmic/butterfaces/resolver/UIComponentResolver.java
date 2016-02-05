@@ -6,6 +6,7 @@
 package de.larmic.butterfaces.resolver;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -17,17 +18,31 @@ import javax.faces.context.FacesContext;
  */
 public class UIComponentResolver {
 
+    public String findComponentsClientId(final String id) {
+        if (id.contains(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())+"")) {
+            // we assume that client id is correct
+            return id;
+        }
+
+        final UIComponent component = findComponent(id);
+        return component != null ? component.getClientId() : id;
+    }
+
+    public UIComponent findComponent(final String id) {
+        return findComponent(id, null);
+    }
+
     public <T extends UIComponent> T findComponent(final String id, final Class<T> componentClass) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        UIViewRoot root = context.getViewRoot();
-
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final UIViewRoot root = context.getViewRoot();
         final UIComponent[] found = new UIComponent[1];
+
+        final String clientId = checkClientId(context, id);
 
         root.visitTree(new VisitContextImpl(context), new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent component) {
-                if(id.equals(component.getId()) && componentClass.equals(component.getClass())){
+                if(clientId.equals(component.getId()) && (componentClass == null || component.getClass().equals(componentClass))){
                     found[0] = component;
                     return VisitResult.COMPLETE;
                 }
@@ -36,7 +51,10 @@ public class UIComponentResolver {
         });
 
         return (T) found[0];
+    }
 
+    private String checkClientId(final FacesContext context, final String clientId) {
+        return clientId.charAt(0) == UINamingContainer.getSeparatorChar(context) ? clientId.substring(1) : clientId;
     }
 
 }

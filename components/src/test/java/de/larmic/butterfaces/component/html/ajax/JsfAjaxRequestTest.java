@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.html.ajax;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
+import de.larmic.butterfaces.resolver.UIComponentResolver;
 import org.junit.Test;
 
 import javax.faces.component.UIComponentBase;
@@ -36,7 +37,7 @@ public class JsfAjaxRequestTest {
 
     @Test
     public void testSetMultipleRender() throws Exception {
-        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false, new SimpleUIComponentResolver());
         request.setRender("someId someOtherId");
 
         assertThat(request.toString())
@@ -45,7 +46,7 @@ public class JsfAjaxRequestTest {
 
     @Test
     public void testAddRender() throws Exception {
-        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false, new SimpleUIComponentResolver());
         request.setRender("someId");
 
         assertThat(request.toString())
@@ -59,7 +60,7 @@ public class JsfAjaxRequestTest {
 
     @Test
     public void testSetDifferentParametersOnInstance() throws Exception {
-        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false, new SimpleUIComponentResolver());
 
         request.setEvent("onchange");
         assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, 'onchange');");
@@ -140,7 +141,7 @@ public class JsfAjaxRequestTest {
         final UIComponentBase uiComponentMock = mock(UIComponentBase.class);
         when(uiComponentMock.getClientBehaviors()).thenReturn(behaviors);
 
-        final JsfAjaxRequest requestBuilder = new JsfAjaxRequest("mySourceElement", false);
+        final JsfAjaxRequest requestBuilder = new JsfAjaxRequest("mySourceElement", false, new SimpleUIComponentResolver());
 
         assertThat(requestBuilder.setRender(uiComponentMock, "toggle").toString())
                 .isEqualTo("jsf.ajax.request(mySourceElement);");
@@ -154,4 +155,11 @@ public class JsfAjaxRequestTest {
         disabledClickBehaviour.setRender(Arrays.asList(rerenderIds));
         return disabledClickBehaviour;
     }
+
+    private class SimpleUIComponentResolver extends UIComponentResolver {
+        public String findComponentsClientId(final String id) {
+            return id;
+        }
+    }
+
 }

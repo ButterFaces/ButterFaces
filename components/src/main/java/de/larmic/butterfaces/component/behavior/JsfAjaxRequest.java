@@ -1,15 +1,16 @@
 package de.larmic.butterfaces.component.behavior;
 
+import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.FacesContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import static de.larmic.butterfaces.util.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
@@ -19,6 +20,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class JsfAjaxRequest {
 
+    private static UIComponentResolver uiComponentResolver;
     private final String source;
     private String event;
     private String execute;
@@ -36,12 +38,18 @@ public class JsfAjaxRequest {
      * @param isIdString if set to <code>true</code> the source string will be wrapped in ''
      */
     public JsfAjaxRequest(String source, boolean isIdString) {
+        this(source, isIdString, new UIComponentResolver());
+    }
+
+    public JsfAjaxRequest(String source, boolean isIdString, UIComponentResolver uiComponentResolver) {
         requireNonNull(source, "source attribute may not be empty!");
         if (isIdString) {
             this.source = "'" + source + "'";
         } else {
             this.source = source;
         }
+
+        this.uiComponentResolver = uiComponentResolver;
     }
 
     public JsfAjaxRequest(String source, boolean isIdString, AjaxBehavior ajaxBehavior, String event) {
@@ -79,7 +87,7 @@ public class JsfAjaxRequest {
      * @return the actual instance of {@link JsfAjaxRequest}
      */
     public JsfAjaxRequest setExecute(String execute) {
-        this.execute = execute;
+        this.execute = getResolvedId(execute);
         return this;
     }
 
@@ -88,31 +96,21 @@ public class JsfAjaxRequest {
      * @return the actual instance of {@link JsfAjaxRequest}
      */
     public JsfAjaxRequest setRender(String render) {
-        this.render = render;
+        this.render = getResolvedId(render);
         return this;
     }
 
     public JsfAjaxRequest setRender(final UIComponentBase component, final String eventName) {
-        this.render = StringUtils.joinWithSpaceSeparator(createRerenderIds(component, eventName));
+        this.render = StringJoiner.on(' ').join(createRerenderIds(component, eventName)).toString();
         return this;
     }
 
-    // Returns the resolved (client id) for a particular id.
-    public static String getResolvedId(final UIComponent component, final String id) {
+    public static String getResolvedId(final String id) {
         if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
             return id;
         }
 
-        UIComponent resolvedComponent = component.findComponent(id);
-        if (resolvedComponent == null) {
-            final FacesContext context = FacesContext.getCurrentInstance();
-            if (context != null && id.charAt(0) == UINamingContainer.getSeparatorChar(context)) {
-                return id.substring(1);
-            }
-            return id;
-        }
-
-        return resolvedComponent.getClientId();
+        return uiComponentResolver.findComponentsClientId(id);
     }
 
     /**
@@ -121,7 +119,12 @@ public class JsfAjaxRequest {
      */
     public JsfAjaxRequest setRenderAsList(final Collection<String> renderIds) {
         if (!renderIds.isEmpty()) {
-            final StringJoiner joiner = StringJoiner.on(' ').join(renderIds);
+            StringJoiner joiner = StringJoiner.on(' ');
+
+            for (String renderId : renderIds) {
+                joiner = joiner.join(getResolvedId(renderId));
+            }
+
             render = joiner.toString();
         }
         return this;
@@ -129,7 +132,7 @@ public class JsfAjaxRequest {
 
     public JsfAjaxRequest addRender(final String render) {
         if (StringUtils.isNotEmpty(render)) {
-            this.render = this.render == null ? render : this.render + " " + render;
+            this.render = this.render == null ? getResolvedId(render) : this.render + " " + getResolvedId(render);
         }
         return this;
     }
@@ -260,7 +263,7 @@ public class JsfAjaxRequest {
                     if (!ajaxBehavior.isDisabled()) {
                         if (ajaxBehavior.getRender() != null && !ajaxBehavior.getRender().isEmpty()) {
                             for (String singleRender : ajaxBehavior.getRender()) {
-                                idsToRender.add(getResolvedId(component, singleRender));
+                                idsToRender.add(getResolvedId(singleRender));
                             }
                         }
 
