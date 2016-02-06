@@ -5,6 +5,8 @@
  */
 package de.larmic.butterfaces.resolver;
 
+import de.larmic.butterfaces.util.StringUtils;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIViewRoot;
@@ -54,7 +56,9 @@ public class UIComponentResolver {
     }
 
     private String checkClientId(final FacesContext context, final String clientId) {
-        return clientId.charAt(0) == UINamingContainer.getSeparatorChar(context) ? clientId.substring(1) : clientId;
+        return StringUtils.isNotEmpty(clientId) && clientId.charAt(0) == UINamingContainer.getSeparatorChar(context)
+                ? clientId.substring(1)
+                : clientId;
     }
 
 }
