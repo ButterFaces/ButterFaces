@@ -179,9 +179,6 @@ public class TableRendererNoMojarra extends Renderer {
                                     .setParams("'select_" + rowKey + "'")
                                     .setBehaviorEvent("click");
                             final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "selectTableRow({rowIndex:'" + rowKey + "'})");
-                            //writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
-                            //writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall, null);
-                            // TODO call javascript to mark selected row
                             writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall, null);
                         }
 
