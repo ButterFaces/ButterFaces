@@ -22,6 +22,8 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.ColumnRendererNoMojarra";
 
     protected static final String PROPERTY_LABEL = "label";
+    protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
+    protected static final String PROPERTY_SORT_BY = "sortBy";
 
     public HtmlColumnNoMojarra() {
         setRendererType(RENDERER_TYPE);
@@ -38,6 +40,23 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
 
     public void setLabel(final String label) {
         this.updateStateHelper(PROPERTY_LABEL, label);
+    }
+
+    public boolean isSortColumnEnabled() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_SORT_COLUMN_ENABLED);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setSortColumnEnabled(boolean sortColumnEnabled) {
+        this.updateStateHelper(PROPERTY_SORT_COLUMN_ENABLED, sortColumnEnabled);
+    }
+
+    public String getSortBy() {
+        return (String) this.getStateHelper().eval(PROPERTY_SORT_BY);
+    }
+
+    public void setSortBy(String sortBy) {
+        this.updateStateHelper(PROPERTY_SORT_BY, sortBy);
     }
 
     protected void updateStateHelper(final String propertyName, final Object value) {

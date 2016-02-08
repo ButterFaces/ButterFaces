@@ -65,9 +65,20 @@ public class TableRendererNoMojarra extends Renderer {
 
             writer.startElement("thead", table);
             writer.startElement("tr", table);
-            for (HtmlColumnNoMojarra column : columns) {
+            final Iterator<HtmlColumnNoMojarra> columnIterator = columns.iterator();
+            int columnNumber = 0;
+            while (columnIterator.hasNext()) {
+                final HtmlColumnNoMojarra column = columnIterator.next();
                 writer.startElement("th", table);
-                writer.writeAttribute("class", "butter-component-table-column-header", "styleclass");
+                if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
+                    writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
+                } else {
+                    writer.writeAttribute("class", "butter-component-table-column-header", null);
+                }
+                writer.writeAttribute("columnNumber", "" + columnNumber, null);
+                // TODO render isHideColumn
+                // TODO render onclick
+
                 writer.startElement("div", table);
                 writer.startElement("span", table);
                 writer.writeAttribute("class", "butter-component-table-column-label", "styleclass");
@@ -80,24 +91,6 @@ public class TableRendererNoMojarra extends Renderer {
             writer.endElement("thead");
             writer.startElement("tbody", table);
         }
-    }
-
-    private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
-        StringJoiner stringJoiner = StringJoiner.on(' ')
-                .join("table")
-                .join("table-hover");
-
-        if (table.isTableCondensed()) {
-            stringJoiner = stringJoiner.join("table-condensed");
-        }
-        if (table.isTableBordered()) {
-            stringJoiner = stringJoiner.join("table-bordered");
-        }
-        if (table.isTableStriped()) {
-            stringJoiner = stringJoiner.join("table-striped");
-        }
-
-        return stringJoiner.toString();
     }
 
     @Override
@@ -198,6 +191,23 @@ public class TableRendererNoMojarra extends Renderer {
         }
     }
 
+    private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
+        StringJoiner stringJoiner = StringJoiner.on(' ')
+                .join("table")
+                .join("table-hover");
+
+        if (table.isTableCondensed()) {
+            stringJoiner = stringJoiner.join("table-condensed");
+        }
+        if (table.isTableBordered()) {
+            stringJoiner = stringJoiner.join("table-bordered");
+        }
+        if (table.isTableStriped()) {
+            stringJoiner = stringJoiner.join("table-striped");
+        }
+
+        return stringJoiner.toString();
+    }
 
     private Object findRowValue(final HtmlTableNoMojarra table, final int row) {
         final Object value = table.getValue();

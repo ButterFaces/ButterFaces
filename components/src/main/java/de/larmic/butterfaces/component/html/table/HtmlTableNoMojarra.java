@@ -7,6 +7,10 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.TableColumnOrderingModel;
+import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
+import de.larmic.butterfaces.model.table.TableModel;
+import de.larmic.butterfaces.model.table.TableRowSortingModel;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -38,6 +42,8 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
+
+    protected static final String PROPERTY_MODEL = "model";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
@@ -93,6 +99,25 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
 
     public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
         this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
+    }
+
+    public TableModel getModel() {
+        return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
+    }
+
+    public TableRowSortingModel getTableSortModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableRowSortingModel() : null;
+    }
+
+    public TableColumnOrderingModel getTableOrderingModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableColumnOrderingModel() : null;
+    }
+
+    public TableColumnVisibilityModel getTableColumnVisibilityModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

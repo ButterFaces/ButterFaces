@@ -87,6 +87,7 @@
         <b:tableNoMojarra id="filterTable"
                           var="rowItem"
                           value="#{tableShowcase.stringRows}"
+                          model="#{tableShowcase.tableModel}"
                           tableCondensed="#{tableShowcase.tableCondensed}"
                           tableStriped="#{tableShowcase.tableStriped}"
                           tableBordered="#{tableShowcase.tableBordered}"
@@ -102,7 +103,8 @@
                 </b:tooltip>
             </b:columnNoMojarra>
             <b:columnNoMojarra id="column2"
-                               label="Action">
+                               label="Action"
+                               sortColumnEnabled="false">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">

@@ -2089,6 +2089,11 @@
             <required>true</required>
         </attribute>
         <attribute>
+            <name>model</name>
+            <type>de.larmic.butterfaces.model.table.TableModel</type>
+            <required>false</required>
+        </attribute>
+        <attribute>
             <description>Set tableCondensed to true to make table more compact by cutting cell padding in half. Default
                 is false.
             </description>
@@ -2135,8 +2140,17 @@
         </attribute>
         <attribute>
             <name>label</name>
-            <type>java.lang.String</type>
             <required>true</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>sortColumnEnabled</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>Optional parameter will be assigned to table sort model if set.</description>
+            <name>sortBy</name>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
 
