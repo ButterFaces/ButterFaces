@@ -11,6 +11,7 @@ import de.larmic.butterfaces.model.table.TableColumnOrderingModel;
 import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
 import de.larmic.butterfaces.model.table.TableModel;
 import de.larmic.butterfaces.model.table.TableRowSortingModel;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
@@ -39,6 +40,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRendererNoMojarra";
 
+    protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
@@ -64,6 +66,30 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     @Override
     public String getDefaultEventName() {
         return "click";
+    }
+
+    public boolean isHideColumn(final HtmlColumnNoMojarra column) {
+        if (getTableColumnVisibilityModel() != null) {
+            final String tableUniqueIdentifier = getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
+            final Boolean hideColumn = getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
+            if (hideColumn != null) {
+                return hideColumn;
+            }
+        }
+        return column.isHideColumn();
+    }
+
+    public String getModelUniqueIdentifier() {
+        return StringUtils.getNotNullValue(getUniqueIdentifier(), getId());
+    }
+
+    public String getUniqueIdentifier() {
+        return (String) this.getStateHelper().eval(PROPERTY_UNIQUE_IDENTIFIER);
+    }
+
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.updateStateHelper(PROPERTY_UNIQUE_IDENTIFIER, uniqueIdentifier);
     }
 
     public boolean isTableCondensed() {

@@ -2081,6 +2081,12 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>uniqueIdentifier</name>
+            <type>java.lang.String</type>
+            <description>If unique identifier is set it will be used for table model (instead of client id)
+            </description>
+        </attribute>
+        <attribute>
             <name>value</name>
             <required>true</required>
         </attribute>
@@ -2145,6 +2151,16 @@
         </attribute>
         <attribute>
             <name>sortColumnEnabled</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>uniqueIdentifier</name>
+            <type>java.lang.String</type>
+            <description>If unique identifier is set it will be used for table model (instead of client id)
+            </description>
+        </attribute>
+        <attribute>
+            <name>hideColumn</name>
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>

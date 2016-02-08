@@ -5,6 +5,8 @@
  */
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.util.StringUtils;
+
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
@@ -22,6 +24,8 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.ColumnRendererNoMojarra";
 
     protected static final String PROPERTY_LABEL = "label";
+    protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
+    protected static final String PROPERTY_HIDE_COLUMN = "hideColumn";
     protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
     protected static final String PROPERTY_SORT_BY = "sortBy";
 
@@ -40,6 +44,27 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
 
     public void setLabel(final String label) {
         this.updateStateHelper(PROPERTY_LABEL, label);
+    }
+
+    public boolean isHideColumn() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_HIDE_COLUMN);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setHideColumn(boolean hideColumn) {
+        this.updateStateHelper(PROPERTY_HIDE_COLUMN, hideColumn);
+    }
+
+    public String getModelUniqueIdentifier() {
+        return StringUtils.getNotNullValue(getUniqueIdentifier(), getId());
+    }
+
+    public String getUniqueIdentifier() {
+        return (String) this.getStateHelper().eval(PROPERTY_UNIQUE_IDENTIFIER);
+    }
+
+    public void setUniqueIdentifier(String uniqueIdentifier) {
+        this.updateStateHelper(PROPERTY_UNIQUE_IDENTIFIER, uniqueIdentifier);
     }
 
     public boolean isSortColumnEnabled() {

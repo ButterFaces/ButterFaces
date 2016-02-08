@@ -6,6 +6,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
+import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,6 +35,10 @@ public class ColumnRendererNoMojarra extends Renderer {
 
         writer.startElement("td", component);
         writer.writeAttribute("class", "butter-component-table-column", "styleclass");
+
+        if (component.getParent() instanceof HtmlTableNoMojarra && ((HtmlTableNoMojarra) component.getParent()).isHideColumn((HtmlColumnNoMojarra) component)) {
+            writer.writeAttribute("style", "display:none", null);
+        }
     }
 
     @Override

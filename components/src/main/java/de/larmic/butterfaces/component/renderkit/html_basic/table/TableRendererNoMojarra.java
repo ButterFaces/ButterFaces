@@ -185,7 +185,10 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("class", "butter-component-table-column-header", null);
         }
         writer.writeAttribute("columnNumber", "" + columnNumber, null);
-        // TODO render isHideColumn
+
+        if (table.isHideColumn(column)) {
+            writer.writeAttribute("style", "display:none", null);
+        }
         // TODO render onclick
 
         writer.startElement("div", table);
