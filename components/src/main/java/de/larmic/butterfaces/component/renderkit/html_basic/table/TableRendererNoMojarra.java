@@ -68,24 +68,7 @@ public class TableRendererNoMojarra extends Renderer {
             final Iterator<HtmlColumnNoMojarra> columnIterator = columns.iterator();
             int columnNumber = 0;
             while (columnIterator.hasNext()) {
-                final HtmlColumnNoMojarra column = columnIterator.next();
-                writer.startElement("th", table);
-                if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
-                    writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
-                } else {
-                    writer.writeAttribute("class", "butter-component-table-column-header", null);
-                }
-                writer.writeAttribute("columnNumber", "" + columnNumber, null);
-                // TODO render isHideColumn
-                // TODO render onclick
-
-                writer.startElement("div", table);
-                writer.startElement("span", table);
-                writer.writeAttribute("class", "butter-component-table-column-label", "styleclass");
-                writer.writeText(column.getLabel(), null);
-                writer.endElement("span");
-                writer.endElement("div");
-                writer.endElement("th");
+                encodeColumnHeader(table, writer, columnNumber, columnIterator.next());
             }
             writer.endElement("tr");
             writer.endElement("thead");
@@ -189,6 +172,29 @@ public class TableRendererNoMojarra extends Renderer {
         } finally {
             table.setRowKey(context, null);
         }
+    }
+
+    private void encodeColumnHeader(HtmlTableNoMojarra table,
+                                    ResponseWriter writer,
+                                    int columnNumber,
+                                    HtmlColumnNoMojarra column) throws IOException {
+        writer.startElement("th", table);
+        if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
+            writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
+        } else {
+            writer.writeAttribute("class", "butter-component-table-column-header", null);
+        }
+        writer.writeAttribute("columnNumber", "" + columnNumber, null);
+        // TODO render isHideColumn
+        // TODO render onclick
+
+        writer.startElement("div", table);
+        writer.startElement("span", table);
+        writer.writeAttribute("class", "butter-component-table-column-label", "styleclass");
+        writer.writeText(column.getLabel(), null);
+        writer.endElement("span");
+        writer.endElement("div");
+        writer.endElement("th");
     }
 
     private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
