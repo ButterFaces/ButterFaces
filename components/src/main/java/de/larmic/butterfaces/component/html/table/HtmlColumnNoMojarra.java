@@ -5,10 +5,9 @@
  */
 package de.larmic.butterfaces.component.html.table;
 
-import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
-
 import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponentBase;
 
 /**
  * This class is experimental and still in progress
@@ -16,7 +15,7 @@ import javax.faces.component.FacesComponent;
  * @author Lars Michaelis
  */
 @FacesComponent(HtmlColumnNoMojarra.COMPONENT_TYPE)
-public class HtmlColumnNoMojarra extends HtmlRepeat {
+public class HtmlColumnNoMojarra extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.columnNoMojarra";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
