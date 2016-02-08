@@ -9,6 +9,8 @@ import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 
 import javax.el.ValueExpression;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
@@ -19,6 +21,13 @@ import java.util.Collection;
  *
  * @author Lars Michaelis
  */
+@ResourceDependencies({
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
+})
 @FacesComponent(HtmlTableNoMojarra.COMPONENT_TYPE)
 public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHolder {
 

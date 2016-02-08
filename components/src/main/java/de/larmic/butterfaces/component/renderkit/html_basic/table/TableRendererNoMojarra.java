@@ -10,6 +10,7 @@ import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitResult;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
 import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.util.StringJoiner;
@@ -177,11 +178,11 @@ public class TableRendererNoMojarra extends Renderer {
                                     .setRender(table, "click")
                                     .setParams("'select_" + rowKey + "'")
                                     .setBehaviorEvent("click");
-                            //final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "selectRow({rowIndex:'" + rowKey + "'})");
+                            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "selectTableRow({rowIndex:'" + rowKey + "'})");
                             //writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
                             //writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall, null);
                             // TODO call javascript to mark selected row
-                            writer.writeAttribute("onclick", ajaxRequest.toString(), null);
+                            writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall, null);
                         }
 
                         for (UIComponent child : table.getChildren()) {
