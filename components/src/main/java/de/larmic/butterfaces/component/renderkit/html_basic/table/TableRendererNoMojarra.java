@@ -25,10 +25,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is experimental and still in progress
@@ -189,7 +186,13 @@ public class TableRendererNoMojarra extends Renderer {
         if (table.isHideColumn(column)) {
             writer.writeAttribute("style", "display:none", null);
         }
-        // TODO render onclick
+
+        if (column.isSortColumnEnabled() && table.getModel() != null) {
+            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
+            writer.writeAttribute("onclick", ajax, null);
+        }
+
+        // TODO render onclick spinner
 
         writer.startElement("div", table);
         writer.startElement("span", table);

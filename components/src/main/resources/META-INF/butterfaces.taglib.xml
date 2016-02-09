@@ -2124,8 +2124,14 @@
         </attribute>
         <attribute>
             <name>singleSelectionListener</name>
-            <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
             <required>false</required>
+            <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
+        </attribute>
+        <attribute>
+            <description>Disables regions to render after request while (ajax) request is running. Default is true.
+            </description>
+            <name>ajaxDisableRenderRegionsOnRequest</name>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
 

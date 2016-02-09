@@ -45,6 +45,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     protected static final String PROPERTY_TABLE_BORDERED = "tableBordered";
     protected static final String PROPERTY_TABLE_STRIPED = "tableStriped";
 
+    protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_MODEL = "model";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
@@ -144,6 +145,15 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     public TableColumnVisibilityModel getTableColumnVisibilityModel() {
         final TableModel tableModel = this.getModel();
         return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
+        return eval == null ? true : (Boolean) eval;
+    }
+
+    public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
+        this.updateStateHelper(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST, ajaxDisableRenderRegionsOnRequest);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
