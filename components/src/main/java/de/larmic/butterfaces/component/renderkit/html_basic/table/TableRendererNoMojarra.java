@@ -198,8 +198,6 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("onclick", ajax, null);
         }
 
-        // TODO render onclick spinner
-
         writer.startElement("div", table);
 
         // render header label
@@ -215,17 +213,17 @@ public class TableRendererNoMojarra extends Renderer {
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
             final SortType sortType = table.getModel().getTableRowSortingModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
 
-            final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
+            StringJoiner styleClasses = StringJoiner.on(' ').join("butter-component-table-column-sort-spinner");
 
             if (sortType == SortType.ASCENDING) {
-                sortSpanStyleClass.append(" " + webXmlParameters.getSortAscGlyphicon());
+                styleClasses = styleClasses.join(webXmlParameters.getSortAscGlyphicon());
             } else if (sortType == SortType.DESCENDING) {
-                sortSpanStyleClass.append(" " + webXmlParameters.getSortDescGlyphicon());
+                styleClasses = styleClasses.join(webXmlParameters.getSortDescGlyphicon());
             } else {
-                sortSpanStyleClass.append(" " + webXmlParameters.getSortUnknownGlyphicon());
+                styleClasses = styleClasses.join(webXmlParameters.getSortUnknownGlyphicon());
             }
 
-            writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
+            writer.writeAttribute("class", styleClasses.toString(), null);
             writer.endElement("span");
         }
 
