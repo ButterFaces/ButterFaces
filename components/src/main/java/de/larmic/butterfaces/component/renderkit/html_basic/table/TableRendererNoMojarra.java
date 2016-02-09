@@ -12,7 +12,9 @@ import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
 import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
+import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -175,6 +177,8 @@ public class TableRendererNoMojarra extends Renderer {
                                     ResponseWriter writer,
                                     int columnNumber,
                                     HtmlColumnNoMojarra column) throws IOException {
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext());
+
         writer.startElement("th", table);
         if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
             writer.writeAttribute("class", "butter-component-table-column-header butter-component-table-column-sort", null);
@@ -188,6 +192,7 @@ public class TableRendererNoMojarra extends Renderer {
         }
 
         // TODO convert js to ts (sortRow and butter.ajax)
+        // TODO check if ajax child is present
         if (column.isSortColumnEnabled() && table.getModel() != null) {
             final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
             writer.writeAttribute("onclick", ajax, null);
@@ -196,10 +201,36 @@ public class TableRendererNoMojarra extends Renderer {
         // TODO render onclick spinner
 
         writer.startElement("div", table);
+
+        // render header label
         writer.startElement("span", table);
         writer.writeAttribute("class", "butter-component-table-column-label", "styleclass");
         writer.writeText(column.getLabel(), null);
         writer.endElement("span");
+
+        // TODO check if ajax child is present
+        if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
+            writer.startElement("span", table);
+            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
+            final SortType sortType = table.getModel().getTableRowSortingModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier);
+
+            final StringBuilder sortSpanStyleClass = new StringBuilder("butter-component-table-column-sort-spinner ");
+
+            if (sortType == SortType.ASCENDING) {
+                sortSpanStyleClass.append(" " + webXmlParameters.getSortAscGlyphicon());
+            } else if (sortType == SortType.DESCENDING) {
+                sortSpanStyleClass.append(" " + webXmlParameters.getSortDescGlyphicon());
+            } else {
+                sortSpanStyleClass.append(" " + webXmlParameters.getSortUnknownGlyphicon());
+            }
+
+            writer.writeAttribute("class", sortSpanStyleClass.toString(), null);
+            writer.endElement("span");
+        }
+
+        // TODO render tooltip
+
         writer.endElement("div");
         writer.endElement("th");
     }
