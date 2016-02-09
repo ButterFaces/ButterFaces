@@ -187,6 +187,7 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("style", "display:none", null);
         }
 
+        // TODO convert js to ts (sortRow and butter.ajax)
         if (column.isSortColumnEnabled() && table.getModel() != null) {
             final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
             writer.writeAttribute("onclick", ajax, null);
