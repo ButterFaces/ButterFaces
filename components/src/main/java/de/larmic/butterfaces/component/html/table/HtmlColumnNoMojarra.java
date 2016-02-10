@@ -24,6 +24,7 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.ColumnRendererNoMojarra";
 
     protected static final String PROPERTY_LABEL = "label";
+    protected static final String PROPERTY_COL_WIDTH = "colWidth";
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
     protected static final String PROPERTY_HIDE_COLUMN = "hideColumn";
     protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
@@ -44,6 +45,14 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
 
     public void setLabel(final String label) {
         this.updateStateHelper(PROPERTY_LABEL, label);
+    }
+
+    public String getColWidth() {
+        return (String) this.getStateHelper().eval(PROPERTY_COL_WIDTH);
+    }
+
+    public void setColWidth(String colWidth) {
+        this.updateStateHelper(PROPERTY_COL_WIDTH, colWidth);
     }
 
     public boolean isHideColumn() {

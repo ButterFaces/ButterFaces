@@ -2166,6 +2166,11 @@
             </description>
         </attribute>
         <attribute>
+            <description>HTML table colgroup column width. Could be in px, percent or relative.</description>
+            <name>colWidth</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>hideColumn</name>
             <type>java.lang.Boolean</type>
         </attribute>

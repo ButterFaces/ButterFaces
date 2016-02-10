@@ -62,6 +62,10 @@ public class TableRendererNoMojarra extends Renderer {
             writer.startElement("table", table);
             writer.writeAttribute("class", createBootstrapTableStyleClasses(table), "styleclass");
 
+            if (hasColumnWidthSet(table.getCachedColumns())) {
+                renderHeaderColGroup(table, writer);
+            }
+
             writer.startElement("thead", table);
             writer.startElement("tr", table);
             final Iterator<HtmlColumnNoMojarra> columnIterator = columns.iterator();
@@ -184,6 +188,39 @@ public class TableRendererNoMojarra extends Renderer {
         }
     }
 
+    private void renderHeaderColGroup(HtmlTableNoMojarra table, ResponseWriter writer) throws IOException {
+        writer.startElement("colgroup", table);
+
+        int columnNumber = 0;
+
+        for (HtmlColumnNoMojarra column : table.getCachedColumns()) {
+            writer.startElement("col", table);
+            writer.writeAttribute("class", "butter-table-colgroup", null);
+            writer.writeAttribute("columnNumber", "" + columnNumber, null);
+
+            final StringBuilder style = new StringBuilder();
+
+            if (StringUtils.isNotEmpty(column.getColWidth())) {
+                style.append("width: ");
+                style.append(column.getColWidth());
+            }
+            if (table.isHideColumn(column)) {
+                if (style.length() > 0) {
+                    style.append("; ");
+                }
+                style.append("display: none");
+            }
+
+            if (style.length() > 0) {
+                writer.writeAttribute("style", style.toString(), null);
+            }
+            writer.endElement("col");
+
+            columnNumber++;
+        }
+        writer.endElement("colgroup");
+    }
+
     private void encodeColumnHeader(HtmlTableNoMojarra table,
                                     ResponseWriter writer,
                                     int columnNumber,
@@ -260,6 +297,16 @@ public class TableRendererNoMojarra extends Renderer {
         }
 
         return stringJoiner.toString();
+    }
+
+    private boolean hasColumnWidthSet(final List<HtmlColumnNoMojarra> columns) {
+        for (HtmlColumnNoMojarra column : columns) {
+            if (StringUtils.isNotEmpty(column.getColWidth())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Object findRowValue(final HtmlTableNoMojarra table, final int row) {

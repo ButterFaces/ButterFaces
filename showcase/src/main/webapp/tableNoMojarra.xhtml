@@ -86,16 +86,21 @@
 
         <b:tableNoMojarra id="filterTable"
                           var="rowItem"
+                          uniqueIdentifier="filterTable"
                           value="#{tableShowcase.stringRows}"
+                          singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                           model="#{tableShowcase.tableModel}"
                           tableCondensed="#{tableShowcase.tableCondensed}"
                           tableStriped="#{tableShowcase.tableStriped}"
                           tableBordered="#{tableShowcase.tableBordered}"
-                          singleSelectionListener="#{tableShowcase.tableSelectionListener}"
-                          rendered="#{tableShowcase.rendered}">
+                          rowClass="#{tableShowcase.rowClass}"
+                          ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
+                          rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
             <b:columnNoMojarra id="column1"
+                               uniqueIdentifier="column1"
+                               colWidth="#{tableShowcase.colWidthColumn1}"
                                label="Readonly text">
                 #{rowItem.a}
                 <b:tooltip placement="top">
@@ -103,8 +108,10 @@
                 </b:tooltip>
             </b:columnNoMojarra>
             <b:columnNoMojarra id="column2"
-                               label="Action"
-                               sortColumnEnabled="false">
+                               uniqueIdentifier="column2"
+                               colWidth="#{tableShowcase.colWidthColumn2}"
+                               sortColumnEnabled="false"
+                               label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
@@ -112,23 +119,18 @@
                 </b:commandLink>
             </b:columnNoMojarra>
             <b:columnNoMojarra id="column3"
+                               uniqueIdentifier="column3"
+                               colWidth="#{tableShowcase.colWidthColumn3}"
+                               sortColumnEnabled="true"
                                label="Creation Date">
                 <showcase:date date="#{rowItem.date}"/>
             </b:columnNoMojarra>
-            <b:columnNoMojarra id="column4"
-                               label="Readonly text (default hide)"
-                               hideColumn="true">
+            <b:columnNoMojarra colWidth="#{tableShowcase.colWidthColumn4}"
+                               uniqueIdentifier="column4"
+                               hideColumn="true"
+                               sortColumnEnabled="false"
+                               label="Readonly text (default hide)">
                 #{rowItem.a}
-            </b:columnNoMojarra>
-            <b:columnNoMojarra id="column5"
-                               label="input"
-                               hideColumn="true">
-                <b:text value="#{rowItem.a}" hideLabel="true" />
-            </b:columnNoMojarra>
-            <b:columnNoMojarra id="column6"
-                               label="date"
-                               hideColumn="true">
-                <b:calendar value="#{rowItem.date}" hideLabel="true" />
             </b:columnNoMojarra>
         </b:tableNoMojarra>
 
