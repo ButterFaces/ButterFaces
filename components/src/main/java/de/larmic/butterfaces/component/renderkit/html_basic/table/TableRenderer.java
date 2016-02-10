@@ -31,12 +31,10 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * This class is experimental and still in progress
- *
  * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
-public class TableRendererNoMojarra extends Renderer {
+public class TableRenderer extends Renderer {
 
     @Override
     public boolean getRendersChildren() {

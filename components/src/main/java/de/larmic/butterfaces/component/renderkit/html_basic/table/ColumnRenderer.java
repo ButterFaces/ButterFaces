@@ -17,12 +17,10 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 
 /**
- * This class is experimental and still in progress
- *
  * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlColumn.COMPONENT_FAMILY, rendererType = HtmlColumn.RENDERER_TYPE)
-public class ColumnRendererNoMojarra extends Renderer {
+public class ColumnRenderer extends Renderer {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
