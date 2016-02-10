@@ -6,6 +6,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
+import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitResult;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
@@ -71,7 +72,7 @@ public class TableRendererNoMojarra extends Renderer {
             final Iterator<HtmlColumnNoMojarra> columnIterator = columns.iterator();
             int columnNumber = 0;
             while (columnIterator.hasNext()) {
-                encodeColumnHeader(table, writer, columnNumber, columnIterator.next());
+                encodeColumnHeader(table, columnNumber, columnIterator.next(), context);
             }
             writer.endElement("tr");
             writer.endElement("thead");
@@ -222,10 +223,11 @@ public class TableRendererNoMojarra extends Renderer {
     }
 
     private void encodeColumnHeader(HtmlTableNoMojarra table,
-                                    ResponseWriter writer,
                                     int columnNumber,
-                                    HtmlColumnNoMojarra column) throws IOException {
-        final WebXmlParameters webXmlParameters = new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext());
+                                    HtmlColumnNoMojarra column,
+                                    FacesContext context) throws IOException {
+        final ResponseWriter writer = context.getResponseWriter();
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         writer.startElement("th", table);
         if (column.isSortColumnEnabled() && table.getTableSortModel() != null) {
@@ -246,7 +248,12 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("onclick", ajax, null);
         }
 
+        final HtmlTooltip tooltip = this.findTooltip(column);
+
         writer.startElement("div", table);
+        if (tooltip != null) {
+            writer.writeAttribute("data-tooltip-identifier", this.createTooltipIdentifier(column), null);
+        }
         writer.writeAttribute("class", column.getHeaderStyleClass(), null);
         writer.writeAttribute("style", column.getHeaderStyle(), null);
 
@@ -277,10 +284,27 @@ public class TableRendererNoMojarra extends Renderer {
             writer.endElement("span");
         }
 
-        // TODO render tooltip
+        if (tooltip != null) {
+            tooltip.setFor("[data-tooltip-identifier=\"" + this.createTooltipIdentifier(column) + "\"]");
+            tooltip.encodeAll(context);
+        }
 
         writer.endElement("div");
         writer.endElement("th");
+    }
+
+    private String createTooltipIdentifier(HtmlColumnNoMojarra column) {
+        return column.getClientId() + "_div";
+    }
+
+    private HtmlTooltip findTooltip(final HtmlColumnNoMojarra column) {
+        for (UIComponent uiComponent : column.getChildren()) {
+            if (uiComponent instanceof HtmlTooltip) {
+                return (HtmlTooltip) uiComponent;
+            }
+        }
+
+        return null;
     }
 
     private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
