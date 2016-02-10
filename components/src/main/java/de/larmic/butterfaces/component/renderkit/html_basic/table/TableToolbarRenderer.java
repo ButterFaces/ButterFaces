@@ -7,8 +7,8 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
-import de.larmic.butterfaces.component.html.table.HtmlColumn;
-import de.larmic.butterfaces.component.html.table.HtmlTable;
+import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
+import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.model.json.JsonToModelConverter;
@@ -48,7 +48,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
         final HtmlTableToolbar tableToolbar = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
-        final HtmlTable table = getTableComponent(tableToolbar);
+        final HtmlTableNoMojarra table = getTableComponent(tableToolbar);
 
         if (table == null) {
             throw new IllegalStateException("Could not find table component with id '" + tableToolbar.getTableId() + "'.");
@@ -79,7 +79,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         super.encodeEnd(context, component);
 
         final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
-        final HtmlTable table = getTableComponent(tableHeader);
+        final HtmlTableNoMojarra table = getTableComponent(tableHeader);
         final ResponseWriter responseWriter = context.getResponseWriter();
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
@@ -121,7 +121,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
-        final HtmlTable table = getTableComponent(tableToolbar);
+        final HtmlTableNoMojarra table = getTableComponent(tableToolbar);
         final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
 
         if (behaviorEvent != null) {
@@ -146,7 +146,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
    private void renderTableToolbarToggleColumnButton(final ResponseWriter writer,
                                                      final HtmlTableToolbar tableToolbar,
-                                                     final HtmlTable table,
+                                                     final HtmlTableNoMojarra table,
                                                      final WebXmlParameters webXmlParameters) throws IOException {
       final AjaxBehavior toggleAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
       final AjaxBehavior orderAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
@@ -176,7 +176,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
          writer.writeAttribute("role", "menu", null);
 
          int columnNumber = 0;
-         for (HtmlColumn cachedColumn : table.getCachedColumns()) {
+         for (HtmlColumnNoMojarra cachedColumn : table.getCachedColumns()) {
             writer.startElement("li", tableToolbar);
             writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
             writer.writeAttribute("data-original-column", columnNumber, null);
@@ -230,8 +230,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
     private void renderToggleColumnInput(final ResponseWriter writer,
                                          final HtmlTableToolbar tableToolbar,
                                          final List<String> renderIds,
-                                         final HtmlColumn cachedColumn,
-                                         final HtmlTable table) throws IOException {
+                                         final HtmlColumnNoMojarra cachedColumn,
+                                         final HtmlTableNoMojarra table) throws IOException {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
 
@@ -262,7 +262,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         return ajax.toString();
     }
 
-    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
+    private boolean isHideColumn(final HtmlTableNoMojarra table, final HtmlColumnNoMojarra column) {
         if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
@@ -276,7 +276,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
                                                  final HtmlTableToolbar tableToolbar,
-                                                 final HtmlTable table,
+                                                 final HtmlTableNoMojarra table,
                                                  final WebXmlParameters webXmlParameters) throws IOException {
         final String eventName = "refresh";
 
@@ -313,7 +313,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private HtmlTable getTableComponent(HtmlTableToolbar tableHeader) {
-        return new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTable.class);
+    private HtmlTableNoMojarra getTableComponent(HtmlTableToolbar tableHeader) {
+        return new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTableNoMojarra.class);
     }
 }

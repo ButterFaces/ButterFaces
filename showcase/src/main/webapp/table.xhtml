@@ -19,22 +19,22 @@
             <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
             <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
             <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
-                                        value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
+                                      value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="ajax selection"
-                                     value="#{tableShowcase.selectionAjaxType}"
-                                     values="#{tableShowcase.ajaxSelectionTypes}"/>
+                                   value="#{tableShowcase.selectionAjaxType}"
+                                   values="#{tableShowcase.ajaxSelectionTypes}"/>
             <common:tagEnumControl label="custom toolbar"
-                                     value="#{tableShowcase.toolBarType}"
-                                     values="#{tableShowcase.toolBarTypes}"/>
+                                   value="#{tableShowcase.toolBarType}"
+                                   values="#{tableShowcase.toolBarTypes}"/>
             <common:tagEnumControl label="column width"
-                                     value="#{tableShowcase.fourthColumnWidthType}"
-                                     values="#{tableShowcase.twoColumnWidthTypes}"/>
+                                   value="#{tableShowcase.fourthColumnWidthType}"
+                                   values="#{tableShowcase.twoColumnWidthTypes}"/>
             <common:tagEnumControl label="toolbar facets"
-                                     value="#{tableShowcase.toolbarFacetType}"
-                                     values="#{tableShowcase.toolBarFacetTypes}"/>
+                                   value="#{tableShowcase.toolbarFacetType}"
+                                   values="#{tableShowcase.toolBarFacetTypes}"/>
             <common:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
             <common:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
             <common:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
@@ -133,80 +133,80 @@
             </h:panelGroup>
         </b:tableToolbar>
 
-        <b:table id="filterTable"
-                 var="rowItem"
-                 uniqueIdentifier="filterTable"
-                 value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
-                 model="#{tableShowcase.tableModel}"
-                 tableCondensed="#{tableShowcase.tableCondensed}"
-                 tableStriped="#{tableShowcase.tableStriped}"
-                 tableBordered="#{tableShowcase.tableBordered}"
-                 rowClass="#{tableShowcase.rowClass}"
-                 ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
-                 rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
+        <b:tableNoMojarra id="filterTable"
+                          var="rowItem"
+                          uniqueIdentifier="filterTable"
+                          value="#{tableShowcase.stringRows}"
+                          singleSelectionListener="#{tableShowcase.tableSelectionListener}"
+                          model="#{tableShowcase.tableModel}"
+                          tableCondensed="#{tableShowcase.tableCondensed}"
+                          tableStriped="#{tableShowcase.tableStriped}"
+                          tableBordered="#{tableShowcase.tableBordered}"
+                          rowClass="#{tableShowcase.rowClass}"
+                          ajaxDisableRenderRegionsOnRequest="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"
+                          rendered="#{tableShowcase.rendered and !(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:ajax render="output:nodeTitle"
                     disabled="#{tableShowcase.selectionAjaxType eq 'AJAX_DISABLED'}"/>
-            <b:column id="column1"
-                      uniqueIdentifier="column1"
-                      colWidth="#{tableShowcase.colWidthColumn1}"
-                      label="Readonly text">
+            <b:columnNoMojarra id="column1"
+                               uniqueIdentifier="column1"
+                               colWidth="#{tableShowcase.colWidthColumn1}"
+                               label="Readonly text">
                 #{rowItem.a}
                 <b:tooltip placement="top">
                     <strong>Attention: </strong> tooltips could be attended to columns.
                 </b:tooltip>
-            </b:column>
-            <b:column id="column2"
-                      uniqueIdentifier="column2"
-                      colWidth="#{tableShowcase.colWidthColumn2}"
-                      sortColumnEnabled="false"
-                      label="Action">
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column2"
+                               uniqueIdentifier="column2"
+                               colWidth="#{tableShowcase.colWidthColumn2}"
+                               sortColumnEnabled="false"
+                               label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
-            </b:column>
-            <b:column id="column3"
-                      uniqueIdentifier="column3"
-                      colWidth="#{tableShowcase.colWidthColumn3}"
-                      sortColumnEnabled="true"
-                      label="Creation Date">
-                <showcase:date date="#{rowItem.date}" />
-            </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn4}"
-                      uniqueIdentifier="column4"
-                      hideColumn="true"
-                      sortColumnEnabled="false"
-                      label="Readonly text (default hide)">
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column3"
+                               uniqueIdentifier="column3"
+                               colWidth="#{tableShowcase.colWidthColumn3}"
+                               sortColumnEnabled="true"
+                               label="Creation Date">
+                <showcase:date date="#{rowItem.date}"/>
+            </b:columnNoMojarra>
+            <b:columnNoMojarra colWidth="#{tableShowcase.colWidthColumn4}"
+                               uniqueIdentifier="column4"
+                               hideColumn="true"
+                               sortColumnEnabled="false"
+                               label="Readonly text (default hide)">
                 #{rowItem.a}
-            </b:column>
-        </b:table>
+            </b:columnNoMojarra>
+        </b:tableNoMojarra>
 
-        <b:table var="rowItem"
-                 value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
-                 rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
-            <b:column id="column1"
-                      colWidth="#{tableShowcase.colWidthColumn1}"
-                      label="Readonly text">
+        <b:tableNoMojarra var="rowItem"
+                          value="#{tableShowcase.stringRows}"
+                          singleSelectionListener="#{tableShowcase.tableSelectionListener}"
+                          rendered="#{tableShowcase.rendered and tableShowcase.selectionAjaxType eq 'NONE'}">
+            <b:columnNoMojarra id="column1"
+                               colWidth="#{tableShowcase.colWidthColumn1}"
+                               label="Readonly text">
                 #{rowItem.a}
-            </b:column>
-            <b:column id="column2"
-                      colWidth="#{tableShowcase.colWidthColumn2}"
-                      label="Action">
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column2"
+                               colWidth="#{tableShowcase.colWidthColumn2}"
+                               label="Action">
                 <b:commandLink value="doSomething"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
-            </b:column>
-            <b:column colWidth="#{tableShowcase.colWidthColumn3}"
-                      hideColumn="true"
-                      label="Readonly text (default hide)">
+            </b:columnNoMojarra>
+            <b:columnNoMojarra colWidth="#{tableShowcase.colWidthColumn3}"
+                               hideColumn="true"
+                               label="Readonly text (default hide)">
                 #{rowItem.a}
-            </b:column>
-        </b:table>
+            </b:columnNoMojarra>
+        </b:tableNoMojarra>
 
         <h:panelGroup id="nodeTitle"
                       layout="block">
