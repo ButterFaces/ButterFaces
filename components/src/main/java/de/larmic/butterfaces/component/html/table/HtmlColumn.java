@@ -16,12 +16,12 @@ import javax.faces.component.UIComponentBase;
  *
  * @author Lars Michaelis
  */
-@FacesComponent(HtmlColumnNoMojarra.COMPONENT_TYPE)
-public class HtmlColumnNoMojarra extends UIComponentBase {
+@FacesComponent(HtmlColumn.COMPONENT_TYPE)
+public class HtmlColumn extends UIComponentBase {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.columnNoMojarra";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.column";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.ColumnRendererNoMojarra";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.ColumnRenderer";
 
     protected static final String PROPERTY_LABEL = "label";
     protected static final String PROPERTY_COL_WIDTH = "colWidth";
@@ -34,7 +34,7 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
     protected static final String PROPERTY_STYLE_CLASS = "styleClass";
     protected static final String PROPERTY_STYLE = "style";
 
-    public HtmlColumnNoMojarra() {
+    public HtmlColumn() {
         setRendererType(RENDERER_TYPE);
     }
 

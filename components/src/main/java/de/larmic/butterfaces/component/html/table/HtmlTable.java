@@ -32,12 +32,12 @@ import java.util.*;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
-@FacesComponent(HtmlTableNoMojarra.COMPONENT_TYPE)
-public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHolder {
+@FacesComponent(HtmlTable.COMPONENT_TYPE)
+public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.tableNoMojarra";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRendererNoMojarra";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer";
 
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
@@ -52,9 +52,9 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
-    private final List<HtmlColumnNoMojarra> cachedColumns = new ArrayList<>();
+    private final List<HtmlColumn> cachedColumns = new ArrayList<>();
 
-    public HtmlTableNoMojarra() {
+    public HtmlTable() {
         setRendererType(RENDERER_TYPE);
     }
 
@@ -73,7 +73,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
         return "click";
     }
 
-    public boolean isHideColumn(final HtmlColumnNoMojarra column) {
+    public boolean isHideColumn(final HtmlColumn column) {
         if (getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
@@ -86,13 +86,13 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     }
 
     // TODO is caching required? performance issue?
-    public List<HtmlColumnNoMojarra> getCachedColumns() {
+    public List<HtmlColumn> getCachedColumns() {
         final int childCount = this.getChildCount();
         if (childCount > 0 && this.cachedColumns.isEmpty()) {
-            // all children that are {@link HtmlColumnNoMojarra} or should be rendered
+            // all children that are {@link HtmlColumn} or should be rendered
             for (UIComponent uiComponent : getChildren()) {
-                if ((uiComponent instanceof HtmlColumnNoMojarra) && uiComponent.isRendered()) {
-                    final HtmlColumnNoMojarra column = (HtmlColumnNoMojarra) uiComponent;
+                if ((uiComponent instanceof HtmlColumn) && uiComponent.isRendered()) {
+                    final HtmlColumn column = (HtmlColumn) uiComponent;
                     this.cachedColumns.add(column);
                 }
             }
@@ -103,10 +103,10 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
 
         // sort columns by model if necessary
         if (getTableOrderingModel() != null) {
-            final List<HtmlColumnNoMojarra> notOrderedByModelColumnIdentifiers = new ArrayList<>();
+            final List<HtmlColumn> notOrderedByModelColumnIdentifiers = new ArrayList<>();
             final List<Ordering> existingOrderings = new ArrayList<>();
 
-            for (HtmlColumnNoMojarra cachedColumn : cachedColumns) {
+            for (HtmlColumn cachedColumn : cachedColumns) {
                 final Integer position = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
                 if (position == null) {
                     notOrderedByModelColumnIdentifiers.add(cachedColumn);
@@ -124,7 +124,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
                 for (Ordering existingOrdering : existingOrderings) {
                     orderings.add(existingOrdering.getIdentifier());
                 }
-                for (HtmlColumnNoMojarra notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
+                for (HtmlColumn notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
                     orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
                 }
 
@@ -134,9 +134,9 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
             }
 
             // sort columns by table model. Every column should be found.
-            Collections.sort(cachedColumns, new Comparator<HtmlColumnNoMojarra>() {
+            Collections.sort(cachedColumns, new Comparator<HtmlColumn>() {
                 @Override
-                public int compare(HtmlColumnNoMojarra o1, HtmlColumnNoMojarra o2) {
+                public int compare(HtmlColumn o1, HtmlColumn o2) {
                     if (getTableOrderingModel() != null) {
                         final Integer orderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
                         final Integer o2OrderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
@@ -151,7 +151,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
         }
 
         // insert (sorted) {@link HtmlColumn}s.
-        for (HtmlColumnNoMojarra cachedColumn : cachedColumns) {
+        for (HtmlColumn cachedColumn : cachedColumns) {
             this.getChildren().add(cachedColumn);
         }
 

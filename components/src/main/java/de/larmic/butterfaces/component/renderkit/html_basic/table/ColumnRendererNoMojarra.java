@@ -5,8 +5,8 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
-import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -21,7 +21,7 @@ import java.io.IOException;
  *
  * @author Lars Michaelis
  */
-@FacesRenderer(componentFamily = HtmlColumnNoMojarra.COMPONENT_FAMILY, rendererType = HtmlColumnNoMojarra.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlColumn.COMPONENT_FAMILY, rendererType = HtmlColumn.RENDERER_TYPE)
 public class ColumnRendererNoMojarra extends Renderer {
 
     @Override
@@ -33,7 +33,7 @@ public class ColumnRendererNoMojarra extends Renderer {
         super.encodeBegin(context, component);
 
         final ResponseWriter writer = context.getResponseWriter();
-        final HtmlColumnNoMojarra column = (HtmlColumnNoMojarra) component;
+        final HtmlColumn column = (HtmlColumn) component;
 
         writer.startElement("td", component);
         writer.writeAttribute("class", "butter-component-table-column " + StringUtils.getNullSafeValue(column.getStyleClass()), "styleclass");
@@ -41,7 +41,7 @@ public class ColumnRendererNoMojarra extends Renderer {
             writer.writeAttribute("style", column.getStyle(), null);
         }
 
-        if (component.getParent() instanceof HtmlTableNoMojarra && ((HtmlTableNoMojarra) component.getParent()).isHideColumn(column)) {
+        if (component.getParent() instanceof HtmlTable && ((HtmlTable) component.getParent()).isHideColumn(column)) {
             writer.writeAttribute("style", "display:none", null);
         }
     }

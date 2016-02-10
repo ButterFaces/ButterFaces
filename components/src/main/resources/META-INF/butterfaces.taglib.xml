@@ -2066,9 +2066,9 @@
     </tag>
 
     <tag>
-        <tag-name>tableNoMojarra</tag-name>
+        <tag-name>table</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.tableNoMojarra</component-type>
+            <component-type>de.larmic.butterfaces.component.table</component-type>
         </component>
         <attribute>
             <description>
@@ -2160,9 +2160,9 @@
     </tag>
 
     <tag>
-        <tag-name>columnNoMojarra</tag-name>
+        <tag-name>column</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.columnNoMojarra</component-type>
+            <component-type>de.larmic.butterfaces.component.column</component-type>
         </component>
         <attribute>
             <description>

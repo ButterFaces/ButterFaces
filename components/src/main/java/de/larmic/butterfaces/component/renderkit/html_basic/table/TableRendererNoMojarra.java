@@ -9,8 +9,8 @@ import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitResult;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
-import de.larmic.butterfaces.component.html.table.HtmlColumnNoMojarra;
-import de.larmic.butterfaces.component.html.table.HtmlTableNoMojarra;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
@@ -35,7 +35,7 @@ import java.util.*;
  *
  * @author Lars Michaelis
  */
-@FacesRenderer(componentFamily = HtmlTableNoMojarra.COMPONENT_FAMILY, rendererType = HtmlTableNoMojarra.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRendererNoMojarra extends Renderer {
 
     @Override
@@ -51,9 +51,9 @@ public class TableRendererNoMojarra extends Renderer {
 
         super.encodeBegin(context, component);
 
-        final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
+        final HtmlTable table = (HtmlTable) component;
         final ResponseWriter writer = context.getResponseWriter();
-        final List<HtmlColumnNoMojarra> columns = table.getCachedColumns();
+        final List<HtmlColumn> columns = table.getCachedColumns();
 
         if (!columns.isEmpty()) {
             writer.startElement("div", table);
@@ -72,7 +72,7 @@ public class TableRendererNoMojarra extends Renderer {
 
             writer.startElement("thead", table);
             writer.startElement("tr", table);
-            final Iterator<HtmlColumnNoMojarra> columnIterator = columns.iterator();
+            final Iterator<HtmlColumn> columnIterator = columns.iterator();
             int columnNumber = 0;
             while (columnIterator.hasNext()) {
                 encodeColumnHeader(table, columnNumber, columnIterator.next(), context);
@@ -92,9 +92,9 @@ public class TableRendererNoMojarra extends Renderer {
 
         super.encodeEnd(context, component);
 
-        final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
+        final HtmlTable table = (HtmlTable) component;
         final ResponseWriter writer = context.getResponseWriter();
-        final List<HtmlColumnNoMojarra> columns = table.getCachedColumns();
+        final List<HtmlColumn> columns = table.getCachedColumns();
 
         if (!columns.isEmpty()) {
             writer.endElement("tbody");
@@ -105,7 +105,7 @@ public class TableRendererNoMojarra extends Renderer {
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
-        final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
+        final HtmlTable table = (HtmlTable) component;
         final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
 
         if (behaviors.isEmpty()) {
@@ -138,7 +138,7 @@ public class TableRendererNoMojarra extends Renderer {
             } else if (behaviorEvent.startsWith("sort")) {
                 // TODO switch behaviorevent to params? (like select_)
                 final Integer colIndex = convertStringToInteger(params.get("params"));
-                final HtmlColumnNoMojarra sortedColumn = table.getCachedColumns().get(colIndex);
+                final HtmlColumn sortedColumn = table.getCachedColumns().get(colIndex);
                 final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
                 final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
                 if (table.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
@@ -152,7 +152,7 @@ public class TableRendererNoMojarra extends Renderer {
 
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-        final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
+        final HtmlTable table = (HtmlTable) component;
         final ResponseWriter writer = context.getResponseWriter();
 
         final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(table, "click");
@@ -195,12 +195,12 @@ public class TableRendererNoMojarra extends Renderer {
         }
     }
 
-    private void renderHeaderColGroup(HtmlTableNoMojarra table, ResponseWriter writer) throws IOException {
+    private void renderHeaderColGroup(HtmlTable table, ResponseWriter writer) throws IOException {
         writer.startElement("colgroup", table);
 
         int columnNumber = 0;
 
-        for (HtmlColumnNoMojarra column : table.getCachedColumns()) {
+        for (HtmlColumn column : table.getCachedColumns()) {
             writer.startElement("col", table);
             writer.writeAttribute("class", "butter-table-colgroup", null);
             writer.writeAttribute("columnNumber", "" + columnNumber, null);
@@ -228,9 +228,9 @@ public class TableRendererNoMojarra extends Renderer {
         writer.endElement("colgroup");
     }
 
-    private void encodeColumnHeader(HtmlTableNoMojarra table,
+    private void encodeColumnHeader(HtmlTable table,
                                     int columnNumber,
-                                    HtmlColumnNoMojarra column,
+                                    HtmlColumn column,
                                     FacesContext context) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
@@ -299,11 +299,11 @@ public class TableRendererNoMojarra extends Renderer {
         writer.endElement("th");
     }
 
-    private String createTooltipIdentifier(HtmlColumnNoMojarra column) {
+    private String createTooltipIdentifier(HtmlColumn column) {
         return column.getClientId() + "_div";
     }
 
-    private HtmlTooltip findTooltip(final HtmlColumnNoMojarra column) {
+    private HtmlTooltip findTooltip(final HtmlColumn column) {
         for (UIComponent uiComponent : column.getChildren()) {
             if (uiComponent instanceof HtmlTooltip) {
                 return (HtmlTooltip) uiComponent;
@@ -313,7 +313,7 @@ public class TableRendererNoMojarra extends Renderer {
         return null;
     }
 
-    private String createBootstrapTableStyleClasses(final HtmlTableNoMojarra table) {
+    private String createBootstrapTableStyleClasses(final HtmlTable table) {
         StringJoiner stringJoiner = StringJoiner.on(' ')
                 .join("table")
                 .join("table-hover");
@@ -331,8 +331,8 @@ public class TableRendererNoMojarra extends Renderer {
         return stringJoiner.toString();
     }
 
-    private boolean hasColumnWidthSet(final List<HtmlColumnNoMojarra> columns) {
-        for (HtmlColumnNoMojarra column : columns) {
+    private boolean hasColumnWidthSet(final List<HtmlColumn> columns) {
+        for (HtmlColumn column : columns) {
             if (StringUtils.isNotEmpty(column.getColWidth())) {
                 return true;
             }
@@ -341,7 +341,7 @@ public class TableRendererNoMojarra extends Renderer {
         return false;
     }
 
-    private Object findRowValue(final HtmlTableNoMojarra table, final int row) {
+    private Object findRowValue(final HtmlTable table, final int row) {
         final Object value = table.getValue();
 
         if (value instanceof Iterable) {
