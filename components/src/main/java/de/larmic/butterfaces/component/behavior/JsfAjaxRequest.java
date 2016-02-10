@@ -17,8 +17,7 @@ import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 /**
- * Builds an ajax request call that depends on the JSF Javascript API under
- * https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
+ * Builds an ajax request call that depends on the JSF Javascript API under https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
  */
 public class JsfAjaxRequest {
 
