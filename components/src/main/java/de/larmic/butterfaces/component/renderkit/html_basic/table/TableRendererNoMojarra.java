@@ -58,7 +58,10 @@ public class TableRendererNoMojarra extends Renderer {
         if (!columns.isEmpty()) {
             writer.startElement("div", table);
             writer.writeAttribute("id", component.getClientId(context), "id");
-            writer.writeAttribute("class", "butter-table", "styleclass");
+            writer.writeAttribute("class", StringJoiner.on(' ').join("butter-table").join(StringUtils.getNullSafeValue(table.getStyleClass())).toString(), null);
+            if (StringUtils.isNotEmpty(table.getStyle())) {
+                writer.writeAttribute("style", table.getStyle(), null);
+            }
 
             writer.startElement("table", table);
             writer.writeAttribute("class", createBootstrapTableStyleClasses(table), "styleclass");

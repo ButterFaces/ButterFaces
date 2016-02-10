@@ -2101,6 +2101,24 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <description>
+                CSS style(s) to be applied for the td-elements when this component is rendered.
+            </description>
+            <name>style</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Space-separated list of CSS style class(es) to be applied for the td-elements when
+                this element is rendered. This value must be passed through
+                as the "class" attribute on generated markup.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>model</name>
             <type>de.larmic.butterfaces.model.table.TableModel</type>
             <required>false</required>
@@ -2184,6 +2202,32 @@
             <description>Optional parameter will be assigned to table sort model if set.</description>
             <name>sortBy</name>
             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                CSS style(s) to be applied for the td-elements when this component is rendered.
+            </description>
+            <name>style</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Space-separated list of CSS style class(es) to be applied for the td-elements when
+                this element is rendered. This value must be passed through
+                as the "class" attribute on generated markup.
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>headerStyleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>headerStyle</name>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
 
