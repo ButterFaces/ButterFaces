@@ -1,22 +1,24 @@
 package de.larmic.butterfaces.component.behavior;
 
-import de.larmic.butterfaces.resolver.UIComponentResolver;
-import de.larmic.butterfaces.util.StringJoiner;
-import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+
 import static de.larmic.butterfaces.util.StringUtils.isNotEmpty;
 import static java.util.Objects.requireNonNull;
 
+import de.larmic.butterfaces.resolver.UIComponentResolver;
+import de.larmic.butterfaces.util.StringJoiner;
+import de.larmic.butterfaces.util.StringUtils;
+
 /**
- * Builds an ajax request call that depends on the JSF Javascript API under https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
+ * Builds an ajax request call that depends on the JSF Javascript API under
+ * https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
  */
 public class JsfAjaxRequest {
 
