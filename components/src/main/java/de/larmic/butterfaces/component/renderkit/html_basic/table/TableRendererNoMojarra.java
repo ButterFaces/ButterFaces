@@ -53,7 +53,7 @@ public class TableRendererNoMojarra extends Renderer {
 
         final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
         final ResponseWriter writer = context.getResponseWriter();
-        final List<HtmlColumnNoMojarra> columns = getColumns(table);
+        final List<HtmlColumnNoMojarra> columns = table.getCachedColumns();
 
         if (!columns.isEmpty()) {
             writer.startElement("div", table);
@@ -76,6 +76,7 @@ public class TableRendererNoMojarra extends Renderer {
             int columnNumber = 0;
             while (columnIterator.hasNext()) {
                 encodeColumnHeader(table, columnNumber, columnIterator.next(), context);
+                columnNumber++;
             }
             writer.endElement("tr");
             writer.endElement("thead");
@@ -93,7 +94,7 @@ public class TableRendererNoMojarra extends Renderer {
 
         final HtmlTableNoMojarra table = (HtmlTableNoMojarra) component;
         final ResponseWriter writer = context.getResponseWriter();
-        final List<HtmlColumnNoMojarra> columns = getColumns(table);
+        final List<HtmlColumnNoMojarra> columns = table.getCachedColumns();
 
         if (!columns.isEmpty()) {
             writer.endElement("tbody");
@@ -177,9 +178,10 @@ public class TableRendererNoMojarra extends Renderer {
                             writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall, null);
                         }
 
-                        for (UIComponent child : table.getChildren()) {
+                        for (UIComponent child : table.getCachedColumns()) {
                             child.encodeAll(context);
                         }
+
                         writer.endElement("tr");
                     }
 
@@ -360,18 +362,6 @@ public class TableRendererNoMojarra extends Renderer {
         }
 
         return null;
-    }
-
-    private List<HtmlColumnNoMojarra> getColumns(final HtmlTableNoMojarra table) {
-        final List<HtmlColumnNoMojarra> columns = new ArrayList<>();
-
-        for (UIComponent uiComponent : table.getChildren()) {
-            if (uiComponent instanceof HtmlColumnNoMojarra) {
-                columns.add((HtmlColumnNoMojarra) uiComponent);
-            }
-        }
-
-        return columns;
     }
 
     private Integer convertStringToInteger(final String value) {
