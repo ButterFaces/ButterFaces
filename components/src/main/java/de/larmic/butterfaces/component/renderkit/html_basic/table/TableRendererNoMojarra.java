@@ -247,6 +247,8 @@ public class TableRendererNoMojarra extends Renderer {
         }
 
         writer.startElement("div", table);
+        writer.writeAttribute("class", column.getHeaderStyleClass(), null);
+        writer.writeAttribute("style", column.getHeaderStyle(), null);
 
         // render header label
         writer.startElement("span", table);

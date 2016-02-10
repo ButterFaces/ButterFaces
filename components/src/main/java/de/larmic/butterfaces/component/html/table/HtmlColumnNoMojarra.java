@@ -29,6 +29,10 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
     protected static final String PROPERTY_HIDE_COLUMN = "hideColumn";
     protected static final String PROPERTY_SORT_COLUMN_ENABLED = "sortColumnEnabled";
     protected static final String PROPERTY_SORT_BY = "sortBy";
+    protected static final String PROPERTY_HEADER_STYLE_CLASS = "headerStyleClass";
+    protected static final String PROPERTY_HEADER_STYLE = "headerStyle";
+    protected static final String PROPERTY_STYLE_CLASS = "styleClass";
+    protected static final String PROPERTY_STYLE = "style";
 
     public HtmlColumnNoMojarra() {
         setRendererType(RENDERER_TYPE);
@@ -91,6 +95,38 @@ public class HtmlColumnNoMojarra extends UIComponentBase {
 
     public void setSortBy(String sortBy) {
         this.updateStateHelper(PROPERTY_SORT_BY, sortBy);
+    }
+
+    public String getHeaderStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_HEADER_STYLE_CLASS);
+    }
+
+    public void setHeaderStyleClass(String headerStyleClass) {
+        this.updateStateHelper(PROPERTY_HEADER_STYLE_CLASS, headerStyleClass);
+    }
+
+    public String getStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
+    }
+
+    public String getHeaderStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_HEADER_STYLE);
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        this.updateStateHelper(PROPERTY_HEADER_STYLE, headerStyle);
+    }
+
+    public String getStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE);
+    }
+
+    public void setStyle(String style) {
+        this.updateStateHelper(PROPERTY_STYLE, style);
     }
 
     protected void updateStateHelper(final String propertyName, final Object value) {
