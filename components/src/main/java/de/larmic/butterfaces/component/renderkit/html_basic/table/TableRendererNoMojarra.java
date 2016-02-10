@@ -126,6 +126,17 @@ public class TableRendererNoMojarra extends Renderer {
                         listener.processTableSelection(value);
                     }
                 }
+            } else if (behaviorEvent.startsWith("sort")) {
+                // TODO switch behaviorevent to params? (like select_)
+                final Integer colIndex = convertStringToInteger(params.get("params"));
+                final HtmlColumnNoMojarra sortedColumn = table.getCachedColumns().get(colIndex);
+                final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+                final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
+                if (table.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
+                    table.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.DESCENDING);
+                } else {
+                    table.getTableSortModel().sortColumn(tableUniqueIdentifier, columnUniqueIdentifier, sortedColumn.getSortBy(), SortType.ASCENDING);
+                }
             }
         }
     }
@@ -191,10 +202,10 @@ public class TableRendererNoMojarra extends Renderer {
             writer.writeAttribute("style", "display:none", null);
         }
 
-        // TODO convert js to ts (sortRow and butter.ajax)
+        // TODO convert js to ts (sortRow and butter.ajax) DONE
         // TODO check if ajax child is present
         if (column.isSortColumnEnabled() && table.getModel() != null) {
-            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
+            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortTableRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
             writer.writeAttribute("onclick", ajax, null);
         }
 

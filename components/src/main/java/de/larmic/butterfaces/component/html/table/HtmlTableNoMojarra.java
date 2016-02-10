@@ -7,19 +7,17 @@ package de.larmic.butterfaces.component.html.table;
 
 import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
-import de.larmic.butterfaces.model.table.TableColumnOrderingModel;
-import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
-import de.larmic.butterfaces.model.table.TableModel;
-import de.larmic.butterfaces.model.table.TableRowSortingModel;
+import de.larmic.butterfaces.model.json.Ordering;
+import de.larmic.butterfaces.model.table.*;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * This class is experimental and still in progress
@@ -31,6 +29,7 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTableNoMojarra.COMPONENT_TYPE)
@@ -49,6 +48,8 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
     protected static final String PROPERTY_MODEL = "model";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
+
+    private final List<HtmlColumnNoMojarra> cachedColumns = new ArrayList<>();
 
     public HtmlTableNoMojarra() {
         setRendererType(RENDERER_TYPE);
@@ -79,6 +80,79 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
             }
         }
         return column.isHideColumn();
+    }
+
+    // TODO is caching required? performance issue?
+    public List<HtmlColumnNoMojarra> getCachedColumns() {
+        final int childCount = this.getChildCount();
+        if (childCount > 0 && this.cachedColumns.isEmpty()) {
+            // all children that are {@link HtmlColumnNoMojarra} or should be rendered
+            for (UIComponent uiComponent : getChildren()) {
+                if ((uiComponent instanceof HtmlColumnNoMojarra) && uiComponent.isRendered()) {
+                    final HtmlColumnNoMojarra column = (HtmlColumnNoMojarra) uiComponent;
+                    this.cachedColumns.add(column);
+                }
+            }
+        }
+
+        // clear "maybe" unsorted columns
+        this.getChildren().clear();
+
+        // sort columns by model if necessary
+        if (getTableOrderingModel() != null) {
+            final List<HtmlColumnNoMojarra> notOrderedByModelColumnIdentifiers = new ArrayList<>();
+            final List<Ordering> existingOrderings = new ArrayList<>();
+
+            for (HtmlColumnNoMojarra cachedColumn : cachedColumns) {
+                final Integer position = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
+                if (position == null) {
+                    notOrderedByModelColumnIdentifiers.add(cachedColumn);
+                } else {
+                    existingOrderings.add(new Ordering(cachedColumn.getModelUniqueIdentifier(), position));
+                }
+            }
+
+            // in case of not ordered columns update table model
+            if (!notOrderedByModelColumnIdentifiers.isEmpty()) {
+                // order already existing column orderings
+                Ordering.sort(existingOrderings);
+
+                final List<String> orderings = new ArrayList<>();
+                for (Ordering existingOrdering : existingOrderings) {
+                    orderings.add(existingOrdering.getIdentifier());
+                }
+                for (HtmlColumnNoMojarra notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
+                    orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
+                }
+
+                // update table model to sync model and
+                final TableColumnOrdering ordering = new TableColumnOrdering(getModelUniqueIdentifier(), orderings);
+                getTableOrderingModel().update(ordering);
+            }
+
+            // sort columns by table model. Every column should be found.
+            Collections.sort(cachedColumns, new Comparator<HtmlColumnNoMojarra>() {
+                @Override
+                public int compare(HtmlColumnNoMojarra o1, HtmlColumnNoMojarra o2) {
+                    if (getTableOrderingModel() != null) {
+                        final Integer orderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
+                        final Integer o2OrderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
+
+                        if (orderPosition != null && o2OrderPosition != null) {
+                            return orderPosition.compareTo(o2OrderPosition);
+                        }
+                    }
+                    return 0;
+                }
+            });
+        }
+
+        // insert (sorted) {@link HtmlColumn}s.
+        for (HtmlColumnNoMojarra cachedColumn : cachedColumns) {
+            this.getChildren().add(cachedColumn);
+        }
+
+        return this.cachedColumns;
     }
 
     public String getModelUniqueIdentifier() {

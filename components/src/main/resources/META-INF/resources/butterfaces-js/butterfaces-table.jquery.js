@@ -51,7 +51,7 @@
 
             butter.ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
         });
-    }
+    };
 
     $.fn.orderColumn = function (renderIds, disableRenderIds, toLeft, columnNumber) {
 

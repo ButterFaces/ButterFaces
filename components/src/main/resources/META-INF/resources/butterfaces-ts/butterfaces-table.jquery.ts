@@ -1,4 +1,5 @@
 ///<reference path="definitions/external/tsd.d.ts"/>
+///<reference path="butterfaces-ajax.ts"/>
 
 (function ($:any) {
     $.fn.selectTableRow = function (data:any) {
@@ -12,6 +13,16 @@
             $originalElement.find('tr').removeClass('butter-table-row-selected');
             var listItems = $originalElement.find('tr[rowindex=' + data.rowIndex + ']');
             $(listItems[listItems.length - 1]).addClass('butter-table-row-selected');
+        });
+    };
+}(jQuery));
+
+(function ($:any) {
+    $.fn.sortTableRow = function (renderIds, disableRenderIds, columnNumber) {
+        return this.each(function () {
+            var $table = $(this);
+
+            ButterFaces.Ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
         });
     };
 }(jQuery));
