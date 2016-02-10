@@ -2095,6 +2095,12 @@
             <required>true</required>
         </attribute>
         <attribute>
+            <description>Optional row style class</description>
+            <required>false</required>
+            <name>rowClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>model</name>
             <type>de.larmic.butterfaces.model.table.TableModel</type>
             <required>false</required>

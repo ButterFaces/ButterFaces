@@ -46,6 +46,7 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
 
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_MODEL = "model";
+    protected static final String PROPERTY_TABLE_ROW_CLASS = "rowClass";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
@@ -153,6 +154,14 @@ public class HtmlTableNoMojarra extends HtmlRepeat implements ClientBehaviorHold
         }
 
         return this.cachedColumns;
+    }
+
+    public String getRowClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_TABLE_ROW_CLASS);
+    }
+
+    public void setRowClass(String rowClass) {
+        this.updateStateHelper(PROPERTY_TABLE_ROW_CLASS, rowClass);
     }
 
     public String getModelUniqueIdentifier() {

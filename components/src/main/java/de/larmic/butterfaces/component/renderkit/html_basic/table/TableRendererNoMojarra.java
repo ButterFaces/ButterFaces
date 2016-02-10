@@ -161,7 +161,8 @@ public class TableRendererNoMojarra extends Renderer {
                     if (table.isRowAvailable() && table.getChildCount() > 0) {
                         writer.startElement("tr", table);
                         writer.writeAttribute("rowindex", rowKey, null);
-                        writer.writeAttribute("class", "butter-table-row", "styleclass");
+                        final String rowClass = StringJoiner.on(' ').join("butter-table-row").join(StringUtils.getNullSafeValue(table.getRowClass())).toString();
+                        writer.writeAttribute("class", rowClass, null);
 
                         if (clickAjaxBehavior != null && table.getSingleSelectionListener() != null) {
                             final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(table.getClientId(), true)
