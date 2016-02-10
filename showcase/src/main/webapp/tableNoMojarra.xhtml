@@ -121,8 +121,14 @@
                 #{rowItem.a}
             </b:columnNoMojarra>
             <b:columnNoMojarra id="column5"
-                               label="input">
+                               label="input"
+                               hideColumn="true">
                 <b:text value="#{rowItem.a}" hideLabel="true" />
+            </b:columnNoMojarra>
+            <b:columnNoMojarra id="column6"
+                               label="date"
+                               hideColumn="true">
+                <b:calendar value="#{rowItem.date}" hideLabel="true" />
             </b:columnNoMojarra>
         </b:tableNoMojarra>
 
