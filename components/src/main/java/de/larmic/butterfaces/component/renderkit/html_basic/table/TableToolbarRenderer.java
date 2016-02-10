@@ -5,19 +5,6 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
@@ -31,6 +18,18 @@ import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -294,7 +293,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             if (tableToolbar.isAjaxDisableRenderRegionsOnRequest()) {
                 final List<String> renderIds = new ArrayList<>(ajaxBehavior.getRender());
                 renderIds.add(table.getClientId());
-                final StringBuilder onEvent = new StringBuilder("butter.ajax.disableElementsOnRequest(data, [");
+                final StringBuilder onEvent = new StringBuilder("ButterFaces.Ajax.disableElementsOnRequest(data, [");
                 onEvent.append(StringUtils.joinWithCommaSeparator(renderIds, true));
                 onEvent.append("])");
                 jsfAjaxRequest.addOnEventHandler(onEvent.toString());

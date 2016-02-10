@@ -21,7 +21,7 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-guid.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-ajax.js", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head")
 })
 @FacesComponent(HtmlTableToolbar.COMPONENT_TYPE)
 public class HtmlTableToolbar extends UIComponentBase implements ClientBehaviorHolder {

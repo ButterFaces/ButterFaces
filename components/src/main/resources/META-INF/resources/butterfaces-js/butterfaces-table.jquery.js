@@ -27,7 +27,7 @@
             var $toolbar = $(this);
 
             var json = JSON.stringify(createColumnVisibilty($toolbar));
-            butter.ajax.sendRequest($toolbar.attr('id'), 'toggle', renderIds, json, disableRenderIds);
+            ButterFaces.Ajax.sendRequest($toolbar.attr('id'), 'toggle', renderIds, json, disableRenderIds);
         });
 
         function createColumnVisibilty($toolbar) {
@@ -49,7 +49,7 @@
         return this.each(function () {
             var $table = $(this);
 
-            butter.ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
+            ButterFaces.Ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
         });
     };
 
@@ -67,7 +67,7 @@
             }
 
             var json = JSON.stringify(createColumnOrder($toolbar));
-            butter.ajax.sendRequest($toolbar.attr('id'), 'order', renderIds, json, disableRenderIds);
+            ButterFaces.Ajax.sendRequest($toolbar.attr('id'), 'order', renderIds, json, disableRenderIds);
         });
 
         function createColumnOrder($toolbar) {
