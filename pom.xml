@@ -18,7 +18,6 @@
         <module>components-mojarra</module>
         <module>showcase-shared</module>
         <module>showcase</module>
-        <module>showcase-myfaces</module>
     </modules>
 
     <licenses>
