@@ -16,7 +16,6 @@
     <modules>
         <module>components</module>
         <module>components-mojarra</module>
-        <module>showcase-shared</module>
         <module>showcase</module>
     </modules>
 
