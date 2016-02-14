@@ -179,12 +179,6 @@
                 <version>${project.version}</version>
                 <type>war</type>
             </dependency>
-            <dependency>
-                <groupId>de.larmic.butterfaces</groupId>
-                <artifactId>showcase-shared</artifactId>
-                <version>${project.version}</version>
-                <type>jar</type>
-            </dependency>
             <!-- TESTING -->
             <dependency>
                 <groupId>junit</groupId>

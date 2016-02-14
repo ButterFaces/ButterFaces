@@ -20,10 +20,6 @@
         </dependency>
         <dependency>
             <groupId>de.larmic.butterfaces</groupId>
-            <artifactId>showcase-shared</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.larmic.butterfaces</groupId>
             <artifactId>components-mojarra</artifactId>
         </dependency>
         <dependency>
