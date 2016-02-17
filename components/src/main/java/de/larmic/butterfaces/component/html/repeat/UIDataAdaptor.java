@@ -215,14 +215,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     protected DataModelWrapper<?> getDataModelWrapper() {
         if (dataModelWrapper == null) {
-            dataModelWrapper = createDataModelWrapper();
+            dataModelWrapper = DataModelWrapperFactory.createDataModelWrapper(getValue());
         }
 
         return dataModelWrapper;
-    }
-
-    protected DataModelWrapper<?> createDataModelWrapper() {
-        return DataModelWrapperFactory.createDataModelWrapper(getValue());
     }
 
     public int getRowIndex() {
@@ -373,7 +369,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.containerClientId = null;
     }
 
-    protected void resetDataModel() {
+    public void resetDataModel() {
         this.dataModelWrapper = null;
     }
 

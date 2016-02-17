@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.showcase.table;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
@@ -19,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by larmic on 11.09.14.
+ * @author Lars Michaelis
  */
 @Named
 @ViewScoped
@@ -52,6 +57,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
     private String colWidthColumn4;
     private int numberOfRefreshes;
 
+    public TableShowcase() {
+        tableModel.getTableRowSortingModel().sortColumn("filterTable", "column1", null, SortType.ASCENDING);
+    }
+
     @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(this.createXhtmlCodeExample());
@@ -69,13 +78,10 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     public List<DemoPojo> getStringRows() {
         if (demoPojos.isEmpty()) {
-            demoPojos.add(new DemoPojo(1L, "r1c1", "r1c2"));
-            demoPojos.add(new DemoPojo(2L, "r2c1", "r2c2"));
-            demoPojos.add(new DemoPojo(3L, "r3c1", "r3c2"));
-            demoPojos.add(new DemoPojo(4L, "r4c1", "r4c2"));
-            demoPojos.add(new DemoPojo(5L, "r5c1", "r5c2"));
-            demoPojos.add(new DemoPojo(6L, "r6c1", "r6c2"));
-            demoPojos.add(new DemoPojo(7L, "r7c1", "r7c2"));
+            for (int row = 0; row < 10; row++) {
+                final int rowNumber = row + 1;
+                demoPojos.add(new DemoPojo(rowNumber, String.format("r%sc1", rowNumber), String.format("r%sc2", rowNumber)));
+            }
         }
 
         if (toolBarType == ToolBarType.SERVER_FILTER && StringUtils.isNotEmpty(filterValue)) {
@@ -144,7 +150,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("        </h:panelGroup>\n");
         }
 
-        xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"input\"");
+        xhtmlCodeExample.appendInnerContent("        <b:tableToolbar tableId=\"table\"");
         xhtmlCodeExample.appendInnerContent("                        ajaxDisableRenderRegionsOnRequest=\"" + this.ajaxDisableRenderRegionsOnRequest + "\"");
         if (showRefreshButton) {
             xhtmlCodeExample.appendInnerContent("                        refreshListener=\"#{myBean.toolbarRefreshListener}\"");
@@ -188,7 +194,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("                    placeholder=\"Enter text...\"");
             xhtmlCodeExample.appendInnerContent("                    autoFocus=\"true\"");
             xhtmlCodeExample.appendInnerContent("                    hideLabel=\"true\">");
-            xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"input\"/>");
+            xhtmlCodeExample.appendInnerContent("                <f:ajax event=\"keyup\" render=\"table\"/>");
             xhtmlCodeExample.appendInnerContent("            </b:text>");
         } else if (toolBarType == ToolBarType.CLIENT_FILTER) {
             xhtmlCodeExample.appendInnerContent("            <div class=\"form-inline pull-left\" role=\"form\">");
@@ -202,7 +208,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
         xhtmlCodeExample.appendInnerContent("        </b:tableToolbar>\n");
 
-        xhtmlCodeExample.appendInnerContent("        <b:table id=\"input\"");
+        xhtmlCodeExample.appendInnerContent("        <b:table id=\"table\"");
         xhtmlCodeExample.appendInnerContent("                 var=\"rowItem\"");
         xhtmlCodeExample.appendInnerContent("                 value=\"#{myBean.value}\"");
         if (useTableModel) {
@@ -363,6 +369,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
         if (showRefreshButton) {
             myBean.appendInnerContent("    private int numberOfRefreshes;\n");
+        }
+
+        if (useTableModel) {
+            myBean.appendInnerContent("    @PostConstruct");
+            myBean.appendInnerContent("    public init() {");
+            myBean.appendInnerContent("       // initial table ordering by first column");
+            myBean.appendInnerContent("       tableModel.getTableRowSortingModel()");
+            myBean.appendInnerContent("              .sortColumn(\"table\", \"column1\", null, SortType.ASCENDING);");
+            myBean.appendInnerContent("    }");
         }
 
         myBean.appendInnerContent("    public List<DemoPojo> getValue() {");

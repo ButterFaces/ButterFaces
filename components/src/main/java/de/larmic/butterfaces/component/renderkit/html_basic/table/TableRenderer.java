@@ -28,7 +28,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import javax.faces.render.Renderer;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -79,6 +82,9 @@ public class TableRenderer extends Renderer {
             writer.endElement("tr");
             writer.endElement("thead");
             writer.startElement("tbody", table);
+
+            // row ordering could be changed by creating table header (read sort model)
+            table.resetDataModel();
         }
     }
 
@@ -124,7 +130,7 @@ public class TableRenderer extends Renderer {
         if (StringUtils.isNotEmpty(behaviorEvent)) {
             if (params.get("params").startsWith("select_")) {
                 final Integer rowIndex = convertStringToInteger(params.get("params").replaceFirst("select_", ""));
-                final Object value = findRowValue(table, rowIndex);
+                final Object value = findRowValue((Iterable) untypedTableValue, rowIndex);
 
                 if (value != null) {
                     final TableSingleSelectionListener listener = table.getSingleSelectionListener();
@@ -245,7 +251,6 @@ public class TableRenderer extends Renderer {
             writer.writeAttribute("style", "display:none", null);
         }
 
-        // TODO convert js to ts (sortRow and butter.ajax) DONE
         // TODO check if ajax child is present
         if (column.isSortColumnEnabled() && table.getModel() != null) {
             final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortTableRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
@@ -339,24 +344,18 @@ public class TableRenderer extends Renderer {
         return false;
     }
 
-    private Object findRowValue(final HtmlTable table, final int row) {
-        final Object value = table.getValue();
+    private Object findRowValue(final Iterable value, final int row) {
+        final Iterator iterator = value.iterator();
+        int actualRow = 0;
 
-        if (value instanceof Iterable) {
-            final Iterator iterator = ((Iterable) value).iterator();
-            int actualRow = 0;
+        while (iterator.hasNext()) {
+            final Object actualRowValue = iterator.next();
 
-            while (iterator.hasNext()) {
-                final Object actualRowValue = iterator.next();
-
-                if (actualRow == row) {
-                    return actualRowValue;
-                }
-
-                actualRow++;
+            if (actualRow == row) {
+                return actualRowValue;
             }
 
-            return null;
+            actualRow++;
         }
 
         return null;
