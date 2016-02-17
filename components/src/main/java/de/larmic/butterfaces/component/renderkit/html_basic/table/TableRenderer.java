@@ -82,9 +82,6 @@ public class TableRenderer extends Renderer {
             writer.endElement("tr");
             writer.endElement("thead");
             writer.startElement("tbody", table);
-
-            // row ordering could be changed by creating table header (read sort model)
-            table.resetDataModel();
         }
     }
 
@@ -160,6 +157,9 @@ public class TableRenderer extends Renderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(table, "click");
+
+        // row ordering could be changed by creating table header (read sort model)
+        table.resetDataModel();
 
         try {
             DataVisitor visitor = new DataVisitor() {
