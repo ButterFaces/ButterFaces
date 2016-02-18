@@ -1,7 +1,6 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:b="http://butterfaces.larmic.de/components">
@@ -161,7 +160,7 @@
                       colWidth="#{tableShowcase.colWidthColumn2}"
                       sortColumnEnabled="false"
                       label="Action">
-                <b:commandLink value="doSomething"
+                <b:commandLink value="doSomething with #{rowItem.a}"
                                styleClass="btn btn-warning btn-xs"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
