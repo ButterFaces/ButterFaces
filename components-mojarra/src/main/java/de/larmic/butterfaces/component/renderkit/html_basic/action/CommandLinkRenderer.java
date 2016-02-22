@@ -1,14 +1,11 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
+import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIOutput;
+import javax.faces.component.*;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -195,7 +192,16 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
         writer.startElement("span", component);
         writer.writeAttribute("class", "butter-component-glyphicon-text", null);
-        super.writeValue(component, writer);
+
+        final Object value = ((UICommand) component).getValue();
+        if (value != null) {
+            final String label = value.toString();
+
+            if (StringUtils.isNotEmpty(label)) {
+                writer.writeText(label, component, null);
+            }
+        }
+
         writer.endElement("span");
 
         this.writeWaitingDotsIfNecessary(commandLink, writer);
