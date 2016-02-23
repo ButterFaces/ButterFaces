@@ -105,37 +105,28 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             clientId = component.getClientId(context);
         }
 
-        if (params.containsKey(clientId) || isPartialOrBehaviorAction(context, clientId)) {
+        if (params.containsKey(clientId) || isPartialOrBehaviorAction(clientId, params)) {
             component.queueEvent(new ActionEvent(component));
         }
     }
 
-    // TODO refactor it
-    private static boolean isPartialOrBehaviorAction(FacesContext context,
-                                                     String clientId) {
-        if ((clientId == null) || (clientId.length() == 0)) {
+    private boolean isPartialOrBehaviorAction(String clientId, Map<String, String> requestParameter) {
+        if (clientId == null || clientId.length() == 0) {
             return false;
         }
 
-        ExternalContext external = context.getExternalContext();
-        Map<String, String> params = external.getRequestParameterMap();
-
-        String source = params.get("javax.faces.source");
-        if (!clientId.equals(source)) {
+        if (!clientId.equals(requestParameter.get("javax.faces.source"))) {
             return false;
         }
 
-        // First check for a Behavior action event.
-        String behaviorEvent = params.get("javax.faces.behavior.event");
-        if (null != behaviorEvent) {
-            return ("action".equals(behaviorEvent));
+        // check for a behavior action event
+        final String behaviorEvent = requestParameter.get("javax.faces.behavior.event");
+        if (behaviorEvent != null) {
+            return "action".equals(behaviorEvent);
         }
 
-        // Not a Behavior-related request.  Check for jsf.ajax.request()
-        // request params.
-        String partialEvent = params.get("javax.faces.partial.event");
-
-        return ("click".equals(partialEvent));
+        // Not a Behavior-related request. Check for jsf.ajax.request() request params
+        return ("click".equals(requestParameter.get("javax.faces.partial.event")));
     }
 
     private void resetValues(final UIComponent component) {
