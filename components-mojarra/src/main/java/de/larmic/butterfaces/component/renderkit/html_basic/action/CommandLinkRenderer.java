@@ -139,8 +139,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                 writer.writeText("}", null);
                 writer.endElement("script");
             }
-
-            super.encodeEnd(context, component);
+            writer.endElement("a");
         } else {
             writer.endElement("span");
         }
