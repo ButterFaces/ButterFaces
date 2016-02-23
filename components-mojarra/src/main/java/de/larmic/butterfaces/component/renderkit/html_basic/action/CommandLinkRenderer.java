@@ -11,6 +11,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -78,6 +79,12 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
+        final HtmlCommandLink link = (HtmlCommandLink) component;
+
+        if (link.isDisabled()) {
+            return;
+        }
+
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String resetValues = params.get("javax.faces.partial.resetValues");
@@ -92,7 +99,43 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             }
         }
 
-        super.decode(context, component);
+        String clientId = decodeBehaviors(context, component);
+
+        if (clientId == null) {
+            clientId = component.getClientId(context);
+        }
+
+        if (params.containsKey(clientId) || isPartialOrBehaviorAction(context, clientId)) {
+            component.queueEvent(new ActionEvent(component));
+        }
+    }
+
+    // TODO refactor it
+    private static boolean isPartialOrBehaviorAction(FacesContext context,
+                                                     String clientId) {
+        if ((clientId == null) || (clientId.length() == 0)) {
+            return false;
+        }
+
+        ExternalContext external = context.getExternalContext();
+        Map<String, String> params = external.getRequestParameterMap();
+
+        String source = params.get("javax.faces.source");
+        if (!clientId.equals(source)) {
+            return false;
+        }
+
+        // First check for a Behavior action event.
+        String behaviorEvent = params.get("javax.faces.behavior.event");
+        if (null != behaviorEvent) {
+            return ("action".equals(behaviorEvent));
+        }
+
+        // Not a Behavior-related request.  Check for jsf.ajax.request()
+        // request params.
+        String partialEvent = params.get("javax.faces.partial.event");
+
+        return ("click".equals(partialEvent));
     }
 
     private void resetValues(final UIComponent component) {
@@ -147,7 +190,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
     private String createDisableOnClickFunctionCall(HtmlCommandLink link, String processingText,
                                                     String processingGlyphicon, String jQueryIDSelector) {
-        StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append("    butter.link.disableOnClick(data, ");
         sb.append(link.isAjaxShowWaitingDotsOnRequest()).append(",");
 
