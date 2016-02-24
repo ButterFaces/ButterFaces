@@ -263,6 +263,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             }
         }
 
+        // TODO replace it with custom implementation (replace mojarra.ab(,,,) by default jsf js api)
         super.renderAsActive(context, component);
 
         // reset ajax behaviour because otherwise a render of this component will not be work correctly (wrong js
