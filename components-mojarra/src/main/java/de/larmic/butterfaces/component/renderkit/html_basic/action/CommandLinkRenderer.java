@@ -41,7 +41,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         if (!link.isDisabled()) {
-            super.encodeBegin(context, component);
+            this.renderAsActive(context, component);
         } else {
             writer.startElement("span", component);
             writeIdAttributeIfNecessary(context, writer, component);
