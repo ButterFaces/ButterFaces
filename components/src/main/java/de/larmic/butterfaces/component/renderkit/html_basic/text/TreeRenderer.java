@@ -12,6 +12,7 @@ import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -29,7 +30,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     public static final String DEFAULT_NODES_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper tr-editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
-    public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -185,7 +185,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String searchBarMode = determineSearchBarMode(tree);
         final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
 
-        final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+
+        final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), webXmlParameters.getNoEntriesText());
         final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
         if (selectedNodeNumber != null) {

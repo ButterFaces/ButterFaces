@@ -15,6 +15,7 @@ import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -36,7 +37,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     public static final String DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper tr-editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
     public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
-    public static final String DEFAULT_NO_MATCHING_TEXT = "No matching entries...";
 
     @Override
     protected boolean encodeReadonly() {
@@ -136,7 +136,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final Node selectedNode = selectedEntryId != null ? nodesMap.get(selectedEntryId) : null;
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
 
-        final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), DEFAULT_NO_MATCHING_TEXT);
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+
+        final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), webXmlParameters.getNoEntriesText());
         final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
 
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
