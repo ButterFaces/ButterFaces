@@ -25,6 +25,7 @@ public class WebXmlParameters {
 
     public static final String CTX_PARAM_AJAX_PROCESSING_TEXT = "de.larmic.butterfaces.ajaxProcessingTextOnRequest";
     public static final String CTX_PARAM_AJAX_PROCESSING_GLYPHICON = "de.larmic.butterfaces.ajaxProcessingGlyphiconOnRequest";
+    public static final String DEFAULT_AJAX_PROCESSING_TEXT = "Processing";
 
     public static final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
     public static final String DEFAULT_OPTIONS_GLYPHICON = "glyphicon glyphicon-th";
@@ -34,7 +35,8 @@ public class WebXmlParameters {
     public static final String DEFAULT_ORDER_LEFT_GLYPHICON = "glyphicon glyphicon-chevron-left";
     public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
 
-    public static final String DEFAULT_AJAX_PROCESSING_TEXT = "Processing";
+    public static final String CTX_PARAM_NO_ENTRIES_TEXT = "de.larmic.butterfaces.noEntriesText";
+    public static final String DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT = "No matching entries...";
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
@@ -50,6 +52,7 @@ public class WebXmlParameters {
 
     private final String ajaxProcessingTextOnRequest;
     private final String ajaxProcessingGlyphiconOnRequest;
+    private String noEntriesText;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -67,6 +70,8 @@ public class WebXmlParameters {
 
         this.ajaxProcessingTextOnRequest = this.readParameter(CTX_PARAM_AJAX_PROCESSING_TEXT, DEFAULT_AJAX_PROCESSING_TEXT, externalContext);
         this.ajaxProcessingGlyphiconOnRequest = this.readParameter(CTX_PARAM_AJAX_PROCESSING_GLYPHICON, "", externalContext);
+
+        this.noEntriesText = this.readParameter(CTX_PARAM_NO_ENTRIES_TEXT, DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -125,5 +130,9 @@ public class WebXmlParameters {
 
     public String getAjaxProcessingGlyphiconOnRequest() {
         return ajaxProcessingGlyphiconOnRequest;
+    }
+
+    public String getNoEntriesText() {
+        return noEntriesText;
     }
 }

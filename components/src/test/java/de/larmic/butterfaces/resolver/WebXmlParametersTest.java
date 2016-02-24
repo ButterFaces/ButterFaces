@@ -13,6 +13,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class WebXmlParametersTest {
 
+    private static final String OVERRIDDEN_NOENTRIESTEXT = "customNoEntriesText";
+
     private static final String OVERRIDDEN_REFRESH = "o_refresh";
     private static final String OVERRIDDEN_OPTIONS = "o_options";
 
@@ -39,6 +41,8 @@ public class WebXmlParametersTest {
     public void setUp() throws Exception {
         initMocks(this);
 
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_NO_ENTRIES_TEXT)).thenReturn(OVERRIDDEN_NOENTRIESTEXT);
+
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_REFRESH_GLYPHICON)).thenReturn(OVERRIDDEN_REFRESH);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_OPTIONS_GLYPHICON)).thenReturn(OVERRIDDEN_OPTIONS);
 
@@ -58,6 +62,12 @@ public class WebXmlParametersTest {
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_TEXT)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_TEXT);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_GLYPHICON)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON);
+    }
+
+    @Test
+    public void testGetNoEntriesText() throws Exception {
+        Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, new WebXmlParameters(defaultValueExternalContext).getNoEntriesText());
+        Assert.assertEquals(OVERRIDDEN_NOENTRIESTEXT, new WebXmlParameters(overriddenValueExternalContext).getNoEntriesText());
     }
 
     @Test

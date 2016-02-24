@@ -68,6 +68,11 @@
         <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>
         <param-value>fa fa-sort-up</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>de.larmic.butterfaces.noEntriesText</param-name>
+        <param-value>No matching entries...</param-value>
+    </context-param>
 	-->
 
 	<servlet>
