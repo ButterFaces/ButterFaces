@@ -251,6 +251,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
             if (actionBehaviours != null && !actionBehaviours.isEmpty()) {
                 for (AjaxBehavior actionBehaviour : actionBehaviours) {
+                    // TODO works only for the last behavior. Is this correct?
                     ajaxBehavior = actionBehaviour;
                     if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
                         onEventCallback = ajaxBehavior.getOnevent();
