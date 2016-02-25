@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxWebXmlExample;
 import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
@@ -62,6 +63,8 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
             codeExamples.add(this.createNodeDataCodeExample());
         }
+
+        codeExamples.add(new TreeBoxWebXmlExample());
 
     }
 

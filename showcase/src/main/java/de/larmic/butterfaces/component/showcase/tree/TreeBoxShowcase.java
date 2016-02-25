@@ -81,6 +81,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         }
 
         generateDemoCSS(codeExamples);
+        codeExamples.add(new TreeBoxWebXmlExample());
     }
 
     private XhtmlCodeExample buildXhtmlCodeExample() {

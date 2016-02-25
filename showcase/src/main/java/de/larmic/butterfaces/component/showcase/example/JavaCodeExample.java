@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.showcase.example;
 
 import de.larmic.butterfaces.util.StringUtils;
@@ -6,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by larmic on 12.12.14.
+ * @author Lars Michaelis
  */
 public class JavaCodeExample extends AbstractCodeExample {
 
