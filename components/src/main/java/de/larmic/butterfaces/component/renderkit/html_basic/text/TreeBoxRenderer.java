@@ -36,7 +36,6 @@ import java.util.Map;
 public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     public static final String DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE = "<div class=\"tr-template-single-line\">  <div class=\"content-wrapper tr-editor-area\">     <div>{{butterObjectToString}}</div>   </div></div>";
-    public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
 
     @Override
     protected boolean encodeReadonly() {
@@ -139,7 +138,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), webXmlParameters.getNoEntriesText());
-        final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), DEFAULT_SPINNER_TEXT);
+        final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), webXmlParameters.getSpinnerText());
 
         if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
             jQueryPluginCall.append("TrivialComboBox({");

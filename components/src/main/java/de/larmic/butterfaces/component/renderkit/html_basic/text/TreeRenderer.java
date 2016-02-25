@@ -29,7 +29,6 @@ import java.util.*;
 public class TreeRenderer extends HtmlBasicRenderer {
 
     public static final String DEFAULT_NODES_TEMPLATE = "<div class=\"tr-template-icon-2-lines tr-tree-entry filterable-item {{styleClass}}\">  <div class=\"img-wrapper {{imageClass}}\" style=\"{{imageStyle}}\"></div>  <div class=\"content-wrapper tr-editor-area\">     <div class=\"main-line\">{{title}}</div>     <div class=\"additional-info\">{{description}}</div>  </div></div>";
-    public static final String DEFAULT_SPINNER_TEXT = "Fetching data...";
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -188,7 +187,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
         final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), webXmlParameters.getNoEntriesText());
-        final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), DEFAULT_SPINNER_TEXT);
+        final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), webXmlParameters.getSpinnerText());
 
         if (selectedNodeNumber != null) {
             openPathToNode(nodesMap.get(selectedNodeNumber), tree.getNodeExpansionListener(), nodesMap);
