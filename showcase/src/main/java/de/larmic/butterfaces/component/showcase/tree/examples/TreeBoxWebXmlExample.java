@@ -21,5 +21,13 @@ public class TreeBoxWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("     <param-name>de.larmic.butterfaces.noEntriesText</param-name>");
         appendInnerContent("     <param-value>No matching entries...</param-value>");
         appendInnerContent("  </context-param>");
+
+        appendInnerContent("  <!-- Text showing if entries are loading -->");
+        appendInnerContent("  <!-- Could be overridden by spinnerText component attribute -->");
+        appendInnerContent("  <!-- default is 'Fetching data...' -->");
+        appendInnerContent("  <context-param>");
+        appendInnerContent("     <param-name>de.larmic.butterfaces.spinnerText</param-name>");
+        appendInnerContent("     <param-value>Fetching data...</param-value>");
+        appendInnerContent("  </context-param>");
     }
 }
