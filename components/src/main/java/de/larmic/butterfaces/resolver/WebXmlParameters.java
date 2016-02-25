@@ -38,6 +38,9 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_NO_ENTRIES_TEXT = "de.larmic.butterfaces.noEntriesText";
     public static final String DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT = "No matching entries...";
 
+    public static final String CTX_PARAM_SPINNER_TEXT = "de.larmic.butterfaces.spinnerText";
+    public static final String DEFAULT_CTX_PARAM_SPINNER_TEXT = "Fetching data...";
+
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
     private final boolean useCompressedResources;
@@ -53,6 +56,7 @@ public class WebXmlParameters {
     private final String ajaxProcessingTextOnRequest;
     private final String ajaxProcessingGlyphiconOnRequest;
     private String noEntriesText;
+    private String spinnerText;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -72,6 +76,7 @@ public class WebXmlParameters {
         this.ajaxProcessingGlyphiconOnRequest = this.readParameter(CTX_PARAM_AJAX_PROCESSING_GLYPHICON, "", externalContext);
 
         this.noEntriesText = this.readParameter(CTX_PARAM_NO_ENTRIES_TEXT, DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, externalContext);
+        this.spinnerText = this.readParameter(CTX_PARAM_SPINNER_TEXT, DEFAULT_CTX_PARAM_SPINNER_TEXT, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -134,5 +139,9 @@ public class WebXmlParameters {
 
     public String getNoEntriesText() {
         return noEntriesText;
+    }
+
+    public String getSpinnerText() {
+        return spinnerText;
     }
 }
