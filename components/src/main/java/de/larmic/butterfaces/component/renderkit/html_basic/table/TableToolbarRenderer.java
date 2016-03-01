@@ -185,7 +185,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             if (toggleAjaxBehavior != null && table.getTableColumnVisibilityModel() != null) {
                final List<String> rerenderIds = JsfAjaxRequest.createRerenderIds(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
                rerenderIds.add(table.getClientId());
-               this.renderToggleColumnInput(writer, tableToolbar, rerenderIds, cachedColumn, table);
+               this.renderToggleColumnInput(writer, tableToolbar, rerenderIds, cachedColumn, table, webXmlParameters);
             }
 
             writer.startElement("label", tableToolbar);
@@ -214,8 +214,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                        final List<String> renderIds,
                                        final int columnNumber,
                                        final WebXmlParameters webXmlParameters) throws IOException {
-        final String ajaxColumnOrderLeft = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), "true, " + columnNumber);
-        final String ajaxColumnOrderRight = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), "false, " + columnNumber);
+        final String ajaxColumnOrderLeft = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", isAjaxDisableRenderReqionOnRequest(tableToolbar, webXmlParameters), "true, " + columnNumber);
+        final String ajaxColumnOrderRight = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "orderColumn", isAjaxDisableRenderReqionOnRequest(tableToolbar, webXmlParameters), "false, " + columnNumber);
 
         writer.startElement("span", tableToolbar);
         writer.writeAttribute("class", "butter-table-toolbar-column-order-item butter-table-toolbar-column-order-item-up " + webXmlParameters.getOrderLeftGlyphicon(), "styleClass");
@@ -227,15 +227,21 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         writer.endElement("span");
     }
 
+    private Boolean isAjaxDisableRenderReqionOnRequest(final HtmlTableToolbar toolbar, final WebXmlParameters parameters) {
+        final Boolean disableRegion = toolbar.isAjaxDisableRenderRegionsOnRequest();
+        return disableRegion != null ? disableRegion : parameters.isAjaxDisableRenderRegionsOnRequest();
+    }
+
     private void renderToggleColumnInput(final ResponseWriter writer,
                                          final HtmlTableToolbar tableToolbar,
                                          final List<String> renderIds,
                                          final HtmlColumn cachedColumn,
-                                         final HtmlTable table) throws IOException {
+                                         final HtmlTable table,
+                                         final WebXmlParameters webXmlParameters) throws IOException {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
 
-        final String ajax = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "toggleColumnVisibilty", tableToolbar.isAjaxDisableRenderRegionsOnRequest(), null);
+        final String ajax = createModelJavaScriptCall(tableToolbar.getClientId(), renderIds, "toggleColumnVisibilty", isAjaxDisableRenderReqionOnRequest(tableToolbar, webXmlParameters), null);
 
         writer.writeAttribute("onclick", ajax, null);
 
@@ -290,7 +296,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                     .addOnErrorHandler(ajaxBehavior.getOnerror())
                     .setBehaviorEvent(eventName);
 
-            if (tableToolbar.isAjaxDisableRenderRegionsOnRequest()) {
+            if (isAjaxDisableRenderReqionOnRequest(tableToolbar, webXmlParameters)) {
                 final List<String> renderIds = new ArrayList<>(ajaxBehavior.getRender());
                 renderIds.add(table.getClientId());
                 final StringBuilder onEvent = new StringBuilder("ButterFaces.Ajax.disableElementsOnRequest(data, [");

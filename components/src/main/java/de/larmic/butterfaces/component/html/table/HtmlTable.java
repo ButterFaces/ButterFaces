@@ -248,7 +248,7 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
         return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
     }
 
-    public boolean isAjaxDisableRenderRegionsOnRequest() {
+    public Boolean isAjaxDisableRenderRegionsOnRequest() {
         return (Boolean) this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
     }
 
