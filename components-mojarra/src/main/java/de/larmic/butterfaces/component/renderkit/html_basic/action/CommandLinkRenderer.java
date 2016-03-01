@@ -162,7 +162,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
                 final String processingGlyphicon = createAjaxProcessingGlypicon(link);
 
                 final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
-                final String jQueryIDSelector = link.isAjaxDisableRenderRegionsOnRequest()
+                final String jQueryIDSelector = isAjaxDisableRenderReqionOnRequest(link, webXmlParameters)
                         ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
 
                 writer.writeText(
@@ -177,6 +177,11 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         } else {
             writer.endElement("span");
         }
+    }
+
+    private Boolean isAjaxDisableRenderReqionOnRequest(final HtmlCommandLink link, final WebXmlParameters parameters) {
+        final Boolean disableRegion = link.isAjaxDisableRenderRegionsOnRequest();
+        return disableRegion != null ? disableRegion : parameters.isAjaxDisableRenderRegionsOnRequest();
     }
 
     private String createDisableOnClickFunctionCall(HtmlCommandLink link, String processingText,

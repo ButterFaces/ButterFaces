@@ -97,9 +97,8 @@ public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink 
         this.updateStateHelper(PROPERTY_AJAX_HIDE_GLYPHICON_ON_REQUEST, ajaxHideGlyphiconOnRequest);
     }
 
-    public boolean isAjaxDisableRenderRegionsOnRequest() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
-        return eval == null ? true : (Boolean) eval;
+    public Boolean isAjaxDisableRenderRegionsOnRequest() {
+        return (Boolean) this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
     }
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {
