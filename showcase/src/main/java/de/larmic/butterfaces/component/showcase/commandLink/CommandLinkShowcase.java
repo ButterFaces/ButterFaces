@@ -1,11 +1,11 @@
 package de.larmic.butterfaces.component.showcase.commandLink;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
+import de.larmic.butterfaces.component.showcase.commandLink.example.CommandLinkWebXmlExample;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
-import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -57,7 +57,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
         codeExamples.add(xhtmlCodeExample);
         codeExamples.add(javaCodeExample);
-        codeExamples.add(createWebXmlExample());
+        codeExamples.add(new CommandLinkWebXmlExample());
     }
 
     private JavaCodeExample createJavaCodeExample() {
@@ -89,25 +89,6 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         javaCodeExample.appendInnerContent("    }");
 
         return javaCodeExample;
-    }
-
-    private AbstractCodeExample createWebXmlExample() {
-        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
-
-        webXmlCodeExample.appendInnerContent("  <!-- Button text when ajax request is running -->");
-        webXmlCodeExample.appendInnerContent("  <!-- default is Processing -->");
-        webXmlCodeExample.appendInnerContent("  <context-param>");
-        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
-        webXmlCodeExample.appendInnerContent("     <param-value>Processing</param-value>");
-        webXmlCodeExample.appendInnerContent("  </context-param>");
-        webXmlCodeExample.appendInnerContent("  <!-- Glyphicon when ajax request is running -->");
-        webXmlCodeExample.appendInnerContent("  <!-- default is empty -->");
-        webXmlCodeExample.appendInnerContent("  <context-param>");
-        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
-        webXmlCodeExample.appendInnerContent("     <param-value></param-value>");
-        webXmlCodeExample.appendInnerContent("  </context-param>");
-
-        return webXmlCodeExample;
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
