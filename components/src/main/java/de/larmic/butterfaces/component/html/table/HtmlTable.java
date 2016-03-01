@@ -249,8 +249,7 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
     }
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {
-        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
-        return eval == null ? true : (Boolean) eval;
+        return (Boolean) this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
     }
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {

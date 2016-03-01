@@ -253,7 +253,7 @@ public class TableRenderer extends Renderer {
 
         // TODO check if ajax child is present
         if (column.isSortColumnEnabled() && table.getModel() != null) {
-            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortTableRow", table.isAjaxDisableRenderRegionsOnRequest(), columnNumber + "");
+            final String ajax = TableToolbarRenderer.createModelJavaScriptCall(table.getClientId(), Arrays.asList(table.getClientId()), "sortTableRow", isAjaxDisableRenderReqionOnRequest(table, webXmlParameters), columnNumber + "");
             writer.writeAttribute("onclick", ajax, null);
         }
 
@@ -300,6 +300,11 @@ public class TableRenderer extends Renderer {
 
         writer.endElement("div");
         writer.endElement("th");
+    }
+
+    private Boolean isAjaxDisableRenderReqionOnRequest(final HtmlTable table, final WebXmlParameters parameters) {
+        final Boolean disableRegion = table.isAjaxDisableRenderRegionsOnRequest();
+        return disableRegion != null ? disableRegion : parameters.isAjaxDisableRenderRegionsOnRequest();
     }
 
     private String createTooltipIdentifier(HtmlColumn column) {
