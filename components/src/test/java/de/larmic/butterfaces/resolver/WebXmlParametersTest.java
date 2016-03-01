@@ -16,6 +16,8 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_NO_ENTRIES_TEXT = "customNoEntriesText";
     private static final String OVERRIDDEN_SPINNER_TEXT = "customSpinnerText";
 
+    private static final boolean OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = false;
+
     private static final String OVERRIDDEN_REFRESH = "o_refresh";
     private static final String OVERRIDDEN_OPTIONS = "o_options";
 
@@ -64,6 +66,14 @@ public class WebXmlParametersTest {
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_TEXT)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_TEXT);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_GLYPHICON)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON);
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST)).thenReturn(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST + "");
+    }
+
+    @Test
+    public void testIsAjaxDisableRenderRegionsOnRequest() throws Exception {
+        Assert.assertEquals(WebXmlParameters.DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(defaultValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
+        Assert.assertEquals(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(overriddenValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
     }
 
     @Test

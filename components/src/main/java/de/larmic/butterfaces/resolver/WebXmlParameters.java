@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.resolver;
 
 import de.larmic.butterfaces.util.StringUtils;
@@ -6,6 +11,8 @@ import javax.faces.context.ExternalContext;
 
 /**
  * Easy way to get access of all butterfaces web.xml parameters.
+ *
+ * @author Lars Michaelis
  */
 public class WebXmlParameters {
 
@@ -41,6 +48,10 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_SPINNER_TEXT = "de.larmic.butterfaces.spinnerText";
     public static final String DEFAULT_CTX_PARAM_SPINNER_TEXT = "Fetching data...";
 
+    public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
+    public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
+
+
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
     private final boolean useCompressedResources;
@@ -55,8 +66,9 @@ public class WebXmlParameters {
 
     private final String ajaxProcessingTextOnRequest;
     private final String ajaxProcessingGlyphiconOnRequest;
-    private String noEntriesText;
-    private String spinnerText;
+    private final String noEntriesText;
+    private final String spinnerText;
+    private final boolean ajaxDisableRenderRegionsOnRequest;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -77,6 +89,8 @@ public class WebXmlParameters {
 
         this.noEntriesText = this.readParameter(CTX_PARAM_NO_ENTRIES_TEXT, DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, externalContext);
         this.spinnerText = this.readParameter(CTX_PARAM_SPINNER_TEXT, DEFAULT_CTX_PARAM_SPINNER_TEXT, externalContext);
+
+        this.ajaxDisableRenderRegionsOnRequest = this.readParameter(CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -87,6 +101,11 @@ public class WebXmlParameters {
     private String readParameter(final String parameter, final String defaultValue, final ExternalContext context) {
         final String refreshButton = context.getInitParameter(parameter);
         return StringUtils.isEmpty(refreshButton) ? defaultValue : refreshButton;
+    }
+
+    private boolean readParameter(final String parameter, final boolean defaultValue, final ExternalContext context) {
+        final String refreshButton = context.getInitParameter(parameter);
+        return StringUtils.isEmpty(refreshButton) ? defaultValue : Boolean.parseBoolean(refreshButton);
     }
 
     public String getRefreshGlyphicon() {
@@ -143,5 +162,9 @@ public class WebXmlParameters {
 
     public String getSpinnerText() {
         return spinnerText;
+    }
+
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        return ajaxDisableRenderRegionsOnRequest;
     }
 }

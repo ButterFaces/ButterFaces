@@ -77,6 +77,11 @@
         <param-name>de.larmic.butterfaces.spinnerText</param-name>
         <param-value>Fetching data...</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>
+        <param-value>true</param-value>
+    </context-param>
 	-->
 
 	<servlet>

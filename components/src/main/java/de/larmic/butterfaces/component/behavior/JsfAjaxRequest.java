@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.behavior;
 
 import de.larmic.butterfaces.util.StringJoiner;
@@ -19,6 +24,8 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Builds an ajax request call that depends on the JSF Javascript API under https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html#.request
+ *
+ * @author Lars Michaelis, Stephan Zerhusen
  */
 public class JsfAjaxRequest {
 
