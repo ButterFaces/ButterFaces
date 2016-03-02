@@ -235,7 +235,7 @@ public class ComboBoxRenderer extends MenuRenderer {
     private void renderItemTemplateOptionDataField(final Object itemValue, final ResponseWriter writer) throws IOException {
         if (itemValue != null) {
             for (String key : ruleListItemTemplateKeys) {
-                final String value = new ReflectionUtil().getValueFromObject(itemValue, key);
+                final String value = new ReflectionUtil().getStringValueFromObject(itemValue, key);
 
                 if (StringUtils.isNotEmpty(value)) {
                     writer.writeAttribute("data-" + key, value, null);

@@ -14,31 +14,31 @@ import java.lang.reflect.Method;
  */
 public class ReflectionUtil {
 
-    public String getValueFromObject(final Object object, final String fieldName) {
-        String value = getValuePropertyByField(object, fieldName);
+    public String getStringValueFromObject(final Object object, final String fieldName) {
+        Object value = getValuePropertyByField(object, fieldName, Object.class);
 
         if (value == null) {
-            value = getValuePropertyByGetter(object, fieldName);
+            value = getValuePropertyByGetter(object, fieldName, Object.class);
         }
 
-        return value;
+        return convertToString(value);
     }
 
-    public String getValuePropertyByField(final Object object, final String fieldName) {
+    public <T> T getValuePropertyByField(final Object object, final String fieldName, final Class<T> valueClass) {
         try {
             final Field declaredField = object.getClass().getDeclaredField(fieldName);
             declaredField.setAccessible(true);
-            return convertToString(declaredField.get(object));
+            return (T) declaredField.get(object);
         } catch (NoSuchFieldException | IllegalAccessException e) {
         }
         return null;
     }
 
-    public String getValuePropertyByGetter(final Object object, final String fieldName) {
+    public <T> T getValuePropertyByGetter(final Object object, final String fieldName, final Class<T> valueClass) {
         try {
             final Method method = object.getClass().getMethod("get" + toUpperCase(fieldName));
             final Object valueObject = method.invoke(object, (Object[]) null);
-            return convertToString(valueObject);
+            return (T) valueObject;
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
         }
         return null;
@@ -48,7 +48,7 @@ public class ReflectionUtil {
         return Character.toString(str.charAt(0)).toUpperCase()+str.substring(1);
     }
 
-    private String convertToString(final Object object) throws IllegalAccessException {
+    private String convertToString(final Object object) {
         if (object != null) {
             final String rowIdentifierAsString = object.toString();
 

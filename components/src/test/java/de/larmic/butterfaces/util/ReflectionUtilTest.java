@@ -16,24 +16,24 @@ public class ReflectionUtilTest {
 
     @Test
     public void testGetValueFromObjectByProperty() throws Exception {
-        assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "aProperty")).isEqualTo("aPropertyByField");
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "aProperty")).isEqualTo("aPropertyByField");
     }
 
     @Test
     public void testGetValueFromObjectByGetter() throws Exception {
-        assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "bProperty")).isEqualTo("bPropertyByGetter");
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "bProperty")).isEqualTo("bPropertyByGetter");
     }
 
     @Test
     public void testGetValuePropertyByField() throws Exception {
-        assertThat(new ReflectionUtil().getValuePropertyByField(new DemoPojo(), "aProperty")).isEqualTo("aPropertyByField");
-        assertThat(new ReflectionUtil().getValuePropertyByField(new DemoPojo(), "bProperty")).isNull();
+        assertThat(new ReflectionUtil().getValuePropertyByField(new DemoPojo(), "aProperty", String.class)).isEqualTo("aPropertyByField");
+        assertThat(new ReflectionUtil().getValuePropertyByField(new DemoPojo(), "bProperty", String.class)).isNull();
     }
 
     @Test
     public void testGetValuePropertyByGetter() throws Exception {
-        assertThat(new ReflectionUtil().getValuePropertyByGetter(new DemoPojo(), "bProperty")).isEqualTo("bPropertyByGetter");
-        assertThat(new ReflectionUtil().getValuePropertyByGetter(new DemoPojo(), "aProperty")).isNull();
+        assertThat(new ReflectionUtil().getValuePropertyByGetter(new DemoPojo(), "bProperty", String.class)).isEqualTo("bPropertyByGetter");
+        assertThat(new ReflectionUtil().getValuePropertyByGetter(new DemoPojo(), "aProperty", String.class)).isNull();
     }
 
     public class DemoPojo {

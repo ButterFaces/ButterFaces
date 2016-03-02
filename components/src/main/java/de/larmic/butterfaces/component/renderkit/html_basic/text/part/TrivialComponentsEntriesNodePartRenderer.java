@@ -109,7 +109,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         for (String mustacheKey : mustacheKeys) {
-            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new ReflectionUtil().getValueFromObject(node.getData(), mustacheKey)) + "\",");
+            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new ReflectionUtil().getStringValueFromObject(node.getData(), mustacheKey)) + "\",");
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
@@ -140,7 +140,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
             return "";
         }
 
-        final String valueFromObject = new ReflectionUtil().getValueFromObject(nodeValue, attributeName);
+        final String valueFromObject = new ReflectionUtil().getStringValueFromObject(nodeValue, attributeName);
 
         return StringUtils.getNotNullValue(valueFromObject, "");
     }
