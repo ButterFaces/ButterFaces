@@ -37,6 +37,14 @@ public class ReflectionUtilTest {
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.fProperty", String.class)).isEqualTo("fPropertyByGetter");
     }
 
+    @Test
+    public void testGetStringValuePropertyWithDotNotation() throws Exception {
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.cProperty")).isEqualTo("cPropertyByField");
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.dProperty")).isEqualTo("dPropertyByGetter");
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.eProperty")).isEqualTo("ePropertyByField");
+        assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.fProperty")).isEqualTo("fPropertyByGetter");
+    }
+
     public class DemoPojo {
         private final String aProperty = "aPropertyByField";
 

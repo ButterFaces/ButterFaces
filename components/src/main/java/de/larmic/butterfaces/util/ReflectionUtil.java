@@ -15,13 +15,7 @@ import java.lang.reflect.Method;
 public class ReflectionUtil {
 
     public String getStringValueFromObject(final Object object, final String fieldName) {
-        Object value = getValuePropertyByField(object, fieldName, Object.class);
-
-        if (value == null) {
-            value = getValuePropertyByGetter(object, fieldName, Object.class);
-        }
-
-        return convertToString(value);
+        return convertToString(getValueFromObject(object, fieldName, Object.class));
     }
 
     public <T> T getValueFromObject(final Object object, final String fieldName, final Class<T> valueClass) {
