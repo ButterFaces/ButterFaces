@@ -44,4 +44,9 @@ public class MustacheResolverTest {
         assertThat(MustacheResolver.getMustacheKeys("{{foo}}and{{bar}}")).contains("foo", "bar");
     }
 
+    @Test
+    public void testGetMustacheKeysWithDotNotation() throws Exception {
+        assertThat(MustacheResolver.getMustacheKeys("{{foo.bar}}")).containsExactly("foo.bar");
+    }
+
 }
