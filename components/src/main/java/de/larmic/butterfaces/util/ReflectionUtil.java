@@ -24,7 +24,21 @@ public class ReflectionUtil {
         return convertToString(value);
     }
 
-    public <T> T getValuePropertyByField(final Object object, final String fieldName, final Class<T> valueClass) {
+    public <T> T getValueFromObject(final Object object, final String fieldName, final Class<T> valueClass) {
+        return (T) getPlainValueFromObject(object, fieldName);
+    }
+
+    private Object getPlainValueFromObject(final Object object, final String fieldName) {
+        Object value = getValuePropertyByField(object, fieldName, Object.class);
+
+        if (value == null) {
+            value = getValuePropertyByGetter(object, fieldName, Object.class);
+        }
+
+        return value;
+    }
+
+    private <T> T getValuePropertyByField(final Object object, final String fieldName, final Class<T> valueClass) {
         try {
             final Field declaredField = object.getClass().getDeclaredField(fieldName);
             declaredField.setAccessible(true);
@@ -34,7 +48,7 @@ public class ReflectionUtil {
         return null;
     }
 
-    public <T> T getValuePropertyByGetter(final Object object, final String fieldName, final Class<T> valueClass) {
+    private <T> T getValuePropertyByGetter(final Object object, final String fieldName, final Class<T> valueClass) {
         try {
             final Method method = object.getClass().getMethod("get" + toUpperCase(fieldName));
             final Object valueObject = method.invoke(object, (Object[]) null);
