@@ -25,6 +25,16 @@ public class ReflectionUtil {
     }
 
     public <T> T getValueFromObject(final Object object, final String fieldName, final Class<T> valueClass) {
+        final int indexOfFirstDot = fieldName.indexOf('.');
+
+        if (indexOfFirstDot > 0) {
+            final String firstFieldName = fieldName.substring(0, indexOfFirstDot);
+            final String restOfFieldName = fieldName.substring(indexOfFirstDot + 1);
+            final Object innerObject = getPlainValueFromObject(object, firstFieldName);
+
+            return getValueFromObject(innerObject, restOfFieldName, valueClass);
+        }
+
         return (T) getPlainValueFromObject(object, fieldName);
     }
 

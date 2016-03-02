@@ -29,11 +29,11 @@ public class ReflectionUtilTest {
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo", InnerDemoPojo.class)).hasSameClassAs(new InnerDemoPojo()).isNotNull();
     }
 
-    //@Test
+    @Test
     public void testGetValuePropertyWithDotNotation() throws Exception {
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.cProperty", String.class)).isEqualTo("cPropertyByField");
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.dProperty", String.class)).isEqualTo("dPropertyByGetter");
-        assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.eProperty", String.class)).isEqualTo("ePropertyByGetter");
+        assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.eProperty", String.class)).isEqualTo("ePropertyByField");
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.fProperty", String.class)).isEqualTo("fPropertyByGetter");
     }
 
