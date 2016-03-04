@@ -2,8 +2,8 @@ package de.larmic.butterfaces.component.base.renderer;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.feature.Readonly;
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -90,12 +90,7 @@ public class HtmlBasicRenderer extends Renderer {
             clientId = component.getClientId(context);
         }
 
-        final Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
-
-        final String newValue = requestMap.get(clientId);
-        if (newValue != null) {
-            setSubmittedValue(component, newValue);
-        }
+        setSubmittedValue(component, context.getExternalContext().getRequestParameterMap().get(clientId));
     }
 
     protected final String decodeBehaviors(final FacesContext context,
