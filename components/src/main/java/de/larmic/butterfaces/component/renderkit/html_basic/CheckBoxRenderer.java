@@ -13,7 +13,6 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTag
 import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
@@ -56,11 +55,13 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
-        if (!component.isRendered()) {
+        if (!(component instanceof HtmlCheckBox)) {
             return;
         }
 
-        if (!(component instanceof UIInput)) {
+        final HtmlCheckBox checkBox = (HtmlCheckBox) component;
+
+        if (!component.isRendered() || checkBox.isReadonly()) {
             return;
         }
 
