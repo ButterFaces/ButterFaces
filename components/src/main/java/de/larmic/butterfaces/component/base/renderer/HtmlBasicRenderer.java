@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.base.renderer;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
+import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 
@@ -75,7 +76,7 @@ public class HtmlBasicRenderer extends Renderer {
     @Override
     public void decode(final FacesContext context,
                        final UIComponent component) {
-        if (!component.isRendered()) {
+        if (!component.isRendered() || ((component instanceof Readonly) && ((Readonly) component).isReadonly())) {
             return;
         }
 
