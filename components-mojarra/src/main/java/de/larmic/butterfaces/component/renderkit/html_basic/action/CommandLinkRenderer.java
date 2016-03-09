@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
+import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
@@ -7,15 +8,12 @@ import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
 import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -248,23 +246,19 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     @Override
     protected void renderAsActive(FacesContext context, UIComponent component) throws IOException {
         AjaxBehavior ajaxBehavior = null;
+        final HtmlCommandLink link = (HtmlCommandLink) component;
 
-        if (((HtmlCommandLink) component).isAjaxDisableLinkOnRequest()) {
-            final Map behaviors = (AbstractMap) ((ClientBehaviorHolder) component).getClientBehaviors();
+        if (link.isAjaxDisableLinkOnRequest()) {
+            // TODO should this be working for multiple behaviors?
+            ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(link, "action");
 
-            final List<AjaxBehavior> actionBehaviours = (List<AjaxBehavior>) behaviors.get("action");
-
-            if (actionBehaviours != null && !actionBehaviours.isEmpty()) {
-                for (AjaxBehavior actionBehaviour : actionBehaviours) {
-                    // TODO works only for the last behavior. Is this correct?
-                    ajaxBehavior = actionBehaviour;
-                    if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
-                        onEventCallback = ajaxBehavior.getOnevent();
-                    }
-
-                    ajaxBehavior.setOnevent(getOnEventListenerName(component));
-                    ajaxBehavior.setOnerror(getOnEventListenerName(component));
+            if(ajaxBehavior != null) {
+                if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
+                    onEventCallback = ajaxBehavior.getOnevent();
                 }
+
+                ajaxBehavior.setOnevent(getOnEventListenerName(component));
+                ajaxBehavior.setOnerror(getOnEventListenerName(component));
             }
         }
 
