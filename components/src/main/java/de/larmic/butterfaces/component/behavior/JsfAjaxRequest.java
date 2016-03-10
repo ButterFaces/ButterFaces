@@ -81,33 +81,6 @@ public class JsfAjaxRequest {
     }
 
     /**
-     * Creates {@link JsfAjaxRequest} using given {@link AjaxBehavior} to set ajax parameters.
-     *
-     * @deprecated use {@link JsfAjaxRequest#JsfAjaxRequest(UIComponentBase, AjaxBehavior, String)} to resolve render and execute ids.
-     */
-    @Deprecated
-    public JsfAjaxRequest(String source, boolean isIdString, AjaxBehavior ajaxBehavior, String event) {
-        this(source, isIdString);
-
-        if (!ajaxBehavior.isDisabled()) {
-            if (ajaxBehavior.getExecute() != null) {
-                this.setExecute(convertStringListToJoinedString(ajaxBehavior.getExecute()));
-            }
-            if (ajaxBehavior.getRender() != null) {
-                this.setRender(convertStringListToJoinedString(ajaxBehavior.getRender()));
-            }
-            if (ajaxBehavior.getOnevent() != null) {
-                this.addOnEventHandler(ajaxBehavior.getOnevent());
-            }
-            if (ajaxBehavior.getOnerror() != null) {
-                this.addOnErrorHandler(ajaxBehavior.getOnerror());
-            }
-            this.setEvent(event);
-            this.setBehaviorEvent(event);
-        }
-    }
-
-    /**
      * @param event The DOM event that triggered this Ajax request.
      * @return the actual instance of {@link JsfAjaxRequest}
      */

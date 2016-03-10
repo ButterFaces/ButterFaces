@@ -5,10 +5,7 @@ import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.ValueHolder;
+import javax.faces.component.*;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -200,7 +197,7 @@ public class HtmlBasicRenderer extends Renderer {
                                     final String attributeName,
                                     final String eventName) throws IOException {
         final String componentEventFunction = createComponentEventFunction(component, attributeName);
-        final String ajaxEventFunction = createAjaxEventFunction(component, eventName);
+        final String ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
 
         if (componentEventFunction != null && ajaxEventFunction != null) {
             writer.writeAttribute(attributeName, ajaxEventFunction + ";" + componentEventFunction, null);
@@ -328,8 +325,8 @@ public class HtmlBasicRenderer extends Renderer {
         return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
     }
 
-    private String createAjaxEventFunction(UIComponent component, String eventName) {
+    private String createAjaxEventFunction(UIComponentBase component, String eventName) {
         final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
-        return ajaxBehavior != null ? new JsfAjaxRequest(component.getClientId(), true, ajaxBehavior, eventName).toString() : null;
+        return ajaxBehavior != null ? new JsfAjaxRequest(component, ajaxBehavior, eventName).toString() : null;
     }
 }
