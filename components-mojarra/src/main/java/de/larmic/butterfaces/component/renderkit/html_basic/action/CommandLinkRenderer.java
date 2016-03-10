@@ -274,6 +274,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             // this.renderEventValue(component, writer, "onkeydown", "keydown");
             // this.renderEventValue(component, writer, "onkeyup", "keyup");
             // this.renderEventValue(component, writer, "onblur", "blur");
+            // TODO add chaining to onClick and ajax request
             // this.renderEventValue(component, writer, "onclick", "click");
             // this.renderEventValue(component, writer, "ondblclick", "dblclick");
             // this.renderEventValue(component, writer, "onfocus", "focus");
