@@ -54,15 +54,47 @@ public class JsfAjaxRequest {
         }
     }
 
+    /**
+     * Creates {@link JsfAjaxRequest} using given {@link AjaxBehavior} to set ajax parameters.
+     *
+     * TODO maybe remove {@link AjaxBehavior} and find it by myself by using event string?
+     */
+    public JsfAjaxRequest(final UIComponentBase component, AjaxBehavior ajaxBehavior, String event) {
+        this(component.getClientId(), true);
+
+        if (!ajaxBehavior.isDisabled()) {
+            if (ajaxBehavior.getExecute() != null) {
+                execute = convertStringListToJoinedString(ajaxBehavior.getExecute(), component);
+            }
+            if (ajaxBehavior.getRender() != null) {
+                render = convertStringListToJoinedString(ajaxBehavior.getRender(), component);
+            }
+            if (ajaxBehavior.getOnevent() != null) {
+                this.addOnEventHandler(ajaxBehavior.getOnevent());
+            }
+            if (ajaxBehavior.getOnerror() != null) {
+                this.addOnErrorHandler(ajaxBehavior.getOnerror());
+            }
+            this.setEvent(event);
+            this.setBehaviorEvent(event);
+        }
+    }
+
+    /**
+     * Creates {@link JsfAjaxRequest} using given {@link AjaxBehavior} to set ajax parameters.
+     *
+     * @deprecated use {@link JsfAjaxRequest#JsfAjaxRequest(UIComponentBase, AjaxBehavior, String)} to resolve render and execute ids.
+     */
+    @Deprecated
     public JsfAjaxRequest(String source, boolean isIdString, AjaxBehavior ajaxBehavior, String event) {
         this(source, isIdString);
 
         if (!ajaxBehavior.isDisabled()) {
             if (ajaxBehavior.getExecute() != null) {
-                this.setExecute(StringUtils.joinWithSpaceSeparator(ajaxBehavior.getExecute()));
+                this.setExecute(convertStringListToJoinedString(ajaxBehavior.getExecute()));
             }
             if (ajaxBehavior.getRender() != null) {
-                this.setRenderAsList(ajaxBehavior.getRender());
+                this.setRender(convertStringListToJoinedString(ajaxBehavior.getRender()));
             }
             if (ajaxBehavior.getOnevent() != null) {
                 this.addOnEventHandler(ajaxBehavior.getOnevent());
@@ -122,23 +154,6 @@ public class JsfAjaxRequest {
         }
 
         return resolvedComponent.getClientId();
-    }
-
-    /**
-     * @param renderIds list of client identifiers
-     * @return the actual instance of {@link JsfAjaxRequest}
-     */
-    public JsfAjaxRequest setRenderAsList(final Collection<String> renderIds) {
-        if (!renderIds.isEmpty()) {
-            StringJoiner joiner = StringJoiner.on(' ');
-
-            for (String renderId : renderIds) {
-                joiner = joiner.join(renderId);
-            }
-
-            render = joiner.toString();
-        }
-        return this;
     }
 
     public JsfAjaxRequest addRender(final String render) {
@@ -319,5 +334,36 @@ public class JsfAjaxRequest {
                 || !onErrorHandlers.isEmpty()
                 || isNotEmpty(params)
                 || isNotEmpty(behaviorEvent);
+    }
+
+    /**
+     * @return a space joined string of given clientIds.
+     */
+    private String convertStringListToJoinedString(final Collection<String> clientIds) {
+        return convertStringListToJoinedString(clientIds, null);
+    }
+
+    /**
+     * @return a space joined string of given clientIds. If component is set all clientIds will be resolved to get full
+     * qualified client id.
+     */
+    private String convertStringListToJoinedString(final Collection<String> clientIds, final UIComponentBase component) {
+        if (clientIds.isEmpty()) {
+            return null;
+        }
+
+        StringJoiner joiner = StringJoiner.on(' ');
+
+        for (String clientId : clientIds) {
+            if (StringUtils.isNotEmpty(clientId)) {
+                if (component != null) {
+                    joiner = joiner.join(getResolvedId(component, clientId));
+                } else {
+                    joiner = joiner.join(clientId);
+                }
+            }
+        }
+
+        return joiner.toString();
     }
 }
