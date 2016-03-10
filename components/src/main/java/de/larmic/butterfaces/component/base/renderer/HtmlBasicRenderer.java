@@ -168,7 +168,7 @@ public class HtmlBasicRenderer extends Renderer {
         if (component.getAttributes().get(attributeName) != null
                 && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
                 && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
-            writer.writeAttribute(attributeName, component.getAttributes().get(attributeName), attributeName);
+            writer.writeAttribute(attributeName, component.getAttributes().get(attributeName).toString().trim(), attributeName);
         }
     }
 

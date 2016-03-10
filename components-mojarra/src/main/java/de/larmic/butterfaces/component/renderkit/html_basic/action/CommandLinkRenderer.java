@@ -1,9 +1,15 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
+import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
@@ -17,7 +23,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by larmic on 16.09.14.
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlCommandLink.COMPONENT_FAMILY, rendererType = HtmlCommandLink.RENDERER_TYPE)
 public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.CommandLinkRenderer {
@@ -58,21 +64,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
 
     @Override
     protected void writeCommonLinkAttributes(final ResponseWriter writer, final UIComponent component) throws IOException {
-        final HtmlCommandLink link = (HtmlCommandLink) component;
-        final String styleClass = (String) component.getAttributes().get("styleClass");
-
-        final StringBuilder generatedStyleClass = new StringBuilder(StringUtils.isEmpty(styleClass) ? "" : styleClass);
-
-        if (link.isDisabled()) {
-            generatedStyleClass.append(" btn-disabled");
-        }
-        if (StringUtils.isEmpty(link.getGlyphicon())) {
-            generatedStyleClass.append(" no-glyphicon");
-        }
-
-        if (generatedStyleClass.length() > 0) {
-            writer.writeAttribute("class", generatedStyleClass.toString(), "styleClass");
-        }
+        writeStyleClass(writer, component);
     }
 
     @Override
@@ -244,31 +236,92 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     }
 
     @Override
-    protected void renderAsActive(FacesContext context, UIComponent component) throws IOException {
-        AjaxBehavior ajaxBehavior = null;
+    protected void renderAsActive(final FacesContext context,
+                                  final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
+        final ResponseWriter writer = context.getResponseWriter();
+        // TODO should this be working for multiple behaviors?
+        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(link, "action");
 
-        if (link.isAjaxDisableLinkOnRequest()) {
-            // TODO should this be working for multiple behaviors?
-            ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(link, "action");
-
-            if(ajaxBehavior != null) {
-                if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
-                    onEventCallback = ajaxBehavior.getOnevent();
-                }
-
-                ajaxBehavior.setOnevent(getOnEventListenerName(component));
-                ajaxBehavior.setOnerror(getOnEventListenerName(component));
+        if (link.isAjaxDisableLinkOnRequest() && ajaxBehavior != null) {
+            if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
+                onEventCallback = ajaxBehavior.getOnevent();
             }
+
+            ajaxBehavior.setOnevent(getOnEventListenerName(component));
+            ajaxBehavior.setOnerror(getOnEventListenerName(component));
         }
 
-        // TODO replace it with custom implementation (replace mojarra.ab(,,,) by default jsf js api)
-        super.renderAsActive(context, component);
+        if (ajaxBehavior != null) {
+            final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(link, ajaxBehavior, "action");
+
+            writer.startElement("a", link);
+            writeIdAttributeIfNecessary(context, writer, link);
+            writer.writeAttribute("href", "#", "href");
+            // TODO check passThruAttributes
+            //RenderKitUtils.renderPassThruAttributes(context, writer, command, ATTRIBUTES, getNonOnClickBehaviors(command));
+            this.renderBooleanValue(component, writer, "disabled");
+            this.renderBooleanValue(component, writer, "ismap");
+
+            this.renderStringValue(component, writer, "title");
+            this.renderStringValue(component, writer, "tabindex");
+            this.renderStringValue(component, writer, "style");
+            this.renderStringValue(component, writer, "target");
+
+            // TODO render onEvent methods
+            // this.renderEventValue(component, writer, "onkeydown", "keydown");
+            // this.renderEventValue(component, writer, "onkeyup", "keyup");
+            // this.renderEventValue(component, writer, "onblur", "blur");
+            // this.renderEventValue(component, writer, "onclick", "click");
+            // this.renderEventValue(component, writer, "ondblclick", "dblclick");
+            // this.renderEventValue(component, writer, "onfocus", "focus");
+            // this.renderEventValue(component, writer, "onkeypress", "keypress");
+            // this.renderEventValue(component, writer, "onmousedown", "mousedown");
+            // this.renderEventValue(component, writer, "onmousemove", "mousemove");
+            // this.renderEventValue(component, writer, "onmouseout", "mouseout");
+            // this.renderEventValue(component, writer, "onmouseover", "mouseover");
+            // this.renderEventValue(component, writer, "onmouseup", "mouseup");
+
+            // TODO check missing component attributes
+            // binding
+            // immediate
+            // actionListener
+            // ...
+
+            writer.writeAttribute("onclick", jsfAjaxRequest.toString(), "onclick");
+
+            writeStyleClass(writer, link);
+
+            // render the current value as link text.
+            writeValue(link, writer);
+        } else {
+            // TODO replace it with custom implementation (replace mojarra.ab(...) by default jsf js api)
+            super.renderAsActive(context, component);
+        }
 
         // reset ajax behaviour because otherwise a render of this component will not be work correctly (wrong js
         // callback is registered if onevent is set on f:ajax.
         if (ajaxBehavior != null) {
             ajaxBehavior.setOnevent(onEventCallback);
+        }
+    }
+
+    private void writeStyleClass(final ResponseWriter writer, final UIComponent component) throws IOException {
+        final HtmlCommandLink link = (HtmlCommandLink) component;
+        final String styleClass = (String) component.getAttributes().get("styleClass");
+
+        StringJoiner generatedStyleClassJoiner = StringJoiner.on(' ').join(StringUtils.getNotNullValue(styleClass, ""));
+
+        if (link.isDisabled()) {
+            generatedStyleClassJoiner = generatedStyleClassJoiner.join("btn-disabled");
+        }
+        if (StringUtils.isEmpty(link.getGlyphicon())) {
+            generatedStyleClassJoiner = generatedStyleClassJoiner.join("no-glyphicon");
+        }
+
+        final String generatedStyleClass = generatedStyleClassJoiner.toString();
+        if (generatedStyleClass.length() > 0) {
+            writer.writeAttribute("class", generatedStyleClass, "styleClass");
         }
     }
 
@@ -293,5 +346,77 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         writer.startElement("span", commandLink);
         writer.writeAttribute("class", "butter-component-glyphicon " + glyphicon, null);
         writer.endElement("span");
+    }
+
+    /**
+     * Render boolean value if attribute is set to true.
+     *
+     * @param attributeName attribute name
+     * @param component     the component
+     * @param writer        html response writer
+     * @throws IOException thrown by writer
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    protected void renderBooleanValue(final UIComponent component,
+                                      final ResponseWriter writer,
+                                      final String attributeName) throws IOException {
+        if (component.getAttributes().get(attributeName) != null
+                && Boolean.valueOf(component.getAttributes().get(attributeName).toString())) {
+            writer.writeAttribute(attributeName, true, attributeName);
+        }
+    }
+
+    /**
+     * Render string value if attribute is not empty.
+     *
+     * @param attributeName attribute name
+     * @param component     the component
+     * @param writer        html response writer
+     * @throws IOException thrown by writer
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    protected void renderStringValue(final UIComponent component,
+                                     final ResponseWriter writer,
+                                     final String attributeName) throws IOException {
+        if (component.getAttributes().get(attributeName) != null
+                && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
+                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
+            writer.writeAttribute(attributeName, component.getAttributes().get(attributeName).toString().trim(), attributeName);
+        }
+    }
+
+    /**
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    protected boolean shouldRenderAttribute(Object value) {
+        if (value == null)
+            return false;
+
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        } else if (value instanceof Number) {
+            final Number number = (Number) value;
+
+            if (value instanceof Integer)
+                return number.intValue() != Integer.MIN_VALUE;
+            else if (value instanceof Double)
+                return number.doubleValue() != Double.MIN_VALUE;
+            else if (value instanceof Long)
+                return number.longValue() != Long.MIN_VALUE;
+            else if (value instanceof Byte)
+                return number.byteValue() != Byte.MIN_VALUE;
+            else if (value instanceof Float)
+                return number.floatValue() != Float.MIN_VALUE;
+            else if (value instanceof Short)
+                return number.shortValue() != Short.MIN_VALUE;
+        }
+
+        return true;
     }
 }
