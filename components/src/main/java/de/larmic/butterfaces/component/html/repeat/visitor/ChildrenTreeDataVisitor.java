@@ -55,6 +55,7 @@ public class ChildrenTreeDataVisitor implements DataVisitor {
     }
 
     private boolean skipChild(UIComponent dataChild) {
+        // TODO check isRendered() by component.getAttribtues("render")???
         return !dataChild.getParent().isRendered() && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED);
     }
 
