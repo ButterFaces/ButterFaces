@@ -8,6 +8,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.util.StringUtils;
+import de.larmic.butterfaces.util.TrivialComponentsReflectionUtil;
 
 import javax.faces.component.html.HtmlInputText;
 import java.util.Iterator;
@@ -56,7 +57,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         final StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("[");
-        new TrivialComponentsEntriesNodePartRenderer().renderNodes(stringBuilder, nodes, 0, mustacheKeys, cachedNodes);
+        renderNodes(stringBuilder, nodes, 0, mustacheKeys, cachedNodes);
         stringBuilder.append("]");
 
         return stringBuilder.toString();
@@ -109,7 +110,7 @@ public class TrivialComponentsEntriesNodePartRenderer {
         }
 
         for (String mustacheKey : mustacheKeys) {
-            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new ReflectionUtil().getStringValueFromObject(node.getData(), mustacheKey)) + "\",");
+            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new TrivialComponentsReflectionUtil().getStringValueFromObject(node.getData(), mustacheKey)) + "\",");
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");

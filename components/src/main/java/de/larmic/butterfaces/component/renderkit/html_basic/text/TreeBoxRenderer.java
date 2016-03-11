@@ -25,6 +25,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final List<Node> nodes = treeBoxModelWrapper.getNodes();
         final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
 
-        final List<String> mustacheKeys = this.createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
+        final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
         final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
 
@@ -69,9 +70,9 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         writer.startElement("script", treeBox);
         writer.writeText("jQuery(function () {\n", null);
         final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
-        writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
+        writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap);
+        final String pluginCall = replaceDotInMustacheKeys(mustacheKeys, createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
         writer.writeText("ButterFaces.TreeBox.removeTrivialTreeDropDown('" + treeBoxReadableId + "');\n", null);
         writer.writeText("var trivialTree" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
         writer.writeText("$(trivialTree" + treeBoxReadableId + ".getDropDown()).attr('data-tree-box-id', '" + treeBoxReadableId + "')", null);
@@ -79,10 +80,24 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         writer.endElement("script");
     }
 
+    /**
+     * TODO: trivial components does not support foo.bar so this methods replaces foo.bar by foo_bar.
+     * TODO this could removed if https://github.com/trivial-components/trivial-components/issues/36 is fixed
+     */
+    private List<String> replaceDotInMustacheKeys(final List<String> mustacheKeys) {
+        final List<String> fixedMustacheKeys = new ArrayList<>();
+
+        for (String mustacheKey : mustacheKeys) {
+            fixedMustacheKeys.add(mustacheKey.replace('.', '#'));
+        }
+
+        return fixedMustacheKeys;
+    }
+
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
+            return  MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
         }
 
         return Collections.emptyList();
@@ -122,6 +137,21 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null
                 ? (node.getData() instanceof EnumTreeBoxWrapper ? ((EnumTreeBoxWrapper) node.getData()).getEnumValue() : node.getData())
                 : node;
+    }
+
+    /**
+     * TODO: trivial components does not support foo.bar so this methods replaces foo.bar by foo_bar.
+     * TODO this could removed if https://github.com/trivial-components/trivial-components/issues/36 is fixed
+     */
+    private String replaceDotInMustacheKeys(final List<String> mustacheKeys, final String pluginCall) {
+        String fixedPluginCall = pluginCall;
+        for (String mustacheKey : mustacheKeys) {
+            if (mustacheKey.contains(".")) {
+                fixedPluginCall = fixedPluginCall.replace("{{"+mustacheKey+"}}", "{{"+mustacheKey.replace('.', '#')+"}}");
+            }
+        }
+
+        return fixedPluginCall;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,

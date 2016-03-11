@@ -21,7 +21,7 @@ public class ReflectionUtil {
     }
 
     public <T> T getValueFromObject(final Object object, final String fieldName, final Class<T> valueClass) {
-        final int indexOfFirstDot = fieldName.indexOf(ATTRIBUTE_SEPARATOR);
+        final int indexOfFirstDot = fieldName.indexOf(getAttributeSeparator());
 
         if (indexOfFirstDot > 0) {
             final String firstFieldName = fieldName.substring(0, indexOfFirstDot);
@@ -32,6 +32,14 @@ public class ReflectionUtil {
         }
 
         return (T) getPlainValueFromObject(object, fieldName);
+    }
+
+    /**
+     * TODO Trivial components does not support {{foo.bar}} so ButterFaces replaces it by {{foo#bar}}.
+     * TODO this could removed if https://github.com/trivial-components/trivial-components/issues/36 is fixed
+     */
+    protected char getAttributeSeparator() {
+        return ATTRIBUTE_SEPARATOR;
     }
 
     private Object getPlainValueFromObject(final Object object, final String fieldName) {
