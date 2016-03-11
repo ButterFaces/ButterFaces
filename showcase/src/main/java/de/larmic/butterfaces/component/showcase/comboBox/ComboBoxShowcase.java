@@ -226,7 +226,7 @@ public class ComboBoxShowcase extends AbstractInputShowcase implements Serializa
             xhtmlCodeExample.appendInnerContent("                           noSelectionValue=\"please choose\"/>");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
             xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
-            xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg\" src=\"{{image}}\" alt=\"{{title}}\"/>");
+            xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg\" src=\"{{imageUrl}}\" alt=\"{{title}}\"/>");
             xhtmlCodeExample.appendInnerContent("                      <div class=\"stargateEpisodeDetails\">");
             xhtmlCodeExample.appendInnerContent("                           <h4>{{title}} <small>({{originalAirDate}})</small></h4>");
             xhtmlCodeExample.appendInnerContent("                           <div>");
