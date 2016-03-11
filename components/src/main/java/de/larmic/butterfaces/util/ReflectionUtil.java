@@ -14,12 +14,14 @@ import java.lang.reflect.Method;
  */
 public class ReflectionUtil {
 
+    public static final char ATTRIBUTE_SEPARATOR = '.';
+
     public String getStringValueFromObject(final Object object, final String fieldName) {
         return convertToString(getValueFromObject(object, fieldName, Object.class));
     }
 
     public <T> T getValueFromObject(final Object object, final String fieldName, final Class<T> valueClass) {
-        final int indexOfFirstDot = fieldName.indexOf('.');
+        final int indexOfFirstDot = fieldName.indexOf(ATTRIBUTE_SEPARATOR);
 
         if (indexOfFirstDot > 0) {
             final String firstFieldName = fieldName.substring(0, indexOfFirstDot);
