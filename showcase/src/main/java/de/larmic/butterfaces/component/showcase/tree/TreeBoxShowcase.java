@@ -9,6 +9,7 @@ import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.tree.examples.*;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxImageJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
@@ -64,6 +65,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
             codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
             codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo"));
+            codeExamples.add(new TreeBoxImageJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.STRINGS) {
             codeExamples.add(new TreeBoxListOfStringsJavaExample());
