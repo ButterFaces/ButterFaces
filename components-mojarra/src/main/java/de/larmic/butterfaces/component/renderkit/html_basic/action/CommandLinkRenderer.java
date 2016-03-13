@@ -252,8 +252,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             ajaxBehavior.setOnerror(getOnEventListenerName(component));
         }
 
-        // TODO activate if statements (deactivated for release)
-        if (ajaxBehavior != null && false) {
+        if (ajaxBehavior != null) {
             final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(link, ajaxBehavior, "action");
 
             // TODO add delay support to ajax request
