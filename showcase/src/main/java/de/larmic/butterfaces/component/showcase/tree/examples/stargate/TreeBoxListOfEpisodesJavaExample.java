@@ -18,7 +18,6 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.addImport("import javax.faces.view.ViewScoped");
         this.addImport("import javax.inject.Named");
 
-        this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
         this.appendInnerContent("    private Episode selectedValue;\n");
         this.appendInnerContent("    private List<Episode> episodes = new ArrayList<Episode>();\n");
 
@@ -28,12 +27,12 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("                                     \"Mario Azzopardi\",");
         this.appendInnerContent("                                     \"Jonathan Glassner & Brad Wright\",");
         this.appendInnerContent("                                     \"July 27, 1997\",");
-        this.appendInnerContent("                                     \"ChildrenoftheGods.jpg\"));");
+        this.appendInnerContent("                                     \"ChildrenoftheGods\", \"jpg\"));");
         this.appendInnerContent("          episodes.add(createEpisode(2, \"Children of the Gods 2/2\",");
         this.appendInnerContent("                                     \"Mario Azzopardi\",");
         this.appendInnerContent("                                     \"Jonathan Glassner & Brad Wright\",");
         this.appendInnerContent("                                     \"July 27, 1997\",");
-        this.appendInnerContent("                                     \"ChildrenoftheGods.jpg\"));");
+        this.appendInnerContent("                                     \"ChildrenoftheGods\", \"jpg\"));");
         this.appendInnerContent("          ...");
         this.appendInnerContent("       }\n");
         this.appendInnerContent("        return episodes;");
@@ -46,14 +45,15 @@ public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
         this.appendInnerContent("                                         String directedBy,");
         this.appendInnerContent("                                         String writtenBy,");
         this.appendInnerContent("                                         String originalAirDate,");
-        this.appendInnerContent("                                         String image) {");
+        this.appendInnerContent("                                         String imageName,");
+        this.appendInnerContent("                                         String imageExtension) {");
         this.appendInnerContent("       final Episode episode = new Episode();");
         this.appendInnerContent("       episode.setNumberInSeries(numberInSeries);");
         this.appendInnerContent("       episode.setTitle(title);");
         this.appendInnerContent("       episode.setDirectedBy(directedBy);");
         this.appendInnerContent("       episode.setWrittenBy(writtenBy);");
         this.appendInnerContent("       episode.setOriginalAirDate(originalAirDate);");
-        this.appendInnerContent("       episode.setImage(IMAGE_PATH + image);");
+        this.appendInnerContent("       episode.setImage(new Image(imageName, imageExtension));");
         this.appendInnerContent("       return episode;");
         this.appendInnerContent("    }");
 

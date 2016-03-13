@@ -64,14 +64,15 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
             codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
-            codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo"));
+            codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo", true));
             codeExamples.add(new TreeBoxImageJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.STRINGS) {
             codeExamples.add(new TreeBoxListOfStringsJavaExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
             codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
-            codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo"));
+            codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo", true));
+            codeExamples.add(new TreeBoxImageJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.ENUMS) {
             codeExamples.add(new TreeBoxListOfEnumsJavaExample());
@@ -115,7 +116,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"selectedEntryTemplate\">");
             xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
             xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg small\"");
-            xhtmlCodeExample.appendInnerContent("                           src=\"{{imageUrl}}\" alt=\"{{title}}\"/>");
+            xhtmlCodeExample.appendInnerContent("                           src=\"{{image.url}}\" alt=\"{{title}}\"/>");
             xhtmlCodeExample.appendInnerContent("                      <div class=\"stargateEpisodeDetails\">");
             xhtmlCodeExample.appendInnerContent("                           <h4>{{title}} <small>({{originalAirDate}})</small></h4>");
             xhtmlCodeExample.appendInnerContent("                      </div>");
@@ -124,7 +125,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
             xhtmlCodeExample.appendInnerContent("                 <div class=\"stargateEpisodeItem\">");
             xhtmlCodeExample.appendInnerContent("                      <img class=\"stargateEpisodeImg\"");
-            xhtmlCodeExample.appendInnerContent("                           src=\"{{imageUrl}}\" alt=\"{{title}}\"/>");
+            xhtmlCodeExample.appendInnerContent("                           src=\"{{image.url}}\" alt=\"{{title}}\"/>");
             xhtmlCodeExample.appendInnerContent("                      <div class=\"stargateEpisodeDetails\">");
             xhtmlCodeExample.appendInnerContent("                           <h4>{{title}} <small>({{originalAirDate}})</small></h4>");
             xhtmlCodeExample.appendInnerContent("                           <div>");

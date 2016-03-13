@@ -15,6 +15,8 @@ public class TreeBoxImageJavaExample extends JavaCodeExample {
     public TreeBoxImageJavaExample(String subPackage) {
         super("Image.java", "image", subPackage, "Image", false);
 
+        this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
+
         this.appendInnerContent("    private final String path;");
         this.appendInnerContent("    private final String extension;");
         this.appendInnerContent("    private final String name;");
@@ -25,6 +27,8 @@ public class TreeBoxImageJavaExample extends JavaCodeExample {
         this.appendInnerContent("       this.name = name;");
         this.appendInnerContent("    }");
 
-        this.appendInnerContent("\n    // [...] getter + setter");
+        this.appendInnerContent("\n    public String getUrl() {");
+        this.appendInnerContent("       return path + name + \".\" + extension;");
+        this.appendInnerContent("    }");
     }
 }

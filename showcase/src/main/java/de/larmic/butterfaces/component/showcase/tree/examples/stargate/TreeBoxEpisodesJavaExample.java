@@ -13,13 +13,22 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 public class TreeBoxEpisodesJavaExample extends JavaCodeExample {
 
     public TreeBoxEpisodesJavaExample(String subPackage) {
+        this(subPackage, false);
+    }
+
+    public TreeBoxEpisodesJavaExample(String subPackage, boolean withImageClass) {
         super("Episode.java", "episode", subPackage, "Episode", false);
 
         this.appendInnerContent("    private int numberInSeries;");
         this.appendInnerContent("    private String title;");
         this.appendInnerContent("    private String writtenBy;");
         this.appendInnerContent("    private String originalAirDate;");
-        this.appendInnerContent("    private String image;");
+
+        if (withImageClass) {
+            this.appendInnerContent("    private Image image;");
+        } else {
+            this.appendInnerContent("    private String image;");
+        }
         this.appendInnerContent("\n    // [...] getter + setter\n");
         this.appendInnerContent("    @Override");
         this.appendInnerContent("    public String toString() {");
