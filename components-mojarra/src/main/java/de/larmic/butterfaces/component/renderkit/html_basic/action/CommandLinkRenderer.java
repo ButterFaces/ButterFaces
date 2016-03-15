@@ -270,7 +270,10 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "tabindex");
             this.renderStringValue(component, writer, "style");
             this.renderStringValue(component, writer, "target");
+
+            // html link attributes
             this.renderStringValue(component, writer, "accesskey");
+            this.renderStringValue(component, writer, "charset");
 
             // TODO check missing component attributes
             // binding
