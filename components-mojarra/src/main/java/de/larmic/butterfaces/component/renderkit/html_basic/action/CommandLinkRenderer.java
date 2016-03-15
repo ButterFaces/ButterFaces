@@ -274,8 +274,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderEventValue(component, writer, "onkeydown", "keydown");
             this.renderEventValue(component, writer, "onkeyup", "keyup");
             this.renderEventValue(component, writer, "onblur", "blur");
-            // TODO add chaining to onClick and ajax request
-            // this.renderEventValue(component, writer, "onclick", "click");
+            this.renderOnClickEventValue(component, writer, jsfAjaxRequest);
             this.renderEventValue(component, writer, "ondblclick", "dblclick");
             this.renderEventValue(component, writer, "onfocus", "focus");
             this.renderEventValue(component, writer, "onkeypress", "keypress");
@@ -291,7 +290,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             // actionListener
             // ...
 
-            writer.writeAttribute("onclick", jsfAjaxRequest.toString(), "onclick");
 
             writeStyleClass(writer, link);
 
@@ -306,6 +304,15 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         // callback is registered if onevent is set on f:ajax.
         if (ajaxBehavior != null) {
             ajaxBehavior.setOnevent(onEventCallback);
+        }
+    }
+
+    private void renderOnClickEventValue(UIComponent component, ResponseWriter writer, JsfAjaxRequest jsfAjaxRequest) throws IOException {
+        final String componentEventFunction = createComponentEventFunction(component, "onclick");
+        if (componentEventFunction != null) {
+            writer.writeAttribute("onclick", jsfAjaxRequest.toString() + ";" + componentEventFunction, "onclick");
+        } else {
+            writer.writeAttribute("onclick", jsfAjaxRequest.toString(), "onclick");
         }
     }
 
