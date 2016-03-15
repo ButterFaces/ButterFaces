@@ -276,6 +276,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "charset");
             this.renderStringValue(component, writer, "coords");
             this.renderStringValue(component, writer, "dir");
+            this.renderStringValue(component, writer, "hreflang");
 
             // TODO check missing component attributes
             // binding
