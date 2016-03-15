@@ -286,7 +286,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                                  final WebXmlParameters webXmlParameters) throws IOException {
         final String eventName = "refresh";
 
-        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(tableToolbar, eventName);
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tableToolbar, eventName);
         if (ajaxBehavior != null) {
             final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(tableToolbar.getClientId(), true)
                     .setRender(tableToolbar, eventName)

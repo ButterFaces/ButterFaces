@@ -227,21 +227,6 @@ public class JsfAjaxRequest {
         return sb.toString();
     }
 
-    public static AjaxBehavior findFirstActiveAjaxBehavior(final UIComponentBase component, final String eventName) {
-        if (component != null) {
-            final List<ClientBehavior> behaviors = component.getClientBehaviors().get(eventName);
-            if (behaviors != null) {
-                for (ClientBehavior behavior : behaviors) {
-                    if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
-                        return (AjaxBehavior) behavior;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
     public static List<String> createRerenderIds(final UIComponentBase component, final String eventName) {
         final List<String> idsToRender = new ArrayList<>();
         final Map<String, List<ClientBehavior>> behaviors = component.getClientBehaviors();

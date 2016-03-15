@@ -11,6 +11,7 @@ import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.Node;
+import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.resolver.MustacheResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
@@ -107,7 +108,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
                                  final ResponseWriter writer,
                                  final String eventName,
                                  final String trivialCallback) throws IOException {
-        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(tree, eventName);
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tree, eventName);
 
         if (ajaxBehavior != null) {
             writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);

@@ -242,7 +242,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter writer = context.getResponseWriter();
         // TODO should this be working for multiple behaviors?
-        final AjaxBehavior ajaxBehavior = JsfAjaxRequest.findFirstActiveAjaxBehavior(link, "action");
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(link, "action");
 
         if (link.isAjaxDisableLinkOnRequest() && ajaxBehavior != null) {
             if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
