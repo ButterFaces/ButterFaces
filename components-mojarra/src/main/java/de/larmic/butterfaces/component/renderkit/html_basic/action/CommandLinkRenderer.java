@@ -270,6 +270,13 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "tabindex");
             this.renderStringValue(component, writer, "style");
             this.renderStringValue(component, writer, "target");
+            this.renderStringValue(component, writer, "accesskey");
+
+            // TODO check missing component attributes
+            // binding
+            // immediate
+            // actionListener
+            // ...
 
             this.renderEventValue(component, writer, "onkeydown", "keydown");
             this.renderEventValue(component, writer, "onkeyup", "keyup");
@@ -283,13 +290,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderEventValue(component, writer, "onmouseout", "mouseout");
             this.renderEventValue(component, writer, "onmouseover", "mouseover");
             this.renderEventValue(component, writer, "onmouseup", "mouseup");
-
-            // TODO check missing component attributes
-            // binding
-            // immediate
-            // actionListener
-            // ...
-
 
             writeStyleClass(writer, link);
 
