@@ -281,6 +281,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "rel");
             this.renderStringValue(component, writer, "rev");
             this.renderStringValue(component, writer, "shape");
+            this.renderStringValue(component, writer, "type");
 
             // TODO check missing component attributes
             // binding
