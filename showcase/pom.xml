@@ -32,7 +32,16 @@
             <artifactId>commons-validator</artifactId>
             <version>1.5.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>jsf</artifactId>
+            <version>1.0.0.Beta4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>weld</artifactId>
+            <version>1.0.0.Beta4</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,6 +101,32 @@
                         <goals>
                             <goal>create</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-plugin</artifactId>
+                <version>1.0.0.Beta6</version>
+                <configuration>
+                    <fractions>
+                        <fraction>jsf</fraction>
+                    </fractions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>package</id>
+                    </execution>
+                    <execution>
+                        <id>start</id>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
                     </execution>
                 </executions>
             </plugin>
