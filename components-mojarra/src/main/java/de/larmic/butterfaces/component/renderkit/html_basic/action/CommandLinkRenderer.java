@@ -261,8 +261,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             writer.startElement("a", link);
             writeIdAttributeIfNecessary(context, writer, link);
             writer.writeAttribute("href", "#", "href");
-            // TODO check passThruAttributes
-            //RenderKitUtils.renderPassThruAttributes(context, writer, command, ATTRIBUTES, getNonOnClickBehaviors(command));
+
             this.renderBooleanValue(component, writer, "disabled");
             this.renderBooleanValue(component, writer, "ismap");
 
