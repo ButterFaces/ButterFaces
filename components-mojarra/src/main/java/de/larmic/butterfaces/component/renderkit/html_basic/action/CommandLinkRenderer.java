@@ -8,6 +8,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.action;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
+import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
@@ -270,20 +271,19 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "style");
             this.renderStringValue(component, writer, "target");
 
-            // TODO render onEvent methods
-            // this.renderEventValue(component, writer, "onkeydown", "keydown");
-            // this.renderEventValue(component, writer, "onkeyup", "keyup");
-            // this.renderEventValue(component, writer, "onblur", "blur");
+            this.renderEventValue(component, writer, "onkeydown", "keydown");
+            this.renderEventValue(component, writer, "onkeyup", "keyup");
+            this.renderEventValue(component, writer, "onblur", "blur");
             // TODO add chaining to onClick and ajax request
             // this.renderEventValue(component, writer, "onclick", "click");
-            // this.renderEventValue(component, writer, "ondblclick", "dblclick");
-            // this.renderEventValue(component, writer, "onfocus", "focus");
-            // this.renderEventValue(component, writer, "onkeypress", "keypress");
-            // this.renderEventValue(component, writer, "onmousedown", "mousedown");
-            // this.renderEventValue(component, writer, "onmousemove", "mousemove");
-            // this.renderEventValue(component, writer, "onmouseout", "mouseout");
-            // this.renderEventValue(component, writer, "onmouseover", "mouseover");
-            // this.renderEventValue(component, writer, "onmouseup", "mouseup");
+            this.renderEventValue(component, writer, "ondblclick", "dblclick");
+            this.renderEventValue(component, writer, "onfocus", "focus");
+            this.renderEventValue(component, writer, "onkeypress", "keypress");
+            this.renderEventValue(component, writer, "onmousedown", "mousedown");
+            this.renderEventValue(component, writer, "onmousemove", "mousemove");
+            this.renderEventValue(component, writer, "onmouseout", "mouseout");
+            this.renderEventValue(component, writer, "onmouseover", "mouseover");
+            this.renderEventValue(component, writer, "onmouseup", "mouseup");
 
             // TODO check missing component attributes
             // binding
@@ -421,5 +421,45 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         }
 
         return true;
+    }
+
+    /**
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    protected void renderEventValue(final UIComponent component,
+                                    final ResponseWriter writer,
+                                    final String attributeName,
+                                    final String eventName) throws IOException {
+        final String componentEventFunction = createComponentEventFunction(component, attributeName);
+        final String ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
+
+        if (componentEventFunction != null && ajaxEventFunction != null) {
+            writer.writeAttribute(attributeName, ajaxEventFunction + ";" + componentEventFunction, null);
+        } else if (componentEventFunction != null) {
+            writer.writeAttribute(attributeName, componentEventFunction, null);
+        } else if (ajaxEventFunction != null) {
+            writer.writeAttribute(attributeName, ajaxEventFunction, null);
+        }
+    }
+
+    /**
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    private String createComponentEventFunction(UIComponent component, String attributeName) {
+        return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
+    }
+
+    /**
+     * @deprecated When moving this class to components {@link de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer} will prepare this method.
+     * TODO remove when moving class to components package (see deprecated)
+     */
+    @Deprecated
+    private String createAjaxEventFunction(UIComponentBase component, String eventName) {
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
+        return ajaxBehavior != null ? new JsfAjaxRequest(component, ajaxBehavior, eventName).toString() : null;
     }
 }
