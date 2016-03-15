@@ -287,7 +287,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             // binding
             // immediate
             // actionListener
-            // ...
 
             this.renderEventValue(component, writer, "onkeydown", "keydown");
             this.renderEventValue(component, writer, "onkeyup", "keyup");
