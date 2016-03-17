@@ -34,6 +34,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     private CommandLinkExampleType commandLinkExampleType = CommandLinkExampleType.AJAX;
 
     public void increaseClick() {
+        System.out.println("action called");
         clicks++;
     }
 
@@ -47,6 +48,10 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         }
 
         increaseClick();
+    }
+
+    public void actionListener(javax.faces.event.ActionEvent event) {
+        System.out.println("actionlistener called " + event.toString());
     }
 
     @Override
