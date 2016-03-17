@@ -240,7 +240,6 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
                                   final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter writer = context.getResponseWriter();
-        // TODO should this be working for multiple behaviors?
         final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(link, "action");
 
         if (link.isAjaxDisableLinkOnRequest() && ajaxBehavior != null) {
@@ -284,9 +283,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         if (ajaxBehavior != null) {
             this.renderOnClickEventValue(component, writer, new JsfAjaxRequest(link, ajaxBehavior, "action").toString());
         } else {
-            // TODO target
-            final String target = "";
-            final String submitHandler = buildJavaScriptFormSubmitCall(context, component, target);
+            final String submitHandler = buildJavaScriptFormSubmitCall(context, component, getTrimmedTarget(component));
             this.renderOnClickEventValue(component, writer, submitHandler);
         }
         this.renderEventValue(component, writer, "ondblclick", "dblclick");
@@ -308,6 +305,15 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         if (ajaxBehavior != null) {
             ajaxBehavior.setOnevent(onEventCallback);
         }
+    }
+
+    private String getTrimmedTarget(final UIComponent component) throws IOException {
+        final Object target = component.getAttributes().get("target");
+        if (target != null && StringUtils.isNotEmpty(target.toString())) {
+            return target.toString().trim();
+        }
+
+        return null;
     }
 
     private static String buildJavaScriptFormSubmitCall(FacesContext context,
