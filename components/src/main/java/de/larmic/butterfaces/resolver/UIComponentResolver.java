@@ -8,6 +8,7 @@ package de.larmic.butterfaces.resolver;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitCallback;
@@ -19,6 +20,28 @@ import javax.faces.context.FacesContext;
  * @author Lars Michaelis
  */
 public class UIComponentResolver {
+
+    public static String getFormClientId(UIComponent component, FacesContext context) {
+        final UIForm form = getForm(component);
+        return form != null ? form.getClientId(context) : null;
+    }
+
+    public static UIForm getForm(UIComponent component) {
+        UIComponent parent = component.getParent();
+        while (parent != null) {
+            if (parent instanceof UIForm) {
+                break;
+            }
+            parent = parent.getParent();
+        }
+
+        UIForm form = (UIForm) parent;
+        if (form != null) {
+            return form;
+        }
+
+        return null;
+    }
 
     public String findComponentsClientId(final String id) {
         if (id.contains(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())+"")) {

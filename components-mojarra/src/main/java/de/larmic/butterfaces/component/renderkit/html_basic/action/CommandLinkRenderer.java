@@ -9,18 +9,23 @@ import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
+import de.larmic.butterfaces.resolver.UIComponentResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
 import javax.faces.component.behavior.AjaxBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -253,54 +258,55 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             ajaxBehavior.setOnerror(getOnEventListenerName(component));
         }
 
+
+        writer.startElement("a", link);
+        writeIdAttributeIfNecessary(context, writer, link);
+        writer.writeAttribute("href", "#", "href");
+
+        this.renderBooleanValue(component, writer, "disabled");
+        this.renderBooleanValue(component, writer, "ismap");
+
+        this.renderStringValue(component, writer, "title");
+        this.renderStringValue(component, writer, "tabindex");
+        this.renderStringValue(component, writer, "style");
+        this.renderStringValue(component, writer, "target");
+
+        // html link attributes
+        this.renderStringValue(component, writer, "accesskey");
+        this.renderStringValue(component, writer, "charset");
+        this.renderStringValue(component, writer, "coords");
+        this.renderStringValue(component, writer, "dir");
+        this.renderStringValue(component, writer, "hreflang");
+        this.renderStringValue(component, writer, "lang");
+        this.renderStringValue(component, writer, "rel");
+        this.renderStringValue(component, writer, "rev");
+        this.renderStringValue(component, writer, "shape");
+        this.renderStringValue(component, writer, "type");
+
+        this.renderEventValue(component, writer, "onkeydown", "keydown");
+        this.renderEventValue(component, writer, "onkeyup", "keyup");
+        this.renderEventValue(component, writer, "onblur", "blur");
         if (ajaxBehavior != null) {
-            final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(link, ajaxBehavior, "action");
-
-            writer.startElement("a", link);
-            writeIdAttributeIfNecessary(context, writer, link);
-            writer.writeAttribute("href", "#", "href");
-
-            this.renderBooleanValue(component, writer, "disabled");
-            this.renderBooleanValue(component, writer, "ismap");
-
-            this.renderStringValue(component, writer, "title");
-            this.renderStringValue(component, writer, "tabindex");
-            this.renderStringValue(component, writer, "style");
-            this.renderStringValue(component, writer, "target");
-
-            // html link attributes
-            this.renderStringValue(component, writer, "accesskey");
-            this.renderStringValue(component, writer, "charset");
-            this.renderStringValue(component, writer, "coords");
-            this.renderStringValue(component, writer, "dir");
-            this.renderStringValue(component, writer, "hreflang");
-            this.renderStringValue(component, writer, "lang");
-            this.renderStringValue(component, writer, "rel");
-            this.renderStringValue(component, writer, "rev");
-            this.renderStringValue(component, writer, "shape");
-            this.renderStringValue(component, writer, "type");
-
-            this.renderEventValue(component, writer, "onkeydown", "keydown");
-            this.renderEventValue(component, writer, "onkeyup", "keyup");
-            this.renderEventValue(component, writer, "onblur", "blur");
-            this.renderOnClickEventValue(component, writer, jsfAjaxRequest);
-            this.renderEventValue(component, writer, "ondblclick", "dblclick");
-            this.renderEventValue(component, writer, "onfocus", "focus");
-            this.renderEventValue(component, writer, "onkeypress", "keypress");
-            this.renderEventValue(component, writer, "onmousedown", "mousedown");
-            this.renderEventValue(component, writer, "onmousemove", "mousemove");
-            this.renderEventValue(component, writer, "onmouseout", "mouseout");
-            this.renderEventValue(component, writer, "onmouseover", "mouseover");
-            this.renderEventValue(component, writer, "onmouseup", "mouseup");
-
-            writeStyleClass(writer, link);
-
-            // render the current value as link text.
-            writeValue(link, writer);
+            this.renderOnClickEventValue(component, writer, new JsfAjaxRequest(link, ajaxBehavior, "action").toString());
         } else {
-            // TODO replace it with custom implementation (replace mojarra.ab(...) by default jsf js api)
-            super.renderAsActive(context, component);
+            // TODO target
+            final String target = "";
+            final String submitHandler = buildJavaScriptFormSubmitCall(context, component, target);
+            this.renderOnClickEventValue(component, writer, submitHandler);
         }
+        this.renderEventValue(component, writer, "ondblclick", "dblclick");
+        this.renderEventValue(component, writer, "onfocus", "focus");
+        this.renderEventValue(component, writer, "onkeypress", "keypress");
+        this.renderEventValue(component, writer, "onmousedown", "mousedown");
+        this.renderEventValue(component, writer, "onmousemove", "mousemove");
+        this.renderEventValue(component, writer, "onmouseout", "mouseout");
+        this.renderEventValue(component, writer, "onmouseover", "mouseover");
+        this.renderEventValue(component, writer, "onmouseup", "mouseup");
+
+        writeStyleClass(writer, link);
+
+        // render the current value as link text.
+        writeValue(link, writer);
 
         // reset ajax behaviour because otherwise a render of this component will not be work correctly (wrong js
         // callback is registered if onevent is set on f:ajax.
@@ -309,12 +315,70 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         }
     }
 
-    private void renderOnClickEventValue(UIComponent component, ResponseWriter writer, JsfAjaxRequest jsfAjaxRequest) throws IOException {
+    private static String buildJavaScriptFormSubmitCall(FacesContext context,
+                                                        UIComponent component,
+                                                        String submitTarget) {
+        final Collection<ClientBehaviorContext.Parameter> params = findBehaviorParameters(component);
+        final StringBuilder builder = new StringBuilder(256);
+
+        final String formClientId = UIComponentResolver.getFormClientId(component, context);
+        final String componentClientId = component.getClientId(context);
+
+        builder.append("mojarra.jsfcljs(document.getElementById('");
+        builder.append(formClientId);
+        builder.append("'),{");
+
+        ParameterAppender.appendProperty(builder, componentClientId, componentClientId);
+
+        if ((null != params) && (!params.isEmpty())) {
+            for (ClientBehaviorContext.Parameter param : params) {
+                ParameterAppender.appendProperty(builder, param.getName(), param.getValue());
+            }
+        }
+
+        builder.append("},'");
+
+        if (submitTarget != null) {
+            builder.append(submitTarget);
+        }
+
+        builder.append("')");
+
+        return builder.toString();
+    }
+
+    private static Collection<ClientBehaviorContext.Parameter> findBehaviorParameters(final UIComponent component) {
+        final int childCount = component.getChildCount();
+        ArrayList<ClientBehaviorContext.Parameter> params = null;
+
+        if (childCount > 0) {
+            for (UIComponent kid : component.getChildren()) {
+                if (kid instanceof UIParameter) {
+                    final UIParameter uiParam = (UIParameter) kid;
+                    final String name = uiParam.getName();
+                    final Object value = uiParam.getValue();
+
+                    if (StringUtils.isNotEmpty(name)) {
+                        if (params == null) {
+                            params = new ArrayList<>(childCount);
+                        }
+
+                        params.add(new ClientBehaviorContext.Parameter(name, value));
+                    }
+                }
+            }
+        }
+
+        return params == null ? Collections.<ClientBehaviorContext.Parameter>emptyList() : params;
+
+    }
+
+    private void renderOnClickEventValue(UIComponent component, ResponseWriter writer, String onClickEvent) throws IOException {
         final String componentEventFunction = createComponentEventFunction(component, "onclick");
         if (componentEventFunction != null) {
-            writer.writeAttribute("onclick", jsfAjaxRequest.toString() + ";" + componentEventFunction, "onclick");
+            writer.writeAttribute("onclick", onClickEvent + ";" + componentEventFunction + ";return false", "onclick");
         } else {
-            writer.writeAttribute("onclick", jsfAjaxRequest.toString(), "onclick");
+            writer.writeAttribute("onclick", onClickEvent + ";return false", "onclick");
         }
     }
 
