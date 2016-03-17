@@ -321,7 +321,7 @@ public class HtmlBasicRenderer extends Renderer {
         }
     }
 
-    private String createComponentEventFunction(UIComponent component, String attributeName) {
+    protected String createComponentEventFunction(UIComponent component, String attributeName) {
         return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
     }
 
