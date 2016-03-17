@@ -252,6 +252,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
             ajaxBehavior.setOnerror(getOnEventListenerName(component));
         }
 
+        // TODO check resetValues
 
         writer.startElement("a", link);
         writeIdAttributeIfNecessary(context, writer, link);
