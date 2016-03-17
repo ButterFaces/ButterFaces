@@ -253,7 +253,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             ajaxBehavior.setOnerror(getOnEventListenerName(component));
         }
 
-        if (ajaxBehavior != null && false) {
+        if (ajaxBehavior != null) {
             final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(link, ajaxBehavior, "action");
 
             // TODO add delay support to ajax request
@@ -281,9 +281,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
             this.renderStringValue(component, writer, "rev");
             this.renderStringValue(component, writer, "shape");
             this.renderStringValue(component, writer, "type");
-
-            // TODO check missing component attributes
-            // immediate
 
             this.renderEventValue(component, writer, "onkeydown", "keydown");
             this.renderEventValue(component, writer, "onkeyup", "keyup");
