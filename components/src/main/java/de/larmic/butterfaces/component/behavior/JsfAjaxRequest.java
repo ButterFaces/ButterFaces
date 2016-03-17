@@ -37,6 +37,7 @@ public class JsfAjaxRequest {
     private List<String> onErrorHandlers = new ArrayList<>();
     private String params;
     private String behaviorEvent;
+    private String delay;
 
     /**
      * Constructor.
@@ -75,6 +76,9 @@ public class JsfAjaxRequest {
             if (ajaxBehavior.getOnerror() != null) {
                 this.addOnErrorHandler(ajaxBehavior.getOnerror());
             }
+            if (StringUtils.isNotEmpty(ajaxBehavior.getDelay())) {
+                delay = ajaxBehavior.getDelay();
+            }
             this.setEvent(event);
             this.setBehaviorEvent(event);
         }
@@ -95,6 +99,15 @@ public class JsfAjaxRequest {
      */
     public JsfAjaxRequest setExecute(String execute) {
         this.execute = execute;
+        return this;
+    }
+
+    /**
+     * @param delay delay in ms
+     * @return the actual instance of {@link JsfAjaxRequest}
+     */
+    public JsfAjaxRequest setDelay(String delay) {
+        this.delay = delay;
         return this;
     }
 
@@ -207,6 +220,12 @@ public class JsfAjaxRequest {
             if (!onErrorHandlers.isEmpty()) {
                 writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
                 sb.append("onerror: ").append(renderFunctionCalls(onErrorHandlers));
+                isAtLeastOneOptionSet = true;
+            }
+
+            if (isNotEmpty(delay)) {
+                writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
+                sb.append("delay: '").append(delay).append("'");
                 isAtLeastOneOptionSet = true;
             }
 

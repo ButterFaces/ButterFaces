@@ -256,8 +256,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         if (ajaxBehavior != null) {
             final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(link, ajaxBehavior, "action");
 
-            // TODO add delay support to ajax request
-
             writer.startElement("a", link);
             writeIdAttributeIfNecessary(context, writer, link);
             writer.writeAttribute("href", "#", "href");
