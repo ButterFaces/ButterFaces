@@ -5,6 +5,7 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.action;
 
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.action.HtmlCommandLink;
 import de.larmic.butterfaces.resolver.AjaxClientIdResolver;
@@ -32,7 +33,7 @@ import java.util.Map;
  * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlCommandLink.COMPONENT_FAMILY, rendererType = HtmlCommandLink.RENDERER_TYPE)
-public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.CommandLinkRenderer {
+public class CommandLinkRenderer extends HtmlBasicRenderer {
 
     private WebXmlParameters webXmlParameters;
 
@@ -55,7 +56,7 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         } else {
             writer.startElement("span", component);
             writeIdAttributeIfNecessary(context, writer, component);
-            writeCommonLinkAttributes(writer, component);
+            writeStyleClass(writer, component);
             if (StringUtils.isNotEmpty(link.getStyle())) {
                 writer.writeAttribute("style", link.getStyle(), "style");
             }
@@ -66,11 +67,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
     @Override
     protected boolean shouldWriteIdAttribute(UIComponent component) {
         return true;
-    }
-
-    @Override
-    protected void writeCommonLinkAttributes(final ResponseWriter writer, final UIComponent component) throws IOException {
-        writeStyleClass(writer, component);
     }
 
     @Override
@@ -218,7 +214,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         return webXmlParameters.getAjaxProcessingGlyphiconOnRequest();
     }
 
-    @Override
     protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
         final HtmlCommandLink commandLink = (HtmlCommandLink) component;
 
@@ -241,7 +236,6 @@ public class CommandLinkRenderer extends com.sun.faces.renderkit.html_basic.Comm
         this.writeWaitingDotsIfNecessary(commandLink, writer);
     }
 
-    @Override
     protected void renderAsActive(final FacesContext context,
                                   final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
