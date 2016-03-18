@@ -214,7 +214,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         return webXmlParameters.getAjaxProcessingGlyphiconOnRequest();
     }
 
-    protected void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
+    private void writeValue(final UIComponent component, final ResponseWriter writer) throws IOException {
         final HtmlCommandLink commandLink = (HtmlCommandLink) component;
 
         this.writeGlyphiconIfNecessary(commandLink, writer);
@@ -236,8 +236,8 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         this.writeWaitingDotsIfNecessary(commandLink, writer);
     }
 
-    protected void renderAsActive(final FacesContext context,
-                                  final UIComponent component) throws IOException {
+    private void renderAsActive(final FacesContext context,
+                                final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter writer = context.getResponseWriter();
         final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(link, "action");
@@ -407,8 +407,8 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         return "glyphiconLinkListener" + "_" + component.getClientId().replace(separatorChar + "", "_");
     }
 
-    protected void writeWaitingDotsIfNecessary(final HtmlCommandLink commandLink,
-                                               final ResponseWriter writer) throws IOException {
+    private void writeWaitingDotsIfNecessary(final HtmlCommandLink commandLink,
+                                             final ResponseWriter writer) throws IOException {
         if (commandLink.isAjaxDisableLinkOnRequest()) {
             writer.startElement("span", commandLink);
             writer.writeAttribute("class", "butter-component-glyphicon-processing", null);
@@ -416,8 +416,8 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         }
     }
 
-    protected void writeGlyphiconIfNecessary(final HtmlCommandLink commandLink,
-                                             final ResponseWriter writer) throws IOException {
+    private void writeGlyphiconIfNecessary(final HtmlCommandLink commandLink,
+                                           final ResponseWriter writer) throws IOException {
         final String glyphicon = StringUtils.getNotNullValue(commandLink.getGlyphicon(), "");
 
         writer.startElement("span", commandLink);
