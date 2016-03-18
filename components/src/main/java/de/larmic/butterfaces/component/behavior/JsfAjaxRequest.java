@@ -38,6 +38,7 @@ public class JsfAjaxRequest {
     private String params;
     private String behaviorEvent;
     private String delay;
+    private boolean resetValues;
 
     /**
      * Constructor.
@@ -79,6 +80,9 @@ public class JsfAjaxRequest {
             if (StringUtils.isNotEmpty(ajaxBehavior.getDelay())) {
                 delay = ajaxBehavior.getDelay();
             }
+
+            resetValues = ajaxBehavior.isResetValues();
+
             this.setEvent(event);
             this.setBehaviorEvent(event);
         }
@@ -125,21 +129,9 @@ public class JsfAjaxRequest {
         return this;
     }
 
-    public static String getResolvedId(final UIComponentBase component, final String id) {
-        if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
-            return id;
-        }
-
-        UIComponent resolvedComponent = component.findComponent(id);
-        if (resolvedComponent == null) {
-            final FacesContext context = FacesContext.getCurrentInstance();
-            if (context != null && id.charAt(0) == UINamingContainer.getSeparatorChar(context)) {
-                return id.substring(1);
-            }
-            return id;
-        }
-
-        return resolvedComponent.getClientId();
+    public JsfAjaxRequest setResetValues(boolean resetValues) {
+        this.resetValues = resetValues;
+        return this;
     }
 
     public JsfAjaxRequest addRender(final String render) {
@@ -229,6 +221,12 @@ public class JsfAjaxRequest {
                 isAtLeastOneOptionSet = true;
             }
 
+            if (resetValues) {
+                writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
+                sb.append("resetValues: '").append(resetValues).append("'");
+                isAtLeastOneOptionSet = true;
+            }
+
             if (isNotEmpty(params)) {
                 writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
                 sb.append("params: ").append(params);
@@ -284,6 +282,23 @@ public class JsfAjaxRequest {
         return idsToRender;
     }
 
+    private static String getResolvedId(final UIComponentBase component, final String id) {
+        if (id.equals("@all") || id.equals("@none") || id.equals("@form") || id.equals("@this")) {
+            return id;
+        }
+
+        UIComponent resolvedComponent = component.findComponent(id);
+        if (resolvedComponent == null) {
+            final FacesContext context = FacesContext.getCurrentInstance();
+            if (context != null && id.charAt(0) == UINamingContainer.getSeparatorChar(context)) {
+                return id.substring(1);
+            }
+            return id;
+        }
+
+        return resolvedComponent.getClientId();
+    }
+
     private void writeSeparatorIfNecessary(StringBuilder sb, boolean isAtLeastOneOptionSet) {
         if (isAtLeastOneOptionSet) {
             sb.append(", ");
@@ -307,6 +322,8 @@ public class JsfAjaxRequest {
     private boolean hasOptions() {
         return isNotEmpty(execute)
                 || isNotEmpty(render)
+                || isNotEmpty(delay)
+                || resetValues
                 || !onEventHandlers.isEmpty()
                 || !onErrorHandlers.isEmpty()
                 || isNotEmpty(params)

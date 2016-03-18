@@ -48,13 +48,35 @@ public class JsfAjaxRequestTest {
         final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
         request.setRender("someId");
 
-        assertThat(request.toString())
-                .isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId'});");
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId'});");
 
         request.addRender("someOtherId");
 
-        assertThat(request.toString())
-                .isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId someOtherId'});");
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, {render: 'someId someOtherId'});");
+    }
+
+    @Test
+    public void testSetResetValues() throws Exception {
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        request.setResetValues(true);
+
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, {resetValues: 'true'});");
+
+        request.setResetValues(false);
+
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement);");
+    }
+
+    @Test
+    public void testDelay() throws Exception {
+        final JsfAjaxRequest request = new JsfAjaxRequest("mySourceElement", false);
+        request.setDelay("200");
+
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement, {delay: '200'});");
+
+        request.setDelay(null);
+
+        assertThat(request.toString()).isEqualTo("jsf.ajax.request(mySourceElement);");
     }
 
     @Test
