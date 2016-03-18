@@ -325,9 +325,9 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         final String formClientId = UIComponentResolver.getFormClientId(component, context);
         final String componentClientId = component.getClientId(context);
 
-        builder.append("mojarra.jsfcljs(document.getElementById('");
+        builder.append("ButterFaces.CommandLink.submitForm('");
         builder.append(formClientId);
-        builder.append("'),{");
+        builder.append("',{");
 
         ParameterAppender.appendProperty(builder, componentClientId, componentClientId);
 
