@@ -71,6 +71,25 @@
                     <f:converter converterId="fooConverter"/>
                 </c:if>
             </b:radioBox>
+
+            <b:radioBox2 label="#{radioBoxShowcase.label}"
+                         value="#{radioBoxShowcase.value}"
+                         values="#{radioBoxShowcase.values}"
+                         hideLabel="#{radioBoxShowcase.hideLabel}"
+                         readonly="#{radioBoxShowcase.readonly}"
+                         required="#{radioBoxShowcase.required}"
+                         rendered="#{radioBoxShowcase.rendered}"
+                         disabled="#{radioBoxShowcase.disabled}"
+                         layout="#{radioBoxShowcase.radioBoxLayoutType.label}"
+                         styleClass="#{radioBoxShowcase.styleClass}">
+                <f:ajax event="change"
+                        execute="@this"
+                        render="output:outputComponent:outputValues output:other"
+                        disabled="#{not radioBoxShowcase.ajax}"/>
+                <b:tooltip rendered="#{not empty radioBoxShowcase.tooltip}">
+                    #{radioBoxShowcase.tooltip}
+                </b:tooltip>
+            </b:radioBox2>
         </common:showcaseOuputComponent>
     </ui:define>
 
