@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.base.renderer;
 
 import javax.el.ValueExpression;
@@ -12,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by larmic on 12.09.15.
+ * @author Lars Michaelis
  */
 public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
 
@@ -120,13 +125,11 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
 
     private boolean hasStringConverter(FacesContext context) {
         if (!hasStringConverterSet) {
-            hasStringConverter = (null !=
-                    context.getApplication()
-                            .createConverter(String.class));
+            hasStringConverter = context.getApplication().createConverter(String.class) != null;
             hasStringConverterSet = true;
         }
-        return hasStringConverter;
 
+        return hasStringConverter;
     }
 
 }
