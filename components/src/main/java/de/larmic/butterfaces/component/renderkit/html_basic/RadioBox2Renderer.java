@@ -46,6 +46,11 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
         }
     }
 
+    @Override
+    protected void setSubmittedValue(UIComponent component, Object value) {
+        super.setSubmittedValue(component, value != null ? value : "");
+    }
+
     private void renderRadioBoxItem(ResponseWriter writer,
                                     HtmlRadioBox2 radioBox,
                                     String radioBoxClientId,
