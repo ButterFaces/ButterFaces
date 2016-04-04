@@ -8,7 +8,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.html.HtmlSelectOneRadio;
+import javax.faces.component.html.HtmlInputText;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
 })
 @FacesComponent(HtmlRadioBox2.COMPONENT_TYPE)
-public class HtmlRadioBox2 extends HtmlSelectOneRadio implements HtmlInputComponent, Tooltip, Label, Readonly {
+public class HtmlRadioBox2 extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.radioBox2";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
