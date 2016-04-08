@@ -1793,7 +1793,7 @@
     <tag>
         <tag-name>radioBox2</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.radioBox2</component-type>
+            <component-type>de.larmic.butterfaces.component.radioBox</component-type>
         </component>
         <attribute>
             <name>label</name>

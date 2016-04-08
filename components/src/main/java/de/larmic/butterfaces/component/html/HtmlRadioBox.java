@@ -18,17 +18,17 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
 })
-@FacesComponent(HtmlRadioBox2.COMPONENT_TYPE)
-public class HtmlRadioBox2 extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {
+@FacesComponent(HtmlRadioBox.COMPONENT_TYPE)
+public class HtmlRadioBox extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.radioBox2";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.radioBox";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.RadioBox2Renderer";
 
     private static final String PROPERTY_VALUES = "values";
     private static final String PROPERTY_HIDE_LABEL = "hideLabel";
 
-    public HtmlRadioBox2() {
+    public HtmlRadioBox() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }

@@ -5,7 +5,7 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlRadioBox2;
+import de.larmic.butterfaces.component.html.HtmlRadioBox;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -22,8 +22,8 @@ import java.util.Map;
 /**
  * @author Lars Michaelis
  */
-@FacesRenderer(componentFamily = HtmlRadioBox2.COMPONENT_FAMILY, rendererType = HtmlRadioBox2.RENDERER_TYPE)
-public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
+@FacesRenderer(componentFamily = HtmlRadioBox.COMPONENT_FAMILY, rendererType = HtmlRadioBox.RENDERER_TYPE)
+public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -34,8 +34,8 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
     protected void getEndTextToRender(FacesContext context, UIComponent component, String currentValue) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
-        if (component instanceof HtmlRadioBox2) {
-            final HtmlRadioBox2 radioBox = (HtmlRadioBox2) component;
+        if (component instanceof HtmlRadioBox) {
+            final HtmlRadioBox radioBox = (HtmlRadioBox) component;
             final String radioBoxClientId = radioBox.getClientId();
             final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
 
@@ -51,11 +51,11 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
-        if (!(component instanceof HtmlRadioBox2)) {
+        if (!(component instanceof HtmlRadioBox)) {
             return;
         }
 
-        final HtmlRadioBox2 radioBox = (HtmlRadioBox2) component;
+        final HtmlRadioBox radioBox = (HtmlRadioBox) component;
 
         if (!component.isRendered() || radioBox.isReadonly()) {
             return;
@@ -75,7 +75,7 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
 
     @Override
     public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue) throws ConverterException {
-        final HtmlRadioBox2 radioBox = (HtmlRadioBox2) component;
+        final HtmlRadioBox radioBox = (HtmlRadioBox) component;
         return submittedValue != null ? findItemInValues((Iterable) radioBox.getValues(), submittedValue.toString()) : null;
     }
 
@@ -85,7 +85,7 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
     }
 
     private void renderRadioBoxItem(ResponseWriter writer,
-                                    HtmlRadioBox2 radioBox,
+                                    HtmlRadioBox radioBox,
                                     String radioBoxClientId,
                                     char separatorChar,
                                     int itemCounter,
