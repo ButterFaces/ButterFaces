@@ -1,5 +1,6 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.radioBox;
 
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
@@ -56,6 +57,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    values=\"#{myBean.values}");
 		xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
@@ -63,31 +65,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		xhtmlCodeExample.appendInnerContent("                    layout=\"" + radioBoxLayoutType.label + "\"");
 		xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
-		if (this.comboBoxValueType == ComboBoxValueType.STRING) {
-			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2000\" \n");
-			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2000\"/>\n");
-			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2010\" \n");
-			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2010\"/>\n");
-			xhtmlCodeExample.appendInnerContent("            <f:selectItem itemValue=\"2020\" \n");
-			xhtmlCodeExample.appendInnerContent("                          itemLabel=\"Year 2020\"/>\n");
-		} else if (this.comboBoxValueType == ComboBoxValueType.ENUM) {
-			xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooEnums}\"/>\n");
-		} else if (this.comboBoxValueType == ComboBoxValueType.OBJECT) {
-			xhtmlCodeExample.appendInnerContent("            <f:selectItems value=\"#{bean.fooObjects}\"/>\n");
-			xhtmlCodeExample.appendInnerContent("            <f:converter converterId=\"fooConverter\"/>\n");
-		}
-
 		this.addAjaxTag(xhtmlCodeExample, "change");
-
-		if (StringUtils.isNotEmpty(getTooltip())) {
-			xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
-			xhtmlCodeExample.appendInnerContent("                " + getTooltip());
-			xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
-		}
-
-		if (this.isValidation()) {
-			xhtmlCodeExample.appendInnerContent("            <f:validateLength minimum=\"2\" maximum=\"10\"/>");
-		}
 
 		if (StringUtils.isNotEmpty(getTooltip())) {
 			xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
