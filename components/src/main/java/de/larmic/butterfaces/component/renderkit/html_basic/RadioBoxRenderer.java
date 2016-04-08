@@ -106,6 +106,7 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         }
 
         this.renderBooleanValue(radioBox, writer, "disabled");
+        this.renderBooleanValue(radioBox, writer, "ismap");
 
         this.renderEventValue(radioBox, writer, "onblur", "blur");
         this.renderEventValue(radioBox, writer, "onclick", "click");
