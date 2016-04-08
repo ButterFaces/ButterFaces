@@ -42,7 +42,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	@Override
 	public Object getValue() {
 		if (super.getValue() != null) {
-			return super.getValue().toString();
+			return super.getValue();
 		}
 
 		return "(item is null)";

@@ -1791,7 +1791,7 @@
     </tag>
 
     <tag>
-        <tag-name>radioBox2</tag-name>
+        <tag-name>radioBox</tag-name>
         <component>
             <component-type>de.larmic.butterfaces.component.radioBox</component-type>
         </component>
@@ -1803,6 +1803,7 @@
         </attribute>
         <attribute>
             <name>value</name>
+            <type>java.lang.Object</type>
             <required>true</required>
         </attribute>
         <attribute>

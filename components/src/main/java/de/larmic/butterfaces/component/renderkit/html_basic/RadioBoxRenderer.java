@@ -98,12 +98,21 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         writer.writeAttribute("type", "radio", "input");
         writer.writeAttribute("name", radioBoxClientId, "name");
         writer.writeAttribute("value", convertItemToIdentifier(listItem), "value");
+
+        if (isValueSelected(radioBox.getValue(), listItem)) {
+            writer.writeAttribute("checked", true, "checked");
+        }
+
         writer.endElement("input");
         writer.startElement("label", radioBox);
         writer.writeAttribute("for", radioItemClientId, "for");
         writer.writeText(convertItemToText(listItem), radioBox, null);
         writer.endElement("label");
         writer.endElement("div");
+    }
+
+    private boolean isValueSelected(Object radioBoxValue, Object value) {
+        return radioBoxValue != null && radioBoxValue.equals(value);
     }
 
     private Object findItemInValues(final Iterable values, final String identifier) {
