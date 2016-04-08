@@ -34,8 +34,6 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
     protected void getEndTextToRender(FacesContext context, UIComponent component, String currentValue) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
-        // TODO check parent method for missing attributes
-
         if (component instanceof HtmlRadioBox) {
             final HtmlRadioBox radioBox = (HtmlRadioBox) component;
             final String radioBoxClientId = radioBox.getClientId();
@@ -107,6 +105,14 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
 
         this.renderBooleanValue(radioBox, writer, "disabled");
         this.renderBooleanValue(radioBox, writer, "ismap");
+
+        // html
+        this.renderStringValue(radioBox, writer, "alt");
+        this.renderStringValue(radioBox, writer, "dir");
+        this.renderStringValue(radioBox, writer, "lang");
+        this.renderStringValue(radioBox, writer, "role");
+        this.renderStringValue(radioBox, writer, "tabindex");
+        this.renderStringValue(radioBox, writer, "title");
 
         this.renderEventValue(radioBox, writer, "onblur", "blur");
         this.renderEventValue(radioBox, writer, "onclick", "click");
