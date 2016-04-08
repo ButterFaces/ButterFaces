@@ -63,7 +63,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");
-		xhtmlCodeExample.appendInnerContent("                    layout=\"" + radioBoxLayoutType.label + "\"");
+		//xhtmlCodeExample.appendInnerContent("                    layout=\"" + radioBoxLayoutType.label + "\"");
 		xhtmlCodeExample.appendInnerContent("                    rendered=\"" + this.isRendered() + "\">");
 
 		this.addAjaxTag(xhtmlCodeExample, "change");
