@@ -34,6 +34,8 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
     protected void getEndTextToRender(FacesContext context, UIComponent component, String currentValue) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
+        // TODO check parent method for missing attributes
+
         if (component instanceof HtmlRadioBox) {
             final HtmlRadioBox radioBox = (HtmlRadioBox) component;
             final String radioBoxClientId = radioBox.getClientId();
@@ -102,6 +104,21 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         if (isValueSelected(radioBox.getValue(), listItem)) {
             writer.writeAttribute("checked", true, "checked");
         }
+
+        this.renderEventValue(radioBox, writer, "onblur", "blur");
+        this.renderEventValue(radioBox, writer, "onclick", "click");
+        this.renderEventValue(radioBox, writer, "ondblclick", "dblclick");
+        this.renderEventValue(radioBox, writer, "onfocus", "focus");
+        this.renderEventValue(radioBox, writer, "onkeydown", "keydown");
+        this.renderEventValue(radioBox, writer, "onkeypress", "keypress");
+        this.renderEventValue(radioBox, writer, "onkeyup", "keyup");
+        this.renderEventValue(radioBox, writer, "onmousedown", "mousedown");
+        this.renderEventValue(radioBox, writer, "onmousemove", "mousemove");
+        this.renderEventValue(radioBox, writer, "onmouseout", "mouseout");
+        this.renderEventValue(radioBox, writer, "onmouseover", "mouseover");
+        this.renderEventValue(radioBox, writer, "onmouseup", "mouseup");
+        this.renderEventValue(radioBox, writer, "onselect", "select");
+        this.renderEventValue(radioBox, writer, "onchange", "change");
 
         writer.endElement("input");
         writer.startElement("label", radioBox);
