@@ -3,7 +3,6 @@ package de.larmic.butterfaces.component.partrenderer;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlRadioBox;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -57,7 +56,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
     }
 
     public static void renderMojarraFix(UIComponent component, ResponseWriter writer) throws IOException {
-        if (component instanceof HtmlComboBox || component instanceof HtmlRadioBox) {
+        if (component instanceof HtmlComboBox) {
             final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
             final Iterator<String> eventNamesIterator = eventNames.iterator();
 

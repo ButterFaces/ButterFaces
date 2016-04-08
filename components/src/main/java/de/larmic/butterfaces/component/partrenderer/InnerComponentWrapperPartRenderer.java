@@ -2,7 +2,6 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlComboBox;
-import de.larmic.butterfaces.component.html.HtmlRadioBox;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -91,7 +90,7 @@ public class InnerComponentWrapperPartRenderer {
         if (!readonly) {
             writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
 
-            if (component instanceof HtmlComboBox || component instanceof HtmlRadioBox) {
+            if (component instanceof HtmlComboBox) {
                 InnerComponentCheckBoxWrapperPartRenderer.renderMojarraFix(component, writer);
             }
         }
