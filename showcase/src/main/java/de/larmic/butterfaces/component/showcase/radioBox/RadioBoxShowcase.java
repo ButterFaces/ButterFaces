@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.showcase.radioBox;
 
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
+import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxListOfStringsMyBeanExample;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
@@ -56,7 +57,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		xhtmlCodeExample.appendInnerContent("        <b:radioBox id=\"input\"");
 		xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
-		xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
+		xhtmlCodeExample.appendInnerContent("                    value=\"#{myBean.selectedValue}\"");
 		xhtmlCodeExample.appendInnerContent("                    values=\"#{myBean.values}\"");
 		xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
@@ -78,6 +79,10 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		this.addOutputExample(xhtmlCodeExample);
 
 		codeExamples.add(xhtmlCodeExample);
+
+        if (ComboBoxValueType.STRING.equals(this.comboBoxValueType)) {
+            codeExamples.add(new RadioBoxListOfStringsMyBeanExample());
+        }
 
 		generateDemoCSS(codeExamples);
 	}
