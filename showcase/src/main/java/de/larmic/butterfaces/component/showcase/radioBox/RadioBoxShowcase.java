@@ -57,7 +57,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		xhtmlCodeExample.appendInnerContent("                    label=\"" + this.getLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
-		xhtmlCodeExample.appendInnerContent("                    values=\"#{myBean.values}");
+		xhtmlCodeExample.appendInnerContent("                    values=\"#{myBean.values}\"");
 		xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
 		xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
