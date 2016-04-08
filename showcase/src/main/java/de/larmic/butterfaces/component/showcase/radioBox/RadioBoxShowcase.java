@@ -1,6 +1,8 @@
 package de.larmic.butterfaces.component.showcase.radioBox;
 
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
+import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxFooTypeExample;
+import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxListOfFooTypesMyBeanExample;
 import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxListOfStringsMyBeanExample;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
@@ -82,6 +84,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
         if (ComboBoxValueType.STRING.equals(this.comboBoxValueType)) {
             codeExamples.add(new RadioBoxListOfStringsMyBeanExample());
+        } else if (ComboBoxValueType.ENUM.equals(this.comboBoxValueType)) {
+            codeExamples.add(new RadioBoxListOfFooTypesMyBeanExample());
+            codeExamples.add(new RadioBoxFooTypeExample());
         }
 
 		generateDemoCSS(codeExamples);
