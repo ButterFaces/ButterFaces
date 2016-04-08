@@ -112,7 +112,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 				return ((Foo) super.getValue()).getValue();
 			} else if (super.getValue() instanceof FooType) {
 				return ((FooType) super.getValue()).getLabel();
-			}
+			} else if (super.getValue() instanceof SelectItem) {
+                return ((SelectItem) super.getValue()).getLabel();
+            }
 
 			return (String) super.getValue();
 		}

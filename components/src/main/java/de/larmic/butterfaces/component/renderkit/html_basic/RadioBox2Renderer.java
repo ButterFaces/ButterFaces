@@ -7,14 +7,17 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlRadioBox2;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -47,6 +50,36 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
     }
 
     @Override
+    public void decode(FacesContext context, UIComponent component) {
+        if (!(component instanceof HtmlRadioBox2)) {
+            return;
+        }
+
+        final HtmlRadioBox2 radioBox = (HtmlRadioBox2) component;
+
+        if (!component.isRendered() || radioBox.isReadonly()) {
+            return;
+        }
+
+        String clientId = decodeBehaviors(context, component);
+
+        if (clientId == null) {
+            clientId = component.getClientId(context);
+        }
+
+        final Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
+        final Object item = findItemInValues((Iterable) radioBox.getValues(), requestMap.get(clientId));
+        final String itemAsString = item != null ? convertItemToIdentifier(item) : null;
+        setSubmittedValue(component, itemAsString);
+    }
+
+    @Override
+    public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue) throws ConverterException {
+        final HtmlRadioBox2 radioBox = (HtmlRadioBox2) component;
+        return submittedValue != null ? findItemInValues((Iterable) radioBox.getValues(), submittedValue.toString()) : null;
+    }
+
+    @Override
     protected void setSubmittedValue(UIComponent component, Object value) {
         super.setSubmittedValue(component, value != null ? value : "");
     }
@@ -63,8 +96,8 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
         writer.startElement("input", radioBox);
         writer.writeAttribute("id", radioItemClientId, "clientId");
         writer.writeAttribute("type", "radio", "input");
-        writer.writeAttribute("type", "radio", "input");
         writer.writeAttribute("name", radioBoxClientId, "name");
+        writer.writeAttribute("value", convertItemToIdentifier(listItem), "value");
         writer.endElement("input");
         writer.startElement("label", radioBox);
         writer.writeAttribute("for", radioItemClientId, "for");
@@ -73,7 +106,26 @@ public class RadioBox2Renderer extends AbstractHtmlTagRenderer<HtmlRadioBox2> {
         writer.endElement("div");
     }
 
-    private String convertItemToText(Object listItem) {
+    private Object findItemInValues(final Iterable values, final String identifier) {
+        if (StringUtils.isEmpty(identifier) || values == null) {
+            return null;
+        }
+
+        for (Object value : values) {
+            if (convertItemToIdentifier(value).equals(identifier)) {
+                return value;
+            }
+        }
+
+        return null;
+    }
+
+    private String convertItemToIdentifier(final Object listItem) {
+        // TODO maybe it is better to use hashcode
+        return convertItemToText(listItem);
+    }
+
+    private String convertItemToText(final Object listItem) {
         if (listItem instanceof SelectItem) {
             return ((SelectItem) listItem).getLabel();
         }
