@@ -10,9 +10,9 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 /**
  * @author Lars Michaelis
  */
-public class RadioBoxListOfFooTypesMyBeanExample extends JavaCodeExample {
+public class RadioBoxListOfEnumsMyBeanExample extends JavaCodeExample {
 
-    public RadioBoxListOfFooTypesMyBeanExample() {
+    public RadioBoxListOfEnumsMyBeanExample() {
         super("MyBean.java", "mybean", "radioBox.demo", "MyBean", true);
 
         this.addImport("javax.faces.view.ViewScoped");

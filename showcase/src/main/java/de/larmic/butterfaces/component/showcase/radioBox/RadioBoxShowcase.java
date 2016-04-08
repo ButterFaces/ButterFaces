@@ -1,9 +1,7 @@
 package de.larmic.butterfaces.component.showcase.radioBox;
 
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxFooTypeExample;
-import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxListOfFooTypesMyBeanExample;
-import de.larmic.butterfaces.component.showcase.radioBox.examples.RadioBoxListOfStringsMyBeanExample;
+import de.larmic.butterfaces.component.showcase.radioBox.examples.*;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.comboBox.Foo;
 import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
@@ -85,8 +83,11 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         if (ComboBoxValueType.STRING.equals(this.comboBoxValueType)) {
             codeExamples.add(new RadioBoxListOfStringsMyBeanExample());
         } else if (ComboBoxValueType.ENUM.equals(this.comboBoxValueType)) {
-            codeExamples.add(new RadioBoxListOfFooTypesMyBeanExample());
+            codeExamples.add(new RadioBoxListOfEnumsMyBeanExample());
             codeExamples.add(new RadioBoxFooTypeExample());
+        } else if (ComboBoxValueType.OBJECT.equals(this.comboBoxValueType)) {
+            codeExamples.add(new RadioBoxListOfObjectsMyBeanExample());
+            codeExamples.add(new RadioBoxFooExample());
         }
 
 		generateDemoCSS(codeExamples);
