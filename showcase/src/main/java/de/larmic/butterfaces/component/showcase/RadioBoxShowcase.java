@@ -24,9 +24,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
 
-	private final List<SelectItem> foos = new ArrayList<>();
-	private final List<SelectItem> enums = new ArrayList<>();
-	private final List<SelectItem> strings = new ArrayList<>();
+	private final List<Foo> foos = new ArrayList<>();
+	private final List<FooType> enums = new ArrayList<>();
+	private final List<String> strings = new ArrayList<>();
 
 	public RadioBoxShowcase() {
 		this.initFoos();
@@ -122,7 +122,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		return "(item is null)";
 	}
 
-	public List<SelectItem> getValues() {
+	public List getValues() {
 		switch (this.comboBoxValueType) {
 		case OBJECT:
 			return this.foos;
@@ -133,15 +133,13 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		}
 	}
 
-	public boolean isConverterActive() {
-		return this.comboBoxValueType == ComboBoxValueType.OBJECT;
-	}
-
 	public List<SelectItem> getComboBoxTypes() {
 		final List<SelectItem> items = new ArrayList<>();
 
 		for (final ComboBoxValueType type : ComboBoxValueType.values()) {
-			items.add(new SelectItem(type, type.label));
+            if (!ComboBoxValueType.TEMPLATE.equals(type)) {
+                items.add(new SelectItem(type, type.label));
+            }
 		}
 		return items;
 	}
@@ -174,19 +172,19 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
     private void initFoos() {
 		for (final String key : FooConverter.fooMap.keySet()) {
 			final Foo foo = FooConverter.fooMap.get(key);
-			this.foos.add(new SelectItem(foo, foo.getKey()));
+			this.foos.add(foo);
 		}
 	}
 
 	private void initEnums() {
 		for (final FooType fooType : FooType.values()) {
-			this.enums.add(new SelectItem(fooType.getLabel()));
+			this.enums.add(fooType);
 		}
 	}
 
 	private void initStrings() {
-		this.strings.add(new SelectItem("2000", "Year 2000"));
-		this.strings.add(new SelectItem("2010", "Year 2010"));
-		this.strings.add(new SelectItem("2020", "Year 2020"));
+		this.strings.add("Year 2000");
+		this.strings.add("Year 2010");
+		this.strings.add("Year 2020");
 	}
 }
