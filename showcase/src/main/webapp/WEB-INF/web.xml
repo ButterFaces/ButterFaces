@@ -24,67 +24,67 @@
 
     <!--
     <context-param>
-		<param-name>de.larmic.butterfaces.provideJQuery</param-name>
+		<param-name>org.butterfaces.provideJQuery</param-name>
 		<param-value>false</param-value>
 	</context-param>
 
     <context-param>
-		<param-name>de.larmic.butterfaces.provideBootstrap</param-name>
+		<param-name>org.butterfaces.provideBootstrap</param-name>
 		<param-value>false</param-value>
 	</context-param>
 
 	<context-param>
-		<param-name>de.larmic.butterfaces.useCompressedResources</param-name>
+		<param-name>org.butterfaces.useCompressedResources</param-name>
 		<param-value>true</param-value>
 	</context-param>
 
 	<context-param>
-		<param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>
+		<param-name>org.butterfaces.ajaxProcessingTextOnRequest</param-name>
 		<param-value>Processing</param-value>
 	</context-param>
 	<context-param>
-		<param-name>de.larmic.butterfaces.ajaxProcessingGlyphiconOnRequest</param-name>
+		<param-name>org.butterfaces.ajaxProcessingGlyphiconOnRequest</param-name>
 		<param-value></param-value>
 	</context-param>
 
 	<context-param>
-		<param-name>de.larmic.butterfaces.autoTrimInputFields</param-name>
+		<param-name>org.butterfaces.autoTrimInputFields</param-name>
 		<param-value>true</param-value>
 	</context-param>
 
 	<context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>
+        <param-name>org.butterfaces.glyhicon.refresh</param-name>
         <param-value>fa fa-refresh</param-value>
     </context-param>
     <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.options</param-name>
+        <param-name>org.butterfaces.glyhicon.options</param-name>
         <param-value>fa fa-th</param-value>
     </context-param>
 
     <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.sort.none</param-name>
+        <param-name>org.butterfaces.glyhicon.sort.none</param-name>
         <param-value>fa fa-sort</param-value>
     </context-param>
     <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.sort.ascending</param-name>
+        <param-name>org.butterfaces.glyhicon.sort.ascending</param-name>
         <param-value>fa fa-sort-down</param-value>
     </context-param>
     <context-param>
-        <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>
+        <param-name>org.butterfaces.glyhicon.sort.descending</param-name>
         <param-value>fa fa-sort-up</param-value>
     </context-param>
 
     <context-param>
-        <param-name>de.larmic.butterfaces.noEntriesText</param-name>
+        <param-name>org.butterfaces.noEntriesText</param-name>
         <param-value>No matching entries...</param-value>
     </context-param>
     <context-param>
-        <param-name>de.larmic.butterfaces.spinnerText</param-name>
+        <param-name>org.butterfaces.spinnerText</param-name>
         <param-value>Fetching data...</param-value>
     </context-param>
 
     <context-param>
-        <param-name>de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>
+        <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>
         <param-value>true</param-value>
     </context-param>
 	-->

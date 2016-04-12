@@ -16,22 +16,22 @@ import javax.faces.context.ExternalContext;
  */
 public class WebXmlParameters {
 
-    public static final String CTX_PARAM_JQUERY = "de.larmic.butterfaces.provideJQuery";
-    public static final String CTX_PARAM_BOOTSTRAP = "de.larmic.butterfaces.provideBootstrap";
-    public static final String CTX_PARAM_USE_COMPRESSED_RESOURCES = "de.larmic.butterfaces.useCompressedResources";
+    public static final String CTX_PARAM_JQUERY = "org.butterfaces.provideJQuery";
+    public static final String CTX_PARAM_BOOTSTRAP = "org.butterfaces.provideBootstrap";
+    public static final String CTX_PARAM_USE_COMPRESSED_RESOURCES = "org.butterfaces.useCompressedResources";
 
-    public static final String CTX_PARAM_REFRESH_GLYPHICON = "de.larmic.butterfaces.glyhicon.refresh";
-    public static final String CTX_PARAM_OPTIONS_GLYPHICON = "de.larmic.butterfaces.glyhicon.options";
-    public static final String CTX_PARAM_SORT_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.none";
-    public static final String CTX_PARAM_SORT_ASC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.ascending";
-    public static final String CTX_PARAM_SORT_DESC_GLYPHICON = "de.larmic.butterfaces.glyhicon.sort.descending";
-    public static final String CTX_PARAM_ORDER_LEFT_GLYPHICON = "de.larmic.butterfaces.glyhicon.order.left";
-    public static final String CTX_PARAM_ORDER_RIGHT_GLYPHICON = "de.larmic.butterfaces.glyhicon.order.right";
-    public static final String CTX_PARAM_COLLAPSING_GLYPHICON = "de.larmic.butterfaces.glyhicon.collapsing";
-    public static final String CTX_PARAM_EXPANSION_GLYPHICON = "de.larmic.butterfaces.glyhicon.expansion";
+    public static final String CTX_PARAM_REFRESH_GLYPHICON = "org.butterfaces.glyhicon.refresh";
+    public static final String CTX_PARAM_OPTIONS_GLYPHICON = "org.butterfaces.glyhicon.options";
+    public static final String CTX_PARAM_SORT_GLYPHICON = "org.butterfaces.glyhicon.sort.none";
+    public static final String CTX_PARAM_SORT_ASC_GLYPHICON = "org.butterfaces.glyhicon.sort.ascending";
+    public static final String CTX_PARAM_SORT_DESC_GLYPHICON = "org.butterfaces.glyhicon.sort.descending";
+    public static final String CTX_PARAM_ORDER_LEFT_GLYPHICON = "org.butterfaces.glyhicon.order.left";
+    public static final String CTX_PARAM_ORDER_RIGHT_GLYPHICON = "org.butterfaces.glyhicon.order.right";
+    public static final String CTX_PARAM_COLLAPSING_GLYPHICON = "org.butterfaces.glyhicon.collapsing";
+    public static final String CTX_PARAM_EXPANSION_GLYPHICON = "org.butterfaces.glyhicon.expansion";
 
-    public static final String CTX_PARAM_AJAX_PROCESSING_TEXT = "de.larmic.butterfaces.ajaxProcessingTextOnRequest";
-    public static final String CTX_PARAM_AJAX_PROCESSING_GLYPHICON = "de.larmic.butterfaces.ajaxProcessingGlyphiconOnRequest";
+    public static final String CTX_PARAM_AJAX_PROCESSING_TEXT = "org.butterfaces.ajaxProcessingTextOnRequest";
+    public static final String CTX_PARAM_AJAX_PROCESSING_GLYPHICON = "org.butterfaces.ajaxProcessingGlyphiconOnRequest";
     public static final String DEFAULT_AJAX_PROCESSING_TEXT = "Processing";
 
     public static final String DEFAULT_REFRESH_GLYPHICON = "glyphicon glyphicon-refresh";
@@ -42,16 +42,16 @@ public class WebXmlParameters {
     public static final String DEFAULT_ORDER_LEFT_GLYPHICON = "glyphicon glyphicon-chevron-left";
     public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
 
-    public static final String CTX_PARAM_NO_ENTRIES_TEXT = "de.larmic.butterfaces.noEntriesText";
+    public static final String CTX_PARAM_NO_ENTRIES_TEXT = "org.butterfaces.noEntriesText";
     public static final String DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT = "No matching entries...";
 
-    public static final String CTX_PARAM_SPINNER_TEXT = "de.larmic.butterfaces.spinnerText";
+    public static final String CTX_PARAM_SPINNER_TEXT = "org.butterfaces.spinnerText";
     public static final String DEFAULT_CTX_PARAM_SPINNER_TEXT = "Fetching data...";
 
-    public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest";
+    public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "org.butterfaces.ajaxDisableRenderRegionsOnRequest";
     public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
 
-    public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "de.larmic.butterfaces.autoTrimInputFields";
+    public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "org.butterfaces.autoTrimInputFields";
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
