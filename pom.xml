@@ -103,7 +103,6 @@
             <id>ci</id>
             <modules>
                 <module>components</module>
-                <module>components-mojarra</module>
                 <module>showcase</module>
                 <module>test</module>
             </modules>
