@@ -51,6 +51,8 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
 
+    public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "de.larmic.butterfaces.autoTrimInputFields";
+    public static final boolean DEFAULT_AUTO_TRIM_INPUT_FIELDS = true;
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
@@ -69,6 +71,7 @@ public class WebXmlParameters {
     private final String noEntriesText;
     private final String spinnerText;
     private final boolean ajaxDisableRenderRegionsOnRequest;
+    private final boolean autoTrimInputFields;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -91,6 +94,8 @@ public class WebXmlParameters {
         this.spinnerText = this.readParameter(CTX_PARAM_SPINNER_TEXT, DEFAULT_CTX_PARAM_SPINNER_TEXT, externalContext);
 
         this.ajaxDisableRenderRegionsOnRequest = this.readParameter(CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, externalContext);
+
+        this.autoTrimInputFields = this.readBooleanParameter(CTX_PARAM_AUTO_TRIM_INPUT_FIELDS, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -162,6 +167,10 @@ public class WebXmlParameters {
 
     public String getSpinnerText() {
         return spinnerText;
+    }
+
+    public boolean isAutoTrimInputFields() {
+        return autoTrimInputFields;
     }
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {

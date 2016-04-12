@@ -17,6 +17,7 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_SPINNER_TEXT = "customSpinnerText";
 
     private static final boolean OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = false;
+    private static final boolean OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS = false;
 
     private static final String OVERRIDDEN_REFRESH = "o_refresh";
     private static final String OVERRIDDEN_OPTIONS = "o_options";
@@ -68,6 +69,8 @@ public class WebXmlParametersTest {
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_PROCESSING_GLYPHICON)).thenReturn(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON);
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST)).thenReturn(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST + "");
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AUTO_TRIM_INPUT_FIELDS)).thenReturn(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS + "");
     }
 
     @Test
@@ -144,5 +147,11 @@ public class WebXmlParametersTest {
     public void testAjaxProcessingGlyphiconOnRequest() {
         Assert.assertEquals("", new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
         Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
+    }
+
+    @Test
+    public void testAutoTrimInputFields() {
+        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isAutoTrimInputFields());
+        Assert.assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isAutoTrimInputFields());
     }
 }

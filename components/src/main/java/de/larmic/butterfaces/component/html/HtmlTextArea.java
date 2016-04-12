@@ -1,12 +1,14 @@
 package de.larmic.butterfaces.component.html;
 
 import de.larmic.butterfaces.component.html.feature.*;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.context.FacesContext;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,6 +47,15 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    @Override
+    public void setValue(Object value) {
+        if (value instanceof String && new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isAutoTrimInputFields()) {
+            super.setValue(((String) value).trim());
+        } else {
+            super.setValue(value);
+        }
     }
 
     @Override

@@ -3,12 +3,14 @@ package de.larmic.butterfaces.component.html.text;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.*;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputText;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -62,6 +64,15 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
         final List<String> eventNames = new ArrayList<>(super.getEventNames());
         eventNames.add("autocomplete");
         return eventNames;
+    }
+
+    @Override
+    public void setValue(Object value) {
+        if (value instanceof String && new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isAutoTrimInputFields()) {
+            super.setValue(((String) value).trim());
+        } else {
+            super.setValue(value);
+        }
     }
 
     @Override
