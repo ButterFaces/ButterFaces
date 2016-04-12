@@ -1738,59 +1738,6 @@
     </tag>
 
     <tag>
-        <tag-name>comboBox</tag-name>
-        <component>
-            <component-type>de.larmic.butterfaces.component.comboBox</component-type>
-        </component>
-        <attribute>
-            <name>label</name>
-            <type>java.lang.String</type>
-            <description>Renders a label in front of input component and adds label attribute to input component.
-            </description>
-        </attribute>
-        <attribute>
-            <name>value</name>
-            <required>true</required>
-        </attribute>
-        <attribute>
-            <name>hideLabel</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>readonly</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>autoFocus</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>disabled</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>rendered</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>required</name>
-            <type>java.lang.Boolean</type>
-        </attribute>
-        <attribute>
-            <name>layout</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>style</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-    </tag>
-
-    <tag>
         <tag-name>radioBox</tag-name>
         <component>
             <component-type>de.larmic.butterfaces.component.radioBox</component-type>

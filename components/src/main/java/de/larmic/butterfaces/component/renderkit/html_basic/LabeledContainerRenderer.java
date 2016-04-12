@@ -45,7 +45,7 @@ public class LabeledContainerRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         // Close inner component wrapper div
-        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(component, writer, false);
+        new InnerComponentWrapperPartRenderer().renderInnerWrapperEnd(writer, false);
 
         // Close outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);

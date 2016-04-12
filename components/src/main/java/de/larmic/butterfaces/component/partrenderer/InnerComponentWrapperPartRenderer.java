@@ -1,7 +1,11 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
@@ -12,7 +16,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Created by larmic on 27.08.14.
+ * @author Lars Michaelis
  */
 public class InnerComponentWrapperPartRenderer {
 
@@ -41,7 +45,7 @@ public class InnerComponentWrapperPartRenderer {
         componentStyleClass.append(this.createDefaultStyleClass(component));
 
         // HINT: combobox renders its own input-group
-        if (component instanceof SupportedFacets && !(component instanceof HtmlComboBox)) {
+        if (component instanceof SupportedFacets) {
             final SupportedFacets supportedFacets = (SupportedFacets) component;
             if (hasLeftInputGroup(component, supportedFacets)
                     || hasRightInputGroup(component, supportedFacets)
@@ -81,18 +85,13 @@ public class InnerComponentWrapperPartRenderer {
     public void renderInnerWrapperEnd(final UIComponent component,
                                       final ResponseWriter writer) throws IOException {
         final boolean readonly = component instanceof Readonly && ((Readonly) component).isReadonly();
-        this.renderInnerWrapperEnd(component, writer, readonly);
+        this.renderInnerWrapperEnd(writer, readonly);
     }
 
-    public void renderInnerWrapperEnd(final UIComponent component,
-                                      final ResponseWriter writer,
+    public void renderInnerWrapperEnd(final ResponseWriter writer,
                                       final boolean readonly) throws IOException {
         if (!readonly) {
             writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
-
-            if (component instanceof HtmlComboBox) {
-                InnerComponentCheckBoxWrapperPartRenderer.renderMojarraFix(component, writer);
-            }
         }
     }
 }

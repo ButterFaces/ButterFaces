@@ -1,17 +1,20 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
 
+/**
+ * @author Lars Michaelis
+ */
 public class InnerComponentCheckBoxWrapperPartRenderer {
 
     public void renderInnerWrapperBegin(final HtmlCheckBox component, final ResponseWriter writer)
@@ -49,35 +52,7 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
                 writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
             }
 
-            renderMojarraFix(component, writer);
-
             writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
-        }
-    }
-
-    public static void renderMojarraFix(UIComponent component, ResponseWriter writer) throws IOException {
-        if (component instanceof HtmlComboBox) {
-            final Set<String> eventNames = ((UIInput) component).getClientBehaviors().keySet();
-            final Iterator<String> eventNamesIterator = eventNames.iterator();
-
-            if (eventNamesIterator.hasNext()) {
-                final StringBuilder sb = new StringBuilder("[");
-
-                while (eventNamesIterator.hasNext()) {
-                    sb.append("'");
-                    sb.append(eventNamesIterator.next());
-                    sb.append("'");
-
-                    if (eventNamesIterator.hasNext()) {
-                        sb.append(", ");
-                    }
-                }
-
-                sb.append("]");
-
-                final String function = "butter.fix.updateMojarraScriptSourceId('" + component.getClientId() + "', " + sb.toString() + ");";
-                RenderUtils.renderJavaScriptCall(function, writer, component);
-            }
         }
     }
 }

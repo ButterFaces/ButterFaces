@@ -1,8 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
 import java.io.Serializable;
-import java.lang.String;
-import java.lang.StringBuilder;
 
 /**
  * Contains butterfaces maven pom.xml informations. templating-maven-plugin is used in pom.xml.
@@ -25,17 +23,21 @@ public class Version implements Serializable {
     public String getLastestReleaseVersion() {
         if (VERSION.endsWith("SNAPSHOT")) {
             final String version = VERSION.replaceAll("-SNAPSHOT", "");
-            final String[] splitted = version.split("\\.");
-            final String newMinorVersion = Integer.valueOf(splitted[splitted.length-1])-1 + "";
+            try {
+                final String[] splitted = version.split("\\.");
+                final String newMinorVersion = Integer.valueOf(splitted[splitted.length - 1]) - 1 + "";
 
-            final StringBuilder stringBuilder = new StringBuilder();
-            for (int i=0; i<splitted.length-1; i++) {
-                stringBuilder.append(splitted[i]);
-                stringBuilder.append(".");
+                final StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < splitted.length - 1; i++) {
+                    stringBuilder.append(splitted[i]);
+                    stringBuilder.append(".");
+                }
+                stringBuilder.append(newMinorVersion);
+
+                return stringBuilder.toString();
+            } catch (NumberFormatException e) {
+                return version;
             }
-            stringBuilder.append(newMinorVersion);
-
-            return stringBuilder.toString();
         }
 
         return VERSION;

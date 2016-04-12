@@ -1,25 +1,23 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.component.html.HtmlComboBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.resolver.ELResolver;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UISelectItem;
-import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
-import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 
 /**
- * Created by larmic on 27.08.14.
+ * @author Lars Michaelis
  */
 public class ReadonlyPartRenderer {
 
@@ -66,56 +64,6 @@ public class ReadonlyPartRenderer {
             return sb.toString();
         }
 
-        if (component instanceof HtmlComboBox) {
-            return this.getReadableValueFrom((HtmlComboBox) component, value);
-        }
-
         return String.valueOf(value);
     }
-
-    private String getReadableValueFrom(final HtmlComboBox comboBox, final Object value) {
-        for (final UIComponent child : comboBox.getChildren()) {
-            if (child instanceof UISelectItems) {
-                final UISelectItems uiSelectItems = (UISelectItems) child;
-                final List items = (List) uiSelectItems.getValue();
-                for (Object item : items) {
-                    if (item instanceof SelectItem) {
-                        final SelectItem selectItem = (SelectItem) item;
-                        if (this.isMatchingLabel(selectItem, value)) {
-                            return selectItem.getLabel();
-                        }
-                    } else {
-                        final FacesContext facesContext = FacesContext.getCurrentInstance();
-                        final Object var = child.getAttributes().get("var");
-
-                        if (var != null) {
-                            final Object itemValue = ELResolver.resolveValueFromValueExpression(facesContext, child, "itemValue", var.toString(), item);
-                            final Object itemLabel = ELResolver.resolveValueFromValueExpression(facesContext, child, "itemLabel", var.toString(), item);
-
-                            if (itemValue != null && itemValue.toString().equals(value) && itemLabel != null) {
-                                return itemLabel.toString();
-                            }
-                        }
-                    }
-                }
-            } else if (child instanceof UISelectItem) {
-                final UISelectItem item = (UISelectItem) child;
-
-                if (this.isMatchingLabel(item, value)) {
-                    return item.getItemLabel();
-                }
-            }
-        }
-
-        return String.valueOf(value);
-    }
-
-    private boolean isMatchingLabel(final SelectItem item, final Object value) {
-        return value.equals(item.getValue());
-    }
-
-    private boolean isMatchingLabel(final UISelectItem item, final Object value) {
-        return value.equals(item.getValue());
-    }
-
 }
