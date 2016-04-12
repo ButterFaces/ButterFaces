@@ -48,7 +48,7 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_SPINNER_TEXT = "de.larmic.butterfaces.spinnerText";
     public static final String DEFAULT_CTX_PARAM_SPINNER_TEXT = "Fetching data...";
 
-    public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
+    public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest";
     public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
 
     public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "de.larmic.butterfaces.autoTrimInputFields";
