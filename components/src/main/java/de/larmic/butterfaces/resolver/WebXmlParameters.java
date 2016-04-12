@@ -52,7 +52,6 @@ public class WebXmlParameters {
     public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
 
     public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "de.larmic.butterfaces.autoTrimInputFields";
-    public static final boolean DEFAULT_AUTO_TRIM_INPUT_FIELDS = true;
 
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
