@@ -3,7 +3,7 @@
  * Distributed under the MIT License.
  * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
  */
-package de.larmic.butterfaces.component.showcase.comboBox;
+package de.larmic.butterfaces.component.showcase.tree;
 
 /**
  * @author Stephan Zerhusen

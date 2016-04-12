@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.comboBox;
+package de.larmic.butterfaces.component.showcase.radioBox;
 
 public enum FooType {
 	FOO_TYPE_1("FooTypeEnumLabel1"),

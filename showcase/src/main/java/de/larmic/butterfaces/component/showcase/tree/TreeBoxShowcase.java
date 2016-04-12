@@ -1,7 +1,6 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -234,7 +233,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
                 return this.getEnumValues();
             case TEMPLATE:
             case OBJECTS:
-                return EpisodeConverter.EPISODES;
+                return Episodes.EPISODES;
             default:
                 return Arrays.asList("Inbox", "Drafts", "Sent", "Tagged", "Folders", "Trash");
         }

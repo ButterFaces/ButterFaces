@@ -44,7 +44,6 @@ public class InnerComponentWrapperPartRenderer {
         final StringBuilder componentStyleClass = new StringBuilder();
         componentStyleClass.append(this.createDefaultStyleClass(component));
 
-        // HINT: combobox renders its own input-group
         if (component instanceof SupportedFacets) {
             final SupportedFacets supportedFacets = (SupportedFacets) component;
             if (hasLeftInputGroup(component, supportedFacets)

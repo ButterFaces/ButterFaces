@@ -1,29 +1,25 @@
 package de.larmic.butterfaces.component.showcase.radioBox;
 
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.radioBox.examples.*;
-import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.component.showcase.comboBox.Foo;
-import de.larmic.butterfaces.component.showcase.comboBox.FooConverter;
-import de.larmic.butterfaces.component.showcase.comboBox.FooType;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.type.ComboBoxValueType;
+import de.larmic.butterfaces.component.showcase.radioBox.examples.*;
+import de.larmic.butterfaces.component.showcase.type.RadioBoxExampleType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Named
 @ViewScoped
 @SuppressWarnings("serial")
 public class RadioBoxShowcase extends AbstractInputShowcase implements Serializable {
 
-	private ComboBoxValueType comboBoxValueType = ComboBoxValueType.STRING;
+	private RadioBoxExampleType exampleType = RadioBoxExampleType.STRING;
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
 
 	private final List<Foo> foos = new ArrayList<>();
@@ -80,12 +76,12 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
 		codeExamples.add(xhtmlCodeExample);
 
-        if (ComboBoxValueType.STRING.equals(this.comboBoxValueType)) {
+        if (RadioBoxExampleType.STRING.equals(this.exampleType)) {
             codeExamples.add(new RadioBoxListOfStringsMyBeanExample());
-        } else if (ComboBoxValueType.ENUM.equals(this.comboBoxValueType)) {
+        } else if (RadioBoxExampleType.ENUM.equals(this.exampleType)) {
             codeExamples.add(new RadioBoxListOfEnumsMyBeanExample());
             codeExamples.add(new RadioBoxFooTypeExample());
-        } else if (ComboBoxValueType.OBJECT.equals(this.comboBoxValueType)) {
+        } else if (RadioBoxExampleType.OBJECT.equals(this.exampleType)) {
             codeExamples.add(new RadioBoxListOfObjectsMyBeanExample());
             codeExamples.add(new RadioBoxFooExample());
         }
@@ -112,7 +108,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 	}
 
 	public List getValues() {
-		switch (this.comboBoxValueType) {
+		switch (this.exampleType) {
 		case OBJECT:
 			return this.foos;
 		case ENUM:
@@ -122,11 +118,11 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		}
 	}
 
-	public List<SelectItem> getComboBoxTypes() {
+	public List<SelectItem> getExampleTypes() {
 		final List<SelectItem> items = new ArrayList<>();
 
-		for (final ComboBoxValueType type : ComboBoxValueType.values()) {
-            if (!ComboBoxValueType.TEMPLATE.equals(type)) {
+		for (final RadioBoxExampleType type : RadioBoxExampleType.values()) {
+            if (!RadioBoxExampleType.TEMPLATE.equals(type)) {
                 items.add(new SelectItem(type, type.label));
             }
 		}
@@ -142,12 +138,12 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 		return items;
 	}
 
-	public ComboBoxValueType getComboBoxValueType() {
-		return this.comboBoxValueType;
+	public RadioBoxExampleType getExampleType() {
+		return this.exampleType;
 	}
 
-	public void setComboBoxValueType(final ComboBoxValueType comboBoxValueType) {
-		this.comboBoxValueType = comboBoxValueType;
+	public void setExampleType(final RadioBoxExampleType exampleType) {
+		this.exampleType = exampleType;
 	}
 
     public RadioBoxLayoutType getRadioBoxLayoutType() {
@@ -159,16 +155,13 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
     }
 
     private void initFoos() {
-		for (final String key : FooConverter.fooMap.keySet()) {
-			final Foo foo = FooConverter.fooMap.get(key);
-			this.foos.add(foo);
-		}
+        this.foos.add(new Foo("fooKey1", "fooValue1"));
+        this.foos.add(new Foo("fooKey2", "fooValue2"));
+        this.foos.add(new Foo("fooKey3", "fooValue3"));
 	}
 
 	private void initEnums() {
-		for (final FooType fooType : FooType.values()) {
-			this.enums.add(fooType);
-		}
+        Collections.addAll(this.enums, FooType.values());
 	}
 
 	private void initStrings() {

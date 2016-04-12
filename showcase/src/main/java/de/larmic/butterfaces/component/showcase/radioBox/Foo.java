@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.comboBox;
+package de.larmic.butterfaces.component.showcase.radioBox;
 
 public class Foo {
     private String key;

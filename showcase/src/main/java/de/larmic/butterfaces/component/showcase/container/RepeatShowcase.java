@@ -1,8 +1,8 @@
 package de.larmic.butterfaces.component.showcase.container;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
-import de.larmic.butterfaces.component.showcase.comboBox.Episode;
-import de.larmic.butterfaces.component.showcase.comboBox.EpisodeConverter;
+import de.larmic.butterfaces.component.showcase.tree.Episode;
+import de.larmic.butterfaces.component.showcase.tree.Episodes;
 import de.larmic.butterfaces.component.showcase.container.examples.*;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
@@ -56,7 +56,7 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
     }
 
     public List<Episode> getValues() {
-        return EpisodeConverter.EPISODES;
+        return Episodes.EPISODES;
     }
 
     public List<DemoPojo> getDemoPojos() {

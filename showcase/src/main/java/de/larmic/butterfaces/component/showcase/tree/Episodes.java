@@ -1,18 +1,13 @@
-package de.larmic.butterfaces.component.showcase.comboBox;
+package de.larmic.butterfaces.component.showcase.tree;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import java.util.ArrayList;
 import java.util.List;
 
-@FacesConverter("episodeConverter")
-public class EpisodeConverter implements Converter {
+public class Episodes {
 
    public static final List<Episode> EPISODES = new ArrayList<>();
 
-   private static final String IMAGE_PATH = "resources/images/combobox/";
+   private static final String IMAGE_PATH = "resources/images/treebox/";
 
    static {
       EPISODES.add(createEpisode(1, "Children of the Gods 1/2", "Mario Azzopardi", "Jonathan Glassner & Brad Wright", "July 27, 1997", "ChildrenoftheGods","jpg"));
@@ -48,25 +43,5 @@ public class EpisodeConverter implements Converter {
       episode.setOriginalAirDate(originalAirDate);
       episode.setImage(new Image(IMAGE_PATH, imageName, imageExtension));
       return episode;
-   }
-
-   @Override
-   public Object getAsObject(final FacesContext context, final UIComponent component, final String value) {
-      for (Episode episode : EPISODES) {
-         if (episode.getTitle().equals(value)) {
-            return episode;
-         }
-      }
-
-      return null;
-   }
-
-   @Override
-   public String getAsString(final FacesContext context, final UIComponent component, final Object value) {
-      if (value != null && value instanceof Episode) {
-         return ((Episode) value).getTitle();
-      }
-
-      return null;
    }
 }

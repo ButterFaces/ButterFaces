@@ -18,7 +18,7 @@ public class StargateRepeatBeanCodeExample extends JavaCodeExample {
         this.addImport("import javax.faces.view.ViewScoped");
         this.addImport("import javax.inject.Named");
 
-        this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/combobox/\";\n");
+        this.appendInnerContent("    private static final String IMAGE_PATH = \"resources/images/treebox/\";\n");
         this.appendInnerContent("    private List<Episode> episodes = new ArrayList<Episode>();\n");
 
         this.appendInnerContent("    public List<Episode> getValues() {");
