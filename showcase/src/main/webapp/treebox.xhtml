@@ -62,11 +62,16 @@
                                        component="#{treeBoxShowcase}">
 
             <h:panelGroup layout="block"
-                          rendered="#{treeBoxShowcase.validation}"
+                          rendered="#{treeBoxShowcase.validation and treeBoxShowcase.selectedTreeBoxExampleType eq 'ROOT_NODE'}"
                           styleClass="alert alert-warning">
                 Select <strong>rootNode</strong> and submit form to produce a validation error.
             </h:panelGroup>
 
+            <h:panelGroup layout="block"
+                          rendered="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'ROOT_NODE'}"
+                          styleClass="alert alert-warning">
+                Override <strong>toString()</strong> of Episode.java to handle rendered values.
+            </h:panelGroup>
 
             <b:treeBox id="treeBox"
                        label="#{treeBoxShowcase.label}"

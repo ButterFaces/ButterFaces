@@ -2,7 +2,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.org/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="header">
         <strong>b:radioBox</strong> The radioBox tag renders an HTML "input" elements of the type "radio". This component is designed for situations where you want to display a mutually exclusive list of options to the user as a set of radio buttons. This tag supports two layout modes:lineDirection (horizontal, the default) and pageDirection (vertical).
@@ -48,6 +49,13 @@
         <common:showcaseOuputComponent id="outputComponent"
                                        activeComponentNavigationId="radiobox"
                                        component="#{radioBoxShowcase}">
+
+            <h:panelGroup layout="block"
+                          rendered="#{radioBoxShowcase.exampleType eq 'OBJECT'}"
+                          styleClass="alert alert-warning">
+                Override <strong>toString()</strong> of Foo.java to handle rendered values.
+            </h:panelGroup>
+
             <b:radioBox label="#{radioBoxShowcase.label}"
                         value="#{radioBoxShowcase.value}"
                         values="#{radioBoxShowcase.values}"
