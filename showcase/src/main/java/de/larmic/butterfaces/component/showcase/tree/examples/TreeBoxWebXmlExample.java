@@ -18,7 +18,7 @@ public class TreeBoxWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- Could be overridden by noEnttriesText component attribute -->");
         appendInnerContent("  <!-- default is 'No matching entries...' -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.noEntriesText</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.noEntriesText</param-name>");
         appendInnerContent("     <param-value>No matching entries...</param-value>");
         appendInnerContent("  </context-param>");
 
@@ -26,7 +26,7 @@ public class TreeBoxWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- Could be overridden by spinnerText component attribute -->");
         appendInnerContent("  <!-- default is 'Fetching data...' -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.spinnerText</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.spinnerText</param-name>");
         appendInnerContent("     <param-value>Fetching data...</param-value>");
         appendInnerContent("  </context-param>");
     }

@@ -17,14 +17,14 @@ public class CommandLinkWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- Button text when ajax request is running -->");
         appendInnerContent("  <!-- default is Processing -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.ajaxProcessingTextOnRequest</param-name>");
         appendInnerContent("     <param-value>Processing</param-value>");
         appendInnerContent("  </context-param>");
 
         appendInnerContent("\n  <!-- Glyphicon when ajax request is running -->");
         appendInnerContent("  <!-- default is empty -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxProcessingTextOnRequest</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.ajaxProcessingTextOnRequest</param-name>");
         appendInnerContent("     <param-value></param-value>");
         appendInnerContent("  </context-param>");
 
@@ -32,7 +32,7 @@ public class CommandLinkWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- Could be overridden by ajaxDisableRenderRegionsOnRequest component attribute -->");
         appendInnerContent("  <!-- default is true -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>");
         appendInnerContent("     <param-value>true</param-value>");
         appendInnerContent("  </context-param>");
     }

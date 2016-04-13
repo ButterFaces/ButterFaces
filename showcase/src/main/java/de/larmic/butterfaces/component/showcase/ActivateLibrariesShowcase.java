@@ -1,14 +1,13 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.WebXmlCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -35,7 +34,7 @@ public class ActivateLibrariesShowcase extends AbstractCodeShowcase implements S
         webXmlCodeExample.appendInnerContent("  <!-- (http://yui.github.io/yuicompressor/ is used) -->");
         webXmlCodeExample.appendInnerContent("  <!-- default is false -->");
         webXmlCodeExample.appendInnerContent("  <context-param>");
-        webXmlCodeExample.appendInnerContent("     <param-name>de.larmic.butterfaces.useCompressedResources</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-name>org.butterfaces.useCompressedResources</param-name>");
         webXmlCodeExample.appendInnerContent("     <param-value>true</param-value>");
         webXmlCodeExample.appendInnerContent("  </context-param>");
 

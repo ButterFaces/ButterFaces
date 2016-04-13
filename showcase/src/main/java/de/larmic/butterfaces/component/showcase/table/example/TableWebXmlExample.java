@@ -18,23 +18,23 @@ public class TableWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- custom glyphicons (i.e. font-awesome) -->");
         appendInnerContent("  <!-- showcase shows default glyphicons -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.refresh</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.glyhicon.refresh</param-name>");
         appendInnerContent("     <param-value>fa fa-refresh</param-value>");
         appendInnerContent("  </context-param>");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.options</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.glyhicon.options</param-name>");
         appendInnerContent("     <param-value>fa fa-th</param-value>");
         appendInnerContent("  </context-param>");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.none</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.glyhicon.sort.none</param-name>");
         appendInnerContent("     <param-value>fa fa-sort</param-value>");
         appendInnerContent("  </context-param>");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.ascending</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.glyhicon.sort.ascending</param-name>");
         appendInnerContent("     <param-value>fa fa-sort-down</param-value>");
         appendInnerContent("  </context-param>");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.glyhicon.sort.descending</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.glyhicon.sort.descending</param-name>");
         appendInnerContent("     <param-value>fa fa-sort-up</param-value>");
         appendInnerContent("  </context-param>");
 
@@ -42,7 +42,7 @@ public class TableWebXmlExample extends WebXmlCodeExample {
         appendInnerContent("  <!-- Could be overridden by ajaxDisableRenderRegionsOnRequest component attribute -->");
         appendInnerContent("  <!-- default is true -->");
         appendInnerContent("  <context-param>");
-        appendInnerContent("     <param-name>de.larmic.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>");
+        appendInnerContent("     <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>");
         appendInnerContent("     <param-value>true</param-value>");
         appendInnerContent("  </context-param>");
     }
