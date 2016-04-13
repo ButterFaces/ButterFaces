@@ -53,7 +53,7 @@ public class XhtmlCodeExample extends AbstractCodeExample {
         if (usePassThrough) {
             stringBuilder.append("      xmlns:p=\"http://xmlns.jcp.org/jsf/passthrough\" \n");
         }
-        stringBuilder.append("      xmlns:b=\"http://butterfaces.larmic.de/components\"> \n");
+        stringBuilder.append("      xmlns:b=\"http://butterfaces.org/components\"> \n");
         if (useFontAwesome) {
             stringBuilder.append("<h:head> \n");
             stringBuilder.append("    <link href=\"//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css\"\n");

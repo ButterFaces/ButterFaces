@@ -98,7 +98,7 @@ public class PrettyPrintShowcase extends AbstractCodeShowcase implements Seriali
         html.append("<!DOCTYPE html>\n");
         html.append("<html xmlns=\"http://www.w3.org/1999/xhtml\"\n");
         html.append("      xmlns:h=\"http://xmlns.jcp.org/jsf/html\"\n");
-        html.append("      xmlns:b=\"http://butterfaces.larmic.de/components\">\n");
+        html.append("      xmlns:b=\"http://butterfaces.org/components\">\n");
         html.append("<h:head />\n");
         html.append("<body>\n");
         html.append("   <form>\n");
