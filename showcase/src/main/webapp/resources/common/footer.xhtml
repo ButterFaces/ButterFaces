@@ -11,45 +11,54 @@
             <hr />
 
             <footer class="footer">
-                <div class="pull-right footer-link"><a href="http://www.larmic.de/legalNotice.html" target="_blank">Impressum</a></div>
-                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="http://opensource.org/licenses/MIT" target="_blank">License</a></div>
-                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="http://forum.byte-welt.net/byte-welt-projekte-projects/butterfaces/" target="_blank">Forum</a></div>
-                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="https://butterfaces.gitbooks.io/butterfaces/content/" target="_blank">Documentation</a></div>
-                <div class="pull-right footer-link" style="padding-right: 10px;"><a href="https://github.com/ButterFaces/ButterFaces" target="_blank">Source</a></div>
                 <div class="versionInformation">
                     <strong>ButterFaces #{version.version}</strong> @ Wildfly #{version.getJBossVersion()} <br/>
                     <div class="revision">GIT-Revision: <a href="https://github.com/ButterFaces/ButterFaces/commit/#{version.revision}" target="_blank">#{version.revision}</a></div>
                 </div>
-                <script type="text/javascript">
-                    jQuery(document).ready(function () {
-                        if (jQuery('a.experimental').size() != 0) {
-                            jQuery('li.experimental').removeClass('hideExperimentalAttention');
-                            jQuery('a.experimental').each(function () {
-                                jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-warning"&gt;&lt;/span&gt;&lt;/sub&gt;');
-                            });
-                        }
-
-                    });
-                    jQuery(document).ready(function () {
-                        if (jQuery('a.mojarra').size() != 0) {
-                            jQuery('li.mojarra').removeClass('hideMojarraAttention');
-                            jQuery('a.mojarra').each(function () {
-                                jQuery(this).append(' &lt;sub class="mojarra"&gt;&lt;span class="fa fa-recycle"&gt;&lt;/span&gt;&lt;/sub&gt;');
-                            });
-                        }
-
-                    });
-                    jQuery(document).ready(function () {
-                        if (jQuery('a.newFeature').size() != 0) {
-                            jQuery('li.newFeature').removeClass('hideNewFeatureAttention');
-                            jQuery('a.newFeature').each(function () {
-                                jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-star"&gt;&lt;/span&gt;&lt;/sub&gt;');
-                            });
-                        }
-
-                    });
-                </script>
+                <div class="footer-links">
+                    <div class="butterfaces-links">
+                        <div class="footer-link"><a href="https://github.com/ButterFaces/ButterFaces" target="_blank">Source</a></div>
+                        <div class="footer-link"><a href="https://butterfaces.gitbooks.io/butterfaces/content/" target="_blank">Documentation</a></div>
+                        <div class="footer-link"><a href="http://forum.byte-welt.net/byte-welt-projekte-projects/butterfaces/" target="_blank">Forum</a></div>
+                        <div class="footer-link"><a href="http://opensource.org/licenses/MIT" target="_blank">License</a></div>
+                        <div class="footer-link"><a href="http://www.larmic.de/legalNotice.html" target="_blank">Impressum</a></div>
+                    </div>
+                    <div class="yourkit-link">
+                        Supported by <div class="yourKitLogo" onclick="window.open('https://www.yourkit.com/java/profiler/index.jsp', '_blank');"/>
+                    </div>
+                </div>
             </footer>
+
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    if (jQuery('a.experimental').size() != 0) {
+                        jQuery('li.experimental').removeClass('hideExperimentalAttention');
+                        jQuery('a.experimental').each(function () {
+                            jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-warning"&gt;&lt;/span&gt;&lt;/sub&gt;');
+                        });
+                    }
+
+                });
+                jQuery(document).ready(function () {
+                    if (jQuery('a.mojarra').size() != 0) {
+                        jQuery('li.mojarra').removeClass('hideMojarraAttention');
+                        jQuery('a.mojarra').each(function () {
+                            jQuery(this).append(' &lt;sub class="mojarra"&gt;&lt;span class="fa fa-recycle"&gt;&lt;/span&gt;&lt;/sub&gt;');
+                        });
+                    }
+
+                });
+                jQuery(document).ready(function () {
+                    if (jQuery('a.newFeature').size() != 0) {
+                        jQuery('li.newFeature').removeClass('hideNewFeatureAttention');
+                        jQuery('a.newFeature').each(function () {
+                            jQuery(this).append(' &lt;sub&gt;&lt;span class="fa fa-star"&gt;&lt;/span&gt;&lt;/sub&gt;');
+                        });
+                    }
+
+                });
+            </script>
+
         </div>
     </composite:implementation>
 </h:body>
