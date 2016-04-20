@@ -1,5 +1,6 @@
 package de.larmic.butterfaces.component.showcase;
 
+import de.larmic.butterfaces.component.showcase.text.example.TextWebXmlExample;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -71,6 +72,7 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         codeExamples.add(xhtmlCodeExample);
 
         generateDemoCSS(codeExamples);
+        codeExamples.add(new TextWebXmlExample());
     }
 
     public Integer getMaxLength() {

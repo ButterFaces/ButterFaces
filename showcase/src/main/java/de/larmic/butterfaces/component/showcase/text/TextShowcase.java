@@ -1,12 +1,12 @@
 package de.larmic.butterfaces.component.showcase.text;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.text.example.TextWebXmlExample;
+import de.larmic.butterfaces.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -20,8 +20,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TextShowcase extends AbstractInputShowcase implements Serializable {
 
-    private final List<String> autoCompleteValues = new ArrayList<>();
-
     private FacetType selectedFacetType = FacetType.NONE;
     private String placeholder = DEFAULT_TEXT_PLACEHOLDER;
     private String type;
@@ -30,21 +28,6 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
     private String max;
     private boolean autoFocus;
     private boolean useConverter;
-
-    @PostConstruct
-    public void init() {
-        autoCompleteValues.add("test");
-        autoCompleteValues.add("tetest");
-        autoCompleteValues.add("test1 ButterFaces");
-        autoCompleteValues.add("test2");
-        autoCompleteValues.add("ButterFaces");
-        autoCompleteValues.add("ButterFaces JSF");
-        autoCompleteValues.add("ButterFaces Mojarra");
-        autoCompleteValues.add("ButterFaces Component");
-        autoCompleteValues.add("JSF");
-        autoCompleteValues.add("JSF 2");
-        autoCompleteValues.add("JSF 2.2");
-    }
 
     @Override
     protected Object initValue() {
@@ -72,6 +55,7 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
         }
 
         generateDemoCSS(codeExamples);
+        codeExamples.add(new TextWebXmlExample());
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
