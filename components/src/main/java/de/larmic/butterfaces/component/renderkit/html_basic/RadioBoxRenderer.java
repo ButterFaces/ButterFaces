@@ -7,6 +7,9 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlRadioBox;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.resolver.MustacheResolver;
+import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -17,6 +20,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -91,15 +95,18 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
                                     int itemCounter,
                                     Object listItem) throws IOException {
         final String radioItemClientId = radioBoxClientId + separatorChar + itemCounter;
+        final boolean valueSelected = isValueSelected(radioBox.getValue(), listItem);
+
         writer.startElement("div", radioBox);
-        writer.writeAttribute("class", "radio", "class");
+        // TODO add javascript to update butter-radio-item-selected on click event
+        writer.writeAttribute("class", valueSelected ? "radio butter-radio-item-selected" : "radio", "class");
         writer.startElement("input", radioBox);
         writer.writeAttribute("id", radioItemClientId, "clientId");
         writer.writeAttribute("type", "radio", "input");
         writer.writeAttribute("name", radioBoxClientId, "name");
         writer.writeAttribute("value", convertItemToIdentifier(listItem), "value");
 
-        if (isValueSelected(radioBox.getValue(), listItem)) {
+        if (valueSelected) {
             writer.writeAttribute("checked", true, "checked");
         }
 
@@ -130,9 +137,25 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         this.renderEventValue(radioBox, writer, "onchange", "change");
 
         writer.endElement("input");
+
+        if (radioBox.getFacet("template") != null) {
+        }
+
         writer.startElement("label", radioBox);
         writer.writeAttribute("for", radioItemClientId, "for");
-        writer.writeText(convertItemToText(listItem), radioBox, null);
+        if (radioBox.getFacet("template") != null) {
+            String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), radioBox.getFacet("template"));
+            final List<String> mustacheKeys = MustacheResolver.getMustacheKeys(encodedTemplate);
+            for (String mustacheKey : mustacheKeys) {
+                final String stringValueFromObject = new ReflectionUtil().getStringValueFromObject(listItem, mustacheKey);
+                if (StringUtils.isNotEmpty(stringValueFromObject)) {
+                    encodedTemplate = encodedTemplate.replaceAll("\\{\\{" + mustacheKey + "\\}\\}", stringValueFromObject);
+                }
+            }
+            writer.write(encodedTemplate);
+        } else {
+            writer.writeText(convertItemToText(listItem), radioBox, null);
+        }
         writer.endElement("label");
         writer.endElement("div");
     }

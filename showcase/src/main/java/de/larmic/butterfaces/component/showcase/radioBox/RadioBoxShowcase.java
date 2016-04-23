@@ -4,6 +4,8 @@ import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.radioBox.examples.*;
+import de.larmic.butterfaces.component.showcase.tree.Episode;
+import de.larmic.butterfaces.component.showcase.tree.Episodes;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxExampleType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
 import de.larmic.butterfaces.util.StringUtils;
@@ -101,6 +103,8 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
                 return ((FooType) super.getValue()).getLabel();
             } else if (super.getValue() instanceof SelectItem) {
                 return ((SelectItem) super.getValue()).getLabel();
+            } else if (super.getValue() instanceof Episode) {
+                return ((Episode) super.getValue()).getTitle();
             }
 
             return (String) super.getValue();
@@ -115,6 +119,8 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
                 return this.foos;
             case ENUM:
                 return this.enums;
+            case TEMPLATE:
+                return Episodes.EPISODES;
             default:
                 return this.strings;
         }
