@@ -17,7 +17,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -29,13 +29,11 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
     private RadioBoxLayoutType radioBoxLayoutType = RadioBoxLayoutType.LINE_DIRECTION;
 
     private final List<Foo> foos = new ArrayList<>();
-    private final List<FooType> enums = new ArrayList<>();
     private final List<String> strings = new ArrayList<>();
 
     public RadioBoxShowcase() {
         this.initFoos();
         this.initStrings();
-        this.initEnums();
     }
 
     @Override
@@ -70,6 +68,24 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
 
         this.addAjaxTag(xhtmlCodeExample, "change");
 
+        if (RadioBoxExampleType.TEMPLATE.equals(this.exampleType)) {
+            xhtmlCodeExample.appendInnerContent("            <f:facet name=\"template\">");
+            xhtmlCodeExample.appendInnerContent("               <div class=\"radio-box-stargate-template\">");
+            xhtmlCodeExample.appendInnerContent("                  <h4>{{title}}");
+            xhtmlCodeExample.appendInnerContent("                     <small>({{originalAirDate}})</small>");
+            xhtmlCodeExample.appendInnerContent("                  </h4>");
+            xhtmlCodeExample.appendInnerContent("                  <div>");
+            xhtmlCodeExample.appendInnerContent("                     <label>Episode:</label>");
+            xhtmlCodeExample.appendInnerContent("                     <span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>");
+            xhtmlCodeExample.appendInnerContent("                  </div>");
+            xhtmlCodeExample.appendInnerContent("                  <div>");
+            xhtmlCodeExample.appendInnerContent("                     <label>written by:</label>");
+            xhtmlCodeExample.appendInnerContent("                     <span>{{writtenBy}}</span>");
+            xhtmlCodeExample.appendInnerContent("                  </div>");
+            xhtmlCodeExample.appendInnerContent("               </div>");
+            xhtmlCodeExample.appendInnerContent("            </f:facet>");
+        }
+
         if (StringUtils.isNotEmpty(getTooltip())) {
             xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
             xhtmlCodeExample.appendInnerContent("                " + getTooltip());
@@ -93,6 +109,7 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         } else if (RadioBoxExampleType.TEMPLATE.equals(this.exampleType)) {
             codeExamples.add(new TreeBoxListOfEpisodesJavaExample("radiobox.demo"));
             codeExamples.add(new TreeBoxEpisodesJavaExample("radiobox.demo"));
+            codeExamples.add(new RadioBoxListOfTemplatesCssExample());
         }
 
         generateDemoCSS(codeExamples);
@@ -123,9 +140,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
             case OBJECT:
                 return this.foos;
             case ENUM:
-                return this.enums;
+                return Arrays.asList(FooType.values());
             case TEMPLATE:
-                return Episodes.EPISODES;
+                return Episodes.EPISODES.subList(0, 3);
             default:
                 return this.strings;
         }
@@ -169,10 +186,6 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         this.foos.add(new Foo("fooKey1", "fooValue1"));
         this.foos.add(new Foo("fooKey2", "fooValue2"));
         this.foos.add(new Foo("fooKey3", "fooValue3"));
-    }
-
-    private void initEnums() {
-        Collections.addAll(this.enums, FooType.values());
     }
 
     private void initStrings() {
