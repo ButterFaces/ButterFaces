@@ -62,14 +62,14 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.ROOT_NODE) {
             codeExamples.add(new TreeBoxRootNodeJavaExample(selectedTreeBoxExampleType, showcaseTreeNode));
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.TEMPLATE) {
-            codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
+            codeExamples.add(new TreeBoxListOfEpisodesJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo", true));
             codeExamples.add(new TreeBoxImageJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.STRINGS) {
             codeExamples.add(new TreeBoxListOfStringsJavaExample());
         } else if (selectedTreeBoxExampleType == TreeBoxExampleType.OBJECTS) {
-            codeExamples.add(new TreeBoxListOfEpisodesJavaExample());
+            codeExamples.add(new TreeBoxListOfEpisodesJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesJavaExample("treeBox.demo", true));
             codeExamples.add(new TreeBoxImageJavaExample("treeBox.demo"));
             codeExamples.add(new TreeBoxEpisodesCssExample());

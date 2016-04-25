@@ -6,6 +6,8 @@ import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.radioBox.examples.*;
 import de.larmic.butterfaces.component.showcase.tree.Episode;
 import de.larmic.butterfaces.component.showcase.tree.Episodes;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxExampleType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
 import de.larmic.butterfaces.util.StringUtils;
@@ -88,6 +90,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         } else if (RadioBoxExampleType.OBJECT.equals(this.exampleType)) {
             codeExamples.add(new RadioBoxListOfObjectsMyBeanExample());
             codeExamples.add(new RadioBoxFooExample());
+        } else if (RadioBoxExampleType.TEMPLATE.equals(this.exampleType)) {
+            codeExamples.add(new TreeBoxListOfEpisodesJavaExample("radiobox.demo"));
+            codeExamples.add(new TreeBoxEpisodesJavaExample("radiobox.demo"));
         }
 
         generateDemoCSS(codeExamples);

@@ -12,8 +12,8 @@ import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
  */
 public class TreeBoxListOfEpisodesJavaExample extends JavaCodeExample {
 
-    public TreeBoxListOfEpisodesJavaExample() {
-        super("MyBean.java", "mybean", "treeBox.demo", "MyBean", true);
+    public TreeBoxListOfEpisodesJavaExample(String subPackage) {
+        super("MyBean.java", "mybean", subPackage, "MyBean", true);
 
         this.addImport("import javax.faces.view.ViewScoped");
         this.addImport("import javax.inject.Named");

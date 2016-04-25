@@ -75,19 +75,15 @@
                 </b:tooltip>
                 <c:if test="#{radioBoxShowcase.exampleType eq 'TEMPLATE'}">
                     <f:facet name="template">
-                        <div class="stargateEpisodeItem">
-                            <img class="stargateEpisodeImg" src="{{image.url}}" alt="{{title}}"/>
-
-                            <div class="stargateEpisodeDetails">
-                                <h4>{{title}}
-                                    <small>({{originalAirDate}})</small>
-                                </h4>
-                                <div>
-                                    <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
-                                </div>
-                                <div>
-                                    <label>written by:</label><span>{{writtenBy}}</span>
-                                </div>
+                        <div class="radio-box-stargate-template">
+                            <h4>{{title}}
+                                <small>({{originalAirDate}})</small>
+                            </h4>
+                            <div>
+                                <label>Episode:</label><span>No. {{numberInSeries}} of Stargate - Kommando SG-1, Season 1</span>
+                            </div>
+                            <div>
+                                <label>written by:</label><span>{{writtenBy}}</span>
                             </div>
                         </div>
                     </f:facet>
