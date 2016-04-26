@@ -17,6 +17,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-radiobox.js", target = "head"),
 })
 @FacesComponent(HtmlRadioBox.COMPONENT_TYPE)
 public class HtmlRadioBox extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {

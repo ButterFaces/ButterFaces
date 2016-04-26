@@ -35,6 +35,15 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
     }
 
     @Override
+    protected void encodeEnd(final HtmlRadioBox component, final ResponseWriter writer) throws IOException {
+        writer.startElement("script", component);
+        writer.writeText("jQuery(function () {\n", null);
+        writer.writeText("ButterFaces.RadioBox.addStyleClassClickEvent('" + component.getClientId() + "');\n", null);
+        writer.writeText("});", null);
+        writer.endElement("script");
+    }
+
+    @Override
     protected void getEndTextToRender(FacesContext context, UIComponent component, String currentValue) throws IOException {
         final ResponseWriter writer = context.getResponseWriter();
 
