@@ -107,7 +107,6 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         final boolean valueSelected = isValueSelected(radioBox.getValue(), listItem);
 
         writer.startElement("div", radioBox);
-        // TODO add javascript to update butter-radio-item-selected on click event
         writer.writeAttribute("class", valueSelected ? "radio butter-radio-item-selected" : "radio", "class");
         writer.startElement("input", radioBox);
         writer.writeAttribute("id", radioItemClientId, "clientId");
