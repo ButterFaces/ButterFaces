@@ -108,26 +108,12 @@
                     <plugin>
                         <groupId>org.wildfly.swarm</groupId>
                         <artifactId>wildfly-swarm-plugin</artifactId>
-                        <version>1.0.0.Beta6</version>
-                        <configuration>
-                            <fractions>
-                                <fraction>jsf</fraction>
-                            </fractions>
-                        </configuration>
+                        <version>1.0.0.Beta7</version>
                         <executions>
                             <execution>
                                 <goals>
                                     <goal>package</goal>
                                 </goals>
-                            </execution>
-                            <execution>
-                                <id>package</id>
-                            </execution>
-                            <execution>
-                                <id>start</id>
-                            </execution>
-                            <execution>
-                                <id>stop</id>
                             </execution>
                         </executions>
                     </plugin>
