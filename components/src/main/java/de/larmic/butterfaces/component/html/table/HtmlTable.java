@@ -30,6 +30,7 @@ import java.util.*;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
