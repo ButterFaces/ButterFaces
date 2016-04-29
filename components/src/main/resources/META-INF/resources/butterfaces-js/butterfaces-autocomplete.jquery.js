@@ -159,7 +159,9 @@
 
             // console.log("starting request");
 
-            jsf.ajax.request(self.$input[0], "autocomplete", {
+            var id = self.$input.parent().parent().attr('id');
+
+            jsf.ajax.request(id, "autocomplete", {
                 "javax.faces.behavior.event": "autocomplete",
                 render: self.autocompleteId,
                 params: self.$input.val(),
