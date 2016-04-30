@@ -17,7 +17,7 @@ import java.util.List;
 public class DataModelWrapperFactory {
 
     public static DataModelWrapper createDataModelWrapper(Object value) {
-        return new DataModelWrapper(convertToJsfDataModel(convertToJsfDataModel(value)));
+        return new DataModelWrapper(convertToJsfDataModel(value));
     }
 
     private static DataModel<?> convertToJsfDataModel(Object value) {
@@ -27,14 +27,12 @@ public class DataModelWrapperFactory {
             model = new ListDataModel(Collections.EMPTY_LIST);
         } else if (value instanceof DataModel) {
             model = (DataModel) value;
-        } else if (value instanceof List) {
+        } else if (value instanceof Collection) {
             model = new ListDataModel((List) value);
         } else if (Object[].class.isAssignableFrom(value.getClass())) {
             model = new ArrayDataModel((Object[]) value);
         } else if (value instanceof ResultSet) {
             model = new ResultSetDataModel((ResultSet) value);
-        } else if (value instanceof Collection) {
-            model = new CollectionDataModel((Collection) value);
         } else {
             model = new ScalarDataModel(value);
         }
