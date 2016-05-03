@@ -1,6 +1,8 @@
-(function ($) {
+///<reference path="definitions/external/jquery/jquery.d.ts"/>
+///<reference path="butterfaces-util-string.ts"/>
 
-    $.fn.butterMaxLength = function (options) {
+(function ($:any) {
+    $.fn.butterMaxLength = function (options:any) {
 
         if (typeof options === "undefined" || typeof options.maxLength === "undefined") {
             throw new Error("no maxLength parameter is given!");
@@ -23,8 +25,10 @@
                     // console.log("checking value");
                     // console.log(value);
                     if (typeof value !== 'undefined') {
-                        var freeLetterCount = options.maxLength - value.length;
-                        maxLength.text(freeLetterCount + " von " + options.maxLength + " Zeichen");
+                        let maxLength2 = options.maxLength;
+                        let freeLetterCount = maxLength2 - value.length;
+                        let formatted = ButterFaces.String.format("{0} von {1} Zeichen", freeLetterCount, maxLength2);
+                        maxLength.text(formatted);
 
                         if (!hasInitialValidationError) {
                             if (freeLetterCount < 0) {
