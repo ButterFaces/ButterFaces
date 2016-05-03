@@ -1,9 +1,10 @@
-package de.larmic.butterfaces.component.showcase;
+package de.larmic.butterfaces.component.showcase.textarea;
 
-import de.larmic.butterfaces.component.showcase.text.example.TextWebXmlExample;
-import de.larmic.butterfaces.util.StringUtils;
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.textarea.example.TextAreaWebXmlExample;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -72,7 +73,7 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         codeExamples.add(xhtmlCodeExample);
 
         generateDemoCSS(codeExamples);
-        codeExamples.add(new TextWebXmlExample());
+        codeExamples.add(new TextAreaWebXmlExample());
     }
 
     public Integer getMaxLength() {

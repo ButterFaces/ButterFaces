@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.showcase.text;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-import de.larmic.butterfaces.component.showcase.text.example.TextWebXmlExample;
+import de.larmic.butterfaces.component.showcase.text.example.TextAutoTrimWebXmlExample;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -99,7 +99,7 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
         codeExamples.add(xhtmlCodeExample);
 
         generateDemoCSS(codeExamples);
-        codeExamples.add(new TextWebXmlExample());
+        codeExamples.add(new TextAutoTrimWebXmlExample());
     }
 
     public List<SelectItem> getAvailableFacetTypes() {
