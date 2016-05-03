@@ -15,6 +15,7 @@ public class WebXmlParametersTest {
 
     private static final String OVERRIDDEN_NO_ENTRIES_TEXT = "customNoEntriesText";
     private static final String OVERRIDDEN_SPINNER_TEXT = "customSpinnerText";
+    private static final String OVERRIDDEN_MAX_LENGTH_TEXT = "{0} von {1} Zeichen";
 
     private static final boolean OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = false;
     private static final boolean OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS = false;
@@ -47,6 +48,7 @@ public class WebXmlParametersTest {
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_NO_ENTRIES_TEXT)).thenReturn(OVERRIDDEN_NO_ENTRIES_TEXT);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_SPINNER_TEXT)).thenReturn(OVERRIDDEN_SPINNER_TEXT);
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_MAX_LENGTH_TEXT)).thenReturn(OVERRIDDEN_MAX_LENGTH_TEXT);
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_REFRESH_GLYPHICON)).thenReturn(OVERRIDDEN_REFRESH);
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_OPTIONS_GLYPHICON)).thenReturn(OVERRIDDEN_OPTIONS);
@@ -83,6 +85,12 @@ public class WebXmlParametersTest {
     public void testGetSpinnerText() throws Exception {
         Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_SPINNER_TEXT, new WebXmlParameters(defaultValueExternalContext).getSpinnerText());
         Assert.assertEquals(OVERRIDDEN_SPINNER_TEXT, new WebXmlParameters(overriddenValueExternalContext).getSpinnerText());
+    }
+
+    @Test
+    public void testGetMaxLengthText() throws Exception {
+        Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT, new WebXmlParameters(defaultValueExternalContext).getMaxLengthText());
+        Assert.assertEquals(OVERRIDDEN_MAX_LENGTH_TEXT, new WebXmlParameters(overriddenValueExternalContext).getMaxLengthText());
     }
 
     @Test

@@ -82,6 +82,10 @@
         <param-name>org.butterfaces.spinnerText</param-name>
         <param-value>Fetching data...</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.butterfaces.maxLengthText</param-name>
+        <param-value>{0} of {1} characters</param-value>
+    </context-param>
 
     <context-param>
         <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>

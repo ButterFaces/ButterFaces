@@ -42,6 +42,9 @@ public class WebXmlParameters {
     public static final String DEFAULT_ORDER_LEFT_GLYPHICON = "glyphicon glyphicon-chevron-left";
     public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
 
+    public static final String CTX_PARAM_MAX_LENGTH_TEXT = "org.butterfaces.maxLengthText";
+    public static final String DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT = "{0} of {1} characters";
+
     public static final String CTX_PARAM_NO_ENTRIES_TEXT = "org.butterfaces.noEntriesText";
     public static final String DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT = "No matching entries...";
 
@@ -69,6 +72,7 @@ public class WebXmlParameters {
     private final String ajaxProcessingGlyphiconOnRequest;
     private final String noEntriesText;
     private final String spinnerText;
+    private final String maxLengthText;
     private final boolean ajaxDisableRenderRegionsOnRequest;
     private final boolean autoTrimInputFields;
 
@@ -91,6 +95,7 @@ public class WebXmlParameters {
 
         this.noEntriesText = this.readParameter(CTX_PARAM_NO_ENTRIES_TEXT, DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, externalContext);
         this.spinnerText = this.readParameter(CTX_PARAM_SPINNER_TEXT, DEFAULT_CTX_PARAM_SPINNER_TEXT, externalContext);
+        this.maxLengthText = this.readParameter(CTX_PARAM_MAX_LENGTH_TEXT, DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT, externalContext);
 
         this.ajaxDisableRenderRegionsOnRequest = this.readParameter(CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, externalContext);
 
@@ -174,5 +179,9 @@ public class WebXmlParameters {
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {
         return ajaxDisableRenderRegionsOnRequest;
+    }
+
+    public String getMaxLengthText() {
+        return maxLengthText;
     }
 }
