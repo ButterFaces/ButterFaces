@@ -16,8 +16,8 @@ public class MaxLengthPartRenderer {
 
         if (isMaxLengthNecessary(component)) {
             renderMaxLengthElement(writer, uiComponent);
-            RenderUtils.renderJQueryPluginCall(outerComponentId, "butterMaxLength({maxLength:"
-                    + ((MaxLength) component).getMaxLength() + "})", writer, uiComponent);
+            RenderUtils.renderJQueryPluginCall(outerComponentId,
+                    "butterMaxLength('" + ((MaxLength) component).getMaxLength() + "', '{0} von {1} Zeichen')", writer, uiComponent);
         }
     }
 
