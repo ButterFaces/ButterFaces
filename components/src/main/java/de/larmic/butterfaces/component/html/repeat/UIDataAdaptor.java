@@ -79,12 +79,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public void setRowKey(FacesContext facesContext, Integer rowKey) {
         this.saveChildState(facesContext);
 
-        if (rowKey != null) {
-            System.out.println("Setting rowkey to " + rowKey);
-        } else {
-            System.out.println("Setting rowkey to null");
-        }
-
         this.rowKey = rowKey;
         final int rowKeyAsInt = rowKey != null ? rowKey : -1;
 
