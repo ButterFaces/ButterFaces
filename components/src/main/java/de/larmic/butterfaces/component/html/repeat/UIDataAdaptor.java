@@ -140,14 +140,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected Iterator<UIComponent> facetChildren() {
-        if (getFacetCount() > 0) {
-            return getFacets().values().iterator();
-        } else {
-            return Collections.<UIComponent>emptyList().iterator();
-        }
-    }
-
     protected void restoreChildState(FacesContext facesContext) {
         Iterator<UIComponent> itr = dataChildren();
 
@@ -435,14 +427,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             if (clientId.equals(baseId)) {
                 callback.invokeContextCallback(context, this);
                 found = true;
-            } else {
-                Iterator<UIComponent> fixedChildrenItr = facetChildren();
-
-                while (fixedChildrenItr.hasNext() && !found) {
-                    UIComponent fixedChild = fixedChildrenItr.next();
-
-                    found = fixedChild.invokeOnComponent(context, clientId, callback);
-                }
             }
 
             if (!found) {
@@ -499,10 +483,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
 
         return false;
-    }
-
-    protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
-        return visitComponents(facetChildren(), visitContext, callback);
     }
 
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback, boolean visitRows) throws IOException {
@@ -562,10 +542,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             if ((result == VisitResult.ACCEPT) && doVisitChildren(visitContext, visitRows)) {
                 if (visitRows) {
                     setRowKey(facesContext, null);
-                }
-
-                if (visitFixedChildren(visitContext, callback)) {
-                    return true;
                 }
 
                 if (visitDataChildren(visitContext, callback, visitRows)) {
@@ -650,12 +626,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.setRowKey(faces, null);
 
         try {
-            Iterator<UIComponent> fixedChildren = facetChildren();
-
-            while (fixedChildren.hasNext()) {
-                visitor.processComponent(faces, fixedChildren.next());
-            }
-
             walk(faces, visitor);
         } catch (Exception e) {
             throw new FacesException(e);
