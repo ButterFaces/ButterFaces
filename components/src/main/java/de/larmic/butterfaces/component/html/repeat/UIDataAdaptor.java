@@ -9,7 +9,10 @@ import de.larmic.butterfaces.component.html.repeat.event.RowKeyEventBroadcaster;
 import de.larmic.butterfaces.component.html.repeat.event.RowKeyFacesEvent;
 import de.larmic.butterfaces.component.html.repeat.model.DataModelWrapper;
 import de.larmic.butterfaces.component.html.repeat.model.DataModelWrapperFactory;
-import de.larmic.butterfaces.component.html.repeat.visitor.*;
+import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenComponentVisitor;
+import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitor;
+import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitorCallback;
+import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
 import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.el.ValueExpression;
@@ -75,6 +78,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     @Override
     public void setRowKey(FacesContext facesContext, Integer rowKey) {
         this.saveChildState(facesContext);
+
+        if (rowKey != null) {
+            System.out.println("Setting rowkey to " + rowKey);
+        } else {
+            System.out.println("Setting rowkey to null");
+        }
 
         this.rowKey = rowKey;
         final int rowKeyAsInt = rowKey != null ? rowKey : -1;
@@ -349,9 +358,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public void walk(FacesContext faces, DataVisitor visitor) throws IOException {
-        final Integer key = getRowKey();
         getDataModelWrapper().walk(faces, visitor);
-        setRowKey(faces, key);
         restoreOrigValue(faces);
     }
 
@@ -456,22 +463,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return found;
     }
 
-    private boolean doVisitChildren(VisitContext context, boolean visitRows) {
-        if (visitRows) {
-            setRowKey(context.getFacesContext(), null);
-        }
-
-        Collection<String> idsToVisit = context.getSubtreeIdsToVisit(this);
-
-        assert idsToVisit != null;
-
-        if (idsToVisit == VisitContext.ALL_IDS) {
-            // TODO implmenent me
-        }
-
-        return !idsToVisit.isEmpty();
-    }
-
     private boolean visitComponents(Iterator<UIComponent> components, VisitContext context, VisitCallback callback) {
 
         while (components.hasNext()) {
@@ -539,11 +530,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             }
 
             // Visit children, short-circuiting as necessary
-            if ((result == VisitResult.ACCEPT) && doVisitChildren(visitContext, visitRows)) {
-                if (visitRows) {
-                    setRowKey(facesContext, null);
-                }
-
+            if ((result == VisitResult.ACCEPT)) {
                 if (visitDataChildren(visitContext, callback, visitRows)) {
                     return true;
                 }
