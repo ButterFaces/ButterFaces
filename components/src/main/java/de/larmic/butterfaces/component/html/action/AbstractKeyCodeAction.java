@@ -16,7 +16,6 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -73,7 +72,6 @@ public abstract class AbstractKeyCodeAction extends UIComponentBase {
 			LOGGER.warning("AbstractKeyCodeAction does not have an ambient form. Form is required");
 		} else {
 			markForm(form, this.getClientId(context));
-			checkActionId(actionComponent);
 
 			final ResponseWriter responseWriter = context.getResponseWriter();
 			writeActionScript(responseWriter, form, actionComponentId);
@@ -130,12 +128,6 @@ public abstract class AbstractKeyCodeAction extends UIComponentBase {
 			LOGGER.warning("AbstractKeyCodeAction only supports one key event");
 		} else {
 			form.getAttributes().put(getFormActionMarker(), componentId);
-		}
-	}
-
-	private void checkActionId(final UIComponent actionComponent) {
-		if (actionComponent.getId().startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
-			LOGGER.warning("Generated client ids are not supported for AbstractKeyCodeAction");
 		}
 	}
 
