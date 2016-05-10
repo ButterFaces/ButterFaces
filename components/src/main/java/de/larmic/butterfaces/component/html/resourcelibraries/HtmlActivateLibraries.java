@@ -11,6 +11,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "prettify.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "prettify.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.inputmask.bundle.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-number.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-link.css", target = "head"),
@@ -64,8 +65,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.inputmask.bundle.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {
