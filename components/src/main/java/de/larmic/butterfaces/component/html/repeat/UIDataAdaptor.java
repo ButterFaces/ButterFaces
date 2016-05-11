@@ -13,7 +13,6 @@ import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenComponentVisi
 import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitor;
 import de.larmic.butterfaces.component.html.repeat.visitor.ChildrenTreeDataVisitorCallback;
 import de.larmic.butterfaces.component.html.repeat.visitor.DataVisitor;
-import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -27,7 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.*;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -300,11 +302,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (null == containerClientId) {
             containerClientId = super.getContainerClientId(facesContext);
 
-            final Object rowKey = getRowKey();
+            final Integer rowKey = getRowKey();
 
             if (rowKey != null) {
-                String rowKeyString = rowKey.toString();
-                containerClientId = StringJoiner.on(separatorChar).join(Arrays.asList(containerClientId, rowKeyString)).toString();
+                containerClientId = containerClientId + separatorChar + rowKey;
+                // Using StringJoiner is to slow
+                //containerClientId = StringJoiner.on(separatorChar).join(Arrays.asList(containerClientId, rowKey.toString())).toString();
             }
         }
 
@@ -422,9 +425,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         Integer oldRowKey = getRowKey();
 
         try {
-
-            setRowKey(context, null);
-
             if (clientId.equals(baseId)) {
                 callback.invokeContextCallback(context, this);
                 found = true;
