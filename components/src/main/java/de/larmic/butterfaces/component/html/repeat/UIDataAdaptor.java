@@ -340,16 +340,14 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             resetDataModel();
         }
 
-        if ("var".equals(name)
-                || "rowKeyVar".equals(name)
-                || "stateVar".equals(name)) {
+        if ("var".equals(name) || "rowKeyVar".equals(name) || "stateVar".equals(name)) {
             throw new IllegalArgumentException(MessageFormat.format("{0} cannot be EL-expression", name));
         }
 
         super.setValueExpression(name, binding);
     }
 
-    protected boolean keepSaved(FacesContext context) {
+    private boolean keepSaved(FacesContext context) {
         final FacesMessage.Severity maximumSeverity = context.getMaximumSeverity();
         return (maximumSeverity != null) && (FacesMessage.SEVERITY_ERROR.compareTo(maximumSeverity) <= 0);
     }
@@ -401,7 +399,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         super.restoreState(context, ((Object[]) stateObject)[0]);
     }
 
-    protected boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
+    private boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
         return clientId.equals(baseId)
                 || clientId.startsWith(baseId)
                 && (clientId.length() > baseId.length())
