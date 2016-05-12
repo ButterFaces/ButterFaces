@@ -313,13 +313,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
                 writer.startElement("td", column);
             }
 
-            String columnClass = info.getCurrentColumnClass();
-            if (columnClass != null) {
-                writer.writeAttribute("class",
-                        columnClass,
-                        "columnClasses");
-            }
-
             // Render the contents of this cell by iterating over
             // the kids of our kids
             for (Iterator<UIComponent> gkids = getChildren(column);

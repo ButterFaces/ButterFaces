@@ -1,6 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
-import com.sun.faces.util.Util;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 
 import javax.faces.component.UIColumn;
@@ -190,13 +189,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
                                   UIComponent table,
                                   ResponseWriter writer)
             throws IOException {
-
-        TableMetaInfo info = getMetaInfo(context, table);
         writer.startElement("tr", table);
-        if (info.rowClasses.length > 0) {
-            writer.writeAttribute("class", info.getCurrentRowClass(),
-                    "rowClasses");
-        }
         writer.writeText("\n", table, null);
 
     }
@@ -280,11 +273,8 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
 public static class TableMetaInfo {
 
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
     public static final String KEY = de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer.TableMetaInfo.class.getName();
 
-    public final String[] rowClasses;
-    public final String[] columnClasses;
     public final List<UIColumn> columns;
     public final boolean hasHeaderFacets;
     public final boolean hasFooterFacets;
@@ -297,8 +287,6 @@ public static class TableMetaInfo {
 
 
     public TableMetaInfo(UIComponent table) {
-        rowClasses = getRowClasses(table);
-        columnClasses = getColumnClasses(table);
         columns = getColumns(table);
         columnCount = columns.size();
         hasHeaderFacets = hasFacet("header", columns);
@@ -319,65 +307,7 @@ public static class TableMetaInfo {
     }
 
 
-    /**
-     * Obtain the column class based on the current counter.  Calling this
-     * method automatically moves the pointer to the next style.  If the
-     * counter is larger than the number of total classes, the counter will
-     * be reset.
-     *
-     * @return the current style
-     */
-    public String getCurrentColumnClass() {
-
-        String style = null;
-        if (columnStyleCounter < columnClasses.length
-                && columnStyleCounter <= columnCount) {
-            style = columnClasses[columnStyleCounter++];
-        }
-        return ((style != null && style.length() > 0) ? style : null);
-
-    }
-
-
-    /**
-     * Obtain the row class based on the current counter.  Calling this
-     * method automatically moves the pointer to the next style.  If the
-     * counter is larger than the number of total classes, the counter will
-     * be reset.
-     *
-     * @return the current style
-     */
-    public String getCurrentRowClass() {
-        String style = rowClasses[rowStyleCounter++];
-        if (rowStyleCounter >= rowClasses.length) {
-            rowStyleCounter = 0;
-        }
-        return style;
-    }
-
-
     // ----------------------------------------------------- Private Methods
-
-
-    /**
-     * <p>Return an array of stylesheet classes to be applied to each column in
-     * the table in the order specified. Every column may or may not have a
-     * stylesheet.</p>
-     *
-     * @param table {@link javax.faces.component.UIComponent} component being rendered
-     * @return an array of column classes
-     */
-    private static String[] getColumnClasses(UIComponent table) {
-
-        String values = (String) table.getAttributes().get("columnClasses");
-        if (values == null) {
-            return EMPTY_STRING_ARRAY;
-        }
-        Map<String, Object> appMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
-        return Util.split(appMap, values.trim(), ",");
-
-    }
-
 
     /**
      * <p>Return an Iterator over the <code>UIColumn</code> children of the
@@ -448,25 +378,6 @@ public static class TableMetaInfo {
 
     }
 
-
-    /**
-     * <p>Return an array of stylesheet classes to be applied to each row in the
-     * table, in the order specified.  Every row may or may not have a
-     * stylesheet.</p>
-     *
-     * @param table {@link javax.faces.component.UIComponent} component being rendered
-     * @return an array of row classes
-     */
-    private static String[] getRowClasses(UIComponent table) {
-
-        String values = (String) table.getAttributes().get("rowClasses");
-        if (values == null) {
-            return (EMPTY_STRING_ARRAY);
-        }
-        Map<String, Object> appMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
-        return Util.split(appMap, values.trim(), ",");
-
-    }
 
 } // END UIDataMetaInfo
 }
