@@ -1,7 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.AttributeManager;
 import com.sun.faces.util.Util;
 
 import javax.faces.component.UIColumn;
@@ -17,9 +15,6 @@ import java.util.*;
  */
 public class TableRenderer extends BaseTableRenderer {
 
-
-    private static final Attribute[] ATTRIBUTES =
-            AttributeManager.getAttributes(AttributeManager.Key.DATATABLE);
 
     // ---------------------------------------------------------- Public Methods
 
@@ -37,7 +32,7 @@ public class TableRenderer extends BaseTableRenderer {
         // Render the beginning of the table
         ResponseWriter writer = context.getResponseWriter();
 
-        renderTableStart(context, component, writer, ATTRIBUTES);
+        renderTableStart(context, component, writer);
 
         // Render the caption (if any)
         renderCaption(context, data, writer);
@@ -54,7 +49,6 @@ public class TableRenderer extends BaseTableRenderer {
     }
 
 
-
     @Override
     public void encodeChildren(FacesContext context, UIComponent component)
             throws IOException {
@@ -69,8 +63,8 @@ public class TableRenderer extends BaseTableRenderer {
         // Check if any columns are being rendered, if not
         // render the minimal markup and exit
         TableMetaInfo info = getMetaInfo(context, data);
-        if(info.columns.isEmpty()) {
-            renderEmptyTableBody(writer,data);
+        if (info.columns.isEmpty()) {
+            renderEmptyTableBody(writer, data);
             return;
         }
         // Iterate over the rows of data that are provided
@@ -118,7 +112,7 @@ public class TableRenderer extends BaseTableRenderer {
         }
 
         // fill an empty tbody, if no row has been rendered
-        if(!renderedRow) {
+        if (!renderedRow) {
             this.renderEmptyTableRow(writer, data);
         }
         renderTableBodyEnd(context, component, writer);
@@ -159,7 +153,7 @@ public class TableRenderer extends BaseTableRenderer {
         List<Integer> result = null;
         String bodyRows = (String) data.getAttributes().get("bodyrows");
         if (bodyRows != null) {
-            String [] rows = Util.split(appMap, bodyRows, ",");
+            String[] rows = Util.split(appMap, bodyRows, ",");
             if (rows != null) {
                 result = new ArrayList<Integer>(rows.length);
                 for (String curRow : rows) {
@@ -227,7 +221,7 @@ public class TableRenderer extends BaseTableRenderer {
             if (footerClass != null) {
                 writer.writeAttribute("class", footerClass, "footerClass");
             }
-            if(info.columns.size()>1) {
+            if (info.columns.size() > 1) {
                 writer.writeAttribute("colspan", String.valueOf(info.columns.size()), null);
             }
             encodeRecursive(context, footer);
@@ -247,7 +241,7 @@ public class TableRenderer extends BaseTableRenderer {
         TableMetaInfo info = getMetaInfo(context, table);
         UIComponent header = getFacet(table, "header");
         // check if any header has to be rendered
-        if(header==null && !info.hasHeaderFacets) {
+        if (header == null && !info.hasHeaderFacets) {
             return;
         }
         String headerClass = (String) table.getAttributes().get("headerClass");
@@ -259,7 +253,7 @@ public class TableRenderer extends BaseTableRenderer {
             if (headerClass != null) {
                 writer.writeAttribute("class", headerClass, "headerClass");
             }
-            if(info.columns.size()>1) {
+            if (info.columns.size() > 1) {
                 writer.writeAttribute("colspan", String.valueOf(info.columns.size()), null);
             }
             writer.writeAttribute("scope", "colgroup", null);
@@ -309,7 +303,7 @@ public class TableRenderer extends BaseTableRenderer {
             // Render the beginning of this cell
             boolean isRowHeader = false;
             Object rowHeaderValue = column.getAttributes().get("rowHeader");
-            if (null != rowHeaderValue ) {
+            if (null != rowHeaderValue) {
                 isRowHeader = Boolean.valueOf(rowHeaderValue.toString());
             }
             if (isRowHeader) {
@@ -329,7 +323,7 @@ public class TableRenderer extends BaseTableRenderer {
             // Render the contents of this cell by iterating over
             // the kids of our kids
             for (Iterator<UIComponent> gkids = getChildren(column);
-                 gkids.hasNext();) {
+                 gkids.hasNext(); ) {
                 encodeRecursive(context, gkids.next());
             }
 
@@ -379,7 +373,6 @@ public class TableRenderer extends BaseTableRenderer {
      * of <code>true</code>.</p>
      *
      * @param table the table from which to extract children
-     *
      * @return the List of all UIColumn children
      */
     private List<UIColumn> getColumns(UIComponent table) {

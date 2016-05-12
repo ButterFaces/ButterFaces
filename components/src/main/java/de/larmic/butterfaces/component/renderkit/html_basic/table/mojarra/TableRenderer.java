@@ -1,6 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra;
 
-import com.sun.faces.renderkit.Attribute;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
@@ -126,8 +125,7 @@ public class TableRenderer extends MojarraTableRenderer {
     @Override
     protected void renderTableStart(final FacesContext context,
                                     final UIComponent component,
-                                    final ResponseWriter writer,
-                                    final Attribute[] attributes) throws IOException {
+                                    final ResponseWriter writer) throws IOException {
         final HtmlTableNew table = (HtmlTableNew) component;
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);

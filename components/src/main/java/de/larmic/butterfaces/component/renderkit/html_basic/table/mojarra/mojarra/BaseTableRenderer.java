@@ -1,7 +1,5 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
-import com.sun.faces.renderkit.Attribute;
-import com.sun.faces.renderkit.RenderKitUtils;
 import com.sun.faces.util.Util;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 
@@ -75,14 +73,12 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @param context the <code>FacesContext</code> for the current request
      * @param table the table that's being rendered
      * @param writer the current writer
-     * @param attributes pass-through attributes that the component
      *  supports
      * @throws IOException if content cannot be written
      */
     protected void renderTableStart(FacesContext context,
                                     UIComponent table,
-                                    ResponseWriter writer,
-                                    Attribute[] attributes)
+                                    ResponseWriter writer)
             throws IOException {
 
         writer.startElement("table", table);
@@ -91,10 +87,6 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
         if (styleClass != null) {
             writer.writeAttribute("class", styleClass, "styleClass");
         }
-        RenderKitUtils.renderPassThruAttributes(context,
-                writer,
-                table,
-                attributes);
         writer.writeText("\n", table, null);
 
     }
