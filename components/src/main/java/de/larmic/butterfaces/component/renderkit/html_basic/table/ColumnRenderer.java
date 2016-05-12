@@ -5,8 +5,8 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
-import de.larmic.butterfaces.component.html.table.ButterFacesTable;
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -39,7 +39,7 @@ public class ColumnRenderer extends Renderer {
             writer.writeAttribute("style", column.getStyle(), null);
         }
 
-        if (component.getParent() instanceof ButterFacesTable && ((ButterFacesTable) component.getParent()).isHideColumn(column)) {
+        if (component.getParent() instanceof HtmlTable && ((HtmlTable) component.getParent()).isHideColumn(column)) {
             writer.writeAttribute("style", "display:none", null);
         }
     }
