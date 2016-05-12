@@ -5,18 +5,21 @@
  */
 package de.larmic.butterfaces.component.html.table;
 
-import de.larmic.butterfaces.component.html.repeat.HtmlRepeat;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.json.Ordering;
 import de.larmic.butterfaces.model.table.*;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.el.ValueExpression;
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
 import java.util.*;
 
 /**
@@ -27,15 +30,17 @@ import java.util.*;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
-@FacesComponent(HtmlTable.COMPONENT_TYPE)
-public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
+@FacesComponent(HtmlTableNew.COMPONENT_TYPE)
+public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table";
+    public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table.new";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
-    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer";
+    public static final String RENDERER_TYPE = "de.larmic.butterfaces.renderkit.html_basic.TableRenderer.new";
 
     protected static final String PROPERTY_UNIQUE_IDENTIFIER = "uniqueIdentifier";
     protected static final String PROPERTY_TABLE_CONDENSED = "tableCondensed";
@@ -45,20 +50,16 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_MODEL = "model";
     protected static final String PROPERTY_TABLE_ROW_CLASS = "rowClass";
-    protected static final String PROPERTY_STYLE_CLASS = "styleClass";
-    protected static final String PROPERTY_STYLE = "style";
+    // TODO add styleclass
+    // TODO add style
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
-    private final List<HtmlColumn> cachedColumns = new ArrayList<>();
+    private final List<HtmlColumnNew> cachedColumns = new ArrayList<>();
 
-    public HtmlTable() {
-        setRendererType(RENDERER_TYPE);
-    }
-
-    @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
+    public HtmlTableNew() {
+        super();
+        this.setRendererType(RENDERER_TYPE);
     }
 
     @Override
@@ -71,26 +72,18 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
         return "click";
     }
 
-    public boolean isHideColumn(final HtmlColumn column) {
-        if (getTableColumnVisibilityModel() != null) {
-            final String tableUniqueIdentifier = getModelUniqueIdentifier();
-            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
-            if (hideColumn != null) {
-                return hideColumn;
-            }
-        }
-        return column.isHideColumn();
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
     }
 
-    // TODO is caching required? performance issue?
-    public List<HtmlColumn> getCachedColumns() {
+    public List<HtmlColumnNew> getCachedColumns() {
         final int childCount = this.getChildCount();
         if (childCount > 0 && this.cachedColumns.isEmpty()) {
             // all children that are {@link HtmlColumn} or should be rendered
             for (UIComponent uiComponent : getChildren()) {
-                if ((uiComponent instanceof HtmlColumn) && uiComponent.isRendered()) {
-                    final HtmlColumn column = (HtmlColumn) uiComponent;
+                if ((uiComponent instanceof HtmlColumnNew) && uiComponent.isRendered()) {
+                    final HtmlColumnNew column = (HtmlColumnNew) uiComponent;
                     this.cachedColumns.add(column);
                 }
             }
@@ -101,10 +94,10 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
 
         // sort columns by model if necessary
         if (getTableOrderingModel() != null) {
-            final List<HtmlColumn> notOrderedByModelColumnIdentifiers = new ArrayList<>();
+            final List<HtmlColumnNew> notOrderedByModelColumnIdentifiers = new ArrayList<>();
             final List<Ordering> existingOrderings = new ArrayList<>();
 
-            for (HtmlColumn cachedColumn : cachedColumns) {
+            for (HtmlColumnNew cachedColumn : cachedColumns) {
                 final Integer position = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
                 if (position == null) {
                     notOrderedByModelColumnIdentifiers.add(cachedColumn);
@@ -122,7 +115,7 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
                 for (Ordering existingOrdering : existingOrderings) {
                     orderings.add(existingOrdering.getIdentifier());
                 }
-                for (HtmlColumn notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
+                for (HtmlColumnNew notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
                     orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
                 }
 
@@ -132,9 +125,9 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
             }
 
             // sort columns by table model. Every column should be found.
-            Collections.sort(cachedColumns, new Comparator<HtmlColumn>() {
+            Collections.sort(cachedColumns, new Comparator<HtmlColumnNew>() {
                 @Override
-                public int compare(HtmlColumn o1, HtmlColumn o2) {
+                public int compare(HtmlColumnNew o1, HtmlColumnNew o2) {
                     if (getTableOrderingModel() != null) {
                         final Integer orderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
                         final Integer o2OrderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
@@ -148,40 +141,95 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
             });
         }
 
-        // insert (sorted) {@link HtmlColumn}s.
-        for (HtmlColumn cachedColumn : cachedColumns) {
+        // insert (sorted) {@link HtmlColumnNew}s.
+        for (HtmlColumnNew cachedColumn : cachedColumns) {
             this.getChildren().add(cachedColumn);
         }
 
         return this.cachedColumns;
     }
 
-    public String getStyleClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+        int savedRowIndex = this.getRowIndex();
+
+        try {
+            return super.invokeOnComponent(context, clientId, callback);
+        } catch (Exception e) {
+            // This error will occur if a composite component is used as column child.
+            this.setRowIndex(savedRowIndex);
+            return invokeOnComponentFromUIComponent(context, clientId, callback);
+        }
+
     }
 
-    public void setStyleClass(String styleClass) {
-        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
-    }
+    /**
+     * Copy from {@link UIComponent#invokeOnComponent} because super call will trigger {@link UIData#invokeOnComponent(FacesContext, String, ContextCallback)}.
+     *
+     * @param context  context
+     * @param clientId table client id
+     * @param callback callback
+     * @return true if component is found
+     */
+    public boolean invokeOnComponentFromUIComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+        if (null == context || null == clientId || null == callback) {
+            throw new NullPointerException();
+        }
 
-    public String getStyle() {
-        return (String) this.getStateHelper().eval(PROPERTY_STYLE);
-    }
+        boolean found = false;
+        if (clientId.equals(this.getClientId(context))) {
+            try {
+                this.pushComponentToEL(context, this);
+                callback.invokeContextCallback(context, this);
+                return true;
+            } catch (Exception e) {
+                throw new FacesException(e);
+            } finally {
+                this.popComponentFromEL(context);
+            }
+        } else {
+            Iterator<UIComponent> itr = this.getFacetsAndChildren();
 
-    public void setStyle(String style) {
-        this.updateStateHelper(PROPERTY_STYLE, style);
-    }
-
-    public String getRowClass() {
-        return (String) this.getStateHelper().eval(PROPERTY_TABLE_ROW_CLASS);
-    }
-
-    public void setRowClass(String rowClass) {
-        this.updateStateHelper(PROPERTY_TABLE_ROW_CLASS, rowClass);
+            while (itr.hasNext() && !found) {
+                found = itr.next().invokeOnComponent(context, clientId,
+                        callback);
+            }
+        }
+        return found;
     }
 
     public String getModelUniqueIdentifier() {
         return StringUtils.getNotNullValue(getUniqueIdentifier(), getId());
+    }
+
+    public TableSingleSelectionListener getSingleSelectionListener() {
+        return (TableSingleSelectionListener) this.getStateHelper().eval(PROPERTY_SINGLE_SELECTION_LISTENER);
+    }
+
+    public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
+        this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
+    }
+
+    public TableModel getModel() {
+        return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
+    }
+
+    public TableRowSortingModel getTableSortModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableRowSortingModel() : null;
+    }
+
+    public TableColumnOrderingModel getTableOrderingModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableColumnOrderingModel() : null;
+    }
+
+    public TableColumnVisibilityModel getTableColumnVisibilityModel() {
+        final TableModel tableModel = this.getModel();
+        return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
+    }
+
+    public void setModel(TableModel tableModel) {
+        this.updateStateHelper(PROPERTY_MODEL, tableModel);
     }
 
     public String getUniqueIdentifier() {
@@ -219,35 +267,17 @@ public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
         this.updateStateHelper(PROPERTY_TABLE_STRIPED, tableStriped);
     }
 
-    public TableSingleSelectionListener getSingleSelectionListener() {
-        return (TableSingleSelectionListener) this.getStateHelper().eval(PROPERTY_SINGLE_SELECTION_LISTENER);
+    public String getRowClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_TABLE_ROW_CLASS);
     }
 
-    public void setSingleSelectionListener(TableSingleSelectionListener singleSelectionListener) {
-        this.updateStateHelper(PROPERTY_SINGLE_SELECTION_LISTENER, singleSelectionListener);
+    public void setRowClass(String rowClass) {
+        this.updateStateHelper(PROPERTY_TABLE_ROW_CLASS, rowClass);
     }
 
-    public TableModel getModel() {
-        return (TableModel) this.getStateHelper().eval(PROPERTY_MODEL);
-    }
-
-    public TableRowSortingModel getTableSortModel() {
-        final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableRowSortingModel() : null;
-    }
-
-    public TableColumnOrderingModel getTableOrderingModel() {
-        final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableColumnOrderingModel() : null;
-    }
-
-    public TableColumnVisibilityModel getTableColumnVisibilityModel() {
-        final TableModel tableModel = this.getModel();
-        return tableModel != null ? tableModel.getTableColumnVisibilityModel() : null;
-    }
-
-    public Boolean isAjaxDisableRenderRegionsOnRequest() {
-        return (Boolean) this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
+    public boolean isAjaxDisableRenderRegionsOnRequest() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST);
+        return eval == null ? true : (Boolean) eval;
     }
 
     public void setAjaxDisableRenderRegionsOnRequest(boolean ajaxDisableRenderRegionsOnRequest) {

@@ -34,7 +34,6 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-table.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-clientSideFilter.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-modal.js", target = "head"),
