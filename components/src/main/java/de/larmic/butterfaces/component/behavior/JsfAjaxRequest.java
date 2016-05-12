@@ -58,7 +58,7 @@ public class JsfAjaxRequest {
 
     /**
      * Creates {@link JsfAjaxRequest} using given {@link AjaxBehavior} to set ajax parameters.
-     *
+     * <p>
      * TODO maybe remove {@link AjaxBehavior} and find it by myself by using event string?
      */
     public JsfAjaxRequest(final UIComponentBase component, AjaxBehavior ajaxBehavior, String event) {
@@ -77,11 +77,15 @@ public class JsfAjaxRequest {
             if (ajaxBehavior.getOnerror() != null) {
                 this.addOnErrorHandler(ajaxBehavior.getOnerror());
             }
-            if (StringUtils.isNotEmpty(ajaxBehavior.getDelay())) {
-                delay = ajaxBehavior.getDelay();
+            try {
+                if (StringUtils.isNotEmpty(ajaxBehavior.getDelay())) {
+                    delay = ajaxBehavior.getDelay();
+                }
+                resetValues = ajaxBehavior.isResetValues();
+            } catch (NoSuchMethodError e) {
+                // do nothing. Delay and resetValues is supported by JSF 2.2.x
             }
 
-            resetValues = ajaxBehavior.isResetValues();
 
             this.setEvent(event);
             this.setBehaviorEvent(event);

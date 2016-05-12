@@ -24,18 +24,6 @@ public class Version implements Serializable {
 
     public String getLastestReleaseVersion() {
         if (VERSION.endsWith("SNAPSHOT")) {
-            final String version = VERSION.replaceAll("-SNAPSHOT", "");
-            final String[] splitted = version.split("\\.");
-            final String newMinorVersion = Integer.valueOf(splitted[splitted.length-1])-1 + "";
-
-            final StringBuilder stringBuilder = new StringBuilder();
-            for (int i=0; i<splitted.length-1; i++) {
-                stringBuilder.append(splitted[i]);
-                stringBuilder.append(".");
-            }
-            stringBuilder.append(newMinorVersion);
-
-            return stringBuilder.toString();
         }
 
         return VERSION;

@@ -8,7 +8,6 @@ package de.larmic.butterfaces.component.html.repeat.visitor;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
 
@@ -39,10 +38,6 @@ public class ChildrenTreeDataVisitor implements DataVisitor {
             while (componentIterator.hasNext()) {
                 final UIComponent dataChild = componentIterator.next();
 
-                if (skipChild(dataChild)) {
-                    continue;
-                }
-
                 if (dataChild.visitTree(visitContext, callback)) {
                     visitResult = true;
 
@@ -52,11 +47,6 @@ public class ChildrenTreeDataVisitor implements DataVisitor {
         }
 
         return DataVisitResult.CONTINUE;
-    }
-
-    private boolean skipChild(UIComponent dataChild) {
-        // TODO check isRendered() by component.getAttribtues("render")???
-        return !dataChild.getParent().isRendered() && visitContext.getHints().contains(VisitHint.SKIP_UNRENDERED);
     }
 
     public boolean getVisitResult() {
