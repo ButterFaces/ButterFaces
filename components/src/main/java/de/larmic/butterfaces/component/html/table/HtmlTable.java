@@ -33,7 +33,7 @@ import java.util.*;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTable.COMPONENT_TYPE)
-public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder {
+public class HtmlTable extends HtmlRepeat implements ClientBehaviorHolder, ButterFacesTable {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";

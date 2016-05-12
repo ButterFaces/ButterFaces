@@ -57,7 +57,7 @@ public class UIComponentResolver {
         return findComponent(id, null);
     }
 
-    public <T extends UIComponent> T findComponent(final String id, final Class<T> componentClass) {
+    public <T> T findComponent(final String id, final Class<T> componentClass) {
         final FacesContext context = FacesContext.getCurrentInstance();
         final UIViewRoot root = context.getViewRoot();
         final UIComponent[] found = new UIComponent[1];
@@ -67,7 +67,7 @@ public class UIComponentResolver {
         root.visitTree(new VisitContextImpl(context), new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent component) {
-                if(clientId.equals(component.getId()) && (componentClass == null || component.getClass().equals(componentClass))){
+                if(clientId.equals(component.getId()) && (componentClass == null || componentClass.isAssignableFrom(component.getClass()))){
                     found[0] = component;
                     return VisitResult.COMPLETE;
                 }
