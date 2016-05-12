@@ -13,7 +13,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class MojarraTableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.TableRenderer {
+public abstract class MojarraTableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.TableRenderer {
 
     protected void renderRow(FacesContext context,
                              UIComponent table,

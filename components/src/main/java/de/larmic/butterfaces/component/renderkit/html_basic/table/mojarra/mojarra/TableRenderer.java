@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Created by larmic on 12.05.16.
  */
-public class TableRenderer extends BaseTableRenderer {
+public abstract class TableRenderer extends BaseTableRenderer {
 
 
     // ---------------------------------------------------------- Public Methods
