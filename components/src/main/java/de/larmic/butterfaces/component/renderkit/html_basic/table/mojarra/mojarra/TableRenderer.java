@@ -1,14 +1,15 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
-import com.sun.faces.util.Util;
-
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by larmic on 12.05.16.
@@ -71,12 +72,7 @@ public abstract class TableRenderer extends BaseTableRenderer {
         int processed = 0;
         int rowIndex = data.getFirst() - 1;
         int rows = data.getRows();
-        List<Integer> bodyRows = getBodyRows(context.getExternalContext().getApplicationMap(), data);
-        boolean hasBodyRows = (bodyRows != null && !bodyRows.isEmpty());
-        boolean wroteTableBody = false;
-        if (!hasBodyRows) {
-            renderTableBodyStart(context, component, writer);
-        }
+        renderTableBodyStart(context, component, writer);
         boolean renderedRow = false;
         while (true) {
 
@@ -88,15 +84,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
             data.setRowIndex(++rowIndex);
             if (!data.isRowAvailable()) {
                 break; // Scrolled past the last row
-            }
-
-            // render any table body rows
-            if (hasBodyRows && bodyRows.contains(data.getRowIndex())) {
-                if (wroteTableBody) {
-                    writer.endElement("tbody");
-                }
-                writer.startElement("tbody", data);
-                wroteTableBody = true;
             }
 
             // Render the beginning of this row
@@ -146,25 +133,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
 
 
     // ------------------------------------------------------- Protected Methods
-
-
-    private List<Integer> getBodyRows(Map<String, Object> appMap, UIData data) {
-
-        List<Integer> result = null;
-        String bodyRows = (String) data.getAttributes().get("bodyrows");
-        if (bodyRows != null) {
-            String[] rows = Util.split(appMap, bodyRows, ",");
-            if (rows != null) {
-                result = new ArrayList<Integer>(rows.length);
-                for (String curRow : rows) {
-                    result.add(Integer.valueOf(curRow));
-                }
-            }
-        }
-
-        return result;
-
-    }
 
 
     protected void renderColumnGroups(FacesContext context,
