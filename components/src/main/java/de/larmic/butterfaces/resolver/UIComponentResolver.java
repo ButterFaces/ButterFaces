@@ -57,7 +57,7 @@ public class UIComponentResolver {
         return findComponent(id, null);
     }
 
-    public <T extends UIComponent> T findComponent(final String id, final Class<T> componentClass) {
+    public <T> T findComponent(final String id, final Class<T> componentClass) {
         final FacesContext context = FacesContext.getCurrentInstance();
         final UIViewRoot root = context.getViewRoot();
         final UIComponent[] found = new UIComponent[1];
