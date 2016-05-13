@@ -82,6 +82,10 @@
             Number of refresh clicks: #{tableShowcase.numberOfRefreshes}
         </h:panelGroup>
 
+        <b:commandLink value="Refresh">
+            <f:ajax execute="@none" render="filterTable" />
+        </b:commandLink>
+
         <b:tableNew id="filterTable"
                  var="rowItem"
                  uniqueIdentifier="filterTable"
