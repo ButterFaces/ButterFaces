@@ -38,9 +38,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
         // Render the caption (if any)
         renderCaption(context, data, writer);
 
-        // Render column groups (if any)
-        renderColumnGroups(context, data);
-
         // Render the header facets (if any)
         renderHeader(context, component, writer);
     }
@@ -129,18 +126,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
 
 
     // ------------------------------------------------------- Protected Methods
-
-
-    protected void renderColumnGroups(FacesContext context,
-                                      UIComponent table)
-            throws IOException {
-
-        UIComponent colGroups = getFacet(table, "colgroups");
-        if (colGroups != null) {
-            encodeRecursive(context, colGroups);
-        }
-
-    }
 
     protected void renderRow(FacesContext context,
                              UIComponent table,
