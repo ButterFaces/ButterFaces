@@ -37,21 +37,6 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
 
     /**
-     * Called to render the opening/closing <code>tfoot</code> elements
-     * and any content nested between.
-     *
-     * @param context the <code>FacesContext</code> for the current request
-     * @param table   the table that's being rendered
-     * @param writer  the current writer
-     * @throws IOException if content cannot be written
-     */
-    protected abstract void renderFooter(FacesContext context,
-                                         UIComponent table,
-                                         ResponseWriter writer)
-            throws IOException;
-
-
-    /**
      * Call to render the content that should be included between opening
      * and closing <code>tr</code> elements.
      *
@@ -271,113 +256,81 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 // ----------------------------------------------------------- Inner Classes
 
 
-public static class TableMetaInfo {
+    public static class TableMetaInfo {
 
-    public static final String KEY = de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer.TableMetaInfo.class.getName();
+        public static final String KEY = de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer.TableMetaInfo.class.getName();
 
-    public final List<UIColumn> columns;
-    public final boolean hasHeaderFacets;
-    public final boolean hasFooterFacets;
-    public final int columnCount;
-    public int columnStyleCounter;
-    public int rowStyleCounter;
+        public final List<UIColumn> columns;
+        public final int columnCount;
+        public int columnStyleCounter;
 
 
-    // -------------------------------------------------------- Constructors
+        // -------------------------------------------------------- Constructors
 
 
-    public TableMetaInfo(UIComponent table) {
-        columns = getColumns(table);
-        columnCount = columns.size();
-        hasHeaderFacets = hasFacet("header", columns);
-        hasFooterFacets = hasFacet("footer", columns);
-    }
-
-
-    // ------------------------------------------------------ Public Methods
-
-
-    /**
-     * Reset the counter used to apply column styles.
-     */
-    public void newRow() {
-
-        columnStyleCounter = 0;
-
-    }
-
-
-    // ----------------------------------------------------- Private Methods
-
-    /**
-     * <p>Return an Iterator over the <code>UIColumn</code> children of the
-     * specified <code>UIData</code> that have a <code>rendered</code> property
-     * of <code>true</code>.</p>
-     *
-     * @param table the table from which to extract children
-     * @return the List of all UIColumn children
-     */
-    private static List<UIColumn> getColumns(UIComponent table) {
-
-        if (table instanceof UIData) {
-            int childCount = table.getChildCount();
-            if (childCount > 0) {
-                List<UIColumn> results =
-                        new ArrayList<UIColumn>(childCount);
-                for (UIComponent kid : table.getChildren()) {
-                    if ((kid instanceof UIColumn) && kid.isRendered()) {
-                        results.add((UIColumn) kid);
-                    }
-                }
-                return results;
-            } else {
-                return Collections.emptyList();
-            }
-        } else {
-            int count;
-            Object value = table.getAttributes().get("columns");
-            if ((value != null) && (value instanceof Integer)) {
-                count = ((Integer) value);
-            } else {
-                count = 2;
-            }
-            if (count < 1) {
-                count = 1;
-            }
-            List<UIColumn> result = new ArrayList<UIColumn>(count);
-            for (int i = 0; i < count; i++) {
-                result.add(new UIColumn());
-            }
-            return result;
+        public TableMetaInfo(UIComponent table) {
+            columns = getColumns(table);
+            columnCount = columns.size();
         }
 
-    }
+
+        // ------------------------------------------------------ Public Methods
 
 
-    /**
-     * <p>Return the number of child <code>UIColumn</code> components nested in
-     * the specified <code>UIData</code> that have a facet with the specified
-     * name.</p>
-     *
-     * @param name    Name of the facet being analyzed
-     * @param columns the columns to search
-     * @return the number of columns associated with the specified Facet name
-     */
-    private static boolean hasFacet(String name, List<UIColumn> columns) {
+        /**
+         * Reset the counter used to apply column styles.
+         */
+        public void newRow() {
 
-        if (!columns.isEmpty()) {
-            for (UIColumn column : columns) {
-                if (column.getFacetCount() > 0) {
-                    if (column.getFacets().containsKey(name)) {
-                        return true;
-                    }
-                }
-            }
+            columnStyleCounter = 0;
+
         }
-        return false;
 
+
+        // ----------------------------------------------------- Private Methods
+
+        /**
+         * <p>Return an Iterator over the <code>UIColumn</code> children of the
+         * specified <code>UIData</code> that have a <code>rendered</code> property
+         * of <code>true</code>.</p>
+         *
+         * @param table the table from which to extract children
+         * @return the List of all UIColumn children
+         */
+        private static List<UIColumn> getColumns(UIComponent table) {
+
+            if (table instanceof UIData) {
+                int childCount = table.getChildCount();
+                if (childCount > 0) {
+                    List<UIColumn> results =
+                            new ArrayList<UIColumn>(childCount);
+                    for (UIComponent kid : table.getChildren()) {
+                        if ((kid instanceof UIColumn) && kid.isRendered()) {
+                            results.add((UIColumn) kid);
+                        }
+                    }
+                    return results;
+                } else {
+                    return Collections.emptyList();
+                }
+            } else {
+                int count;
+                Object value = table.getAttributes().get("columns");
+                if ((value != null) && (value instanceof Integer)) {
+                    count = ((Integer) value);
+                } else {
+                    count = 2;
+                }
+                if (count < 1) {
+                    count = 1;
+                }
+                List<UIColumn> result = new ArrayList<UIColumn>(count);
+                for (int i = 0; i < count; i++) {
+                    result.add(new UIColumn());
+                }
+                return result;
+            }
+
+        }
     }
-
-
-} // END UIDataMetaInfo
 }

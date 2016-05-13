@@ -43,10 +43,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
 
         // Render the header facets (if any)
         renderHeader(context, component, writer);
-
-        // Render the footer facets (if any)
-        renderFooter(context, component, writer);
-
     }
 
 
@@ -145,118 +141,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
         }
 
     }
-
-    protected void renderFooter(FacesContext context,
-                                UIComponent table,
-                                ResponseWriter writer)
-            throws IOException {
-
-        TableMetaInfo info = getMetaInfo(context, table);
-        UIComponent footer = getFacet(table, "footer");
-        // check if any footer has to be rendered
-        if (footer == null && !info.hasFooterFacets) {
-            return;
-        }
-        String footerClass = (String) table.getAttributes().get("footerClass");
-        writer.startElement("tfoot", table);
-        writer.writeText("\n", table, null);
-        if (info.hasFooterFacets) {
-            writer.startElement("tr", table);
-            writer.writeText("\n", table, null);
-            for (UIColumn column : info.columns) {
-                String columnFooterClass =
-                        (String) column.getAttributes().get("footerClass");
-                writer.startElement("td", column);
-                if (columnFooterClass != null) {
-                    writer.writeAttribute("class", columnFooterClass,
-                            "columnFooterClass");
-                } else if (footerClass != null) {
-                    writer.writeAttribute("class", footerClass, "footerClass");
-                }
-                UIComponent facet = getFacet(column, "footer");
-                if (facet != null) {
-                    writer.writeText("", table, null);
-                    encodeRecursive(context, facet);
-                }
-                writer.endElement("td");
-                writer.writeText("\n", table, null);
-            }
-            renderRowEnd(context, table, writer);
-        }
-        if (footer != null) {
-            writer.startElement("tr", footer);
-            writer.startElement("td", footer);
-            if (footerClass != null) {
-                writer.writeAttribute("class", footerClass, "footerClass");
-            }
-            if (info.columns.size() > 1) {
-                writer.writeAttribute("colspan", String.valueOf(info.columns.size()), null);
-            }
-            encodeRecursive(context, footer);
-            writer.endElement("td");
-            renderRowEnd(context, table, writer);
-        }
-        writer.endElement("tfoot");
-        writer.writeText("\n", table, null);
-
-    }
-
-    protected void renderHeader(FacesContext context,
-                                UIComponent table,
-                                ResponseWriter writer)
-            throws IOException {
-
-        TableMetaInfo info = getMetaInfo(context, table);
-        UIComponent header = getFacet(table, "header");
-        // check if any header has to be rendered
-        if (header == null && !info.hasHeaderFacets) {
-            return;
-        }
-        String headerClass = (String) table.getAttributes().get("headerClass");
-        writer.startElement("thead", table);
-        writer.writeText("\n", table, null);
-        if (header != null) {
-            writer.startElement("tr", header);
-            writer.startElement("th", header);
-            if (headerClass != null) {
-                writer.writeAttribute("class", headerClass, "headerClass");
-            }
-            if (info.columns.size() > 1) {
-                writer.writeAttribute("colspan", String.valueOf(info.columns.size()), null);
-            }
-            writer.writeAttribute("scope", "colgroup", null);
-            encodeRecursive(context, header);
-            writer.endElement("th");
-            renderRowEnd(context, table, writer);
-        }
-        if (info.hasHeaderFacets) {
-            writer.startElement("tr", table);
-            writer.writeText("\n", table, null);
-            for (UIColumn column : info.columns) {
-                String columnHeaderClass =
-                        (String) column.getAttributes().get("headerClass");
-                writer.startElement("th", column);
-                if (columnHeaderClass != null) {
-                    writer.writeAttribute("class", columnHeaderClass,
-                            "columnHeaderClass");
-                } else if (headerClass != null) {
-                    writer.writeAttribute("class", headerClass, "headerClass");
-                }
-                writer.writeAttribute("scope", "col", null);
-                UIComponent facet = getFacet(column, "header");
-                if (facet != null) {
-                    encodeRecursive(context, facet);
-                }
-                writer.endElement("th");
-                writer.writeText("\n", table, null);
-            }
-            renderRowEnd(context, table, writer);
-        }
-        writer.endElement("thead");
-        writer.writeText("\n", table, null);
-
-    }
-
 
     protected void renderRow(FacesContext context,
                              UIComponent table,
