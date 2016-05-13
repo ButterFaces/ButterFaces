@@ -3,7 +3,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableNew;
-import de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer;
+import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableMetaInfo;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIColumn;
@@ -21,7 +21,7 @@ public abstract class MojarraTableRenderer extends de.larmic.butterfaces.compone
                              ResponseWriter writer) throws IOException {
 
         // Iterate over the child UIColumn components for each row
-        BaseTableRenderer.TableMetaInfo info = getMetaInfo(context, table);
+        final TableMetaInfo info = getMetaInfo(context, table);
         info.newRow();
 
         int columnNumber = 0;
