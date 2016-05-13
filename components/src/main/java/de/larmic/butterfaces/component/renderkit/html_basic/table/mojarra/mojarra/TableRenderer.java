@@ -30,9 +30,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
 
         renderTableStart(context, component, writer);
 
-        // Render the caption (if any)
-        renderCaption(context, data, writer);
-
         // Render the header facets (if any)
         renderHeader(context, component, writer);
     }

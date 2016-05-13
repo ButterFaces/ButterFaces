@@ -86,41 +86,6 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
     }
 
-
-    /**
-     * Renders the caption of the table applying the values of
-     * <code>captionClass</code> as the class and <code>captionStyle</code>
-     * as the style if either are present.
-     *
-     * @param context the <code>FacesContext</code> for the current request
-     * @param table   the table that's being rendered
-     * @param writer  the current writer
-     * @throws IOException if content cannot be written
-     */
-    protected void renderCaption(FacesContext context,
-                                 UIComponent table,
-                                 ResponseWriter writer) throws IOException {
-
-        UIComponent caption = getFacet(table, "caption");
-        if (caption != null) {
-            String captionClass =
-                    (String) table.getAttributes().get("captionClass");
-            String captionStyle = (String)
-                    table.getAttributes().get("captionStyle");
-            writer.startElement("caption", table);
-            if (captionClass != null) {
-                writer.writeAttribute("class", captionClass, "captionClass");
-            }
-            if (captionStyle != null) {
-                writer.writeAttribute("style", captionStyle, "captionStyle");
-            }
-            encodeRecursive(context, caption);
-            writer.endElement("caption");
-        }
-
-    }
-
-
     /**
      * Renders the starting <code>tbody</code> element.
      *
