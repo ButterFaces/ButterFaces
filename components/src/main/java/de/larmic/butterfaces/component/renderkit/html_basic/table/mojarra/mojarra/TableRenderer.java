@@ -8,7 +8,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -123,52 +122,6 @@ public abstract class TableRenderer extends BaseTableRenderer {
         return true;
 
     }
-
-
-    // ------------------------------------------------------- Protected Methods
-
-    protected void renderRow(FacesContext context,
-                             UIComponent table,
-                             UIComponent child,
-                             ResponseWriter writer) throws IOException {
-
-        // Iterate over the child UIColumn components for each row
-        TableMetaInfo info = getMetaInfo(context, table);
-        info.newRow();
-        for (UIColumn column : info.columns) {
-
-            // Render the beginning of this cell
-            boolean isRowHeader = false;
-            Object rowHeaderValue = column.getAttributes().get("rowHeader");
-            if (null != rowHeaderValue) {
-                isRowHeader = Boolean.valueOf(rowHeaderValue.toString());
-            }
-            if (isRowHeader) {
-                writer.startElement("th", column);
-                writer.writeAttribute("scope", "row", null);
-            } else {
-                writer.startElement("td", column);
-            }
-
-            // Render the contents of this cell by iterating over
-            // the kids of our kids
-            for (Iterator<UIComponent> gkids = getChildren(column);
-                 gkids.hasNext(); ) {
-                encodeRecursive(context, gkids.next());
-            }
-
-            // Render the ending of this cell
-            if (isRowHeader) {
-                writer.endElement("th");
-            } else {
-                writer.endElement("td");
-            }
-            writer.writeText("\n", table, null);
-
-        }
-
-    }
-
 
     // ------------------------------------------------------- Private Methods
 
