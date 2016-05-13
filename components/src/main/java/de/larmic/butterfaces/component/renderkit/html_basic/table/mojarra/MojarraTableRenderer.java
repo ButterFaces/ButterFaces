@@ -85,7 +85,7 @@ public abstract class MojarraTableRenderer extends de.larmic.butterfaces.compone
 
     }
 
-    private boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
+    protected boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
         if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();

@@ -110,18 +110,6 @@ public class TableRenderer extends MojarraTableRenderer {
         writer.endElement("thead");
     }
 
-    private boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
-        if (table.getTableColumnVisibilityModel() != null) {
-            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
-            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
-            if (hideColumn != null) {
-                return hideColumn;
-            }
-        }
-        return column.isHideColumn();
-    }
-
     @Override
     protected void renderTableStart(final FacesContext context,
                                     final UIComponent component,
