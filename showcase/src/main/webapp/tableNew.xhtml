@@ -103,7 +103,7 @@
                       uniqueIdentifier="column1"
                       colWidth="#{tableShowcase.colWidthColumn1}"
                       label="Readonly text">
-                #{rowItem.a}
+                <b:text value="#{rowItem.a}" hideLabel="true" readonly="true" />
                 <b:tooltip placement="top">
                     <strong>Attention: </strong> tooltips could be attended to columns.
                 </b:tooltip>
@@ -129,7 +129,7 @@
             <b:columnNew colWidth="#{tableShowcase.colWidthColumn3}"
                          label="Readonly text (default hide)">
                 <b:text value="#{rowItem.b}" hideLabel="true">
-                    <f:ajax execute="@this" />
+                    <f:ajax execute="@this" event="keyup"/>
                 </b:text>
             </b:columnNew>
         </b:tableNew>
