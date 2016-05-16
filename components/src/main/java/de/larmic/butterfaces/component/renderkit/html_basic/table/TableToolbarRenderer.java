@@ -172,7 +172,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
          // show and hide option content
          writer.startElement("ul", tableToolbar);
-         writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-columns", null);
+         writer.writeAttribute("class", "dropdown-menu dropdown-menu-form butter-table-toolbar-cachedColumns", null);
          writer.writeAttribute("role", "menu", null);
 
          int columnNumber = 0;

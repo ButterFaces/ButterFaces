@@ -6,7 +6,7 @@ import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableNew;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableMetaInfo;
+import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
@@ -204,13 +204,11 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                              ResponseWriter writer) throws IOException {
 
         // Iterate over the child UIColumn components for each row
-        final TableMetaInfo info = getMetaInfo(context, table);
-        info.newRow();
+        final TableColumnCache info = getMetaInfo(context, table);
 
         int columnNumber = 0;
 
-        for (UIColumn column : info.columns) {
-
+        for (UIColumn column : info.getCachedColumns()) {
             if (column instanceof HtmlColumnNew && ((HtmlColumnNew) column).isHideColumn()) {
                 continue;
             }

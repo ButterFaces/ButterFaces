@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableMetaInfo;
+import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -162,23 +162,23 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
 
     /**
-     * Returns a <code>TableMetaInfo</code> object containing details such
-     * as row and column classes, columns, and a mechanism for scrolling through
+     * Returns a <code>TableColumnCache</code> object containing details such
+     * as row and column classes, cachedColumns, and a mechanism for scrolling through
      * the row/column classes.
      *
      * @param context the <code>FacesContext</code> for the current request
      * @param table   the table that's being rendered
-     * @return the <code>TableMetaInfo</code> for provided table
+     * @return the <code>TableColumnCache</code> for provided table
      */
-    protected TableMetaInfo getMetaInfo(FacesContext context,
-                                        UIComponent table) {
+    protected TableColumnCache getMetaInfo(FacesContext context,
+                                           UIComponent table) {
 
         String key = createKey(table);
         Map<Object, Object> attributes = context.getAttributes();
-        TableMetaInfo info = (TableMetaInfo)
+        TableColumnCache info = (TableColumnCache)
                 attributes.get(key);
         if (info == null) {
-            info = new TableMetaInfo(table);
+            info = new TableColumnCache(table);
             attributes.put(key, info);
         }
         return info;
@@ -187,10 +187,10 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
 
     /**
-     * Removes the cached TableMetaInfo from the specified component.
+     * Removes the cached TableColumnCache from the specified component.
      *
      * @param context the <code>FacesContext</code> for the current request
-     * @param table   the table from which the TableMetaInfo will be removed
+     * @param table   the table from which the TableColumnCache will be removed
      */
     protected void clearMetaInfo(FacesContext context, UIComponent table) {
         context.getAttributes().remove(createKey(table));
@@ -199,13 +199,13 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
     /**
      * Creates a unique key based on the provided <code>UIComponent</code> with
-     * which the TableMetaInfo can be looked up.
+     * which the TableColumnCache can be looked up.
      *
      * @param table the table that's being rendered
      * @return a unique key to store the metadata in the request and still have
      * it associated with a specific component.
      */
     protected String createKey(UIComponent table) {
-        return TableMetaInfo.KEY + '_' + table.hashCode();
+        return TableColumnCache.KEY + '_' + table.hashCode();
     }
 }

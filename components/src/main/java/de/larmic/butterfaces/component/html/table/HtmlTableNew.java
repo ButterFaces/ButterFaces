@@ -89,10 +89,10 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
             }
         }
 
-        // clear "maybe" unsorted columns
+        // clear "maybe" unsorted cachedColumns
         this.getChildren().clear();
 
-        // sort columns by model if necessary
+        // sort cachedColumns by model if necessary
         if (getTableOrderingModel() != null) {
             final List<HtmlColumnNew> notOrderedByModelColumnIdentifiers = new ArrayList<>();
             final List<Ordering> existingOrderings = new ArrayList<>();
@@ -106,7 +106,7 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
                 }
             }
 
-            // in case of not ordered columns update table model
+            // in case of not ordered cachedColumns update table model
             if (!notOrderedByModelColumnIdentifiers.isEmpty()) {
                 // order already existing column orderings
                 Ordering.sort(existingOrderings);
@@ -124,7 +124,7 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
                 getTableOrderingModel().update(ordering);
             }
 
-            // sort columns by table model. Every column should be found.
+            // sort cachedColumns by table model. Every column should be found.
             Collections.sort(cachedColumns, new Comparator<HtmlColumnNew>() {
                 @Override
                 public int compare(HtmlColumnNew o1, HtmlColumnNew o2) {

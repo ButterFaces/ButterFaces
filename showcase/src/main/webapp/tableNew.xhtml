@@ -90,7 +90,6 @@
                  var="rowItem"
                  uniqueIdentifier="filterTable"
                  value="#{tableShowcase.stringRows}"
-                 singleSelectionListener="#{tableShowcase.tableSelectionListener}"
                  model="#{tableShowcase.tableModel}"
                  tableCondensed="#{tableShowcase.tableCondensed}"
                  tableStriped="#{tableShowcase.tableStriped}"
@@ -127,12 +126,11 @@
                       label="Creation Date">
                 <h:outputText value="#{rowItem.date}" />
             </b:columnNew>
-            <b:columnNew colWidth="#{tableShowcase.colWidthColumn4}"
-                      uniqueIdentifier="column4"
-                      hideColumn="true"
-                      sortColumnEnabled="false"
-                      label="Readonly text (default hide)">
-                #{rowItem.a}
+            <b:columnNew colWidth="#{tableShowcase.colWidthColumn3}"
+                         label="Readonly text (default hide)">
+                <b:text value="#{rowItem.b}" hideLabel="true">
+                    <f:ajax execute="@this" />
+                </b:text>
             </b:columnNew>
         </b:tableNew>
 
@@ -155,9 +153,10 @@
                 </b:commandLink>
             </b:columnNew>
             <b:columnNew colWidth="#{tableShowcase.colWidthColumn3}"
-                      hideColumn="true"
                       label="Readonly text (default hide)">
-                #{rowItem.a}
+                <b:text value="#{rowItem.b}" hideLabel="true">
+                    <f:ajax execute="@this" />
+                </b:text>
             </b:columnNew>
         </b:tableNew>
 

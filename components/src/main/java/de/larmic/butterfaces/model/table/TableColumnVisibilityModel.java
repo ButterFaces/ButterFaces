@@ -1,7 +1,7 @@
 package de.larmic.butterfaces.model.table;
 
 /**
- * Table model to handle column visibilities. If model is not used it is not possible to hide columns by user interaction.
+ * Table model to handle column visibilities. If model is not used it is not possible to hide cachedColumns by user interaction.
  */
 public interface TableColumnVisibilityModel {
 
