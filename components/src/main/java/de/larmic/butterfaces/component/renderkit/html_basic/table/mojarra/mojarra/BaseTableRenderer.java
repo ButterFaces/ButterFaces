@@ -16,7 +16,6 @@ import java.util.Map;
  */
 public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
-
     @Override
     public void encodeBegin(FacesContext context, UIComponent component)
             throws IOException {
@@ -24,7 +23,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        UIData data = (UIData) component;
+        final UIData data = (UIData) component;
         data.setRowIndex(-1);
 
         // Render the beginning of the table
@@ -43,9 +42,8 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        UIData data = (UIData) component;
-
-        ResponseWriter writer = context.getResponseWriter();
+        final UIData data = (UIData) component;
+        final ResponseWriter writer = context.getResponseWriter();
 
         // Iterate over the rows of data that are provided
         int processed = 0;
@@ -53,7 +51,6 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
         int rows = data.getRows();
         renderTableBodyStart(context, component, writer);
         while (true) {
-
             // Have we displayed the requested number of rows?
             if ((rows > 0) && (++processed > rows)) {
                 break;
@@ -72,7 +69,6 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
 
             // Render the ending of this row
             renderRowEnd(context, component, writer);
-
         }
 
         renderTableBodyEnd(context, component, writer);
@@ -129,8 +125,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
     protected abstract void renderRow(FacesContext context,
                                       HtmlTableNew table,
                                       UIComponent row,
-                                      ResponseWriter writer)
-            throws IOException;
+                                      ResponseWriter writer) throws IOException;
 
 
     /**
@@ -144,7 +139,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      *                supports
      * @throws IOException if content cannot be written
      */
-    protected abstract void renderTableStart(FacesContext context, UIComponent table, ResponseWriter writer) throws IOException;
+    protected abstract void renderTableStart(FacesContext context,
+                                             UIComponent table,
+                                             ResponseWriter writer) throws IOException;
 
 
     /**
@@ -158,12 +155,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
     @SuppressWarnings({"UnusedDeclaration"})
     protected void renderTableEnd(FacesContext context,
                                   UIComponent table,
-                                  ResponseWriter writer)
-            throws IOException {
-
+                                  ResponseWriter writer) throws IOException {
         writer.endElement("table");
         writer.writeText("\n", table, null);
-
     }
 
     /**
@@ -175,14 +169,11 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @throws IOException if content cannot be written
      */
     @SuppressWarnings({"UnusedDeclaration"})
-    protected void renderTableBodyStart(FacesContext context,
-                                        UIComponent table,
-                                        ResponseWriter writer)
-            throws IOException {
-
+    private void renderTableBodyStart(FacesContext context,
+                                      UIComponent table,
+                                      ResponseWriter writer) throws IOException {
         writer.startElement("tbody", table);
         writer.writeText("\n", table, null);
-
     }
 
 
@@ -197,12 +188,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
     @SuppressWarnings({"UnusedDeclaration"})
     protected void renderTableBodyEnd(FacesContext context,
                                       UIComponent table,
-                                      ResponseWriter writer)
-            throws IOException {
-
+                                      ResponseWriter writer) throws IOException {
         writer.endElement("tbody");
         writer.writeText("\n", table, null);
-
     }
 
 
@@ -217,11 +205,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      */
     protected void renderRowStart(FacesContext context,
                                   UIComponent table,
-                                  ResponseWriter writer)
-            throws IOException {
+                                  ResponseWriter writer) throws IOException {
         writer.startElement("tr", table);
         writer.writeText("\n", table, null);
-
     }
 
 
@@ -236,12 +222,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
     @SuppressWarnings({"UnusedDeclaration"})
     protected void renderRowEnd(FacesContext context,
                                 UIComponent table,
-                                ResponseWriter writer)
-            throws IOException {
-
+                                ResponseWriter writer) throws IOException {
         writer.endElement("tr");
         writer.writeText("\n", table, null);
-
     }
 
 
@@ -254,18 +237,15 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @param table   the table that's being rendered
      * @return the <code>TableColumnCache</code> for provided table
      */
-    protected TableColumnCache getTableColumnCache(FacesContext context,
-                                                   HtmlTableNew table) {
-
+    protected TableColumnCache getTableColumnCache(FacesContext context, HtmlTableNew table) {
         final String key = createKey(table);
-        Map<Object, Object> attributes = context.getAttributes();
+        final Map<Object, Object> attributes = context.getAttributes();
         TableColumnCache info = (TableColumnCache) attributes.get(key);
         if (info == null) {
             info = new TableColumnCache(table);
             attributes.put(key, info);
         }
         return info;
-
     }
 
 
@@ -275,7 +255,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @param context the <code>FacesContext</code> for the current request
      * @param table   the table from which the TableColumnCache will be removed
      */
-    protected void clearMetaInfo(FacesContext context, UIComponent table) {
+    private void clearMetaInfo(FacesContext context, UIComponent table) {
         context.getAttributes().remove(createKey(table));
     }
 
@@ -288,7 +268,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @return a unique key to store the metadata in the request and still have
      * it associated with a specific component.
      */
-    protected String createKey(UIComponent table) {
+    private String createKey(UIComponent table) {
         return TableColumnCache.KEY + '_' + table.hashCode();
     }
 }

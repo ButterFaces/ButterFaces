@@ -71,7 +71,6 @@ public class TableRenderer extends BaseTableRenderer {
 
             int columnNumber = 0;
 
-
             for (HtmlColumnNew column : tableColumnCache.getCachedColumns()) {
                 writer.startElement("col", table);
                 writer.writeAttribute("class", "butter-table-colgroup", null);
