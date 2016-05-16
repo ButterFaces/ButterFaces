@@ -5,11 +5,17 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.table.cache;
 
+import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
+import de.larmic.butterfaces.component.html.table.HtmlTableNew;
+import de.larmic.butterfaces.model.json.Ordering;
+import de.larmic.butterfaces.model.table.TableColumnOrdering;
+
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,14 +27,66 @@ public class TableColumnCache {
 
     public static final String KEY = TableColumnCache.class.getName();
 
-    private final List<UIColumn> cachedColumns;
+    private final List<HtmlColumnNew> cachedColumns;
 
-    public TableColumnCache(UIComponent table) {
+    public TableColumnCache(HtmlTableNew table) {
         cachedColumns = buildCache(table);
+        orderColumns(table, cachedColumns);
     }
 
-    public List<UIColumn> getCachedColumns() {
+    public List<HtmlColumnNew> getCachedColumns() {
         return cachedColumns;
+    }
+
+    private static void orderColumns(final HtmlTableNew table, final List<HtmlColumnNew> cachedColumns) {
+        // sort cachedColumns by model if necessary
+        if (table.getTableOrderingModel() != null) {
+            final List<HtmlColumnNew> notOrderedByModelColumnIdentifiers = new ArrayList<>();
+            final List<Ordering> existingOrderings = new ArrayList<>();
+
+            for (HtmlColumnNew cachedColumn : cachedColumns) {
+                final Integer position = table.getTableOrderingModel().getOrderPosition(table.getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
+                if (position == null) {
+                    notOrderedByModelColumnIdentifiers.add(cachedColumn);
+                } else {
+                    existingOrderings.add(new Ordering(cachedColumn.getModelUniqueIdentifier(), position));
+                }
+            }
+
+            // in case of not ordered cachedColumns update table model
+            if (!notOrderedByModelColumnIdentifiers.isEmpty()) {
+                // order already existing column orderings
+                Ordering.sort(existingOrderings);
+
+                final List<String> orderings = new ArrayList<>();
+                for (Ordering existingOrdering : existingOrderings) {
+                    orderings.add(existingOrdering.getIdentifier());
+                }
+                for (HtmlColumnNew notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
+                    orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
+                }
+
+                // update table model to sync model and
+                final TableColumnOrdering ordering = new TableColumnOrdering(table.getModelUniqueIdentifier(), orderings);
+                table.getTableOrderingModel().update(ordering);
+            }
+
+            // sort cachedColumns by table model. Every column should be found.
+            Collections.sort(cachedColumns, new Comparator<HtmlColumnNew>() {
+                @Override
+                public int compare(HtmlColumnNew o1, HtmlColumnNew o2) {
+                    if (table.getTableOrderingModel() != null) {
+                        final Integer orderPosition = table.getTableOrderingModel().getOrderPosition(table.getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
+                        final Integer o2OrderPosition = table.getTableOrderingModel().getOrderPosition(table.getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
+
+                        if (orderPosition != null && o2OrderPosition != null) {
+                            return orderPosition.compareTo(o2OrderPosition);
+                        }
+                    }
+                    return 0;
+                }
+            });
+        }
     }
 
     /**
@@ -39,14 +97,14 @@ public class TableColumnCache {
      * @param table the table from which to extract children
      * @return the List of all UIColumn children
      */
-    private static List<UIColumn> buildCache(UIComponent table) {
+    private static List<HtmlColumnNew> buildCache(UIComponent table) {
         if (table instanceof UIData) {
             final int childCount = table.getChildCount();
             if (childCount > 0) {
-                final List<UIColumn> results = new ArrayList<>(childCount);
+                final List<HtmlColumnNew> results = new ArrayList<>(childCount);
                 for (UIComponent kid : table.getChildren()) {
                     if ((kid instanceof UIColumn) && kid.isRendered()) {
-                        results.add((UIColumn) kid);
+                        results.add((HtmlColumnNew) kid);
                     }
                 }
                 return results;
@@ -64,9 +122,9 @@ public class TableColumnCache {
             if (count < 1) {
                 count = 1;
             }
-            final List<UIColumn> result = new ArrayList<UIColumn>(count);
+            final List<HtmlColumnNew> result = new ArrayList<>(count);
             for (int i = 0; i < count; i++) {
-                result.add(new UIColumn());
+                result.add(new HtmlColumnNew());
             }
             return result;
         }

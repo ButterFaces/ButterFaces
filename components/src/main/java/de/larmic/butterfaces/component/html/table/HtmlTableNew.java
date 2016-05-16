@@ -55,8 +55,6 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
-    private final List<HtmlColumnNew> cachedColumns = new ArrayList<>();
-
     public HtmlTableNew() {
         super();
         this.setRendererType(RENDERER_TYPE);
@@ -75,78 +73,6 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    public List<HtmlColumnNew> getCachedColumns() {
-        final int childCount = this.getChildCount();
-        if (childCount > 0 && this.cachedColumns.isEmpty()) {
-            // all children that are {@link HtmlColumn} or should be rendered
-            for (UIComponent uiComponent : getChildren()) {
-                if ((uiComponent instanceof HtmlColumnNew) && uiComponent.isRendered()) {
-                    final HtmlColumnNew column = (HtmlColumnNew) uiComponent;
-                    this.cachedColumns.add(column);
-                }
-            }
-        }
-
-        // clear "maybe" unsorted cachedColumns
-        this.getChildren().clear();
-
-        // sort cachedColumns by model if necessary
-        if (getTableOrderingModel() != null) {
-            final List<HtmlColumnNew> notOrderedByModelColumnIdentifiers = new ArrayList<>();
-            final List<Ordering> existingOrderings = new ArrayList<>();
-
-            for (HtmlColumnNew cachedColumn : cachedColumns) {
-                final Integer position = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), cachedColumn.getModelUniqueIdentifier());
-                if (position == null) {
-                    notOrderedByModelColumnIdentifiers.add(cachedColumn);
-                } else {
-                    existingOrderings.add(new Ordering(cachedColumn.getModelUniqueIdentifier(), position));
-                }
-            }
-
-            // in case of not ordered cachedColumns update table model
-            if (!notOrderedByModelColumnIdentifiers.isEmpty()) {
-                // order already existing column orderings
-                Ordering.sort(existingOrderings);
-
-                final List<String> orderings = new ArrayList<>();
-                for (Ordering existingOrdering : existingOrderings) {
-                    orderings.add(existingOrdering.getIdentifier());
-                }
-                for (HtmlColumnNew notOrderedByModelColumnIdentifier : notOrderedByModelColumnIdentifiers) {
-                    orderings.add(notOrderedByModelColumnIdentifier.getModelUniqueIdentifier());
-                }
-
-                // update table model to sync model and
-                final TableColumnOrdering ordering = new TableColumnOrdering(getModelUniqueIdentifier(), orderings);
-                getTableOrderingModel().update(ordering);
-            }
-
-            // sort cachedColumns by table model. Every column should be found.
-            Collections.sort(cachedColumns, new Comparator<HtmlColumnNew>() {
-                @Override
-                public int compare(HtmlColumnNew o1, HtmlColumnNew o2) {
-                    if (getTableOrderingModel() != null) {
-                        final Integer orderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o1.getModelUniqueIdentifier());
-                        final Integer o2OrderPosition = getTableOrderingModel().getOrderPosition(getModelUniqueIdentifier(), o2.getModelUniqueIdentifier());
-
-                        if (orderPosition != null && o2OrderPosition != null) {
-                            return orderPosition.compareTo(o2OrderPosition);
-                        }
-                    }
-                    return 0;
-                }
-            });
-        }
-
-        // insert (sorted) {@link HtmlColumnNew}s.
-        for (HtmlColumnNew cachedColumn : cachedColumns) {
-            this.getChildren().add(cachedColumn);
-        }
-
-        return this.cachedColumns;
     }
 
     public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {

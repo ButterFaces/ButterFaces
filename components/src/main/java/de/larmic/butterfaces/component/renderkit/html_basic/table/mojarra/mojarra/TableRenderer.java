@@ -1,5 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
+import de.larmic.butterfaces.component.html.table.HtmlTableNew;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
@@ -67,7 +69,7 @@ public abstract class TableRenderer extends BaseTableRenderer {
             renderRowStart(context, component, writer);
 
             // Render the row content
-            renderRow(context, component, null, writer);
+            renderRow(context, (HtmlTableNew) component, null, writer);
 
             // Render the ending of this row
             renderRowEnd(context, component, writer);

@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.table.HtmlTableNew;
 import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
 
 import javax.faces.component.UIComponent;
@@ -43,7 +44,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @throws IOException if content cannot be written
      */
     protected abstract void renderRow(FacesContext context,
-                                      UIComponent table,
+                                      HtmlTableNew table,
                                       UIComponent row,
                                       ResponseWriter writer)
             throws IOException;
@@ -170,13 +171,12 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @param table   the table that's being rendered
      * @return the <code>TableColumnCache</code> for provided table
      */
-    protected TableColumnCache getMetaInfo(FacesContext context,
-                                           UIComponent table) {
+    protected TableColumnCache getTableColumnCache(FacesContext context,
+                                                   HtmlTableNew table) {
 
-        String key = createKey(table);
+        final String key = createKey(table);
         Map<Object, Object> attributes = context.getAttributes();
-        TableColumnCache info = (TableColumnCache)
-                attributes.get(key);
+        TableColumnCache info = (TableColumnCache) attributes.get(key);
         if (info == null) {
             info = new TableColumnCache(table);
             attributes.put(key, info);

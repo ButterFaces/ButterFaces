@@ -3,7 +3,6 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra;
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
-import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableNew;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
@@ -49,7 +48,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
         }
 
         final HtmlTableNew table = (HtmlTableNew) component;
-        this.hasColumnWidthSet = hasColumnWidthSet(table.getCachedColumns());
+        final TableColumnCache tableColumnCache = getTableColumnCache(context, table);
+        this.hasColumnWidthSet = hasColumnWidthSet(tableColumnCache.getCachedColumns());
         this.rowIndex = 0;
         this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
         this.foundSelectedRow = false;
@@ -62,6 +62,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                                 final UIComponent table,
                                 final ResponseWriter writer) throws IOException {
         final HtmlTableNew htmlTable = (HtmlTableNew) table;
+        final TableColumnCache tableColumnCache = getTableColumnCache(context, htmlTable);
 
         if (hasColumnWidthSet) {
 
@@ -69,7 +70,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
             int columnNumber = 0;
 
-            for (HtmlColumnNew column : htmlTable.getCachedColumns()) {
+
+            for (HtmlColumnNew column : tableColumnCache.getCachedColumns()) {
                 writer.startElement("col", table);
                 writer.writeAttribute("class", "butter-table-colgroup", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
@@ -102,7 +104,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
         int columnNumber = 0;
 
-        for (HtmlColumnNew column : htmlTable.getCachedColumns()) {
+        for (HtmlColumnNew column : tableColumnCache.getCachedColumns()) {
             column.setWebXmlParameters(webXmlParameters);
             column.setColumnNumberUsedByTable(columnNumber);
             column.encodeBegin(context);
@@ -199,12 +201,12 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
     }
 
     protected void renderRow(FacesContext context,
-                             UIComponent table,
+                             HtmlTableNew table,
                              UIComponent child,
                              ResponseWriter writer) throws IOException {
 
         // Iterate over the child UIColumn components for each row
-        final TableColumnCache info = getMetaInfo(context, table);
+        final TableColumnCache info = getTableColumnCache(context, table);
 
         int columnNumber = 0;
 
@@ -236,7 +238,7 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
                 //********************************************** hide column if models says that
-                if (column instanceof HtmlColumnNew && table instanceof HtmlTable && this.isHideColumn((HtmlTableNew) table, (HtmlColumnNew) column)) {
+                if (column instanceof HtmlColumnNew && this.isHideColumn(table, (HtmlColumnNew) column)) {
                     writer.writeAttribute("style", "display:none", null);
                 } else if (column instanceof HtmlColumnNew) {
                     HtmlColumnNew htmlColumn = (HtmlColumnNew) column;
@@ -312,7 +314,8 @@ public class TableRenderer extends de.larmic.butterfaces.component.renderkit.htm
 
                     }
                 } else if ("sort".equals(event) && table.getModel() != null) {
-                    final HtmlColumnNew sortedColumn = table.getCachedColumns().get(eventNumber);
+                    final TableColumnCache tableColumnCache = getTableColumnCache(context, table);
+                    final HtmlColumnNew sortedColumn = tableColumnCache.getCachedColumns().get(eventNumber);
                     final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
                     final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
                     if (table.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
