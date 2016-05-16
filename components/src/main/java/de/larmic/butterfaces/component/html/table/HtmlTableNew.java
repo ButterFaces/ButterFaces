@@ -75,8 +75,11 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
         return COMPONENT_FAMILY;
     }
 
-    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
-        int savedRowIndex = this.getRowIndex();
+    @Override
+    public boolean invokeOnComponent(final FacesContext context,
+                                     final String clientId,
+                                     final ContextCallback callback) throws FacesException {
+        final int savedRowIndex = this.getRowIndex();
 
         try {
             return super.invokeOnComponent(context, clientId, callback);
@@ -96,7 +99,9 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
      * @param callback callback
      * @return true if component is found
      */
-    public boolean invokeOnComponentFromUIComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+    private boolean invokeOnComponentFromUIComponent(final FacesContext context,
+                                                     final String clientId,
+                                                     final ContextCallback callback) throws FacesException {
         if (null == context || null == clientId || null == callback) {
             throw new NullPointerException();
         }
@@ -113,11 +118,10 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
                 this.popComponentFromEL(context);
             }
         } else {
-            Iterator<UIComponent> itr = this.getFacetsAndChildren();
+            final Iterator<UIComponent> itr = this.getFacetsAndChildren();
 
             while (itr.hasNext() && !found) {
-                found = itr.next().invokeOnComponent(context, clientId,
-                        callback);
+                found = itr.next().invokeOnComponent(context, clientId, callback);
             }
         }
         return found;

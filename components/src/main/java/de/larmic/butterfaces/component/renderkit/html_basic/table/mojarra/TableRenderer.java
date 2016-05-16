@@ -6,6 +6,7 @@ import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
 import de.larmic.butterfaces.component.html.table.HtmlTableNew;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
+import de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
@@ -29,7 +30,7 @@ import java.util.Map;
  * Created by larmic on 10.09.14.
  */
 @FacesRenderer(componentFamily = HtmlTableNew.COMPONENT_FAMILY, rendererType = HtmlTableNew.RENDERER_TYPE)
-public class TableRenderer extends de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.TableRenderer {
+public class TableRenderer extends BaseTableRenderer {
 
     private boolean hasColumnWidthSet;
     // dirty: method renderRowStart does not have a rowIndex parameter but it should.
