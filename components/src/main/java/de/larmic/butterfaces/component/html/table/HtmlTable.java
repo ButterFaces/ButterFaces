@@ -175,6 +175,18 @@ public class HtmlTable extends UIData implements ClientBehaviorHolder {
         return found;
     }
 
+    public boolean isHideColumn(final HtmlColumn column) {
+        if (getTableColumnVisibilityModel() != null) {
+            final String tableUniqueIdentifier = getModelUniqueIdentifier();
+            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
+            final Boolean hideColumn = getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
+            if (hideColumn != null) {
+                return hideColumn;
+            }
+        }
+        return column.isHideColumn();
+    }
+
     public String getStyleClass() {
         return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
     }

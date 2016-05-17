@@ -13,7 +13,6 @@ import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
@@ -208,8 +207,8 @@ public class TableRenderer extends BaseTableRenderer {
 
         int columnNumber = 0;
 
-        for (UIColumn column : info.getCachedColumns()) {
-            if (column instanceof HtmlColumn && ((HtmlColumn) column).isHideColumn()) {
+        for (HtmlColumn column : info.getCachedColumns()) {
+            if (table.isHideColumn(column)) {
                 continue;
             }
 
@@ -226,22 +225,18 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.startElement("td", column);
                 //********************************************** ADD butter style class
                 StringBuilder sb = new StringBuilder("butter-component-table-column");
-                if (column instanceof HtmlColumn) {
-                    HtmlColumn htmlColumn = (HtmlColumn) column;
-                    if (StringUtils.isNotEmpty(htmlColumn.getStyleClass())) {
-                        sb.append(" ").append(htmlColumn.getStyleClass());
-                    }
+                if (StringUtils.isNotEmpty(column.getStyleClass())) {
+                    sb.append(" ").append(column.getStyleClass());
                 }
                 writer.writeAttribute("class", sb.toString(), null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
                 //********************************************** hide column if models says that
-                if (column instanceof HtmlColumn && this.isHideColumn(table, (HtmlColumn) column)) {
+                if (this.isHideColumn(table, column)) {
                     writer.writeAttribute("style", "display:none", null);
-                } else if (column instanceof HtmlColumn) {
-                    HtmlColumn htmlColumn = (HtmlColumn) column;
-                    if (StringUtils.isNotEmpty(htmlColumn.getStyle())) {
-                        writer.writeAttribute("style", htmlColumn.getStyle(), null);
+                } else {
+                    if (StringUtils.isNotEmpty(column.getStyle())) {
+                        writer.writeAttribute("style", column.getStyle(), null);
                     }
                 }
             }

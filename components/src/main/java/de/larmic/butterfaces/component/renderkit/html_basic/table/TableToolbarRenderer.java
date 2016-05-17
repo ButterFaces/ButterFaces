@@ -248,7 +248,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
         writer.writeAttribute("onclick", ajax, null);
 
-        if (!this.isHideColumn(table, cachedColumn)) {
+        if (!table.isHideColumn(cachedColumn)) {
             writer.writeAttribute("checked", "checked", null);
         }
         writer.endElement("input");
@@ -269,18 +269,6 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             ajax.append("], " + ajaxDisableRenderRegionsOnRequest + ");");
         }
         return ajax.toString();
-    }
-
-    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnVisibilityModel() != null) {
-            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
-            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
-            if (hideColumn != null) {
-                return hideColumn;
-            }
-        }
-        return column.isHideColumn();
     }
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,

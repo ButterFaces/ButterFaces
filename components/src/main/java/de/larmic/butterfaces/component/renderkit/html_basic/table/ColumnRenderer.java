@@ -46,7 +46,7 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         }
         writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
-        if (this.isHideColumn(table, column)) {
+        if (table.isHideColumn(column)) {
             writer.writeAttribute("style", "display:none", null);
         }
 
@@ -124,18 +124,6 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         return component instanceof HtmlTable || component == null
                 ? (HtmlTable) component
                 : findParentTable(component.getParent());
-    }
-
-    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnVisibilityModel() != null) {
-            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
-            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
-            if (hideColumn != null) {
-                return hideColumn;
-            }
-        }
-        return column.isHideColumn();
     }
 }
 
