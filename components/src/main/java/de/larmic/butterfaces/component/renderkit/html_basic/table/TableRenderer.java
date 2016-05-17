@@ -81,7 +81,7 @@ public class TableRenderer extends BaseTableRenderer {
                     style.append("width: ");
                     style.append(column.getColWidth());
                 }
-                if (this.isHideColumn(htmlTable, column)) {
+                if (htmlTable.isHideColumn(column)) {
                     if (style.length() > 0) {
                         style.append("; ");
                     }
@@ -232,7 +232,7 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
                 //********************************************** hide column if models says that
-                if (this.isHideColumn(table, column)) {
+                if (table.isHideColumn(column)) {
                     writer.writeAttribute("style", "display:none", null);
                 } else {
                     if (StringUtils.isNotEmpty(column.getStyle())) {
@@ -243,8 +243,7 @@ public class TableRenderer extends BaseTableRenderer {
 
             // Render the contents of this cell by iterating over
             // the kids of our kids
-            for (Iterator<UIComponent> gkids = getChildren(column);
-                 gkids.hasNext(); ) {
+            for (Iterator<UIComponent> gkids = getChildren(column); gkids.hasNext(); ) {
                 encodeRecursive(context, gkids.next());
             }
 
@@ -321,18 +320,6 @@ public class TableRenderer extends BaseTableRenderer {
                 // event is not fired by table component
             }
         }
-    }
-
-    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
-        if (table.getTableColumnVisibilityModel() != null) {
-            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
-            final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
-            final Boolean hideColumn = table.getTableColumnVisibilityModel().isColumnHidden(tableUniqueIdentifier, columnUniqueIdentifier);
-            if (hideColumn != null) {
-                return hideColumn;
-            }
-        }
-        return column.isHideColumn();
     }
 
     private Object findRowObject(final HtmlTable table, final int row) {
