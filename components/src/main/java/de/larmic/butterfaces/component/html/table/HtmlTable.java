@@ -41,8 +41,8 @@ import java.util.Map;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-table.jquery.js", target = "head")
 })
-@FacesComponent(HtmlTableNew.COMPONENT_TYPE)
-public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
+@FacesComponent(HtmlTable.COMPONENT_TYPE)
+public class HtmlTable extends UIData implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.table.new";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -61,7 +61,7 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
-    public HtmlTableNew() {
+    public HtmlTable() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }

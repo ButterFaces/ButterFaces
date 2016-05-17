@@ -7,8 +7,8 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
-import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
-import de.larmic.butterfaces.component.html.table.HtmlTableNew;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.html.table.HtmlTableToolbar;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
@@ -49,7 +49,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
         final HtmlTableToolbar tableToolbar = (HtmlTableToolbar) component;
         final ResponseWriter responseWriter = context.getResponseWriter();
-        final HtmlTableNew table = getTableComponent(tableToolbar);
+        final HtmlTable table = getTableComponent(tableToolbar);
 
         if (table == null) {
             throw new IllegalStateException("Could not find table component with id '" + tableToolbar.getTableId() + "'.");
@@ -80,7 +80,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         super.encodeEnd(context, component);
 
         final HtmlTableToolbar tableHeader = (HtmlTableToolbar) component;
-        final HtmlTableNew table = getTableComponent(tableHeader);
+        final HtmlTable table = getTableComponent(tableHeader);
         final ResponseWriter responseWriter = context.getResponseWriter();
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
@@ -122,7 +122,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
-        final HtmlTableNew table = getTableComponent(tableToolbar);
+        final HtmlTable table = getTableComponent(tableToolbar);
         final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
 
         if (behaviorEvent != null) {
@@ -147,7 +147,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarToggleColumnButton(final ResponseWriter writer,
                                                       final HtmlTableToolbar tableToolbar,
-                                                      final HtmlTableNew table,
+                                                      final HtmlTable table,
                                                       final WebXmlParameters webXmlParameters) throws IOException {
         final AjaxBehavior toggleAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
         final AjaxBehavior orderAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
@@ -179,7 +179,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
             final TableColumnCache tableColumnCache = table.getTableColumnCache(FacesContext.getCurrentInstance());
 
             int columnNumber = 0;
-            for (HtmlColumnNew cachedColumn : tableColumnCache.getCachedColumns()) {
+            for (HtmlColumn cachedColumn : tableColumnCache.getCachedColumns()) {
                 writer.startElement("li", tableToolbar);
                 writer.writeAttribute("class", "butter-table-toolbar-column-option", "styleClass");
                 writer.writeAttribute("data-original-column", columnNumber, null);
@@ -238,8 +238,8 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
     private void renderToggleColumnInput(final ResponseWriter writer,
                                          final HtmlTableToolbar tableToolbar,
                                          final List<String> renderIds,
-                                         final HtmlColumnNew cachedColumn,
-                                         final HtmlTableNew table,
+                                         final HtmlColumn cachedColumn,
+                                         final HtmlTable table,
                                          final WebXmlParameters webXmlParameters) throws IOException {
         writer.startElement("input", tableToolbar);
         writer.writeAttribute("type", "checkbox", null);
@@ -271,7 +271,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         return ajax.toString();
     }
 
-    private boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
+    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
@@ -285,7 +285,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
 
     private void renderTableToolbarRefreshButton(final ResponseWriter writer,
                                                  final HtmlTableToolbar tableToolbar,
-                                                 final HtmlTableNew table,
+                                                 final HtmlTable table,
                                                  final WebXmlParameters webXmlParameters) throws IOException {
         final String eventName = "refresh";
 
@@ -322,7 +322,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private HtmlTableNew getTableComponent(HtmlTableToolbar tableHeader) {
-        return new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTableNew.class);
+    private HtmlTable getTableComponent(HtmlTableToolbar tableHeader) {
+        return new UIComponentResolver().findComponent(tableHeader.getTableId(), HtmlTable.class);
     }
 }

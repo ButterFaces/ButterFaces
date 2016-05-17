@@ -1,12 +1,11 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra;
+package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
-import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
-import de.larmic.butterfaces.component.html.table.HtmlTableNew;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
-import de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra.BaseTableRenderer;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
@@ -30,7 +29,7 @@ import java.util.Map;
 /**
  * Created by larmic on 10.09.14.
  */
-@FacesRenderer(componentFamily = HtmlTableNew.COMPONENT_FAMILY, rendererType = HtmlTableNew.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRenderer extends BaseTableRenderer {
 
     private boolean hasColumnWidthSet;
@@ -49,7 +48,7 @@ public class TableRenderer extends BaseTableRenderer {
             return;
         }
 
-        final HtmlTableNew table = (HtmlTableNew) component;
+        final HtmlTable table = (HtmlTable) component;
         final TableColumnCache tableColumnCache = table.getTableColumnCache(context);
         this.hasColumnWidthSet = hasColumnWidthSet(tableColumnCache.getCachedColumns());
         this.rowIndex = 0;
@@ -63,7 +62,7 @@ public class TableRenderer extends BaseTableRenderer {
     protected void renderHeader(final FacesContext context,
                                 final UIComponent table,
                                 final ResponseWriter writer) throws IOException {
-        final HtmlTableNew htmlTable = (HtmlTableNew) table;
+        final HtmlTable htmlTable = (HtmlTable) table;
         final TableColumnCache tableColumnCache = htmlTable.getTableColumnCache(context);
 
         if (hasColumnWidthSet) {
@@ -72,7 +71,7 @@ public class TableRenderer extends BaseTableRenderer {
 
             int columnNumber = 0;
 
-            for (HtmlColumnNew column : tableColumnCache.getCachedColumns()) {
+            for (HtmlColumn column : tableColumnCache.getCachedColumns()) {
                 writer.startElement("col", table);
                 writer.writeAttribute("class", "butter-table-colgroup", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
@@ -105,7 +104,7 @@ public class TableRenderer extends BaseTableRenderer {
 
         int columnNumber = 0;
 
-        for (HtmlColumnNew column : tableColumnCache.getCachedColumns()) {
+        for (HtmlColumn column : tableColumnCache.getCachedColumns()) {
             column.setWebXmlParameters(webXmlParameters);
             column.setColumnNumberUsedByTable(columnNumber);
             column.encodeBegin(context);
@@ -120,7 +119,7 @@ public class TableRenderer extends BaseTableRenderer {
     protected void renderTableStart(final FacesContext context,
                                     final UIComponent component,
                                     final ResponseWriter writer) throws IOException {
-        final HtmlTableNew table = (HtmlTableNew) component;
+        final HtmlTable table = (HtmlTable) component;
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
         writer.writeAttribute("id", component.getClientId(context), "id");
@@ -167,7 +166,7 @@ public class TableRenderer extends BaseTableRenderer {
     protected void renderRowStart(final FacesContext context,
                                   final UIComponent component,
                                   final ResponseWriter writer) throws IOException {
-        final HtmlTableNew htmlTable = (HtmlTableNew) component;
+        final HtmlTable htmlTable = (HtmlTable) component;
 
         final String clientId = htmlTable.getClientId();
         final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex + "").length() - 1);
@@ -200,7 +199,7 @@ public class TableRenderer extends BaseTableRenderer {
     }
 
     protected void renderRow(FacesContext context,
-                             HtmlTableNew table,
+                             HtmlTable table,
                              UIComponent child,
                              ResponseWriter writer) throws IOException {
 
@@ -210,7 +209,7 @@ public class TableRenderer extends BaseTableRenderer {
         int columnNumber = 0;
 
         for (UIColumn column : info.getCachedColumns()) {
-            if (column instanceof HtmlColumnNew && ((HtmlColumnNew) column).isHideColumn()) {
+            if (column instanceof HtmlColumn && ((HtmlColumn) column).isHideColumn()) {
                 continue;
             }
 
@@ -227,8 +226,8 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.startElement("td", column);
                 //********************************************** ADD butter style class
                 StringBuilder sb = new StringBuilder("butter-component-table-column");
-                if (column instanceof HtmlColumnNew) {
-                    HtmlColumnNew htmlColumn = (HtmlColumnNew) column;
+                if (column instanceof HtmlColumn) {
+                    HtmlColumn htmlColumn = (HtmlColumn) column;
                     if (StringUtils.isNotEmpty(htmlColumn.getStyleClass())) {
                         sb.append(" ").append(htmlColumn.getStyleClass());
                     }
@@ -237,10 +236,10 @@ public class TableRenderer extends BaseTableRenderer {
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
 
                 //********************************************** hide column if models says that
-                if (column instanceof HtmlColumnNew && this.isHideColumn(table, (HtmlColumnNew) column)) {
+                if (column instanceof HtmlColumn && this.isHideColumn(table, (HtmlColumn) column)) {
                     writer.writeAttribute("style", "display:none", null);
-                } else if (column instanceof HtmlColumnNew) {
-                    HtmlColumnNew htmlColumn = (HtmlColumnNew) column;
+                } else if (column instanceof HtmlColumn) {
+                    HtmlColumn htmlColumn = (HtmlColumn) column;
                     if (StringUtils.isNotEmpty(htmlColumn.getStyle())) {
                         writer.writeAttribute("style", htmlColumn.getStyle(), null);
                     }
@@ -267,7 +266,7 @@ public class TableRenderer extends BaseTableRenderer {
 
     }
 
-    private boolean isRowSelected(final HtmlTableNew table, final int rowIndex) {
+    private boolean isRowSelected(final HtmlTable table, final int rowIndex) {
         if (table.getSingleSelectionListener() != null) {
             final Object rowObject = findRowObject(table, rowIndex);
             return table.getSingleSelectionListener().isValueSelected(rowObject);
@@ -278,7 +277,7 @@ public class TableRenderer extends BaseTableRenderer {
 
     @Override
     public void decode(final FacesContext context, final UIComponent component) {
-        final HtmlTableNew table = (HtmlTableNew) component;
+        final HtmlTable table = (HtmlTable) component;
         final Map<String, List<ClientBehavior>> behaviors = table.getClientBehaviors();
 
         if (behaviors.isEmpty()) {
@@ -314,7 +313,7 @@ public class TableRenderer extends BaseTableRenderer {
                     }
                 } else if ("sort".equals(event) && table.getModel() != null) {
                     final TableColumnCache tableColumnCache = table.getTableColumnCache(context);
-                    final HtmlColumnNew sortedColumn = tableColumnCache.getCachedColumns().get(eventNumber);
+                    final HtmlColumn sortedColumn = tableColumnCache.getCachedColumns().get(eventNumber);
                     final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
                     final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
                     if (table.getTableSortModel().getSortType(tableUniqueIdentifier, columnUniqueIdentifier) == SortType.ASCENDING) {
@@ -329,7 +328,7 @@ public class TableRenderer extends BaseTableRenderer {
         }
     }
 
-    private boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
+    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
@@ -341,7 +340,7 @@ public class TableRenderer extends BaseTableRenderer {
         return column.isHideColumn();
     }
 
-    private Object findRowObject(final HtmlTableNew table, final int row) {
+    private Object findRowObject(final HtmlTable table, final int row) {
         final Object value = table.getValue();
 
         if (value instanceof Iterable) {
@@ -364,8 +363,8 @@ public class TableRenderer extends BaseTableRenderer {
         return null;
     }
 
-    private boolean hasColumnWidthSet(final List<HtmlColumnNew> columns) {
-        for (HtmlColumnNew column : columns) {
+    private boolean hasColumnWidthSet(final List<HtmlColumn> columns) {
+        for (HtmlColumn column : columns) {
             if (StringUtils.isNotEmpty(column.getColWidth())) {
                 return true;
             }

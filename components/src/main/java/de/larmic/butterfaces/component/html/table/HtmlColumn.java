@@ -17,8 +17,8 @@ import javax.faces.component.UIColumn;
 /**
  * @author Lars Michaelis
  */
-@FacesComponent(HtmlColumnNew.COMPONENT_TYPE)
-public class HtmlColumnNew extends UIColumn implements Tooltip, Label {
+@FacesComponent(HtmlColumn.COMPONENT_TYPE)
+public class HtmlColumn extends UIColumn implements Tooltip, Label {
 
     public static final String COMPONENT_TYPE = "de.larmic.butterfaces.component.column.new";
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
@@ -39,7 +39,7 @@ public class HtmlColumnNew extends UIColumn implements Tooltip, Label {
     private int columnNumberUsedByTable;
     private WebXmlParameters webXmlParameters;
 
-    public HtmlColumnNew() {
+    public HtmlColumn() {
         super();
         this.setRendererType(RENDERER_TYPE);
     }

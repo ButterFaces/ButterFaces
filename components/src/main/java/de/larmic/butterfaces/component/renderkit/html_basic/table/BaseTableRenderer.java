@@ -1,7 +1,7 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra.mojarra;
+package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.table.HtmlTableNew;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -63,7 +63,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
             renderRowStart(context, component, writer);
 
             // Render the row content
-            renderRow(context, (HtmlTableNew) component, null, writer);
+            renderRow(context, (HtmlTable) component, null, writer);
 
             // Render the ending of this row
             renderRowEnd(context, component, writer);
@@ -83,7 +83,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        ((HtmlTableNew) component).clearMetaInfo(context, component);
+        ((HtmlTable) component).clearMetaInfo(context, component);
         ((UIData) component).setRowIndex(-1);
 
         // Render the ending of this table
@@ -121,7 +121,7 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
      * @throws IOException if content cannot be written
      */
     protected abstract void renderRow(FacesContext context,
-                                      HtmlTableNew table,
+                                      HtmlTable table,
                                       UIComponent row,
                                       ResponseWriter writer) throws IOException;
 

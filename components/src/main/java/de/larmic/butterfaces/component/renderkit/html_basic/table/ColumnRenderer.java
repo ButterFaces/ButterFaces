@@ -1,11 +1,10 @@
-package de.larmic.butterfaces.component.renderkit.html_basic.table.mojarra;
+package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.behavior.JsfAjaxRequest;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
-import de.larmic.butterfaces.component.html.table.HtmlColumnNew;
-import de.larmic.butterfaces.component.html.table.HtmlTableNew;
-import de.larmic.butterfaces.component.renderkit.html_basic.table.TableToolbarRenderer;
+import de.larmic.butterfaces.component.html.table.HtmlColumn;
+import de.larmic.butterfaces.component.html.table.HtmlTable;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * Created by larmic on 10.09.14.
  */
-@FacesRenderer(componentFamily = HtmlColumnNew.COMPONENT_FAMILY, rendererType = HtmlColumnNew.RENDERER_TYPE)
+@FacesRenderer(componentFamily = HtmlColumn.COMPONENT_FAMILY, rendererType = HtmlColumn.RENDERER_TYPE)
 public class ColumnRenderer extends HtmlBasicRenderer {
 
     @Override
@@ -29,8 +28,8 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         }
 
         final ResponseWriter writer = context.getResponseWriter();
-        final HtmlColumnNew column = (HtmlColumnNew) component;
-        final HtmlTableNew table = this.findParentTable(component);
+        final HtmlColumn column = (HtmlColumn) component;
+        final HtmlTable table = this.findParentTable(component);
         final int columnNumber = column.getColumnNumberUsedByTable();
         final WebXmlParameters webXmlParameters = column.getWebXmlParameters();
         final HtmlTooltip tooltip = this.findTooltip(component);
@@ -90,7 +89,7 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String createTooltipIdentifier(HtmlColumnNew column) {
+    private String createTooltipIdentifier(HtmlColumn column) {
         return column.getClientId() + "_div";
     }
 
@@ -121,13 +120,13 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         return null;
     }
 
-    private HtmlTableNew findParentTable(final UIComponent component) {
-        return component instanceof HtmlTableNew || component == null
-                ? (HtmlTableNew) component
+    private HtmlTable findParentTable(final UIComponent component) {
+        return component instanceof HtmlTable || component == null
+                ? (HtmlTable) component
                 : findParentTable(component.getParent());
     }
 
-    private boolean isHideColumn(final HtmlTableNew table, final HtmlColumnNew column) {
+    private boolean isHideColumn(final HtmlTable table, final HtmlColumn column) {
         if (table.getTableColumnVisibilityModel() != null) {
             final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
             final String columnUniqueIdentifier = column.getModelUniqueIdentifier();
