@@ -56,8 +56,8 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
     protected static final String PROPERTY_AJAX_DISABLE_RENDER_REGION_ON_REQUEST = "ajaxDisableRenderRegionsOnRequest";
     protected static final String PROPERTY_MODEL = "model";
     protected static final String PROPERTY_TABLE_ROW_CLASS = "rowClass";
-    // TODO add styleclass
-    // TODO add style
+    protected static final String PROPERTY_STYLE_CLASS = "styleClass";
+    protected static final String PROPERTY_STYLE = "style";
 
     protected static final String PROPERTY_SINGLE_SELECTION_LISTENER = "singleSelectionListener";
 
@@ -173,6 +173,22 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
             }
         }
         return found;
+    }
+
+    public String getStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
+    }
+
+    public String getStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE);
+    }
+
+    public void setStyle(String style) {
+        this.updateStateHelper(PROPERTY_STYLE, style);
     }
 
     public String getModelUniqueIdentifier() {

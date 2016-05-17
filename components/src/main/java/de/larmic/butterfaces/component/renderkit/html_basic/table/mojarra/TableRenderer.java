@@ -11,6 +11,7 @@ import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.resolver.ClientBehaviorResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
+import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIColumn;
@@ -123,16 +124,14 @@ public class TableRenderer extends BaseTableRenderer {
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
         writer.writeAttribute("id", component.getClientId(context), "id");
-        writer.writeAttribute("class", "butter-table", null);
+        writer.writeAttribute("class", StringJoiner.on(' ').join("butter-table").join(StringUtils.getNullSafeValue(table.getStyleClass())).toString(), null);
+        if (StringUtils.isNotEmpty(table.getStyle())) {
+            writer.writeAttribute("style", table.getStyle(), null);
+        }
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
 
-        final String styleClass = (String) table.getAttributes().get("styleClass");
-        if (styleClass != null) {
-            writer.writeAttribute("class", "table-responsive " + styleClass, "styleClass");
-        } else {
-            writer.writeAttribute("class", "table-responsive", "styleClass");
-        }
+        writer.writeAttribute("class", "table-responsive", "styleClass");
 
         writer.startElement("table", table);
         final StringBuilder tableStyleClass = new StringBuilder("table table-hover");
