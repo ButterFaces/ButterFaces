@@ -5,9 +5,12 @@
  */
 package de.larmic.butterfaces.component.html.table;
 
+import de.larmic.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
 import de.larmic.butterfaces.event.TableSingleSelectionListener;
-import de.larmic.butterfaces.model.json.Ordering;
-import de.larmic.butterfaces.model.table.*;
+import de.larmic.butterfaces.model.table.TableColumnOrderingModel;
+import de.larmic.butterfaces.model.table.TableColumnVisibilityModel;
+import de.larmic.butterfaces.model.table.TableModel;
+import de.larmic.butterfaces.model.table.TableRowSortingModel;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.el.ValueExpression;
@@ -20,7 +23,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -73,6 +79,48 @@ public class HtmlTableNew extends UIData implements ClientBehaviorHolder {
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    /**
+     * Returns a <code>TableColumnCache</code> object containing details such
+     * as row and column classes, cachedColumns, and a mechanism for scrolling through
+     * the row/column classes.
+     *
+     * @param context the <code>FacesContext</code> for the current request
+     * @return the <code>TableColumnCache</code> for provided table
+     */
+    public TableColumnCache getTableColumnCache(FacesContext context) {
+        final String key = createKey(this);
+        final Map<Object, Object> attributes = context.getAttributes();
+        TableColumnCache info = (TableColumnCache) attributes.get(key);
+        if (info == null) {
+            info = new TableColumnCache(this);
+            attributes.put(key, info);
+        }
+        return info;
+    }
+
+
+    /**
+     * Removes the cached TableColumnCache from the specified component.
+     *
+     * @param context the <code>FacesContext</code> for the current request
+     * @param table   the table from which the TableColumnCache will be removed
+     */
+    public void clearMetaInfo(FacesContext context, UIComponent table) {
+        context.getAttributes().remove(createKey(table));
+    }
+
+    /**
+     * Creates a unique key based on the provided <code>UIComponent</code> with
+     * which the TableColumnCache can be looked up.
+     *
+     * @param table the table that's being rendered
+     * @return a unique key to store the metadata in the request and still have
+     * it associated with a specific component.
+     */
+    private String createKey(UIComponent table) {
+        return TableColumnCache.KEY + '_' + table.hashCode();
     }
 
     @Override

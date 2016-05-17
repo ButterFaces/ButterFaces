@@ -49,7 +49,7 @@ public class TableRenderer extends BaseTableRenderer {
         }
 
         final HtmlTableNew table = (HtmlTableNew) component;
-        final TableColumnCache tableColumnCache = getTableColumnCache(context, table);
+        final TableColumnCache tableColumnCache = table.getTableColumnCache(context);
         this.hasColumnWidthSet = hasColumnWidthSet(tableColumnCache.getCachedColumns());
         this.rowIndex = 0;
         this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
@@ -63,7 +63,7 @@ public class TableRenderer extends BaseTableRenderer {
                                 final UIComponent table,
                                 final ResponseWriter writer) throws IOException {
         final HtmlTableNew htmlTable = (HtmlTableNew) table;
-        final TableColumnCache tableColumnCache = getTableColumnCache(context, htmlTable);
+        final TableColumnCache tableColumnCache = htmlTable.getTableColumnCache(context);
 
         if (hasColumnWidthSet) {
 
@@ -206,7 +206,7 @@ public class TableRenderer extends BaseTableRenderer {
                              ResponseWriter writer) throws IOException {
 
         // Iterate over the child UIColumn components for each row
-        final TableColumnCache info = getTableColumnCache(context, table);
+        final TableColumnCache info = table.getTableColumnCache(context);
 
         int columnNumber = 0;
 
@@ -314,7 +314,7 @@ public class TableRenderer extends BaseTableRenderer {
 
                     }
                 } else if ("sort".equals(event) && table.getModel() != null) {
-                    final TableColumnCache tableColumnCache = getTableColumnCache(context, table);
+                    final TableColumnCache tableColumnCache = table.getTableColumnCache(context);
                     final HtmlColumnNew sortedColumn = tableColumnCache.getCachedColumns().get(eventNumber);
                     final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
                     final String columnUniqueIdentifier = sortedColumn.getModelUniqueIdentifier();
