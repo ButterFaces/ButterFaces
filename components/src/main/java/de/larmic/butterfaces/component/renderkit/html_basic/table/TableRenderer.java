@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -26,7 +31,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by larmic on 10.09.14.
+ * Concrete implementation of {@link BaseTableRenderer}.
+ *
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
 public class TableRenderer extends BaseTableRenderer {
@@ -201,8 +208,6 @@ public class TableRenderer extends BaseTableRenderer {
                              HtmlTable table,
                              UIComponent child,
                              ResponseWriter writer) throws IOException {
-
-        // Iterate over the child UIColumn components for each row
         final TableColumnCache info = table.getTableColumnCache(context);
 
         int columnNumber = 0;
@@ -253,20 +258,10 @@ public class TableRenderer extends BaseTableRenderer {
             } else {
                 writer.endElement("td");
             }
-            writer.writeText("\n", table, null);
 
             columnNumber++;
         }
 
-    }
-
-    private boolean isRowSelected(final HtmlTable table, final int rowIndex) {
-        if (table.getSingleSelectionListener() != null) {
-            final Object rowObject = findRowObject(table, rowIndex);
-            return table.getSingleSelectionListener().isValueSelected(rowObject);
-        }
-
-        return false;
     }
 
     @Override
@@ -320,6 +315,15 @@ public class TableRenderer extends BaseTableRenderer {
                 // event is not fired by table component
             }
         }
+    }
+
+    private boolean isRowSelected(final HtmlTable table, final int rowIndex) {
+        if (table.getSingleSelectionListener() != null) {
+            final Object rowObject = findRowObject(table, rowIndex);
+            return table.getSingleSelectionListener().isValueSelected(rowObject);
+        }
+
+        return false;
     }
 
     private Object findRowObject(final HtmlTable table, final int row) {
