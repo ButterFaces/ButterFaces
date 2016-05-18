@@ -31,12 +31,9 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
         final UIData data = (UIData) component;
         data.setRowIndex(-1);
 
-        // Render the beginning of the table
-        ResponseWriter writer = context.getResponseWriter();
+        final ResponseWriter writer = context.getResponseWriter();
 
         renderTableStart(context, component, writer);
-
-        // Render the header facets (if any)
         renderHeader(context, component, writer);
     }
 
@@ -50,37 +47,30 @@ public abstract class BaseTableRenderer extends HtmlBasicRenderer {
         final UIData data = (UIData) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        // Iterate over the rows of data that are provided
+        final int rows = data.getRows();
         int processed = 0;
         int rowIndex = data.getFirst() - 1;
-        int rows = data.getRows();
 
         writer.startElement("tbody", component);
 
         while (true) {
-            // Have we displayed the requested number of rows?
             if ((rows > 0) && (++processed > rows)) {
                 break;
             }
-            // Select the current row
+
             data.setRowIndex(++rowIndex);
+
             if (!data.isRowAvailable()) {
-                break; // Scrolled past the last row
+                break;
             }
 
-            // Render the beginning of this row
             renderRowStart(context, component, writer);
-
-            // Render the row content
             renderRow(context, (HtmlTable) component, null, writer);
-
-            // Render the ending of this row
             renderRowEnd(context, component, writer);
         }
 
         writer.endElement("tbody");
 
-        // Clean up after ourselves
         data.setRowIndex(-1);
     }
 

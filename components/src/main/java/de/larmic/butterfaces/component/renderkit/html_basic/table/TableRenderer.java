@@ -39,9 +39,6 @@ import java.util.Map;
 public class TableRenderer extends BaseTableRenderer {
 
     private boolean hasColumnWidthSet;
-    // dirty: method renderRowStart does not have a rowIndex parameter but it should.
-    // alternative: copy encode children but this means coping a lot of private methods... :(
-    // we will try this way... maybe migrating later...
     private int rowIndex;
     private boolean foundSelectedRow;
 
@@ -72,7 +69,6 @@ public class TableRenderer extends BaseTableRenderer {
         final TableColumnCache tableColumnCache = htmlTable.getTableColumnCache(context);
 
         if (hasColumnWidthSet) {
-
             writer.startElement("colgroup", table);
 
             int columnNumber = 0;
@@ -246,13 +242,10 @@ public class TableRenderer extends BaseTableRenderer {
                 }
             }
 
-            // Render the contents of this cell by iterating over
-            // the kids of our kids
             for (Iterator<UIComponent> gkids = getChildren(column); gkids.hasNext(); ) {
                 encodeRecursive(context, gkids.next());
             }
 
-            // Render the ending of this cell
             if (isRowHeader) {
                 writer.endElement("th");
             } else {
