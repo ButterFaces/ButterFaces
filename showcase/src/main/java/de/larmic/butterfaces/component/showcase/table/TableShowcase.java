@@ -79,7 +79,7 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
 
     public List<DemoPojo> getStringRows() {
         if (demoPojos.isEmpty()) {
-            for (int row = 0; row < 200; row++) {
+            for (int row = 0; row < 10; row++) {
                 final int rowNumber = row + 1;
                 demoPojos.add(new DemoPojo(rowNumber, String.format("r%sc1", rowNumber), String.format("r%sc2", rowNumber)));
             }
