@@ -23,13 +23,13 @@ public class JsonToModelConverter {
      * @return the converted {@link TableColumnVisibility}.
      */
     public TableColumnVisibility convertTableColumnVisibility(final String tableIdentifier, final String json) {
-        final String[] split = this.pitColumns(json);
+        final String[] split = this.splitColumns(json);
 
         final List<String> visibleColumns = new ArrayList<>();
         final List<String> invisibleColumns = new ArrayList<>();
 
         for (String column : split) {
-            final String[] attribute = this.pitAttributes(column);
+            final String[] attribute = this.splitAttributes(column);
             final String identifier = attribute[0].split(":")[1];
             final String visible = attribute[1].split(":")[1];
 
@@ -51,12 +51,12 @@ public class JsonToModelConverter {
      * @return the converted {@link TableColumnOrdering}.
      */
     public TableColumnOrdering convertTableColumnOrdering(final String tableIdentifier, final String json) {
-        final String[] split = this.pitColumns(json);
+        final String[] split = this.splitColumns(json);
 
         final List<Ordering> orderings = new ArrayList<>();
 
         for (String column : split) {
-            final String[] attribute = this.pitAttributes(column);
+            final String[] attribute = this.splitAttributes(column);
             final String identifier = attribute[0].split(":")[1];
             final String position = attribute[1].split(":")[1];
 
@@ -79,11 +79,11 @@ public class JsonToModelConverter {
         return new TableColumnOrdering(tableIdentifier, columnIdentifier);
     }
 
-    private String[] pitColumns(String json) {
+    private String[] splitColumns(String json) {
         return json.trim().split("(?<=\\}),(?=\\{)");
     }
 
-    private String[] pitAttributes(final String column) {
+    private String[] splitAttributes(final String column) {
         String cleanedColumn = column.replace("{", "");
         cleanedColumn = cleanedColumn.replace("[", "");
         cleanedColumn = cleanedColumn.replace("}", "");
