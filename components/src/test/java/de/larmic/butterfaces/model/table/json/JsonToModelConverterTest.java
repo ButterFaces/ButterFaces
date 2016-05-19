@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.model.json;
+package de.larmic.butterfaces.model.table.json;
 
 
 import de.larmic.butterfaces.model.table.TableColumnOrdering;

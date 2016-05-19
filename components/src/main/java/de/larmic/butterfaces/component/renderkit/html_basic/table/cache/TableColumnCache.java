@@ -7,7 +7,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic.table.cache;
 
 import de.larmic.butterfaces.component.html.table.HtmlColumn;
 import de.larmic.butterfaces.component.html.table.HtmlTable;
-import de.larmic.butterfaces.model.json.Ordering;
+import de.larmic.butterfaces.model.table.json.Ordering;
 import de.larmic.butterfaces.model.table.TableColumnOrdering;
 
 import javax.faces.component.UIColumn;

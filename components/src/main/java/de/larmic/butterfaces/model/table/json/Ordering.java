@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.model.json;
+package de.larmic.butterfaces.model.table.json;
 
 import java.util.Collections;
 import java.util.Comparator;
