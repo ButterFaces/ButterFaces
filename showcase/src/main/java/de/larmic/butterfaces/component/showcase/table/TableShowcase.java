@@ -283,8 +283,9 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
             xhtmlCodeExample.appendInnerContent("                      colWidth=\"1*\"");
         }
         xhtmlCodeExample.appendInnerContent("                      sortColumnEnabled=\"false\"");
+        xhtmlCodeExample.appendInnerContent("                      hideColumn=\"true\"");
         xhtmlCodeExample.appendInnerContent("                      label=\"Readonly text (default hide)\">");
-        xhtmlCodeExample.appendInnerContent("                /* text */");
+        xhtmlCodeExample.appendInnerContent("                /* disabled input with text */");
         xhtmlCodeExample.appendInnerContent("            </b:column>");
 
         xhtmlCodeExample.appendInnerContent("        </b:table>");
