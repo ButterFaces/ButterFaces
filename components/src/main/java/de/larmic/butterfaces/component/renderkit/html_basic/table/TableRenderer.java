@@ -19,6 +19,7 @@ import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.context.ExternalContext;
@@ -31,12 +32,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Concrete implementation of {@link BaseTableRenderer}.
+ * Renderer for {@link HtmlTable}.
  *
  * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlTable.COMPONENT_FAMILY, rendererType = HtmlTable.RENDERER_TYPE)
-public class TableRenderer extends BaseTableRenderer {
+public class TableRenderer extends HtmlBasicRenderer {
 
     private boolean hasColumnWidthSet;
     private int rowIndex;
@@ -58,13 +59,72 @@ public class TableRenderer extends BaseTableRenderer {
         this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
         this.foundSelectedRow = false;
 
-        super.encodeBegin(context, component);
+
+        final HtmlTable data = (HtmlTable) component;
+        data.setRowIndex(-1);
+
+        final ResponseWriter writer = context.getResponseWriter();
+
+        renderTableStart(context, component, writer);
+        renderHeader(context, component, writer);
     }
 
     @Override
-    protected void renderHeader(final FacesContext context,
-                                final UIComponent table,
-                                final ResponseWriter writer) throws IOException {
+    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+        if (!component.isRendered()) {
+            return;
+        }
+
+        final UIData data = (UIData) component;
+        final ResponseWriter writer = context.getResponseWriter();
+
+        final int rows = data.getRows();
+        int processed = 0;
+        int rowIndex = data.getFirst() - 1;
+
+        writer.startElement("tbody", component);
+
+        while (true) {
+            if ((rows > 0) && (++processed > rows)) {
+                break;
+            }
+
+            data.setRowIndex(++rowIndex);
+
+            if (!data.isRowAvailable()) {
+                break;
+            }
+
+            renderRowStart(context, component, writer);
+            renderRow(context, (HtmlTable) component, null, writer);
+            renderRowEnd(context, component, writer);
+        }
+
+        writer.endElement("tbody");
+
+        data.setRowIndex(-1);
+    }
+
+    @Override
+    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+        if (!component.isRendered()) {
+            return;
+        }
+
+        ((HtmlTable) component).clearMetaInfo(context, component);
+        ((UIData) component).setRowIndex(-1);
+
+        renderTableEnd(context, component, context.getResponseWriter());
+    }
+
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
+
+    private void renderHeader(final FacesContext context,
+                              final UIComponent table,
+                              final ResponseWriter writer) throws IOException {
         final HtmlTable htmlTable = (HtmlTable) table;
         final TableColumnCache tableColumnCache = htmlTable.getTableColumnCache(context);
 
@@ -117,10 +177,9 @@ public class TableRenderer extends BaseTableRenderer {
         writer.endElement("thead");
     }
 
-    @Override
-    protected void renderTableStart(final FacesContext context,
-                                    final UIComponent component,
-                                    final ResponseWriter writer) throws IOException {
+    private void renderTableStart(final FacesContext context,
+                                  final UIComponent component,
+                                  final ResponseWriter writer) throws IOException {
         final HtmlTable table = (HtmlTable) component;
 
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
@@ -155,19 +214,17 @@ public class TableRenderer extends BaseTableRenderer {
         writer.writeText("\n", table, null);
     }
 
-    @Override
-    protected void renderTableEnd(final FacesContext context,
-                                  final UIComponent component,
-                                  final ResponseWriter writer) throws IOException {
-        super.renderTableEnd(context, component, writer);
+    private void renderTableEnd(final FacesContext context,
+                                final UIComponent component,
+                                final ResponseWriter writer) throws IOException {
+        writer.endElement("table");
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
     }
 
-    @Override
-    protected void renderRowStart(final FacesContext context,
-                                  final UIComponent component,
-                                  final ResponseWriter writer) throws IOException {
+    private void renderRowStart(final FacesContext context,
+                                final UIComponent component,
+                                final ResponseWriter writer) throws IOException {
         final HtmlTable htmlTable = (HtmlTable) component;
 
         final String clientId = htmlTable.getClientId();
@@ -200,7 +257,11 @@ public class TableRenderer extends BaseTableRenderer {
         rowIndex++;
     }
 
-    protected void renderRow(FacesContext context,
+    private void renderRowEnd(FacesContext context, UIComponent table, ResponseWriter writer) throws IOException {
+        writer.endElement("tr");
+    }
+
+    private void renderRow(FacesContext context,
                              HtmlTable table,
                              UIComponent child,
                              ResponseWriter writer) throws IOException {
