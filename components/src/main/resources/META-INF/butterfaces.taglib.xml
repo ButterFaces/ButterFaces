@@ -78,6 +78,15 @@
         </attribute>
         <attribute>
             <description>
+                The ValueExpression linking this component to a property in a
+                backing bean
+            </description>
+            <name>binding</name>
+            <required>false</required>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>
                 Javascript code executed when this element loses focus.
             </description>
             <name>onblur</name>
@@ -870,6 +879,15 @@
             <description>Name of the property which will be filled into the input field when the user selects an entry.
                 This property is also used for auto-completion.
             </description>
+        </attribute>
+        <attribute>
+            <description>
+                The ValueExpression linking this component to a property in a
+                backing bean
+            </description>
+            <name>binding</name>
+            <required>false</required>
+            <type>javax.faces.component.UIComponent</type>
         </attribute>
         <attribute>
             <description>
