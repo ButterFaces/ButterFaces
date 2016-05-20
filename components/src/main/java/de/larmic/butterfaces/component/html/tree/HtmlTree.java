@@ -41,6 +41,8 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
     protected static final String PROPERTY_TO_MANY_VISIBLE_ITEMS_THRESHOLD = "toManyVisibleItemsThreshold";
     protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
     protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
+    protected static final String PROPERTY_STYLE_CLASS = "styleClass";
+    protected static final String PROPERTY_STYLE = "style";
 
     public HtmlTree() {
         super();
@@ -100,6 +102,22 @@ public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {
 
     public void setCollapsingClass(final String collapsingClass) {
         this.updateStateHelper(PROPERTY_COLLAPSING_CLASS, collapsingClass);
+    }
+
+    public String getStyleClass() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE_CLASS);
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.updateStateHelper(PROPERTY_STYLE_CLASS, styleClass);
+    }
+
+    public String getStyle() {
+        return (String) this.getStateHelper().eval(PROPERTY_STYLE);
+    }
+
+    public void setStyle(String style) {
+        this.updateStateHelper(PROPERTY_STYLE, style);
     }
 
     public boolean isHideRootNode() {

@@ -24,7 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
@@ -43,7 +46,12 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.startElement(ELEMENT_DIV, tree);
         this.writeIdAttribute(context, writer, component);
-        writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-tree", null);
+        final String styleClass = tree.getStyleClass();
+        writer.writeAttribute(ATTRIBUTE_CLASS, StringUtils.isNotEmpty(styleClass) ? "butter-component-tree " + styleClass : "butter-component-tree", "class");
+        final String style = tree.getStyle();
+        if (StringUtils.isNotEmpty(style)) {
+            writer.writeAttribute("style", style, "style");
+        }
 
         writer.startElement("input", tree);
 
@@ -92,7 +100,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
     }
 
     private List<Node> createNodesMap(HtmlTree tree, Node rootNode) {
-        return  tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
+        return tree.isHideRootNode() ? rootNode.getSubNodes() : Arrays.asList(rootNode);
     }
 
     private List<String> createMustacheKeys(FacesContext context, HtmlTree tree) throws IOException {

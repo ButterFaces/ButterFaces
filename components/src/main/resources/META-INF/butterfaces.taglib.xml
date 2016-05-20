@@ -2799,6 +2799,14 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <description>
                 If the result of a query run (user input on the search field) exceeds the number specified by
                 "toManyVisibleItemsThreshold",
