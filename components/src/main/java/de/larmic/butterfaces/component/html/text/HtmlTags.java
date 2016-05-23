@@ -32,6 +32,7 @@ public class HtmlTags extends HtmlText {
     protected static final String PROPERTY_MAX_TAGS = "maxTags";
     protected static final String PROPERTY_DISTINCT = "distinct";
     protected static final String PROPERTY_CONFIRM_KEYS = "confirmKeys";
+    protected static final String PROPERTY_AUTOCOMPLETE = "autoComplete";
 
     public HtmlTags() {
         super();
@@ -71,5 +72,14 @@ public class HtmlTags extends HtmlText {
 
     public void setConfirmKeys(String confirmKeys) {
         this.updateStateHelper(PROPERTY_CONFIRM_KEYS, confirmKeys);
+    }
+
+    public boolean isAutoComplete() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_AUTOCOMPLETE);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setAutoComplete(boolean autoComplete) {
+        this.updateStateHelper(PROPERTY_AUTOCOMPLETE, autoComplete);
     }
 }

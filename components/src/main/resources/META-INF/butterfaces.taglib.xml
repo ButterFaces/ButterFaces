@@ -634,6 +634,10 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>autoComplete</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
             <name>readonly</name>
             <type>java.lang.Boolean</type>
         </attribute>

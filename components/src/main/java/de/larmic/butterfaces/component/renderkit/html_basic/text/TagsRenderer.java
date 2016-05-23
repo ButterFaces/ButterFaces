@@ -2,8 +2,8 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,6 +43,9 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
     @Override
     protected void encodeEnd(HtmlTags htmlTags, ResponseWriter writer) throws IOException {
         writer.startElement("script", htmlTags);
+
+        //writer.writeText("var entries_" + htmlTags.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
+
         writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
         writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
@@ -54,7 +57,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
 
         jQueryPluginCall.append("TrivialTagBox({");
-        jQueryPluginCall.append("\n    autoComplete: false,");
+        jQueryPluginCall.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
         jQueryPluginCall.append("\n    allowFreeText: true,");
         jQueryPluginCall.append("\n    showTrigger: false,");
         jQueryPluginCall.append("\n    distinct: " + tags.isDistinct() + ",");
