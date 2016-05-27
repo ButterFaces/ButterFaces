@@ -115,7 +115,7 @@
                     <plugin>
                         <groupId>org.wildfly.swarm</groupId>
                         <artifactId>wildfly-swarm-plugin</artifactId>
-                        <version>1.0.0.Beta8</version>
+                        <version>1.0.0.CR1</version>
                         <executions>
                             <execution>
                                 <goals>
