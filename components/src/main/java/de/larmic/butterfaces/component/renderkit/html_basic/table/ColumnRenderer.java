@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.table;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -16,7 +21,9 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by larmic on 10.09.14.
+ * Renderer for {@link HtmlColumn}.
+ *
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlColumn.COMPONENT_FAMILY, rendererType = HtmlColumn.RENDERER_TYPE)
 public class ColumnRenderer extends HtmlBasicRenderer {
@@ -89,10 +96,6 @@ public class ColumnRenderer extends HtmlBasicRenderer {
         }
     }
 
-    private String createTooltipIdentifier(HtmlColumn column) {
-        return column.getClientId() + "_div";
-    }
-
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
         // do nothing
@@ -108,6 +111,10 @@ public class ColumnRenderer extends HtmlBasicRenderer {
 
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         writer.endElement("th");
+    }
+
+    private String createTooltipIdentifier(HtmlColumn column) {
+        return column.getClientId() + "_div";
     }
 
     private HtmlTooltip findTooltip(final UIComponent component) {

@@ -59,14 +59,12 @@ public class TableRenderer extends HtmlBasicRenderer {
         this.webXmlParameters = new WebXmlParameters(context.getExternalContext());
         this.foundSelectedRow = false;
 
-
-        final HtmlTable data = (HtmlTable) component;
-        data.setRowIndex(-1);
+        table.setRowIndex(-1);
 
         final ResponseWriter writer = context.getResponseWriter();
 
-        renderTableStart(context, component, writer);
-        renderHeader(context, component, writer);
+        renderTableStart(context, table, writer);
+        renderHeader(context, table, writer);
     }
 
     @Override
@@ -75,12 +73,12 @@ public class TableRenderer extends HtmlBasicRenderer {
             return;
         }
 
-        final UIData data = (UIData) component;
+        final HtmlTable table = (HtmlTable) component;
         final ResponseWriter writer = context.getResponseWriter();
 
-        final int rows = data.getRows();
+        final int rows = table.getRows();
         int processed = 0;
-        int rowIndex = data.getFirst() - 1;
+        int rowIndex = table.getFirst() - 1;
 
         writer.startElement("tbody", component);
 
@@ -89,20 +87,20 @@ public class TableRenderer extends HtmlBasicRenderer {
                 break;
             }
 
-            data.setRowIndex(++rowIndex);
+            table.setRowIndex(++rowIndex);
 
-            if (!data.isRowAvailable()) {
+            if (!table.isRowAvailable()) {
                 break;
             }
 
-            renderRowStart(context, component, writer);
-            renderRow(context, (HtmlTable) component, null, writer);
-            renderRowEnd(context, component, writer);
+            renderRowStart(table, writer);
+            renderRow(context, table, writer);
+            renderRowEnd(writer);
         }
 
         writer.endElement("tbody");
 
-        data.setRowIndex(-1);
+        table.setRowIndex(-1);
     }
 
     @Override
@@ -114,7 +112,7 @@ public class TableRenderer extends HtmlBasicRenderer {
         ((HtmlTable) component).clearMetaInfo(context, component);
         ((UIData) component).setRowIndex(-1);
 
-        renderTableEnd(context, component, context.getResponseWriter());
+        renderTableEnd(context.getResponseWriter());
     }
 
     @Override
@@ -123,10 +121,9 @@ public class TableRenderer extends HtmlBasicRenderer {
     }
 
     private void renderHeader(final FacesContext context,
-                              final UIComponent table,
+                              final HtmlTable table,
                               final ResponseWriter writer) throws IOException {
-        final HtmlTable htmlTable = (HtmlTable) table;
-        final TableColumnCache tableColumnCache = htmlTable.getTableColumnCache(context);
+        final TableColumnCache tableColumnCache = table.getTableColumnCache(context);
 
         if (hasColumnWidthSet) {
             writer.startElement("colgroup", table);
@@ -144,7 +141,7 @@ public class TableRenderer extends HtmlBasicRenderer {
                     style.append("width: ");
                     style.append(column.getColWidth());
                 }
-                if (htmlTable.isHideColumn(column)) {
+                if (table.isHideColumn(column)) {
                     if (style.length() > 0) {
                         style.append("; ");
                     }
@@ -178,12 +175,10 @@ public class TableRenderer extends HtmlBasicRenderer {
     }
 
     private void renderTableStart(final FacesContext context,
-                                  final UIComponent component,
+                                  final HtmlTable table,
                                   final ResponseWriter writer) throws IOException {
-        final HtmlTable table = (HtmlTable) component;
-
         writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, table);
-        writer.writeAttribute("id", component.getClientId(context), "id");
+        writer.writeAttribute("id", table.getClientId(context), "id");
         writer.writeAttribute("class", StringJoiner.on(' ').join("butter-table").join(StringUtils.getNullSafeValue(table.getStyleClass())).toString(), null);
         if (StringUtils.isNotEmpty(table.getStyle())) {
             writer.writeAttribute("style", table.getStyle(), null);
@@ -214,57 +209,51 @@ public class TableRenderer extends HtmlBasicRenderer {
         writer.writeText("\n", table, null);
     }
 
-    private void renderTableEnd(final FacesContext context,
-                                final UIComponent component,
-                                final ResponseWriter writer) throws IOException {
+    private void renderTableEnd(final ResponseWriter writer) throws IOException {
         writer.endElement("table");
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
     }
 
-    private void renderRowStart(final FacesContext context,
-                                final UIComponent component,
+    private void renderRowStart(final HtmlTable table,
                                 final ResponseWriter writer) throws IOException {
-        final HtmlTable htmlTable = (HtmlTable) component;
-
-        final String clientId = htmlTable.getClientId();
+        final String clientId = table.getClientId();
         final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex + "").length() - 1);
 
-        writer.startElement("tr", htmlTable);
+        writer.startElement("tr", table);
         writer.writeAttribute("rowIndex", rowIndex, null);
-        final String rowClass = StringUtils.isNotEmpty(htmlTable.getRowClass()) ? "butter-table-row " + htmlTable.getRowClass() : "butter-table-row";
+        final String rowClass = StringUtils.isNotEmpty(table.getRowClass()) ? "butter-table-row " + table.getRowClass() : "butter-table-row";
 
-        if (!foundSelectedRow && this.isRowSelected(htmlTable, rowIndex)) {
+        if (!foundSelectedRow && this.isRowSelected(table, rowIndex)) {
             writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
             foundSelectedRow = true;
         } else {
             writer.writeAttribute("class", rowClass, null);
         }
 
-        final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(htmlTable, "click");
+        final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(table, "click");
 
-        if (clickAjaxBehavior != null && htmlTable.getSingleSelectionListener() != null) {
+        if (clickAjaxBehavior != null && table.getSingleSelectionListener() != null) {
             final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(baseClientId, true)
                     .setEvent("click_" + rowIndex)
-                    .setRender(htmlTable, "click")
+                    .setRender(table, "click")
                     .setBehaviorEvent("click_" + rowIndex);
-            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(htmlTable.getClientId(), "selectTableRow({rowIndex:'" + rowIndex + "'})");
+            final String jQueryPluginCall = RenderUtils.createJQueryPluginCall(table.getClientId(), "selectTableRow({rowIndex:'" + rowIndex + "'})");
             writer.writeAttribute("onclick", ajaxRequest.toString() + ";" + jQueryPluginCall.replaceFirst(clientId, baseClientId), null);
         }
 
-        writer.writeText("\n", htmlTable, null);
+        writer.writeText("\n", table, null);
 
         rowIndex++;
     }
 
-    private void renderRowEnd(FacesContext context, UIComponent table, ResponseWriter writer) throws IOException {
+    private void renderRowEnd(final ResponseWriter writer) throws IOException {
         writer.endElement("tr");
     }
 
-    private void renderRow(FacesContext context,
-                             HtmlTable table,
-                             UIComponent child,
-                             ResponseWriter writer) throws IOException {
+    private void renderRow(final FacesContext context,
+                           final HtmlTable table,
+                           final ResponseWriter writer) throws IOException {
         final TableColumnCache info = table.getTableColumnCache(context);
 
         int columnNumber = 0;
