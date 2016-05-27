@@ -60,10 +60,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
     }
 
-    protected Map<String, Object> getVariablesMap(FacesContext facesContext) {
-        return facesContext.getExternalContext().getRequestMap();
-    }
-
     public String createUniqueId(FacesContext context, String seed) {
         Integer i = (Integer) getStateHelper().get(PropertyKeys.lastId);
         int lastId = (i != null) ? i : 0;
@@ -95,7 +91,25 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.restoreChildState(facesContext);
     }
 
-    protected void saveChildState(FacesContext facesContext) {
+    @Override
+    public void queueEvent(FacesEvent event) {
+        super.queueEvent(wrapEvent(event));
+    }
+
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        if (event instanceof RowKeyFacesEvent) {
+            RowKeyEventBroadcaster.broadcast(getFacesContext(), (RowKeyFacesEvent) event);
+        } else {
+            super.broadcast(event);
+        }
+    }
+
+    private Map<String, Object> getVariablesMap(FacesContext facesContext) {
+        return facesContext.getExternalContext().getRequestMap();
+    }
+
+    private void saveChildState(FacesContext facesContext) {
         final Iterator<UIComponent> itr = dataChildren();
 
         while (itr.hasNext()) {
@@ -103,7 +117,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected void saveChildState(FacesContext facesContext, UIComponent component) {
+    private void saveChildState(FacesContext facesContext, UIComponent component) {
         if (component.isTransient()) {
             return;
         }
@@ -145,7 +159,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected void restoreChildState(FacesContext facesContext) {
+    private void restoreChildState(FacesContext facesContext) {
         Iterator<UIComponent> itr = dataChildren();
 
         while (itr.hasNext()) {
@@ -153,7 +167,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected void restoreChildState(FacesContext facesContext, UIComponent component) {
+    private void restoreChildState(FacesContext facesContext, UIComponent component) {
         String id = component.getId();
 
         component.setId(id); // Forces client id to be reset
@@ -192,25 +206,11 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    protected FacesEvent wrapEvent(FacesEvent event) {
+    private FacesEvent wrapEvent(FacesEvent event) {
         return new RowKeyFacesEvent(this, event, getRowKey());
     }
 
-    @Override
-    public void queueEvent(FacesEvent event) {
-        super.queueEvent(wrapEvent(event));
-    }
-
-    @Override
-    public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof RowKeyFacesEvent) {
-            RowKeyEventBroadcaster.broadcast(getFacesContext(), (RowKeyFacesEvent) event);
-        } else {
-            super.broadcast(event);
-        }
-    }
-
-    protected DataModelWrapper<?> getDataModelWrapper() {
+    private DataModelWrapper<?> getDataModelWrapper() {
         if (dataModelWrapper == null) {
             dataModelWrapper = DataModelWrapperFactory.createDataModelWrapper(getValue());
         }
@@ -259,7 +259,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return getDataModelWrapper().isRowAvailable();
     }
 
-    protected void setupVariable(FacesContext faces, boolean rowSelected) {
+    private void setupVariable(FacesContext faces, boolean rowSelected) {
         Map<String, Object> attrs = getVariablesMap(faces);
 
         if (rowSelected) {

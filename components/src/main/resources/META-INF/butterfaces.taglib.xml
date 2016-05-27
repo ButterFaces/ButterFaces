@@ -3027,6 +3027,24 @@
             <name>var</name>
             <required>true</required>
         </attribute>
+        <attribute>
+            <name>status</name>
+            <description>Attribute contains iteration informations like index, rowCount, firstElement and lastElement</description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>first</name>
+            <description>A flag indicating if actual row item is first item</description>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>rows</name>
+            <description>Number of rows</description>
+            <required>false</required>
+            <type>java.lang.Integer</type>
+        </attribute>
     </tag>
 
 </facelet-taglib>
