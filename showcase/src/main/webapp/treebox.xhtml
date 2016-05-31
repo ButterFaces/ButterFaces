@@ -71,7 +71,13 @@
             <h:panelGroup layout="block"
                           rendered="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'OBJECTS'}"
                           styleClass="alert alert-warning">
-                Override <strong>toString()</strong> of Episode.java to handle rendered values.
+                Override <strong>toString()</strong> of Episode.java to handle rendered values or add
+                <b:prettyprint language="lang-html">
+&lt;f:facet name="template"&gt;
+   {{propertyToDisplay}}
+&lt;/f:facet&gt;
+                </b:prettyprint>
+                When using facet you have to specify <strong>inputTextProperty</strong> which will be filled into the input field when the user selects an entry.
             </h:panelGroup>
 
             <b:treeBox id="treeBox"
