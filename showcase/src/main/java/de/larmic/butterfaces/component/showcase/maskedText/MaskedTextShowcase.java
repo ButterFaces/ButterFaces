@@ -216,6 +216,10 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
                 inputMask = null;
                 dataInputMask = "'alias': 'numeric', 'groupSeparator': '.', 'radixPoint': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'suffix': ' €', 'placeholder': '0'";
                 break;
+            case DATE:
+                inputMask = "\"mm/yyyy\", {yearrange: {minyear: 2000, maxyear: 2999}}";
+                dataInputMask = null;
+                break;
             case ALPHA_NUMERIC:
                 inputMask = "*****/***/*****";
                 dataInputMask = null;

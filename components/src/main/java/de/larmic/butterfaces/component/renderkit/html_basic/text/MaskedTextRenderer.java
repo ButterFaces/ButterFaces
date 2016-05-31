@@ -19,8 +19,13 @@ public class MaskedTextRenderer extends AbstractHtmlTagRenderer<HtmlMaskedText> 
     }
 
     private String buildPluginCall(final HtmlMaskedText maskedText) {
-        if (StringUtils.isNotEmpty(maskedText.getInputMask())) {
-            return "inputmask('" + maskedText.getInputMask() + "')";
+        final String inputMask = maskedText.getInputMask();
+        if (StringUtils.isNotEmpty(inputMask)) {
+            if (inputMask.startsWith("'") || inputMask.startsWith("\"")) {
+                return "inputmask(" + inputMask + ")";
+            } else {
+                return "inputmask('" + inputMask + "')";
+            }
         }
 
         return "inputmask()";
