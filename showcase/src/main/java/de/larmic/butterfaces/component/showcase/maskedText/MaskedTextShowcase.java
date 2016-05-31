@@ -63,7 +63,7 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("                      required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                      disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                      autoFocus=\"" + this.isAutoFocus() + "\"");
-        if (selectedInputMaskType == InputMaskType.PHONE || selectedInputMaskType == InputMaskType.ALPHA_NUMERIC) {
+        if (selectedInputMaskType == InputMaskType.PHONE || selectedInputMaskType == InputMaskType.ALPHA_NUMERIC || selectedInputMaskType == InputMaskType.DATE) {
             xhtmlCodeExample.appendInnerContent("                      maskedInput=\"" + inputMask + "\"");
         } else if (selectedInputMaskType == InputMaskType.CURRENCY_BY_DATA) {
             xhtmlCodeExample.appendInnerContent("                      p:data-inputmask=\"" + dataInputMask + "\"");
@@ -217,7 +217,7 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
                 dataInputMask = "'alias': 'numeric', 'groupSeparator': '.', 'radixPoint': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'suffix': ' €', 'placeholder': '0'";
                 break;
             case DATE:
-                inputMask = "\"mm/yyyy\", {yearrange: {minyear: 2000, maxyear: 2999}}";
+                inputMask = "'mm/yyyy', {yearrange: {minyear: 2000, maxyear: 2999}}";
                 dataInputMask = null;
                 break;
             case ALPHA_NUMERIC:
