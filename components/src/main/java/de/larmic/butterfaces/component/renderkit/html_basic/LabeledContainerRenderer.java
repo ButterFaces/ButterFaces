@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
@@ -13,7 +18,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 
 /**
- * Created by larmic on 31.07.14.
+ * @author Lars Michaelis
  */
 @FacesRenderer(componentFamily = HtmlLabeledContainer.COMPONENT_FAMILY, rendererType = HtmlLabeledContainer.RENDERER_TYPE)
 public class LabeledContainerRenderer extends HtmlBasicRenderer {

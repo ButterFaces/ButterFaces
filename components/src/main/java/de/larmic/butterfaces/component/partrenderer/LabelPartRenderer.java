@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
@@ -9,30 +14,40 @@ import de.larmic.butterfaces.component.html.feature.Required;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
- * Created by larmic on 27.08.14.
+ * @author Lars Michaelis
  */
 public class LabelPartRenderer {
 
     public void renderLabel(final UIComponent component, final ResponseWriter responseWriter) throws IOException {
+        this.renderLabel(component, responseWriter, component.getClientId());
+    }
+
+    public void renderLabel(final UIComponent component, final ResponseWriter responseWriter, final String clientId) throws IOException {
         final boolean readonly = component instanceof Readonly && ((Readonly) component).isReadonly();
         final boolean required = component instanceof Required && ((Required) component).isRequired();
         final String label = component instanceof Label ? ((Label) component).getLabel() : "";
 
-        writeLabelIfNecessary(component, readonly, required, label, responseWriter);
+        writeLabelIfNecessary(component, readonly, required, label, responseWriter, clientId);
     }
 
-    private void writeLabelIfNecessary(final UIComponent component, final boolean readonly,
-                                       final boolean required, final String label, final ResponseWriter writer) throws IOException {
+    private void writeLabelIfNecessary(final UIComponent component,
+                                       final boolean readonly,
+                                       final boolean required,
+                                       final String label,
+                                       final ResponseWriter writer,
+                                       final String clientId) throws IOException {
         final boolean hideLabel = component instanceof HideLabel && ((HideLabel) component).isHideLabel();
 
         if (!hideLabel) {
             writer.startElement("label", component);
             if (!readonly) {
-                writer.writeAttribute("for", component.getId(), null);
+                writer.writeAttribute("for", clientId, null);
             }
 
             writer.writeAttribute("class", StringUtils.concatWithSpace(
@@ -45,7 +60,7 @@ public class LabelPartRenderer {
                 writer.startElement("span", component);
                 writer.writeText(label, null);
                 writer.endElement("span");
-                this.writeRequiredSpanIfNecessary(component.getClientId(), readonly, required, writer);
+                this.writeRequiredSpanIfNecessary(clientId, readonly, required, writer);
                 writer.endElement("abbr");
             }
 
@@ -73,8 +88,9 @@ public class LabelPartRenderer {
     private void writeRequiredSpanIfNecessary(final String clientId, final boolean readonly, final boolean required,
                                               final ResponseWriter writer) throws IOException {
         if (required && !readonly) {
+            final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
             writer.startElement("span", null);
-            writer.writeAttribute("id", clientId + "_requiredLabel", null);
+            writer.writeAttribute("id", clientId + separatorChar + "requiredLabel", null);
             writer.writeAttribute("class", Constants.REQUIRED_SPAN_CLASS, null);
             writer.endElement("span");
         }

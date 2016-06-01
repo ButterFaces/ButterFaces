@@ -1,3 +1,8 @@
+/*
+ * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Distributed under the MIT License.
+ * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
+ */
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicInputRenderer;
@@ -11,11 +16,15 @@ import de.larmic.butterfaces.util.StringJoiner;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
+/**
+ * @author Lars Michaelis
+ */
 public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> extends HtmlBasicInputRenderer {
 
     @Override
@@ -40,7 +49,7 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         this.appendEncodeBegin(htmlComponent, writer);
 
         // Render label if components label attribute is set
-        new LabelPartRenderer().renderLabel(component, writer);
+        new LabelPartRenderer().renderLabel(component, writer, createInputClientId(context, component));
 
         this.encodeBeginInnerWrapper(component, writer);
         this.encodeReadonly(htmlComponent, writer);
@@ -190,6 +199,7 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         if (component instanceof UIInput) {
             writer.startElement(getHtmlTagName(), component);
 
+            writer.writeAttribute("id", createInputClientId(context, component), "clientId");
             writer.writeAttribute("name", component.getClientId(context), "clientId");
 
             // TODO extract protected method
@@ -254,13 +264,18 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         }
     }
 
+    private String createInputClientId(FacesContext context, UIComponent component) {
+        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        return component.getClientId(context) + separatorChar + "inner";
+    }
+
     protected void encodeTagType(final UIComponent component, final ResponseWriter writer) throws IOException {
         this.renderStringValue(component, writer, "type");
     }
 
     protected void encodeAdditionalTagAttributes(final UIComponent component,
                                                  final ResponseWriter writer,
-                                                 final String currentValue) throws IOException{
+                                                 final String currentValue) throws IOException {
         // implement me if needed
     }
 
