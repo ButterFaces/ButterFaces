@@ -16,7 +16,8 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-autocomplete.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head"),
+        @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head")
 })
 @FacesComponent(HtmlAutoComplete.COMPONENT_TYPE)
 public class HtmlAutoComplete extends UIComponentBase {
