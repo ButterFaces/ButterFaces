@@ -65,6 +65,8 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         disabled="#{not tagsShowcase.ajax}"/>
+                <f:validateLength minimum="2"
+                                  maximum="10" />
                 <b:tooltip>
                     #{tagsShowcase.tooltip}
                 </b:tooltip>

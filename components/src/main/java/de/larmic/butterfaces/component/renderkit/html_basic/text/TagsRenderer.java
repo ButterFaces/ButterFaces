@@ -96,26 +96,38 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
     }
 
     private String getSelectedEntries(final HtmlTags tags) {
-        if (tags.getValue() == null) {
-            return null;
-        }
+        final String componentValue = getSubmittedValueOrValue(tags);
 
-        final String componentValue = tags.getValue().toString();
+        if (StringUtils.isNotEmpty(componentValue)) {
+            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(",| "))).iterator();
 
-        final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(",| "))).iterator();
+            final StringBuilder sb = new StringBuilder();
 
-        final StringBuilder sb = new StringBuilder();
-
-        while (iterator.hasNext()) {
-            final String next = iterator.next();
-            if (StringUtils.isNotEmpty(next)) {
-                sb.append("{displayValue:'" + next + "'}");
-                if (iterator.hasNext()) {
-                    sb.append(", ");
+            while (iterator.hasNext()) {
+                final String next = iterator.next();
+                if (StringUtils.isNotEmpty(next)) {
+                    sb.append("{displayValue:'" + next + "'}");
+                    if (iterator.hasNext()) {
+                        sb.append(", ");
+                    }
                 }
             }
+
+            return sb.toString();
         }
 
-        return sb.toString();
+        return null;
+    }
+
+    public String getSubmittedValueOrValue(final HtmlTags tags) {
+        if (tags.getSubmittedValue() != null) {
+            return tags.getSubmittedValue().toString();
+        }
+
+        if (tags.getValue() != null) {
+            return tags.getValue().toString();
+        }
+
+        return null;
     }
 }
