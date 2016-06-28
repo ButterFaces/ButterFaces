@@ -6,6 +6,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.TreeBoxModelType;
@@ -57,27 +58,29 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
     @Override
     protected void encodeEnd(HtmlTreeBox treeBox, ResponseWriter writer) throws IOException {
-        final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
-        final List<Node> nodes = treeBoxModelWrapper.getNodes();
-        final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
+        if (!treeBox.isReadonly() || treeBox.getValue() != null) {
+            final TreeBoxModelWrapper treeBoxModelWrapper = new TreeBoxModelWrapper(treeBox);
+            final List<Node> nodes = treeBoxModelWrapper.getNodes();
+            final TreeBoxModelType treeBoxModelType = treeBoxModelWrapper.getTreeBoxModelType();
 
-        final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
+            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
-        final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
+            final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
 
-        final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
+            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
 
-        writer.startElement("script", treeBox);
-        writer.writeText("jQuery(function () {\n", null);
-        final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
-        writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
-        final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
-        final String pluginCall = replaceDotInMustacheKeys(mustacheKeys, createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
-        writer.writeText("ButterFaces.TreeBox.removeTrivialTreeDropDown('" + treeBoxReadableId + "');\n", null);
-        writer.writeText("var trivialTree" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
-        writer.writeText("$(trivialTree" + treeBoxReadableId + ".getDropDown()).attr('data-tree-box-id', '" + treeBoxReadableId + "')", null);
-        writer.writeText("});", null);
-        writer.endElement("script");
+            writer.startElement("script", treeBox);
+            writer.writeText("jQuery(function () {\n", null);
+            final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
+            writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
+            final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
+            final String pluginCall = replaceDotInMustacheKeys(mustacheKeys, createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
+            writer.writeText("ButterFaces.TreeBox.removeTrivialTreeDropDown('" + treeBoxReadableId + "');\n", null);
+            writer.writeText("var trivialTree" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
+            writer.writeText("$(trivialTree" + treeBoxReadableId + ".getDropDown()).attr('data-tree-box-id', '" + treeBoxReadableId + "')", null);
+            writer.writeText("});", null);
+            writer.endElement("script");
+        }
     }
 
     /**
@@ -97,7 +100,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
         if (treeBox.getFacet("template") != null) {
             final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            return  MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
+            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
         }
 
         return Collections.emptyList();
@@ -108,10 +111,14 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         final HtmlTreeBox treeBox = (HtmlTreeBox) component;
 
         if (treeBox.isReadonly()) {
-            writer.startElement(ELEMENT_DIV, component);
-            writer.writeAttribute("class", "butter-component-value", null);
-            super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
-            writer.endElement(ELEMENT_DIV);
+            if (treeBox.getValue() == null) {
+                new ReadonlyPartRenderer().renderReadonly(treeBox, writer);
+            } else {
+                writer.startElement(ELEMENT_DIV, component);
+                writer.writeAttribute("class", "butter-component-value", null);
+                super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
+                writer.endElement(ELEMENT_DIV);
+            }
         }
     }
 
@@ -147,7 +154,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         String fixedPluginCall = pluginCall;
         for (String mustacheKey : mustacheKeys) {
             if (mustacheKey.contains(".")) {
-                fixedPluginCall = fixedPluginCall.replace("{{"+mustacheKey+"}}", "{{"+mustacheKey.replace('.', '#')+"}}");
+                fixedPluginCall = fixedPluginCall.replace("{{" + mustacheKey + "}}", "{{" + mustacheKey.replace('.', '#') + "}}");
             }
         }
 
