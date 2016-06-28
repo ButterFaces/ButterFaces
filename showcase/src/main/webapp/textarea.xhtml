@@ -44,6 +44,11 @@
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="textarea" component="#{textAreaShowcase}">
+
+            <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{not empty textAreaShowcase.placeholder}">
+                <strong>Hint:</strong> you can use multiline placeholders by adding '\n'.
+            </h:panelGroup>
+
             <b:textArea id="textArea"
                         label="#{textAreaShowcase.label}"
                         hideLabel="#{textAreaShowcase.hideLabel}"

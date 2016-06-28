@@ -45,6 +45,10 @@
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="markdown" component="#{markdownShowcase}">
+            <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{not empty markdownShowcase.placeholder}">
+                <strong>Hint:</strong> you can use multiline placeholders by adding '\n'.
+            </h:panelGroup>
+
             <b:markdown id="markdown"
                         label="#{markdownShowcase.label}"
                         hideLabel="#{markdownShowcase.hideLabel}"
