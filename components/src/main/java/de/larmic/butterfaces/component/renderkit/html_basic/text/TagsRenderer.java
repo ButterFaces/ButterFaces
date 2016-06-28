@@ -1,6 +1,7 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
 import de.larmic.butterfaces.component.html.text.HtmlTags;
+import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.util.StringUtils;
@@ -33,10 +34,14 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         final HtmlTags htmlTags = (HtmlTags) component;
 
         if (htmlTags.isReadonly()) {
-            writer.startElement(ELEMENT_DIV, component);
-            writer.writeAttribute("class", "butter-component-value", null);
-            super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
-            writer.endElement(ELEMENT_DIV);
+            if (htmlTags.getValue() == null || StringUtils.isEmpty((String) htmlTags.getValue())) {
+                new ReadonlyPartRenderer().renderReadonly(htmlTags, writer);
+            } else {
+                writer.startElement(ELEMENT_DIV, component);
+                writer.writeAttribute("class", "butter-component-value", null);
+                super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
+                writer.endElement(ELEMENT_DIV);
+            }
         }
     }
 
