@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
+import de.larmic.butterfaces.component.html.HtmlMarkdown;
+import de.larmic.butterfaces.component.partrenderer.MaxLengthPartRenderer;
+import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import de.larmic.butterfaces.component.html.HtmlMarkdown;
-import de.larmic.butterfaces.component.partrenderer.MaxLengthPartRenderer;
-import de.larmic.butterfaces.component.partrenderer.RenderUtils;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlMarkdown.COMPONENT_FAMILY, rendererType = HtmlMarkdown.RENDERER_TYPE)
 public class MarkdownRenderer extends AbstractHtmlTagRenderer<HtmlMarkdown> {
@@ -37,6 +37,12 @@ public class MarkdownRenderer extends AbstractHtmlTagRenderer<HtmlMarkdown> {
             writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), null, createJQueryMarkdownToHtmlPluginCall()), null);
         }
         writer.endElement("script");
+
+        if (StringUtils.isNotEmpty(markdown.getPlaceholder())
+                && markdown.getPlaceholder().contains("\\n")
+                && !markdown.isReadonly()) {
+            RenderUtils.renderJQueryPluginCall(markdown.getClientId(), "multilinePlaceholder()", writer, markdown);
+        }
     }
 
     private String createJQueryMarkdownPluginCall(HtmlMarkdown markdown) {
