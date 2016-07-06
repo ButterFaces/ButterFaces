@@ -3,9 +3,7 @@
  */
 package de.larmic.butterfaces.event;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
@@ -15,8 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-
-import de.larmic.butterfaces.resolver.WebXmlParameters;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Removes web.xml configurable resources (jquery, bootstrap and prettyprint).
@@ -37,36 +36,47 @@ public class HandleResourceListener implements SystemEventListener {
         return source instanceof UIViewRoot;
     }
 
-   /**
-    * Process event. Just the first time.
-    */
-   @Override
-   public void processEvent(SystemEvent event) throws AbortProcessingException {
-      final UIViewRoot source = (UIViewRoot) event.getSource();
+    /**
+     * Process event. Just the first time.
+     */
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
+        final UIViewRoot source = (UIViewRoot) event.getSource();
 
-      final FacesContext context = FacesContext.getCurrentInstance();
-      final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
-      final boolean provideJQuery = webXmlParameters.isProvideJQuery();
-      final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
-      final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
+        final FacesContext context = FacesContext.getCurrentInstance();
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+        final boolean provideJQuery = webXmlParameters.isProvideJQuery();
+        final boolean provideBootstrap = webXmlParameters.isProvideBoostrap();
+        final boolean useCompressedResources = webXmlParameters.isUseCompressedResources();
+        final boolean disablePrimeFacesJQuery = webXmlParameters.isIntegrationPrimeFacesDisableJQuery();
 
-      final List<UIComponent> resources = new ArrayList<>(source.getComponentResources(context, HEAD));
-      // Production mode and compressed
-      if (useCompressedResources && context.getApplication().getProjectStage() == ProjectStage.Production) {
-         handleCompressedResources(context, provideJQuery, provideBootstrap, resources, source);
-      } else {
-         handleConfigurableResources(context, provideJQuery, provideBootstrap, resources, source);
-      }
-   }
+        final List<UIComponent> resources = new ArrayList<>(source.getComponentResources(context, HEAD));
+        // Production mode and compressed
+        if (useCompressedResources && context.getApplication().getProjectStage() == ProjectStage.Production) {
+            handleCompressedResources(context, provideJQuery, provideBootstrap, resources, source);
+        } else {
+            handleConfigurableResources(context, provideJQuery, provideBootstrap, resources, source);
+        }
+
+        if (disablePrimeFacesJQuery) {
+            for (UIComponent resource : resources) {
+                final String resourceLibrary = (String) resource.getAttributes().get("library");
+                final String resourceName = (String) resource.getAttributes().get("name");
+                if ("primefaces".equals(resourceLibrary) && "jquery/jquery.js".equals(resourceName)) {
+                    source.removeComponentResource(context, resource);
+                }
+            }
+        }
+    }
 
     /**
      * Use compressed resources.
      */
-    private void handleCompressedResources(FacesContext context,
-                                           boolean provideJQuery,
-                                           boolean provideBootstrap,
-                                           List<UIComponent> resources,
-                                           UIViewRoot view) {
+    private void handleCompressedResources(final FacesContext context,
+                                           final boolean provideJQuery,
+                                           final boolean provideBootstrap,
+                                           final List<UIComponent> resources,
+                                           final UIViewRoot view) {
         removeAllResourcesFromViewRoot(context, resources, view);
 
         if (provideBootstrap && provideJQuery) {
@@ -95,7 +105,9 @@ public class HandleResourceListener implements SystemEventListener {
     /**
      * Remove resources from the view.
      */
-    private void removeAllResourcesFromViewRoot(FacesContext context, List<UIComponent> resources, UIViewRoot view) {
+    private void removeAllResourcesFromViewRoot(final FacesContext context,
+                                                final List<UIComponent> resources,
+                                                final UIViewRoot view) {
         final Iterator<UIComponent> it = resources.iterator();
 
         while (it.hasNext()) {
