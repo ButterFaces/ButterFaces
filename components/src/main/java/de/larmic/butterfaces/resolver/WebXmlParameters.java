@@ -56,6 +56,8 @@ public class WebXmlParameters {
 
     public static final String CTX_PARAM_AUTO_TRIM_INPUT_FIELDS = "org.butterfaces.autoTrimInputFields";
 
+    public static final String CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY = "org.butterfaces.integration.primefaces.disableJQuery";
+
     private final boolean provideJQuery;
     private final boolean provideBoostrap;
     private final boolean useCompressedResources;
@@ -75,6 +77,7 @@ public class WebXmlParameters {
     private final String maxLengthText;
     private final boolean ajaxDisableRenderRegionsOnRequest;
     private final boolean autoTrimInputFields;
+    private final boolean intergrationPrimeFacesDisableJQuery;
 
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
@@ -100,6 +103,8 @@ public class WebXmlParameters {
         this.ajaxDisableRenderRegionsOnRequest = this.readParameter(CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, externalContext);
 
         this.autoTrimInputFields = this.readBooleanParameter(CTX_PARAM_AUTO_TRIM_INPUT_FIELDS, externalContext);
+
+        this.intergrationPrimeFacesDisableJQuery = this.readBooleanParameter(CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY, externalContext);
     }
 
     private boolean readBooleanParameter(final String parameter, final ExternalContext context) {
@@ -175,6 +180,10 @@ public class WebXmlParameters {
 
     public boolean isAutoTrimInputFields() {
         return autoTrimInputFields;
+    }
+
+    public boolean isIntegrationPrimeFacesDisableJQuery() {
+        return intergrationPrimeFacesDisableJQuery;
     }
 
     public boolean isAjaxDisableRenderRegionsOnRequest() {

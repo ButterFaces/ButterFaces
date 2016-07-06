@@ -36,6 +36,8 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_AJAX_PROCESSING_TEXT = "Loading";
     private static final String OVERRIDDEN_AJAX_PROCESSING_GLYPHICON = "fa fa-refresh fa-spin";
 
+    private static final boolean OVERRIDDEN_CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY = false;
+
     @Mock
     private ExternalContext defaultValueExternalContext;
 
@@ -73,6 +75,8 @@ public class WebXmlParametersTest {
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST)).thenReturn(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST + "");
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AUTO_TRIM_INPUT_FIELDS)).thenReturn(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS + "");
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY)).thenReturn("false");
     }
 
     @Test
@@ -161,5 +165,12 @@ public class WebXmlParametersTest {
     public void testAutoTrimInputFields() {
         Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isAutoTrimInputFields());
         Assert.assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isAutoTrimInputFields());
+    }
+
+    @Test
+    public void testIntegrationPrimeFacesDisableJQuery() throws Exception {
+        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
+        Assert.assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
+
     }
 }

@@ -91,6 +91,11 @@
         <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>
         <param-value>true</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>org.butterfaces.integration.primefaces.disableJQuery</param-name>
+        <param-value>true</param-value>
+    </context-param>
 	-->
 
 	<servlet>
