@@ -5,6 +5,19 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
@@ -18,18 +31,6 @@ import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.MustacheResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -98,12 +99,29 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
     }
 
     private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
-        if (treeBox.getFacet("template") != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
-        }
+        final List<String> mustacheKeys = new ArrayList<>();
+        addAllWithoutDuplicates(mustacheKeys, createMustacheKeysFromTemplate(context, treeBox, "template"));
+        addAllWithoutDuplicates(mustacheKeys, createMustacheKeysFromTemplate(context, treeBox, "emptyEntryTemplate"));
+        addAllWithoutDuplicates(mustacheKeys, createMustacheKeysFromTemplate(context, treeBox, "selectedEntryTemplate"));
+        return mustacheKeys;
+    }
 
-        return Collections.emptyList();
+    private void addAllWithoutDuplicates(List<String> dest, List<String> src) {
+        for (String value : src) {
+            if (!dest.contains(value)) {
+                dest.add(value);
+            }
+        }
+    }
+
+    private List<String> createMustacheKeysFromTemplate(FacesContext context, HtmlTreeBox treeBox, String facetKey) throws IOException {
+        final UIComponent templateFacet = treeBox.getFacet(facetKey);
+        if (templateFacet != null) {
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, templateFacet);
+            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     @Override
