@@ -147,6 +147,6 @@ public class TrivialComponentsEntriesNodePartRenderer {
     }
 
     private String escape(String value) {
-        return StringUtils.isNotEmpty(value) ? value.replace("\"", "\\\"") : "";
+        return StringUtils.isNotEmpty(value) ? value.replace("\"", "\\\"").replace("\n", "").replace("\r", "") : "";
     }
 }
