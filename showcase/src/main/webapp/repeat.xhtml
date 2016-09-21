@@ -66,6 +66,25 @@
             </h:panelGroup>
         </h:panelGroup>
 
+        <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'NESTED'}">
+            <div class="alert alert-warning">
+                <strong>HINT:</strong> See https://github.com/ButterFaces/ButterFaces/issues/63
+            </div>
+
+            <ul>
+                <b:repeat value="#{repeatShowcase.nestedOuterValues}"
+                          var="outerValue">
+                    <li>#{outerValue}</li>
+                    <ul>
+                        <b:repeat value="#{repeatShowcase.getNestedInnerValueForOuterValue(outerValue)}"
+                                  var="innerValue">
+                            <li>#{innerValue}</li>
+                        </b:repeat>
+                    </ul>
+                </b:repeat>
+            </ul>
+        </h:panelGroup>
+
     </ui:define>
 
     <ui:define name="other">

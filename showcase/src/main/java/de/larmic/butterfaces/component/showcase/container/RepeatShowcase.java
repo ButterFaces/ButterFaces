@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -47,11 +48,14 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
             final CssCodeExample cssCodeExample = new CssCodeExample();
             cssCodeExample.addCss(".repeat-simple-list", "max-height: 400px", "overflow: auto");
             codeExamples.add(cssCodeExample);
-        } else {
+        } else if (selectedExampleType == RepeatExampleType.STARGATE) {
             codeExamples.add(new StargateRepeatListXhtmlCodeExample(this.isRendered()));
             codeExamples.add(new StargateRepeatBeanCodeExample());
             codeExamples.add(new TreeBoxEpisodesJavaExample("repeat.demo"));
             codeExamples.add(new StargateRepeatListCssCodeExample());
+        } else {
+            codeExamples.add(new NestedRepeatListXhtmlCodeExample());
+            codeExamples.add(new NestedRepeatBeanCodeExample());
         }
     }
 
@@ -61,6 +65,14 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
 
     public List<DemoPojo> getDemoPojos() {
         return values;
+    }
+
+    public List<String> getNestedOuterValues() {
+        return Arrays.asList("A", "B", "C");
+    }
+
+    public List<String> getNestedInnerValueForOuterValue(String outerValue) {
+        return Arrays.asList(outerValue + "1", outerValue + "2", outerValue + "3");
     }
 
     public List<SelectItem> getExampleTypes() {
