@@ -27,8 +27,17 @@ public class CsvWriterTest {
 
         csvWriter.write(outputStream, new TestWriterIterator());
 
-        assertThat(new String(outputStream.toByteArray()))
+        final byte[] writtenBytes = outputStream.toByteArray();
+        assertThat(extractBOM(writtenBytes)).isEqualTo(CsvWriter.UTF8_BOM);
+
+        assertThat(new String(writtenBytes))
                 .isEqualTo("\uFEFF\"col1\";\"col2\";\r\n\"r1c1\";\"r1c2\";\r\n\"r2c1\";\"r2c2\";");
+    }
+
+    private byte[] extractBOM(byte[] writtenBytes) {
+        byte[] actualBOM = new byte[3];
+        System.arraycopy(writtenBytes, 0, actualBOM, 0, 3);
+        return actualBOM;
     }
 
     private class TestWriterIterator implements TableExportWriterIterator {
