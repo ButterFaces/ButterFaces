@@ -34,10 +34,10 @@
   "devDependencies": {
     "autoprefixer-core": "5.2.1",
     "bower": "1.6.5",
-    "gulp": "3.9.0",
-    "gulp-bower": "0.0.10",
+    "gulp": "3.9.1",
+    "gulp-bower": "0.0.13",
     "gulp-util": "3.0.7",
-    "gulp-tsd": "0.0.4",
+    "gulp-tsd": "0.1.1",
     "merge-stream": "1.0.0",
     "typescript": "1.7.3",
     "gulp-typescript": "2.9.2",
