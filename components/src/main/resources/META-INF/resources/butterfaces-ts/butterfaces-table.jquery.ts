@@ -22,8 +22,8 @@
         return this.each(function () {
             var $table = $(this);
 
-            var rows = $table.find('tbody > tr').size();
-            var columns = $table.find('thead th').size();
+            //var rows = $table.find('tbody > tr').length;
+            //var columns = $table.find('thead th').length;
 
             ButterFaces.Ajax.sendRequest($table.attr('id'), 'sort_' + columnNumber, renderIds, columnNumber, disableRenderIds);
         });
