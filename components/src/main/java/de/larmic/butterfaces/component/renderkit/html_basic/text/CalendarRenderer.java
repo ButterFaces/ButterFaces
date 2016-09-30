@@ -30,7 +30,11 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon cursor-pointer", null);
                 writer.startElement("span", component);
-                // jquery plugin will add icon here
+                if (!calendar.isPickDate()) {
+                    writer.writeAttribute("class", "glyphicon glyphicon-time", null);
+                } else {
+                    writer.writeAttribute("class", "glyphicon glyphicon-calendar", null);
+                }
                 writer.endElement("span");
                 writer.endElement("span");
             }
@@ -62,8 +66,11 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         final String calendarDown = StringUtils.getNotNullValue(calendar.getGlyphiconDown(), "glyphicon glyphicon-chevron-down");
 
         jQueryPluginCall.append("datetimepicker({");
-        jQueryPluginCall.append("pickTime: " + calendar.isPickTime() + ",");
-        jQueryPluginCall.append("pickDate: " + calendar.isPickDate() + ",");
+        if (calendar.isPickDate() && !calendar.isPickTime()) {
+            jQueryPluginCall.append("format: \"LL\",");
+        } else if (!calendar.isPickDate() && calendar.isPickTime()) {
+            jQueryPluginCall.append("format: \"LT\",");
+        }
         jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
@@ -71,7 +78,7 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         jQueryPluginCall.append("up: '" + calendarUp + "',");
         jQueryPluginCall.append("down: '" + calendarDown + "'");
         jQueryPluginCall.append("},");
-        jQueryPluginCall.append("language: \"" + calendar.getLanguage() + "\"");
+        jQueryPluginCall.append("locale: \"" + calendar.getLanguage() + "\"");
         jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }
