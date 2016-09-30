@@ -62,6 +62,16 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         return items;
     }
 
+    public List<SelectItem> getLanguageExamples() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        items.add(new SelectItem("en", "english (default)"));
+        items.add(new SelectItem("de", "german"));
+        items.add(new SelectItem("ru", "russian"));
+
+        return items;
+    }
+
     public void addAjaxTag(final XhtmlCodeExample codeExample, final String event) {
         if (this.isAjax()) {
             final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
