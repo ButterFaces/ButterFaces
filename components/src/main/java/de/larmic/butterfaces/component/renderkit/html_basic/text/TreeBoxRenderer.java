@@ -206,6 +206,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
 
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
+        jQueryPluginCall.append("\n    showClearButton: true,");
         if (selectedEntryId != null && selectedNode != null) {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
         }
