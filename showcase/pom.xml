@@ -108,7 +108,7 @@
         <profile>
             <id>showcase-wildfly-swarm</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
