@@ -12,6 +12,10 @@
     <packaging>jar</packaging>
     <name>ButterFaces components</name>
 
+    <properties>
+        <frontend-maven-plugin.version>1.1</frontend-maven-plugin.version>
+    </properties>
+
     <profiles>
         <profile>
             <id>gulp-only-build</id>
@@ -20,7 +24,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>${frontend-maven-plugin.version}</version>
                         <configuration>
                             <workingDirectory>nodejs</workingDirectory>
                         </configuration>
@@ -50,7 +54,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>${frontend-maven-plugin.version}</version>
                         <configuration>
                             <workingDirectory>nodejs</workingDirectory>
                         </configuration>
