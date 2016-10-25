@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.html.text.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
+import static de.larmic.butterfaces.util.StringUtils.joinWithCommaSeparator;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
 public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
@@ -84,22 +88,16 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
     }
 
     private String createFreeTextSeparators(final HtmlTags tags) {
-        if (StringUtils.isNotEmpty(tags.getConfirmKeys())) {
-            final StringBuilder freeTextSeparators = new StringBuilder("[");
-            final List<String> tagValues = Arrays.asList(tags.getConfirmKeys().split("(?!^)"));
-            freeTextSeparators.append(StringUtils.joinWithCommaSeparator(tagValues, true));
-            freeTextSeparators.append("]");
-            return freeTextSeparators.toString();
-        }
-
-        return "[',',' ']";
+        return "[" + joinWithCommaSeparator(getFreeTextSeparators(tags), true) + "]";
     }
 
     private String getSelectedEntries(final HtmlTags tags) {
         final String componentValue = getSubmittedValueOrValue(tags);
 
         if (StringUtils.isNotEmpty(componentValue)) {
-            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(",| "))).iterator();
+            final List<String> freeTextSeparators = getFreeTextSeparators(tags);
+            final String valueSplitter = StringJoiner.on("|").join(freeTextSeparators).toString();
+            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(valueSplitter))).iterator();
 
             final StringBuilder sb = new StringBuilder();
 
@@ -108,7 +106,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
                 if (StringUtils.isNotEmpty(next)) {
                     sb.append("{displayValue:'" + next + "'}");
                     if (iterator.hasNext()) {
-                        sb.append(", ");
+                        sb.append(",");
                     }
                 }
             }
