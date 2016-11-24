@@ -109,8 +109,10 @@ gulp.task("typescript:lint", ["typescript:loadDefinitions"], function () {
             paths.source.typescripts,
             "!" + paths.destination.ts_external_definitions + "/**/*.ts"
         ])
-        .pipe(tslint())
-        .pipe(tslint.report("verbose"));
+        .pipe(tslint({
+            formatter: "verbose"
+        }))
+        .pipe(tslint.report())
 });
 
 gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {

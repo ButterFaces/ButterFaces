@@ -1,6 +1,6 @@
 ///<reference path="definitions/external/tsd.d.ts"/>
 
-(function ($:any) {
+(function ($: any) {
     // extend jQuery --------------------------------------------------------------------
     $.fn.multilinePlaceholder = function () {
 
@@ -8,7 +8,7 @@
             let $originalElement = $(this);
             let $textarea = $originalElement.find("textarea");
             let placeholder = $textarea.attr("placeholder");
-            let multilinePlaceholder = placeholder.replace(/\\n/g, '\n');
+            let multilinePlaceholder = placeholder.replace(/\\n/g, "\n");
             $textarea.attr("placeholder", multilinePlaceholder);
         });
 
