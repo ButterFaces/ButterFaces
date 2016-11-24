@@ -5,11 +5,11 @@
     $.fn.multilinePlaceholder = function () {
 
         return this.each(function () {
-            var $originalElement = $(this);
-            var $textarea = $originalElement.find('textarea');
-            var placeholder = $textarea.attr('placeholder');
-            var multilinePlaceholder = placeholder.replace(/\\n/g, '\n');
-            $textarea.attr('placeholder', multilinePlaceholder);
+            let $originalElement = $(this);
+            let $textarea = $originalElement.find("textarea");
+            let placeholder = $textarea.attr("placeholder");
+            let multilinePlaceholder = placeholder.replace(/\\n/g, '\n');
+            $textarea.attr("placeholder", multilinePlaceholder);
         });
 
     };

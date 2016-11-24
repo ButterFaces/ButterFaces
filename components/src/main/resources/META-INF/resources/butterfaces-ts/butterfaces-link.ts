@@ -1,4 +1,4 @@
-module ButterFaces {
+namespace ButterFaces {
     export class CommandLink {
 
         /**
@@ -7,15 +7,15 @@ module ButterFaces {
          * @param params a list of params to be added to form as hidden input fields
          * @param target the target of the form submission
          */
-        static submitForm(formId:string, params:any, target:string) {
-            let form:any = document.getElementById(formId);
+        static submitForm(formId: string, params: any, target: string) {
+            let form: any = document.getElementById(formId);
 
             ButterFaces.CommandLink.addParametersAsHiddenFieldsToForm(form, params);
             let oldFormTarget = ButterFaces.CommandLink.setFormTarget(form, target);
 
             if (form.onsubmit) {
-                var result = form.onsubmit();
-                if ((typeof result == 'undefined') || result) {
+                let result = form.onsubmit();
+                if ((typeof result === "undefined") || result) {
                     form.submit();
                 }
             } else {
@@ -26,15 +26,15 @@ module ButterFaces {
             ButterFaces.CommandLink.removeHiddenFieldsFromForm(form);
         }
 
-        private static addParametersAsHiddenFieldsToForm(form:any, params:any) {
+        private static addParametersAsHiddenFieldsToForm(form: any, params: any) {
             let bfHiddenInputFields = new Array();
             form.bfHiddenInputFields = bfHiddenInputFields;
 
-            var i:number = 0;
+            let i: number = 0;
 
-            for (var k in params) {
+            for (let k in params) {
                 if (params.hasOwnProperty(k)) {
-                    var p = document.createElement("input");
+                    let p = document.createElement("input");
                     p.type = "hidden";
                     p.name = k;
                     p.value = params[k];
@@ -44,10 +44,10 @@ module ButterFaces {
             }
         }
 
-        private static removeHiddenFieldsFromForm(form:any) {
-            var bfHiddenInputFields = form.bfHiddenInputFields;
+        private static removeHiddenFieldsFromForm(form: any) {
+            let bfHiddenInputFields = form.bfHiddenInputFields;
             if (bfHiddenInputFields !== null) {
-                for (var i = 0; i < bfHiddenInputFields.length; i++) {
+                for (let i = 0; i < bfHiddenInputFields.length; i++) {
                     form.removeChild(bfHiddenInputFields[i]);
                 }
             }
@@ -59,8 +59,8 @@ module ButterFaces {
          * @param target the target to add (if not null)
          * @return the previous form target
          */
-        private static setFormTarget(form:any, target:string):string {
-            let previousTarget:string = form.target;
+        private static setFormTarget(form: any, target: string): string {
+            let previousTarget: string = form.target;
 
             if (target) {
                 form.target = target;

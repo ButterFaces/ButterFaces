@@ -1,15 +1,15 @@
 ///<reference path="definitions/external/tsd.d.ts"/>
 ///<reference path="butterfaces-overlay.ts"/>
 
-module ButterFaces {
+namespace ButterFaces {
     export class Ajax {
-        static sendRequest(clientId:string, event:string, renderIds:string[], /*optional string */ params:string, disableRenderIds:boolean) {
+        static sendRequest(clientId: string, event: string, renderIds: string[], /*optional string */ params: string, disableRenderIds: boolean) {
             jsf.ajax.request(clientId, event, {
                 "javax.faces.behavior.event": event,
                 render: renderIds.join(", "),
                 params: params,
                 onevent: (function (data) {
-                    //console.log(data);
+                    // console.log(data);
                     if (disableRenderIds) {
                         ButterFaces.Ajax.disableElementsOnRequest(data, renderIds);
                     }
@@ -17,8 +17,8 @@ module ButterFaces {
             });
         };
 
-        static disableElementsOnRequest(data:any, ids:string[]) {
-            var status:string = data.status;
+        static disableElementsOnRequest(data: any, ids: string[]) {
+            let status: string = data.status;
 
             // console.log(data);
             // console.log(ids);
@@ -27,13 +27,13 @@ module ButterFaces {
                 case "begin": // Before the ajax request is sent.
                     // console.log('ajax request begin');
 
-                    for (var i = 0; i < ids.length; i++) {
-                        var $elementToDisable = $(document.getElementById(ids[i]));
+                    for (let i = 0; i < ids.length; i++) {
+                        let $elementToDisable = $(document.getElementById(ids[i]));
 
                         if ($elementToDisable.length !== 0) {
-                            //console.log('disable ' + ids[i]);
+                            // console.log('disable ' + ids[i]);
                             new ButterFaces.Overlay(0, false, document.getElementById(ids[i])).show();
-                            //console.log('disablee ' + ids[i]);
+                            // console.log('disablee ' + ids[i]);
                         }
                     }
 
@@ -44,15 +44,15 @@ module ButterFaces {
                     break;
 
                 case "success": // After update of HTML DOM based on ajax response..
-                                // console.log('ajax request success');
+                    // console.log('ajax request success');
 
                     for (i = 0; i < ids.length; i++) {
-                        var $elementToEmable = $(document.getElementById(ids[i]));
+                        let $elementToEmable = $(document.getElementById(ids[i]));
 
                         if ($elementToEmable.length !== 0) {
-                            //console.log('enable ' + ids[i]);
+                            // console.log('enable ' + ids[i]);
                             new ButterFaces.Overlay(0, false, document.getElementById(ids[i])).hide();
-                            //console.log('enabled ' + ids[i]);
+                            // console.log('enabled ' + ids[i]);
                         }
                     }
 
