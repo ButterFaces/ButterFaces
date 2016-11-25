@@ -75,6 +75,7 @@
         <junit.version>4.11</junit.version>
         <el-api.version>2.2</el-api.version>
 
+        <version.wildfly.swarm>2016.11.0</version.wildfly.swarm>
         <version.jbossas>10.0.0.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
         <javax.faces-api.version>2.2</javax.faces-api.version>
@@ -138,6 +139,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>bom-all</artifactId>
+                <version>${version.wildfly.swarm}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
