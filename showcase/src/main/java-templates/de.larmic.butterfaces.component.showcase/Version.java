@@ -14,7 +14,7 @@ public class Version implements Serializable {
     private static final String GROUPID = "${project.groupId}";
     private static final String ARTIFACTID = "${project.artifactId}";
     private static final String REVISION = "${buildNumber}";
-    private static final String JBOSS = "${version.jbossas}";
+    private static final String JBOSS = "${version.wildfly.swarm}";
 
     public String getVersion() {
         return VERSION;
