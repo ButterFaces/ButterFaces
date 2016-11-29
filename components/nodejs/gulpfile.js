@@ -194,7 +194,7 @@ gulp.task("compileResources", ["less:compile", "typescript:compileToBundle", "ty
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildButterFacesOnlyBunde = gulp.src([
             paths.destination.bower + "/prettify.js",
-            paths.destination.bower + "/jquery.inputmask.bunde.js",
+            paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
             paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
@@ -207,7 +207,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithJQueryBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
             paths.destination.bower + "/prettify.js",
-            paths.destination.bower + "/jquery.inputmask.bunde.js",
+            paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
             paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
@@ -220,7 +220,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithBootstrapBundle = gulp.src([
             paths.destination.bower + "/prettify.js",
             paths.destination.bower + "/bootstrap.js",
-            paths.destination.bower + "/jquery.inputmask.bunde.js",
+            paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
             paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
