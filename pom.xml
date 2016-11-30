@@ -92,8 +92,8 @@
                     <!-- see http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven/ -->
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>-Psonatype-oss-release -D${gpg.arguments}</arguments>
-                    <releaseProfiles>nodejs-all,showcase-wildfly-swarm</releaseProfiles>
+                    <arguments>-D${gpg.arguments}</arguments>
+                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-wildfly-swarm</releaseProfiles>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
