@@ -93,6 +93,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <arguments>-Psonatype-oss-release -D${gpg.arguments}</arguments>
+                    <releaseProfiles>nodejs-all,showcase-wildfly-swarm</releaseProfiles>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
