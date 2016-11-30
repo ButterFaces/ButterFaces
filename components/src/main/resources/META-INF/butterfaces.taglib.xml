@@ -442,6 +442,14 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <name>format</name>
+            <type>java.lang.String</type>
+            <description>
+                The date format pattern like 'DD-MM-YYYY'. If this attribute is set, 'pickDate' and 'pickTime' will be ignored,
+                because internally used the format field, too.
+            </description>
+        </attribute>
+        <attribute>
             <name>sideBySide</name>
             <type>java.lang.Boolean</type>
         </attribute>
@@ -452,10 +460,18 @@
         <attribute>
             <name>pickDate</name>
             <type>java.lang.Boolean</type>
+            <description>
+                If set to true, the date can be picked additionally. Internally this is realized by setting the format attributed. So it conflicts
+                with the 'format' attribute.
+            </description>
         </attribute>
         <attribute>
             <name>pickTime</name>
             <type>java.lang.Boolean</type>
+            <description>
+                If set to true, the time can be picked additionally. Internally this is realized by setting the format attributed. So it conflicts
+                with the 'format' attribute.
+            </description>
         </attribute>
         <attribute>
             <name>readonly</name>

@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
@@ -66,11 +66,17 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         final String calendarDown = StringUtils.getNotNullValue(calendar.getGlyphiconDown(), "glyphicon glyphicon-chevron-down");
 
         jQueryPluginCall.append("datetimepicker({");
-        if (calendar.isPickDate() && !calendar.isPickTime()) {
-            jQueryPluginCall.append("format: \"LL\",");
-        } else if (!calendar.isPickDate() && calendar.isPickTime()) {
-            jQueryPluginCall.append("format: \"LT\",");
+
+        if (StringUtils.isNotEmpty(calendar.getFormat())) {
+            jQueryPluginCall.append("format: \"").append(calendar.getFormat()).append("\",");
+        } else {
+            if (calendar.isPickDate() && !calendar.isPickTime()) {
+                jQueryPluginCall.append("format: \"L\",");
+            } else if (!calendar.isPickDate() && calendar.isPickTime()) {
+                jQueryPluginCall.append("format: \"LT\",");
+            }
         }
+
         jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");

@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.showcase.calendar;
 
-import de.larmic.butterfaces.util.StringUtils;
-import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
-import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
-import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
+import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.util.StringUtils;
 
 @Named
 @ViewScoped
@@ -28,6 +28,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private boolean pickTime = true;
     private boolean sideBySise = false;
     private String language = "en";
+    private String format = null;
 
     @Override
     protected Object initValue() {
@@ -53,6 +54,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
         xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
+        xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
@@ -133,6 +135,14 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public CalendarIconType getSelectedIconType() {

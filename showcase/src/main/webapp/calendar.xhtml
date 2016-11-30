@@ -28,6 +28,8 @@
             <common:tagEnumControl label="language"
                                      value="#{calendarShowcase.language}"
                                      values="#{calendarShowcase.languageExamples}"/>
+            <common:tagStringControl label="format"
+                                     value="#{calendarShowcase.format}"/>
             <common:tagEnumControl label="glyphicon"
                                      value="#{calendarShowcase.selectedIconType}"
                                      values="#{calendarShowcase.calendarIconTypes}"/>
@@ -61,6 +63,7 @@
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
                         language="#{calendarShowcase.language}"
+                        format="#{calendarShowcase.format}"
                         glyphiconTime="#{calendarShowcase.glyphiconTime}"
                         glyphiconDate="#{calendarShowcase.glyphiconDate}"
                         glyphiconUp="#{calendarShowcase.glyphiconUp}"

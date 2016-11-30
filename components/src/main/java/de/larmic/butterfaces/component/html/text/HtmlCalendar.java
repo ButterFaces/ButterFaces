@@ -1,15 +1,15 @@
 package de.larmic.butterfaces.component.html.text;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.FacesComponent;
+
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import java.util.Arrays;
-import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
@@ -34,6 +34,7 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
     protected static final String PROPERTY_PICK_DATE = "pickDate";
     protected static final String PROPERTY_PICK_TIME = "pickTime";
     protected static final String PROPERTY_LANGUAGE = "language";
+    protected static final String PROPERTY_FORMAT = "format";
     protected static final String PROPERTY_SIDE_BY_SIDE = "sideBySide";
 
     public HtmlCalendar() {
@@ -83,7 +84,14 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
 
     public void setLanguage(String language) {
         this.updateStateHelper(PROPERTY_LANGUAGE, language);
-        ;
+    }
+
+    public String getFormat() {
+        return (String) this.getStateHelper().eval(PROPERTY_FORMAT);
+    }
+
+    public void setFormat(String format) {
+        this.updateStateHelper(PROPERTY_FORMAT, format);
     }
 
     public String getGlyphiconTime() {
