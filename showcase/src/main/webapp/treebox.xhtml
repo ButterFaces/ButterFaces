@@ -54,6 +54,8 @@
                                    renderChildrenPopover="false"/>
             <common:tagBooleanControl label="validate"
                                       value="#{treeBoxShowcase.validation}"/>
+            <common:tagBooleanControl label="showClearButton"
+                                      value="#{treeBoxShowcase.showClearButton}"/>
         </common:tagsContainer>
     </ui:define>
 
@@ -95,6 +97,7 @@
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'NONE'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
+                       showClearButton="#{treeBoxShowcase.showClearButton}"
                        onchange="console.log('ButterFaces.Test: check onchange')"
                        styleClass="#{treeBoxShowcase.styleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
@@ -152,6 +155,7 @@
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'INPUT_GROUP_ADDON'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
+                       showClearButton="#{treeBoxShowcase.showClearButton}"
                        styleClass="#{treeBoxShowcase.styleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="selectedEntryTemplate">
@@ -212,6 +216,7 @@
                        rendered="#{treeBoxShowcase.rendered and treeBoxShowcase.selectedFacetType == 'INPUT_GROUP_BTN'}"
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
+                       showClearButton="#{treeBoxShowcase.showClearButton}"
                        styleClass="#{treeBoxShowcase.styleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="selectedEntryTemplate">

@@ -1,12 +1,12 @@
 package de.larmic.butterfaces.component.html.text;
 
-import de.larmic.butterfaces.component.html.InputComponentFacet;
-
+import java.util.Arrays;
+import java.util.List;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import java.util.Arrays;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.InputComponentFacet;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
@@ -31,6 +31,7 @@ public class HtmlTreeBox extends HtmlText {
     protected static final String PROPERTY_VALUES = "values";
     protected static final String PROPERTY_SPINNER_TEXT = "spinnerText";
     protected static final String PROPERTY_NO_ENTRIES_TEXT = "noEntriesText";
+    protected static final String PROPERTY_SHOW_CLEAR_BUTTON = "showClearButton";
     protected static final String PROPERTY_INPUT_TEXT_PROPERTY = "inputTextProperty";
 
     public HtmlTreeBox() {
@@ -78,5 +79,13 @@ public class HtmlTreeBox extends HtmlText {
 
     public void setInputTextProperty(String inputTextProperty) {
         getStateHelper().put(PROPERTY_INPUT_TEXT_PROPERTY, inputTextProperty);
+    }
+
+    public boolean isShowClearButton() {
+        return (Boolean) getStateHelper().eval(PROPERTY_SHOW_CLEAR_BUTTON, true);
+    }
+
+    public void setShowClearButton(boolean showClearButton) {
+        getStateHelper().put(PROPERTY_SHOW_CLEAR_BUTTON, showClearButton);
     }
 }

@@ -901,6 +901,11 @@
             </description>
         </attribute>
         <attribute>
+            <name>showClearButton</name>
+            <type>java.lang.Boolean</type>
+            <description>If true, it shows 'x'-button to delete the selected entry. Is true by default.</description>
+        </attribute>
+        <attribute>
             <description>
                 The ValueExpression linking this component to a property in a
                 backing bean
