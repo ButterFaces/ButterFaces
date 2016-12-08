@@ -212,9 +212,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
 
-        if (treeBox.getShowClearButton()) {
-            jQueryPluginCall.append("\n    showClearButton: true,");
-        }
+        jQueryPluginCall.append("\n    showClearButton: ").append(evaluateShowClearButtonValue(treeBox, webXmlParameters)).append(",");
 
         if (selectedEntryId != null && selectedNode != null) {
             jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
@@ -245,7 +243,17 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         return jQueryPluginCall.toString();
     }
 
-    private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType, final Map<Integer, Node> nodesMap) {
+   boolean evaluateShowClearButtonValue(HtmlTreeBox treeBox, WebXmlParameters webXmlParameters) {
+      boolean showClearButtonConf;
+      if (treeBox.getShowClearButton() == null) {
+          showClearButtonConf = webXmlParameters.isShowTreeBoxClearButton();
+      } else {
+          showClearButtonConf = treeBox.getShowClearButton();
+      }
+      return showClearButtonConf;
+   }
+
+   private Integer findValueInCachedNodes(final Object treeBoxValue, final TreeBoxModelType treeBoxModelType, final Map<Integer, Node> nodesMap) {
         if (treeBoxModelType == TreeBoxModelType.OBJECTS && treeBoxValue != null) {
             for (Integer index : nodesMap.keySet()) {
                 final Node node = nodesMap.get(index);

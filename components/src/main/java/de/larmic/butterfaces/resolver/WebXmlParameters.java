@@ -5,9 +5,9 @@
  */
 package de.larmic.butterfaces.resolver;
 
-import de.larmic.butterfaces.util.StringUtils;
-
 import javax.faces.context.ExternalContext;
+
+import de.larmic.butterfaces.util.StringUtils;
 
 /**
  * Easy way to get access of all butterfaces web.xml parameters.
@@ -29,6 +29,8 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_ORDER_RIGHT_GLYPHICON = "org.butterfaces.glyhicon.order.right";
     public static final String CTX_PARAM_COLLAPSING_GLYPHICON = "org.butterfaces.glyhicon.collapsing";
     public static final String CTX_PARAM_EXPANSION_GLYPHICON = "org.butterfaces.glyhicon.expansion";
+
+    public static final String CTX_PARAM_TREEBOX_SHOW_CLEAR_BUTTON = "org.butterfaces.treebox.showClearButton";
 
     public static final String CTX_PARAM_AJAX_PROCESSING_TEXT = "org.butterfaces.ajaxProcessingTextOnRequest";
     public static final String CTX_PARAM_AJAX_PROCESSING_GLYPHICON = "org.butterfaces.ajaxProcessingGlyphiconOnRequest";
@@ -79,10 +81,14 @@ public class WebXmlParameters {
     private final boolean autoTrimInputFields;
     private final boolean intergrationPrimeFacesDisableJQuery;
 
+    private final boolean showTreeBoxClearButton;
+
     public WebXmlParameters(final ExternalContext externalContext) {
         this.provideJQuery = this.readBooleanParameter(CTX_PARAM_JQUERY, externalContext);
         this.provideBoostrap = this.readBooleanParameter(CTX_PARAM_BOOTSTRAP, externalContext);
         this.useCompressedResources = this.readBooleanParameter(CTX_PARAM_USE_COMPRESSED_RESOURCES, externalContext);
+
+        this.showTreeBoxClearButton = this.readBooleanParameter(CTX_PARAM_TREEBOX_SHOW_CLEAR_BUTTON, externalContext);
 
         this.refreshGlyphicon = this.readParameter(CTX_PARAM_REFRESH_GLYPHICON, DEFAULT_REFRESH_GLYPHICON, externalContext);
         this.optionsGlyphicon = this.readParameter(CTX_PARAM_OPTIONS_GLYPHICON, DEFAULT_OPTIONS_GLYPHICON, externalContext);
@@ -192,5 +198,9 @@ public class WebXmlParameters {
 
     public String getMaxLengthText() {
         return maxLengthText;
+    }
+
+    public boolean isShowTreeBoxClearButton() {
+        return showTreeBoxClearButton;
     }
 }

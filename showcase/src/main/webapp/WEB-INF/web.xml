@@ -88,6 +88,11 @@
     </context-param>
 
     <context-param>
+        <param-name>org.butterfaces.treebox.showClearButton</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>org.butterfaces.ajaxDisableRenderRegionsOnRequest</param-name>
         <param-value>true</param-value>
     </context-param>

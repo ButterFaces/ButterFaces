@@ -82,7 +82,7 @@ public class HtmlTreeBox extends HtmlText {
     }
 
     public Boolean getShowClearButton() {
-        return (Boolean) getStateHelper().eval(PROPERTY_SHOW_CLEAR_BUTTON, Boolean.TRUE);
+        return (Boolean) getStateHelper().eval(PROPERTY_SHOW_CLEAR_BUTTON);
     }
 
     public void setShowClearButton(Boolean showClearButton) {

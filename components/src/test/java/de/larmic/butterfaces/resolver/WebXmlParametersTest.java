@@ -1,13 +1,13 @@
 package de.larmic.butterfaces.resolver;
 
-import org.junit.Assert;
+import javax.faces.context.ExternalContext;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import javax.faces.context.ExternalContext;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -35,8 +35,6 @@ public class WebXmlParametersTest {
 
     private static final String OVERRIDDEN_AJAX_PROCESSING_TEXT = "Loading";
     private static final String OVERRIDDEN_AJAX_PROCESSING_GLYPHICON = "fa fa-refresh fa-spin";
-
-    private static final boolean OVERRIDDEN_CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY = false;
 
     @Mock
     private ExternalContext defaultValueExternalContext;
@@ -81,38 +79,38 @@ public class WebXmlParametersTest {
 
     @Test
     public void testIsAjaxDisableRenderRegionsOnRequest() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(defaultValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
-        Assert.assertEquals(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(overriddenValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
+        assertEquals(WebXmlParameters.DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(defaultValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
+        assertEquals(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(overriddenValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
     }
 
     @Test
     public void testGetSpinnerText() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_SPINNER_TEXT, new WebXmlParameters(defaultValueExternalContext).getSpinnerText());
-        Assert.assertEquals(OVERRIDDEN_SPINNER_TEXT, new WebXmlParameters(overriddenValueExternalContext).getSpinnerText());
+        assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_SPINNER_TEXT, new WebXmlParameters(defaultValueExternalContext).getSpinnerText());
+        assertEquals(OVERRIDDEN_SPINNER_TEXT, new WebXmlParameters(overriddenValueExternalContext).getSpinnerText());
     }
 
     @Test
     public void testGetMaxLengthText() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT, new WebXmlParameters(defaultValueExternalContext).getMaxLengthText());
-        Assert.assertEquals(OVERRIDDEN_MAX_LENGTH_TEXT, new WebXmlParameters(overriddenValueExternalContext).getMaxLengthText());
+        assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT, new WebXmlParameters(defaultValueExternalContext).getMaxLengthText());
+        assertEquals(OVERRIDDEN_MAX_LENGTH_TEXT, new WebXmlParameters(overriddenValueExternalContext).getMaxLengthText());
     }
 
     @Test
     public void testGetNoEntriesText() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, new WebXmlParameters(defaultValueExternalContext).getNoEntriesText());
-        Assert.assertEquals(OVERRIDDEN_NO_ENTRIES_TEXT, new WebXmlParameters(overriddenValueExternalContext).getNoEntriesText());
+        assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT, new WebXmlParameters(defaultValueExternalContext).getNoEntriesText());
+        assertEquals(OVERRIDDEN_NO_ENTRIES_TEXT, new WebXmlParameters(overriddenValueExternalContext).getNoEntriesText());
     }
 
     @Test
     public void testGetRefreshGlyphicon() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_REFRESH_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getRefreshGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_REFRESH, new WebXmlParameters(overriddenValueExternalContext).getRefreshGlyphicon());
+        assertEquals(WebXmlParameters.DEFAULT_REFRESH_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getRefreshGlyphicon());
+        assertEquals(OVERRIDDEN_REFRESH, new WebXmlParameters(overriddenValueExternalContext).getRefreshGlyphicon());
     }
 
     @Test
     public void testGetOptionsGlyphicon() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_OPTIONS_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOptionsGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_OPTIONS, new WebXmlParameters(overriddenValueExternalContext).getOptionsGlyphicon());
+        assertEquals(WebXmlParameters.DEFAULT_OPTIONS_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOptionsGlyphicon());
+        assertEquals(OVERRIDDEN_OPTIONS, new WebXmlParameters(overriddenValueExternalContext).getOptionsGlyphicon());
     }
 
     @Test
@@ -142,35 +140,35 @@ public class WebXmlParametersTest {
 
     @Test
     public void testOrderParameters() throws Exception {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_ORDER_LEFT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderLeftGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_ORDER_LEFT, new WebXmlParameters(overriddenValueExternalContext).getOrderLeftGlyphicon());
+        assertEquals(WebXmlParameters.DEFAULT_ORDER_LEFT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderLeftGlyphicon());
+        assertEquals(OVERRIDDEN_ORDER_LEFT, new WebXmlParameters(overriddenValueExternalContext).getOrderLeftGlyphicon());
 
-        Assert.assertEquals(WebXmlParameters.DEFAULT_ORDER_RIGHT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderRightGlyphicon());
-        Assert.assertEquals(OVERRIDDEN_ORDER_RIGHT, new WebXmlParameters(overriddenValueExternalContext).getOrderRightGlyphicon());
+        assertEquals(WebXmlParameters.DEFAULT_ORDER_RIGHT_GLYPHICON, new WebXmlParameters(defaultValueExternalContext).getOrderRightGlyphicon());
+        assertEquals(OVERRIDDEN_ORDER_RIGHT, new WebXmlParameters(overriddenValueExternalContext).getOrderRightGlyphicon());
     }
 
     @Test
     public void testAjaxProcessingTextOnRequest() {
-        Assert.assertEquals(WebXmlParameters.DEFAULT_AJAX_PROCESSING_TEXT, new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingTextOnRequest());
-        Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_TEXT, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingTextOnRequest());
+        assertEquals(WebXmlParameters.DEFAULT_AJAX_PROCESSING_TEXT, new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingTextOnRequest());
+        assertEquals(OVERRIDDEN_AJAX_PROCESSING_TEXT, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingTextOnRequest());
     }
 
     @Test
     public void testAjaxProcessingGlyphiconOnRequest() {
-        Assert.assertEquals("", new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
-        Assert.assertEquals(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
+        assertEquals("", new WebXmlParameters(defaultValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
+        assertEquals(OVERRIDDEN_AJAX_PROCESSING_GLYPHICON, new WebXmlParameters(overriddenValueExternalContext).getAjaxProcessingGlyphiconOnRequest());
     }
 
     @Test
     public void testAutoTrimInputFields() {
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isAutoTrimInputFields());
-        Assert.assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isAutoTrimInputFields());
+        assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isAutoTrimInputFields());
+        assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isAutoTrimInputFields());
     }
 
     @Test
     public void testIntegrationPrimeFacesDisableJQuery() throws Exception {
-        Assert.assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
-        Assert.assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
+        assertEquals(true, new WebXmlParameters(defaultValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
+        assertEquals(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS, new WebXmlParameters(overriddenValueExternalContext).isIntegrationPrimeFacesDisableJQuery());
 
     }
 }
