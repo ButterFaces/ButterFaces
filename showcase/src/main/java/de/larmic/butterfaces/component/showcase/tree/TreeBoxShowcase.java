@@ -39,7 +39,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     private String placeholder = "Enter text...";
     private String inputTextProperty;
     private boolean autoFocus;
-    private boolean showClearButton = true;
+    private Boolean showClearButton = Boolean.TRUE;
     private String noEntriesText;
     private String spinnerText;
 
@@ -108,7 +108,7 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   inputTextProperty=\"" + this.getInputTextProperty() + "\"");
         xhtmlCodeExample.appendInnerContent("                   required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                   autoFocus=\"" + this.isAutoFocus() + "\"");
-        xhtmlCodeExample.appendInnerContent("                   showClearButton=\"" + this.isShowClearButton() + "\"");
+        xhtmlCodeExample.appendInnerContent("                   showClearButton=\"" + this.getShowClearButton() + "\"");
         if (StringUtils.isNotEmpty(spinnerText)) {
             xhtmlCodeExample.appendInnerContent("                   spinnerText=\"" + spinnerText + "\"");
         }
@@ -307,11 +307,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         this.inputTextProperty = inputTextProperty;
     }
 
-    public boolean isShowClearButton() {
+    public Boolean getShowClearButton() {
         return showClearButton;
     }
 
-    public void setShowClearButton(boolean showClearButton) {
+    public void setShowClearButton(Boolean showClearButton) {
         this.showClearButton = showClearButton;
     }
 }

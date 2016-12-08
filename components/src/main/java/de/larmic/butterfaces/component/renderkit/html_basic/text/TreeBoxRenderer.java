@@ -212,7 +212,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
 
-        if (treeBox.isShowClearButton()) {
+        if (treeBox.getShowClearButton()) {
             jQueryPluginCall.append("\n    showClearButton: true,");
         }
 
