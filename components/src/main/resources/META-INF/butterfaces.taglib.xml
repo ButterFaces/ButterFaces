@@ -646,6 +646,10 @@
             <required>true</required>
         </attribute>
         <attribute>
+            <name>entries</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
             <name>hideLabel</name>
             <type>java.lang.Boolean</type>
         </attribute>

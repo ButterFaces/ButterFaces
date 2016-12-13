@@ -30,6 +30,7 @@ public class HtmlTags extends HtmlText {
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.TagsRenderer";
 
 
+    protected static final String PROPERTY_ENTRIES = "entries";
     protected static final String PROPERTY_MAX_TAGS = "maxTags";
     protected static final String PROPERTY_DISTINCT = "distinct";
     protected static final String PROPERTY_CONFIRM_KEYS = "confirmKeys";
@@ -56,6 +57,14 @@ public class HtmlTags extends HtmlText {
 
     public void setMaxTags(Integer maxTags) {
         this.updateStateHelper(PROPERTY_MAX_TAGS, maxTags);
+    }
+
+    public List<Object> getEntries() {
+        return (List<Object>) this.getStateHelper().eval(PROPERTY_ENTRIES);
+    }
+
+    public void setEntries(List<Object> entries) {
+        this.updateStateHelper(PROPERTY_ENTRIES, entries);
     }
 
     public boolean isDistinct() {

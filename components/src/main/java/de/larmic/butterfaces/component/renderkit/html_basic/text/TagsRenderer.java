@@ -3,21 +3,24 @@ package de.larmic.butterfaces.component.renderkit.html_basic.text;
 import de.larmic.butterfaces.component.html.text.HtmlTags;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
+import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
+import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
 import static de.larmic.butterfaces.util.StringUtils.joinWithCommaSeparator;
 
 @FacesRenderer(componentFamily = HtmlTags.COMPONENT_FAMILY, rendererType = HtmlTags.RENDERER_TYPE)
@@ -53,14 +56,24 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
     protected void encodeEnd(HtmlTags htmlTags, ResponseWriter writer) throws IOException {
         writer.startElement("script", htmlTags);
 
-        //writer.writeText("var entries_" + htmlTags.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
+        final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
+        final String treeBoxReadableId = htmlTags.getClientId().replace(clientIdSeparator, "_");
+        final List<Node> entries = createEntries(htmlTags.getEntries());
+
+        if (!entries.isEmpty()) {
+            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), htmlTags);
+            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
+            writer.writeText("jQuery(function () {\n", null);
+            writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
+            writer.writeText("});", null);
+        }
 
         writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
         writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallTivial(final HtmlTags tags) {
+    private String createJQueryPluginCallTivial(final HtmlTags tags) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
@@ -85,6 +98,18 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         jQueryPluginCall.append("});");
 
         return jQueryPluginCall.toString();
+    }
+
+    private List<Node> createEntries(final List<Object> objects) {
+        final List<Node> entries = new ArrayList<>();
+
+        if (objects != null) {
+            for (Object object : objects) {
+                entries.add(new DefaultNodeImpl(null, object));
+            }
+        }
+
+        return entries;
     }
 
     private String createFreeTextSeparators(final HtmlTags tags) {
@@ -117,7 +142,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         return null;
     }
 
-    public String getSubmittedValueOrValue(final HtmlTags tags) {
+    private String getSubmittedValueOrValue(final HtmlTags tags) {
         if (tags.getSubmittedValue() != null) {
             return tags.getSubmittedValue().toString();
         }

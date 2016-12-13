@@ -1,13 +1,16 @@
 package de.larmic.butterfaces.component.showcase.tags;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.tree.Episodes;
+import de.larmic.butterfaces.util.StringUtils;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -15,6 +18,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class TagsShowcase extends AbstractInputShowcase implements Serializable {
 
+    private TagsExampleType selectedTagsExampleType = TagsExampleType.STRINGS;
     private String placeholder = "Enter text...";
     private String confirmKeys;
     private boolean autoFocus;
@@ -71,6 +75,23 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         generateDemoCSS(codeExamples);
     }
 
+    public List<SelectItem> getTagsExampleTypes() {
+        final List<SelectItem> items = new ArrayList<>();
+
+        for (final TagsExampleType type : TagsExampleType.values()) {
+            items.add(new SelectItem(type, type.label));
+        }
+        return items;
+    }
+
+    public List getEntries() {
+        if (selectedTagsExampleType == TagsExampleType.EXPERIMENTAL) {
+            return Episodes.EPISODES;
+        }
+
+        return null;
+    }
+
     public String getPlaceholder() {
         return this.placeholder;
     }
@@ -109,5 +130,13 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
 
     public void setConfirmKeys(String confirmKeys) {
         this.confirmKeys = confirmKeys;
+    }
+
+    public TagsExampleType getSelectedTagsExampleType() {
+        return selectedTagsExampleType;
+    }
+
+    public void setSelectedTagsExampleType(TagsExampleType selectedTagsExampleType) {
+        this.selectedTagsExampleType = selectedTagsExampleType;
     }
 }
