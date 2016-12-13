@@ -5,20 +5,6 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
@@ -29,9 +15,21 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialCom
 import de.larmic.butterfaces.context.StringHtmlEncoder;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
-import de.larmic.butterfaces.resolver.MustacheResolver;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
 
 /**
  * @author Lars Michaelis
@@ -85,38 +83,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         }
     }
 
-    /**
-     * TODO: trivial components does not support foo.bar so this methods replaces foo.bar by foo_bar.
-     * TODO this could removed if https://github.com/trivial-components/trivial-components/issues/36 is fixed
-     */
-    private List<String> replaceDotInMustacheKeys(final List<String> mustacheKeys) {
-        final List<String> fixedMustacheKeys = new ArrayList<>();
-
-        for (String mustacheKey : mustacheKeys) {
-            fixedMustacheKeys.add(mustacheKey.replace('.', '#'));
-        }
-
-        return fixedMustacheKeys;
-    }
-
-    private List<String> createMustacheKeys(FacesContext context, HtmlTreeBox treeBox) throws IOException {
-        final Set<String> mustacheKeys = new HashSet<>();
-        mustacheKeys.addAll(createMustacheKeysFromTemplate(context, treeBox, "template"));
-        mustacheKeys.addAll(createMustacheKeysFromTemplate(context, treeBox, "emptyEntryTemplate"));
-        mustacheKeys.addAll(createMustacheKeysFromTemplate(context, treeBox, "selectedEntryTemplate"));
-        return new ArrayList<>(mustacheKeys);
-    }
-
-    private List<String> createMustacheKeysFromTemplate(FacesContext context, HtmlTreeBox treeBox, String facetKey) throws IOException {
-        final UIComponent templateFacet = treeBox.getFacet(facetKey);
-        if (templateFacet != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, templateFacet);
-            return MustacheResolver.getMustacheKeysForTreeNode(encodedTemplate);
-        } else {
-            return Collections.emptyList();
-        }
-    }
-
     @Override
     protected void encodeInnerEnd(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlTreeBox treeBox = (HtmlTreeBox) component;
@@ -155,21 +121,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null
                 ? (node.getData() instanceof EnumTreeBoxWrapper ? ((EnumTreeBoxWrapper) node.getData()).getEnumValue() : node.getData())
                 : node;
-    }
-
-    /**
-     * TODO: trivial components does not support foo.bar so this methods replaces foo.bar by foo_bar.
-     * TODO this could removed if https://github.com/trivial-components/trivial-components/issues/36 is fixed
-     */
-    private String replaceDotInMustacheKeys(final List<String> mustacheKeys, final String pluginCall) {
-        String fixedPluginCall = pluginCall;
-        for (String mustacheKey : mustacheKeys) {
-            if (mustacheKey.contains(".")) {
-                fixedPluginCall = fixedPluginCall.replace("{{" + mustacheKey + "}}", "{{" + mustacheKey.replace('.', '#') + "}}");
-            }
-        }
-
-        return fixedPluginCall;
     }
 
     private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,
