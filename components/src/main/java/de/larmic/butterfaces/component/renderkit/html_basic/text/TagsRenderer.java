@@ -60,20 +60,26 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         final String treeBoxReadableId = htmlTags.getClientId().replace(clientIdSeparator, "_");
         final List<Node> entries = createEntries(htmlTags.getEntries());
 
+        writer.writeText("jQuery(function () {\n", null);
         if (!entries.isEmpty()) {
             final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), htmlTags);
             final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
-            writer.writeText("jQuery(function () {\n", null);
             writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
-            writer.writeText("});", null);
         }
 
-        writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTivial(htmlTags)), null);
-        writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
+        final String jQueryBySelector = RenderUtils.createJQueryBySelector(htmlTags.getClientId(), ".butter-input-component");
+        final String pluginCall = createJQueryPluginCallTrivial(htmlTags);
+        writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
+        writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
+
+        writer.writeText("});", null);
+
+        //writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTrivial(htmlTags)), null);
+        //writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallTivial(final HtmlTags tags) throws IOException {
+    private String createJQueryPluginCallTrivial(final HtmlTags tags) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
