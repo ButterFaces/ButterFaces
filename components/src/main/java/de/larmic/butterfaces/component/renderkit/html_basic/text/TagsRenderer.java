@@ -18,6 +18,7 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.*;
 
+import static de.larmic.butterfaces.component.renderkit.html_basic.text.TreeBoxRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
@@ -68,18 +69,16 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         }
 
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(htmlTags.getClientId(), ".butter-input-component");
-        final String pluginCall = createJQueryPluginCallTrivial(htmlTags);
+        final String pluginCall = createJQueryPluginCallTrivial(htmlTags, entries.isEmpty() ? null : "entries_" + treeBoxReadableId);
         writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
         writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
 
         writer.writeText("});", null);
 
-        //writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), ".butter-input-component", createJQueryPluginCallTrivial(htmlTags)), null);
-        //writer.writeText(RenderUtils.createJQueryPluginCall(htmlTags.getClientId(), null, "_butterTagsInit();"), null);
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallTrivial(final HtmlTags tags) throws IOException {
+    private String createJQueryPluginCallTrivial(final HtmlTags tags, final String entriesVar) throws IOException {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
@@ -90,6 +89,11 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         jQueryPluginCall.append("\n    showTrigger: false,");
         jQueryPluginCall.append("\n    distinct: " + tags.isDistinct() + ",");
         jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
+        jQueryPluginCall.append("\n    matchingOptions: { \n" +
+                "            \"matchingMode\": \"contains\",\n" +
+                "            \"ignoreCase\": true\n" +
+                "        },");
+
         if (tags.getMaxTags() != null) {
             jQueryPluginCall.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
         }
@@ -97,9 +101,20 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         if (StringUtils.isNotEmpty(selectedEntries)) {
             jQueryPluginCall.append("\n    selectedEntries: [" + selectedEntries + "],");
         }
-        jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
-        jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
+
+        if (StringUtils.isNotEmpty(entriesVar)) {
+            jQueryPluginCall.append("\n    valueProperty: 'id',");
+            jQueryPluginCall.append("\n    entries: " + entriesVar + ",");
+            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
+            jQueryPluginCall.append("\n    inputTextProperty: 'butterObjectToString',");
+        } else {
+            jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
+            jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
+        }
+
         jQueryPluginCall.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
+
+
         jQueryPluginCall.append("\n    valueSeparator: [',']");
         jQueryPluginCall.append("});");
 
