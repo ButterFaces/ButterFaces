@@ -46,7 +46,7 @@ namespace ButterFaces {
                 case "success": // After update of HTML DOM based on ajax response..
                     // console.log('ajax request success');
 
-                    for (i = 0; i < ids.length; i++) {
+                    for (let i = 0; i < ids.length; i++) {
                         let $elementToEmable = $(document.getElementById(ids[i]));
 
                         if ($elementToEmable.length !== 0) {
