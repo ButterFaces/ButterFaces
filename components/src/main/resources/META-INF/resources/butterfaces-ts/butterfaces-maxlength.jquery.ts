@@ -1,5 +1,6 @@
 ///<reference path="definitions/external/jquery/jquery.d.ts"/>
 ///<reference path="butterfaces-util-string.ts"/>
+///<reference path="butterfaces-util-object.ts"/>
 
 (function ($: any) {
     $.fn.butterMaxLength = function (maxLength: number, maxLengthText: string) {
@@ -19,7 +20,7 @@
                     let value = $valueElement.val();
                     // console.log("checking value");
                     // console.log(value);
-                    if (typeof value !== "undefined") {
+                    if (!ButterFaces.Object.isNullOrUndefined(value)) {
                         let freeLetterCount = maxLength - value.length;
                         let formatted = ButterFaces.String.format(maxLengthText, [freeLetterCount, maxLength]);
                         $maxLength.text(formatted);

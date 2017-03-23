@@ -1,3 +1,5 @@
+///<reference path="butterfaces-util-object.ts"/>
+
 namespace ButterFaces {
     export class CommandLink {
 
@@ -15,7 +17,7 @@ namespace ButterFaces {
 
             if (form.onsubmit) {
                 let result = form.onsubmit();
-                if ((typeof result === "undefined") || result) {
+                if (ButterFaces.Object.isNullOrUndefined(result) || result) {
                     form.submit();
                 }
             } else {

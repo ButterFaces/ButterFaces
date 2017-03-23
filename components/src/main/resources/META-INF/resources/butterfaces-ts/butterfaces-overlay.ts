@@ -1,5 +1,6 @@
 ///<reference path="definitions/external/tsd.d.ts"/>
 ///<reference path="butterfaces-guid.ts"/>
+///<reference path="butterfaces-util-object.ts"/>
 
 namespace ButterFaces {
 
@@ -30,7 +31,7 @@ namespace ButterFaces {
                 this.isHiding = false;
 
 
-                if ($elementToDisable.attr("data-overlay-uuid") !== undefined) {
+                if (!ButterFaces.Object.isNullOrUndefined($elementToDisable.attr("data-overlay-uuid"))) {
                     if (ButterFaces.Overlay.findOverlay($elementToDisable.attr("data-overlay-uuid")).length > 0) {
                         console.log("ButterFaces.Overlay.show - overlay already existing. Skip showing overlay");
                         return;
@@ -96,7 +97,7 @@ namespace ButterFaces {
                 let $elementToDisable = $(elementToDisable);
                 let overlayUuid = $elementToDisable.attr("data-overlay-uuid");
 
-                if (overlayUuid !== undefined && ButterFaces.Overlay.findOverlay(overlayUuid).length > 0) {
+                if (!ButterFaces.Object.isNullOrUndefined(overlayUuid) && ButterFaces.Overlay.findOverlay(overlayUuid).length > 0) {
                     let $overlay = ButterFaces.Overlay.findOverlay($elementToDisable.attr("data-overlay-uuid"));
 
                     ButterFaces.Overlay.fadeOutOverlay($overlay);
