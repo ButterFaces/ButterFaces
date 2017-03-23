@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "module": "es2015",
+    "moduleResolution": "Node",
+    "outDir": "./out-tsc",
+    "sourceMap": true,
+    "target": "es5",
+    "typeRoots": [
+      "../src/main/resources/META-INF/resources/butterfaces-ts/definitions"
+    ]
+  }
+}

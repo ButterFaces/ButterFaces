@@ -9,7 +9,7 @@ namespace ButterFaces {
         selector: string;
         isTransparentBlockingOverlayActive: boolean;
 
-        constructor(delay = 500, isTransparentBlockingOverlayActive = true, selector = "body") {
+        constructor(delay = 500, isTransparentBlockingOverlayActive = true, selector:any = "body") {
             this.isHiding = true;
             this.delay = delay;
             this.isTransparentBlockingOverlayActive = isTransparentBlockingOverlayActive;

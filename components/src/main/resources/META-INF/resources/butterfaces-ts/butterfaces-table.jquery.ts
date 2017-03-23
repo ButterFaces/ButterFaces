@@ -18,7 +18,7 @@
 }(jQuery));
 
 (function ($: any) {
-    $.fn.sortTableRow = function (renderIds, disableRenderIds, columnNumber) {
+    $.fn.sortTableRow = function (renderIds :any, disableRenderIds :any, columnNumber :any) {
         return this.each(function () {
             let $table = $(this);
 

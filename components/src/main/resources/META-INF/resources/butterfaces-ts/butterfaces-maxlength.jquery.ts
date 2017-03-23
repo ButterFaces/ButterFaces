@@ -21,7 +21,7 @@
                     // console.log(value);
                     if (typeof value !== "undefined") {
                         let freeLetterCount = maxLength - value.length;
-                        let formatted = ButterFaces.String.format(maxLengthText, freeLetterCount, maxLength);
+                        let formatted = ButterFaces.String.format(maxLengthText, [freeLetterCount, maxLength]);
                         $maxLength.text(formatted);
 
                         if (!hasInitialValidationError) {
