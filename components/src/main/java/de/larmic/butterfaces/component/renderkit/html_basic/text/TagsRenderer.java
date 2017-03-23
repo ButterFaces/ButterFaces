@@ -150,7 +150,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
             while (iterator.hasNext()) {
                 final String next = iterator.next();
                 if (StringUtils.isNotEmpty(next)) {
-                    sb.append("{displayValue:'" + next + "'}");
+                    sb.append("{displayValue:'" + escapeDisplayValue(next) + "'}");
                     if (iterator.hasNext()) {
                         sb.append(",");
                     }
@@ -161,6 +161,10 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         }
 
         return null;
+    }
+
+    private String escapeDisplayValue(String value) {
+        return value.replaceAll("'", "\\\\'");
     }
 
     private String getSubmittedValueOrValue(final HtmlTags tags) {
