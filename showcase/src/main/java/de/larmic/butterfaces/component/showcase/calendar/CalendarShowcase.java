@@ -53,14 +53,30 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
-        xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
-        xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
-        xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
-        xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
-        xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
-        xhtmlCodeExample.appendInnerContent("                    glyphiconDown=\"" + glyphiconDown + "\"");
-        xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
+        if(StringUtils.isNotEmpty(language)) {
+            xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
+        }
+        if(StringUtils.isNotEmpty(format)){
+            xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
+        }
+        if(StringUtils.isNotEmpty(glyphiconDate)) {
+            xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
+        }
+        if(StringUtils.isNotEmpty(glyphiconTime)) {
+            xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
+        }
+        if(StringUtils.isNotEmpty(glyphiconUp)) {
+            xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
+        }
+        if(StringUtils.isNotEmpty(glyphiconDown)) {
+            xhtmlCodeExample.appendInnerContent("                    glyphiconDown=\"" + glyphiconDown + "\"");
+        }
+        if(StringUtils.isNotEmpty(getPlaceholder())) {
+            xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + getPlaceholder() + "\"");
+        }
+        if(StringUtils.isNotEmpty(getStyleClass())) {
+            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");
