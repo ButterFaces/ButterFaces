@@ -77,14 +77,16 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             }
         }
 
+        if (StringUtils.isNotEmpty(calendar.getLanguage())) {
+            jQueryPluginCall.append("locale: \"" + calendar.getLanguage() + "\",");
+        }
         jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
         jQueryPluginCall.append("date: '" + calendarDate + "',");
         jQueryPluginCall.append("up: '" + calendarUp + "',");
         jQueryPluginCall.append("down: '" + calendarDown + "'");
-        jQueryPluginCall.append("},");
-        jQueryPluginCall.append("locale: \"" + calendar.getLanguage() + "\"");
+        jQueryPluginCall.append("}");
         jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }
