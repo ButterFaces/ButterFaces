@@ -76,6 +76,25 @@ public class RenderUtils {
         return jsCall.toString();
     }
 
+    public static String createJQueryBySelectorWithoutDot(String elementId, String childSelector) {
+        final StringBuilder jsCall = new StringBuilder();
+
+        jsCall.append("jQuery(");
+        jsCall.append("document.getElementById('");
+        jsCall.append(elementId);
+        jsCall.append("')");
+        jsCall.append(")");
+
+        if (StringUtils.isNotEmpty(childSelector)) {
+            jsCall.append(".");
+            jsCall.append("find('");
+            jsCall.append(childSelector);
+            jsCall.append("')");
+        }
+
+        return jsCall.toString();
+    }
+
     public static String createOptionsStringForJQueryPluginCall(Map<String, String> options) {
         StringBuilder sb = new StringBuilder("{");
         int index = 0;

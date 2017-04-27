@@ -55,6 +55,7 @@
     "gulp-strip-debug": "1.0.2",
     "gulp-gzip": "1.2.0",
     "gulp-sizereport": "1.1.3",
-    "uglify-js": "2.5.0"
+    "uglify-js": "2.5.0",
+    "trivial-components": "0.1.6"
   }
 }

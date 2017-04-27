@@ -18,7 +18,6 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.*;
 
-import static de.larmic.butterfaces.component.renderkit.html_basic.text.TreeBoxRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
@@ -68,58 +67,47 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
             writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
         }
 
-        final String jQueryBySelector = RenderUtils.createJQueryBySelector(htmlTags.getClientId(), ".butter-input-component");
-        final String pluginCall = createJQueryPluginCallTrivial(htmlTags, entries.isEmpty() ? null : "entries_" + treeBoxReadableId);
-        writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
-        writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
+        final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(htmlTags.getClientId(), ".butter-input-component");
+        writer.writeText("var trivialTagsJQueryObject" + treeBoxReadableId + " = " + jQueryBySelector + ";\n", null);
+        writer.writeText("var trivialTagsOptions" + treeBoxReadableId + " = " + createTagOptions(htmlTags) + ";\n", null);
+        writer.writeText("var trivialTags" + treeBoxReadableId + " = ButterFaces.TrivialComponentsWrapper.createTagsComponent(" + jQueryBySelector + ",trivialTagsOptions" + treeBoxReadableId + ");\n", null);
+
+        //final String pluginCall = createJQueryPluginCallTrivial(htmlTags, entries.isEmpty() ? null : "entries_" + treeBoxReadableId);
+        //writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
+        //writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
 
         writer.writeText("});", null);
 
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallTrivial(final HtmlTags tags, final String entriesVar) throws IOException {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
+    private String createTagOptions(final HtmlTags tags) {
+        final StringBuilder options = new StringBuilder();
 
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
 
-        jQueryPluginCall.append("TrivialTagBox({");
-        jQueryPluginCall.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
-        jQueryPluginCall.append("\n    allowFreeText: true,");
-        jQueryPluginCall.append("\n    showTrigger: false,");
-        jQueryPluginCall.append("\n    distinct: " + tags.isDistinct() + ",");
-        jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
-        jQueryPluginCall.append("\n    matchingOptions: { \n" +
-                "            \"matchingMode\": \"contains\",\n" +
-                "            \"ignoreCase\": true\n" +
-                "        },");
+        options.append("{");
+        options.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
+        options.append("\n    distinct: " + tags.isDistinct() + ",");
+        options.append("\n    editingMode: '" + editable + "',");
 
         if (tags.getMaxTags() != null) {
-            jQueryPluginCall.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
+            options.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
         }
+
         final String selectedEntries = this.getSelectedEntries(tags);
         if (StringUtils.isNotEmpty(selectedEntries)) {
-            jQueryPluginCall.append("\n    selectedEntries: [" + selectedEntries + "],");
+            options.append("\n    selectedEntries: [" + selectedEntries + "],");
         }
 
-        if (StringUtils.isNotEmpty(entriesVar)) {
-            jQueryPluginCall.append("\n    valueProperty: 'id',");
-            jQueryPluginCall.append("\n    entries: " + entriesVar + ",");
-            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
-            jQueryPluginCall.append("\n    inputTextProperty: 'butterObjectToString',");
-        } else {
-            jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
-            jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
-        }
+        options.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
 
-        jQueryPluginCall.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
+        options.append("\n}");
 
-
-        jQueryPluginCall.append("\n    valueSeparator: [',']");
-        jQueryPluginCall.append("});");
-
-        return jQueryPluginCall.toString();
+        return options.toString();
     }
+
+    // TODO fix Ös
 
     private List<Node> createEntries(final List<Object> objects) {
         final List<Node> entries = new ArrayList<>();

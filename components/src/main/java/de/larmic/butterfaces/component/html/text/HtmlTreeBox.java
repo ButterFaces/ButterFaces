@@ -1,12 +1,12 @@
 package de.larmic.butterfaces.component.html.text;
 
-import java.util.Arrays;
-import java.util.List;
+import de.larmic.butterfaces.component.html.InputComponentFacet;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-
-import de.larmic.butterfaces.component.html.InputComponentFacet;
+import java.util.Arrays;
+import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
@@ -16,9 +16,9 @@ import de.larmic.butterfaces.component.html.InputComponentFacet;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-treebox.js", target = "head"),
 })
 @FacesComponent(HtmlTreeBox.COMPONENT_TYPE)
