@@ -90,8 +90,8 @@ public class TreeRenderer extends HtmlBasicRenderer {
         writer.writeText("var trivialTagsOptions" + uniqueComponentId + " = " + createTreeOptions(tree, context, nodesMap) + ";\n", null);
         writer.writeText("var trivialTree" + uniqueComponentId + " = ButterFaces.createTrivialTreeComponent(" + jQueryBySelector + ",trivialTagsOptions" + uniqueComponentId + ");\n", null);
 
-        //this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
-        //this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
+        this.encodeAjaxEvent(tree, writer, "trivialTree" + uniqueComponentId, "click", "onSelectedEntryChanged");
+        this.encodeAjaxEvent(tree, writer, "trivialTree" + uniqueComponentId, "toggle", "onNodeExpansionStateChanged");
 
         writer.writeText("});", null);
 
@@ -159,12 +159,13 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     private void encodeAjaxEvent(final HtmlTree tree,
                                  final ResponseWriter writer,
+                                 final String variableName,
                                  final String eventName,
                                  final String trivialCallback) throws IOException {
         final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tree, eventName);
 
         if (ajaxBehavior != null) {
-            writer.writeText("trivialTree." + trivialCallback + ".addListener(function(node) {", null);
+            writer.writeText(variableName + "." + trivialCallback + ".addListener(function(node) {", null);
             final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true)
                     .setEvent(eventName)
                     .setRender(tree, eventName)
