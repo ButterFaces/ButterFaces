@@ -7,7 +7,6 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNod
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
-import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -66,10 +65,6 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         writer.writeText("var trivialTagsOptions" + treeBoxReadableId + " = " + createTagOptions(htmlTags) + ";\n", null);
         writer.writeText("var trivialTags" + treeBoxReadableId + " = ButterFaces.createTrivialTagComponent(" + jQueryBySelector + ",trivialTagsOptions" + treeBoxReadableId + ");\n", null);
 
-        //final String pluginCall = createJQueryPluginCallTrivial(htmlTags, entries.isEmpty() ? null : "entries_" + treeBoxReadableId);
-        //writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
-        //writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
-
         writer.writeText("});", null);
 
         writer.endElement("script");
@@ -80,8 +75,10 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
 
         final List<Node> entries = createEntries(tags.getEntries());
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
+        final boolean showTrigger = !entries.isEmpty();
 
         options.append("{");
+        options.append("\n    showTrigger: " + showTrigger + ",");
         options.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
         options.append("\n    distinct: " + tags.isDistinct() + ",");
         options.append("\n    editingMode: '" + editable + "',");
@@ -103,12 +100,10 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
             options.append("\n    entries: " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ",");
         }
 
-        options.append("\n}");
+        options.append("\n}\n");
 
         return options.toString();
     }
-
-    // TODO fix Ös
 
     private List<Node> createEntries(final List<Object> objects) {
         final List<Node> entries = new ArrayList<>();
@@ -130,9 +125,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         final String componentValue = getSubmittedValueOrValue(tags);
 
         if (StringUtils.isNotEmpty(componentValue)) {
-            final List<String> freeTextSeparators = getFreeTextSeparators(tags);
-            final String valueSplitter = StringJoiner.on("|").join(freeTextSeparators).toString();
-            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(valueSplitter))).iterator();
+            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(","))).iterator();
 
             final StringBuilder sb = new StringBuilder();
 

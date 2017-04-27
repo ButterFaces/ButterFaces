@@ -3,26 +3,27 @@
 
 namespace ButterFaces {
 
-    interface ButterfacesTrivialEntry {
+    interface ButterFacesTrivialEntry {
         displayValue: string
     }
 
 
     export function createTrivialTagComponent($input,
                                               options: {
+                                                  showTrigger: boolean,
                                                   autoComplete: boolean,
                                                   distinct: boolean,
                                                   editingMode: TrivialComponents.EditingMode,
                                                   maxSelectedEntries: number,
-                                                  selectedEntries: ButterfacesTrivialEntry[],
+                                                  selectedEntries: ButterFacesTrivialEntry[],
                                                   freeTextSeparators: string[],
-                                                  entries: ButterfacesTrivialEntry[]
-                                              }): TrivialComponents.TrivialTagComboBox<ButterfacesTrivialEntry> {
-        return new TrivialComponents.TrivialTagComboBox<ButterfacesTrivialEntry>($input, {
+                                                  entries: ButterFacesTrivialEntry[]
+                                              }): TrivialComponents.TrivialTagComboBox<ButterFacesTrivialEntry> {
+        return new TrivialComponents.TrivialTagComboBox<ButterFacesTrivialEntry>($input, {
 
             autoComplete: options.autoComplete,
             allowFreeText: true,
-            showTrigger: true, // TODO parameter
+            showTrigger: options.showTrigger,
             distinct: options.distinct,
             editingMode: options.editingMode,
             matchingOptions: {
@@ -45,19 +46,11 @@ namespace ButterFaces {
                 return {title: freeText}
             },
             entryRenderingFunction: entry => `<div>${(entry as any).title}</div>`, // TODO template parameter
-
-            // TODO
-            // if (StringUtils.isNotEmpty(entriesVar)) {
-            //     jQueryPluginCall.append("\n    valueProperty: 'id',");
-            //     jQueryPluginCall.append("\n    entries: " + entriesVar + ",");
-            //     jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
-            //     jQueryPluginCall.append("\n    inputTextProperty: 'butterObjectToString',");
-            // }
         });
     }
 
 
-    interface ButterfacesTrivialTreeEntry {
+    interface ButterFacesTrivialTreeEntry {
         title: string,
         description: string,
         id: number
@@ -74,9 +67,9 @@ namespace ButterFaces {
                                                    templates: string[],
                                                    spinnerTemplate: string,
                                                    noEntriesTemplate: string,
-                                                   entries: ButterfacesTrivialTreeEntry[]
-                                               }): TrivialComponents.TrivialTree<ButterfacesTrivialTreeEntry> {
-        return new TrivialComponents.TrivialTree<ButterfacesTrivialTreeEntry>($input, {
+                                                   entries: ButterFacesTrivialTreeEntry[]
+                                               }): TrivialComponents.TrivialTree<ButterFacesTrivialTreeEntry> {
+        return new TrivialComponents.TrivialTree<ButterFacesTrivialTreeEntry>($input, {
             searchBarMode: options.searchBarMode,
             selectedEntryId: options.selectedEntryId,
             performanceOptimizationSettings: options.performanceOptimizationSettings,
@@ -100,14 +93,14 @@ namespace ButterFaces {
                                               emptyEntryTemplate: string,
                                               editingMode: TrivialComponents.EditingMode,
                                               showClearButton: boolean,
-                                              selectedEntry: ButterfacesTrivialEntry,
+                                              selectedEntry: ButterFacesTrivialEntry,
                                               selectedEntryTemplate: string,
                                               template: string,
                                               spinnerTemplate: string,
                                               noEntriesTemplate: string,
-                                              entries: ButterfacesTrivialEntry[]
-                                          }): TrivialComponents.TrivialComboBox<ButterfacesTrivialEntry> {
-        return new TrivialComponents.TrivialComboBox<ButterfacesTrivialEntry>($input, {
+                                              entries: ButterFacesTrivialEntry[]
+                                          }): TrivialComponents.TrivialComboBox<ButterFacesTrivialEntry> {
+        return new TrivialComponents.TrivialComboBox<ButterFacesTrivialEntry>($input, {
             allowFreeText: false,
             entryToEditorTextFunction: entry => entry[options.inputTextProperty],
             entryRenderingFunction: entry => {
@@ -138,14 +131,14 @@ namespace ButterFaces {
                                                   emptyEntryTemplate: string,
                                                   editingMode: TrivialComponents.EditingMode,
                                                   showClearButton: boolean,
-                                                  selectedEntry: ButterfacesTrivialEntry,
+                                                  selectedEntry: ButterFacesTrivialEntry,
                                                   selectedEntryTemplate: string,
                                                   templates: string[],
                                                   spinnerTemplate: string,
                                                   noEntriesTemplate: string,
-                                                  entries: ButterfacesTrivialEntry[]
-                                              }): TrivialComponents.TrivialTreeComboBox<ButterfacesTrivialEntry> {
-        return new TrivialComponents.TrivialTreeComboBox<ButterfacesTrivialEntry>($input, {
+                                                  entries: ButterFacesTrivialEntry[]
+                                              }): TrivialComponents.TrivialTreeComboBox<ButterFacesTrivialEntry> {
+        return new TrivialComponents.TrivialTreeComboBox<ButterFacesTrivialEntry>($input, {
             allowFreeText: false,
             entryToEditorTextFunction: entry => entry[options.inputTextProperty],
             entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
