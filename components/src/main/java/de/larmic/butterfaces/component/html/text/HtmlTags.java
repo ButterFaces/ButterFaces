@@ -21,8 +21,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tags.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head")
 })
 @FacesComponent(HtmlTags.COMPONENT_TYPE)
 public class HtmlTags extends HtmlText {
