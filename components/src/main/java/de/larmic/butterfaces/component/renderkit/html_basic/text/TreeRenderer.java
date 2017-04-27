@@ -80,23 +80,68 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final ResponseWriter writer = context.getResponseWriter();
 
         final List<String> mustacheKeys = this.createMustacheKeys(context, tree);
+        final String uniqueComponentId = tree.getClientId().replace(":", "_");
+        final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(component.getClientId(), "input");
 
         writer.startElement("script", component);
 
         writer.writeText("jQuery(function () {\n", null);
-        writer.writeText("var entries_" + tree.getClientId().replace(":", "_") + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
-        final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
-        final String pluginCall = createJQueryPluginCallTrivial(tree, context, nodesMap);
-        writer.writeText("var trivialTree = " + jQueryBySelector + pluginCall + ";", null);
+        writer.writeText("var entries_" + uniqueComponentId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
+        writer.writeText("var trivialTagsOptions" + uniqueComponentId + " = " + createTreeOptions(tree, context, nodesMap) + ";\n", null);
+        writer.writeText("var trivialTree" + uniqueComponentId + " = ButterFaces.createTrivialTreeComponent(" + jQueryBySelector + ",trivialTagsOptions" + uniqueComponentId + ");\n", null);
 
-        this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
-        this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
+        //this.encodeAjaxEvent(tree, writer, "click", "onSelectedEntryChanged");
+        //this.encodeAjaxEvent(tree, writer, "toggle", "onNodeExpansionStateChanged");
 
         writer.writeText("});", null);
 
         writer.endElement("script");
 
         writer.endElement(ELEMENT_DIV);
+    }
+
+    private String createTreeOptions(final HtmlTree tree,
+                                     final FacesContext context,
+                                     final Map<Integer, Node> nodesMap) throws IOException {
+        final StringBuilder options = new StringBuilder();
+
+        final String searchBarMode = determineSearchBarMode(tree);
+        final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
+
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+
+        final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), webXmlParameters.getNoEntriesText());
+        final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), webXmlParameters.getSpinnerText());
+
+
+        options.append("{");
+        options.append("\n    searchBarMode: '" + searchBarMode + "',");
+        if (selectedNodeNumber != null) {
+            options.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
+        }
+        if (tree.getToManyVisibleItemsRenderDelay() != null || tree.getToManyVisibleItemsThreshold() != null) {
+            options.append("\n    performanceOptimizationSettings: {");
+            if (tree.getToManyVisibleItemsRenderDelay() != null) {
+                options.append("\n        toManyVisibleItemsRenderDelay: " + tree.getToManyVisibleItemsRenderDelay() + ",");
+            }
+            if (tree.getToManyVisibleItemsThreshold() != null) {
+                options.append("\n        toManyVisibleItemsThreshold: " + tree.getToManyVisibleItemsThreshold() + ",");
+            }
+            options.append("\n    },");
+        }
+        if (tree.getFacet("template") != null) {
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
+            options.append("\n    templates: ['" + encodedTemplate + "'],");
+        } else {
+            options.append("\n    templates: ['" + DEFAULT_NODES_TEMPLATE + "'],");
+        }
+        options.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
+        options.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
+        options.append("\n    entries: entries_" + tree.getClientId().replace(":", "_"));
+
+        options.append("\n}");
+
+        return options.toString();
     }
 
     private List<Node> createNodesMap(HtmlTree tree, Node rootNode) {
@@ -184,51 +229,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
                 // here is nothing to do
             }
         }
-    }
-
-    private String createJQueryPluginCallTrivial(final HtmlTree tree,
-                                                 final FacesContext context,
-                                                 final Map<Integer, Node> nodesMap) throws IOException {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-        final String searchBarMode = determineSearchBarMode(tree);
-        final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
-
-        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
-
-        final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), webXmlParameters.getNoEntriesText());
-        final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), webXmlParameters.getSpinnerText());
-
-        if (selectedNodeNumber != null) {
-            openPathToNode(nodesMap.get(selectedNodeNumber), tree.getNodeExpansionListener(), nodesMap);
-        }
-
-        jQueryPluginCall.append("TrivialTree({");
-        jQueryPluginCall.append("\n    searchBarMode: '" + searchBarMode + "',");
-        if (selectedNodeNumber != null) {
-            jQueryPluginCall.append("\n    selectedEntryId: '" + selectedNodeNumber + "',");
-        }
-        if (tree.getToManyVisibleItemsRenderDelay() != null || tree.getToManyVisibleItemsThreshold() != null) {
-            jQueryPluginCall.append("\n    performanceOptimizationSettings: {");
-            if (tree.getToManyVisibleItemsRenderDelay() != null) {
-                jQueryPluginCall.append("\n        toManyVisibleItemsRenderDelay: " + tree.getToManyVisibleItemsRenderDelay() + ",");
-            }
-            if (tree.getToManyVisibleItemsThreshold() != null) {
-                jQueryPluginCall.append("\n        toManyVisibleItemsThreshold: " + tree.getToManyVisibleItemsThreshold() + ",");
-            }
-            jQueryPluginCall.append("\n    },");
-        }
-        if (tree.getFacet("template") != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, tree.getFacet("template"));
-            jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
-        } else {
-            jQueryPluginCall.append("\n    templates: ['" + DEFAULT_NODES_TEMPLATE + "'],");
-        }
-        jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
-        jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
-        jQueryPluginCall.append("\n    entries: entries_" + tree.getClientId().replace(":", "_"));
-        jQueryPluginCall.append("})");
-
-        return jQueryPluginCall.toString();
     }
 
     private void openPathToNode(final Node node, final TreeNodeExpansionListener nodeExpansionListener, final Map<Integer, Node> nodesMap) {
