@@ -100,7 +100,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
             options.append("\n    entries: " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ",");
         }
 
-        options.append("\n}\n");
+        options.append("\n}");
 
         return options.toString();
     }
