@@ -3,14 +3,6 @@
 
 namespace ButterFaces {
 
-    import TrivialTagComboBox = TrivialComponents.TrivialTagComboBox;
-    import EditingMode = TrivialComponents.EditingMode;
-    import SearchBarMode = TrivialComponents.SearchBarMode;
-    import TrivialTree = TrivialComponents.TrivialTree;
-    import trivialMatch = TrivialComponents.trivialMatch;
-    import TrivialComboBox = TrivialComponents.TrivialComboBox;
-    import TrivialTreeComboBox = TrivialComponents.TrivialTreeComboBox;
-
     interface ButterfacesTrivialEntry {
         displayValue: string
     }
@@ -20,13 +12,13 @@ namespace ButterFaces {
                                               options: {
                                                   autoComplete: boolean,
                                                   distinct: boolean,
-                                                  editingMode: EditingMode,
+                                                  editingMode: TrivialComponents.EditingMode,
                                                   maxSelectedEntries: number,
                                                   selectedEntries: ButterfacesTrivialEntry[],
                                                   freeTextSeparators: string[],
                                                   entries: ButterfacesTrivialEntry[]
-                                              }): TrivialTagComboBox<ButterfacesTrivialEntry> {
-        return new TrivialTagComboBox<ButterfacesTrivialEntry>($input, {
+                                              }): TrivialComponents.TrivialTagComboBox<ButterfacesTrivialEntry> {
+        return new TrivialComponents.TrivialTagComboBox<ButterfacesTrivialEntry>($input, {
 
             autoComplete: options.autoComplete,
             allowFreeText: true,
@@ -73,7 +65,7 @@ namespace ButterFaces {
 
     export function createTrivialTreeComponent($input,
                                                options: {
-                                                   searchBarMode: SearchBarMode,
+                                                   searchBarMode: TrivialComponents.SearchBarMode,
                                                    selectedEntryId: number,
                                                    performanceOptimizationSettings: {
                                                        toManyVisibleItemsRenderDelay: number,
@@ -83,8 +75,8 @@ namespace ButterFaces {
                                                    spinnerTemplate: string,
                                                    noEntriesTemplate: string,
                                                    entries: ButterfacesTrivialTreeEntry[]
-                                               }): TrivialTree<ButterfacesTrivialTreeEntry> {
-        return new TrivialTree<ButterfacesTrivialTreeEntry>($input, {
+                                               }): TrivialComponents.TrivialTree<ButterfacesTrivialTreeEntry> {
+        return new TrivialComponents.TrivialTree<ButterfacesTrivialTreeEntry>($input, {
             searchBarMode: options.searchBarMode,
             selectedEntryId: options.selectedEntryId,
             performanceOptimizationSettings: options.performanceOptimizationSettings,
@@ -94,8 +86,8 @@ namespace ButterFaces {
             entries: options.entries,
             queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
                 (entry: any, queryString: string, nodeDepth: number) => {
-                    let titleMatches = entry.title && trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
-                    let descriptionMatches = entry.description && trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
+                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
                     return titleMatches || descriptionMatches;
                 })
         });
@@ -106,7 +98,7 @@ namespace ButterFaces {
                                           options: {
                                               inputTextProperty: string,
                                               emptyEntryTemplate: string,
-                                              editingMode: EditingMode,
+                                              editingMode: TrivialComponents.EditingMode,
                                               showClearButton: boolean,
                                               selectedEntry: ButterfacesTrivialEntry,
                                               selectedEntryTemplate: string,
@@ -114,8 +106,8 @@ namespace ButterFaces {
                                               spinnerTemplate: string,
                                               noEntriesTemplate: string,
                                               entries: ButterfacesTrivialEntry[]
-                                          }): TrivialComboBox<ButterfacesTrivialEntry> {
-        return new TrivialComboBox<ButterfacesTrivialEntry>($input, {
+                                          }): TrivialComponents.TrivialComboBox<ButterfacesTrivialEntry> {
+        return new TrivialComponents.TrivialComboBox<ButterfacesTrivialEntry>($input, {
             allowFreeText: false,
             entryToEditorTextFunction: entry => entry[options.inputTextProperty],
             entryRenderingFunction: entry => {
@@ -144,7 +136,7 @@ namespace ButterFaces {
                                               options: {
                                                   inputTextProperty: string,
                                                   emptyEntryTemplate: string,
-                                                  editingMode: EditingMode,
+                                                  editingMode: TrivialComponents.EditingMode,
                                                   showClearButton: boolean,
                                                   selectedEntry: ButterfacesTrivialEntry,
                                                   selectedEntryTemplate: string,
@@ -152,8 +144,8 @@ namespace ButterFaces {
                                                   spinnerTemplate: string,
                                                   noEntriesTemplate: string,
                                                   entries: ButterfacesTrivialEntry[]
-                                              }): TrivialTreeComboBox<ButterfacesTrivialEntry> {
-        return new TrivialTreeComboBox<ButterfacesTrivialEntry>($input, {
+                                              }): TrivialComponents.TrivialTreeComboBox<ButterfacesTrivialEntry> {
+        return new TrivialComponents.TrivialTreeComboBox<ButterfacesTrivialEntry>($input, {
             allowFreeText: false,
             entryToEditorTextFunction: entry => entry[options.inputTextProperty],
             entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
@@ -174,8 +166,8 @@ namespace ButterFaces {
             entries: options.entries,
             queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
                 (entry: any, queryString: string, nodeDepth: number) => {
-                    let titleMatches = entry.title && trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
-                    let descriptionMatches = entry.description && trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
+                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
                     return titleMatches || descriptionMatches;
                 })
         });
