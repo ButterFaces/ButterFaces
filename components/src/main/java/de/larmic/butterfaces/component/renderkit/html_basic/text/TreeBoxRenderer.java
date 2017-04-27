@@ -67,7 +67,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
 
             final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
             final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
-            final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(treeBox.getClientId(), "input");
+            final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
             final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
             final String treeOptions = replaceDotInMustacheKeys(mustacheKeys, createTreeOptions(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
 

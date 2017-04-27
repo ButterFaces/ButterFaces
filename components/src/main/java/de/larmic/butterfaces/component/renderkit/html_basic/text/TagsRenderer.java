@@ -60,7 +60,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
 
         writer.writeText("jQuery(function () {\n", null);
 
-        final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(htmlTags.getClientId(), ".butter-input-component");
+        final String jQueryBySelector = RenderUtils.createJQueryBySelector(htmlTags.getClientId(), ".butter-input-component");
         writer.writeText("var trivialTagsJQueryObject" + treeBoxReadableId + " = " + jQueryBySelector + ";\n", null);
         writer.writeText("var trivialTagsOptions" + treeBoxReadableId + " = " + createTagOptions(htmlTags) + ";\n", null);
         writer.writeText("var trivialTags" + treeBoxReadableId + " = ButterFaces.createTrivialTagComponent(" + jQueryBySelector + ",trivialTagsOptions" + treeBoxReadableId + ");\n", null);

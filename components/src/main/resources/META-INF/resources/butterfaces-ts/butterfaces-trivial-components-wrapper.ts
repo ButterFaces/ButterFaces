@@ -79,8 +79,9 @@ namespace ButterFaces {
             entries: options.entries,
             queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
                 (entry: any, queryString: string, nodeDepth: number) => {
-                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
-                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    // TODO remove null parameter after trivial component is fixed
+                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null).length > 0;
+                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null).length > 0;
                     return titleMatches || descriptionMatches;
                 })
         });
@@ -159,8 +160,9 @@ namespace ButterFaces {
             entries: options.entries,
             queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
                 (entry: any, queryString: string, nodeDepth: number) => {
-                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
-                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    // TODO remove null parameter after trivial component is fixed
+                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null).length > 0;
+                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null).length > 0;
                     return titleMatches || descriptionMatches;
                 })
         });

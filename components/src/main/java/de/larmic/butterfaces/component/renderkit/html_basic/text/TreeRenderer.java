@@ -81,7 +81,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         final List<String> mustacheKeys = this.createMustacheKeys(context, tree);
         final String uniqueComponentId = tree.getClientId().replace(":", "_");
-        final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(component.getClientId(), "input");
+        final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
 
         writer.startElement("script", component);
 
