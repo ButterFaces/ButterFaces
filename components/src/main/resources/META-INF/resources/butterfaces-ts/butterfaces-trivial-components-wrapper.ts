@@ -8,6 +8,8 @@ namespace ButterFaces {
     import SearchBarMode = TrivialComponents.SearchBarMode;
     import TrivialTree = TrivialComponents.TrivialTree;
     import trivialMatch = TrivialComponents.trivialMatch;
+    import TrivialComboBox = TrivialComponents.TrivialComboBox;
+    import TrivialTreeComboBox = TrivialComponents.TrivialTreeComboBox;
 
     interface ButterfacesTrivialEntry {
         displayValue: string
@@ -83,6 +85,86 @@ namespace ButterFaces {
             selectedEntryId: options.selectedEntryId,
             performanceOptimizationSettings: options.performanceOptimizationSettings,
             entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
+            spinnerTemplate: options.spinnerTemplate,
+            noEntriesTemplate: options.noEntriesTemplate,
+            entries: options.entries,
+            queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
+                (entry: any, queryString: string, nodeDepth: number) => {
+                    let titleMatches = entry.title && trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
+                    let descriptionMatches = entry.description && trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    return titleMatches || descriptionMatches;
+                })
+        });
+    }
+
+
+    export function createTrivialComboBox($input,
+                                          options: {
+                                              inputTextProperty: string,
+                                              emptyEntryTemplate: string,
+                                              editingMode: EditingMode,
+                                              showClearButton: boolean,
+                                              selectedEntry: ButterfacesTrivialEntry,
+                                              selectedEntryTemplate: string,
+                                              template: string,
+                                              spinnerTemplate: string,
+                                              noEntriesTemplate: string,
+                                              entries: ButterfacesTrivialEntry[]
+                                          }): TrivialComboBox<ButterfacesTrivialEntry> {
+        return new TrivialComboBox<ButterfacesTrivialEntry>($input, {
+            allowFreeText: false,
+            entryToEditorTextFunction: entry => entry[options.inputTextProperty],
+            entryRenderingFunction: entry => {
+                return Mustache.render(options.template, entry);
+            },
+            selectedEntryRenderingFunction: entry => {
+                if (!entry || (entry as any)._isEmptyEntry) {
+                    return options.emptyEntryTemplate || "";
+                } else if (options.selectedEntryTemplate) {
+                    return Mustache.render(options.selectedEntryTemplate, entry);
+                } else {
+                    return Mustache.render(options.template, entry);
+                }
+            },
+            editingMode: options.editingMode,
+            showClearButton: options.showClearButton,
+            selectedEntry: options.selectedEntry,
+            spinnerTemplate: options.spinnerTemplate,
+            noEntriesTemplate: options.noEntriesTemplate,
+            entries: options.entries
+        });
+    }
+
+
+    export function createTrivialTreeComboBox($input,
+                                              options: {
+                                                  inputTextProperty: string,
+                                                  emptyEntryTemplate: string,
+                                                  editingMode: EditingMode,
+                                                  showClearButton: boolean,
+                                                  selectedEntry: ButterfacesTrivialEntry,
+                                                  selectedEntryTemplate: string,
+                                                  templates: string[],
+                                                  spinnerTemplate: string,
+                                                  noEntriesTemplate: string,
+                                                  entries: ButterfacesTrivialEntry[]
+                                              }): TrivialTreeComboBox<ButterfacesTrivialEntry> {
+        return new TrivialTreeComboBox<ButterfacesTrivialEntry>($input, {
+            allowFreeText: false,
+            entryToEditorTextFunction: entry => entry[options.inputTextProperty],
+            entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
+            selectedEntryRenderingFunction: entry => {
+                if (!entry || (entry as any)._isEmptyEntry) {
+                    return options.emptyEntryTemplate || "";
+                } else if (options.selectedEntryTemplate) {
+                    return Mustache.render(options.selectedEntryTemplate, entry);
+                } else {
+                    return Mustache.render(options.templates[0], entry);
+                }
+            },
+            editingMode: options.editingMode,
+            showClearButton: options.showClearButton,
+            selectedEntry: options.selectedEntry,
             spinnerTemplate: options.spinnerTemplate,
             noEntriesTemplate: options.noEntriesTemplate,
             entries: options.entries,

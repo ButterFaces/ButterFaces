@@ -20,6 +20,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-treebox.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head")
 })
 @FacesComponent(HtmlTreeBox.COMPONENT_TYPE)
 public class HtmlTreeBox extends HtmlText {

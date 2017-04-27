@@ -66,21 +66,96 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
             final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), treeBox);
 
             final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
-
+            final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
+            final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(treeBox.getClientId(), "input");
             final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(nodes);
+            final String treeOptions = replaceDotInMustacheKeys(mustacheKeys, createTreeOptions(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
+
 
             writer.startElement("script", treeBox);
             writer.writeText("jQuery(function () {\n", null);
-            final String treeBoxReadableId = treeBox.getClientId().replace(clientIdSeparator, "_");
             writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
-            final String jQueryBySelector = RenderUtils.createJQueryBySelector(treeBox.getClientId(), "input");
-            final String pluginCall = replaceDotInMustacheKeys(mustacheKeys, createJQueryPluginCallTrivial(treeBox, treeBoxModelType, mustacheKeys, nodesMap));
             writer.writeText("ButterFaces.TreeBox.removeTrivialTreeDropDown('" + treeBoxReadableId + "');\n", null);
-            writer.writeText("var trivialTree" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
+            writer.writeText("var trivialTreeOptions" + treeBoxReadableId + " = " + treeOptions + ";\n", null);
+
+            if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+                writer.writeText("var trivialTree" + treeBoxReadableId + " = ButterFaces.createTrivialComboBox(" + jQueryBySelector + ",trivialTreeOptions" + treeBoxReadableId + ");\n", null);
+            } else {
+                writer.writeText("var trivialTree" + treeBoxReadableId + " = ButterFaces.createTrivialTreeComboBox(" + jQueryBySelector + ",trivialTreeOptions" + treeBoxReadableId + ");\n", null);
+            }
+
             writer.writeText("$(trivialTree" + treeBoxReadableId + ".getDropDown()).attr('data-tree-box-id', '" + treeBoxReadableId + "')", null);
             writer.writeText("});", null);
             writer.endElement("script");
         }
+    }
+
+    private String createTreeOptions(final HtmlTreeBox treeBox,
+                                     final TreeBoxModelType treeBoxModelType,
+                                     final List<String> mustacheKeys,
+                                     final Map<Integer, Node> nodesMap) throws IOException {
+        final StringBuilder options = new StringBuilder();
+        final FacesContext context = FacesContext.getCurrentInstance();
+
+        final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType, nodesMap);
+        final Node selectedNode = selectedEntryId != null ? nodesMap.get(selectedEntryId) : null;
+        final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
+
+        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
+
+        final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), webXmlParameters.getNoEntriesText());
+        final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), webXmlParameters.getSpinnerText());
+
+        options.append("{");
+        options.append("\n    allowFreeText: false,");
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+            options.append("\n    valueProperty: 'id',");
+        }
+
+        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+            options.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "butterObjectToString") + "',");
+        } else {
+            options.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
+        }
+
+        if (treeBox.getFacet("emptyEntryTemplate") != null) {
+            options.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate")) + "',");
+        } else if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
+            options.append("\n    emptyEntryTemplate: '<div class=\"defaultEmptyEntry\">" + treeBox.getPlaceholder() + "</div>',");
+        }
+
+        options.append("\n    editingMode: '" + editable + "',");
+
+        options.append("\n    showClearButton: ").append(evaluateShowClearButtonValue(treeBox, webXmlParameters)).append(",");
+
+        if (selectedEntryId != null && selectedNode != null) {
+            options.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
+        }
+        if (treeBox.getFacet("selectedEntryTemplate") != null) {
+            options.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate")) + "',");
+        }
+
+        // TODO set selectedEntryTemplate?
+
+        if (treeBox.getFacet("template") != null) {
+            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
+            if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+                options.append("\n    template: '" + encodedTemplate + "',");
+            } else {
+                options.append("\n    templates: ['" + encodedTemplate + "'],");
+            }
+        } else if (treeBoxModelType == TreeBoxModelType.NODES) {
+            options.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
+        } else if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
+            options.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
+        }
+        options.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
+        options.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
+        options.append("\n    entries: entries_" + treeBox.getClientId().replace(":", "_"));
+
+        options.append("\n}");
+
+        return options.toString();
     }
 
     @Override
@@ -121,77 +196,6 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
         return treeBoxModelType == (TreeBoxModelType.OBJECTS) && node != null
                 ? (node.getData() instanceof EnumTreeBoxWrapper ? ((EnumTreeBoxWrapper) node.getData()).getEnumValue() : node.getData())
                 : node;
-    }
-
-    private String createJQueryPluginCallTrivial(final HtmlTreeBox treeBox,
-                                                 final TreeBoxModelType treeBoxModelType,
-                                                 final List<String> mustacheKeys,
-                                                 final Map<Integer, Node> nodesMap) throws IOException {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-        final FacesContext context = FacesContext.getCurrentInstance();
-
-        final Integer selectedEntryId = this.findValueInCachedNodes(treeBox.getValue(), treeBoxModelType, nodesMap);
-        final Node selectedNode = selectedEntryId != null ? nodesMap.get(selectedEntryId) : null;
-        final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(treeBox);
-
-        final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
-
-        final String noMatchingText = StringUtils.getNotNullValue(treeBox.getNoEntriesText(), webXmlParameters.getNoEntriesText());
-        final String spinnerText = StringUtils.getNotNullValue(treeBox.getSpinnerText(), webXmlParameters.getSpinnerText());
-
-        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("TrivialComboBox({");
-        } else {
-            jQueryPluginCall.append("TrivialTreeComboBox({");
-        }
-        jQueryPluginCall.append("\n    allowFreeText: false,");
-        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    valueProperty: 'id',");
-        }
-
-        if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "butterObjectToString") + "',");
-        } else {
-            jQueryPluginCall.append("\n    inputTextProperty: '" + StringUtils.getNotNullValue(treeBox.getInputTextProperty(), "title") + "',");
-        }
-
-        if (treeBox.getFacet("emptyEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    emptyEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("emptyEntryTemplate")) + "',");
-        } else if (StringUtils.isNotEmpty(treeBox.getPlaceholder())) {
-            jQueryPluginCall.append("\n    emptyEntryTemplate: '<div class=\"defaultEmptyEntry\">" + treeBox.getPlaceholder() + "</div>',");
-        }
-
-        jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
-
-        jQueryPluginCall.append("\n    showClearButton: ").append(evaluateShowClearButtonValue(treeBox, webXmlParameters)).append(",");
-
-        if (selectedEntryId != null && selectedNode != null) {
-            jQueryPluginCall.append("\n    selectedEntry: " + new TrivialComponentsEntriesNodePartRenderer().renderNode(mustacheKeys, nodesMap, selectedEntryId, selectedNode) + ",");
-        }
-        if (treeBox.getFacet("selectedEntryTemplate") != null) {
-            jQueryPluginCall.append("\n    selectedEntryTemplate: '" + StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("selectedEntryTemplate")) + "',");
-        }
-
-        // TODO set selectedEntryTemplate?
-
-        if (treeBox.getFacet("template") != null) {
-            final String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(context, treeBox.getFacet("template"));
-            if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-                jQueryPluginCall.append("\n    template: '" + encodedTemplate + "',");
-            } else {
-                jQueryPluginCall.append("\n    templates: ['" + encodedTemplate + "'],");
-            }
-        } else if (treeBoxModelType == TreeBoxModelType.NODES) {
-            jQueryPluginCall.append("\n    templates: ['" + TreeRenderer.DEFAULT_NODES_TEMPLATE + "'],");
-        } else if (treeBoxModelType == TreeBoxModelType.OBJECTS) {
-            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
-        }
-        jQueryPluginCall.append("\n    spinnerTemplate: '<div class=\"tr-default-spinner\"><div class=\"spinner\"></div><div>" + spinnerText + "</div></div>',");
-        jQueryPluginCall.append("\n    noEntriesTemplate: '<div class=\"tr-default-no-data-display\"><div>" + noMatchingText + "</div></div>',");
-        jQueryPluginCall.append("\n    entries: entries_" + treeBox.getClientId().replace(":", "_"));
-        jQueryPluginCall.append("});");
-
-        return jQueryPluginCall.toString();
     }
 
    boolean evaluateShowClearButtonValue(HtmlTreeBox treeBox, WebXmlParameters webXmlParameters) {
