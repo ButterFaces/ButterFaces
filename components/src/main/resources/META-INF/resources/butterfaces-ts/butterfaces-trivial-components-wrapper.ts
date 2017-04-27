@@ -7,10 +7,11 @@ namespace ButterFaces {
     import EditingMode = TrivialComponents.EditingMode;
     import SearchBarMode = TrivialComponents.SearchBarMode;
     import TrivialTree = TrivialComponents.TrivialTree;
+    import trivialMatch = TrivialComponents.trivialMatch;
 
-    type ButterfacesTrivialEntry = {
-        displayValue: string,
-    };
+    interface ButterfacesTrivialEntry {
+        displayValue: string
+    }
 
 
     export function createTrivialTagComponent($input,
@@ -57,6 +58,13 @@ namespace ButterFaces {
         });
     }
 
+
+    interface ButterfacesTrivialTreeEntry {
+        title: string,
+        description: string,
+        id: number
+    }
+
     export function createTrivialTreeComponent($input,
                                                options: {
                                                    searchBarMode: SearchBarMode,
@@ -68,16 +76,22 @@ namespace ButterFaces {
                                                    templates: string[],
                                                    spinnerTemplate: string,
                                                    noEntriesTemplate: string,
-                                                   entries: ButterfacesTrivialEntry[]
-                                               }): TrivialTree<ButterfacesTrivialEntry> {
-        return new TrivialTree<ButterfacesTrivialEntry>($input, {
+                                                   entries: ButterfacesTrivialTreeEntry[]
+                                               }): TrivialTree<ButterfacesTrivialTreeEntry> {
+        return new TrivialTree<ButterfacesTrivialTreeEntry>($input, {
             searchBarMode: options.searchBarMode,
             selectedEntryId: options.selectedEntryId,
             performanceOptimizationSettings: options.performanceOptimizationSettings,
             entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
             spinnerTemplate: options.spinnerTemplate,
             noEntriesTemplate: options.noEntriesTemplate,
-            entries: options.entries
+            entries: options.entries,
+            queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
+                (entry: any, queryString: string, nodeDepth: number) => {
+                    let titleMatches = entry.title && trivialMatch(entry.title, queryString, null /*TODO remove parameter*/).length > 0;
+                    let descriptionMatches = entry.description && trivialMatch(entry.description, queryString, null /*TODO remove parameter*/).length > 0;
+                    return titleMatches || descriptionMatches;
+                })
         });
     }
 
