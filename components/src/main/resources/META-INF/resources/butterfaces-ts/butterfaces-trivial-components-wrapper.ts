@@ -1,4 +1,4 @@
-///<reference path="../butterfaces-external/trivial-components.d.ts"/>
+///<reference path="../../../../../../nodejs/node_modules/trivial-components/dist/js/bundle/trivial-components.d.ts"/>
 ///<reference path="../../../../../../nodejs/node_modules/@types/mustache/index.d.ts"/>
 
 namespace ButterFaces {
@@ -23,13 +23,14 @@ namespace ButterFaces {
                                                   editingMode: EditingMode,
                                                   maxSelectedEntries: number,
                                                   selectedEntries: ButterfacesTrivialEntry[],
-                                                  freeTextSeparators: string[]
+                                                  freeTextSeparators: string[],
+                                                  entries: ButterfacesTrivialEntry[]
                                               }): TrivialTagComboBox<ButterfacesTrivialEntry> {
         return new TrivialTagComboBox<ButterfacesTrivialEntry>($input, {
 
             autoComplete: options.autoComplete,
             allowFreeText: true,
-            showTrigger: false,
+            showTrigger: true, // TODO parameter
             distinct: options.distinct,
             editingMode: options.editingMode,
             matchingOptions: {
@@ -41,14 +42,17 @@ namespace ButterFaces {
             maxSelectedEntries: options.maxSelectedEntries,
             selectedEntries: options.selectedEntries,
             freeTextSeparators: options.freeTextSeparators as any, // TODO remove this cast when trivial components is fixed
+            entries: options.entries,
 
             valueFunction: entries => {
                 return entries
-                    .map(entry => entry.displayValue)
+                    .map(entry => (entry as any).id != null ? (entry as any).id : (entry as any).title)
                     .join(",");
             },
-            entryRenderingFunction: entry => entry.displayValue
-
+            freeTextEntryFactory: freeText => {
+                return {title: freeText}
+            },
+            entryRenderingFunction: entry => `<div>${(entry as any).title}</div>`, // TODO template parameter
 
             // TODO
             // if (StringUtils.isNotEmpty(entriesVar)) {

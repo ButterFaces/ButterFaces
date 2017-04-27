@@ -58,14 +58,8 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
 
         final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
         final String treeBoxReadableId = htmlTags.getClientId().replace(clientIdSeparator, "_");
-        final List<Node> entries = createEntries(htmlTags.getEntries());
 
         writer.writeText("jQuery(function () {\n", null);
-        if (!entries.isEmpty()) {
-            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), htmlTags);
-            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
-            writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
-        }
 
         final String jQueryBySelector = RenderUtils.createJQueryBySelectorWithoutDot(htmlTags.getClientId(), ".butter-input-component");
         writer.writeText("var trivialTagsJQueryObject" + treeBoxReadableId + " = " + jQueryBySelector + ";\n", null);
@@ -81,9 +75,10 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         writer.endElement("script");
     }
 
-    private String createTagOptions(final HtmlTags tags) {
+    private String createTagOptions(final HtmlTags tags) throws IOException {
         final StringBuilder options = new StringBuilder();
 
+        final List<Node> entries = createEntries(tags.getEntries());
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
 
         options.append("{");
@@ -101,6 +96,12 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         }
 
         options.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
+
+        if (!entries.isEmpty()) {
+            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), tags);
+            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
+            options.append("\n    entries: " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ",");
+        }
 
         options.append("\n}");
 
@@ -138,7 +139,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
             while (iterator.hasNext()) {
                 final String next = iterator.next();
                 if (StringUtils.isNotEmpty(next)) {
-                    sb.append("{displayValue:'" + escapeDisplayValue(next) + "'}");
+                    sb.append("{title:'" + escapeDisplayValue(next) + "'}");
                     if (iterator.hasNext()) {
                         sb.append(",");
                     }
