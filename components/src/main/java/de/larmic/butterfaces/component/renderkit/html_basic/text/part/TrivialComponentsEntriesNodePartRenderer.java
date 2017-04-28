@@ -109,8 +109,10 @@ public class TrivialComponentsEntriesNodePartRenderer {
             stringBuilder.append("\"description\": \"" + escape(readValue(node.getDescription(), "description", node.getData())) + "\",");
         }
 
-        for (String mustacheKey : mustacheKeys) {
-            stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new TrivialComponentsReflectionUtil().getStringValueFromObject(node.getData(), mustacheKey)) + "\",");
+        if (node.getData() != null) {
+            for (String mustacheKey : mustacheKeys) {
+                stringBuilder.append("\"" + mustacheKey + "\": \"" + escape(new TrivialComponentsReflectionUtil().getStringValueFromObject(node.getData(), mustacheKey)) + "\",");
+            }
         }
 
         stringBuilder.append("\"expanded\": " + Boolean.toString(!cachedNodes.get(newIndex).isCollapsed()) + ",");
