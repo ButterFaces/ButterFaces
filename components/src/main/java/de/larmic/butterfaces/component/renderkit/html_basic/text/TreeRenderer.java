@@ -83,6 +83,11 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final String uniqueComponentId = tree.getClientId().replace(":", "_");
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(component.getClientId(), "input");
 
+        final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
+        if (selectedNodeNumber != null) {
+            openPathToNode(nodesMap.get(selectedNodeNumber), tree.getNodeExpansionListener(), nodesMap);
+        }
+
         writer.startElement("script", component);
 
         writer.writeText("jQuery(function () {\n", null);
@@ -112,7 +117,6 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         final String noMatchingText = StringUtils.getNotNullValue(tree.getNoEntriesText(), webXmlParameters.getNoEntriesText());
         final String spinnerText = StringUtils.getNotNullValue(tree.getSpinnerText(), webXmlParameters.getSpinnerText());
-
 
         options.append("{");
         options.append("\n    searchBarMode: '" + searchBarMode + "',");
