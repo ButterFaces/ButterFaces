@@ -92,7 +92,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
         writer.writeText("jQuery(function () {\n", null);
         writer.writeText("var entries_" + uniqueComponentId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(nodes, mustacheKeys, nodesMap) + ";\n", null);
-        writer.writeText("var trivialTagsOptions" + uniqueComponentId + " = " + createTreeOptions(tree, context, nodesMap) + ";\n", null);
+        writer.writeText("var trivialTagsOptions" + uniqueComponentId + " = " + createTreeOptions(tree, context, selectedNodeNumber) + ";\n", null);
         writer.writeText("var trivialTree" + uniqueComponentId + " = ButterFaces.createTrivialTreeComponent(" + jQueryBySelector + ",trivialTagsOptions" + uniqueComponentId + ");\n", null);
 
         this.encodeAjaxEvent(tree, writer, "trivialTree" + uniqueComponentId, "click", "onSelectedEntryChanged");
@@ -107,11 +107,10 @@ public class TreeRenderer extends HtmlBasicRenderer {
 
     private String createTreeOptions(final HtmlTree tree,
                                      final FacesContext context,
-                                     final Map<Integer, Node> nodesMap) throws IOException {
+                                     final Integer selectedNodeNumber) throws IOException {
         final StringBuilder options = new StringBuilder();
 
         final String searchBarMode = determineSearchBarMode(tree);
-        final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
 
         final WebXmlParameters webXmlParameters = new WebXmlParameters(context.getExternalContext());
 
