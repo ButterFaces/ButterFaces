@@ -17,10 +17,12 @@ import java.util.Collection;
         @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tree.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.position.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.css", target = "head"),
-      @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.min.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.min.js", target = "head")
+        @ResourceDependency(library = "butterfaces-external", name = "jquery-ui-version.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "jquery-ui-position.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head")
 })
 @FacesComponent(HtmlTree.COMPONENT_TYPE)
 public class HtmlTree extends UIComponentBase implements ClientBehaviorHolder {

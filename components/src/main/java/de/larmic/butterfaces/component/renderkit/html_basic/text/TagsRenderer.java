@@ -7,7 +7,6 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNod
 import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
-import de.larmic.butterfaces.util.StringJoiner;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -18,7 +17,6 @@ import javax.faces.render.FacesRenderer;
 import java.io.IOException;
 import java.util.*;
 
-import static de.larmic.butterfaces.component.renderkit.html_basic.text.TreeBoxRenderer.DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
@@ -59,66 +57,52 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
 
         final String clientIdSeparator = String.valueOf(UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance()));
         final String treeBoxReadableId = htmlTags.getClientId().replace(clientIdSeparator, "_");
-        final List<Node> entries = createEntries(htmlTags.getEntries());
 
         writer.writeText("jQuery(function () {\n", null);
-        if (!entries.isEmpty()) {
-            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), htmlTags);
-            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
-            writer.writeText("var entries_" + treeBoxReadableId + " = " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ";\n", null);
-        }
 
         final String jQueryBySelector = RenderUtils.createJQueryBySelector(htmlTags.getClientId(), ".butter-input-component");
-        final String pluginCall = createJQueryPluginCallTrivial(htmlTags, entries.isEmpty() ? null : "entries_" + treeBoxReadableId);
-        writer.writeText("var trivialTags" + treeBoxReadableId + " = " + jQueryBySelector + pluginCall + "\n", null);
-        writer.writeText(RenderUtils.createJQueryBySelector(htmlTags.getClientId(), null) + "_butterTagsInit(); \n", null);
+        writer.writeText("var trivialTagsJQueryObject" + treeBoxReadableId + " = " + jQueryBySelector + ";\n", null);
+        writer.writeText("var trivialTagsOptions" + treeBoxReadableId + " = " + createTagOptions(htmlTags) + ";\n", null);
+        writer.writeText("var trivialTags" + treeBoxReadableId + " = ButterFaces.createTrivialTagComponent(" + jQueryBySelector + ",trivialTagsOptions" + treeBoxReadableId + ");\n", null);
 
         writer.writeText("});", null);
 
         writer.endElement("script");
     }
 
-    private String createJQueryPluginCallTrivial(final HtmlTags tags, final String entriesVar) throws IOException {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
+    private String createTagOptions(final HtmlTags tags) throws IOException {
+        final StringBuilder options = new StringBuilder();
 
+        final List<Node> entries = createEntries(tags.getEntries());
         final String editable = TrivialComponentsEntriesNodePartRenderer.getEditingMode(tags);
+        final boolean showTrigger = !entries.isEmpty();
 
-        jQueryPluginCall.append("TrivialTagBox({");
-        jQueryPluginCall.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
-        jQueryPluginCall.append("\n    allowFreeText: true,");
-        jQueryPluginCall.append("\n    showTrigger: false,");
-        jQueryPluginCall.append("\n    distinct: " + tags.isDistinct() + ",");
-        jQueryPluginCall.append("\n    editingMode: '" + editable + "',");
-        jQueryPluginCall.append("\n    matchingOptions: { \n" +
-                "            \"matchingMode\": \"contains\",\n" +
-                "            \"ignoreCase\": true\n" +
-                "        },");
+        options.append("{");
+        options.append("\n    showTrigger: " + showTrigger + ",");
+        options.append("\n    autoComplete: " + tags.isAutoComplete() + ",");
+        options.append("\n    distinct: " + tags.isDistinct() + ",");
+        options.append("\n    editingMode: '" + editable + "',");
 
         if (tags.getMaxTags() != null) {
-            jQueryPluginCall.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
+            options.append("\n    maxSelectedEntries: " + tags.getMaxTags() + ",");
         }
+
         final String selectedEntries = this.getSelectedEntries(tags);
         if (StringUtils.isNotEmpty(selectedEntries)) {
-            jQueryPluginCall.append("\n    selectedEntries: [" + selectedEntries + "],");
+            options.append("\n    selectedEntries: [" + selectedEntries + "],");
         }
 
-        if (StringUtils.isNotEmpty(entriesVar)) {
-            jQueryPluginCall.append("\n    valueProperty: 'id',");
-            jQueryPluginCall.append("\n    entries: " + entriesVar + ",");
-            jQueryPluginCall.append("\n    template: '" + DEFAULT_SINGLE_LINE_OF_TEXT_TEMPLATE + "',");
-            jQueryPluginCall.append("\n    inputTextProperty: 'butterObjectToString',");
-        } else {
-            jQueryPluginCall.append("\n    valueProperty: 'displayValue',");
-            jQueryPluginCall.append("\n    template: TrivialComponents.singleLineTemplate,");
+        options.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
+
+        if (!entries.isEmpty()) {
+            final List<String> mustacheKeys = createMustacheKeys(FacesContext.getCurrentInstance(), tags);
+            final Map<Integer, Node> nodesMap = CachedNodesInitializer.createNodesMap(entries);
+            options.append("\n    entries: " + new TrivialComponentsEntriesNodePartRenderer().renderEntriesAsJSON(entries, replaceDotInMustacheKeys(mustacheKeys), nodesMap) + ",");
         }
 
-        jQueryPluginCall.append("\n    freeTextSeparators: " + createFreeTextSeparators(tags) + ",");
+        options.append("\n}");
 
-
-        jQueryPluginCall.append("\n    valueSeparator: [',']");
-        jQueryPluginCall.append("});");
-
-        return jQueryPluginCall.toString();
+        return options.toString();
     }
 
     private List<Node> createEntries(final List<Object> objects) {
@@ -141,16 +125,14 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         final String componentValue = getSubmittedValueOrValue(tags);
 
         if (StringUtils.isNotEmpty(componentValue)) {
-            final List<String> freeTextSeparators = getFreeTextSeparators(tags);
-            final String valueSplitter = StringJoiner.on("|").join(freeTextSeparators).toString();
-            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(valueSplitter))).iterator();
+            final Iterator<String> iterator = new ArrayList<>(Arrays.asList(componentValue.split(","))).iterator();
 
             final StringBuilder sb = new StringBuilder();
 
             while (iterator.hasNext()) {
                 final String next = iterator.next();
                 if (StringUtils.isNotEmpty(next)) {
-                    sb.append("{displayValue:'" + escapeDisplayValue(next) + "'}");
+                    sb.append("{title:'" + escapeDisplayValue(next) + "'}");
                     if (iterator.hasNext()) {
                         sb.append(",");
                     }

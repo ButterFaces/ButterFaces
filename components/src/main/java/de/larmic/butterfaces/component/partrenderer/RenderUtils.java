@@ -9,19 +9,6 @@ import java.util.Map;
 
 public class RenderUtils {
 
-    public static final void renderJavaScriptCall(final String function, final ResponseWriter writer, final UIComponent uiComponent) throws IOException {
-        final StringBuilder jsCall = new StringBuilder();
-
-        jsCall.append("jQuery(function () {");
-        jsCall.append(function);
-        jsCall.append(";");
-        jsCall.append("});");
-
-        writer.startElement("script", uiComponent);
-        writer.writeText(jsCall.toString(), null);
-        writer.endElement("script");
-    }
-
     /**
      * Renders a script element with a function call for a jquery plugin
      *
@@ -31,8 +18,8 @@ public class RenderUtils {
      * @param uiComponent        component to add script
      * @throws java.io.IOException if writer throws an error
      */
-    public static final void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
-                                                    final ResponseWriter writer, final UIComponent uiComponent)
+    public static void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
+                                              final ResponseWriter writer, final UIComponent uiComponent)
             throws IOException {
         final String jsCall = createJQueryPluginCall(elementId, pluginFunctionCall);
 
@@ -51,6 +38,7 @@ public class RenderUtils {
 
         jsCall.append("jQuery(function () {");
         jsCall.append(createJQueryBySelector(elementId, childSelector));
+        jsCall.append(".");
         jsCall.append(pluginFunctionCall);
         jsCall.append(";");
         jsCall.append("});");
@@ -65,12 +53,13 @@ public class RenderUtils {
         jsCall.append("document.getElementById('");
         jsCall.append(elementId);
         jsCall.append("')");
-        jsCall.append(").");
+        jsCall.append(")");
 
         if (StringUtils.isNotEmpty(childSelector)) {
+            jsCall.append(".");
             jsCall.append("find('");
             jsCall.append(childSelector);
-            jsCall.append("').");
+            jsCall.append("')");
         }
 
         return jsCall.toString();
