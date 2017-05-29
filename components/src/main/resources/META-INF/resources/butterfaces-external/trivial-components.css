@@ -90,13 +90,15 @@
   border: 1px solid #ccc;
   border-top: none;
   border-radius: 0 0 4px 4px;
-  min-height: 30px;
   z-index: 1;
 }
 .tr-dropdown.flipped {
   border-radius: 4px 4px 0 0;
   border-top: 1px solid #ccc;
   border-bottom: none;
+}
+.tr-dropdown > * {
+  min-height: 30px;
 }
 .tr-input-wrapper {
   display: -webkit-box;
@@ -276,6 +278,7 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  position: relative;
 }
 
 .tr-tagbox-tagarea {
@@ -339,6 +342,14 @@
   color: #ccc;
 }
 
+.tr-treebox {
+  position: relative;
+}
+.tr-treebox .tr-tree-entryTree {
+  -webkit-box-flex: 1;
+          flex: 1 1 300px;
+  overflow: auto;
+}
 .tr-treebox .tr-tree-entry-outer-wrapper > .tr-tree-entry-and-expander-wrapper {
   display: -webkit-box;
   display: flex;
@@ -417,6 +428,11 @@
   padding: 6px;
   outline: none;
 }
+.tr-tree .tr-treebox {
+  -webkit-box-flex: 1;
+          flex: 1 1 1px;
+  overflow: auto;
+}
 .tr-tree.hide-searchfield {
   overflow: hidden;
   position: relative;
@@ -429,12 +445,6 @@
   padding: 0;
   border: none;
   opacity: 0;
-}
-.tr-tree .tr-tree-entryTree {
-  -webkit-box-flex: 1;
-          flex: 1 1 300px;
-  overflow: auto;
-  position: relative;
 }
 
 .tr-unitbox {

@@ -15,9 +15,59 @@
 *  limitations under the License.
 *
 */
-var TrivialComponents;
-(function (TrivialComponents) {
-    TrivialComponents.DEFAULT_TEMPLATES = {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "levenshtein"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Levenshtein = require("levenshtein");
+    exports.keyCodes = {
+        backspace: 8,
+        tab: 9,
+        enter: 13,
+        shift: 16,
+        ctrl: 17,
+        alt: 18,
+        pause: 19,
+        caps_lock: 20,
+        escape: 27,
+        space: 32,
+        page_up: 33,
+        page_down: 34,
+        end: 35,
+        home: 36,
+        left_arrow: 37,
+        up_arrow: 38,
+        right_arrow: 39,
+        down_arrow: 40,
+        insert: 45,
+        "delete": 46,
+        left_window_key: 91,
+        right_window_key: 92,
+        select_key: 93,
+        num_lock: 144,
+        scroll_lock: 145,
+        specialKeys: [8, 9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 91, 92, 93, 144, 145],
+        numberKeys: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105],
+        isSpecialKey: function (keyCode) {
+            return this.specialKeys.indexOf(keyCode) != -1;
+        },
+        isDigitKey: function (keyCode) {
+            return this.numberKeys.indexOf(keyCode) != -1;
+        },
+        isModifierKey: function (e) {
+            return [exports.keyCodes.shift, exports.keyCodes.caps_lock, exports.keyCodes.alt, exports.keyCodes.ctrl, exports.keyCodes.left_window_key, exports.keyCodes.right_window_key]
+                .indexOf(e.which) != -1;
+        }
+    };
+    exports.DEFAULT_TEMPLATES = {
         image2LinesTemplate: '<div class="tr-template-image-2-lines">' +
             '  <div class="img-wrapper" style="background-image: url({{imageUrl}})"></div>' +
             '  <div class="content-wrapper tr-editor-area"> ' +
@@ -80,13 +130,13 @@ var TrivialComponents;
         defaultSpinnerTemplate: '<div class="tr-default-spinner"><div class="spinner"></div><div>Fetching data...</div></div>',
         defaultNoEntriesTemplate: '<div class="tr-default-no-data-display"><div>No matching entries...</div></div>'
     };
-    function wrapWithDefaultTagWrapper(entryTemplate) {
+    function wrapWithDefaultTagWrapper(entryHtml) {
         return ('<div class="tr-tagbox-default-wrapper-template">' +
             '<div class="tr-tagbox-tag-content">##entryHtml##</div>' +
             '<div class="tr-remove-button"></div>' +
-            '</div>').replace("##entryHtml##", entryTemplate);
+            '</div>').replace("##entryHtml##", entryHtml);
     }
-    TrivialComponents.wrapWithDefaultTagWrapper = wrapWithDefaultTagWrapper;
+    exports.wrapWithDefaultTagWrapper = wrapWithDefaultTagWrapper;
     function defaultListQueryFunctionFactory(entries, matchingOptions) {
         function filterElements(queryString) {
             var visibleEntries = [];
@@ -103,7 +153,7 @@ var TrivialComponents;
             resultCallback(filterElements(queryString));
         };
     }
-    TrivialComponents.defaultListQueryFunctionFactory = defaultListQueryFunctionFactory;
+    exports.defaultListQueryFunctionFactory = defaultListQueryFunctionFactory;
     function createProxy(delegate) {
         var proxyConstructor = function () {
         };
@@ -111,7 +161,7 @@ var TrivialComponents;
         var proxyConstructorTypescriptHack = proxyConstructor;
         return new proxyConstructorTypescriptHack();
     }
-    TrivialComponents.createProxy = createProxy;
+    exports.createProxy = createProxy;
     function defaultEntryMatchingFunctionFactory(searchedPropertyNames, matchingOptions) {
         return function (entry, queryString, depth) {
             return searchedPropertyNames
@@ -121,7 +171,7 @@ var TrivialComponents;
             });
         };
     }
-    TrivialComponents.defaultEntryMatchingFunctionFactory = defaultEntryMatchingFunctionFactory;
+    exports.defaultEntryMatchingFunctionFactory = defaultEntryMatchingFunctionFactory;
     function defaultTreeQueryFunctionFactory(topLevelEntries, entryMatchingFunction, childrenPropertyName, expandedPropertyName) {
         function findMatchingEntriesAndTheirAncestors(entry, queryString, nodeDepth) {
             var entryProxy = createProxy(entry);
@@ -161,7 +211,7 @@ var TrivialComponents;
             }
         };
     }
-    TrivialComponents.defaultTreeQueryFunctionFactory = defaultTreeQueryFunctionFactory;
+    exports.defaultTreeQueryFunctionFactory = defaultTreeQueryFunctionFactory;
     function customTreeQueryFunctionFactory(topLevelEntries, childrenPropertyName, expandedPropertyName, customNodeMatchingFunction) {
         function findMatchingEntriesAndTheirAncestors(entry, queryString, nodeDepth) {
             var entryProxy = createProxy(entry);
@@ -201,7 +251,7 @@ var TrivialComponents;
             }
         };
     }
-    TrivialComponents.customTreeQueryFunctionFactory = customTreeQueryFunctionFactory;
+    exports.customTreeQueryFunctionFactory = customTreeQueryFunctionFactory;
     function selectElementContents(domElement, start, end) {
         domElement = domElement.firstChild || domElement;
         end = end || start;
@@ -216,8 +266,8 @@ var TrivialComponents;
         }
         sel.addRange(range);
     }
-    TrivialComponents.selectElementContents = selectElementContents;
-    TrivialComponents.escapeSpecialRegexCharacter = function (s) {
+    exports.selectElementContents = selectElementContents;
+    exports.escapeSpecialRegexCharacter = function (s) {
         return s.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     };
     function objectEquals(x, y) {
@@ -257,7 +307,7 @@ var TrivialComponents;
                 return objectEquals(x[i], y[i]);
             });
     }
-    TrivialComponents.objectEquals = objectEquals;
+    exports.objectEquals = objectEquals;
     function trivialMatch(text, searchString, options) {
         if (!searchString) {
             return [{
@@ -325,54 +375,60 @@ var TrivialComponents;
             throw "unknown matchingMode: " + options.matchingMode;
         }
     }
-    TrivialComponents.trivialMatch = trivialMatch;
-})(TrivialComponents || (TrivialComponents = {}));
-
-var TrivialComponents;
-(function (TrivialComponents) {
-    TrivialComponents.keyCodes = {
-        backspace: 8,
-        tab: 9,
-        enter: 13,
-        shift: 16,
-        ctrl: 17,
-        alt: 18,
-        pause: 19,
-        caps_lock: 20,
-        escape: 27,
-        space: 32,
-        page_up: 33,
-        page_down: 34,
-        end: 35,
-        home: 36,
-        left_arrow: 37,
-        up_arrow: 38,
-        right_arrow: 39,
-        down_arrow: 40,
-        insert: 45,
-        "delete": 46,
-        left_window_key: 91,
-        right_window_key: 92,
-        select_key: 93,
-        num_lock: 144,
-        scroll_lock: 145,
-        specialKeys: [8, 9, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 91, 92, 93, 144, 145],
-        numberKeys: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105],
-        isSpecialKey: function (keyCode) {
-            return this.specialKeys.indexOf(keyCode) != -1;
-        },
-        isDigitKey: function (keyCode) {
-            return this.numberKeys.indexOf(keyCode) != -1;
-        },
-        isModifierKey: function (e) {
-            return [TrivialComponents.keyCodes.shift, TrivialComponents.keyCodes.caps_lock, TrivialComponents.keyCodes.alt, TrivialComponents.keyCodes.ctrl, TrivialComponents.keyCodes.left_window_key, TrivialComponents.keyCodes.right_window_key]
-                .indexOf(e.which) != -1;
+    exports.trivialMatch = trivialMatch;
+    function minimallyScrollTo(element, target) {
+        var $target = $(target);
+        $(element).each(function () {
+            var $this = $(this);
+            var viewPortMinY = $this.scrollTop();
+            var viewPortMaxY = viewPortMinY + $this.innerHeight();
+            var targetMinY = $($target).offset().top - $(this).offset().top + $this.scrollTop();
+            var targetMaxY = targetMinY + $target.height();
+            if (targetMinY < viewPortMinY) {
+                $this.scrollTop(targetMinY);
+            }
+            else if (targetMaxY > viewPortMaxY) {
+                $this.scrollTop(Math.min(targetMinY, targetMaxY - $this.innerHeight()));
+            }
+            var viewPortMinX = $this.scrollLeft();
+            var viewPortMaxX = viewPortMinX + $this.innerWidth();
+            var targetMinX = $($target).offset().left - $(this).offset().left + $this.scrollLeft();
+            var targetMaxX = targetMinX + $target.width();
+            if (targetMinX < viewPortMinX) {
+                $this.scrollLeft(targetMinX);
+            }
+            else if (targetMaxX > viewPortMaxX) {
+                $this.scrollLeft(Math.min(targetMinX, targetMaxX - $this.innerWidth()));
+            }
+        });
+    }
+    exports.minimallyScrollTo = minimallyScrollTo;
+    function setTimeoutOrDoImmediately(f, delay) {
+        if (delay != null) {
+            return window.setTimeout(f(), delay);
         }
-    };
-})(TrivialComponents || (TrivialComponents = {}));
+        else {
+            return void f();
+        }
+    }
+    exports.setTimeoutOrDoImmediately = setTimeoutOrDoImmediately;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "moment", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var moment = require("moment");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var WeekDay;
     (function (WeekDay) {
         WeekDay[WeekDay["MONDAY"] = 1] = "MONDAY";
@@ -382,13 +438,13 @@ var TrivialComponents;
         WeekDay[WeekDay["FRIDAY"] = 5] = "FRIDAY";
         WeekDay[WeekDay["SATURDAY"] = 6] = "SATURDAY";
         WeekDay[WeekDay["SUNDAY"] = 7] = "SUNDAY";
-    })(WeekDay = TrivialComponents.WeekDay || (TrivialComponents.WeekDay = {}));
+    })(WeekDay = exports.WeekDay || (exports.WeekDay = {}));
     var TrivialCalendarBox = (function () {
         function TrivialCalendarBox($container, options) {
             if (options === void 0) { options = {}; }
             this.$container = $container;
-            this.onChange = new TrivialComponents.TrivialEvent(this);
-            this.onOnEditingTimeUnitChange = new TrivialComponents.TrivialEvent(this);
+            this.onChange = new TrivialEvent_1.TrivialEvent(this);
+            this.onOnEditingTimeUnitChange = new TrivialEvent_1.TrivialEvent(this);
             this.config = $.extend({
                 selectedDate: moment(),
                 firstDayOfWeek: WeekDay.MONDAY,
@@ -476,7 +532,7 @@ var TrivialComponents;
             this.$month.text(moment.months()[dateInMonthToBeDisplayed.month()]);
             this.$monthTable.remove();
             this.$monthTable = $('<div class="month-table">').appendTo(this.$calendarDisplay);
-            var daysToBeDisplayed = TrivialComponents.TrivialCalendarBox.getDaysForCalendarDisplay(dateInMonthToBeDisplayed, 1);
+            var daysToBeDisplayed = TrivialCalendarBox.getDaysForCalendarDisplay(dateInMonthToBeDisplayed, 1);
             var $tr = $('<tr>').appendTo(this.$monthTable);
             for (var i = 0; i < 7; i++) {
                 $tr.append('<th>' + moment.weekdaysMin()[(this.config.firstDayOfWeek + i) % 7] + '</th>');
@@ -683,21 +739,40 @@ var TrivialComponents;
         TrivialCalendarBox.prototype.getMainDomElement = function () {
             return this.$calendarBox[0];
         };
+        TrivialCalendarBox.prototype.destroy = function () {
+            this.$calendarBox.remove();
+        };
+        ;
         return TrivialCalendarBox;
     }());
-    TrivialComponents.TrivialCalendarBox = TrivialCalendarBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialCalendarBox = TrivialCalendarBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialCore", "./TrivialListBox", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialListBox_1 = require("./TrivialListBox");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialComboBox = (function () {
         function TrivialComboBox(originalInput, options) {
             if (options === void 0) { options = {}; }
             var _this = this;
             this.$spinners = $();
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
-            this.onFocus = new TrivialComponents.TrivialEvent(this);
-            this.onBlur = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onFocus = new TrivialEvent_1.TrivialEvent(this);
+            this.onBlur = new TrivialEvent_1.TrivialEvent(this);
             this.isDropDownOpen = false;
             this.isEditorVisible = false;
             this.lastQueryString = null;
@@ -710,9 +785,9 @@ var TrivialComponents;
             this.listBoxDirty = true;
             this.usingDefaultQueryFunction = false;
             this.config = $.extend({
-                valueFunction: function (entry) { return entry ? entry.id : null; },
+                valueFunction: function (entry) { return entry ? "" + entry.id : null; },
                 entryRenderingFunction: function (entry) {
-                    var template = entry.template || TrivialComponents.DEFAULT_TEMPLATES.image2LinesTemplate;
+                    var template = entry.template || TrivialCore_1.DEFAULT_TEMPLATES.image2LinesTemplate;
                     return Mustache.render(template, entry);
                 },
                 selectedEntryRenderingFunction: function (entry) {
@@ -724,8 +799,8 @@ var TrivialComponents;
                     }
                 },
                 selectedEntry: undefined,
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 textHighlightingEntryLimit: 100,
                 entries: null,
                 emptyEntry: {
@@ -771,7 +846,7 @@ var TrivialComponents;
                 showDropDownOnResultsOnly: false
             }, options);
             if (!this.config.queryFunction) {
-                this.config.queryFunction = TrivialComponents.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
+                this.config.queryFunction = TrivialCore_1.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
                 this.usingDefaultQueryFunction = true;
             }
             this.entries = this.config.entries;
@@ -781,9 +856,9 @@ var TrivialComponents;
             this.$selectedEntryWrapper = $('<div class="tr-combobox-selected-entry-wrapper"/>').appendTo(this.$comboBox);
             if (this.config.showClearButton) {
                 this.$clearButton = $('<div class="tr-remove-button">').appendTo(this.$comboBox);
-                this.$clearButton.mousedown(function () {
+                this.$clearButton.mousedown(function (e) {
                     _this.$editor.val("");
-                    _this.setSelectedEntry(null, true, true);
+                    _this.setSelectedEntry(null, true, true, e);
                 });
             }
             if (this.config.showTrigger) {
@@ -822,7 +897,7 @@ var TrivialComponents;
                     _this.showEditor();
                 }
             })
-                .blur(function () {
+                .blur(function (e) {
                 if (_this.blurCausedByClickInsideComponent) {
                     _this.$editor.focus();
                 }
@@ -831,48 +906,55 @@ var TrivialComponents;
                     _this.onBlur.fire();
                     _this.$comboBox.removeClass('focus');
                     if (_this.editorContainsFreeText()) {
-                        if (!TrivialComponents.objectEquals(_this.getSelectedEntry(), _this.lastCommittedValue)) {
-                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                        if (!TrivialCore_1.objectEquals(_this.getSelectedEntry(), _this.lastCommittedValue)) {
+                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                         }
                     }
                     else {
                         _this.$editor.val("");
-                        _this.setSelectedEntry(_this.lastCommittedValue, false, true);
+                        _this.setSelectedEntry(_this.lastCommittedValue, false, true, e);
                     }
                     _this.hideEditor();
                     _this.closeDropDown();
                 }
             })
                 .keydown(function (e) {
-                if (TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.tab) {
+                else if (e.which == TrivialCore_1.keyCodes.tab) {
                     var highlightedEntry = _this.listBox.getHighlightedEntry();
                     if (_this.isDropDownOpen && highlightedEntry) {
-                        _this.setSelectedEntry(highlightedEntry, true, true);
+                        _this.setSelectedEntry(highlightedEntry, true, true, e);
                     }
                     else if (!_this.$editor.val()) {
                         _this.setSelectedEntry(null, true, true);
                     }
                     else if (_this.config.allowFreeText) {
-                        _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                        _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                     }
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
                     _this.showEditor();
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.backspace || e.which == TrivialComponents.keyCodes.delete) {
+                setTimeout(function () {
+                    var isNonIgnoredKey = !TrivialCore_1.keyCodes.isModifierKey(e) && [TrivialCore_1.keyCodes.enter, TrivialCore_1.keyCodes.escape, TrivialCore_1.keyCodes.tab].indexOf(e.which) === -1;
+                    var editorValueDoesNotCorrespondToSelectedValue = _this.isEntrySelected() && _this.$editor.val() !== _this.config.entryToEditorTextFunction(_this.selectedEntry);
+                    if (isNonIgnoredKey && (editorValueDoesNotCorrespondToSelectedValue || _this.config.valueFunction(_this.listBox.getHighlightedEntry())) !== _this.config.valueFunction(_this.getSelectedEntry())) {
+                        _this.setSelectedEntry(null, false, false, e);
+                    }
+                });
+                if (e.which == TrivialCore_1.keyCodes.backspace || e.which == TrivialCore_1.keyCodes.delete) {
                     _this.doNoAutoCompleteBecauseBackspaceWasPressed = true;
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
                     if (!_this.isEditorVisible) {
                         _this.$editor.select();
                         _this.showEditor();
                     }
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (!_this.isDropDownOpen) {
                         _this.query(direction);
                         if (!_this.config.showDropDownOnResultsOnly) {
@@ -881,34 +963,34 @@ var TrivialComponents;
                     }
                     else {
                         _this.listBox.highlightNextEntry(direction);
-                        _this.autoCompleteIfPossible(_this.config.autoCompleteDelay);
+                        _this.autoCompleteIfPossible();
                     }
                     return false;
                 }
-                else if (e.which == TrivialComponents.keyCodes.enter) {
+                else if (e.which == TrivialCore_1.keyCodes.enter) {
                     if (_this.isEditorVisible || _this.editorContainsFreeText()) {
                         e.preventDefault();
                         var highlightedEntry = _this.listBox.getHighlightedEntry();
                         if (_this.isDropDownOpen && highlightedEntry) {
-                            _this.setSelectedEntry(highlightedEntry, true, true);
+                            _this.setSelectedEntry(highlightedEntry, true, true, e);
                         }
                         else if (!_this.$editor.val()) {
-                            _this.setSelectedEntry(null, true, true);
+                            _this.setSelectedEntry(null, true, true, e);
                         }
                         else if (_this.config.allowFreeText) {
-                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                         }
                         _this.closeDropDown();
                         _this.hideEditor();
                     }
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     e.preventDefault();
                     if (!(_this.editorContainsFreeText() && _this.isDropDownOpen)) {
                         _this.hideEditor();
                         _this.$editor.val("");
                         _this.entries = null;
-                        _this.setSelectedEntry(_this.lastCommittedValue, false, true);
+                        _this.setSelectedEntry(_this.lastCommittedValue, false, true, e);
                     }
                     _this.closeDropDown();
                 }
@@ -929,11 +1011,6 @@ var TrivialComponents;
                             _this.listBox.setHighlightedEntry(null);
                         }
                     });
-                }
-            })
-                .keyup(function (e) {
-                if (!TrivialComponents.keyCodes.isModifierKey(e) && [TrivialComponents.keyCodes.enter, TrivialComponents.keyCodes.escape, TrivialComponents.keyCodes.tab].indexOf(e.which) === -1 && _this.isEntrySelected() && _this.$editor.val() !== _this.config.entryToEditorTextFunction(_this.selectedEntry)) {
-                    _this.setSelectedEntry(null, false, true);
                 }
             })
                 .mousedown(function () {
@@ -965,10 +1042,10 @@ var TrivialComponents;
             });
             var configWithoutEntries = $.extend({}, this.config);
             configWithoutEntries.entries = [];
-            this.listBox = new TrivialComponents.TrivialListBox(this.$dropDown, configWithoutEntries);
-            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry) {
+            this.listBox = new TrivialListBox_1.TrivialListBox(this.$dropDown, configWithoutEntries);
+            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry, eventSource, originalEvent) {
                 if (selectedEntry) {
-                    _this.setSelectedEntry(selectedEntry, true, !TrivialComponents.objectEquals(selectedEntry, _this.lastCommittedValue));
+                    _this.setSelectedEntry(selectedEntry, true, !TrivialCore_1.objectEquals(selectedEntry, _this.lastCommittedValue), originalEvent);
                     _this.listBox.setSelectedEntry(null);
                     _this.closeDropDown();
                 }
@@ -983,34 +1060,34 @@ var TrivialComponents;
                 }
                 _this.query();
             });
-            this.$comboBox.data("trivialComboBox", this);
         }
         TrivialComboBox.prototype.query = function (highlightDirection) {
             var _this = this;
-            setTimeout(function () {
-                var queryString = _this.getNonSelectedEditorValue();
-                var completeInputString = _this.$editor.val();
-                if (_this.lastQueryString !== queryString || _this.lastCompleteInputQueryString !== completeInputString) {
-                    if (_this.$spinners.length === 0) {
-                        var $spinner = $(_this.config.spinnerTemplate).appendTo(_this.$dropDown);
-                        _this.$spinners = _this.$spinners.add($spinner);
-                    }
-                    _this.config.queryFunction(queryString, function (newEntries) {
-                        _this.updateEntries(newEntries, highlightDirection);
-                        if (_this.config.showDropDownOnResultsOnly && newEntries && newEntries.length > 0 && _this.$editor.is(":focus")) {
-                            _this.openDropDown();
-                        }
-                    });
-                    _this.lastQueryString = queryString;
-                    _this.lastCompleteInputQueryString = completeInputString;
+            var queryString = this.getNonSelectedEditorValue();
+            var completeInputString = this.$editor.val();
+            if (this.lastQueryString !== queryString || this.lastCompleteInputQueryString !== completeInputString) {
+                if (this.$spinners.length === 0) {
+                    var $spinner = $(this.config.spinnerTemplate).appendTo(this.$dropDown);
+                    this.$spinners = this.$spinners.add($spinner);
                 }
-            }, 0);
+                this.config.queryFunction(queryString, function (newEntries) {
+                    _this.updateEntries(newEntries, highlightDirection);
+                    if (_this.config.showDropDownOnResultsOnly && newEntries && newEntries.length > 0 && _this.$editor.is(":focus")) {
+                        _this.openDropDown();
+                    }
+                });
+                this.lastQueryString = queryString;
+                this.lastCompleteInputQueryString = completeInputString;
+            }
+            else {
+                this.openDropDown();
+            }
         };
-        TrivialComboBox.prototype.fireChangeEvents = function (entry) {
+        TrivialComboBox.prototype.fireChangeEvents = function (entry, originalEvent) {
             this.$originalInput.trigger("change");
-            this.onSelectedEntryChanged.fire(entry);
+            this.onSelectedEntryChanged.fire(entry, originalEvent);
         };
-        TrivialComboBox.prototype.setSelectedEntry = function (entry, commit, fireEvent) {
+        TrivialComboBox.prototype.setSelectedEntry = function (entry, commit, fireEvent, originalEvent) {
             if (commit === void 0) { commit = true; }
             if (fireEvent === void 0) { fireEvent = false; }
             if (entry == null) {
@@ -1032,7 +1109,7 @@ var TrivialComponents;
             if (commit) {
                 this.lastCommittedValue = entry;
                 if (fireEvent) {
-                    this.fireChangeEvents(entry);
+                    this.fireChangeEvents(entry, originalEvent);
                 }
             }
             if (this.$clearButton) {
@@ -1124,14 +1201,14 @@ var TrivialComponents;
                 clearTimeout(this.autoCompleteTimeoutId);
                 var highlightedEntry_1 = this.listBox.getHighlightedEntry();
                 if (highlightedEntry_1 && !this.doNoAutoCompleteBecauseBackspaceWasPressed) {
-                    this.autoCompleteTimeoutId = setTimeout(function () {
+                    this.autoCompleteTimeoutId = TrivialCore_1.setTimeoutOrDoImmediately(function () {
                         var currentEditorValue = _this.getNonSelectedEditorValue();
                         var autoCompleteString = _this.config.autoCompleteFunction(currentEditorValue, highlightedEntry_1) || currentEditorValue;
                         _this.$editor.val(currentEditorValue + autoCompleteString.substr(currentEditorValue.length));
                         if (_this.$editor.is(":focus")) {
                             _this.$editor[0].setSelectionRange(currentEditorValue.length, autoCompleteString.length);
                         }
-                    }, delay || 0);
+                    }, delay);
                 }
                 this.doNoAutoCompleteBecauseBackspaceWasPressed = false;
             }
@@ -1139,16 +1216,6 @@ var TrivialComponents;
         TrivialComboBox.prototype.updateListBoxEntries = function () {
             this.listBox.updateEntries(this.entries);
             this.listBoxDirty = false;
-        };
-        TrivialComboBox.prototype.isDropDownNeeded = function () {
-            return this.editingMode == 'editable' && (this.config.entries && this.config.entries.length > 0 || !this.usingDefaultQueryFunction || this.config.showTrigger);
-        };
-        TrivialComboBox.prototype.setEditingMode = function (newEditingMode) {
-            this.editingMode = newEditingMode;
-            this.$comboBox.removeClass("editable readonly disabled").addClass(this.editingMode);
-            if (this.isDropDownNeeded()) {
-                this.$dropDown.appendTo(this.$dropDownTargetElement);
-            }
         };
         TrivialComboBox.prototype.updateEntries = function (newEntries, highlightDirection) {
             this.entries = newEntries;
@@ -1181,6 +1248,16 @@ var TrivialComponents;
                 this.openDropDown();
             }
         };
+        TrivialComboBox.prototype.isDropDownNeeded = function () {
+            return this.editingMode == 'editable' && (this.config.entries && this.config.entries.length > 0 || !this.usingDefaultQueryFunction || this.config.showTrigger);
+        };
+        TrivialComboBox.prototype.setEditingMode = function (newEditingMode) {
+            this.editingMode = newEditingMode;
+            this.$comboBox.removeClass("editable readonly disabled").addClass(this.editingMode);
+            if (this.isDropDownNeeded()) {
+                this.$dropDown.appendTo(this.$dropDownTargetElement);
+            }
+        };
         TrivialComboBox.prototype.getSelectedEntry = function () {
             if (this.selectedEntry == null && (!this.config.allowFreeText || !this.$editor.val())) {
                 return null;
@@ -1189,7 +1266,7 @@ var TrivialComponents;
                 return this.config.freeTextEntryFactory(this.$editor.val());
             }
             else {
-                var selectedEntryToReturn = jQuery.extend({}, this.selectedEntry);
+                var selectedEntryToReturn = $.extend({}, this.selectedEntry);
                 selectedEntryToReturn._trEntryElement = undefined;
                 return selectedEntryToReturn;
             }
@@ -1200,6 +1277,9 @@ var TrivialComponents;
             this.$editor.select();
         };
         ;
+        TrivialComboBox.prototype.getEditor = function () {
+            return this.$editor[0];
+        };
         TrivialComboBox.prototype.getDropDown = function () {
             return this.$dropDown;
         };
@@ -1215,12 +1295,244 @@ var TrivialComponents;
         };
         return TrivialComboBox;
     }());
-    TrivialComponents.TrivialComboBox = TrivialComboBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialComboBox = TrivialComboBox;
+});
 
 
-var TrivialComponents;
-(function (TrivialComponents) {
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "moment"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var moment = require("moment");
+    var TrivialDateSuggestionEngine = (function () {
+        function TrivialDateSuggestionEngine(options) {
+            this.options = __assign({ preferredDateFormat: "YYYY-MM-DD" }, options);
+        }
+        TrivialDateSuggestionEngine.prototype.generateSuggestions = function (searchString, now) {
+            now = moment(now);
+            var suggestions;
+            if (searchString.match(/[^\d]/)) {
+                var fragments = searchString.split(/[^\d]/).filter(function (f) { return !!f; });
+                suggestions = this.createSuggestionsForFragments(fragments, now);
+            }
+            else {
+                suggestions = this.generateSuggestionsForDigitsOnlyInput(searchString, now);
+            }
+            var preferredYmdOrder = TrivialDateSuggestionEngine.dateFormatToYmdOrder(this.options.preferredDateFormat);
+            suggestions.sort(function (a, b) {
+                if (preferredYmdOrder.indexOf(a.ymdOrder) === -1 && preferredYmdOrder.indexOf(b.ymdOrder) !== -1) {
+                    return 1;
+                }
+                else if (preferredYmdOrder.indexOf(a.ymdOrder) !== -1 && preferredYmdOrder.indexOf(b.ymdOrder) === -1) {
+                    return -1;
+                }
+                else if (a.ymdOrder.length != b.ymdOrder.length) {
+                    return a.ymdOrder.length - b.ymdOrder.length;
+                }
+                else {
+                    return a.moment.diff(now, 'days') - b.moment.diff(now, 'days');
+                }
+            });
+            suggestions = this.removeDuplicates(suggestions);
+            return suggestions;
+        };
+        TrivialDateSuggestionEngine.prototype.removeDuplicates = function (suggestions) {
+            var seenDates = [];
+            return suggestions.filter(function (s) {
+                var dateAlreadyContained = seenDates.filter(function (seenDate) { return s.moment.isSame(seenDate, 'day'); }).length > 0;
+                if (dateAlreadyContained) {
+                    return false;
+                }
+                else {
+                    seenDates.push(s.moment);
+                    return true;
+                }
+            });
+        };
+        TrivialDateSuggestionEngine.dateFormatToYmdOrder = function (dateFormat) {
+            var ymdIndexes = {
+                D: dateFormat.indexOf("D"),
+                M: dateFormat.indexOf("M"),
+                Y: dateFormat.indexOf("Y")
+            };
+            return (["D", "M", "Y"].sort(function (a, b) { return ymdIndexes[a] - ymdIndexes[b]; }).join(""));
+        };
+        TrivialDateSuggestionEngine.createSuggestion = function (moment, ymdOrder) {
+            return { moment: moment, ymdOrder: ymdOrder };
+        };
+        TrivialDateSuggestionEngine.prototype.generateSuggestionsForDigitsOnlyInput = function (input, today) {
+            input = input || "";
+            if (input.length === 0) {
+                return this.createSuggestionsForFragments([], today);
+            }
+            else if (input.length > 8) {
+                return [];
+            }
+            var suggestions = [];
+            for (var i = 1; i <= input.length; i++) {
+                for (var j = Math.min(input.length, i + 1); j <= input.length && j - i <= 4; j - i === 2 ? j += 2 : j++) {
+                    suggestions = suggestions.concat(this.createSuggestionsForFragments([input.substring(0, i), input.substring(i, j), input.substring(j, input.length)], today));
+                }
+            }
+            return suggestions;
+        };
+        TrivialDateSuggestionEngine.prototype.todayOrFavoriteDirection = function (m, today) {
+            return this.options.favorPastDates ? today.isSameOrAfter(m, 'day') : today.isSameOrBefore(m, 'day');
+        };
+        TrivialDateSuggestionEngine.prototype.createSuggestionsForFragments = function (fragments, today) {
+            var _this = this;
+            function mod(n, m) {
+                return ((n % m) + m) % m;
+            }
+            function numberToYear(n) {
+                var shortYear = today.year() % 100;
+                var yearSuggestionBoundary = (shortYear + 20) % 100;
+                var currentCentury = Math.floor(today.year() / 100) * 100;
+                if (n < yearSuggestionBoundary) {
+                    return currentCentury + n;
+                }
+                else if (n < 100) {
+                    return currentCentury - 100 + n;
+                }
+                else if (n > today.year() - 100 && n < today.year() + 100) {
+                    return n;
+                }
+                else {
+                    return null;
+                }
+            }
+            var s1 = fragments[0], s2 = fragments[1], s3 = fragments[2];
+            var _a = [parseInt(s1), parseInt(s2), parseInt(s3)], n1 = _a[0], n2 = _a[1], n3 = _a[2];
+            var suggestions = [];
+            if (!s1 && !s2 && !s3) {
+                var result = [];
+                for (var i = 0; i < 7; i++) {
+                    result.push(TrivialDateSuggestionEngine.createSuggestion(moment(today).add((this.options.favorPastDates ? -1 : 1) * i, "day"), ""));
+                }
+                return result;
+            }
+            else if (s1 && !s2 && !s3) {
+                if (n1 > 0 && n1 <= 31) {
+                    var nextValidDate = this.findNextValidDate({ year: today.year(), month: today.month(), day: n1 }, function (currentDate) {
+                        return {
+                            year: currentDate.year + (_this.options.favorPastDates ? (currentDate.month == 0 ? -1 : 0) : (currentDate.month == 11 ? 1 : 0)),
+                            month: mod(currentDate.month + (_this.options.favorPastDates ? -1 : 1), 12),
+                            day: currentDate.day
+                        };
+                    }, today);
+                    if (nextValidDate) {
+                        suggestions.push(TrivialDateSuggestionEngine.createSuggestion(nextValidDate, "D"));
+                    }
+                }
+            }
+            else if (s1 && s2 && !s3) {
+                if (n1 <= 12 && n2 > 0 && n2 <= 31) {
+                    var nextValidDate = this.findNextValidDate({ year: today.year(), month: n1 - 1, day: n2 }, function (currentDate) {
+                        return {
+                            year: currentDate.year + (_this.options.favorPastDates ? -1 : 1),
+                            month: currentDate.month,
+                            day: currentDate.day
+                        };
+                    }, today);
+                    if (nextValidDate) {
+                        suggestions.push(TrivialDateSuggestionEngine.createSuggestion(nextValidDate, "MD"));
+                    }
+                }
+                if (n2 <= 12 && n1 > 0 && n1 <= 31) {
+                    var nextValidDate = this.findNextValidDate({ year: today.year(), month: n2 - 1, day: n1 }, function (currentDate) {
+                        return {
+                            year: currentDate.year + (_this.options.favorPastDates ? -1 : 1),
+                            month: currentDate.month,
+                            day: currentDate.day
+                        };
+                    }, today);
+                    if (nextValidDate) {
+                        suggestions.push(TrivialDateSuggestionEngine.createSuggestion(nextValidDate, "DM"));
+                    }
+                }
+            }
+            else {
+                var mom = void 0;
+                mom = moment([numberToYear(n1), n2 - 1, s3]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "YMD"));
+                }
+                mom = moment([numberToYear(n1), n3 - 1, s2]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "YDM"));
+                }
+                mom = moment([numberToYear(n2), n1 - 1, s3]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "MYD"));
+                }
+                mom = moment([numberToYear(n2), n3 - 1, s1]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "DYM"));
+                }
+                mom = moment([numberToYear(n3), n1 - 1, s2]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "MDY"));
+                }
+                mom = moment([numberToYear(n3), n2 - 1, s1]);
+                if (mom.isValid()) {
+                    suggestions.push(TrivialDateSuggestionEngine.createSuggestion(mom, "DMY"));
+                }
+            }
+            return suggestions;
+        };
+        ;
+        TrivialDateSuggestionEngine.prototype.findNextValidDate = function (startDate, incementor, today) {
+            var currentDate = startDate;
+            var momentInNextMonth = moment(startDate);
+            var numberOfIterations = 0;
+            while (!(momentInNextMonth.isValid() && this.todayOrFavoriteDirection(momentInNextMonth, today)) && numberOfIterations < 4) {
+                currentDate = incementor(currentDate);
+                momentInNextMonth = moment(currentDate);
+                numberOfIterations++;
+            }
+            return momentInNextMonth.isValid() ? momentInNextMonth : null;
+        };
+        return TrivialDateSuggestionEngine;
+    }());
+    exports.TrivialDateSuggestionEngine = TrivialDateSuggestionEngine;
+});
+
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "moment", "mustache", "./TrivialCore", "./TrivialEvent", "./TrivialListBox", "./TrivialCalendarBox", "./TrivialDateSuggestionEngine", "./TrivialTimeSuggestionEngine"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var moment = require("moment");
+    var Mustache = require("mustache");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
+    var TrivialListBox_1 = require("./TrivialListBox");
+    var TrivialCalendarBox_1 = require("./TrivialCalendarBox");
+    var TrivialDateSuggestionEngine_1 = require("./TrivialDateSuggestionEngine");
+    var TrivialTimeSuggestionEngine_1 = require("./TrivialTimeSuggestionEngine");
     var Mode;
     (function (Mode) {
         Mode[Mode["MODE_CALENDAR"] = 0] = "MODE_CALENDAR";
@@ -1231,7 +1543,7 @@ var TrivialComponents;
         function TrivialDateTimeField(originalInput, options) {
             if (options === void 0) { options = {}; }
             var _this = this;
-            this.dateIconTemplate = "<svg viewBox=\"0 0 540 540\" width=\"22\" height=\"22\" class=\"calendar-icon\">\n        <defs>\n            <linearGradient id=\"Gradient1\" x1=\"0\" x2=\"0\" y1=\"0\" y2=\"1\">\n                <stop class=\"calendar-symbol-ring-gradient-stop1\" offset=\"0%\"/>\n                <stop class=\"calendar-symbol-ring-gradient-stop2\" offset=\"50%\"/>\n                <stop class=\"calendar-symbol-ring-gradient-stop3\" offset=\"100%\"/>\n            </linearGradient>\n        </defs>        \n        <g id=\"layer1\">\n            <rect class=\"calendar-symbol-page-background\" x=\"90\" y=\"90\" width=\"360\" height=\"400\" ry=\"3.8\"></rect>\n            <rect class=\"calendar-symbol-color\" x=\"90\" y=\"90\" width=\"360\" height=\"100\" ry=\"3.5\"></rect>\n            <rect class=\"calendar-symbol-page\" x=\"90\" y=\"90\" width=\"360\" height=\"395\" ry=\"3.8\"></rect>\n            <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"140\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n            <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"250\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n            <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"360\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n            <text class=\"calendar-symbol-date\" x=\"270\" y=\"415\" text-anchor=\"middle\">{{weekDay}}</text>\n        </g>\n    </svg>";
+            this.dateIconTemplate = "<svg viewBox=\"0 0 540 540\" width=\"22\" height=\"22\" class=\"calendar-icon\">\n    <defs>\n        <linearGradient id=\"Gradient1\" x1=\"0\" x2=\"0\" y1=\"0\" y2=\"1\">\n            <stop class=\"calendar-symbol-ring-gradient-stop1\" offset=\"0%\"/>\n            <stop class=\"calendar-symbol-ring-gradient-stop2\" offset=\"50%\"/>\n            <stop class=\"calendar-symbol-ring-gradient-stop3\" offset=\"100%\"/>\n        </linearGradient>\n    </defs>        \n    <g id=\"layer1\">\n        <rect class=\"calendar-symbol-page-background\" x=\"90\" y=\"90\" width=\"360\" height=\"400\" ry=\"3.8\"></rect>\n        <rect class=\"calendar-symbol-color\" x=\"90\" y=\"90\" width=\"360\" height=\"100\" ry=\"3.5\"></rect>\n        <rect class=\"calendar-symbol-page\" x=\"90\" y=\"90\" width=\"360\" height=\"395\" ry=\"3.8\"></rect>\n        <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"140\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n        <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"250\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n        <rect class=\"calendar-symbol-ring\" fill=\"url(#Gradient2)\" x=\"360\" y=\"30\" width=\"40\" height=\"120\" ry=\"30.8\"></rect>\n        <text class=\"calendar-symbol-date\" x=\"270\" y=\"415\" text-anchor=\"middle\">{{weekDay}}</text>\n    </g>\n</svg>";
             this.dateTemplate = '<div class="tr-template-icon-single-line">'
                 + this.dateIconTemplate
                 + '<div class="content-wrapper tr-editor-area">{{displayString}}</div>'
@@ -1247,7 +1559,7 @@ var TrivialComponents;
                 this.timeIconTemplate +
                 '  <div class="content-wrapper tr-editor-area">{{displayString}}</div>' +
                 '</div>';
-            this.onChange = new TrivialComponents.TrivialEvent(this);
+            this.onChange = new TrivialEvent_1.TrivialEvent(this);
             this.isDropDownOpen = false;
             this.dateValue = null;
             this.timeValue = null;
@@ -1279,23 +1591,23 @@ var TrivialComponents;
                 _this.$activeEditor = _this.$dateEditor;
                 _this.setDropDownMode(Mode.MODE_CALENDAR);
                 _this.openDropDown();
-                TrivialComponents.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
+                TrivialCore_1.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
             });
             this.$timeIconWrapper.click(function () {
                 _this.$activeEditor = _this.$timeEditor;
                 _this.setDropDownMode(Mode.MODE_CALENDAR);
-                TrivialComponents.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
+                TrivialCore_1.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
             });
             this.$dateEditor.focus(function () {
                 _this.$activeEditor = _this.$dateEditor;
                 if (!_this.blurCausedByClickInsideComponent || _this.focusGoesToOtherEditor) {
-                    TrivialComponents.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
+                    TrivialCore_1.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
                 }
             });
             this.$timeEditor.focus(function () {
                 _this.$activeEditor = _this.$timeEditor;
                 if (!_this.blurCausedByClickInsideComponent || _this.focusGoesToOtherEditor) {
-                    TrivialComponents.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
+                    TrivialCore_1.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
                 }
             });
             if (this.config.showTrigger) {
@@ -1309,7 +1621,7 @@ var TrivialComponents;
                             _this.setDropDownMode(Mode.MODE_CALENDAR);
                             _this.calendarBox.setSelectedDate(_this.dateValue ? _this.dateValue.moment : moment());
                             _this.$activeEditor = _this.$dateEditor;
-                            TrivialComponents.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
+                            TrivialCore_1.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
                             _this.openDropDown();
                         });
                     }
@@ -1324,7 +1636,7 @@ var TrivialComponents;
                 this.$dropDown.appendTo("body");
             }
             var $dateListBox = $('<div class="date-listbox">').appendTo(this.$dropDown);
-            this.dateListBox = new TrivialComponents.TrivialListBox($dateListBox, {
+            this.dateListBox = new TrivialListBox_1.TrivialListBox($dateListBox, {
                 entryRenderingFunction: function (entry) {
                     return Mustache.render(_this.dateTemplate, entry);
                 }
@@ -1337,7 +1649,7 @@ var TrivialComponents;
                 }
             });
             var $timeListBox = $('<div class="time-listbox">').appendTo(this.$dropDown);
-            this.timeListBox = new TrivialComponents.TrivialListBox($timeListBox, {
+            this.timeListBox = new TrivialListBox_1.TrivialListBox($timeListBox, {
                 entryRenderingFunction: function (entry) {
                     return Mustache.render(_this.timeTemplate, entry);
                 }
@@ -1363,30 +1675,30 @@ var TrivialComponents;
                 }
             })
                 .keydown(function (e) {
-                if (TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.tab) {
+                else if (e.which == TrivialCore_1.keyCodes.tab) {
                     _this.selectHighlightedListBoxEntry();
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
-                    if (_this.getActiveEditor() === _this.$timeEditor && e.which == TrivialComponents.keyCodes.left_arrow && window.getSelection().focusOffset === 0) {
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
+                    if (_this.getActiveEditor() === _this.$timeEditor && e.which == TrivialCore_1.keyCodes.left_arrow && window.getSelection().focusOffset === 0) {
                         e.preventDefault();
-                        TrivialComponents.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
+                        TrivialCore_1.selectElementContents(_this.$dateEditor[0], 0, _this.$dateEditor.text().length);
                     }
-                    else if (_this.getActiveEditor() === _this.$dateEditor && e.which == TrivialComponents.keyCodes.right_arrow && window.getSelection().focusOffset === _this.$dateEditor.text().length) {
+                    else if (_this.getActiveEditor() === _this.$dateEditor && e.which == TrivialCore_1.keyCodes.right_arrow && window.getSelection().focusOffset === _this.$dateEditor.text().length) {
                         e.preventDefault();
-                        TrivialComponents.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
+                        TrivialCore_1.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
                     }
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.backspace || e.which == TrivialComponents.keyCodes.delete) {
+                if (e.which == TrivialCore_1.keyCodes.backspace || e.which == TrivialCore_1.keyCodes.delete) {
                     _this.doNoAutoCompleteBecauseBackspaceWasPressed = true;
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
                     _this.getActiveEditor().select();
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (_this.isDropDownOpen) {
                         _this.setDropDownMode(e.currentTarget === _this.$dateEditor[0] ? Mode.MODE_DATE_LIST : Mode.MODE_TIME_LIST);
                         _this.query(direction);
@@ -1400,19 +1712,19 @@ var TrivialComponents;
                     }
                     return false;
                 }
-                else if (e.which == TrivialComponents.keyCodes.enter) {
+                else if (e.which == TrivialCore_1.keyCodes.enter) {
                     if (_this.isDropDownOpen) {
                         e.preventDefault();
                         _this.selectHighlightedListBoxEntry();
-                        TrivialComponents.selectElementContents(_this.getActiveEditor()[0], 0, _this.getActiveEditor().text().length);
+                        TrivialCore_1.selectElementContents(_this.getActiveEditor()[0], 0, _this.getActiveEditor().text().length);
                         _this.closeDropDown();
                     }
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     e.preventDefault();
                     if (_this.isDropDownOpen) {
                         _this.updateDisplay();
-                        TrivialComponents.selectElementContents(_this.getActiveEditor()[0], 0, _this.getActiveEditor().text().length);
+                        TrivialCore_1.selectElementContents(_this.getActiveEditor()[0], 0, _this.getActiveEditor().text().length);
                     }
                     _this.closeDropDown();
                 }
@@ -1452,12 +1764,16 @@ var TrivialComponents;
                 _this.focusGoesToOtherEditor = false;
             });
             this.$activeEditor = this.$dateEditor;
+            this.dateSuggestionEngine = new TrivialDateSuggestionEngine_1.TrivialDateSuggestionEngine({
+                preferredDateFormat: this.config.dateFormat
+            });
+            this.timeSuggestionEngine = new TrivialTimeSuggestionEngine_1.TrivialTimeSuggestionEngine();
         }
         TrivialDateTimeField.prototype.setDropDownMode = function (mode) {
             var _this = this;
             this.dropDownMode = mode;
             if (!this.calendarBoxInitialized && mode === Mode.MODE_CALENDAR) {
-                this.calendarBox = new TrivialComponents.TrivialCalendarBox(this.$calendarBox, {
+                this.calendarBox = new TrivialCalendarBox_1.TrivialCalendarBox(this.$calendarBox, {
                     firstDayOfWeek: 1,
                     mode: 'date'
                 });
@@ -1468,7 +1784,7 @@ var TrivialComponents;
                     if (timeUnitEdited === 'day') {
                         _this.closeDropDown();
                         _this.$activeEditor = _this.$timeEditor;
-                        TrivialComponents.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
+                        TrivialCore_1.selectElementContents(_this.$timeEditor[0], 0, _this.$timeEditor.text().length);
                         _this.fireChangeEvents();
                     }
                 });
@@ -1510,14 +1826,14 @@ var TrivialComponents;
             setTimeout(function () {
                 var queryString = _this.getNonSelectedEditorValue();
                 if (_this.getActiveEditor() === _this.$dateEditor) {
-                    TrivialDateTimeField.dateQueryFunction(queryString, function (newEntries) {
-                        _this.updateEntries(newEntries, highlightDirection);
-                    }, _this.config.dateFormat);
+                    var entries = _this.dateSuggestionEngine.generateSuggestions(queryString, moment())
+                        .map(function (s) { return TrivialDateTimeField.createDateComboBoxEntry(s.moment, _this.config.dateFormat); });
+                    _this.updateEntries(entries, highlightDirection);
                 }
                 else {
-                    TrivialDateTimeField.timeQueryFunction(queryString, function (newEntries) {
-                        _this.updateEntries(newEntries, highlightDirection);
-                    }, _this.config.timeFormat);
+                    var entries = _this.timeSuggestionEngine.generateSuggestions(queryString)
+                        .map(function (s) { return TrivialDateTimeField.createTimeComboBoxEntry(s.hour, s.minute, _this.config.timeFormat); });
+                    _this.updateEntries(entries, highlightDirection);
                 }
             }, 0);
         };
@@ -1645,7 +1961,7 @@ var TrivialComponents;
                 if (highlightedEntry && this.doNoAutoCompleteBecauseBackspaceWasPressed) {
                     var autoCompletingEntryDisplayValue_1 = highlightedEntry.displayString;
                     if (autoCompletingEntryDisplayValue_1) {
-                        this.autoCompleteTimeoutId = setTimeout(function () {
+                        this.autoCompleteTimeoutId = window.setTimeout(function () {
                             var oldEditorValue = _this.getNonSelectedEditorValue();
                             var newEditorValue;
                             if (autoCompletingEntryDisplayValue_1.toLowerCase().indexOf(oldEditorValue.toLowerCase()) === 0) {
@@ -1656,7 +1972,7 @@ var TrivialComponents;
                             }
                             _this.getActiveEditor().text(newEditorValue);
                             if (_this.getActiveEditor().is(":focus")) {
-                                TrivialComponents.selectElementContents(_this.getActiveEditor()[0], oldEditorValue.length, newEditorValue.length);
+                                TrivialCore_1.selectElementContents(_this.getActiveEditor()[0], oldEditorValue.length, newEditorValue.length);
                             }
                         }, delay || 0);
                     }
@@ -1675,59 +1991,23 @@ var TrivialComponents;
                 this.openDropDown();
             }
         };
-        TrivialDateTimeField.prototype.focus = function () {
-            TrivialComponents.selectElementContents(this.getActiveEditor()[0], 0, this.getActiveEditor().text().length);
+        TrivialDateTimeField.createTimeComboBoxEntry = function (hour, minute, timeFormat) {
+            return {
+                hour: hour,
+                minute: minute,
+                hourString: TrivialDateTimeField.pad(hour, 2),
+                minuteString: TrivialDateTimeField.pad(minute, 2),
+                displayString: moment().hour(hour).minute(minute).format(timeFormat),
+                hourAngle: ((hour % 12) + minute / 60) * 30,
+                minuteAngle: minute * 6,
+                isNight: hour < 6 || hour >= 20
+            };
         };
-        TrivialDateTimeField.prototype.destroy = function () {
-            this.$originalInput.removeClass('tr-original-input').insertBefore(this.$dateTimeField);
-            this.$dateTimeField.remove();
-            this.$dropDown.remove();
-        };
-        TrivialDateTimeField.dateQueryFunction = function (searchString, resultCallback, dateFormat) {
-            var suggestions;
-            if (searchString.match(/[^\d]/)) {
-                var fragments = searchString.split(/[^\d]/).filter(function (f) {
-                    return !!f;
-                });
-                suggestions = TrivialDateTimeField.createSuggestionsForFragments(fragments, moment());
-            }
-            else {
-                suggestions = TrivialDateTimeField.generateSuggestionsForDigitsOnlyInput(searchString, moment());
-            }
-            var seenMoments = [];
-            suggestions = suggestions.filter(function (s) {
-                if (seenMoments.filter(function (seenMoment) {
-                    return s.moment.isSame(seenMoment, 'day');
-                }).length > 0) {
-                    return false;
-                }
-                else {
-                    seenMoments.push(s.moment);
-                    return true;
-                }
-            });
-            var preferredYmdOrder = TrivialDateTimeField.dateFormatToYmdOrder(dateFormat);
-            suggestions.sort(function (a, b) {
-                if (preferredYmdOrder.indexOf(a.ymdOrder) === -1 && preferredYmdOrder.indexOf(b.ymdOrder) !== -1) {
-                    return 1;
-                }
-                else if (preferredYmdOrder.indexOf(a.ymdOrder) !== -1 && preferredYmdOrder.indexOf(b.ymdOrder) === -1) {
-                    return -1;
-                }
-                else if (a.ymdOrder.length != b.ymdOrder.length) {
-                    return a.ymdOrder.length - b.ymdOrder.length;
-                }
-                else if (a.ymdOrder !== b.ymdOrder) {
-                    return new Levenshtein(a.ymdOrder, preferredYmdOrder).distance - new Levenshtein(b.ymdOrder, preferredYmdOrder).distance;
-                }
-                else {
-                    var today = moment();
-                    return a.moment.diff(today, 'days') - b.moment.diff(today, 'days');
-                }
-            });
-            resultCallback(suggestions.map(function (s) {
-                return TrivialDateTimeField.createDateComboBoxEntry(s.moment, dateFormat);
-            }));
+        TrivialDateTimeField.pad = function (num, size) {
+            var s = num + "";
+            while (s.length < size)
+                s = "0" + s;
+            return s;
         };
         TrivialDateTimeField.createDateComboBoxEntry = function (m, dateFormat) {
             return {
@@ -1739,229 +2019,34 @@ var TrivialComponents;
                 displayString: m.format(dateFormat)
             };
         };
-        TrivialDateTimeField.dateFormatToYmdOrder = function (dateFormat) {
-            var ymdIndexes = {
-                D: dateFormat.indexOf("D"),
-                M: dateFormat.indexOf("M"),
-                Y: dateFormat.indexOf("Y")
-            };
-            return ["D", "M", "Y"].sort(function (a, b) {
-                return ymdIndexes[a] - ymdIndexes[b];
-            }).join("");
+        TrivialDateTimeField.prototype.focus = function () {
+            TrivialCore_1.selectElementContents(this.getActiveEditor()[0], 0, this.getActiveEditor().text().length);
         };
-        TrivialDateTimeField.createDateParts = function (moment, ymdOrder) {
-            return { moment: moment, ymdOrder: ymdOrder };
-        };
-        TrivialDateTimeField.generateSuggestionsForDigitsOnlyInput = function (input, today) {
-            if (!input) {
-                var result = [];
-                for (var i = 0; i < 7; i++) {
-                    result.push(TrivialDateTimeField.createDateParts(moment(today).add(i, "day"), ""));
-                }
-                return result;
-            }
-            else if (input.length > 8) {
-                return [];
-            }
-            var suggestions = [];
-            for (var i = 1; i <= input.length; i++) {
-                for (var j = Math.min(input.length, i + 1); j <= input.length; j - i === 2 ? j += 2 : j++) {
-                    suggestions = suggestions.concat(TrivialDateTimeField.createSuggestionsForFragments([input.substring(0, i), input.substring(i, j), input.substring(j, input.length)], today));
-                }
-            }
-            return suggestions;
-        };
-        TrivialDateTimeField.createSuggestionsForFragments = function (fragments, today) {
-            var todayOrFuture = function (m) {
-                return today.isBefore(m, 'day') || today.isSame(m, 'day');
-            };
-            var numberToYear = function (n) {
-                var shortYear = today.year() % 100;
-                var yearSuggestionBoundary = (shortYear + 20) % 100;
-                var currentCentury = Math.floor(today.year() / 100) * 100;
-                if (n < yearSuggestionBoundary) {
-                    return currentCentury + n;
-                }
-                else if (n < 100) {
-                    return currentCentury - 100 + n;
-                }
-                else if (n > today.year() - 100 && n < today.year() + 100) {
-                    return n;
-                }
-                else {
-                    return null;
-                }
-            };
-            var s1 = fragments[0];
-            var s2 = fragments[1], s3 = fragments[2];
-            var n1 = parseInt(s1), n2 = parseInt(s2), n3 = parseInt(s3);
-            var suggestions = [];
-            if (s1 && !s2 && !s3) {
-                var momentInCurrentMonth = moment([today.year(), today.month(), s1]);
-                if (momentInCurrentMonth.isValid() && todayOrFuture(momentInCurrentMonth)) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(momentInCurrentMonth, "D"));
-                }
-                else {
-                    var momentInNextMonth = moment([today.year() + (today.month() == 11 ? 1 : 0), (today.month() + 1) % 12, s1]);
-                    if (momentInNextMonth.isValid()) {
-                        suggestions.push(TrivialDateTimeField.createDateParts(momentInNextMonth, "D"));
-                    }
-                }
-            }
-            else if (s1 && s2 && !s3) {
-                var mom = void 0;
-                mom = moment([moment().year(), n1 - 1, s2]);
-                if (mom.isValid() && todayOrFuture(mom)) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "MD"));
-                }
-                else {
-                    mom = moment([moment().year() + 1, n1 - 1, s2]);
-                    if (mom.isValid()) {
-                        suggestions.push(TrivialDateTimeField.createDateParts(mom, "MD"));
-                    }
-                }
-                mom = moment([moment().year(), n2 - 1, s1]);
-                if (mom.isValid() && todayOrFuture(mom)) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "DM"));
-                }
-                else {
-                    mom = moment([moment().year() + 1, n2 - 1, s1]);
-                    if (mom.isValid()) {
-                        suggestions.push(TrivialDateTimeField.createDateParts(mom, "DM"));
-                    }
-                }
-            }
-            else {
-                var mom = void 0;
-                mom = moment([numberToYear(n1), n2 - 1, s3]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "YMD"));
-                }
-                mom = moment([numberToYear(n1), n3 - 1, s2]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "YDM"));
-                }
-                mom = moment([numberToYear(n2), n1 - 1, s3]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "MYD"));
-                }
-                mom = moment([numberToYear(n2), n3 - 1, s1]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "DYM"));
-                }
-                mom = moment([numberToYear(n3), n1 - 1, s2]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "MDY"));
-                }
-                mom = moment([numberToYear(n3), n2 - 1, s1]);
-                if (mom.isValid()) {
-                    suggestions.push(TrivialDateTimeField.createDateParts(mom, "DMY"));
-                }
-            }
-            return suggestions;
-        };
-        TrivialDateTimeField.timeQueryFunction = function (searchString, resultCallback, timeFormat) {
-            var suggestedValues = [];
-            var match = searchString.match(/[^\d]/);
-            var colonIndex = match != null ? match.index : null;
-            if (colonIndex !== null) {
-                var hourString = searchString.substring(0, colonIndex);
-                var minuteString = searchString.substring(colonIndex + 1);
-                suggestedValues = suggestedValues.concat(TrivialDateTimeField.createTimeComboBoxEntries(TrivialDateTimeField.createHourSuggestions(hourString), TrivialDateTimeField.createMinuteSuggestions(minuteString), timeFormat));
-            }
-            else if (searchString.length > 0) {
-                if (searchString.length >= 2) {
-                    var hourString_1 = searchString.substr(0, 2);
-                    var minuteString_1 = searchString.substring(2, searchString.length);
-                    suggestedValues = suggestedValues.concat(TrivialDateTimeField.createTimeComboBoxEntries(TrivialDateTimeField.createHourSuggestions(hourString_1), TrivialDateTimeField.createMinuteSuggestions(minuteString_1), timeFormat));
-                }
-                var hourString = searchString.substr(0, 1);
-                var minuteString = searchString.substring(1, searchString.length);
-                if (minuteString.length <= 2) {
-                    suggestedValues = suggestedValues.concat(TrivialDateTimeField.createTimeComboBoxEntries(TrivialDateTimeField.createHourSuggestions(hourString), TrivialDateTimeField.createMinuteSuggestions(minuteString), timeFormat));
-                }
-            }
-            else {
-                suggestedValues = suggestedValues.concat(TrivialDateTimeField.createTimeComboBoxEntries(TrivialDateTimeField.intRange(6, 24).concat(TrivialDateTimeField.intRange(1, 5)), [0], timeFormat));
-            }
-            resultCallback(suggestedValues);
-        };
-        TrivialDateTimeField.intRange = function (fromInclusive, toInclusive) {
-            var ints = [];
-            for (var i = fromInclusive; i <= toInclusive; i++) {
-                ints.push(i);
-            }
-            return ints;
-        };
-        TrivialDateTimeField.pad = function (num, size) {
-            var s = num + "";
-            while (s.length < size)
-                s = "0" + s;
-            return s;
-        };
-        TrivialDateTimeField.createTimeComboBoxEntry = function (h, m, timeFormat) {
-            return {
-                hour: h,
-                minute: m,
-                hourString: TrivialDateTimeField.pad(h, 2),
-                minuteString: TrivialDateTimeField.pad(m, 2),
-                displayString: moment().hour(h).minute(m).format(timeFormat),
-                hourAngle: ((h % 12) + m / 60) * 30,
-                minuteAngle: m * 6,
-                isNight: h < 6 || h >= 20
-            };
-        };
-        TrivialDateTimeField.createTimeComboBoxEntries = function (hourValues, minuteValues, timeFormat) {
-            var entries = [];
-            for (var i = 0; i < hourValues.length; i++) {
-                var hour = hourValues[i];
-                for (var j = 0; j < minuteValues.length; j++) {
-                    var minute = minuteValues[j];
-                    entries.push(TrivialDateTimeField.createTimeComboBoxEntry(hour, minute, timeFormat));
-                }
-            }
-            return entries;
-        };
-        TrivialDateTimeField.createMinuteSuggestions = function (minuteString) {
-            var m = parseInt(minuteString);
-            if (isNaN(m)) {
-                return [0];
-            }
-            else if (minuteString.length > 1) {
-                return [m % 60];
-            }
-            else if (m < 6) {
-                return [m * 10];
-            }
-            else {
-                return [m % 60];
-            }
-        };
-        TrivialDateTimeField.createHourSuggestions = function (hourString) {
-            var h = parseInt(hourString);
-            if (isNaN(h)) {
-                return TrivialDateTimeField.intRange(1, 24);
-            }
-            else if (h < 12) {
-                return [h, (h + 12) % 24];
-            }
-            else if (h <= 24) {
-                return [h % 24];
-            }
-            else {
-                return [];
-            }
+        TrivialDateTimeField.prototype.destroy = function () {
+            this.$originalInput.removeClass('tr-original-input').insertBefore(this.$dateTimeField);
+            this.$dateTimeField.remove();
+            this.$dropDown.remove();
         };
         TrivialDateTimeField.prototype.getMainDomElement = function () {
             return this.$dateTimeField[0];
         };
         return TrivialDateTimeField;
     }());
-    TrivialComponents.TrivialDateTimeField = TrivialDateTimeField;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialDateTimeField = TrivialDateTimeField;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
     var TrivialEvent = (function () {
         function TrivialEvent(eventSource) {
             this.eventSource = eventSource;
@@ -1986,28 +2071,43 @@ var TrivialComponents;
         ;
         return TrivialEvent;
     }());
-    TrivialComponents.TrivialEvent = TrivialEvent;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialEvent = TrivialEvent;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialCore", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialListBox = (function () {
         function TrivialListBox($container, options) {
             if (options === void 0) { options = {}; }
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
             this.config = $.extend({
                 entryRenderingFunction: function (entry) {
-                    var template = entry.template || TrivialComponents.DEFAULT_TEMPLATES.image2LinesTemplate;
+                    var template = entry.template || TrivialCore_1.DEFAULT_TEMPLATES.image2LinesTemplate;
                     return Mustache.render(template, entry);
                 },
                 selectedEntry: null,
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
                 entries: null,
                 matchingOptions: {
                     matchingMode: 'contains',
                     ignoreCase: true,
                     maxLevenshteinDistance: 2
-                }
+                },
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate
             }, options);
             this.$listBox = $('<div class="tr-listbox"/>').appendTo($container);
             var me = this;
@@ -2062,7 +2162,7 @@ var TrivialComponents;
             this.updateEntryElements(this.entries);
         };
         TrivialListBox.prototype.minimallyScrollTo = function ($entryWrapper) {
-            this.$listBox.parent().minimallyScrollTo($entryWrapper);
+            TrivialCore_1.minimallyScrollTo(this.$listBox.parent(), $entryWrapper);
         };
         TrivialListBox.prototype.setHighlightedEntry = function (entry) {
             if (entry !== this.highlightedEntry) {
@@ -2120,7 +2220,7 @@ var TrivialComponents;
         };
         TrivialListBox.prototype.getSelectedEntry = function () {
             if (this.selectedEntry) {
-                var selectedEntryToReturn = jQuery.extend({}, this.selectedEntry);
+                var selectedEntryToReturn = $.extend({}, this.selectedEntry);
                 selectedEntryToReturn._trEntryElement = undefined;
                 return selectedEntryToReturn;
             }
@@ -2143,20 +2243,39 @@ var TrivialComponents;
         TrivialListBox.prototype.getMainDomElement = function () {
             return this.$listBox[0];
         };
+        TrivialListBox.prototype.destroy = function () {
+            this.$listBox.remove();
+        };
+        ;
         return TrivialListBox;
     }());
-    TrivialComponents.TrivialListBox = TrivialListBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialListBox = TrivialListBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialListBox", "./TrivialCore", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialListBox_1 = require("./TrivialListBox");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialTagComboBox = (function () {
         function TrivialTagComboBox(originalInput, options) {
             var _this = this;
             this.$spinners = $();
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
-            this.onFocus = new TrivialComponents.TrivialEvent(this);
-            this.onBlur = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onFocus = new TrivialEvent_1.TrivialEvent(this);
+            this.onBlur = new TrivialEvent_1.TrivialEvent(this);
             this.isDropDownOpen = false;
             this.lastQueryString = null;
             this.lastCompleteInputQueryString = null;
@@ -2170,7 +2289,7 @@ var TrivialComponents;
             this.config = $.extend({
                 valueFunction: function (entries) { return entries.map(function (e) { return e._isFreeTextEntry ? e.displayValue : e.id; }).join(','); },
                 entryRenderingFunction: function (entry) {
-                    var template = entry.template || TrivialComponents.DEFAULT_TEMPLATES.image2LinesTemplate;
+                    var template = entry.template || TrivialCore_1.DEFAULT_TEMPLATES.image2LinesTemplate;
                     return Mustache.render(template, entry);
                 },
                 selectedEntryRenderingFunction: function (entry) {
@@ -2178,11 +2297,11 @@ var TrivialComponents;
                         return Mustache.render(entry.selectedEntryTemplate, entry);
                     }
                     else {
-                        return TrivialComponents.wrapWithDefaultTagWrapper(_this.config.entryRenderingFunction(entry));
+                        return TrivialCore_1.wrapWithDefaultTagWrapper(_this.config.entryRenderingFunction(entry));
                     }
                 },
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 textHighlightingEntryLimit: 100,
                 entries: null,
                 selectedEntries: [],
@@ -2195,8 +2314,8 @@ var TrivialComponents;
                         for (var propertyName in entry) {
                             if (entry.hasOwnProperty(propertyName)) {
                                 var propertyValue = entry[propertyName];
-                                if (propertyValue && propertyValue.toString().toLowerCase().indexOf(editorText.toLowerCase()) === 0) {
-                                    return propertyValue.toString();
+                                if (propertyValue && ("" + propertyValue).toLowerCase().indexOf(editorText.toLowerCase()) === 0) {
+                                    return "" + propertyValue;
                                 }
                             }
                         }
@@ -2225,7 +2344,7 @@ var TrivialComponents;
                 showDropDownOnResultsOnly: false
             }, options);
             if (!this.config.queryFunction) {
-                this.config.queryFunction = TrivialComponents.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
+                this.config.queryFunction = TrivialCore_1.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
                 this.usingDefaultQueryFunction = true;
             }
             this.entries = this.config.entries;
@@ -2267,10 +2386,10 @@ var TrivialComponents;
                     _this.$tagComboBox.addClass('focus');
                 }
                 setTimeout(function () {
-                    $tagArea.minimallyScrollTo(_this.$editor);
+                    TrivialCore_1.minimallyScrollTo($tagArea, _this.$editor);
                 });
             })
-                .blur(function () {
+                .blur(function (e) {
                 if (_this.blurCausedByClickInsideComponent) {
                     _this.$editor.focus();
                 }
@@ -2281,30 +2400,30 @@ var TrivialComponents;
                     _this.entries = null;
                     _this.closeDropDown();
                     if (_this.config.allowFreeText && _this.$editor.text().trim().length > 0) {
-                        _this.setSelectedEntry(_this.config.freeTextEntryFactory(_this.$editor.text()));
+                        _this.setSelectedEntry(_this.config.freeTextEntryFactory(_this.$editor.text()), true, e);
                     }
                     _this.$editor.text("");
                 }
             })
                 .keydown(function (e) {
-                if (TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.tab) {
+                else if (e.which == TrivialCore_1.keyCodes.tab) {
                     var highlightedEntry = _this.listBox.getHighlightedEntry();
                     if (_this.isDropDownOpen && highlightedEntry) {
-                        _this.setSelectedEntry(highlightedEntry);
+                        _this.setSelectedEntry(highlightedEntry, true, e);
                     }
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
-                    if (e.which == TrivialComponents.keyCodes.left_arrow && _this.$editor.text().length === 0 && window.getSelection().anchorOffset === 0) {
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
+                    if (e.which == TrivialCore_1.keyCodes.left_arrow && _this.$editor.text().length === 0 && window.getSelection().anchorOffset === 0) {
                         if (_this.$editor.prev()) {
                             _this.$editor.insertBefore(_this.$editor.prev());
                             _this.$editor.focus();
                         }
                     }
-                    else if (e.which == TrivialComponents.keyCodes.right_arrow && _this.$editor.text().length === 0 && window.getSelection().anchorOffset === 0) {
+                    else if (e.which == TrivialCore_1.keyCodes.right_arrow && _this.$editor.text().length === 0 && window.getSelection().anchorOffset === 0) {
                         if (_this.$editor.next()) {
                             _this.$editor.insertAfter(_this.$editor.next());
                             _this.$editor.focus();
@@ -2312,11 +2431,11 @@ var TrivialComponents;
                     }
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.backspace || e.which == TrivialComponents.keyCodes.delete) {
+                if (e.which == TrivialCore_1.keyCodes.backspace || e.which == TrivialCore_1.keyCodes.delete) {
                     if (_this.$editor.text() == "") {
-                        var tagToBeRemoved = _this.selectedEntries[_this.$editor.index() + (e.which == TrivialComponents.keyCodes.backspace ? -1 : 0)];
+                        var tagToBeRemoved = _this.selectedEntries[_this.$editor.index() + (e.which == TrivialCore_1.keyCodes.backspace ? -1 : 0)];
                         if (tagToBeRemoved) {
-                            _this.removeTag(tagToBeRemoved);
+                            _this.removeTag(tagToBeRemoved, e);
                             _this.closeDropDown();
                         }
                     }
@@ -2326,9 +2445,9 @@ var TrivialComponents;
                     }
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
                     _this.openDropDown();
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (!_this.isDropDownOpen) {
                         _this.query(direction);
                         if (!_this.config.showDropDownOnResultsOnly) {
@@ -2341,19 +2460,19 @@ var TrivialComponents;
                     }
                     return false;
                 }
-                else if (e.which == TrivialComponents.keyCodes.enter) {
+                else if (e.which == TrivialCore_1.keyCodes.enter) {
                     var highlightedEntry = _this.listBox.getHighlightedEntry();
                     if (_this.isDropDownOpen && highlightedEntry != null) {
-                        _this.setSelectedEntry(highlightedEntry);
+                        _this.setSelectedEntry(highlightedEntry, true, e);
                         _this.entries = null;
                     }
                     else if (_this.config.allowFreeText && _this.$editor.text().trim().length > 0) {
-                        _this.setSelectedEntry(_this.config.freeTextEntryFactory(_this.$editor.text()));
+                        _this.setSelectedEntry(_this.config.freeTextEntryFactory(_this.$editor.text()), false, e);
                     }
                     _this.closeDropDown();
                     e.preventDefault();
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     _this.closeDropDown();
                     _this.$editor.text("");
                 }
@@ -2364,9 +2483,9 @@ var TrivialComponents;
                     _this.query(1);
                 }
             })
-                .keyup(function () {
+                .keyup(function (e) {
                 function splitStringBySeparatorChars(s, separatorChars) {
-                    return s.split(new RegExp("[" + TrivialComponents.escapeSpecialRegexCharacter(separatorChars.join()) + "]"));
+                    return s.split(new RegExp("[" + TrivialCore_1.escapeSpecialRegexCharacter(separatorChars.join()) + "]"));
                 }
                 if (_this.$editor.find('*').length > 0) {
                     _this.$editor.text(_this.$editor.text());
@@ -2378,10 +2497,10 @@ var TrivialComponents;
                         for (var i = 0; i < tagValuesEnteredByUser.length - 1; i++) {
                             var value = tagValuesEnteredByUser[i].trim();
                             if (value.length > 0) {
-                                _this.setSelectedEntry(_this.config.freeTextEntryFactory(value));
+                                _this.setSelectedEntry(_this.config.freeTextEntryFactory(value), true, e);
                             }
                             _this.$editor.text(tagValuesEnteredByUser[tagValuesEnteredByUser.length - 1]);
-                            TrivialComponents.selectElementContents(_this.$editor[0], _this.$editor.text().length, _this.$editor.text().length);
+                            TrivialCore_1.selectElementContents(_this.$editor[0], _this.$editor.text().length, _this.$editor.text().length);
                             _this.entries = null;
                             _this.closeDropDown();
                         }
@@ -2420,15 +2539,14 @@ var TrivialComponents;
             });
             var configWithoutEntries = $.extend({}, this.config);
             configWithoutEntries.entries = [];
-            this.listBox = new TrivialComponents.TrivialListBox(this.$dropDown, configWithoutEntries);
-            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry) {
+            this.listBox = new TrivialListBox_1.TrivialListBox(this.$dropDown, configWithoutEntries);
+            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry, eventSource, originalEvent) {
                 if (selectedEntry) {
-                    _this.setSelectedEntry(selectedEntry);
+                    _this.setSelectedEntry(selectedEntry, true, originalEvent);
                     _this.listBox.setSelectedEntry(null);
                     _this.closeDropDown();
                 }
             });
-            this.setSelectedEntry(this.config.selectedEntry, true);
             $tagArea.click(function (e) {
                 if (!_this.config.showDropDownOnResultsOnly) {
                     _this.openDropDown();
@@ -2463,9 +2581,7 @@ var TrivialComponents;
                 }
                 _this.$editor.focus();
             });
-            for (var i = 0; i < this.config.selectedEntries.length; i++) {
-                this.setSelectedEntry(this.config.selectedEntries[i], true);
-            }
+            this.setSelectedEntries(this.config.selectedEntries);
             this.$tagComboBox.data("trivialTagComboBox", this);
         }
         TrivialTagComboBox.prototype.updateListBoxEntries = function () {
@@ -2495,14 +2611,14 @@ var TrivialComponents;
                 this.openDropDown();
             }
         };
-        TrivialTagComboBox.prototype.removeTag = function (tagToBeRemoved) {
+        TrivialTagComboBox.prototype.removeTag = function (tagToBeRemoved, originalEvent) {
             var index = this.selectedEntries.indexOf(tagToBeRemoved);
             if (index > -1) {
                 this.selectedEntries.splice(index, 1);
             }
             tagToBeRemoved._trEntryElement.remove();
             this.$originalInput.val(this.config.valueFunction(this.getSelectedEntries()));
-            this.fireChangeEvents(this.getSelectedEntries());
+            this.fireChangeEvents(this.getSelectedEntries(), originalEvent);
         };
         TrivialTagComboBox.prototype.query = function (highlightDirection) {
             var _this = this;
@@ -2525,11 +2641,11 @@ var TrivialComponents;
                 }
             }, 0);
         };
-        TrivialTagComboBox.prototype.fireChangeEvents = function (entries) {
+        TrivialTagComboBox.prototype.fireChangeEvents = function (entries, originalEvent) {
             this.$originalInput.trigger("change");
-            this.onSelectedEntryChanged.fire(entries);
+            this.onSelectedEntryChanged.fire(entries, originalEvent);
         };
-        TrivialTagComboBox.prototype.setSelectedEntry = function (entry, fireEvent) {
+        TrivialTagComboBox.prototype.setSelectedEntry = function (entry, fireEvent, originalEvent) {
             var _this = this;
             if (fireEvent === void 0) { fireEvent = false; }
             if (entry == null) {
@@ -2558,7 +2674,7 @@ var TrivialComponents;
             }
             this.$editor.text("");
             if (fireEvent) {
-                this.fireChangeEvents(this.getSelectedEntries());
+                this.fireChangeEvents(this.getSelectedEntries(), originalEvent);
             }
         };
         TrivialTagComboBox.prototype.repositionDropDown = function () {
@@ -2596,7 +2712,7 @@ var TrivialComponents;
                 this.isDropDownOpen = true;
             }
             if (this.repositionDropDownScheduler == null) {
-                this.repositionDropDownScheduler = setInterval(function () { return _this.repositionDropDown(); }, 1000);
+                this.repositionDropDownScheduler = window.setInterval(function () { return _this.repositionDropDown(); }, 1000);
             }
         };
         TrivialTagComboBox.prototype.closeDropDown = function () {
@@ -2623,13 +2739,13 @@ var TrivialComponents;
                 clearTimeout(this.autoCompleteTimeoutId);
                 var highlightedEntry_1 = this.listBox.getHighlightedEntry();
                 if (highlightedEntry_1 && !this.doNoAutoCompleteBecauseBackspaceWasPressed) {
-                    this.autoCompleteTimeoutId = setTimeout(function () {
+                    this.autoCompleteTimeoutId = window.setTimeout(function () {
                         var currentEditorValue = _this.getNonSelectedEditorValue();
                         var autoCompleteString = _this.config.autoCompleteFunction(currentEditorValue, highlightedEntry_1) || currentEditorValue;
                         _this.$editor.text(currentEditorValue + autoCompleteString.replace(' ', String.fromCharCode(160)).substr(currentEditorValue.length));
                         _this.repositionDropDown();
                         if (_this.$editor.is(":focus")) {
-                            TrivialComponents.selectElementContents(_this.$editor[0], currentEditorValue.length, autoCompleteString.length);
+                            TrivialCore_1.selectElementContents(_this.$editor[0], currentEditorValue.length, autoCompleteString.length);
                         }
                     }, delay || 0);
                 }
@@ -2653,14 +2769,14 @@ var TrivialComponents;
                 .forEach(function (e) { return _this.removeTag(e); });
             if (entries) {
                 for (var i = 0; i < entries.length; i++) {
-                    this.setSelectedEntry(entries[i], true);
+                    this.setSelectedEntry(entries[i]);
                 }
             }
         };
         TrivialTagComboBox.prototype.getSelectedEntries = function () {
             var selectedEntriesToReturn = [];
             for (var i = 0; i < this.selectedEntries.length; i++) {
-                var selectedEntryToReturn = jQuery.extend({}, this.selectedEntries[i]);
+                var selectedEntryToReturn = $.extend({}, this.selectedEntries[i]);
                 selectedEntryToReturn._trEntryElement = undefined;
                 selectedEntriesToReturn.push(selectedEntryToReturn);
             }
@@ -2669,9 +2785,12 @@ var TrivialComponents;
         ;
         TrivialTagComboBox.prototype.focus = function () {
             this.$editor.focus();
-            TrivialComponents.selectElementContents(this.$editor[0], 0, this.$editor.text().length);
+            TrivialCore_1.selectElementContents(this.$editor[0], 0, this.$editor.text().length);
         };
         ;
+        TrivialTagComboBox.prototype.getEditor = function () {
+            return this.$editor[0];
+        };
         TrivialTagComboBox.prototype.destroy = function () {
             this.$originalInput.removeClass('tr-original-input').insertBefore(this.$tagComboBox);
             this.$tagComboBox.remove();
@@ -2683,20 +2802,129 @@ var TrivialComponents;
         };
         return TrivialTagComboBox;
     }());
-    TrivialComponents.TrivialTagComboBox = TrivialTagComboBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialTagComboBox = TrivialTagComboBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var TrivialTimeSuggestionEngine = (function () {
+        function TrivialTimeSuggestionEngine() {
+        }
+        TrivialTimeSuggestionEngine.prototype.generateSuggestions = function (searchString) {
+            var suggestions = [];
+            var match = searchString.match(/[^\d]/);
+            var colonIndex = match != null ? match.index : null;
+            if (colonIndex !== null) {
+                var hourString = searchString.substring(0, colonIndex);
+                var minuteString = searchString.substring(colonIndex + 1);
+                suggestions = suggestions.concat(TrivialTimeSuggestionEngine.createTimeSuggestions(TrivialTimeSuggestionEngine.createHourSuggestions(hourString), TrivialTimeSuggestionEngine.createMinuteSuggestions(minuteString)));
+            }
+            else if (searchString.length > 0) {
+                if (searchString.length >= 2) {
+                    var hourString_1 = searchString.substr(0, 2);
+                    var minuteString_1 = searchString.substring(2, searchString.length);
+                    suggestions = suggestions.concat(TrivialTimeSuggestionEngine.createTimeSuggestions(TrivialTimeSuggestionEngine.createHourSuggestions(hourString_1), TrivialTimeSuggestionEngine.createMinuteSuggestions(minuteString_1)));
+                }
+                var hourString = searchString.substr(0, 1);
+                var minuteString = searchString.substring(1, searchString.length);
+                if (minuteString.length <= 2) {
+                    suggestions = suggestions.concat(TrivialTimeSuggestionEngine.createTimeSuggestions(TrivialTimeSuggestionEngine.createHourSuggestions(hourString), TrivialTimeSuggestionEngine.createMinuteSuggestions(minuteString)));
+                }
+            }
+            else {
+                suggestions = suggestions.concat(TrivialTimeSuggestionEngine.createTimeSuggestions(TrivialTimeSuggestionEngine.intRange(6, 24).concat(TrivialTimeSuggestionEngine.intRange(1, 5)), [0]));
+            }
+            return suggestions;
+        };
+        TrivialTimeSuggestionEngine.intRange = function (fromInclusive, toInclusive) {
+            var ints = [];
+            for (var i = fromInclusive; i <= toInclusive; i++) {
+                ints.push(i);
+            }
+            return ints;
+        };
+        TrivialTimeSuggestionEngine.createTimeSuggestions = function (hourValues, minuteValues) {
+            var entries = [];
+            for (var i = 0; i < hourValues.length; i++) {
+                var hour = hourValues[i];
+                for (var j = 0; j < minuteValues.length; j++) {
+                    var minute = minuteValues[j];
+                    entries.push({ hour: hour, minute: minute });
+                }
+            }
+            return entries;
+        };
+        TrivialTimeSuggestionEngine.createMinuteSuggestions = function (minuteString) {
+            var m = parseInt(minuteString);
+            if (isNaN(m)) {
+                return [0];
+            }
+            else if (minuteString.length > 1) {
+                return [m % 60];
+            }
+            else if (m < 6) {
+                return [m * 10];
+            }
+            else {
+                return [m % 60];
+            }
+        };
+        TrivialTimeSuggestionEngine.createHourSuggestions = function (hourString) {
+            var h = parseInt(hourString);
+            if (isNaN(h)) {
+                return TrivialTimeSuggestionEngine.intRange(1, 24);
+            }
+            else if (h < 12) {
+                return [h, (h + 12) % 24];
+            }
+            else if (h <= 24) {
+                return [h % 24];
+            }
+            else {
+                return [];
+            }
+        };
+        return TrivialTimeSuggestionEngine;
+    }());
+    exports.TrivialTimeSuggestionEngine = TrivialTimeSuggestionEngine;
+});
+
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialTreeBox", "./TrivialCore", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialTreeBox_1 = require("./TrivialTreeBox");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialTree = (function () {
         function TrivialTree(originalInput, options) {
             if (options === void 0) { options = {}; }
             var _this = this;
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
-            this.onNodeExpansionStateChanged = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onNodeExpansionStateChanged = new TrivialEvent_1.TrivialEvent(this);
             this.$spinners = $();
             this.config = $.extend({
-                valueFunction: function (entry) { return entry ? entry.id : null; },
+                valueFunction: function (entry) { return entry ? "" + entry.id : null; },
                 childrenProperty: "children",
                 lazyChildrenFlagProperty: "hasLazyChildren",
                 searchBarMode: 'show-if-filled',
@@ -2705,12 +2933,12 @@ var TrivialComponents;
                 },
                 expandedProperty: 'expanded',
                 entryRenderingFunction: function (entry, depth) {
-                    var defaultTemplates = [TrivialComponents.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialComponents.DEFAULT_TEMPLATES.iconSingleLineTemplate];
+                    var defaultTemplates = [TrivialCore_1.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialCore_1.DEFAULT_TEMPLATES.iconSingleLineTemplate];
                     var template = entry.template || defaultTemplates[Math.min(depth, defaultTemplates.length - 1)];
                     return Mustache.render(template, entry);
                 },
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 entries: null,
                 queryFunction: null,
                 selectedEntryId: null,
@@ -2726,7 +2954,7 @@ var TrivialComponents;
                 }
             }, options);
             if (!this.config.queryFunction) {
-                this.config.queryFunction = TrivialComponents.defaultTreeQueryFunctionFactory(this.config.entries || [], TrivialComponents.defaultEntryMatchingFunctionFactory(["displayValue", "additionalInfo"], this.config.matchingOptions), this.config.childrenProperty, this.config.expandedProperty);
+                this.config.queryFunction = TrivialCore_1.defaultTreeQueryFunctionFactory(this.config.entries || [], TrivialCore_1.defaultEntryMatchingFunctionFactory(["displayValue", "additionalInfo"], this.config.matchingOptions), this.config.childrenProperty, this.config.expandedProperty);
             }
             this.entries = this.config.entries;
             this.$originalInput = $(originalInput).addClass("tr-original-input");
@@ -2735,17 +2963,17 @@ var TrivialComponents;
                 this.$componentWrapper.addClass("hide-searchfield");
             }
             this.$componentWrapper.keydown(function (e) {
-                if (e.which == TrivialComponents.keyCodes.tab || TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (e.which == TrivialCore_1.keyCodes.tab || TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                if (_this.$editor.is(':visible') && TrivialComponents.keyCodes.specialKeys.indexOf(e.which) === -1) {
+                if (_this.$editor.is(':visible') && TrivialCore_1.keyCodes.specialKeys.indexOf(e.which) === -1) {
                     _this.$editor.focus();
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (_this.entries != null) {
                         if (_this.config.directSelectionViaArrowKeys) {
-                            _this.treeBox.selectNextEntry(direction);
+                            _this.treeBox.selectNextEntry(direction, e);
                         }
                         else {
                             _this.treeBox.highlightNextEntry(direction);
@@ -2753,13 +2981,13 @@ var TrivialComponents;
                         return false;
                     }
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
-                    _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialComponents.keyCodes.right_arrow);
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
+                    _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialCore_1.keyCodes.right_arrow);
                 }
-                else if (e.which == TrivialComponents.keyCodes.enter) {
-                    _this.treeBox.setSelectedEntry(_this.treeBox.getHighlightedEntry());
+                else if (e.which == TrivialCore_1.keyCodes.enter) {
+                    _this.treeBox.setSelectedEntry(_this.treeBox.getHighlightedEntry(), e);
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     _this.$editor.val("");
                     _this.query();
                     _this.$componentWrapper.focus();
@@ -2768,7 +2996,6 @@ var TrivialComponents;
                     _this.query(1);
                 }
             });
-            this.$tree = $('<div class="tr-tree-entryTree"></div>').appendTo(this.$componentWrapper);
             this.$editor = $('<input type="text" class="tr-tree-editor tr-editor"/>')
                 .prependTo(this.$componentWrapper)
                 .attr("tabindex", this.$originalInput.attr("-1"))
@@ -2779,8 +3006,8 @@ var TrivialComponents;
                 _this.$componentWrapper.removeClass('focus');
             })
                 .keydown(function (e) {
-                if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
-                    var changedExpandedState = _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialComponents.keyCodes.right_arrow);
+                if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
+                    var changedExpandedState = _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialCore_1.keyCodes.right_arrow);
                     if (changedExpandedState) {
                         return false;
                     }
@@ -2811,7 +3038,7 @@ var TrivialComponents;
             if (this.$originalInput.attr("autofocus")) {
                 this.$componentWrapper.focus();
             }
-            this.treeBox = new TrivialComponents.TrivialTreeBox(this.$tree, this.config);
+            this.treeBox = new TrivialTreeBox_1.TrivialTreeBox(this.$componentWrapper, this.config);
             this.treeBox.onNodeExpansionStateChanged.addListener(function (node) {
                 _this.onNodeExpansionStateChanged.fire(node);
             });
@@ -2832,7 +3059,7 @@ var TrivialComponents;
         TrivialTree.prototype.query = function (highlightDirection) {
             var _this = this;
             if (this.config.searchBarMode === 'always-visible' || this.config.searchBarMode === 'show-if-filled') {
-                var $spinner = $(this.config.spinnerTemplate).appendTo(this.$tree);
+                var $spinner = $(this.config.spinnerTemplate).appendTo(this.treeBox.getMainDomElement());
                 this.$spinners = this.$spinners.add($spinner);
                 setTimeout(function () {
                     _this.config.queryFunction(_this.$editor.val(), function (newEntries) {
@@ -2851,7 +3078,7 @@ var TrivialComponents;
                             processUpdate();
                         }
                         else {
-                            _this.processUpdateTimer = setTimeout(processUpdate, _this.config.performanceOptimizationSettings.toManyVisibleItemsRenderDelay);
+                            _this.processUpdateTimer = window.setTimeout(processUpdate, _this.config.performanceOptimizationSettings.toManyVisibleItemsRenderDelay);
                         }
                     });
                 }, 0);
@@ -2937,6 +3164,9 @@ var TrivialComponents;
             this.treeBox.setSelectedEntryById(nodeId);
         };
         ;
+        TrivialTree.prototype.getEditor = function () {
+            return this.$editor[0];
+        };
         TrivialTree.prototype.destroy = function () {
             this.$originalInput.removeClass('tr-original-input').insertBefore(this.$componentWrapper);
             this.$componentWrapper.remove();
@@ -2947,18 +3177,32 @@ var TrivialComponents;
         };
         return TrivialTree;
     }());
-    TrivialComponents.TrivialTree = TrivialTree;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialTree = TrivialTree;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialCore", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialTreeBox = (function () {
         function TrivialTreeBox($container, options) {
             if (options === void 0) { options = {}; }
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
-            this.onNodeExpansionStateChanged = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onNodeExpansionStateChanged = new TrivialEvent_1.TrivialEvent(this);
             this.config = $.extend({
-                valueFunction: function (entry) { return entry ? entry.id : null; },
+                valueFunction: function (entry) { return entry ? "" + entry.id : null; },
                 childrenProperty: "children",
                 lazyChildrenFlagProperty: "hasLazyChildren",
                 lazyChildrenQueryFunction: function (node, resultCallback) {
@@ -2966,12 +3210,12 @@ var TrivialComponents;
                 },
                 expandedProperty: 'expanded',
                 entryRenderingFunction: function (entry, depth) {
-                    var defaultTemplates = [TrivialComponents.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialComponents.DEFAULT_TEMPLATES.iconSingleLineTemplate];
+                    var defaultTemplates = [TrivialCore_1.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialCore_1.DEFAULT_TEMPLATES.iconSingleLineTemplate];
                     var template = entry.template || defaultTemplates[Math.min(depth, defaultTemplates.length - 1)];
                     return Mustache.render(template, entry);
                 },
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 entries: null,
                 selectedEntryId: null,
                 matchingOptions: {
@@ -3082,7 +3326,7 @@ var TrivialComponents;
             node._trEntryElement.toggleClass("expanded", !!expanded);
             var nodeHasUnrenderedChildren = function (node) {
                 return node[_this.config.childrenProperty] && node[_this.config.childrenProperty].some(function (child) {
-                    return !child._trEntryElement || !jQuery.contains(document.documentElement, child._trEntryElement[0]);
+                    return !child._trEntryElement || !$.contains(document.documentElement, child._trEntryElement[0]);
                 });
             };
             if (expanded && node[this.config.lazyChildrenFlagProperty] && !node[this.config.childrenProperty]) {
@@ -3199,7 +3443,7 @@ var TrivialComponents;
         TrivialTreeBox.prototype.findEntryById = function (id) {
             var _this = this;
             return this.findEntries(function (entry) {
-                return _this.config.valueFunction(entry) == id;
+                return _this.config.valueFunction(entry) === id;
             })[0];
         };
         TrivialTreeBox.prototype.findParentNode = function (childNode) {
@@ -3208,20 +3452,20 @@ var TrivialComponents;
                 return entry[_this.config.childrenProperty] && entry[_this.config.childrenProperty].indexOf(childNode) != -1;
             })[0];
         };
-        TrivialTreeBox.prototype.setSelectedEntry = function (entry) {
+        TrivialTreeBox.prototype.setSelectedEntry = function (entry, originalEvent) {
             this.selectedEntryId = entry ? this.config.valueFunction(entry) : null;
             this.markSelectedEntry(entry);
             this.setHighlightedEntry(entry);
-            this.fireChangeEvents(entry);
+            this.fireChangeEvents(entry, originalEvent);
             if (entry && this.config.openOnSelection) {
                 this.setNodeExpanded(entry, true, true);
             }
         };
         TrivialTreeBox.prototype.setSelectedEntryById = function (nodeId) {
-            this.setSelectedEntry(this.findEntryById(nodeId));
+            this.setSelectedEntry(this.findEntryById(nodeId), null);
         };
         TrivialTreeBox.prototype.minimallyScrollTo = function ($entryWrapper) {
-            this.$componentWrapper.parent().minimallyScrollTo($entryWrapper);
+            TrivialCore_1.minimallyScrollTo(this.$componentWrapper.parent(), $entryWrapper);
         };
         TrivialTreeBox.prototype.markSelectedEntry = function (entry) {
             this.$tree.find(".tr-selected-entry").removeClass("tr-selected-entry");
@@ -3230,14 +3474,14 @@ var TrivialComponents;
                 $entryWrapper.addClass("tr-selected-entry");
             }
         };
-        TrivialTreeBox.prototype.fireChangeEvents = function (entry) {
+        TrivialTreeBox.prototype.fireChangeEvents = function (entry, originalEvent) {
             this.$componentWrapper.trigger("change");
             this.onSelectedEntryChanged.fire(entry);
         };
-        TrivialTreeBox.prototype.selectNextEntry = function (direction) {
+        TrivialTreeBox.prototype.selectNextEntry = function (direction, originalEvent) {
             var nextVisibleEntry = this.getNextVisibleEntry(this.getSelectedEntry(), direction);
             if (nextVisibleEntry != null) {
-                this.setSelectedEntry(nextVisibleEntry);
+                this.setSelectedEntry(nextVisibleEntry, originalEvent);
             }
         };
         TrivialTreeBox.prototype.setHighlightedEntry = function (entry) {
@@ -3395,16 +3639,35 @@ var TrivialComponents;
             parentNode._trEntryElement.addClass('has-children');
         };
         ;
+        TrivialTreeBox.prototype.destroy = function () {
+            this.$componentWrapper.remove();
+        };
+        ;
         TrivialTreeBox.prototype.getMainDomElement = function () {
             return this.$componentWrapper[0];
         };
         return TrivialTreeBox;
     }());
-    TrivialComponents.TrivialTreeBox = TrivialTreeBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialTreeBox = TrivialTreeBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialCore", "./TrivialTreeBox", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialTreeBox_1 = require("./TrivialTreeBox");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialTreeComboBox = (function () {
         function TrivialTreeComboBox(originalInput, options) {
             if (options === void 0) { options = {}; }
@@ -3420,13 +3683,13 @@ var TrivialComponents;
             this.doNoAutoCompleteBecauseBackspaceWasPressed = false;
             this.usingDefaultQueryFunction = false;
             this.$spinners = $();
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
-            this.onFocus = new TrivialComponents.TrivialEvent(this);
-            this.onBlur = new TrivialComponents.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onFocus = new TrivialEvent_1.TrivialEvent(this);
+            this.onBlur = new TrivialEvent_1.TrivialEvent(this);
             this.config = $.extend({
-                valueFunction: function (entry) { return entry ? entry.id : null; },
+                valueFunction: function (entry) { return entry ? "" + entry.id : null; },
                 entryRenderingFunction: function (entry, depth) {
-                    var defaultTemplates = [TrivialComponents.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialComponents.DEFAULT_TEMPLATES.iconSingleLineTemplate];
+                    var defaultTemplates = [TrivialCore_1.DEFAULT_TEMPLATES.icon2LinesTemplate, TrivialCore_1.DEFAULT_TEMPLATES.iconSingleLineTemplate];
                     var template = entry.template || defaultTemplates[Math.min(depth, defaultTemplates.length - 1)];
                     return Mustache.render(template, entry);
                 },
@@ -3439,8 +3702,8 @@ var TrivialComponents;
                     }
                 },
                 selectedEntry: null,
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 textHighlightingEntryLimit: 100,
                 entries: null,
                 emptyEntry: {
@@ -3487,7 +3750,7 @@ var TrivialComponents;
                 showDropDownOnResultsOnly: false
             }, options);
             if (!this.config.queryFunction) {
-                this.config.queryFunction = TrivialComponents.defaultTreeQueryFunctionFactory(this.config.entries || [], TrivialComponents.defaultEntryMatchingFunctionFactory(["displayValue", "additionalInfo"], this.config.matchingOptions), this.config.childrenProperty, this.config.expandedProperty);
+                this.config.queryFunction = TrivialCore_1.defaultTreeQueryFunctionFactory(this.config.entries || [], TrivialCore_1.defaultEntryMatchingFunctionFactory(["displayValue", "additionalInfo"], this.config.matchingOptions), this.config.childrenProperty, this.config.expandedProperty);
                 this.usingDefaultQueryFunction = true;
             }
             this.$originalInput = $(originalInput);
@@ -3496,9 +3759,9 @@ var TrivialComponents;
             this.$selectedEntryWrapper = $('<div class="tr-combobox-selected-entry-wrapper"/>').appendTo(this.$treeComboBox);
             if (this.config.showClearButton) {
                 this.$clearButton = $('<div class="tr-remove-button">').appendTo(this.$treeComboBox);
-                this.$clearButton.mousedown(function () {
+                this.$clearButton.mousedown(function (e) {
                     _this.$editor.val("");
-                    _this.setSelectedEntry(null, true, true);
+                    _this.setSelectedEntry(null, true, true, e);
                 });
             }
             if (this.config.showTrigger) {
@@ -3519,7 +3782,7 @@ var TrivialComponents;
                 });
             }
             this.$dropDown = $('<div class="tr-dropdown"></div>')
-                .scroll(function (e) {
+                .scroll(function () {
                 return false;
             });
             this.$dropDownTargetElement = $("body");
@@ -3537,7 +3800,7 @@ var TrivialComponents;
                     _this.showEditor();
                 }
             })
-                .blur(function () {
+                .blur(function (e) {
                 if (_this.blurCausedByClickInsideComponent) {
                     _this.$editor.focus();
                 }
@@ -3546,38 +3809,38 @@ var TrivialComponents;
                     _this.onBlur.fire();
                     _this.$treeComboBox.removeClass('focus');
                     if (_this.editorContainsFreeText()) {
-                        if (!TrivialComponents.objectEquals(_this.getSelectedEntry(), _this.lastCommittedValue)) {
-                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                        if (!TrivialCore_1.objectEquals(_this.getSelectedEntry(), _this.lastCommittedValue)) {
+                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                         }
                     }
                     else {
                         _this.$editor.val("");
-                        _this.setSelectedEntry(_this.lastCommittedValue);
+                        _this.setSelectedEntry(_this.lastCommittedValue, false, false, e);
                     }
                     _this.hideEditor();
                     _this.closeDropDown();
                 }
             })
                 .keydown(function (e) {
-                if (TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.tab) {
+                else if (e.which == TrivialCore_1.keyCodes.tab) {
                     var highlightedEntry = _this.treeBox.getHighlightedEntry();
                     if (_this.isDropDownOpen && highlightedEntry) {
-                        _this.setSelectedEntry(highlightedEntry, true, true);
+                        _this.setSelectedEntry(highlightedEntry, true, true, e);
                     }
                     else if (!_this.$editor.val()) {
-                        _this.setSelectedEntry(null, true, true);
+                        _this.setSelectedEntry(null, true, true, e);
                     }
                     else if (_this.config.allowFreeText) {
-                        _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                        _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                     }
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
                     if (_this.isDropDownOpen) {
-                        var changedExpandedState = _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialComponents.keyCodes.right_arrow);
+                        var changedExpandedState = _this.treeBox.setHighlightedNodeExpanded(e.which == TrivialCore_1.keyCodes.right_arrow);
                         if (changedExpandedState) {
                             return false;
                         }
@@ -3585,15 +3848,22 @@ var TrivialComponents;
                     _this.showEditor();
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.backspace || e.which == TrivialComponents.keyCodes.delete) {
+                setTimeout(function () {
+                    var isNonIgnoredKey = !TrivialCore_1.keyCodes.isModifierKey(e) && [TrivialCore_1.keyCodes.enter, TrivialCore_1.keyCodes.escape, TrivialCore_1.keyCodes.tab].indexOf(e.which) === -1;
+                    var editorValueDoesNotCorrespondToSelectedValue = _this.isEntrySelected() && _this.$editor.val() !== _this.config.entryToEditorTextFunction(_this.selectedEntry);
+                    if (isNonIgnoredKey && (editorValueDoesNotCorrespondToSelectedValue || _this.config.valueFunction(_this.treeBox.getHighlightedEntry())) !== _this.config.valueFunction(_this.getSelectedEntry())) {
+                        _this.setSelectedEntry(null, false, false, e);
+                    }
+                });
+                if (e.which == TrivialCore_1.keyCodes.backspace || e.which == TrivialCore_1.keyCodes.delete) {
                     _this.doNoAutoCompleteBecauseBackspaceWasPressed = true;
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
                     if (!_this.isEditorVisible) {
                         _this.$editor.select();
                         _this.showEditor();
                     }
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (!_this.isDropDownOpen) {
                         _this.query(direction);
                         if (!_this.config.showDropDownOnResultsOnly) {
@@ -3602,33 +3872,33 @@ var TrivialComponents;
                     }
                     else {
                         _this.treeBox.highlightNextEntry(direction);
-                        _this.autoCompleteIfPossible(_this.config.autoCompleteDelay);
+                        _this.autoCompleteIfPossible();
                     }
                     return false;
                 }
-                else if (e.which == TrivialComponents.keyCodes.enter) {
+                else if (e.which == TrivialCore_1.keyCodes.enter) {
                     if (_this.isEditorVisible || _this.editorContainsFreeText()) {
                         e.preventDefault();
                         var highlightedEntry = _this.treeBox.getHighlightedEntry();
                         if (_this.isDropDownOpen && highlightedEntry) {
-                            _this.setSelectedEntry(highlightedEntry, true, true);
+                            _this.setSelectedEntry(highlightedEntry, true, true, e);
                         }
                         else if (!_this.$editor.val()) {
-                            _this.setSelectedEntry(null, true, true);
+                            _this.setSelectedEntry(null, true, true, e);
                         }
                         else if (_this.config.allowFreeText) {
-                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true);
+                            _this.setSelectedEntry(_this.getSelectedEntry(), true, true, e);
                         }
                         _this.closeDropDown();
                         _this.hideEditor();
                     }
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     e.preventDefault();
                     if (!(_this.editorContainsFreeText() && _this.isDropDownOpen)) {
                         _this.hideEditor();
                         _this.$editor.val("");
-                        _this.setSelectedEntry(_this.lastCommittedValue, false);
+                        _this.setSelectedEntry(_this.lastCommittedValue, false, false, e);
                     }
                     _this.closeDropDown();
                 }
@@ -3649,11 +3919,6 @@ var TrivialComponents;
                             _this.treeBox.setHighlightedEntry(null);
                         }
                     });
-                }
-            })
-                .keyup(function (e) {
-                if (!TrivialComponents.keyCodes.isModifierKey(e) && [TrivialComponents.keyCodes.enter, TrivialComponents.keyCodes.escape, TrivialComponents.keyCodes.tab].indexOf(e.which) === -1 && _this.isEntrySelected() && _this.$editor.val() !== _this.config.entryToEditorTextFunction(_this.selectedEntry)) {
-                    _this.setSelectedEntry(null, false);
                 }
             })
                 .mousedown(function () {
@@ -3686,16 +3951,16 @@ var TrivialComponents;
                     _this.blurCausedByClickInsideComponent = false;
                 }
             });
-            this.treeBox = new TrivialComponents.TrivialTreeBox(this.$dropDown, this.config);
-            this.treeBox.onSelectedEntryChanged.addListener(function (selectedEntry) {
+            this.treeBox = new TrivialTreeBox_1.TrivialTreeBox(this.$dropDown, this.config);
+            this.treeBox.onSelectedEntryChanged.addListener(function (selectedEntry, eventSource, originalEvent) {
                 if (selectedEntry) {
-                    _this.setSelectedEntry(selectedEntry, true, !TrivialComponents.objectEquals(selectedEntry, _this.lastCommittedValue));
+                    _this.setSelectedEntry(selectedEntry, true, !TrivialCore_1.objectEquals(selectedEntry, _this.lastCommittedValue), originalEvent);
                     _this.treeBox.setSelectedEntry(null);
                     _this.closeDropDown();
                 }
                 _this.hideEditor();
             });
-            this.setSelectedEntry(this.config.selectedEntry, true, true);
+            this.setSelectedEntry(this.config.selectedEntry, true, false, null);
             this.$selectedEntryWrapper.click(function () {
                 _this.showEditor();
                 _this.$editor.select();
@@ -3707,34 +3972,31 @@ var TrivialComponents;
         }
         TrivialTreeComboBox.prototype.query = function (highlightDirection) {
             var _this = this;
-            setTimeout(function () {
-                var queryString = _this.getNonSelectedEditorValue();
-                var completeInputString = _this.$editor.val();
-                if (_this.lastQueryString !== queryString || _this.lastCompleteInputQueryString !== completeInputString) {
-                    if (_this.$spinners.length === 0) {
-                        var $spinner = $(_this.config.spinnerTemplate).appendTo(_this.$dropDown);
-                        _this.$spinners = _this.$spinners.add($spinner);
+            var queryString = this.getNonSelectedEditorValue();
+            var completeInputString = this.$editor.val();
+            if (this.lastQueryString !== queryString || this.lastCompleteInputQueryString !== completeInputString) {
+                if (this.$spinners.length === 0) {
+                    var $spinner = $(this.config.spinnerTemplate).appendTo(this.$dropDown);
+                    this.$spinners = this.$spinners.add($spinner);
+                }
+                this.config.queryFunction(queryString, function (newEntries) {
+                    _this.updateEntries(newEntries, highlightDirection);
+                    if (_this.config.showDropDownOnResultsOnly && newEntries && newEntries.length > 0 && _this.$editor.is(":focus")) {
+                        _this.openDropDown();
                     }
-                    _this.config.queryFunction(queryString, function (newEntries) {
-                        _this.updateEntries(newEntries, highlightDirection);
-                        if (_this.config.showDropDownOnResultsOnly && newEntries && newEntries.length > 0 && _this.$editor.is(":focus")) {
-                            _this.openDropDown();
-                        }
-                    });
-                    _this.lastQueryString = queryString;
-                    _this.lastCompleteInputQueryString = completeInputString;
-                }
-                else {
-                    _this.openDropDown();
-                }
-            }, 0);
+                });
+                this.lastQueryString = queryString;
+                this.lastCompleteInputQueryString = completeInputString;
+            }
+            else {
+                this.openDropDown();
+            }
         };
-        TrivialTreeComboBox.prototype.fireChangeEvents = function (entry) {
+        TrivialTreeComboBox.prototype.fireChangeEvents = function (entry, originalEvent) {
             this.$originalInput.trigger("change");
-            this.onSelectedEntryChanged.fire(entry);
+            this.onSelectedEntryChanged.fire(entry, originalEvent);
         };
-        TrivialTreeComboBox.prototype.setSelectedEntry = function (entry, commit, fireEvent) {
-            if (fireEvent === void 0) { fireEvent = false; }
+        TrivialTreeComboBox.prototype.setSelectedEntry = function (entry, commit, fireEvent, originalEvent) {
             if (entry == null) {
                 this.$originalInput.val(this.config.valueFunction(null));
                 this.selectedEntry = null;
@@ -3754,7 +4016,7 @@ var TrivialComponents;
             if (commit) {
                 this.lastCommittedValue = entry;
                 if (fireEvent) {
-                    this.fireChangeEvents(entry);
+                    this.fireChangeEvents(entry, originalEvent);
                 }
             }
             if (this.$clearButton) {
@@ -3843,14 +4105,14 @@ var TrivialComponents;
                 clearTimeout(this.autoCompleteTimeoutId);
                 var highlightedEntry_1 = this.treeBox.getHighlightedEntry();
                 if (highlightedEntry_1 && !this.doNoAutoCompleteBecauseBackspaceWasPressed) {
-                    this.autoCompleteTimeoutId = setTimeout(function () {
+                    this.autoCompleteTimeoutId = TrivialCore_1.setTimeoutOrDoImmediately(function () {
                         var currentEditorValue = _this.getNonSelectedEditorValue();
                         var autoCompleteString = _this.config.autoCompleteFunction(currentEditorValue, highlightedEntry_1) || currentEditorValue;
                         _this.$editor.val(currentEditorValue + autoCompleteString.substr(currentEditorValue.length));
                         if (_this.$editor.is(":focus")) {
                             _this.$editor[0].setSelectionRange(currentEditorValue.length, autoCompleteString.length);
                         }
-                    }, delay || 0);
+                    }, delay);
                 }
                 this.doNoAutoCompleteBecauseBackspaceWasPressed = false;
             }
@@ -3908,7 +4170,7 @@ var TrivialComponents;
                 return this.config.freeTextEntryFactory(this.$editor.val());
             }
             else {
-                var selectedEntryToReturn = jQuery.extend({}, this.selectedEntry);
+                var selectedEntryToReturn = $.extend({}, this.selectedEntry);
                 selectedEntryToReturn._trEntryElement = undefined;
                 return selectedEntryToReturn;
             }
@@ -3927,6 +4189,9 @@ var TrivialComponents;
             this.$editor.select();
         };
         ;
+        TrivialTreeComboBox.prototype.getEditor = function () {
+            return this.$editor[0];
+        };
         TrivialTreeComboBox.prototype.getDropDown = function () {
             return this.$dropDown;
         };
@@ -3942,17 +4207,34 @@ var TrivialComponents;
         };
         return TrivialTreeComboBox;
     }());
-    TrivialComponents.TrivialTreeComboBox = TrivialTreeComboBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialTreeComboBox = TrivialTreeComboBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "mustache", "./TrivialListBox", "./TrivialCore", "./TrivialEvent"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var $ = require("jquery");
+    var Mustache = require("mustache");
+    var TrivialListBox_1 = require("./TrivialListBox");
+    var TrivialCore_1 = require("./TrivialCore");
+    var TrivialEvent_1 = require("./TrivialEvent");
     var TrivialUnitBox = (function () {
         function TrivialUnitBox(originalInput, options) {
             if (options === void 0) { options = {}; }
             var _this = this;
-            this.onChange = new TrivialComponents.TrivialEvent(this);
-            this.onSelectedEntryChanged = new TrivialComponents.TrivialEvent(this);
+            this.onChange = new TrivialEvent_1.TrivialEvent(this);
+            this.onSelectedEntryChanged = new TrivialEvent_1.TrivialEvent(this);
+            this.onFocus = new TrivialEvent_1.TrivialEvent(this);
+            this.onBlur = new TrivialEvent_1.TrivialEvent(this);
             this.isDropDownOpen = false;
             this.blurCausedByClickInsideComponent = false;
             this.$spinners = $();
@@ -3965,17 +4247,17 @@ var TrivialComponents;
                 unitDisplayPosition: 'right',
                 allowNullAmount: true,
                 entryRenderingFunction: function (entry) {
-                    var template = entry.template || TrivialComponents.DEFAULT_TEMPLATES.currency2LineTemplate;
+                    var template = entry.template || TrivialCore_1.DEFAULT_TEMPLATES.currency2LineTemplate;
                     return Mustache.render(template, entry);
                 },
                 selectedEntryRenderingFunction: function (entry) {
-                    var template = entry.selectedEntryTemplate || TrivialComponents.DEFAULT_TEMPLATES.currencySingleLineShortTemplate;
+                    var template = entry.selectedEntryTemplate || TrivialCore_1.DEFAULT_TEMPLATES.currencySingleLineShortTemplate;
                     return Mustache.render(template, entry);
                 },
                 amount: null,
                 selectedEntry: undefined,
-                spinnerTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
-                noEntriesTemplate: TrivialComponents.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
+                spinnerTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultSpinnerTemplate,
+                noEntriesTemplate: TrivialCore_1.DEFAULT_TEMPLATES.defaultNoEntriesTemplate,
                 entries: null,
                 emptyEntry: {
                     code: '...'
@@ -3992,7 +4274,7 @@ var TrivialComponents;
                 editingMode: 'editable',
             }, options);
             if (!this.config.queryFunction) {
-                this.config.queryFunction = TrivialComponents.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
+                this.config.queryFunction = TrivialCore_1.defaultListQueryFunctionFactory(this.config.entries || [], this.config.matchingOptions);
                 this.usingDefaultQueryFunction = true;
             }
             this.entries = this.config.entries;
@@ -4017,7 +4299,6 @@ var TrivialComponents;
                         _this.query();
                     });
                 }
-                _this.$editor.focus();
             });
             this.$dropDown = $('<div class="tr-dropdown"></div>')
                 .scroll(function () {
@@ -4034,8 +4315,10 @@ var TrivialComponents;
                 if (_this.blurCausedByClickInsideComponent) {
                 }
                 else {
+                    _this.onFocus.fire();
                     _this.$unitBox.addClass('focus');
                     _this.cleanupEditorValue();
+                    _this.$editor.select();
                 }
             })
                 .blur(function () {
@@ -4043,26 +4326,27 @@ var TrivialComponents;
                     _this.$editor.focus();
                 }
                 else {
+                    _this.onBlur.fire();
                     _this.$unitBox.removeClass('focus');
                     _this.formatEditorValue();
                     _this.closeDropDown();
                 }
             })
                 .keydown(function (e) {
-                if (TrivialComponents.keyCodes.isModifierKey(e)) {
+                if (TrivialCore_1.keyCodes.isModifierKey(e)) {
                     return;
                 }
-                else if (e.which == TrivialComponents.keyCodes.tab) {
+                else if (e.which == TrivialCore_1.keyCodes.tab) {
                     var highlightedEntry = _this.listBox.getHighlightedEntry();
                     if (_this.isDropDownOpen && highlightedEntry) {
-                        _this.setSelectedEntry(highlightedEntry, true);
+                        _this.setSelectedEntry(highlightedEntry, true, e);
                     }
                 }
-                else if (e.which == TrivialComponents.keyCodes.left_arrow || e.which == TrivialComponents.keyCodes.right_arrow) {
+                else if (e.which == TrivialCore_1.keyCodes.left_arrow || e.which == TrivialCore_1.keyCodes.right_arrow) {
                     return;
                 }
-                if (e.which == TrivialComponents.keyCodes.up_arrow || e.which == TrivialComponents.keyCodes.down_arrow) {
-                    var direction = e.which == TrivialComponents.keyCodes.up_arrow ? -1 : 1;
+                if (e.which == TrivialCore_1.keyCodes.up_arrow || e.which == TrivialCore_1.keyCodes.down_arrow) {
+                    var direction = e.which == TrivialCore_1.keyCodes.up_arrow ? -1 : 1;
                     if (_this.isDropDownOpen) {
                         _this.listBox.highlightNextEntry(direction);
                     }
@@ -4072,16 +4356,16 @@ var TrivialComponents;
                     }
                     return false;
                 }
-                else if (_this.isDropDownOpen && e.which == TrivialComponents.keyCodes.enter) {
+                else if (_this.isDropDownOpen && e.which == TrivialCore_1.keyCodes.enter) {
                     e.preventDefault();
-                    _this.setSelectedEntry(_this.listBox.getHighlightedEntry(), true);
+                    _this.setSelectedEntry(_this.listBox.getHighlightedEntry(), true, e);
                     _this.closeDropDown();
                 }
-                else if (e.which == TrivialComponents.keyCodes.escape) {
+                else if (e.which == TrivialCore_1.keyCodes.escape) {
                     _this.closeDropDown();
                     _this.cleanupEditorValue();
                 }
-                else if (!e.shiftKey && TrivialComponents.keyCodes.numberKeys.indexOf(e.which) != -1) {
+                else if (!e.shiftKey && TrivialCore_1.keyCodes.numberKeys.indexOf(e.which) != -1) {
                     var numberPart = _this.getEditorValueNumberPart();
                     var numberPartDecimalSeparatorIndex = numberPart.indexOf(_this.config.decimalSeparator);
                     var maxDecimalDigitsReached = numberPartDecimalSeparatorIndex != -1 && numberPart.length - (numberPartDecimalSeparatorIndex + 1) >= _this.config.decimalPrecision;
@@ -4102,9 +4386,9 @@ var TrivialComponents;
                 }
             })
                 .keyup(function (e) {
-                if (TrivialComponents.keyCodes.specialKeys.indexOf(e.which) != -1
-                    && e.which != TrivialComponents.keyCodes.backspace
-                    && e.which != TrivialComponents.keyCodes.delete) {
+                if (TrivialCore_1.keyCodes.specialKeys.indexOf(e.which) != -1
+                    && e.which != TrivialCore_1.keyCodes.backspace
+                    && e.which != TrivialCore_1.keyCodes.delete) {
                     return;
                 }
                 var hasDoubleDecimalSeparator = new RegExp("(?:\\" + _this.config.decimalSeparator + ".*)" + "\\" + _this.config.decimalSeparator, "g").test(_this.$editor.val());
@@ -4121,6 +4405,9 @@ var TrivialComponents;
                         _this.closeDropDown();
                     }
                 }
+                else {
+                    _this.ensureDecimalInput();
+                }
             })
                 .mousedown(function () {
                 if (_this.config.openDropdownOnEditorClick) {
@@ -4129,9 +4416,9 @@ var TrivialComponents;
                         _this.query();
                     }
                 }
-            }).change(function () {
+            }).change(function (e) {
                 _this.updateOriginalInputValue();
-                _this.fireChangeEvents();
+                _this.fireChangeEvents(e);
             });
             this.$unitBox.add(this.$dropDown).mousedown(function () {
                 if (_this.$editor.is(":focus")) {
@@ -4148,18 +4435,38 @@ var TrivialComponents;
                     _this.blurCausedByClickInsideComponent = false;
                 }
             });
-            this.listBox = new TrivialComponents.TrivialListBox(this.$dropDown, this.config);
-            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry) {
+            this.listBox = new TrivialListBox_1.TrivialListBox(this.$dropDown, this.config);
+            this.listBox.onSelectedEntryChanged.addListener(function (selectedEntry, eventSource, originalEvent) {
                 if (selectedEntry) {
-                    _this.setSelectedEntry(selectedEntry, true);
+                    _this.setSelectedEntry(selectedEntry, true, originalEvent);
                     _this.listBox.setSelectedEntry(null);
                     _this.closeDropDown();
                 }
             });
             this.$editor.val(this.config.amount || this.$originalInput.val());
             this.formatEditorValue();
-            this.setSelectedEntry(this.config.selectedEntry || null, false);
+            this.setSelectedEntry(this.config.selectedEntry || null, false, null);
         }
+        TrivialUnitBox.prototype.ensureDecimalInput = function () {
+            var cursorPosition = this.$editor[0].selectionEnd;
+            var oldValue = this.$editor.val();
+            var newValue = oldValue.replace(new RegExp('[^\-0-9' + this.config.decimalSeparator + this.config.thousandsSeparator + ']', 'g'), '');
+            newValue = newValue.replace(/(\d*\.\d*)\./g, '$1');
+            newValue = newValue.replace(/(.)-*/g, '$1');
+            var decimalSeparatorIndex = newValue.indexOf(this.config.decimalSeparator);
+            if (decimalSeparatorIndex != -1 && newValue.length - decimalSeparatorIndex - 1 > this.config.decimalPrecision) {
+                newValue = newValue.substring(0, decimalSeparatorIndex + 1 + this.config.decimalPrecision);
+            }
+            if (oldValue !== newValue) {
+                this.$editor.val(newValue);
+                var newCursorPosition = Math.min(this.$editor.val().length, cursorPosition);
+                try {
+                    this.$editor[0].setSelectionRange(newCursorPosition, newCursorPosition);
+                }
+                catch (e) {
+                }
+            }
+        };
         TrivialUnitBox.prototype.getQueryString = function () {
             return this.$editor.val().replace(this.numberRegex, '');
         };
@@ -4207,16 +4514,16 @@ var TrivialComponents;
         TrivialUnitBox.prototype.fireSelectedEntryChangedEvent = function () {
             this.onSelectedEntryChanged.fire(this.selectedEntry);
         };
-        TrivialUnitBox.prototype.fireChangeEvents = function () {
+        TrivialUnitBox.prototype.fireChangeEvents = function (originalEvent) {
             this.$originalInput.trigger("change");
             this.onChange.fire({
                 unit: this.selectedEntry != null ? this.selectedEntry[this.config.unitValueProperty] : null,
                 unitEntry: this.selectedEntry,
                 amount: this.getAmount(),
                 amountAsFloatingPointNumber: parseFloat(this.formatAmount(this.getAmount(), this.config.decimalPrecision, this.config.decimalSeparator, this.config.thousandsSeparator))
-            });
+            }, originalEvent);
         };
-        TrivialUnitBox.prototype.setSelectedEntry = function (entry, fireEvent) {
+        TrivialUnitBox.prototype.setSelectedEntry = function (entry, fireEvent, originalEvent) {
             if (entry == null) {
                 this.selectedEntry = null;
                 var $selectedEntry = $(this.config.selectedEntryRenderingFunction(this.config.emptyEntry))
@@ -4237,7 +4544,7 @@ var TrivialComponents;
             }
             if (fireEvent) {
                 this.fireSelectedEntryChangedEvent();
-                this.fireChangeEvents();
+                this.fireChangeEvents(originalEvent);
             }
         };
         TrivialUnitBox.prototype.formatEditorValue = function () {
@@ -4336,7 +4643,7 @@ var TrivialComponents;
             var _this = this;
             this.setSelectedEntry(this.entries.filter(function (entry) {
                 return entry[_this.config.unitIdProperty] === unitIdentifier;
-            })[0], false);
+            })[0], false, null);
         };
         TrivialUnitBox.prototype.updateEntries = function (newEntries) {
             this.entries = newEntries;
@@ -4349,7 +4656,7 @@ var TrivialComponents;
                 return null;
             }
             else {
-                var selectedEntryToReturn = jQuery.extend({}, this.selectedEntry);
+                var selectedEntryToReturn = $.extend({}, this.selectedEntry);
                 selectedEntryToReturn._trEntryElement = undefined;
                 return selectedEntryToReturn;
             }
@@ -4377,23 +4684,36 @@ var TrivialComponents;
         TrivialUnitBox.prototype.focus = function () {
             this.$editor.select();
         };
-        ;
+        TrivialUnitBox.prototype.getEditor = function () {
+            return this.$editor[0];
+        };
         TrivialUnitBox.prototype.destroy = function () {
             this.$originalInput.removeClass('tr-original-input').insertBefore(this.$unitBox);
             this.$unitBox.remove();
             this.$dropDown.remove();
         };
-        ;
         TrivialUnitBox.prototype.getMainDomElement = function () {
             return this.$unitBox[0];
         };
         return TrivialUnitBox;
     }());
-    TrivialComponents.TrivialUnitBox = TrivialUnitBox;
-})(TrivialComponents || (TrivialComponents = {}));
+    exports.TrivialUnitBox = TrivialUnitBox;
+});
 
-var TrivialComponents;
-(function (TrivialComponents) {
+
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "jquery", "./TrivialCore"], factory);
+    } else {   window.TrivialComponents = window.TrivialComponents || {};  factory(function(name) {    if (name === "jquery") {      return jQuery;    } else if (name === "levenshtein") {      return window.Levenshtein;    } else if (name === "moment") {      return window.moment;    } else if (name === "mustache") {      return Mustache;    } else {      return window.TrivialComponents;    }  }, window.TrivialComponents);}
+})(function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var jQuery = require("jquery");
+    var TrivialCore_1 = require("./TrivialCore");
     (function ($) {
         $.expr[":"].containsIgnoreCase = $.expr.createPseudo(function (arg) {
             return function (elem) {
@@ -4436,11 +4756,11 @@ var TrivialComponents;
                 }
                 if (searchString && searchString !== '') {
                     $this.contents().filter(function () {
-                        return this.nodeType == 3 && TrivialComponents.trivialMatch(this.nodeValue, searchString, options).length > 0;
+                        return this.nodeType == 3 && TrivialCore_1.trivialMatch(this.nodeValue, searchString, options).length > 0;
                     }).replaceWith(function () {
                         var oldNodeValue = (this.nodeValue || "");
                         var newNodeValue = "";
-                        var matches = TrivialComponents.trivialMatch(this.nodeValue, searchString, options);
+                        var matches = TrivialCore_1.trivialMatch(this.nodeValue, searchString, options);
                         var oldMatchEnd = 0;
                         for (var i = 0; i < matches.length; i++) {
                             var match = matches[i];
@@ -4455,31 +4775,5 @@ var TrivialComponents;
             });
         };
     }(jQuery));
-})(TrivialComponents || (TrivialComponents = {}));
+});
 
-$.fn.minimallyScrollTo = function (target) {
-    return this.each(function () {
-        var $this = $(this);
-        var $target = $(target);
-        var viewPortMinY = $this.scrollTop();
-        var viewPortMaxY = viewPortMinY + $this.innerHeight();
-        var targetMinY = $($target).offset().top - $(this).offset().top + $this.scrollTop();
-        var targetMaxY = targetMinY + $target.height();
-        if (targetMinY < viewPortMinY) {
-            $this.scrollTop(targetMinY);
-        }
-        else if (targetMaxY > viewPortMaxY) {
-            $this.scrollTop(Math.min(targetMinY, targetMaxY - $this.innerHeight()));
-        }
-        var viewPortMinX = $this.scrollLeft();
-        var viewPortMaxX = viewPortMinX + $this.innerWidth();
-        var targetMinX = $($target).offset().left - $(this).offset().left + $this.scrollLeft();
-        var targetMaxX = targetMinX + $target.width();
-        if (targetMinX < viewPortMinX) {
-            $this.scrollLeft(targetMinX);
-        }
-        else if (targetMaxX > viewPortMaxX) {
-            $this.scrollLeft(Math.min(targetMinX, targetMaxX - $this.innerWidth()));
-        }
-    });
-};
