@@ -15,6 +15,7 @@ import java.util.List;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-checkbox.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head")
@@ -29,6 +30,7 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     protected static final String PROPERTY_HIDE_LABEL = "hideLabel";
     protected static final String PROPERTY_DESCRIPTION = "description";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
+    protected static final String PROPERTY_SWITCH = "switch";
 
     public HtmlCheckBox() {
         super();
@@ -64,6 +66,15 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setHideLabel(final boolean hideLabel) {
         this.updateStateHelper(PROPERTY_HIDE_LABEL, hideLabel);
+    }
+
+    public boolean isSwitch() {
+        final Object eval = this.getStateHelper().eval(PROPERTY_SWITCH);
+        return eval == null ? false : (Boolean) eval;
+    }
+
+    public void setSwitch(final boolean switching) {
+        this.updateStateHelper(PROPERTY_SWITCH, switching);
     }
 
     public String getDescription() {

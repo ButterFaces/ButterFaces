@@ -14,6 +14,7 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
             <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
+            <common:tagBooleanControl label="switch" value="#{checkBoxShowcase.asSwitch}"/>
             <common:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
             <common:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
             <common:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
@@ -45,6 +46,7 @@
 
             <b:checkBox label="#{checkBoxShowcase.label}"
                         value="#{checkBoxShowcase.value}"
+                        switch="#{checkBoxShowcase.asSwitch}"
                         hideLabel="#{checkBoxShowcase.hideLabel}"
                         description="#{checkBoxShowcase.description}"
                         readonly="#{checkBoxShowcase.readonly}"

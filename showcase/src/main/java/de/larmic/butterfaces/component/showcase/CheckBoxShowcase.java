@@ -17,6 +17,7 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
     private String description = "some description";
 
     private boolean autoFocus;
+    private boolean asSwitch;
 
     @Override
     protected Object initValue() {
@@ -37,6 +38,7 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    description=\"" + description + "\"");
+        xhtmlCodeExample.appendInnerContent("                    switch=\"" + this.isAsSwitch() + "\"");
         xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
@@ -75,5 +77,13 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
 
     public void setAutoFocus(boolean autoFocus) {
         this.autoFocus = autoFocus;
+    }
+
+    public boolean isAsSwitch() {
+        return asSwitch;
+    }
+
+    public void setAsSwitch(boolean asSwitch) {
+        this.asSwitch = asSwitch;
     }
 }

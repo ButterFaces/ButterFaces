@@ -1862,6 +1862,11 @@
             <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
+            <name>switch</name>
+            <type>java.lang.Boolean</type>
+            <description>Shows a switch instead of a checkbox</description>
+        </attribute>
+        <attribute>
             <name>autoFocus</name>
             <type>java.lang.Boolean</type>
         </attribute>

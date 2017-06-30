@@ -28,12 +28,21 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        encodeBegin(context, component, "butter-component-checkbox");
+        final HtmlCheckBox checkBox = (HtmlCheckBox) component;
+        final String styleClass = checkBox.isSwitch() ? "butter-component-checkbox switch" : "butter-component-checkbox";
+        encodeBegin(context, component, styleClass);
     }
 
     @Override
     protected void encodeEndInnerWrapper(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlCheckBox checkBox = (HtmlCheckBox) component;
+
+        if (checkBox.isSwitch()) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "slider round", "styleClass");
+            writer.endElement("div");
+        }
+
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(checkBox, writer);
     }
 
