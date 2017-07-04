@@ -32,10 +32,19 @@
         width: 18px;
     }
 
+    .butter-component-value-readonly-wrapper {
+        .slider {
+            cursor: none;
+            position: relative;
+        }
+    }
+
+    .butter-component-value-readonly-wrapper.checked .slider,
     input:checked + .slider {
         background-color: #66bb6a;
     }
 
+    .butter-component-value-readonly-wrapper.checked .slider:before,
     input:checked + .slider:before {
         transform: translateX(14px);
     }

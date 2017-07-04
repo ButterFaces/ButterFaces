@@ -7,6 +7,7 @@ package de.larmic.butterfaces.component.renderkit.html_basic;
 
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
+import de.larmic.butterfaces.component.partrenderer.CheckBoxReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.Constants;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentCheckBoxWrapperPartRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
@@ -37,7 +38,7 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
     protected void encodeEndInnerWrapper(UIComponent component, ResponseWriter writer) throws IOException {
         final HtmlCheckBox checkBox = (HtmlCheckBox) component;
 
-        if (checkBox.isSwitch()) {
+        if (checkBox.isSwitch() && !checkBox.isReadonly()) {
             writer.startElement("div", component);
             writer.writeAttribute("class", "slider round", "styleClass");
             writer.endElement("div");
@@ -95,6 +96,14 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
     @Override
     protected void encodeTagType(UIComponent component, ResponseWriter writer) throws IOException {
         writer.writeAttribute("type", "checkbox", "type");
+    }
+
+    @Override
+    protected void encodeReadonly(HtmlCheckBox htmlComponent, ResponseWriter writer) throws IOException {
+        if (encodeReadonly()) {
+            // Render readonly span if components readonly attribute is set
+            new CheckBoxReadonlyPartRenderer().renderReadonly(htmlComponent, writer);
+        }
     }
 
     @Override

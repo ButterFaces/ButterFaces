@@ -6,9 +6,7 @@
 package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
-import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -34,12 +32,18 @@ public class ReadonlyPartRenderer {
                 sb.append(" butter-component-value-hiddenLabel");
             }
             writer.writeAttribute("class", sb.toString(), null);
-            writer.startElement("span", uiComponent);
-            writer.writeAttribute("class", "butter-component-value-readonly-wrapper", "styleClass");
-            writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
-            writer.endElement("span");
+
+            this.renderInnerReadonlyPart(uiComponent, value, writer);
+
             writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
         }
+    }
+
+    protected void renderInnerReadonlyPart(final UIInput uiComponent, final Object value, final ResponseWriter writer) throws IOException {
+        writer.startElement("span", uiComponent);
+        writer.writeAttribute("class", "butter-component-value-readonly-wrapper", "styleClass");
+        writer.writeText(this.getReadonlyDisplayValue(value, uiComponent, uiComponent.getConverter()), null);
+        writer.endElement("span");
     }
 
     /**
@@ -52,16 +56,6 @@ public class ReadonlyPartRenderer {
         } else if (converter != null) {
             final String asString = converter.getAsString(FacesContext.getCurrentInstance(), component, value);
             return asString == null ? "-" : asString;
-        }
-
-        if (component instanceof HtmlCheckBox) {
-            HtmlCheckBox checkBoxComponent = (HtmlCheckBox) component;
-            final StringBuilder sb = new StringBuilder();
-            if (StringUtils.isNotEmpty(checkBoxComponent.getDescription())) {
-                sb.append(checkBoxComponent.getDescription()).append(": ");
-            }
-            sb.append((Boolean) value ? "ja" : "nein");
-            return sb.toString();
         }
 
         return String.valueOf(value);
