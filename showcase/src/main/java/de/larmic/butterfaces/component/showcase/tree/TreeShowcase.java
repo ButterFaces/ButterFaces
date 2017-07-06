@@ -35,14 +35,16 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     private String noEntriesText;
     private String spinnerText;
 
+    private Node selectedNode;
+
     @Override
     public void processValueChange(final TreeNodeSelectionEvent event) {
-        showcaseTreeNode.setSelectedNode(event.getNewValue());
+        this.selectedNode = event.getNewValue();
     }
 
     @Override
     public boolean isValueSelected(Node data) {
-        return showcaseTreeNode.getSelectedNode() != null && data.getTitle().equals(showcaseTreeNode.getSelectedNode().getTitle());
+        return this.selectedNode != null && data.getTitle().equals(this.selectedNode.getTitle());
     }
 
     @Override
@@ -241,6 +243,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return xhtmlCodeExample;
     }
 
+    public Object getValues() {
+        switch (selectedTreeTemplateType) {
+            case CUSTOM:
+                return showcaseTreeNode.getTree();
+            default:
+                return showcaseTreeNode.getTree();
+        }
+    }
+
     public List<SelectItem> getTreeTemplateTypes() {
         final List<SelectItem> items = new ArrayList<>();
 
@@ -275,7 +286,7 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     }
 
     public Node getSelectedNode() {
-        return showcaseTreeNode.getSelectedNode();
+        return this.selectedNode;
     }
 
     public boolean isAllExpanded() {
@@ -285,7 +296,15 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public void setAllExpanded(boolean allExpanded) {
         this.allExpanded = allExpanded;
 
-        showcaseTreeNode.toggleNodeExpansion(allExpanded);
+        toggleNodeExpansion(showcaseTreeNode.getTree(), allExpanded);
+    }
+
+    public void toggleNodeExpansion(final Node node, final boolean expanded) {
+        node.setCollapsed(!expanded);
+
+        for (Object subNode : node.getSubNodes()) {
+            toggleNodeExpansion((Node) subNode, expanded);
+        }
     }
 
     public TreeSearchBarModeType getSelectedSearchBarModeType() {

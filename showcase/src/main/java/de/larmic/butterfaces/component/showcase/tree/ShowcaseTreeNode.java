@@ -9,8 +9,6 @@ public class ShowcaseTreeNode {
 
     private Node rootNode;
 
-    private Node selectedNode;
-
     public ShowcaseTreeNode() {
         final Node inbox = createNode("Inbox", "resources/images/arrow-down.png", "glyphicon-download", "43 unread");
         final Node drafts = createNode("Drafts", "resources/images/compose.png", "glyphicon-edit", "5");
@@ -39,18 +37,6 @@ public class ShowcaseTreeNode {
         rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
         rootNode.getSubNodes().add(mail);
         rootNode.getSubNodes().add(createNode("Special Sign \"\'", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \"'"));
-    }
-
-    public void toggleNodeExpansion(final boolean expanded) {
-        this.toggleNodeExpansion(rootNode, expanded);
-    }
-
-    public void toggleNodeExpansion(final Node node, final boolean expanded) {
-        node.setCollapsed(!expanded);
-
-        for (Object subNode : node.getSubNodes()) {
-            toggleNodeExpansion((Node) subNode, expanded);
-        }
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {
@@ -84,11 +70,4 @@ public class ShowcaseTreeNode {
         this.selectedIconType = selectedIconType;
     }
 
-    public Node getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setSelectedNode(Node selectedNode) {
-        this.selectedNode = selectedNode;
-    }
 }
