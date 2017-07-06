@@ -8,6 +8,7 @@ import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxWebXmlExamp
 import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
+import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
@@ -103,45 +104,45 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         myBean.appendInnerContent("    private Node rootNode;\n");
         myBean.appendInnerContent("    public Node getTreeModel() {");
         myBean.appendInnerContent("        if (rootNode == null) {");
+
         if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\", new NodeData());");
+            myBean.appendInnerContent("            final Node mailNode = new DefaultNodeImpl(\"Mail\", new NodeData());");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Inbox\", new NodeData()));");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Drafts\", new NodeData()));");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Sent\", new NodeData()));");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Tagged\", new NodeData()));");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Folders\", new NodeData()));");
+            myBean.appendInnerContent("            mailNode.getSubNodes().add(new DefaultNodeImpl<>(\"Trash\", new NodeData()));");
+            myBean.appendInnerContent("\n");
+            myBean.appendInnerContent("            final Node<NodeData> rootNode = new DefaultNodeImpl<>(\"rootNode\", new NodeData());");
+            myBean.appendInnerContent("            rootNode.getSubNodes().add(mailNode);");
+            myBean.appendInnerContent("            rootNode.getSubNodes().add(new DefaultNodeImpl<>(\"Special Sign \\\"\\'\", new NodeData()));");
+            myBean.appendInnerContent("            return rootNode;");
         } else {
             myBean.appendInnerContent("            final Node firstChild = new DefaultNodeImpl(\"firstChild\");");
-        }
-        myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
-        }
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\", new NodeData());");
-        } else {
+            myBean.appendInnerContent("            firstChild.setDescription(\"23 unread\");");
+            if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+                myBean.appendInnerContent("            firstChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+                myBean.appendInnerContent("            firstChild.setImageIcon(\"some/path/16.png\");");
+            }
             myBean.appendInnerContent("            final Node secondChild = new DefaultNodeImpl(\"second\");");
-        }
-        if (!allExpanded) {
-            myBean.appendInnerContent("            secondChild.setCollapsed(true);");
-        }
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
-        }
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"), new NodeData())");
-        } else {
+            if (!allExpanded) {
+                myBean.appendInnerContent("            secondChild.setCollapsed(true);");
+            }
+            if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+                myBean.appendInnerContent("            secondChild.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+                myBean.appendInnerContent("            secondChild.setImageIcon(\"some/path/16.png\");");
+            }
             myBean.appendInnerContent("            secondChild.getSubNodes().add(new DefaultNodeImpl(\"...\"))");
-        }
-        myBean.appendInnerContent("            ...");
-        if (selectedTreeTemplateType == TreeTemplateType.CUSTOM) {
-            myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\", new NodeData());");
-        } else {
+            myBean.appendInnerContent("            ...");
             myBean.appendInnerContent("            rootNode = new DefaultNodeImpl(\"rootNode\");");
-        }
-        if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
-            myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
-        } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
-            myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            if (showcaseTreeNode.getSelectedIconType() == TreeIconType.IMAGE) {
+                myBean.appendInnerContent("            rootNode.setImageIcon(\"some/path/16.png\");");
+            } else if (showcaseTreeNode.getSelectedIconType() == TreeIconType.GLYPHICON) {
+                myBean.appendInnerContent("            rootNode.setGlyphiconIcon(\"glyphicon glyphicon-folder-open\");");
+            }
         }
         myBean.appendInnerContent("            rootNode.getSubNodes().add(firstChild);");
         myBean.appendInnerContent("            rootNode.getSubNodes().add(secondChild);");
@@ -246,7 +247,18 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
     public Object getValues() {
         switch (selectedTreeTemplateType) {
             case CUSTOM:
-                return showcaseTreeNode.getTree();
+                final DefaultNodeImpl<NodeData> mailNode = new DefaultNodeImpl<>("Mail", new NodeData());
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Inbox", new NodeData()));
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Drafts", new NodeData()));
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Sent", new NodeData()));
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Tagged", new NodeData()));
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Folders", new NodeData()));
+                mailNode.getSubNodes().add(new DefaultNodeImpl<>("Trash", new NodeData()));
+
+                final Node<NodeData> rootNode = new DefaultNodeImpl<>("rootNode", new NodeData());
+                rootNode.getSubNodes().add(mailNode);
+                rootNode.getSubNodes().add(new DefaultNodeImpl<>("Special Sign \"\'", new NodeData()));
+                return rootNode;
             default:
                 return showcaseTreeNode.getTree();
         }
