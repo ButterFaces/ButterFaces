@@ -1,3 +1,3 @@
 function setActiveNavigation(id) {
-    jQuery('#' + id).addClass('active');
-};
+    jQuery('a[data-anker-id="' + id + '"]').addClass('active');
+}

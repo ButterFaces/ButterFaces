@@ -40,7 +40,8 @@ var paths = {
         prettify: "./bower_components/google-code-prettify/src/prettify.{js,css}",
         bootstrap_css: "./bower_components/bootstrap/dist/css/bootstrap.{css,css.map}",
         bootstrap_js: "./bower_components/bootstrap/dist/js/bootstrap.{js,map}",
-        bootstrap_fonts: "./bower_components/bootstrap/fonts/**/*.*"
+        bootstrap_fonts: "./bower_components/bootstrap/fonts/**/*.*",
+        popperjs: "./bower_components/popper.js/dist/umd/popper.js"
     },
     source: {
         typescripts: RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
@@ -85,7 +86,8 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
             paths.bower.jqueryinputmask,
             paths.bower.prettify,
             paths.bower.bootstrap_css,
-            paths.bower.bootstrap_js
+            paths.bower.bootstrap_js,
+            paths.bower.popperjs
         ])
         .pipe(gulp.dest(paths.destination.bower));
 
@@ -219,6 +221,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
 
     var buildAllWithBootstrapBundle = gulp.src([
             paths.destination.bower + "/prettify.js",
+            paths.destination.bower + "/popper.js",
             paths.destination.bower + "/bootstrap.js",
             paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
@@ -233,6 +236,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithJQueryAndBootstrapBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
             paths.destination.bower + "/prettify.js",
+            paths.destination.bower + "/popper.js",
             paths.destination.bower + "/bootstrap.js",
             paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
