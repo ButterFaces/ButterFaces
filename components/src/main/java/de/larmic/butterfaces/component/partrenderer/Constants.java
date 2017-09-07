@@ -11,7 +11,7 @@ package de.larmic.butterfaces.component.partrenderer;
 public class Constants {
 
     public static final String INPUT_COMPONENT_MARKER = "butter-input-component";
-    public static final String INVALID_STYLE_CLASS = "butter-component-invalid";
+    public static final String INVALID_STYLE_CLASS = "butter-component-invalid is-invalid";
     public static final String LABEL_STYLE_CLASS = "butter-component-label";
     public static final String TOOLTIP_LABEL_CLASS = "butter-component-label-tooltip";
     public static final String REQUIRED_SPAN_CLASS = "butter-component-required";
