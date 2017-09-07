@@ -35,7 +35,7 @@ public class SectionShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (selectedAdditionalHeaderType == AdditionalHeaderType.BUTTON) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"additional-header\">");
-            xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-danger btn-xs\">");
+            xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-danger btn-sm\">");
             xhtmlCodeExample.appendInnerContent("                    additional button");
             xhtmlCodeExample.appendInnerContent("                </span>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");

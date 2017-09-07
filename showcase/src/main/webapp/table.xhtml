@@ -161,7 +161,7 @@
                       sortColumnEnabled="false"
                       label="Action">
                 <b:commandLink value="doSomething with #{rowItem.a}"
-                               styleClass="btn btn-warning btn-xs"
+                               styleClass="btn btn-warning btn-sm"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
@@ -195,7 +195,7 @@
                       colWidth="#{tableShowcase.colWidthColumn2}"
                       label="Action">
                 <b:commandLink value="doSomething"
-                               styleClass="btn btn-warning btn-xs"
+                               styleClass="btn btn-warning btn-sm"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>

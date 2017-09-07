@@ -23,11 +23,11 @@ public class scrollShowcase extends AbstractCodeShowcase implements Serializable
         xhtmlCodeExample.appendInnerContent("            <h3>Click here for scrolling...</h3>");
         xhtmlCodeExample.appendInnerContent("            <div class=\"btn-group pull-right\" role=\"group\">");
         xhtmlCodeExample.appendInnerContent("                <!-- 60px is showcase header offset -->");
-        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-xs\"");
+        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-sm\"");
         xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.scrollable-item').butterScrollToFirst(-60);\">top</span>");
-        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-xs\"");
+        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-sm\"");
         xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.middle').butterScrollToFirst(-60);\">middle</span>");
-        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-xs\"");
+        xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-outline-secondary btn-sm\"");
         xhtmlCodeExample.appendInnerContent("                      onclick=\"$('.scrollable-item').butterScrollToLast(-60);\">bottom</span>");
         xhtmlCodeExample.appendInnerContent("            </div>");
         xhtmlCodeExample.appendInnerContent("        </div>\n");
