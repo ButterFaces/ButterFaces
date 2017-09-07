@@ -5,15 +5,15 @@
  */
 package de.larmic.butterfaces.component.partrenderer;
 
+import java.io.IOException;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ResponseWriter;
+
 import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.SupportedFacets;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
 /**
  * @author Lars Michaelis
@@ -74,9 +74,9 @@ public class InnerComponentWrapperPartRenderer {
         final boolean hideLabel = component instanceof HideLabel && ((HideLabel) component).isHideLabel();
         final StringBuilder defaultStyleClass = new StringBuilder();
         if (hideLabel) {
-            defaultStyleClass.append("butter-component-value-hiddenLabel");
+            defaultStyleClass.append(Constants.COMPONENT_VALUE_HIDDEN);
         } else {
-            defaultStyleClass.append("butter-component-value");
+            defaultStyleClass.append(Constants.COMPONENT_VALUE_CLASS);
         }
         return defaultStyleClass.toString();
     }

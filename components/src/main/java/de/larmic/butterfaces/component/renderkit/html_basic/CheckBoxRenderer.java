@@ -5,6 +5,14 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
+import java.io.IOException;
+import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.HtmlCheckBox;
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.partrenderer.CheckBoxReadonlyPartRenderer;
@@ -12,14 +20,6 @@ import de.larmic.butterfaces.component.partrenderer.Constants;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentCheckBoxWrapperPartRenderer;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
 import de.larmic.butterfaces.util.StringJoiner;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -58,6 +58,7 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
         final String validationMarkerClass = !component.isValid() ? Constants.INVALID_STYLE_CLASS : null;
         final String styleClass = StringJoiner.on(" ")
                 .join(Constants.INPUT_COMPONENT_MARKER)
+                .join("mt-1 mr-2")
                 .join(validationMarkerClass)
                 .toString();
         writer.writeAttribute("class", styleClass, "styleClass");

@@ -5,14 +5,14 @@
  */
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
-import de.larmic.butterfaces.component.html.HtmlInputComponent;
-
+import java.io.IOException;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.base.renderer.HtmlBasicRenderer;
+import de.larmic.butterfaces.component.html.HtmlInputComponent;
 
 /**
  * @author Lars Michaelis
@@ -27,7 +27,8 @@ public class ReadonlyPartRenderer {
 
         if (readonly) {
             writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, uiComponent);
-            final StringBuilder sb = new StringBuilder("butter-component-value butter-component-value-readonly");
+            final StringBuilder sb = new StringBuilder(Constants.COMPONENT_VALUE_CLASS);
+            sb.append(" butter-component-value-readonly mt-2");
             if (component.isHideLabel()) {
                 sb.append(" butter-component-value-hiddenLabel");
             }

@@ -1,22 +1,3 @@
-select[multiple].butter-input-component,
-select[size].butter-input-component,
-select.butter-input-component {
-    height: 34px; /* bootstrap default height */
-}
-
-.butter-component {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    min-height: 34px;
-}
-
 .butter-component-required {
     color: #dc3545;
     margin-right: 2px;
@@ -27,69 +8,10 @@ select.butter-input-component {
     content: '*';
 }
 
-.butter-component .input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-    align-items: stretch;
-    flex: 1 1 0px;
-}
-
-.butter-component .input-group .form-control {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-}
-
-.butter-component .input-group-addon {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    width: auto;
-}
-
-.butter-component .input-group-btn {
-    width: auto;
-}
-
-.butter-component .checkbox,
-.butter-component .radio {
-    margin-top: 0;
-}
-
-.butter-component .radio input[type="radio"],
-.butter-component .radio-inline input[type="radio"] {
-    margin-left: 0;
-}
-
 .butter-component-label {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
-    -webkit-box-align: baseline;
-    -webkit-align-items: baseline;
-    align-items: baseline;
-}
-
-.butter-component-label abbr,
-.butter-component-value-readonly,
-.butter-component-checkbox {
-    padding-top: 6px;
-}
-
-.butter-component-readonly .butter-component-label {
-    padding: 0;
-}
-
-.butter-component-value {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 0;
-    flex: 1 0;
 }
 
 .butter-component-value-readonly {
@@ -105,18 +27,7 @@ select.butter-input-component {
     position: relative;
 }
 
-/* clearfix for form groups */
-.form-group:after {
-    content: " ";
-    display: block;
-    height: 0;
-    clear: both;
-}
-
 .butter-component-maxlength-counter {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 1 100%;
-    flex: 0 1 100%;
     padding-right: 10px;
     text-align: right;
 }
@@ -142,7 +53,7 @@ select.butter-input-component {
 }
 
 .butter-component-expandable-original {
-    height: 34px !important;
+    height: 40px !important;
     white-space: nowrap;
     overflow: hidden;
     resize: none;
@@ -174,25 +85,7 @@ div.butter-component-expandable-ghost {
     padding: 10px;
 }
 
-.butter-component-expandable-readonly-container {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 0;
-    flex: 1 0;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-    align-items: stretch;
-}
-
 .butter-component-expandable-readonly-icon {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    align-items: center;
     margin-left: 5px;
 }
 
