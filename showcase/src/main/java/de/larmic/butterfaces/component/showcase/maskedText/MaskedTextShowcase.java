@@ -91,12 +91,12 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (selectedFacetType == FacetType.INPUT_GROUP_BTN) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-left\">");
-            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("                     Go!");
             xhtmlCodeExample.appendInnerContent("                 </button>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-right\">");
-            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\"");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-outline-secondary\"");
             xhtmlCodeExample.appendInnerContent("                        dropdown-toggle\"");
             xhtmlCodeExample.appendInnerContent("                        data-toggle=\"dropdown\"");
             xhtmlCodeExample.appendInnerContent("                        aria-expanded=\"false\">");

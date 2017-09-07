@@ -117,18 +117,18 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("        </div>");
 
         xhtmlCodeExample.appendInnerContent("\n        <b:commandLink value=\"render (no resetValues)\"");
-        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-outline-secondary\">");
         xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
         xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"/>");
         xhtmlCodeExample.appendInnerContent("        </b:commandLink>");
         xhtmlCodeExample.appendInnerContent("\n        <b:commandLink value=\"render (resetValues)\"");
-        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-outline-secondary\">");
         xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
         xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"");
         xhtmlCodeExample.appendInnerContent("                   resetValues=\"true\"/>");
         xhtmlCodeExample.appendInnerContent("        </b:commandLink>");
         xhtmlCodeExample.appendInnerContent("\n        <h:commandLink value=\"render (reset values JSF2 default)\"");
-        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+        xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-outline-secondary\">");
         xhtmlCodeExample.appendInnerContent("           <f:ajax execute=\"@this\"");
         xhtmlCodeExample.appendInnerContent("                   render=\"rerenderArea\"");
         xhtmlCodeExample.appendInnerContent("                   resetValues=\"true\"/>");

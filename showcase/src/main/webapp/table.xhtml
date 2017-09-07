@@ -90,17 +90,17 @@
                         rendered="#{!(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:facet name="default-options-left">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
-                    <a class="btn btn-default">Left facet</a>
+                    <a class="btn btn-outline-secondary">Left facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:facet name="default-options-center">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'CENTER_FACET'}">
-                    <a class="btn btn-default">Center facet</a>
+                    <a class="btn btn-outline-secondary">Center facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:facet name="default-options-right">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'RIGHT_FACET'}">
-                    <a class="btn btn-default">Right facet</a>
+                    <a class="btn btn-outline-secondary">Right facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:ajax event="refresh" render="output:numberOfRefreshes"

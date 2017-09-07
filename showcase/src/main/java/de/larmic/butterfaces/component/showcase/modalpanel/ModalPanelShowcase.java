@@ -33,7 +33,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("            Lorem ipsum dolor sit amet, consectetuer ...");
             xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
             xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
-            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.CUSTOM_HEADER) {
@@ -48,7 +48,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
             xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
             xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
-            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.CUSTOM_FOOTER) {
@@ -59,13 +59,13 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("            <!-- when using footer facet additional-footer will be ignored -->");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"footer\">");
             xhtmlCodeExample.appendInnerContent("                <span onClick=\"butter.modal.close('customFooterModalPanel');\"");
-            xhtmlCodeExample.appendInnerContent("                      class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                      class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("                    close modal panel");
             xhtmlCodeExample.appendInnerContent("                </span>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
             xhtmlCodeExample.appendInnerContent("        </b:modalPanel>\n");
             xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
-            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
         } else if (modalPanelType == ModalPanelType.COMPLEX) {
@@ -102,7 +102,7 @@ public class ModalPanelShowcase extends AbstractCodeShowcase implements Serializ
             xhtmlCodeExample.appendInnerContent("            </script>");
             xhtmlCodeExample.appendInnerContent("        </h:panelGroup>\n");
             xhtmlCodeExample.appendInnerContent("        <span onClick=\"butter.modal.open('modalPanel');\"");
-            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("              class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("            open modal panel");
             xhtmlCodeExample.appendInnerContent("        </span>");
         }

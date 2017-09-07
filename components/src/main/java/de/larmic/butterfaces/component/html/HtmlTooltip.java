@@ -10,6 +10,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tooltip.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "popper.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-object.js", target = "head"),

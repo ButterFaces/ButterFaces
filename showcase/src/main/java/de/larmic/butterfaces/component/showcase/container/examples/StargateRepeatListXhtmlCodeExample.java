@@ -28,7 +28,7 @@ public class StargateRepeatListXhtmlCodeExample extends XhtmlCodeExample {
         this.appendInnerContent("                 <b:commandLink value=\"Play\"");
         this.appendInnerContent("                                action=\"#{repeatShowcase.play}\"");
         this.appendInnerContent("                                glyphicon=\"fa fa-play-circle-o\"");
-        this.appendInnerContent("                                styleClass=\"btn btn-default btn-xs\">");
+        this.appendInnerContent("                                styleClass=\"btn btn-outline-secondary btn-xs\">");
         this.appendInnerContent("                    <f:ajax execute=\"@this\"/>");
         this.appendInnerContent("                 </b:commandLink>");
         this.appendInnerContent("              </div>");

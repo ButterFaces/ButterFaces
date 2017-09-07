@@ -36,12 +36,12 @@
         <div class="row">
             <div class="col-md-12">
                 <h:panelGroup layout="block" rendered="#{tooltipShowcase.selectedTooltTipType eq 'A'}">
-                    <a id="tooltipBtn" class="btn btn-default" role="button">#{tooltipShowcase.trigger} me!</a>
+                    <a id="tooltipBtn" class="btn btn-outline-secondary" role="button">#{tooltipShowcase.trigger} me!</a>
                 </h:panelGroup>
 
                 <b:commandLink value="#{tooltipShowcase.trigger} me!"
                                rendered="#{tooltipShowcase.selectedTooltTipType eq 'COMMAND_LINK'}"
-                               styleClass="btn btn-default">
+                               styleClass="btn btn-outline-secondary">
                     <b:tooltip title="#{tooltipShowcase.title}"
                                trigger="#{tooltipShowcase.trigger}"
                                viewport="#{tooltipShowcase.viewport}"
@@ -57,7 +57,7 @@
                                rendered="#{tooltipShowcase.selectedTooltTipType eq 'COMMAND_LINK'}"
                                disabled="true"
                                style="margin-left: 8px;"
-                               styleClass="btn btn-default">
+                               styleClass="btn btn-outline-secondary">
                     <b:tooltip title="#{tooltipShowcase.title}"
                                trigger="#{tooltipShowcase.trigger}"
                                viewport="#{tooltipShowcase.viewport}"

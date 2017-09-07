@@ -177,15 +177,15 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         }
         if (this.toolbarFacetType == ToolbarFacetType.LEFT_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-left\">");
-            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Left facet</a>");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-outline-secondary\">Left facet</a>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (this.toolbarFacetType == ToolbarFacetType.CENTER_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-center\">");
-            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Center facet</a>");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-outline-secondary\">Center facet</a>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (this.toolbarFacetType == ToolbarFacetType.RIGHT_FACET) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"default-options-right\">");
-            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-default\">Right facet</a>");
+            xhtmlCodeExample.appendInnerContent("                <a class=\"btn btn-outline-secondary\">Right facet</a>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         }
         if (this.toolBarType == ToolBarType.TEXT) {

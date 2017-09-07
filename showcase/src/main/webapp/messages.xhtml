@@ -30,30 +30,30 @@
 
       <b:text label="Some text" value="#{messagesShowcase.testText}" required="true" placeholder="text is required">
          <f:facet name="input-group-btn-right">
-            <b:commandLink value="submit" styleClass="btn btn-default">
+            <b:commandLink value="submit" styleClass="btn btn-outline-secondary">
                <f:ajax execute="@form" render="@form"/>
             </b:commandLink>
          </f:facet>
       </b:text>
 
       <div class="btn-group">
-         <b:commandLink value="add fatal message" styleClass="btn btn-default"
+         <b:commandLink value="add fatal message" styleClass="btn btn-outline-secondary"
                         action="#{messagesShowcase.addFatalMessageToContext()}">
             <f:ajax execute="@this" render="@form"/>
          </b:commandLink>
-         <b:commandLink value="add error message" styleClass="btn btn-default"
+         <b:commandLink value="add error message" styleClass="btn btn-outline-secondary"
                         action="#{messagesShowcase.addErrorMessageToContext()}">
             <f:ajax execute="@this" render="@form"/>
          </b:commandLink>
-         <b:commandLink value="add warn message" styleClass="btn btn-default"
+         <b:commandLink value="add warn message" styleClass="btn btn-outline-secondary"
                         action="#{messagesShowcase.addWarnMessageToContext()}">
             <f:ajax execute="@this" render="@form"/>
          </b:commandLink>
-         <b:commandLink value="add info message" styleClass="btn btn-default"
+         <b:commandLink value="add info message" styleClass="btn btn-outline-secondary"
                         action="#{messagesShowcase.addInfoMessageToContext()}">
             <f:ajax execute="@this" render="@form"/>
          </b:commandLink>
-         <b:commandLink value="clear messages" styleClass="btn btn-default"
+         <b:commandLink value="clear messages" styleClass="btn btn-outline-secondary"
                         action="#{messagesShowcase.clearFacesMessages()}">
             <f:ajax execute="@this" render="@form"/>
          </b:commandLink>

@@ -34,7 +34,7 @@
                         <b:commandLink value="Play"
                                        action="#{repeatShowcase.play}"
                                        glyphicon="fa fa-play-circle-o"
-                                       styleClass="btn btn-default btn-xs">
+                                       styleClass="btn btn-outline-secondary btn-xs">
                             <f:ajax execute="@this"/>
                         </b:commandLink>
                     </div>
@@ -43,7 +43,7 @@
         </h:panelGroup>
 
         <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'SIMPLE'}">
-            <b:commandLink glyphicon="glyphicon glyphicon-refresh" styleClass="btn btn-default">
+            <b:commandLink glyphicon="glyphicon glyphicon-refresh" styleClass="btn btn-outline-secondary">
                 <f:ajax execute="@this" render="repeat"/>
             </b:commandLink>
             <h:panelGroup id="repeat" layout="block" styleClass="repeat-simple-list">
