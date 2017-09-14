@@ -35,7 +35,7 @@ import java.util.Map;
         @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "glyphicons.css", target = "head"),        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-table.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-ajax.js", target = "head"),

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datetimepicker</title>
+
+    <link rel="stylesheet" href="butterfaces-dist-bower/bootstrap.css">
+    <link rel="stylesheet" href="butterfaces-dist-bower/glyphicons.css">
+    <link rel="stylesheet" href="butterfaces-dist-bower/tempusdominus-bootstrap-4.min.css">
+
+    <script src="butterfaces-dist-bower/jquery.js"></script>
+    <script src="butterfaces-dist-bower/moment-with-locales.js"></script>
+    <script src="butterfaces-dist-bower/tempusdominus-core.min.js"></script>
+    <script src="butterfaces-dist-bower/tempusdominus-bootstrap-4.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group" id="datetimepicker1:group">
+                    <input type="text" name="input:name" class="form-control "/>
+                    <span class="input-group-addon" data-target="input[name='input:name']" data-toggle="datetimepicker">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $(document.getElementById("datetimepicker1:group")).datetimepicker();
+            });
+        </script>
+    </div>
+</div>
+
+</body>
+</html>

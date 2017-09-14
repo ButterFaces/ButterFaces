@@ -29,6 +29,8 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             if (calendar.isPickDate() || calendar.isPickTime()) {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon cursor-pointer", null);
+                writer.writeAttribute("data-target", "input[name='" + calendar.getClientId()+ "']", null);
+                writer.writeAttribute("data-toggle", "datetimepicker", null);
                 writer.startElement("span", component);
                 if (!calendar.isPickDate()) {
                     writer.writeAttribute("class", "glyphicon glyphicon-time", null);
@@ -49,7 +51,6 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (!calendar.isReadonly() && (calendar.isPickDate() || calendar.isPickTime())) {
             writer.startElement("script", calendar);
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
             writer.endElement("script");
         }
 
@@ -90,13 +91,4 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         jQueryPluginCall.append("})");
         return jQueryPluginCall.toString();
     }
-
-    private String createJQueryPluginCallback(HtmlCalendar calendar) {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-        jQueryPluginCall.append("on(\"dp.change\", function (e) {");
-        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(calendar.getClientId(), ".butter-input-component") + ".trigger('change');");
-        jQueryPluginCall.append("})");
-        return jQueryPluginCall.toString();
-    }
-
 }

@@ -40,8 +40,13 @@ var paths = {
         prettify: "./bower_components/google-code-prettify/src/prettify.{js,css}",
         bootstrap_css: "./bower_components/bootstrap/dist/css/bootstrap.{css,css.map}",
         bootstrap_js: "./bower_components/bootstrap/dist/js/bootstrap.{js,map}",
-        bootstrap_fonts: "./bower_components/bootstrap/fonts/**/*.*",
-        popperjs: "./bower_components/popper.js/dist/umd/popper.js"
+        glyphicons_css: "./bower_components/glyphicons/styles/glyphicons.css",
+        glyphicon_fonts: "./bower_components/glyphicons/fonts/**/*.*",
+        popperjs: "./bower_components/popper.js/dist/umd/popper.js",
+        momentjs: "./bower_components/moment/min/moment-with-locales.js",
+        tempusdominus_core_js: "./bower_components/tempusdominus-core/build/js/tempusdominus-core.min.js",
+        tempusdominus_bootstrap_js: "./bower_components/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js",
+        tempusdominus_bootstrap_css: "./bower_components/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"
     },
     source: {
         typescripts: RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
@@ -87,12 +92,17 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
             paths.bower.prettify,
             paths.bower.bootstrap_css,
             paths.bower.bootstrap_js,
-            paths.bower.popperjs
+            paths.bower.glyphicons_css,
+            paths.bower.popperjs,
+            paths.bower.momentjs,
+            paths.bower.tempusdominus_core_js,
+            paths.bower.tempusdominus_bootstrap_css,
+            paths.bower.tempusdominus_bootstrap_js
         ])
         .pipe(gulp.dest(paths.destination.bower));
 
     var copyFontDependenciesToDist = gulp.src([
-            paths.bower.bootstrap_fonts
+            paths.bower.glyphicon_fonts
         ])
         .pipe(gulp.dest(paths.destination.bower_font));
 
@@ -196,6 +206,9 @@ gulp.task("compileResources", ["less:compile", "typescript:compileToBundle", "ty
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildButterFacesOnlyBunde = gulp.src([
             paths.destination.bower + "/prettify.js",
+            paths.destination.bower + "/moment-with-locales.js",
+            paths.destination.bower + "/tempusdominus-core.min.js",
+            paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
             paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
@@ -209,6 +222,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithJQueryBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
             paths.destination.bower + "/prettify.js",
+            paths.destination.bower + "/moment-with-locales.js",
+            paths.destination.bower + "/tempusdominus-core.min.js",
+            paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
             paths.destination.bower + "/jquery.inputmask.bundle.js",
             paths.destination.external + "/*.js",
             paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
@@ -221,6 +237,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
 
     var buildAllWithBootstrapBundle = gulp.src([
             paths.destination.bower + "/prettify.js",
+            paths.destination.bower + "/moment-with-locales.js",
+            paths.destination.bower + "/tempusdominus-core.min.js",
+            paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
             paths.destination.bower + "/popper.js",
             paths.destination.bower + "/bootstrap.js",
             paths.destination.bower + "/jquery.inputmask.bundle.js",
@@ -235,6 +254,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
 
     var buildAllWithJQueryAndBootstrapBundle = gulp.src([
             paths.destination.bower + "/jquery.min.js",
+            paths.destination.bower + "/moment-with-locales.js",
+            paths.destination.bower + "/tempusdominus-core.min.js",
+            paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
             paths.destination.bower + "/prettify.js",
             paths.destination.bower + "/popper.js",
             paths.destination.bower + "/bootstrap.js",
