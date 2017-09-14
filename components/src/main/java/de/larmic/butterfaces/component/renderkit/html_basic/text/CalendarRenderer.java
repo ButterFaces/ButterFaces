@@ -29,7 +29,7 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             if (calendar.isPickDate() || calendar.isPickTime()) {
                 writer.startElement("span", component);
                 writer.writeAttribute("class", "input-group-addon cursor-pointer", null);
-                writer.writeAttribute("data-target", "input[name='" + calendar.getClientId()+ "']", null);
+                writer.writeAttribute("data-target", "input[name='" + calendar.getClientId() + "']", null);
                 writer.writeAttribute("data-toggle", "datetimepicker", null);
                 writer.startElement("span", component);
                 if (!calendar.isPickDate()) {
@@ -50,12 +50,27 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
 
         if (!calendar.isReadonly() && (calendar.isPickDate() || calendar.isPickTime())) {
             writer.startElement("script", calendar);
+
+            // TODO this should better be done with the JSF renderer!
+            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryAddMissingAttributesCall(calendar)), null);
+
             writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
             writer.endElement("script");
         }
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    private String createJQueryAddMissingAttributesCall(HtmlCalendar calendar) {
+        final StringBuilder jQueryPluginCall = new StringBuilder();
+
+        jQueryPluginCall.append("attr(\"data-target-input\", \"nearest\")");
+        jQueryPluginCall.append(".find(\"input\")");
+        jQueryPluginCall.append(".attr(\"data-target\", \"input[name='").append(calendar.getClientId()).append("']\")");
+        jQueryPluginCall.append(".addClass(\"datetimepicker-input\")");
+
+        return jQueryPluginCall.toString();
     }
 
     private String createJQueryPluginCall(HtmlCalendar calendar) {
@@ -89,6 +104,7 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         jQueryPluginCall.append("down: '" + calendarDown + "'");
         jQueryPluginCall.append("}");
         jQueryPluginCall.append("})");
+
         return jQueryPluginCall.toString();
     }
 }
