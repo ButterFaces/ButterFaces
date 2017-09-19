@@ -1,16 +1,12 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.*;
 
 
 public class TrivialComponentsEntriesNodePartRendererTest {
