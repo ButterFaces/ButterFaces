@@ -18,6 +18,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bower", name = "popper.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bower", name = "glyphicons.css", target = "head")
