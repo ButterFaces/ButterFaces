@@ -37,6 +37,7 @@ public class ShowcaseTreeNode {
         rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
         rootNode.getSubNodes().add(mail);
         rootNode.getSubNodes().add(createNode("Special Sign \"\'", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \"'"));
+        rootNode.getSubNodes().add(createNode("Title </script>", "resources/images/folder.png", "glyphicon-folder-open", "Script end tag"));
     }
 
     private DefaultNodeImpl createNode(final String title, final String icon, final String glyphicon, final String description) {

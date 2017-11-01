@@ -24,7 +24,7 @@ public class MarkdownShowcase extends AbstractInputShowcase implements Serializa
 
     @Override
     protected Object initValue() {
-        return null;
+        return "Hallo & < > ";
     }
 
     @Override

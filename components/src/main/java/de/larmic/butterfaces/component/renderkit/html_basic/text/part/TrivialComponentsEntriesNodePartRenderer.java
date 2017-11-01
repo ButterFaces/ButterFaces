@@ -5,15 +5,15 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.text.part;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.faces.component.html.HtmlInputText;
+
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.ReflectionUtil;
 import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.util.TrivialComponentsReflectionUtil;
-
-import javax.faces.component.html.HtmlInputText;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -149,6 +149,10 @@ public class TrivialComponentsEntriesNodePartRenderer {
     }
 
     private String escape(String value) {
-        return StringUtils.isNotEmpty(value) ? value.replace("\"", "\\\"").replace("\n", "").replace("\r", "") : "";
+        return StringUtils.isNotEmpty(value) ? value
+              .replace("\"", "\\\"")
+              .replace("\n", "")
+              .replace("\r", "")
+              .replace("</", "<\\/") : "";
     }
 }
