@@ -72,10 +72,10 @@
         <maven-release-plugin.version>2.5</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <el-api.version>2.2</el-api.version>
 
-        <version.wildfly.swarm>2017.1.1</version.wildfly.swarm>
+        <version.wildfly.swarm>2017.10.0</version.wildfly.swarm>
         <version.jbossas>10.0.0.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
         <javax.faces-api.version>2.2</javax.faces-api.version>
