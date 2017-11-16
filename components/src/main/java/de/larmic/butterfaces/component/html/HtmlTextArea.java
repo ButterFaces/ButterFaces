@@ -61,6 +61,17 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     }
 
     @Override
+    public Object getSubmittedValue() {
+        final Object submittedValue = super.getSubmittedValue();
+
+        if (submittedValue instanceof String && new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isAutoTrimInputFields()) {
+            return ((String) submittedValue).trim();
+        } else {
+            return submittedValue;
+        }
+    }
+
+    @Override
     public boolean isAutoFocus() {
         final Object eval = this.getStateHelper().eval(PROPERTY_HTML5_AUTO_FOCUS);
         return eval == null ? false : (Boolean) eval;
