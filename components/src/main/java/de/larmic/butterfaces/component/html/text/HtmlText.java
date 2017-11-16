@@ -41,7 +41,6 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
 
-
     public HtmlText() {
         super();
         this.setRendererType(RENDERER_TYPE);
@@ -73,6 +72,17 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
             super.setValue(((String) value).trim());
         } else {
             super.setValue(value);
+        }
+    }
+
+    @Override
+    public Object getSubmittedValue() {
+        final Object submittedValue = super.getSubmittedValue();
+
+        if (submittedValue instanceof String && new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isAutoTrimInputFields()) {
+            return ((String) submittedValue).trim();
+        } else {
+            return submittedValue;
         }
     }
 
