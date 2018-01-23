@@ -7,6 +7,7 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Validation;
+import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,6 +35,11 @@ public class TooltipValidationRenderer {
 
             if (!tooltipRendered) {
                 final HtmlTooltip htmlTooltip = new HtmlTooltip();
+
+                if (component instanceof HtmlCalendar) {
+                    htmlTooltip.setPlacement("auto top");
+                }
+
                 htmlTooltip.setParent(component);
                 htmlTooltip.encodeAll(context);
             }
