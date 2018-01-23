@@ -42,6 +42,7 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
     protected static final String PROPERTY_STEP = "step";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlNumber() {
         super();
@@ -126,6 +127,15 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
 
     public void setAutoFocus(final boolean autoFocus) {
         this.updateStateHelper(PROPERTY_HTML5_AUTO_FOCUS, autoFocus);
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

@@ -39,6 +39,7 @@ public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponen
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_LANGUAGE = "language";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlMarkdown() {
         super();
@@ -99,6 +100,15 @@ public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setLanguage(String language) {
         this.updateStateHelper(PROPERTY_LANGUAGE, language);;
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

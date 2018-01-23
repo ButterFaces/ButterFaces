@@ -31,6 +31,7 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
     protected static final String PROPERTY_DESCRIPTION = "description";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
     protected static final String PROPERTY_SWITCH = "switch";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlCheckBox() {
         super();
@@ -83,6 +84,15 @@ public class HtmlCheckBox extends HtmlSelectBooleanCheckbox implements HtmlInput
 
     public void setDescription(final String description) {
         this.updateStateHelper(PROPERTY_DESCRIPTION, description);
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {
