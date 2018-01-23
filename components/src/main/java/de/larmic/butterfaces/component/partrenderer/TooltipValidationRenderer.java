@@ -13,9 +13,12 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
+ * If validation error occurs existing tooltip will be set to rendered. If no tooltip child exists a new
+ * {@link HtmlTooltip} will be added as child.
+ *
  * @author Lars Michaelis
  */
-public class TooltipPartRenderer {
+public class TooltipValidationRenderer {
 
     public void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
         if (shouldRenderTooltip(component)) {
