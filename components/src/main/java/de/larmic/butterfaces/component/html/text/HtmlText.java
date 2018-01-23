@@ -40,6 +40,7 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
     protected static final String PROPERTY_HTML5_PATTERN = "pattern";
     protected static final String PROPERTY_HTML5_MIN = "min";
     protected static final String PROPERTY_HTML5_MAX = "max";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlText() {
         super();
@@ -136,6 +137,15 @@ public class HtmlText extends HtmlInputText implements HtmlInputComponent, AutoF
 
     public void setMax(final String max) {
         this.updateStateHelper(PROPERTY_HTML5_MAX, max);
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class HtmlRadioBox extends HtmlInputText implements HtmlInputComponent, T
 
     private static final String PROPERTY_VALUES = "values";
     private static final String PROPERTY_HIDE_LABEL = "hideLabel";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlRadioBox() {
         super();
@@ -61,6 +62,15 @@ public class HtmlRadioBox extends HtmlInputText implements HtmlInputComponent, T
 
     public void setValues(Object values) {
         this.updateStateHelper(PROPERTY_VALUES, values);
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

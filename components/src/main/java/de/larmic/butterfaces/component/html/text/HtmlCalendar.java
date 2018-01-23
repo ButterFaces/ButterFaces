@@ -129,4 +129,8 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
         this.updateStateHelper(PROPERTY_GLYPHICON_DOWN, glyphicon);
     }
 
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "top");
+    }
 }

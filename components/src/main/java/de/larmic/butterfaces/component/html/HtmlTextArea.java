@@ -38,6 +38,7 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
     protected static final String PROPERTY_PLACEHOLDER = "placeholder";
     protected static final String PROPERTY_EXPANDABLE = "expandable";
     protected static final String PROPERTY_HTML5_AUTO_FOCUS = "autoFocus";
+    protected static final String PROPERTY_VALIDATION_ERROR_PLACEMENT = "validationErrorPlacement";
 
     public HtmlTextArea() {
         super();
@@ -117,6 +118,15 @@ public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponen
 
     public void setExpandable(final Boolean expandable) {
         this.updateStateHelper(PROPERTY_EXPANDABLE, expandable);
+    }
+
+    @Override
+    public String getValidationErrorPlacement() {
+        return (String) this.getStateHelper().eval(PROPERTY_VALIDATION_ERROR_PLACEMENT, "");
+    }
+
+    public void setValidationErrorPlacement(final String validationErrorPlacement) {
+        this.updateStateHelper(PROPERTY_VALIDATION_ERROR_PLACEMENT, validationErrorPlacement);
     }
 
     private void updateStateHelper(final String propertyName, final Object value) {

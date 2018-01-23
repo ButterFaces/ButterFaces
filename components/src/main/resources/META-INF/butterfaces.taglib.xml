@@ -69,6 +69,13 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>min</name>
             <type>java.lang.String</type>
         </attribute>
@@ -283,6 +290,13 @@
         </attribute>
         <attribute>
             <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
                 Javascript code executed when this element loses focus.
             </description>
             <name>onblur</name>
@@ -473,6 +487,14 @@
                 with the 'format' attribute.
             </description>
         </attribute>
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined. Default is 'top'.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+
         <attribute>
             <name>readonly</name>
             <type>java.lang.Boolean</type>
@@ -690,6 +712,13 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>maxTags</name>
             <description>When set, no more than the given number of tags are allowed to add (default: undefined). When
                 maxTags is reached, a class 'bootstrap-tagsinput-max' is placed on the tagsinput element.
@@ -887,6 +916,13 @@
         </attribute>
         <attribute>
             <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -1099,6 +1135,13 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
             <name>min</name>
             <type>java.lang.String</type>
         </attribute>
@@ -1235,7 +1278,6 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
-
     <tag>
         <tag-name>secret</tag-name>
         <component>
@@ -1285,6 +1327,13 @@
         </attribute>
         <attribute>
             <name>placeholder</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -1412,7 +1461,6 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
-
     <tag>
         <tag-name>textArea</tag-name>
         <component>
@@ -1474,6 +1522,13 @@
         </attribute>
         <attribute>
             <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
                 Javascript code executed when this element loses focus.
             </description>
             <name>onblur</name>
@@ -1597,7 +1652,6 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
-
     <tag>
         <tag-name>markdown</tag-name>
         <component>
@@ -1657,7 +1711,13 @@
             <name>placeholder</name>
             <type>java.lang.String</type>
         </attribute>
-
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <description>
                 Javascript code executed when this element loses focus.
@@ -1783,7 +1843,6 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
-
     <tag>
         <tag-name>radioBox</tag-name>
         <component>
@@ -1832,8 +1891,14 @@
             <name>styleClass</name>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
-
     <tag>
         <tag-name>checkBox</tag-name>
         <component>
@@ -1890,8 +1955,14 @@
             <name>styleClass</name>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description>
+                Optional validation error tooltip placement is no tooltip is defined.
+            </description>
+            <name>validationErrorPlacement</name>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
-
     <tag>
         <tag-name>section</tag-name>
         <component>

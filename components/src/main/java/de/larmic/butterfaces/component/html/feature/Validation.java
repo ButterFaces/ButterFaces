@@ -6,5 +6,6 @@ package de.larmic.butterfaces.component.html.feature;
 public interface Validation {
 
     boolean isValid();
+    String getValidationErrorPlacement();
 
 }
