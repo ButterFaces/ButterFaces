@@ -7,15 +7,19 @@ package de.larmic.butterfaces.component.partrenderer;
 
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.Validation;
+import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
+ * If validation error occurs existing tooltip will be set to rendered. If no tooltip child exists a new
+ * {@link HtmlTooltip} will be added as child.
+ *
  * @author Lars Michaelis
  */
-public class TooltipPartRenderer {
+public class TooltipValidationRenderer {
 
     public void renderTooltipIfNecessary(final FacesContext context, final UIComponent component) throws IOException {
         if (shouldRenderTooltip(component)) {
@@ -31,6 +35,11 @@ public class TooltipPartRenderer {
 
             if (!tooltipRendered) {
                 final HtmlTooltip htmlTooltip = new HtmlTooltip();
+
+                if (component instanceof HtmlCalendar) {
+                    htmlTooltip.setPlacement("auto top");
+                }
+
                 htmlTooltip.setParent(component);
                 htmlTooltip.encodeAll(context);
             }
