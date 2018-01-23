@@ -99,7 +99,7 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
             }
         }
 
-        new TooltipPartRenderer().renderTooltipIfNecessary(context, component);
+        new TooltipValidationRenderer().renderTooltipIfNecessary(context, component);
     }
 
     protected void appendEncodeBegin(final T component, final ResponseWriter writer) throws IOException {
