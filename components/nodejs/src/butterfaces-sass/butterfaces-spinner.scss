@@ -1,77 +1,68 @@
+// see https://ihatetomatoes.net/create-css3-spinning-preloader/
+
 .butter-component-spinner {
-  display: flex;
-  justify-content: center;
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #3498db;
+  -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+  animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+
+.butter-component-spinner:before {
+  content: "";
   position: absolute;
-  top: calc(50% - 19px);
-  right: 0;
-  left: 0;
-
-  > div {
-    background: #FFF;
-    width: 10px;
-    height: 4em;
-    margin: 4px;
-  }
-
-  > div:nth-child(1) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-  }
-
-  > div:nth-child(2) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.1s;
-    animation-delay: -0.1s;
-  }
-
-  > div:nth-child(3) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.2s;
-    animation-delay: -0.2s;
-  }
-
-  > div:nth-child(4) {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    -webkit-animation-delay: -0.3s;
-    animation-delay: -0.3s;
-  }
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #e74c3c;
+  -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+  animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+.butter-component-spinner:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #f9c922;
+  -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+  animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 }
 
-@-webkit-keyframes load1 {
-  0% {
-    box-shadow: 0 0 #FFF;
-    height: 2em;
-    opacity: 1;
-  }
-  50% {
-    box-shadow: 0 -2em #ffffff;
-    height: 4em;
-    opacity: .4;
+@-webkit-keyframes spin {
+  0%   {
+    -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);  /* IE 9 */
+    transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
   }
   100% {
-    box-shadow: 0 0 #FFF;
-    height: 2em;
-    opacity: 1;
+    -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);  /* IE 9 */
+    transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
   }
 }
-
-@keyframes load1 {
-  0% {
-    box-shadow: 0 0 #FFF;
-    height: 2em;
-    opacity: 1;
-  }
-  50% {
-    box-shadow: 0 -2em #ffffff;
-    height: 4em;
-    opacity: .4;
+@keyframes spin {
+  0%   {
+    -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(0deg);  /* IE 9 */
+    transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
   }
   100% {
-    box-shadow: 0 0 #FFF;
-    height: 2em;
-    opacity: 1;
+    -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: rotate(360deg);  /* IE 9 */
+    transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
   }
 }

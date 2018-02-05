@@ -48,7 +48,7 @@ namespace ButterFaces {
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
                 let uuid = ButterFaces.Guid.newGuid();
 
-                let $overlay = $("<div class='butter-component-overlay' data-overlay-uuid='" + uuid + "'><div class='butter-component-spinner'><div></div><div></div><div></div><div></div></div></div>");
+                let $overlay = $("<div class='butter-component-overlay' data-overlay-uuid='" + uuid + "'><div class='butter-component-spinner'></div></div>");
 
                 $elementToDisable.attr("data-overlay-uuid", uuid);
 
