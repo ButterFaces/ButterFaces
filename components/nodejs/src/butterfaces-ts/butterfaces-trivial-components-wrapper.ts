@@ -1,10 +1,10 @@
-///<reference path="../../../../../../nodejs/node_modules/trivial-components/dist/js/bundle/trivial-components.d.ts"/>
-///<reference path="../../../../../../nodejs/node_modules/@types/mustache/index.d.ts"/>
+///<reference path="../../node_modules/trivial-components/dist/js/bundle/trivial-components.d.ts"/>
+///<reference path="../../node_modules/@types/mustache/index.d.ts"/>
 
 namespace ButterFaces {
 
     interface ButterFacesTrivialEntry {
-        displayValue: string
+        displayValue: string;
     }
 
 
@@ -27,7 +27,7 @@ namespace ButterFaces {
             distinct: options.distinct,
             editingMode: options.editingMode,
             matchingOptions: {
-                matchingMode: 'contains',
+                matchingMode: "contains",
                 ignoreCase: true,
                 maxLevenshteinDistance: 0
             },
@@ -43,7 +43,7 @@ namespace ButterFaces {
                     .join(",");
             },
             freeTextEntryFactory: freeText => {
-                return {title: freeText}
+                return {title: freeText};
             },
             entryRenderingFunction: entry => `<div>${(entry as any).title}</div>`, // TODO template parameter
         });
@@ -51,9 +51,9 @@ namespace ButterFaces {
 
 
     interface ButterFacesTrivialTreeEntry {
-        title: string,
-        description: string,
-        id: number
+        title: string;
+        description: string;
+        id: number;
     }
 
     export function createTrivialTreeComponent($input,

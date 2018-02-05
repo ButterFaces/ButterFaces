@@ -19,7 +19,7 @@ var less = require("gulp-less");
 var mirror = require("gulp-mirror");
 var rename = require("gulp-rename");
 var postcss = require("gulp-postcss");
-var autoprefixer = require("autoprefixer-core");
+var autoprefixer = require("autoprefixer");
 var tslint = require("gulp-tslint");
 var uglify = require("gulp-uglify");
 var UglifyJS = require("uglify-js");
@@ -31,6 +31,7 @@ var sizereport = require("gulp-sizereport");
 // CONSTANTS ===============================================================================
 
 var RESSOURCE_DIR = "../src/main/resources/META-INF/resources";
+var NODEJS_RESSOURCE_DIR = "./src";
 
 var paths = {
     bower: {
@@ -49,7 +50,7 @@ var paths = {
         tempusdominus_bootstrap_css: "./bower_components/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"
     },
     source: {
-        typescripts: RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
+        typescripts: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
         javascript: RESSOURCE_DIR + "/butterfaces-js/**/*.js",
         less: RESSOURCE_DIR + "/butterfaces-less/*.less"
     },
@@ -61,7 +62,7 @@ var paths = {
         bundle_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-js",
         bower: RESSOURCE_DIR + "/butterfaces-dist-bower",
         bower_font: RESSOURCE_DIR + "/fonts",
-        ts_external_definitions: RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
+        ts_external_definitions: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
     }
 };
 

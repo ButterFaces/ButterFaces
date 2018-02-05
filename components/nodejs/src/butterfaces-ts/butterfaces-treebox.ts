@@ -22,10 +22,10 @@ namespace ButterFaces {
             // in jQuery: $(".tr-dropdown[data-tree-box-id=" + treeBoxId + "]").remove();
             // plain javascript:
             const dropdowns = document.querySelectorAll(".tr-dropdown[data-tree-box-id=" + treeBoxId + "]");
-            Array.prototype.slice.call(dropdowns, 0).forEach((dropdown :any) => {
+            Array.prototype.slice.call(dropdowns, 0).forEach((dropdown: any) => {
                 dropdown.parentNode.removeChild(dropdown);
             });
-        };
+        }
     }
 
 }

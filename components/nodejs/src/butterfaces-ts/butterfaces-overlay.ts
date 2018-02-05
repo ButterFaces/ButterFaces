@@ -10,13 +10,18 @@ namespace ButterFaces {
         selector: string;
         isTransparentBlockingOverlayActive: boolean;
 
-        constructor(delay = 500, isTransparentBlockingOverlayActive = true, selector:any = "body") {
+        constructor(delay = 500, isTransparentBlockingOverlayActive = true, selector: any = "body") {
             this.isHiding = true;
             this.delay = delay;
             this.isTransparentBlockingOverlayActive = isTransparentBlockingOverlayActive;
             this.selector = selector;
 
-            console.log("ButterFaces.Overlay.constructor - creating overlay with delay is " + this.delay + ", isTransparentBlockingOverlayActive is " + this.isTransparentBlockingOverlayActive + ", selector is " + this.selector);
+            console.log("ButterFaces.Overlay.constructor - creating overlay with delay is "
+                + this.delay
+                + ", isTransparentBlockingOverlayActive is "
+                + this.isTransparentBlockingOverlayActive
+                + ", selector is "
+                + this.selector);
         }
 
         public show() {
@@ -122,7 +127,7 @@ namespace ButterFaces {
                     ButterFaces.Overlay.fadeOutOverlay($overlay);
                 }
             });
-        };
+        }
 
         private static fadeOutAttachtedOverlays() {
             // remove binded elements
@@ -139,7 +144,7 @@ namespace ButterFaces {
                     });
                 }
             });
-        };
+        }
 
         private static fadeOutOverlay($overlay: any) {
             $overlay
@@ -150,7 +155,7 @@ namespace ButterFaces {
                     $overlay.remove();
                     console.log("ButterFaces.Overlay.hide - animation ended to make overlay transparent, OVERLAY REMOVED");
                 });
-        };
+        }
 
         private static findOverlay(uuid: String) {
             return $("body .butter-component-overlay[data-overlay-uuid='" + uuid + "']");

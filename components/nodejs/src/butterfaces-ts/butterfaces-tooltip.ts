@@ -36,6 +36,6 @@ namespace ButterFaces {
             }
             console.log("ButterFaces.Tooltip.calculateTooltipPosition - offsetBottom (" + offsetBottom + ") is greater than popoverMaxHeightByButterFaces (" + this.popoverMaxHeightByButterFaces + ") -> position is bottom");
             return "bottom";
-        };
+        }
     }
 }

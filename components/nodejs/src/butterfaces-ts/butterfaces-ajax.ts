@@ -15,7 +15,7 @@ namespace ButterFaces {
                     }
                 })
             });
-        };
+        }
 
         static disableElementsOnRequest(data: any, ids: string[]) {
             let status: string = data.status;
@@ -58,6 +58,6 @@ namespace ButterFaces {
 
                     break;
             }
-        };
+        }
     }
 }

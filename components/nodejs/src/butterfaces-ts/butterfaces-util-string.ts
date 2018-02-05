@@ -6,6 +6,6 @@ namespace ButterFaces {
             return format.replace(/{(\d+)}/g, (match: string, num: number) => {
                 return ButterFaces.Object.isNullOrUndefined(params[num]) ? match : params[num];
             });
-        };
+        }
     }
 }

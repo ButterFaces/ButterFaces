@@ -4,7 +4,7 @@ namespace ButterFaces {
         public static addStyleClassClickEvent(radioBoxId: string) {
             let radioBox: any = document.getElementById(radioBoxId);
 
-            radioBox.addEventListener("change", function (event:any) {
+            radioBox.addEventListener("change", function (event: any) {
                 console.log("Remove radio selection classes");
                 [].forEach.call(
                     document.querySelectorAll(".radio"),
