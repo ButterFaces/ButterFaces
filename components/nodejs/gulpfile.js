@@ -52,7 +52,7 @@ var paths = {
     source: {
         typescripts: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
         javascript: RESSOURCE_DIR + "/butterfaces-js/**/*.js",
-        less: RESSOURCE_DIR + "/butterfaces-less/*.less"
+        less: NODEJS_RESSOURCE_DIR + "/butterfaces-less/*.less"
     },
     destination: {
         root: RESSOURCE_DIR + "/butterfaces-dist",
@@ -60,7 +60,7 @@ var paths = {
         js: RESSOURCE_DIR + "/butterfaces-dist-js",
         external: RESSOURCE_DIR + "/butterfaces-external",
         bundle_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-js",
-        bower: RESSOURCE_DIR + "/butterfaces-dist-bower",
+        bower: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-bower",
         bower_font: RESSOURCE_DIR + "/fonts",
         ts_external_definitions: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
     }

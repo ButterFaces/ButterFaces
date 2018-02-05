@@ -5,13 +5,15 @@
 bin/
 gen/
 components/src/main/resources/META-INF/resources/butterfaces-dist-*
-components/src/main/resources/META-INF/resources/butterfaces-ts/*.js*
-components/src/main/resources/META-INF/resources/butterfaces-ts/definitions/external
+components/nodejs/src/butterfaces-dist-*
+components/nodejs/src/butterfaces-ts/*.js*
+components/nodejs/src/butterfaces-ts/definitions/external
 components/src/main/resources/META-INF/resources/fonts/*
 components/nodejs/bower_components
 components/nodejs/etc
 components/nodejs/node
-components/nodejs/node-modules
+components/nodejs/node_modules
+components/nodejs/package-lock.json
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -31,9 +33,6 @@ proguard/
 
 # Maven
 target/
-
-# Node.js
-node_modules
 
 # Diverse
 .settings/

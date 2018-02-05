@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/trivial-components/dist/js/bundle/trivial-components.d.ts"/>
+///<reference path="../../node_modules/trivial-components/dist/js/bundle/trivial-components-global.d.ts"/>
 ///<reference path="../../node_modules/@types/mustache/index.d.ts"/>
 
 namespace ButterFaces {
