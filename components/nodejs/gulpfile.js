@@ -44,7 +44,7 @@ var paths = {
         glyphicon_fonts: "./bower_components/glyphicons/fonts/**/*.*",
         popperjs: "./node_modules/popper.js/dist/umd/popper.js",
         momentjs: "./node_modules/moment/min/moment-with-locales.js",
-        tempusdominus_core_js: "./bower_components/tempusdominus-core/build/js/tempusdominus-core.min.js",
+        tempusdominus_core_js: "./node_modules/tempusdominus-core/build/js/tempusdominus-core.min.js",
         tempusdominus_bootstrap_js: "./bower_components/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js",
         tempusdominus_bootstrap_css: "./bower_components/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"
     },
@@ -69,6 +69,7 @@ var paths = {
 
 gulp.task("clean", function (cb) {
     del([
+            paths.destination.root,
             paths.destination.css,
             paths.destination.js,
             paths.destination.bower,
