@@ -30,7 +30,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String ajaxProcessingText = "Processing";
     private String ajaxProcessingGlyphicon = "fa fa-refresh fa-spin";
-    private String render = "clicks disabledOnRequest otherDisabledOnRequest";
+    private String render = "disabledOnRequest otherDisabledOnRequest";
     private CommandLinkExampleType commandLinkExampleType = CommandLinkExampleType.AJAX;
 
     public void increaseClick() {
@@ -192,7 +192,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     public List<SelectItem> getRenders() {
         final List<SelectItem> items = new ArrayList<>();
 
-        items.add(new SelectItem("clicks disabledOnRequest otherDisabledOnRequest", "some sections"));
+        items.add(new SelectItem("disabledOnRequest otherDisabledOnRequest", "some sections"));
         items.add(new SelectItem("@form", "@form"));
         items.add(new SelectItem("@this", "@this"));
         items.add(new SelectItem("@none", "@none"));
