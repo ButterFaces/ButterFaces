@@ -39,7 +39,7 @@
     "gulp-util": "3.0.8",
     "gulp-tsd": "0.1.1",
     "merge-stream": "1.0.1",
-    "typescript": "~2.5.2",
+    "typescript": "2.7.1",
     "gulp-typescript": "3.2.2",
     "gulp-concat": "2.6.1",
     "gulp-sourcemaps": "2.6.1",
