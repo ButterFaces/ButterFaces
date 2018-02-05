@@ -34,6 +34,9 @@ proguard/
 # Maven
 target/
 
+# OSX
+.DS_STORE
+
 # Diverse
 .settings/
 .directory
