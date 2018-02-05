@@ -14,7 +14,7 @@ var concat = require("gulp-concat");
 var sourcemaps = require("gulp-sourcemaps");
 var del = require("del");
 var pipe = require("multipipe");
-var less = require("gulp-less");
+var sass = require("gulp-sass");
 var mirror = require("gulp-mirror");
 var rename = require("gulp-rename");
 var postcss = require("gulp-postcss");
@@ -51,7 +51,7 @@ var paths = {
     source: {
         typescripts: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
         javascript: RESSOURCE_DIR + "/butterfaces-js/**/*.js",
-        less: NODEJS_RESSOURCE_DIR + "/butterfaces-less/*.less"
+        sass: NODEJS_RESSOURCE_DIR + "/butterfaces-sass/*.scss"
     },
     destination: {
         root: RESSOURCE_DIR + "/butterfaces-dist",
@@ -170,10 +170,10 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
         .pipe(gulp.dest(paths.destination.js));
 });
 
-gulp.task("less:compile", ["bower:copyDependenciesToDist"], function () {
-    return gulp.src([paths.source.less])
+gulp.task("sass:compile", ["bower:copyDependenciesToDist"], function () {
+    return gulp.src([paths.source.sass])
         .pipe(sourcemaps.init())
-        .pipe(less())
+        .pipe(sass())
         .pipe(postcss([autoprefixer({browsers: ["> 2%"]})]))
         .pipe(mirror(
             pipe(
@@ -202,7 +202,7 @@ gulp.task("javascript:buildComponentsBundle", function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 });
 
-gulp.task("compileResources", ["less:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
+gulp.task("compileResources", ["sass:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
 
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildButterFacesOnlyBunde = gulp.src([

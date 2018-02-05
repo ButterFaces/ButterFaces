@@ -59,7 +59,7 @@
     "jshint": "2.9.5",
     "jest": "22.1.4",
     "jest-cli": "22.1.4",
-    "gulp-less": "3.3.2",
+    "gulp-sass": "3.1.0",
     "gulp-mirror": "1.0.0",
     "gulp-postcss": "7.0.0",
     "gulp-rename": "1.2.2",
