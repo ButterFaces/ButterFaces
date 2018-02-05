@@ -12,8 +12,6 @@ import java.util.List;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-autocomplete.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-dropdownlist.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-autocomplete.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-highlight.jquery.js", target = "head"),

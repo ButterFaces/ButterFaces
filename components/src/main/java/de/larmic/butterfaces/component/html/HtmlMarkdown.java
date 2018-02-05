@@ -13,11 +13,6 @@ import java.util.List;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-markdown.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "popper.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "glyphicons.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-string.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-object.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-maxlength.jquery.js", target = "head"),

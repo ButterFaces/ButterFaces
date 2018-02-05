@@ -1,11 +1,14 @@
 {
   "name": "ButterFaces",
-  "version": "0.0.0",
+  "version": "3.0.0",
   "description": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
   "readme": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
   "main": "butterfaces.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean:cache": "npm cache clean",
+    "clean:node-modules": "rimraf node_modules",
+    "clean:all": "npm cache verify && rimraf node_modules",
+    "install:node-modules": "npm install"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,14 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/ButterFaces/ButterFaces",
+  "dependencies": {
+    "jquery": "3.3.1",
+    "bootstrap": "4.0.0",
+    "inputmask": "3.3.11",
+    "moment": "2.20.1",
+    "google-code-prettify": "1.0.5",
+    "popper.js": "1.12.9"
+  },
   "devDependencies": {
     "autoprefixer": "7.2.5",
     "bower": "1.7.10",
@@ -61,6 +72,7 @@
     "gulp-sizereport": "1.2.0",
     "uglify-js": "3.1.0",
     "trivial-components": "0.1.15",
-    "@types/mustache": "0.8.30"
+    "@types/mustache": "0.8.30",
+    "rimraf": "2.6.2"
   }
 }
