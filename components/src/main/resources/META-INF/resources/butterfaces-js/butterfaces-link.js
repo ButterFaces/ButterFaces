@@ -37,7 +37,7 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
             }
             if (disableRenderRegionsIds != 'undefined') {
                 // console.log('Disable field');
-                new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, '\\:')).show();
+                new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, '\:')).show();
             }
             break;
 
@@ -68,7 +68,7 @@ butter.link.disableOnClick = function(data, showDots, linkText, linkProcessingTe
 
             if (disableRenderRegionsIds != 'undefined') {
                 // console.log('Enable field');
-                new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, '\\:')).hide();
+                new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, '\:')).hide();
             }
             break;
     }

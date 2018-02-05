@@ -13,6 +13,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-overlay.css", target = "head"),
         @ResourceDependency(library = "javax.faces", name = "jsf.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-guid.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-object.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-overlay.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-waitingpanel.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head")})
