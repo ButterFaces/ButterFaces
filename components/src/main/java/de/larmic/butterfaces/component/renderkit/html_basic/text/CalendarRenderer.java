@@ -27,18 +27,18 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (!calendar.isReadonly()) {
             super.encodeSuperEnd(context, component);
             if (calendar.isPickDate() || calendar.isPickTime()) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-addon cursor-pointer", null);
+                writer.startElement("div", component);
+                writer.writeAttribute("class", "input-group-append cursor-pointer", null);
                 writer.writeAttribute("data-target", "input[name='" + calendar.getClientId() + "']", null);
                 writer.writeAttribute("data-toggle", "datetimepicker", null);
                 writer.startElement("span", component);
                 if (!calendar.isPickDate()) {
-                    writer.writeAttribute("class", "glyphicon glyphicon-time", null);
+                    writer.writeAttribute("class", "input-group-text glyphicon glyphicon-time", null);
                 } else {
-                    writer.writeAttribute("class", "glyphicon glyphicon-calendar", null);
+                    writer.writeAttribute("class", "input-group-text glyphicon glyphicon-calendar", null);
                 }
                 writer.endElement("span");
-                writer.endElement("span");
+                writer.endElement("div");
             }
         }
 
