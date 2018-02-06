@@ -11,9 +11,9 @@ import java.util.List;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-treebox.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),

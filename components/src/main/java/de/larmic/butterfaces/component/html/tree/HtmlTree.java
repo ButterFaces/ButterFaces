@@ -14,10 +14,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-tree.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
