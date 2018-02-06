@@ -46,6 +46,7 @@
     "markdown": "0.5.0",
     "to-markdown": "3.1.1",
     "mustache": "2.3.0",
+    "trivial-components": "0.1.15",
     "jquery-ui": "1.12.1"
   },
   "devDependencies": {
@@ -76,7 +77,6 @@
     "gulp-gzip": "1.4.0",
     "gulp-sizereport": "1.2.0",
     "uglify-js": "3.1.0",
-    "trivial-components": "0.1.15",
     "@types/mustache": "0.8.30",
     "rimraf": "2.6.2"
   }

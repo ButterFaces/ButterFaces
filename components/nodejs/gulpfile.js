@@ -66,6 +66,8 @@ var paths = {
         mustache: "./node_modules/mustache/mustache.min.js",
         jquery_ui_position: "./node_modules/jquery-ui/ui/position.js",
         jquery_ui_version: "./node_modules/jquery-ui/ui/version.js",
+        trivial_components_css: "./node_modules/trivial-components/dist/css/trivial-components*.css",
+        trivial_components_js: "./node_modules/trivial-components/dist/js/bundle/trivial-components.js",
         glyphicons_css: "./bower_components/glyphicons/styles/glyphicons.css",
         glyphicon_fonts: "./bower_components/glyphicons/fonts/**/*.*",
         popperjs: "./node_modules/popper.js/dist/umd/popper.js",
@@ -83,7 +85,6 @@ var paths = {
         root: RESSOURCE_DIR + "/butterfaces-dist",
         css: RESSOURCE_DIR + "/butterfaces-dist-css",
         js: RESSOURCE_DIR + "/butterfaces-dist-js",
-        external: RESSOURCE_DIR + "/butterfaces-external",
         bundle_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-js",
         bower: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-bower",
         bower_font: RESSOURCE_DIR + "/fonts",
@@ -145,6 +146,8 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
         paths.bower.bootstrap_markdown_locale_es_js,
         paths.bower.bootstrap_markdown_locale_fr_js,
         paths.bower.bootstrap_markdown_locale_nl_js,
+        paths.bower.trivial_components_css,
+        paths.bower.trivial_components_js,
         paths.bower.mustache,
         paths.bower.glyphicons_css,
         paths.bower.popperjs,
@@ -273,7 +276,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/bootstrap-markdown.js",
         paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.bower + "/mustache.min.js",
-        paths.destination.external + "/*.js",
+        paths.destination.bower + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -298,7 +301,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/bootstrap-markdown.js",
         paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.bower + "/mustache.min.js",
-        paths.destination.external + "/*.js",
+        paths.destination.bower + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -324,7 +327,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/bootstrap-markdown.js",
         paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.bower + "/mustache.min.js",
-        paths.destination.external + "/*.js",
+        paths.destination.bower + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -351,7 +354,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/bootstrap-markdown.js",
         paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.bower + "/mustache.min.js",
-        paths.destination.external + "/*.js",
+        paths.destination.bower + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -369,11 +372,9 @@ gulp.task("dist:zip", ["javascript:buildAllBundle"], function () {
     return gulp.src([
         paths.destination.css + "/**/*",
         paths.destination.js + "/**/*",
-        //paths.destination.bower + "/**/*",
         paths.destination.bundle_js + "/**/*",
         "!" + paths.destination.css + "/**/*.gz",
         "!" + paths.destination.js + "/**/*.gz",
-        //"!" + paths.destination.bower + "/**/*.gz",
         "!" + paths.destination.bundle_js + "/**/*.gz"
     ], {base: "."})
         .pipe(gzip())
