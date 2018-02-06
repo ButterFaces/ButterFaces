@@ -118,9 +118,6 @@ namespace ButterFaces {
                 return "butter-component-overlay small";
             }
 
-            alert(element);
-            alert(element.height());
-
             return "butter-component-overlay";
         }
 

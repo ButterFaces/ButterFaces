@@ -68,7 +68,7 @@ public class HtmlActivateLibrariesTest {
     public void testAssertThatAllResourcesAreAnnotatedInResourceComponent() throws Exception {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
-        this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-external");
+        this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-dist-bundle-dev-js");
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-js");
     }
 
@@ -92,7 +92,9 @@ public class HtmlActivateLibrariesTest {
         final URL resource = getClass().getResource("/META-INF/resources/" + subFolder + "/");
 
         for (File resourceFile : new File(resource.getFile()).listFiles()) {
-            fileNames.add(resourceFile.getName());
+            if (!resourceFile.getName().endsWith(".gz")) {
+                fileNames.add(resourceFile.getName());
+            }
         }
 
         return fileNames;

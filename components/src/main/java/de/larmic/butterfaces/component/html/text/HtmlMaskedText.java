@@ -7,7 +7,11 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head")
 })
 @FacesComponent(HtmlMaskedText.COMPONENT_TYPE)
 public class HtmlMaskedText extends HtmlText implements Masked {

@@ -11,12 +11,10 @@ import java.util.List;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-treebox.css", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-treebox.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head")
 })

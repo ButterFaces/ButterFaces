@@ -8,6 +8,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 
 @ResourceDependencies({
+        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-section.css", target = "head")
 })
 @FacesComponent(HtmlSection.COMPONENT_TYPE)

@@ -21,6 +21,7 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-dropdownlist.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-markdown.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-treebox.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-bootstrap-fixes.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
@@ -49,16 +50,9 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-maxlength.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-multiline-placeholder.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-trivial-components-wrapper.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "mustache.min.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components.css", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components-bootstrap.css", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head")
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {

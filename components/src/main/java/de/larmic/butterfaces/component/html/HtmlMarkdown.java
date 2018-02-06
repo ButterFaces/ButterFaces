@@ -19,10 +19,7 @@ import java.util.List;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-multiline-placeholder.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-markdown.jquery.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
-        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head")
 })
 @FacesComponent(HtmlMarkdown.COMPONENT_TYPE)
 public class HtmlMarkdown extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label, Readonly, MaxLength {

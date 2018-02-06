@@ -24,9 +24,7 @@ import java.util.List;
 public class HandleResourceListener implements SystemEventListener {
     private static final String HEAD = "head";
     private static final String TARGET = "target";
-    private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-dist-bower";
-    public static final String JQUERY_PREFIX_RESOURCE_IDENTIFIER = "jquery";
-    public static final String BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER = "bootstrap";
+    private static final String CONFIGURABLE_LIBRARY_NAME = "butterfaces-dist-bundle-dev-js";
 
     /**
      * Just for the view root
@@ -136,9 +134,9 @@ public class HandleResourceListener implements SystemEventListener {
             isResourceAccepted = true;
 
             if (resourceName != null && CONFIGURABLE_LIBRARY_NAME.equals(resourceLibrary)) {
-                if (!provideJQuery && resourceName.startsWith(JQUERY_PREFIX_RESOURCE_IDENTIFIER)) {
+                if (!provideJQuery && resourceName.equals("butterfaces-third-party-jquery.js")) {
                     isResourceAccepted = false;
-                } else if (!provideBootstrap && resourceName.startsWith(BOOTSTRAP_PREFIX_RESOURCE_IDENTIFIER)) {
+                } else if (!provideBootstrap && resourceName.equals("butterfaces-third-party-bootstrap.js")) {
                     isResourceAccepted = false;
                 }
             }

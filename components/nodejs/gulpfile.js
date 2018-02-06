@@ -86,6 +86,7 @@ var paths = {
         css: RESSOURCE_DIR + "/butterfaces-dist-css",
         js: RESSOURCE_DIR + "/butterfaces-dist-js",
         bundle_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-js",
+        bundle_dev_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-dev-js",
         bower: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-bower",
         bower_font: RESSOURCE_DIR + "/fonts",
         ts_external_definitions: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
@@ -102,6 +103,7 @@ gulp.task("clean", function (cb) {
             paths.destination.bower,
             paths.destination.bower_font,
             paths.destination.bundle_js,
+            paths.destination.bundle_dev_js,
             paths.destination.ts_external_definitions
         ],
         {force: true}, cb);
@@ -186,6 +188,7 @@ gulp.task("typescript:lint", ["typescript:loadDefinitions"], function () {
 
 gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
     var tsResult = gulp.src(paths.source.typescripts)
+        .pipe(sourcemaps.init())
         .pipe(ts({
             noImplicitAny: true,
             target: "es5"
@@ -202,6 +205,7 @@ gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
                 uglify()
             )
         ))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 });
 
@@ -366,16 +370,59 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     return merge(buildButterFacesOnlyBundle, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
+})
+
+gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
+    var thirdPartyBundle = gulp.src([
+        paths.destination.bower + "/prettify.js",
+        paths.destination.bower + "/moment-with-locales.js",
+        paths.destination.bower + "/tempusdominus-core.min.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/jquery.inputmask.bundle.js",
+        paths.destination.bower + "/version.js",
+        paths.destination.bower + "/position.js",
+        paths.destination.bower + "/markdown.js",
+        paths.destination.bower + "/to-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.*.js",
+        paths.destination.bower + "/mustache.min.js",
+        paths.destination.bower + "/trivial-components.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party.js"))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+
+    var thirdPartyJQueryBundle = gulp.src([
+        paths.destination.bower + "/jquery.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party-jquery.js"))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+
+    var thirdPartyBootstrapBundle = gulp.src([
+        paths.destination.bower + "/popper.js",
+        paths.destination.bower + "/bootstrap.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party-bootstrap.js"))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+
+    return merge(thirdPartyBundle, thirdPartyJQueryBundle, thirdPartyBootstrapBundle);
 });
 
-gulp.task("dist:zip", ["javascript:buildAllBundle"], function () {
+gulp.task("dist:zip", ["javascript:buildAllBundle", "javascript:buildAllDevBundle"], function () {
     return gulp.src([
         paths.destination.css + "/**/*",
         paths.destination.js + "/**/*",
         paths.destination.bundle_js + "/**/*",
+        paths.destination.bundle_dev_js + "/**/*",
         "!" + paths.destination.css + "/**/*.gz",
         "!" + paths.destination.js + "/**/*.gz",
-        "!" + paths.destination.bundle_js + "/**/*.gz"
+        "!" + paths.destination.bundle_js + "/**/*.gz",
+        "!" + paths.destination.bundle_dev_js + "/**/*.gz"
     ], {base: "."})
         .pipe(gzip())
         .pipe(gulp.dest("."));
