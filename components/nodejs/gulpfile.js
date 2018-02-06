@@ -40,6 +40,29 @@ var paths = {
         prettify: "./node_modules/google-code-prettify/src/prettify.{js,css}",
         bootstrap_css: "./node_modules/bootstrap/dist/css/bootstrap.{css,css.map}",
         bootstrap_js: "./node_modules/bootstrap/dist/js/bootstrap.{js,map}",
+        markdown_js: "./node_modules/markdown/lib/markdown.{js,js.map}",
+        to_markdown_js: "./node_modules/to-markdown/dist/to-markdown.{js,js.map}",
+        bootstrap_markdown_css: "./node_modules/bootstrap-markdown/css/bootstrap-markdown.min.{css,css.map}",
+        bootstrap_markdown_js: "./node_modules/bootstrap-markdown/js/bootstrap-markdown.{js,map}",
+        bootstrap_markdown_locale_ar_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.ar.{js,map}",
+        bootstrap_markdown_locale_en_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.en.{js,map}",
+        bootstrap_markdown_locale_de_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.de.{js,map}",
+        bootstrap_markdown_locale_fr_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.fr.{js,map}",
+        bootstrap_markdown_locale_es_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.es.{js,map}",
+        bootstrap_markdown_locale_nl_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.nl.{js,map}",
+        bootstrap_markdown_locale_cs_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.cs.{js,map}",
+        bootstrap_markdown_locale_da_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.da.{js,map}",
+        bootstrap_markdown_locale_fa_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.fa.{js,map}",
+        bootstrap_markdown_locale_ja_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.ja.{js,map}",
+        bootstrap_markdown_locale_kr_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.kr.{js,map}",
+        bootstrap_markdown_locale_nb_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.nb.{js,map}",
+        bootstrap_markdown_locale_pl_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.pl.{js,map}",
+        bootstrap_markdown_locale_sl_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.sl.{js,map}",
+        bootstrap_markdown_locale_sv_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.sv.{js,map}",
+        bootstrap_markdown_locale_tr_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.tr.{js,map}",
+        //bootstrap_markdown_locale_ru_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.ru.{js,map}",
+        //bootstrap_markdown_locale_ua_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.ua.{js,map}",
+        bootstrap_markdown_locale_zh_js: "./node_modules/bootstrap-markdown/locale/bootstrap-markdown.zh.{js,map}",
         glyphicons_css: "./bower_components/glyphicons/styles/glyphicons.css",
         glyphicon_fonts: "./bower_components/glyphicons/fonts/**/*.*",
         popperjs: "./node_modules/popper.js/dist/umd/popper.js",
@@ -93,6 +116,30 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
         paths.bower.prettify,
         paths.bower.bootstrap_css,
         paths.bower.bootstrap_js,
+        paths.bower.markdown_js,
+        paths.bower.to_markdown_js,
+        paths.bower.bootstrap_markdown_css,
+        paths.bower.bootstrap_markdown_js,
+        paths.bower.bootstrap_markdown_locale_ar_js,
+        paths.bower.bootstrap_markdown_locale_cs_js,
+        paths.bower.bootstrap_markdown_locale_da_js,
+        paths.bower.bootstrap_markdown_locale_en_js,
+        paths.bower.bootstrap_markdown_locale_fa_js,
+        paths.bower.bootstrap_markdown_locale_ja_js,
+        paths.bower.bootstrap_markdown_locale_kr_js,
+        paths.bower.bootstrap_markdown_locale_nb_js,
+        paths.bower.bootstrap_markdown_locale_nl_js,
+        paths.bower.bootstrap_markdown_locale_pl_js,
+        paths.bower.bootstrap_markdown_locale_sl_js,
+        paths.bower.bootstrap_markdown_locale_sv_js,
+        paths.bower.bootstrap_markdown_locale_tr_js,
+        //paths.bower.bootstrap_markdown_locale_ua_js,
+        //paths.bower.bootstrap_markdown_locale_ru_js,
+        paths.bower.bootstrap_markdown_locale_zh_js,
+        paths.bower.bootstrap_markdown_locale_de_js,
+        paths.bower.bootstrap_markdown_locale_es_js,
+        paths.bower.bootstrap_markdown_locale_fr_js,
+        paths.bower.bootstrap_markdown_locale_nl_js,
         paths.bower.glyphicons_css,
         paths.bower.popperjs,
         paths.bower.momentjs,
@@ -189,6 +236,7 @@ gulp.task("sass:compile", ["bower:copyDependenciesToDist"], function () {
 
 gulp.task("javascript:buildComponentsBundle", function () {
     return gulp.src(paths.source.javascript)
+        .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-js-bundle.js"))
         .pipe(stripDebug())
         .pipe(mirror(
@@ -199,25 +247,32 @@ gulp.task("javascript:buildComponentsBundle", function () {
                 uglify()
             )
         ))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 });
 
 gulp.task("compileResources", ["sass:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
 
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
-    var buildButterFacesOnlyBunde = gulp.src([
+    var buildButterFacesOnlyBundle = gulp.src([
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/moment-with-locales.js",
         paths.destination.bower + "/tempusdominus-core.min.js",
         paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
+        paths.destination.bower + "/markdown.js",
+        paths.destination.bower + "/to-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.external + "/*.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
+        .pipe(sourcemaps.init())
         .pipe(stripDebug())
         .pipe(uglify())
         .pipe(concat("butterfaces-all-bundle.min.js"))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithJQueryBundle = gulp.src([
@@ -227,13 +282,19 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/tempusdominus-core.min.js",
         paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
+        paths.destination.bower + "/markdown.js",
+        paths.destination.bower + "/to-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.external + "/*.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
+        .pipe(sourcemaps.init())
         .pipe(stripDebug())
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-jquery-bundle.min.js"))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithBootstrapBundle = gulp.src([
@@ -244,13 +305,19 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/popper.js",
         paths.destination.bower + "/bootstrap.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
+        paths.destination.bower + "/markdown.js",
+        paths.destination.bower + "/to-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.external + "/*.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
+        .pipe(sourcemaps.init())
         .pipe(stripDebug())
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-bootstrap-bundle.min.js"))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithJQueryAndBootstrapBundle = gulp.src([
@@ -262,16 +329,22 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/popper.js",
         paths.destination.bower + "/bootstrap.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
+        paths.destination.bower + "/markdown.js",
+        paths.destination.bower + "/to-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.js",
+        paths.destination.bower + "/bootstrap-markdown.*.js",
         paths.destination.external + "/*.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
+        .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-all-with-jquery-and-bootstrap-bundle.min.js"))
         .pipe(stripDebug())
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.destination.bundle_js));
 
-    return merge(buildButterFacesOnlyBunde, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
+    return merge(buildButterFacesOnlyBundle, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
 });
 
 gulp.task("dist:zip", ["javascript:buildAllBundle"], function () {

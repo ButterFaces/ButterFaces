@@ -55,10 +55,10 @@ import javax.faces.component.UIComponentBase;
         @ResourceDependency(library = "butterfaces-external", name = "trivial-components.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.version.js", target = "head"),
         @ResourceDependency(library = "butterfaces-external", name = "jquery.ui.position.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "markdown.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "to-markdown.js", target = "head")
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown-with-languages.js", target = "head"),
+        // TODO add debug resource? @ResourceDependency(library = "butterfaces-external", name = "bootstrap-markdown.min.css", target = "head")
 })
 @FacesComponent(HtmlActivateLibraries.COMPONENT_TYPE)
 public class HtmlActivateLibraries extends UIComponentBase {
