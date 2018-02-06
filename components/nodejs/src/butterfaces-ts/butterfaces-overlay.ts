@@ -35,7 +35,6 @@ namespace ButterFaces {
 
                 this.isHiding = false;
 
-
                 if (!ButterFaces.Object.isNullOrUndefined($elementToDisable.attr("data-overlay-uuid"))) {
                     if (ButterFaces.Overlay.findOverlay($elementToDisable.attr("data-overlay-uuid")).length > 0) {
                         console.log("ButterFaces.Overlay.show - overlay already existing. Skip showing overlay");
@@ -48,7 +47,7 @@ namespace ButterFaces {
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
                 let uuid = ButterFaces.Guid.newGuid();
 
-                let $overlay = $("<div class='butter-component-overlay' data-overlay-uuid='" + uuid + "'><div class='butter-component-spinner'></div></div>");
+                let $overlay = $("<div class=" + this.calcOverlayClass($elementToDisable) + " data-overlay-uuid='" + uuid + "'><div class='butter-component-spinner'></div></div>");
 
                 $elementToDisable.attr("data-overlay-uuid", uuid);
 
@@ -109,6 +108,20 @@ namespace ButterFaces {
                 }
 
             });
+        }
+
+        private calcOverlayClass(element: JQuery): string {
+            if (element.height() < 20) {
+                return "butter-component-overlay tiny";
+            }
+            if (element.height() < 50) {
+                return "butter-component-overlay small";
+            }
+
+            alert(element);
+            alert(element.height());
+
+            return "butter-component-overlay";
         }
 
         public static hideAll() {
