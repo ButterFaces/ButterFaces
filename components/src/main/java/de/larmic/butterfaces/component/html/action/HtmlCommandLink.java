@@ -10,6 +10,7 @@ import javax.faces.component.FacesComponent;
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-link.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-spinner.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head"),
@@ -20,7 +21,7 @@ import javax.faces.component.FacesComponent;
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-link.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-object.js", target = "head"),
         @ResourceDependency(library = "butterfaces-js", name = "butterfaces-dots.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-link.js", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-link.js", target = "head")
 })
 @FacesComponent(HtmlCommandLink.COMPONENT_TYPE)
 public class HtmlCommandLink extends javax.faces.component.html.HtmlCommandLink implements Tooltip {

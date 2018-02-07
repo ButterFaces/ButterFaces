@@ -239,6 +239,9 @@
     <ui:define name="other">
         <common:codeExamples component="#{tableShowcase}"/>
 
+        <!-- to enable butterItemFilterField() in PROJECT_STAGE development -->
+        <b:activateLibraries rendered="#{facesContext.application.projectStage eq 'Development'}" />
+
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 setActiveNavigation('table');

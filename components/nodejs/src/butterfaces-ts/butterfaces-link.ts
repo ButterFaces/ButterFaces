@@ -1,7 +1,90 @@
+///<reference path="definitions/external/jquery/jquery.d.ts"/>
 ///<reference path="butterfaces-util-object.ts"/>
 
 namespace ButterFaces {
     export class CommandLink {
+
+        static disableOnClick(data: { type: string, status: string, source: { id: string } },
+                              showDots: boolean,
+                              linkText: string,
+                              linkProcessingText: string,
+                              linkGlyphicon: string,
+                              linkProcessingGlyphicon: string,
+                              hideGlyphicon: boolean,
+                              disableRenderRegionsIds: string) {
+            const status = data.type === "error" ? "error" : data.status;
+
+            // console.log(data.source.id);
+
+            const $commandLink = $(document.getElementById(data.source.id));
+
+            switch (status) {
+                case "begin": // Before the ajax request is sent.
+                    // console.log('ajax request begin');
+                    $commandLink.addClass("disabled");
+
+                    const $glyphicon = $commandLink.find(".butter-component-glyphicon");
+
+                    if (hideGlyphicon) {
+                        $glyphicon.hide();
+                    }
+
+                    if (linkProcessingGlyphicon.length > 0) {
+                        $glyphicon.removeAttr("class");
+                        $glyphicon.addClass("butter-component-glyphicon butter-component-processing-spinner");
+                        $glyphicon.addClass(linkProcessingGlyphicon);
+                        if (linkProcessingText.length > 0 && linkGlyphicon.length === 0) {
+                            // glyphicon only appears on ajax request
+                            $glyphicon.addClass("butter-component-glyphicon-width-margin");
+                        }
+                    } else {
+                        $glyphicon.removeAttr("class");
+                        $glyphicon.addClass("butter-component-spinner tiny butter-component-processing-spinner");
+                    }
+
+                    if (showDots) {
+                        $commandLink.find(".butter-component-glyphicon-processing").startDots();
+                        $commandLink.find(".butter-component-glyphicon-processing").css("display", "inline-block");
+                        $commandLink.find(".butter-component-glyphicon-text").html(linkProcessingText);
+                    }
+                    if (disableRenderRegionsIds !== "undefined") {
+                        // console.log('Disable field');
+                        new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, "\:")).show();
+                    }
+                    break;
+
+                case "complete": // After the ajax response is arrived.
+                    // console.log('ajax request complete');
+                    break;
+
+                case "success": // After update of HTML DOM based on ajax response..
+                case "error": // After update of HTML DOM based on ajax response..
+                    // console.log('ajax request success');
+                    $commandLink.removeClass("disabled");
+                    if (showDots) {
+                        $commandLink.find(".butter-component-glyphicon-processing").stopDots();
+                        $commandLink.find(".butter-component-glyphicon-processing").css("display", "none");
+                        $commandLink.find(".butter-component-glyphicon-text").html(linkText ? linkText : "");
+                    }
+
+                    const $glyphiconError = $commandLink.find(".butter-component-processing-spinner");
+                    $glyphiconError.removeAttr("class");
+                    $glyphiconError.addClass("butter-component-glyphicon");
+
+                    if (hideGlyphicon) {
+                        $glyphiconError.show();
+                    }
+                    if (linkGlyphicon.length > 0) {
+                        $glyphiconError.addClass(linkGlyphicon);
+                    }
+
+                    if (disableRenderRegionsIds !== "undefined") {
+                        // console.log('Enable field');
+                        new ButterFaces.Overlay(0, false, disableRenderRegionsIds.replace(/[:]/g, "\:")).hide();
+                    }
+                    break;
+            }
+        }
 
         /**
          * Submit given form.
@@ -29,7 +112,7 @@ namespace ButterFaces {
         }
 
         private static addParametersAsHiddenFieldsToForm(form: any, params: any) {
-            let bfHiddenInputFields = new Array();
+            let bfHiddenInputFields = [];
             form.bfHiddenInputFields = bfHiddenInputFields;
 
             let i: number = 0;

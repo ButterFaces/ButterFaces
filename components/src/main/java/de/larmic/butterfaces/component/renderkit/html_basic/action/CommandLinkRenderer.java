@@ -151,7 +151,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
                 }
 
                 final String processingText = createAjaxProcessingText(link);
-                final String processingGlyphicon = createAjaxProcessingGlypicon(link);
+                final String processingGlyphicon = createAjaxProcessingGlyphicon(link);
 
                 final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
                 final String jQueryIDSelector = isAjaxDisableRenderReqionOnRequest(link, webXmlParameters)
@@ -179,7 +179,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
     private String createDisableOnClickFunctionCall(HtmlCommandLink link, String processingText,
                                                     String processingGlyphicon, String jQueryIDSelector) {
         final StringBuilder sb = new StringBuilder();
-        sb.append("    butter.link.disableOnClick(data, ");
+        sb.append("    ButterFaces.CommandLink.disableOnClick(data, ");
         sb.append(link.isAjaxShowWaitingDotsOnRequest()).append(",");
 
         if (link.getValue() != null) {
@@ -206,7 +206,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         return webXmlParameters.getAjaxProcessingTextOnRequest();
     }
 
-    private String createAjaxProcessingGlypicon(final HtmlCommandLink link) {
+    private String createAjaxProcessingGlyphicon(final HtmlCommandLink link) {
         if (StringUtils.isNotEmpty(link.getAjaxProcessingGlyphiconOnRequest())) {
             return link.getAjaxProcessingGlyphiconOnRequest();
         }
