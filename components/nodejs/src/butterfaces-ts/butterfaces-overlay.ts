@@ -47,7 +47,7 @@ namespace ButterFaces {
                 console.log("ButterFaces.Overlay.show - appending not displayed overlay to body");
                 let uuid = ButterFaces.Guid.newGuid();
 
-                let $overlay = $("<div class=" + this.calcOverlayClass($elementToDisable) + " data-overlay-uuid='" + uuid + "'><div class='butter-component-spinner'></div></div>");
+                let $overlay = $("<div class='butter-component-overlay' data-overlay-uuid='" + uuid + "'><div class='" + this.calcOverlaySpinnerClass($elementToDisable) + "'></div></div>");
 
                 $elementToDisable.attr("data-overlay-uuid", uuid);
 
@@ -110,15 +110,15 @@ namespace ButterFaces {
             });
         }
 
-        private calcOverlayClass(element: JQuery): string {
-            if (element.height() < 20) {
-                return "butter-component-overlay tiny";
+        private calcOverlaySpinnerClass(element: JQuery): string {
+            if (element.outerHeight() < 55) {
+                return "butter-component-spinner tiny";
             }
-            if (element.height() < 50) {
-                return "butter-component-overlay small";
+            if (element.outerHeight() < 105) {
+                return "butter-component-spinner small";
             }
 
-            return "butter-component-overlay";
+            return "butter-component-spinner";
         }
 
         public static hideAll() {
