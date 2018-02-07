@@ -8,7 +8,7 @@ namespace ButterFaces {
     }
 
 
-    export function createTrivialTagComponent($input,
+    export function createTrivialTagComponent($input: string,
                                               options: {
                                                   showTrigger: boolean,
                                                   autoComplete: boolean,
@@ -56,7 +56,7 @@ namespace ButterFaces {
         id: number;
     }
 
-    export function createTrivialTreeComponent($input,
+    export function createTrivialTreeComponent($input: string,
                                                options: {
                                                    searchBarMode: TrivialComponents.SearchBarMode,
                                                    selectedEntryId: number,
@@ -88,7 +88,7 @@ namespace ButterFaces {
     }
 
 
-    export function createTrivialComboBox($input,
+    export function createTrivialComboBox($input: string,
                                           options: {
                                               inputTextProperty: string,
                                               emptyEntryTemplate: string,
@@ -126,7 +126,7 @@ namespace ButterFaces {
     }
 
 
-    export function createTrivialTreeComboBox($input,
+    export function createTrivialTreeComboBox($input: string,
                                               options: {
                                                   inputTextProperty: string,
                                                   emptyEntryTemplate: string,
