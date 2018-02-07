@@ -7,7 +7,6 @@
 
 var gulp = require("gulp");
 var merge = require("merge-stream");
-var bower = require("gulp-bower");
 var tsd = require("gulp-tsd");
 var ts = require("gulp-typescript");
 var concat = require("gulp-concat");
@@ -34,7 +33,6 @@ var NODEJS_RESSOURCE_DIR = "./src";
 
 var paths = {
     bower: {
-        root: "./bower_components/",
         jquery: "./node_modules/jquery/dist/**/*.{js,map}",
         jqueryinputmask: "./node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js",
         prettify: "./node_modules/google-code-prettify/src/prettify.{js,css}",
@@ -72,9 +70,10 @@ var paths = {
         glyphicon_fonts: "./node_modules/glyphicons-only-bootstrap/fonts/**/*.*",
         popperjs: "./node_modules/popper.js/dist/umd/popper.js",
         momentjs: "./node_modules/moment/min/moment-with-locales.js",
-        tempusdominus_core_js: "./node_modules/tempusdominus-core/build/js/tempusdominus-core.min.js",
-        tempusdominus_bootstrap_js: "./bower_components/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js",
-        tempusdominus_bootstrap_css: "./bower_components/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"
+        moment_timezone_js: "./node_modules/moment-timezone/builds/moment-timezone.min.js",
+        tempusdominus_core_js: "./node_modules/tempusdominus-core/build/js/tempusdominus-core.js",
+        tempusdominus_bootstrap_js: "./node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.js",
+        tempusdominus_bootstrap_css: "./node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css"
     },
     source: {
         typescripts: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/**/*.ts",
@@ -97,7 +96,6 @@ var paths = {
 
 gulp.task("clean", function (cb) {
     del([
-            paths.bower.root,
             paths.destination.root,
             paths.destination.css,
             paths.destination.js,
@@ -110,13 +108,7 @@ gulp.task("clean", function (cb) {
         {force: true}, cb);
 });
 
-gulp.task("bower:loadDependencies", function () {
-    // https://github.com/bower/bower/issues/1019#issuecomment-52700170
-    return bower({force: false})
-        .pipe(gulp.dest(paths.bower.root));
-});
-
-gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function () {
+gulp.task("bower:copyDependenciesToDist", function () {
     var copyDependenciesToDist = gulp.src([
         paths.bower.jquery,
         paths.bower.jqueryinputmask,
@@ -154,6 +146,7 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
         paths.bower.mustache,
         paths.bower.popperjs,
         paths.bower.momentjs,
+        paths.bower.moment_timezone_js,
         paths.bower.tempusdominus_core_js,
         paths.bower.tempusdominus_bootstrap_css,
         paths.bower.tempusdominus_bootstrap_js
@@ -276,8 +269,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildButterFacesOnlyBundle = gulp.src([
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/tempusdominus-core.min.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/moment-timezone.min.js",
+        paths.destination.bower + "/tempusdominus-core.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
         paths.destination.bower + "/version.js",
         paths.destination.bower + "/position.js",
@@ -301,8 +295,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         paths.destination.bower + "/jquery.min.js",
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/tempusdominus-core.min.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/moment-timezone.min.js",
+        paths.destination.bower + "/tempusdominus-core.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
         paths.destination.bower + "/version.js",
         paths.destination.bower + "/position.js",
@@ -325,8 +320,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithBootstrapBundle = gulp.src([
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/tempusdominus-core.min.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/moment-timezone.min.js",
+        paths.destination.bower + "/tempusdominus-core.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
         paths.destination.bower + "/popper.js",
         paths.destination.bower + "/bootstrap.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
@@ -351,8 +347,9 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildAllWithJQueryAndBootstrapBundle = gulp.src([
         paths.destination.bower + "/jquery.min.js",
         paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/tempusdominus-core.min.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/moment-timezone.min.js",
+        paths.destination.bower + "/tempusdominus-core.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/popper.js",
         paths.destination.bower + "/bootstrap.js",
@@ -382,8 +379,9 @@ gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
     var thirdPartyBundle = gulp.src([
         paths.destination.bower + "/prettify.js",
         paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/tempusdominus-core.min.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.min.js",
+        paths.destination.bower + "/moment-timezone.min.js",
+        paths.destination.bower + "/tempusdominus-core.js",
+        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
         paths.destination.bower + "/jquery.inputmask.bundle.js",
         paths.destination.bower + "/version.js",
         paths.destination.bower + "/position.js",

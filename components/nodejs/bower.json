@@ -9,6 +9,5 @@
   "license": "MIT" ,
 
   "dependencies": {
-    "tempusdominus-bootstrap-4": "latest"
   }
 }
