@@ -47,7 +47,8 @@
     "to-markdown": "3.1.1",
     "mustache": "2.3.0",
     "trivial-components": "0.1.15",
-    "jquery-ui": "1.12.1"
+    "jquery-ui": "1.12.1",
+    "glyphicons-only-bootstrap": "1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "7.2.5",

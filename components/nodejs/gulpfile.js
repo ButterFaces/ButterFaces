@@ -68,8 +68,8 @@ var paths = {
         jquery_ui_version: "./node_modules/jquery-ui/ui/version.js",
         trivial_components_css: "./node_modules/trivial-components/dist/css/trivial-components*.css",
         trivial_components_js: "./node_modules/trivial-components/dist/js/bundle/trivial-components.js",
-        glyphicons_css: "./bower_components/glyphicons/styles/glyphicons.css",
-        glyphicon_fonts: "./bower_components/glyphicons/fonts/**/*.*",
+        glyphicons_css: "./node_modules/glyphicons-only-bootstrap/css/bootstrap.css",
+        glyphicon_fonts: "./node_modules/glyphicons-only-bootstrap/fonts/**/*.*",
         popperjs: "./node_modules/popper.js/dist/umd/popper.js",
         momentjs: "./node_modules/moment/min/moment-with-locales.js",
         tempusdominus_core_js: "./node_modules/tempusdominus-core/build/js/tempusdominus-core.min.js",
@@ -97,6 +97,7 @@ var paths = {
 
 gulp.task("clean", function (cb) {
     del([
+            paths.bower.root,
             paths.destination.root,
             paths.destination.css,
             paths.destination.js,
@@ -151,7 +152,6 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
         paths.bower.trivial_components_css,
         paths.bower.trivial_components_js,
         paths.bower.mustache,
-        paths.bower.glyphicons_css,
         paths.bower.popperjs,
         paths.bower.momentjs,
         paths.bower.tempusdominus_core_js,
@@ -160,12 +160,18 @@ gulp.task("bower:copyDependenciesToDist", ["bower:loadDependencies"], function (
     ])
         .pipe(gulp.dest(paths.destination.bower));
 
+    var copyGlyphiconsToDist = gulp.src([
+        paths.bower.glyphicons_css
+    ])
+        .pipe(rename("glyphicons.css"))
+        .pipe(gulp.dest(paths.destination.bower));
+
     var copyFontDependenciesToDist = gulp.src([
         paths.bower.glyphicon_fonts
     ])
         .pipe(gulp.dest(paths.destination.bower_font));
 
-    return merge(copyDependenciesToDist, copyFontDependenciesToDist);
+    return merge(copyDependenciesToDist, copyGlyphiconsToDist, copyFontDependenciesToDist);
 });
 
 gulp.task("typescript:loadDefinitions", function (callback) {
