@@ -32,7 +32,7 @@ var RESSOURCE_DIR = "../src/main/resources/META-INF/resources";
 var NODEJS_RESSOURCE_DIR = "./src";
 
 var paths = {
-    bower: {
+    npm: {
         jquery: "./node_modules/jquery/dist/**/*.{js,map}",
         jqueryinputmask: "./node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js",
         prettify: "./node_modules/google-code-prettify/src/prettify.{js,css}",
@@ -86,8 +86,8 @@ var paths = {
         js: RESSOURCE_DIR + "/butterfaces-dist-js",
         bundle_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-js",
         bundle_dev_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-dev-js",
-        bower: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-bower",
-        bower_font: RESSOURCE_DIR + "/fonts",
+        npm: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-npm",
+        npm_font: RESSOURCE_DIR + "/fonts",
         ts_external_definitions: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
     }
 };
@@ -99,8 +99,8 @@ gulp.task("clean", function (cb) {
             paths.destination.root,
             paths.destination.css,
             paths.destination.js,
-            paths.destination.bower,
-            paths.destination.bower_font,
+            paths.destination.npm,
+            paths.destination.npm_font,
             paths.destination.bundle_js,
             paths.destination.bundle_dev_js,
             paths.destination.ts_external_definitions
@@ -108,61 +108,61 @@ gulp.task("clean", function (cb) {
         {force: true}, cb);
 });
 
-gulp.task("bower:copyDependenciesToDist", function () {
+gulp.task("npm:copyDependenciesToDist", function () {
     var copyDependenciesToDist = gulp.src([
-        paths.bower.jquery,
-        paths.bower.jqueryinputmask,
-        paths.bower.jquery_ui_position,
-        paths.bower.jquery_ui_version,
-        paths.bower.prettify,
-        paths.bower.bootstrap_css,
-        paths.bower.bootstrap_js,
-        paths.bower.markdown_js,
-        paths.bower.to_markdown_js,
-        paths.bower.bootstrap_markdown_css,
-        paths.bower.bootstrap_markdown_js,
-        paths.bower.bootstrap_markdown_locale_ar_js,
-        paths.bower.bootstrap_markdown_locale_cs_js,
-        paths.bower.bootstrap_markdown_locale_da_js,
-        paths.bower.bootstrap_markdown_locale_en_js,
-        paths.bower.bootstrap_markdown_locale_fa_js,
-        paths.bower.bootstrap_markdown_locale_ja_js,
-        paths.bower.bootstrap_markdown_locale_kr_js,
-        paths.bower.bootstrap_markdown_locale_nb_js,
-        paths.bower.bootstrap_markdown_locale_nl_js,
-        paths.bower.bootstrap_markdown_locale_pl_js,
-        paths.bower.bootstrap_markdown_locale_sl_js,
-        paths.bower.bootstrap_markdown_locale_sv_js,
-        paths.bower.bootstrap_markdown_locale_tr_js,
-        //paths.bower.bootstrap_markdown_locale_ua_js,
-        //paths.bower.bootstrap_markdown_locale_ru_js,
-        paths.bower.bootstrap_markdown_locale_zh_js,
-        paths.bower.bootstrap_markdown_locale_de_js,
-        paths.bower.bootstrap_markdown_locale_es_js,
-        paths.bower.bootstrap_markdown_locale_fr_js,
-        paths.bower.bootstrap_markdown_locale_nl_js,
-        paths.bower.trivial_components_css,
-        paths.bower.trivial_components_js,
-        paths.bower.mustache,
-        paths.bower.popperjs,
-        paths.bower.momentjs,
-        paths.bower.moment_timezone_js,
-        paths.bower.tempusdominus_core_js,
-        paths.bower.tempusdominus_bootstrap_css,
-        paths.bower.tempusdominus_bootstrap_js
+        paths.npm.jquery,
+        paths.npm.jqueryinputmask,
+        paths.npm.jquery_ui_position,
+        paths.npm.jquery_ui_version,
+        paths.npm.prettify,
+        paths.npm.bootstrap_css,
+        paths.npm.bootstrap_js,
+        paths.npm.markdown_js,
+        paths.npm.to_markdown_js,
+        paths.npm.bootstrap_markdown_css,
+        paths.npm.bootstrap_markdown_js,
+        paths.npm.bootstrap_markdown_locale_ar_js,
+        paths.npm.bootstrap_markdown_locale_cs_js,
+        paths.npm.bootstrap_markdown_locale_da_js,
+        paths.npm.bootstrap_markdown_locale_en_js,
+        paths.npm.bootstrap_markdown_locale_fa_js,
+        paths.npm.bootstrap_markdown_locale_ja_js,
+        paths.npm.bootstrap_markdown_locale_kr_js,
+        paths.npm.bootstrap_markdown_locale_nb_js,
+        paths.npm.bootstrap_markdown_locale_nl_js,
+        paths.npm.bootstrap_markdown_locale_pl_js,
+        paths.npm.bootstrap_markdown_locale_sl_js,
+        paths.npm.bootstrap_markdown_locale_sv_js,
+        paths.npm.bootstrap_markdown_locale_tr_js,
+        //paths.npm.bootstrap_markdown_locale_ua_js,
+        //paths.npm.bootstrap_markdown_locale_ru_js,
+        paths.npm.bootstrap_markdown_locale_zh_js,
+        paths.npm.bootstrap_markdown_locale_de_js,
+        paths.npm.bootstrap_markdown_locale_es_js,
+        paths.npm.bootstrap_markdown_locale_fr_js,
+        paths.npm.bootstrap_markdown_locale_nl_js,
+        paths.npm.trivial_components_css,
+        paths.npm.trivial_components_js,
+        paths.npm.mustache,
+        paths.npm.popperjs,
+        paths.npm.momentjs,
+        paths.npm.moment_timezone_js,
+        paths.npm.tempusdominus_core_js,
+        paths.npm.tempusdominus_bootstrap_css,
+        paths.npm.tempusdominus_bootstrap_js
     ])
-        .pipe(gulp.dest(paths.destination.bower));
+        .pipe(gulp.dest(paths.destination.npm));
 
     var copyGlyphiconsToDist = gulp.src([
-        paths.bower.glyphicons_css
+        paths.npm.glyphicons_css
     ])
         .pipe(rename("glyphicons.css"))
-        .pipe(gulp.dest(paths.destination.bower));
+        .pipe(gulp.dest(paths.destination.npm));
 
     var copyFontDependenciesToDist = gulp.src([
-        paths.bower.glyphicon_fonts
+        paths.npm.glyphicon_fonts
     ])
-        .pipe(gulp.dest(paths.destination.bower_font));
+        .pipe(gulp.dest(paths.destination.npm_font));
 
     return merge(copyDependenciesToDist, copyGlyphiconsToDist, copyFontDependenciesToDist);
 });
@@ -229,7 +229,7 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
         .pipe(gulp.dest(paths.destination.js));
 });
 
-gulp.task("sass:compile", ["bower:copyDependenciesToDist"], function () {
+gulp.task("sass:compile", ["npm:copyDependenciesToDist"], function () {
     return gulp.src([paths.source.sass])
         .pipe(sourcemaps.init())
         .pipe(sass())
@@ -267,20 +267,20 @@ gulp.task("compileResources", ["sass:compile", "typescript:compileToBundle", "ty
 
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
     var buildButterFacesOnlyBundle = gulp.src([
-        paths.destination.bower + "/prettify.js",
-        paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/moment-timezone.min.js",
-        paths.destination.bower + "/tempusdominus-core.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
-        paths.destination.bower + "/jquery.inputmask.bundle.js",
-        paths.destination.bower + "/version.js",
-        paths.destination.bower + "/position.js",
-        paths.destination.bower + "/markdown.js",
-        paths.destination.bower + "/to-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.*.js",
-        paths.destination.bower + "/mustache.min.js",
-        paths.destination.bower + "/trivial-components.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -292,21 +292,21 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithJQueryBundle = gulp.src([
-        paths.destination.bower + "/jquery.min.js",
-        paths.destination.bower + "/prettify.js",
-        paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/moment-timezone.min.js",
-        paths.destination.bower + "/tempusdominus-core.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
-        paths.destination.bower + "/jquery.inputmask.bundle.js",
-        paths.destination.bower + "/version.js",
-        paths.destination.bower + "/position.js",
-        paths.destination.bower + "/markdown.js",
-        paths.destination.bower + "/to-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.*.js",
-        paths.destination.bower + "/mustache.min.js",
-        paths.destination.bower + "/trivial-components.js",
+        paths.destination.npm + "/jquery.min.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -318,22 +318,22 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithBootstrapBundle = gulp.src([
-        paths.destination.bower + "/prettify.js",
-        paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/moment-timezone.min.js",
-        paths.destination.bower + "/tempusdominus-core.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
-        paths.destination.bower + "/popper.js",
-        paths.destination.bower + "/bootstrap.js",
-        paths.destination.bower + "/jquery.inputmask.bundle.js",
-        paths.destination.bower + "/version.js",
-        paths.destination.bower + "/position.js",
-        paths.destination.bower + "/markdown.js",
-        paths.destination.bower + "/to-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.*.js",
-        paths.destination.bower + "/mustache.min.js",
-        paths.destination.bower + "/trivial-components.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -345,23 +345,23 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     var buildAllWithJQueryAndBootstrapBundle = gulp.src([
-        paths.destination.bower + "/jquery.min.js",
-        paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/moment-timezone.min.js",
-        paths.destination.bower + "/tempusdominus-core.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
-        paths.destination.bower + "/prettify.js",
-        paths.destination.bower + "/popper.js",
-        paths.destination.bower + "/bootstrap.js",
-        paths.destination.bower + "/jquery.inputmask.bundle.js",
-        paths.destination.bower + "/version.js",
-        paths.destination.bower + "/position.js",
-        paths.destination.bower + "/markdown.js",
-        paths.destination.bower + "/to-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.*.js",
-        paths.destination.bower + "/mustache.min.js",
-        paths.destination.bower + "/trivial-components.js",
+        paths.destination.npm + "/jquery.min.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
         paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
         paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
     ])
@@ -377,20 +377,20 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
 
 gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
     var thirdPartyBundle = gulp.src([
-        paths.destination.bower + "/prettify.js",
-        paths.destination.bower + "/moment-with-locales.js",
-        paths.destination.bower + "/moment-timezone.min.js",
-        paths.destination.bower + "/tempusdominus-core.js",
-        paths.destination.bower + "/tempusdominus-bootstrap-4.js",
-        paths.destination.bower + "/jquery.inputmask.bundle.js",
-        paths.destination.bower + "/version.js",
-        paths.destination.bower + "/position.js",
-        paths.destination.bower + "/markdown.js",
-        paths.destination.bower + "/to-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.js",
-        paths.destination.bower + "/bootstrap-markdown.*.js",
-        paths.destination.bower + "/mustache.min.js",
-        paths.destination.bower + "/trivial-components.js"
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js"
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party.js"))
@@ -398,7 +398,7 @@ gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_dev_js));
 
     var thirdPartyJQueryBundle = gulp.src([
-        paths.destination.bower + "/jquery.min.js"
+        paths.destination.npm + "/jquery.min.js"
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party-jquery.js"))
@@ -406,8 +406,8 @@ gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_dev_js));
 
     var thirdPartyBootstrapBundle = gulp.src([
-        paths.destination.bower + "/popper.js",
-        paths.destination.bower + "/bootstrap.js"
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js"
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party-bootstrap.js"))
