@@ -12,11 +12,21 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{radioBoxShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{radioBoxShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{radioBoxShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{radioBoxShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{radioBoxShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{radioBoxShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{radioBoxShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{radioBoxShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{radioBoxShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{radioBoxShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                    value="#{radioBoxShowcase.styleClass}"
                                    values="#{radioBoxShowcase.styleClasses}"/>

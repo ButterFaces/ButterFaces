@@ -12,11 +12,21 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{tagsShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{tagsShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{tagsShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{tagsShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{tagsShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{tagsShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{tagsShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{tagsShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{tagsShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{tagsShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
@@ -27,7 +37,9 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
-            <b:checkBox label="autofocus" value="#{tagsShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{tagsShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

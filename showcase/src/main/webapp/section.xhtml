@@ -14,7 +14,9 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{sectionShowcase.label}"/>
             <common:tagStringControl label="badgeText" value="#{sectionShowcase.badgeText}"/>
-            <b:checkBox label="rendered" value="#{sectionShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{sectionShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

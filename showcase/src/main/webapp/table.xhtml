@@ -11,14 +11,23 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <b:checkBox label="rendered" value="#{tableShowcase.rendered}"/>
-            <b:checkBox label="tableBordered" value="#{tableShowcase.tableBordered}"/>
-            <b:checkBox label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
-            <b:checkBox label="tableStriped" value="#{tableShowcase.tableStriped}"/>
+            <b:checkBox label="rendered" value="#{tableShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableBordered" value="#{tableShowcase.tableBordered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableCondensed" value="#{tableShowcase.tableCondensed}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableStriped" value="#{tableShowcase.tableStriped}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
             <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
-            <b:checkBox label="ajaxDisableRenderRegionsOnRequest"
-                                      value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
+            <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -34,11 +43,21 @@
             <common:tagEnumControl label="toolbar facets"
                                    value="#{tableShowcase.toolbarFacetType}"
                                    values="#{tableShowcase.toolBarFacetTypes}"/>
-            <b:checkBox label="use table model" value="#{tableShowcase.useTableModel}"/>
-            <b:checkBox label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
-            <b:checkBox label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
-            <b:checkBox label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
-            <b:checkBox label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
+            <b:checkBox label="use table model" value="#{tableShowcase.useTableModel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="use selection listener" value="#{tableShowcase.useSelectionListener}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showRefreshButton" value="#{tableShowcase.showRefreshButton}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

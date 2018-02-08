@@ -13,7 +13,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <b:checkBox label="rendered" value="#{prettyPrintShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{prettyPrintShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="language"
                                      value="#{prettyPrintShowcase.prettyPrintType}"
                                      values="#{prettyPrintShowcase.prettyPrintTypes}"/>

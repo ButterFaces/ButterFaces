@@ -14,8 +14,12 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <b:checkBox label="rendered" value="#{treeShowcase.rendered}"/>
-            <b:checkBox label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
+            <b:checkBox label="rendered" value="#{treeShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="hideRootNode" value="#{treeShowcase.hideRootNode}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
             <common:tagStringControl label="spinnerText" value="#{treeShowcase.spinnerText}"/>
             <common:tagStringControl label="noEntriesText" value="#{treeShowcase.noEntriesText}"/>
@@ -37,7 +41,9 @@
             <common:tagEnumControl label="icons"
                                    value="#{treeShowcase.showcaseTreeNode.selectedIconType}"
                                    values="#{treeShowcase.iconTypes}"/>
-            <b:checkBox label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
+            <b:checkBox label="nodes expanded" value="#{treeShowcase.allExpanded}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

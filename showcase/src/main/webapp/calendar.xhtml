@@ -7,21 +7,42 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:calendar</strong> The calendar tag renders a HTML input element of the type "text" using <a href="http://eonasdan.github.io/bootstrap-datetimepicker/" target="_blank">Bootstrap Datepicker</a> as jQuery plugin
-        <p>See <a href="https://github.com/moment/moment/tree/develop/locale" target="_blank">Moment JS</a> for detailed language support.</p>
+        <strong>b:calendar</strong> The calendar tag renders a HTML input element of the type "text" using <a
+        href="http://eonasdan.github.io/bootstrap-datetimepicker/"
+        target="_blank">Bootstrap Datepicker</a> as jQuery plugin
+        <p>See <a href="https://github.com/moment/moment/tree/develop/locale"
+                  target="_blank">Moment JS</a> for detailed language support.</p>
     </ui:define>
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{calendarShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{calendarShowcase.hideLabel}" />
-            <b:checkBox label="readonly" value="#{calendarShowcase.readonly}" />
-            <b:checkBox label="required" value="#{calendarShowcase.required}" />
-            <b:checkBox label="disabled" value="#{calendarShowcase.disabled}" />
-            <b:checkBox label="rendered" value="#{calendarShowcase.rendered}" />
-            <b:checkBox label="pickDate" value="#{calendarShowcase.pickDate}" />
-            <b:checkBox label="pickTime" value="#{calendarShowcase.pickTime}" />
-            <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySise}" />
+            <b:text label="label" value="#{calendarShowcase.label}">
+                <f:ajax execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{calendarShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{calendarShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{calendarShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{calendarShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{calendarShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="pickDate" value="#{calendarShowcase.pickDate}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="pickTime" value="#{calendarShowcase.pickTime}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySise}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                    value="#{calendarShowcase.styleClass}"
                                    values="#{calendarShowcase.styleClasses}"/>
@@ -37,26 +58,27 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
-            <b:checkBox label="autofocus" value="#{calendarShowcase.autoFocus}" />
+            <b:checkBox label="autofocus" value="#{calendarShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="ajax"
-                                     value="#{calendarShowcase.ajaxType}"
-                                     values="#{calendarShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
+                                   value="#{calendarShowcase.ajaxType}"
+                                   values="#{calendarShowcase.ajaxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add ajax child"
+                                   popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent"
-                                         activeComponentNavigationId="calendar"
-                                         component="#{calendarShowcase}">
+                                       activeComponentNavigationId="calendar"
+                                       component="#{calendarShowcase}">
 
-            <h:panelGroup layout="block" styleClass="alert alert-warning" rendered="#{not calendarShowcase.pickDate and not calendarShowcase.pickTime}">
+            <h:panelGroup layout="block" styleClass="alert alert-warning"
+                          rendered="#{not calendarShowcase.pickDate and not calendarShowcase.pickTime}">
                 Bootstrap Datetimepicker plugin is disabled if you would not select a date or a time.
             </h:panelGroup>
 
@@ -95,6 +117,6 @@
 
     <ui:define name="other">
         <common:codeExamples component="#{calendarShowcase}"/>
-        <b:activateLibraries />
+        <b:activateLibraries/>
     </ui:define>
 </ui:composition>

@@ -14,11 +14,21 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{textShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{textShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{textShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{textShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{textShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{textShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{textShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{textShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{textShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{textShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                    value="#{textShowcase.styleClass}"
                                    values="#{textShowcase.styleClasses}"/>
@@ -30,7 +40,9 @@
             <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
             <common:tagStringControl label="min" value="#{textShowcase.min}"/>
             <common:tagStringControl label="max" value="#{textShowcase.max}"/>
-            <b:checkBox label="autofocus" value="#{textShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{textShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -45,8 +57,12 @@
                                    value="#{textShowcase.selectedFacetType}"
                                    values="#{textShowcase.availableFacetTypes}"
                                    renderChildrenPopover="false"/>
-            <b:checkBox label="validate" value="#{textShowcase.validation}"/>
-            <b:checkBox label="converter" value="#{textShowcase.useConverter}"/>
+            <b:checkBox label="validate" value="#{textShowcase.validation}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="converter" value="#{textShowcase.useConverter}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

@@ -13,8 +13,12 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
-            <b:checkBox label="blockpage" value="#{waitingPanelShowcase.blockpage}" />
-            <b:checkBox label="rendered" value="#{waitingPanelShowcase.rendered}"/>
+            <b:checkBox label="blockpage" value="#{waitingPanelShowcase.blockpage}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{waitingPanelShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

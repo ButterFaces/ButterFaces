@@ -13,7 +13,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <b:checkBox label="rendered" value="#{defaultActionShowcase.rendered}" />
+            <b:checkBox label="rendered" value="#{defaultActionShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

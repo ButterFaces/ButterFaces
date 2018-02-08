@@ -12,40 +12,56 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{textAreaShowcase.label}" />
-            <b:checkBox label="hideLabel" value="#{textAreaShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{textAreaShowcase.readonly}" />
-            <b:checkBox label="required" value="#{textAreaShowcase.required}" />
-            <b:checkBox label="disabled" value="#{textAreaShowcase.disabled}" />
-            <b:checkBox label="rendered" value="#{textAreaShowcase.rendered}" />
-            <common:tagStringControl label="maxLength" value="#{textAreaShowcase.maxLength}" />
-            <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}" />
+            <common:tagStringControl label="label" value="#{textAreaShowcase.label}"/>
+            <b:checkBox label="hideLabel" value="#{textAreaShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{textAreaShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{textAreaShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{textAreaShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{textAreaShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <common:tagStringControl label="maxLength" value="#{textAreaShowcase.maxLength}"/>
+            <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}"/>
             <common:tagEnumControl label="styleClass"
-                                     value="#{textAreaShowcase.styleClass}"
-                                     values="#{textAreaShowcase.styleClasses}"/>
+                                   value="#{textAreaShowcase.styleClass}"
+                                   values="#{textAreaShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{textAreaShowcase.placeholder}"/>
-            <b:checkBox label="autofocus" value="#{textAreaShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{textAreaShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="ajax"
-                                     value="#{textAreaShowcase.ajaxType}"
-                                     values="#{textAreaShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}" />
-            <b:checkBox label="validate" value="#{textAreaShowcase.validation}" />
+                                   value="#{textAreaShowcase.ajaxType}"
+                                   values="#{textAreaShowcase.ajaxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add ajax child"
+                                   popoverContentMarkerClass="ajaxPopoverContent"/>
+            <common:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}"/>
+            <b:checkBox label="validate" value="#{textAreaShowcase.validation}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
-        <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="textarea" component="#{textAreaShowcase}">
+        <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="textarea"
+                                       component="#{textAreaShowcase}">
 
-            <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{not empty textAreaShowcase.placeholder}">
+            <h:panelGroup layout="block" styleClass="alert alert-info"
+                          rendered="#{not empty textAreaShowcase.placeholder}">
                 <strong>Hint:</strong> you can use multiline placeholders by adding '\n'.
             </h:panelGroup>
 
@@ -66,10 +82,10 @@
                 <f:ajax event="keyup"
                         execute="textArea"
                         render="output:outputComponent:outputValues output:other"
-                        disabled="#{not textAreaShowcase.ajax}" />
+                        disabled="#{not textAreaShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textAreaShowcase.validation}" />
+                                  disabled="#{not textAreaShowcase.validation}"/>
                 <b:tooltip rendered="#{not empty textAreaShowcase.tooltip}">
                     #{textAreaShowcase.tooltip}
                 </b:tooltip>
@@ -78,8 +94,8 @@
     </ui:define>
 
     <ui:define name="other">
-        <common:codeExamples component="#{textAreaShowcase}" />
-        <b:activateLibraries />
+        <common:codeExamples component="#{textAreaShowcase}"/>
+        <b:activateLibraries/>
     </ui:define>
 
 </ui:composition>

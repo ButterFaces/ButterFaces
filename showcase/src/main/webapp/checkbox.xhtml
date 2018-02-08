@@ -14,19 +14,33 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
             <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
-            <b:checkBox label="switch" value="#{checkBoxShowcase.asSwitch}" />
-            <b:checkBox label="hideLabel" value="#{checkBoxShowcase.hideLabel}" />
-            <b:checkBox label="readonly" value="#{checkBoxShowcase.readonly}" />
-            <b:checkBox label="required" value="#{checkBoxShowcase.required}" />
-            <b:checkBox label="disabled" value="#{checkBoxShowcase.disabled}" />
-            <b:checkBox label="rendered" value="#{checkBoxShowcase.rendered}" />
+            <b:checkBox label="switch" value="#{checkBoxShowcase.asSwitch}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="hideLabel" value="#{checkBoxShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{checkBoxShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{checkBoxShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{checkBoxShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{checkBoxShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcase.styleClass}"
                                      values="#{checkBoxShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <b:checkBox label="autofocus" value="#{checkBoxShowcase.autoFocus}" />
+            <b:checkBox label="autofocus" value="#{checkBoxShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag control">

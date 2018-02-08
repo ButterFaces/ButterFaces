@@ -12,8 +12,12 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{labeledContainerShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{labeledContainerShowcase.hideLabel}" />
-            <b:checkBox label="rendered" value="#{labeledContainerShowcase.rendered}" />
+            <b:checkBox label="hideLabel" value="#{labeledContainerShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{labeledContainerShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

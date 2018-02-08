@@ -16,7 +16,9 @@
             <common:tagStringControl label="trigger" value="#{tooltipShowcase.trigger}"/>
             <common:tagStringControl label="placement" value="#{tooltipShowcase.placement}"/>
             <common:tagStringControl label="viewport" value="#{tooltipShowcase.viewport}"/>
-            <b:checkBox label="rendered" value="#{tooltipShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{tooltipShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

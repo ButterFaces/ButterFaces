@@ -13,7 +13,9 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="title" value="#{modalPanelShowcase.title}"/>
             <common:tagStringControl label="cancelButtonText" value="#{modalPanelShowcase.cancelButtonText}"/>
-            <b:checkBox label="rendered" value="#{modalPanelShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{modalPanelShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -104,6 +106,7 @@
                             butter.modal.close('complexModalPanel');
                         }
                     }
+
                     //]]>
                 </script>
             </h:panelGroup>

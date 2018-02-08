@@ -12,11 +12,21 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{numberShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{numberShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{numberShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{numberShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{numberShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{numberShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{numberShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{numberShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{numberShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{numberShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{numberShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagStringControl label="min" value="#{numberShowcase.min}"/>
             <common:tagStringControl label="max" value="#{numberShowcase.max}"/>
             <common:tagStringControl label="step" value="#{numberShowcase.step}"/>
@@ -27,7 +37,9 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
-            <b:checkBox label="autofocus" value="#{numberShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{numberShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

@@ -8,20 +8,31 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:maskedText</strong> The text tag renders an HTML input element of the type "text" using <a href="https://github.com/RobinHerbots/jquery.inputmask" target="_blank">jQuery input mask</a> as jQuery plugin.
+        <strong>b:maskedText</strong> The text tag renders an HTML input element of the type "text" using <a
+        href="https://github.com/RobinHerbots/jquery.inputmask" target="_blank">jQuery input mask</a> as jQuery plugin.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
-            <b:checkBox label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{maskedTextShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{maskedTextShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{maskedTextShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{maskedTextShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{maskedTextShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{maskedTextShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{maskedTextShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
-                                     value="#{maskedTextShowcase.styleClass}"
-                                     values="#{maskedTextShowcase.styleClasses}"/>
+                                   value="#{maskedTextShowcase.styleClass}"
+                                   values="#{maskedTextShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -30,37 +41,41 @@
             <common:tagStringControl label="pattern" value="#{maskedTextShowcase.pattern}"/>
             <common:tagStringControl label="min" value="#{maskedTextShowcase.min}"/>
             <common:tagStringControl label="max" value="#{maskedTextShowcase.max}"/>
-            <b:checkBox label="autofocus" value="#{maskedTextShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{maskedTextShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="ajax"
-                                     value="#{maskedTextShowcase.ajaxType}"
-                                     values="#{maskedTextShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
+                                   value="#{maskedTextShowcase.ajaxType}"
+                                   values="#{maskedTextShowcase.ajaxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add ajax child"
+                                   popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
             <common:tagEnumControl label="facets"
-                                     value="#{maskedTextShowcase.selectedFacetType}"
-                                     values="#{maskedTextShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false" />
-            <b:checkBox label="validate"
-                                        value="#{maskedTextShowcase.validation}"/>
+                                   value="#{maskedTextShowcase.selectedFacetType}"
+                                   values="#{maskedTextShowcase.availableFacetTypes}"
+                                   renderChildrenPopover="false"/>
+            <b:checkBox label="validate" value="#{maskedTextShowcase.validation}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="inputMask"
-                                     value="#{maskedTextShowcase.selectedInputMaskType}"
-                                     values="#{maskedTextShowcase.inputMaskTypes}"/>
+                                   value="#{maskedTextShowcase.selectedInputMaskType}"
+                                   values="#{maskedTextShowcase.inputMaskTypes}"/>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent"
-                                         activeComponentNavigationId="maskedtext"
-                                         component="#{maskedTextShowcase}">
+                                       activeComponentNavigationId="maskedtext"
+                                       component="#{maskedTextShowcase}">
             <h:panelGroup layout="block"
                           styleClass="alert alert-warning"
                           rendered="#{maskedTextShowcase.selectedInputMaskType eq 'CURRENCY_BY_DATA'}">
-                <strong>Attention:</strong> You can use JSF 2.2 passthrough attributes to configure jQuery input mask plugin. Example could be find <a href="http://robinherbots.github.io/jquery.inputmask/" target="_blank">here</a>.
+                <strong>Attention:</strong> You can use JSF 2.2 passthrough attributes to configure jQuery input mask plugin. Example could be find
+                <a href="http://robinherbots.github.io/jquery.inputmask/" target="_blank">here</a>.
             </h:panelGroup>
 
             <b:maskedText id="text"
@@ -173,6 +188,6 @@
 
     <ui:define name="other">
         <common:codeExamples component="#{maskedTextShowcase}"/>
-        <b:activateLibraries />
+        <b:activateLibraries/>
     </ui:define>
 </ui:composition>

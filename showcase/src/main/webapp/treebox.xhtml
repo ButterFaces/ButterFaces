@@ -18,12 +18,21 @@
             <common:tagStringControl label="label" value="#{treeBoxShowcase.label}"/>
             <common:tagStringControl label="spinnerText" value="#{treeBoxShowcase.spinnerText}"/>
             <common:tagStringControl label="noEntriesText" value="#{treeBoxShowcase.noEntriesText}"/>
-            <!--common:tagStringControl label="inputTextProperty" value="#{treeBoxShowcase.inputTextProperty}"/-->
-            <b:checkBox label="hideLabel" value="#{treeBoxShowcase.hideLabel}"/>
-            <b:checkBox label="readonly" value="#{treeBoxShowcase.readonly}"/>
-            <b:checkBox label="required" value="#{treeBoxShowcase.required}"/>
-            <b:checkBox label="disabled" value="#{treeBoxShowcase.disabled}"/>
-            <b:checkBox label="rendered" value="#{treeBoxShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{treeBoxShowcase.hideLabel}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{treeBoxShowcase.readonly}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{treeBoxShowcase.required}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{treeBoxShowcase.disabled}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{treeBoxShowcase.rendered}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                    value="#{treeBoxShowcase.styleClass}"
                                    values="#{treeBoxShowcase.styleClasses}"/>
@@ -31,7 +40,9 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{treeBoxShowcase.placeholder}"/>
-            <b:checkBox label="autofocus" value="#{treeBoxShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{treeBoxShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -52,8 +63,12 @@
                                    value="#{treeBoxShowcase.selectedFacetType}"
                                    values="#{treeBoxShowcase.availableFacetTypes}"
                                    renderChildrenPopover="false"/>
-            <b:checkBox label="validate" value="#{treeBoxShowcase.validation}"/>
-            <b:checkBox label="showClearButton" value="#{treeBoxShowcase.showClearButton}"/>
+            <b:checkBox label="validate" value="#{treeBoxShowcase.validation}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showClearButton" value="#{treeBoxShowcase.showClearButton}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 
