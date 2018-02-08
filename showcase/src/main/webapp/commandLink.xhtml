@@ -14,7 +14,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="value" value="#{commandLinkShowcase.value}"/>
+            <b:text label="value" value="#{commandLinkShowcase.value}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="disabled" value="#{commandLinkShowcase.disabled}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -36,10 +38,12 @@
             <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagStringControl label="ajaxProcessingTextOnRequest"
-                                       value="#{commandLinkShowcase.ajaxProcessingText}"/>
-            <common:tagStringControl label="ajaxProcessingGlyphicon"
-                                       value="#{commandLinkShowcase.ajaxProcessingGlyphicon}"/>
+            <b:text label="ajaxProcessingTextOnRequest" value="#{commandLinkShowcase.ajaxProcessingText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="ajaxProcessingGlyphicon" value="#{commandLinkShowcase.ajaxProcessingGlyphicon}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

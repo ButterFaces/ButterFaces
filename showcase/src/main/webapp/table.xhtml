@@ -23,8 +23,12 @@
             <b:checkBox label="tableStriped" value="#{tableShowcase.tableStriped}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
-            <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
+            <b:text label="refreshTooltip" value="#{tableShowcase.refreshTooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>

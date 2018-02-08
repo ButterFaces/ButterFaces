@@ -12,7 +12,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{textAreaShowcase.label}"/>
+            <b:text label="label" value="#{textAreaShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="hideLabel" value="#{textAreaShowcase.hideLabel}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -28,7 +30,9 @@
             <b:checkBox label="rendered" value="#{textAreaShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagStringControl label="maxLength" value="#{textAreaShowcase.maxLength}"/>
+            <b:text label="maxLength" value="#{textAreaShowcase.maxLength}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}"/>
             <common:tagEnumControl label="styleClass"
                                    value="#{textAreaShowcase.styleClass}"
@@ -36,7 +40,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{textAreaShowcase.placeholder}"/>
+            <b:text label="placeholder" value="#{textAreaShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="autofocus" value="#{textAreaShowcase.autoFocus}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -49,7 +55,9 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{textAreaShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="validate" value="#{textAreaShowcase.validation}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>

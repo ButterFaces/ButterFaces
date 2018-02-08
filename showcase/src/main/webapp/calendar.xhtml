@@ -17,7 +17,7 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <b:text label="label" value="#{calendarShowcase.label}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="hideLabel" value="#{calendarShowcase.hideLabel}">
                 <f:ajax execute="@this" render="output"/>
@@ -49,15 +49,18 @@
             <common:tagEnumControl label="language"
                                    value="#{calendarShowcase.language}"
                                    values="#{calendarShowcase.languageExamples}"/>
-            <common:tagStringControl label="format"
-                                     value="#{calendarShowcase.format}"/>
+            <b:text label="format" value="#{calendarShowcase.format}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <common:tagEnumControl label="glyphicon"
                                    value="#{calendarShowcase.selectedIconType}"
                                    values="#{calendarShowcase.calendarIconTypes}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
+            <b:text label="placeholder" value="#{calendarShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="autofocus" value="#{calendarShowcase.autoFocus}"/>
         </common:tagsContainer>
 
@@ -68,7 +71,9 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{calendarShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{calendarShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 

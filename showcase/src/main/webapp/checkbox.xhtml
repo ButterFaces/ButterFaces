@@ -12,8 +12,12 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
-            <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
+            <b:text label="label" value="#{checkBoxShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="description" value="#{checkBoxShowcase.description}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="switch" value="#{checkBoxShowcase.asSwitch}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -50,7 +54,9 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{checkBoxShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 

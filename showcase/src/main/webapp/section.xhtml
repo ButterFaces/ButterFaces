@@ -12,8 +12,10 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{sectionShowcase.label}"/>
-            <common:tagStringControl label="badgeText" value="#{sectionShowcase.badgeText}"/>
+            <b:text label="label" value="#{sectionShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="badgeText" value="#{sectionShowcase.badgeText}"/>
             <b:checkBox label="rendered" value="#{sectionShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>

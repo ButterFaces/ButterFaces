@@ -13,7 +13,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{textShowcase.label}"/>
+            <b:text label="label" value="#{textShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="hideLabel" value="#{textShowcase.hideLabel}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -35,11 +37,21 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
-            <common:tagStringControl label="type" value="#{textShowcase.type}"/>
-            <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
-            <common:tagStringControl label="min" value="#{textShowcase.min}"/>
-            <common:tagStringControl label="max" value="#{textShowcase.max}"/>
+            <b:text label="placeholder" value="#{textShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="type" value="#{textShowcase.type}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="pattern" value="#{textShowcase.pattern}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="min" value="#{textShowcase.min}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="max" value="#{textShowcase.max}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="autofocus" value="#{textShowcase.autoFocus}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -52,7 +64,9 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Add ajax child"
                                    popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{textShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <common:tagEnumControl label="facets"
                                    value="#{textShowcase.selectedFacetType}"
                                    values="#{textShowcase.availableFacetTypes}"

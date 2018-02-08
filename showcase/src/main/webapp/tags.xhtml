@@ -11,7 +11,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{tagsShowcase.label}"/>
+            <b:text label="label" value="#{tagsShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="hideLabel" value="#{tagsShowcase.hideLabel}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -31,12 +33,18 @@
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
             <b:checkBox label="distinct" value="#{tagsShowcase.distinct}"/>
-            <common:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
-            <common:tagStringControl label="confirmKeys" value="#{tagsShowcase.confirmKeys}"/>
+            <b:text label="maxTags" value="#{tagsShowcase.maxTags}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="confirmKeys" value="#{tagsShowcase.confirmKeys}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
+            <b:text label="placeholder" value="#{tagsShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="autofocus" value="#{tagsShowcase.autoFocus}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -53,7 +61,9 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent" />
-            <common:tagStringControl label="tooltip" value="#{tagsShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{tagsShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 

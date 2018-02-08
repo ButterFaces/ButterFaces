@@ -20,9 +20,15 @@
             <b:checkBox label="hideRootNode" value="#{treeShowcase.hideRootNode}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
-            <common:tagStringControl label="spinnerText" value="#{treeShowcase.spinnerText}"/>
-            <common:tagStringControl label="noEntriesText" value="#{treeShowcase.noEntriesText}"/>
+            <b:text label="placeholder" value="#{treeShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="spinnerText" value="#{treeShowcase.spinnerText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="noEntriesText" value="#{treeShowcase.noEntriesText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <common:tagEnumControl label="searchBarMode"
                                    value="#{treeShowcase.selectedSearchBarModeType}"
                                    values="#{treeShowcase.seachBarModeTypes}"/>

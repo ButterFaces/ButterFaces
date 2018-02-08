@@ -12,10 +12,18 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="title" value="#{tooltipShowcase.title}"/>
-            <common:tagStringControl label="trigger" value="#{tooltipShowcase.trigger}"/>
-            <common:tagStringControl label="placement" value="#{tooltipShowcase.placement}"/>
-            <common:tagStringControl label="viewport" value="#{tooltipShowcase.viewport}"/>
+            <b:text label="title" value="#{tooltipShowcase.title}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="trigger" value="#{tooltipShowcase.trigger}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="placement" value="#{tooltipShowcase.placement}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="viewport" value="#{tooltipShowcase.viewport}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="rendered" value="#{tooltipShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>

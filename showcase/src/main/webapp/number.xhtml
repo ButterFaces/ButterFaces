@@ -11,7 +11,9 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{numberShowcase.label}"/>
+            <b:text label="label" value="#{numberShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="hideLabel" value="#{numberShowcase.hideLabel}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -27,16 +29,24 @@
             <b:checkBox label="rendered" value="#{numberShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagStringControl label="min" value="#{numberShowcase.min}"/>
-            <common:tagStringControl label="max" value="#{numberShowcase.max}"/>
-            <common:tagStringControl label="step" value="#{numberShowcase.step}"/>
+            <b:text label="min" value="#{numberShowcase.min}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="max" value="#{numberShowcase.max}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="step" value="#{numberShowcase.step}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <common:tagEnumControl label="styleClass"
                                      value="#{numberShowcase.styleClass}"
                                      values="#{numberShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
+            <b:text label="placeholder" value="#{numberShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="autofocus" value="#{numberShowcase.autoFocus}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
@@ -49,7 +59,9 @@
                                      renderChildrenPopover="true"
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{numberShowcase.tooltip}"/>
+            <b:text label="tooltip" value="#{numberShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 

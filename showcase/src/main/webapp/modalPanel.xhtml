@@ -11,8 +11,12 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="title" value="#{modalPanelShowcase.title}"/>
-            <common:tagStringControl label="cancelButtonText" value="#{modalPanelShowcase.cancelButtonText}"/>
+            <b:text label="title" value="#{modalPanelShowcase.title}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="cancelButtonText" value="#{modalPanelShowcase.cancelButtonText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="rendered" value="#{modalPanelShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
