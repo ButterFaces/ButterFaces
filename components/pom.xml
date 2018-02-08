@@ -113,12 +113,10 @@
                                     <directory>nodejs</directory>
                                     <followSymlinks>false</followSymlinks>
                                     <excludes>
-                                        <exclude>bower.json</exclude>
+                                        <exclude>src/**/*</exclude>
                                         <exclude>gulpfile.js</exclude>
                                         <exclude>package.json</exclude>
-                                        <exclude>tsd.json</exclude>
                                         <exclude>tslint.json</exclude>
-                                        <exclude>.tsdrc</exclude>
                                     </excludes>
                                 </fileset>
                             </filesets>
