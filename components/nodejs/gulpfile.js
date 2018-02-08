@@ -7,7 +7,6 @@
 
 var gulp = require("gulp");
 var merge = require("merge-stream");
-var tsd = require("gulp-tsd");
 var ts = require("gulp-typescript");
 var concat = require("gulp-concat");
 var sourcemaps = require("gulp-sourcemaps");
@@ -88,7 +87,6 @@ var paths = {
         bundle_dev_js: RESSOURCE_DIR + "/butterfaces-dist-bundle-dev-js",
         npm: NODEJS_RESSOURCE_DIR + "/butterfaces-dist-npm",
         npm_font: RESSOURCE_DIR + "/fonts",
-        ts_external_definitions: NODEJS_RESSOURCE_DIR + "/butterfaces-ts/definitions/external"
     }
 };
 
@@ -102,8 +100,7 @@ gulp.task("clean", function (cb) {
             paths.destination.npm,
             paths.destination.npm_font,
             paths.destination.bundle_js,
-            paths.destination.bundle_dev_js,
-            paths.destination.ts_external_definitions
+            paths.destination.bundle_dev_js
         ],
         {force: true}, cb);
 });
@@ -167,14 +164,7 @@ gulp.task("npm:copyDependenciesToDist", function () {
     return merge(copyDependenciesToDist, copyGlyphiconsToDist, copyFontDependenciesToDist);
 });
 
-gulp.task("typescript:loadDefinitions", function (callback) {
-    tsd({
-        command: "reinstall",
-        config: "./tsd.json"
-    }, callback);
-});
-
-gulp.task("typescript:lint", ["typescript:loadDefinitions"], function () {
+gulp.task("typescript:lint", function () {
     return gulp.src([
         paths.source.typescripts,
         "!" + paths.destination.ts_external_definitions + "/**/*.ts"
