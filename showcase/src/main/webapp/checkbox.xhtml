@@ -14,19 +14,19 @@
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
             <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
-            <common:tagBooleanControl label="switch" value="#{checkBoxShowcase.asSwitch}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{checkBoxShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
+            <b:checkBox label="switch" value="#{checkBoxShowcase.asSwitch}" />
+            <b:checkBox label="hideLabel" value="#{checkBoxShowcase.hideLabel}" />
+            <b:checkBox label="readonly" value="#{checkBoxShowcase.readonly}" />
+            <b:checkBox label="required" value="#{checkBoxShowcase.required}" />
+            <b:checkBox label="disabled" value="#{checkBoxShowcase.disabled}" />
+            <b:checkBox label="rendered" value="#{checkBoxShowcase.rendered}" />
             <common:tagEnumControl label="styleClass"
                                      value="#{checkBoxShowcase.styleClass}"
                                      values="#{checkBoxShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagBooleanControl label="autofocus" value="#{checkBoxShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{checkBoxShowcase.autoFocus}" />
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag control">

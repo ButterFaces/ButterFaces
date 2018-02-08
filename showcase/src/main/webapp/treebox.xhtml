@@ -19,11 +19,11 @@
             <common:tagStringControl label="spinnerText" value="#{treeBoxShowcase.spinnerText}"/>
             <common:tagStringControl label="noEntriesText" value="#{treeBoxShowcase.noEntriesText}"/>
             <!--common:tagStringControl label="inputTextProperty" value="#{treeBoxShowcase.inputTextProperty}"/-->
-            <common:tagBooleanControl label="hideLabel" value="#{treeBoxShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{treeBoxShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{treeBoxShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{treeBoxShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{treeBoxShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{treeBoxShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{treeBoxShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{treeBoxShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{treeBoxShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{treeBoxShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
                                    value="#{treeBoxShowcase.styleClass}"
                                    values="#{treeBoxShowcase.styleClasses}"/>
@@ -31,7 +31,7 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{treeBoxShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{treeBoxShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{treeBoxShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -52,10 +52,8 @@
                                    value="#{treeBoxShowcase.selectedFacetType}"
                                    values="#{treeBoxShowcase.availableFacetTypes}"
                                    renderChildrenPopover="false"/>
-            <common:tagBooleanControl label="validate"
-                                      value="#{treeBoxShowcase.validation}"/>
-            <common:tagBooleanControl label="showClearButton"
-                                      value="#{treeBoxShowcase.showClearButton}"/>
+            <b:checkBox label="validate" value="#{treeBoxShowcase.validation}"/>
+            <b:checkBox label="showClearButton" value="#{treeBoxShowcase.showClearButton}"/>
         </common:tagsContainer>
     </ui:define>
 

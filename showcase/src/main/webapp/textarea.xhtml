@@ -13,13 +13,13 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{textAreaShowcase.label}" />
-            <common:tagBooleanControl label="hideLabel" value="#{textAreaShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{textAreaShowcase.readonly}" />
-            <common:tagBooleanControl label="required" value="#{textAreaShowcase.required}" />
-            <common:tagBooleanControl label="disabled" value="#{textAreaShowcase.disabled}" />
-            <common:tagBooleanControl label="rendered" value="#{textAreaShowcase.rendered}" />
+            <b:checkBox label="hideLabel" value="#{textAreaShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{textAreaShowcase.readonly}" />
+            <b:checkBox label="required" value="#{textAreaShowcase.required}" />
+            <b:checkBox label="disabled" value="#{textAreaShowcase.disabled}" />
+            <b:checkBox label="rendered" value="#{textAreaShowcase.rendered}" />
             <common:tagStringControl label="maxLength" value="#{textAreaShowcase.maxLength}" />
-            <common:tagBooleanControl label="expandable" value="#{textAreaShowcase.expandable}" />
+            <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}" />
             <common:tagEnumControl label="styleClass"
                                      value="#{textAreaShowcase.styleClass}"
                                      values="#{textAreaShowcase.styleClasses}"/>
@@ -27,7 +27,7 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{textAreaShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{textAreaShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{textAreaShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -38,7 +38,7 @@
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{textAreaShowcase.tooltip}" />
-            <common:tagBooleanControl label="validate" value="#{textAreaShowcase.validation}" />
+            <b:checkBox label="validate" value="#{textAreaShowcase.validation}" />
         </common:tagsContainer>
     </ui:define>
 

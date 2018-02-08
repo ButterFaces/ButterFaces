@@ -12,8 +12,8 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{labeledContainerShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{labeledContainerShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="rendered" value="#{labeledContainerShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{labeledContainerShowcase.hideLabel}" />
+            <b:checkBox label="rendered" value="#{labeledContainerShowcase.rendered}" />
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

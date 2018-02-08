@@ -12,11 +12,11 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{radioBoxShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{radioBoxShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{radioBoxShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{radioBoxShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{radioBoxShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{radioBoxShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{radioBoxShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
                                    value="#{radioBoxShowcase.styleClass}"
                                    values="#{radioBoxShowcase.styleClasses}"/>

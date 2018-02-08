@@ -12,11 +12,11 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{numberShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{numberShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{numberShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{numberShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{numberShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{numberShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{numberShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{numberShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{numberShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{numberShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{numberShowcase.rendered}"/>
             <common:tagStringControl label="min" value="#{numberShowcase.min}"/>
             <common:tagStringControl label="max" value="#{numberShowcase.max}"/>
             <common:tagStringControl label="step" value="#{numberShowcase.step}"/>
@@ -27,7 +27,7 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{numberShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{numberShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{numberShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

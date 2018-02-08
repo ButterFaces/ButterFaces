@@ -14,14 +14,14 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{calendarShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{calendarShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{calendarShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{calendarShowcase.required}"/>
-            <common:tagBooleanControl label="rendered" value="#{calendarShowcase.rendered}"/>
-            <common:tagBooleanControl label="disabled" value="#{calendarShowcase.disabled}"/>
-            <common:tagBooleanControl label="pickDate" value="#{calendarShowcase.pickDate}"/>
-            <common:tagBooleanControl label="pickTime" value="#{calendarShowcase.pickTime}"/>
-            <common:tagBooleanControl label="sideBySide" value="#{calendarShowcase.sideBySise}"/>
+            <b:checkBox label="hideLabel" value="#{calendarShowcase.hideLabel}" />
+            <b:checkBox label="readonly" value="#{calendarShowcase.readonly}" />
+            <b:checkBox label="required" value="#{calendarShowcase.required}" />
+            <b:checkBox label="disabled" value="#{calendarShowcase.disabled}" />
+            <b:checkBox label="rendered" value="#{calendarShowcase.rendered}" />
+            <b:checkBox label="pickDate" value="#{calendarShowcase.pickDate}" />
+            <b:checkBox label="pickTime" value="#{calendarShowcase.pickTime}" />
+            <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySise}" />
             <common:tagEnumControl label="styleClass"
                                    value="#{calendarShowcase.styleClass}"
                                    values="#{calendarShowcase.styleClasses}"/>
@@ -37,7 +37,7 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{calendarShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{calendarShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{calendarShowcase.autoFocus}" />
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

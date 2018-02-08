@@ -11,13 +11,13 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{tableShowcase.rendered}"/>
-            <common:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
-            <common:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
-            <common:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
+            <b:checkBox label="rendered" value="#{tableShowcase.rendered}"/>
+            <b:checkBox label="tableBordered" value="#{tableShowcase.tableBordered}"/>
+            <b:checkBox label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
+            <b:checkBox label="tableStriped" value="#{tableShowcase.tableStriped}"/>
             <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
             <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
-            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
+            <b:checkBox label="ajaxDisableRenderRegionsOnRequest"
                                       value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
         </common:tagsContainer>
 
@@ -34,11 +34,11 @@
             <common:tagEnumControl label="toolbar facets"
                                    value="#{tableShowcase.toolbarFacetType}"
                                    values="#{tableShowcase.toolBarFacetTypes}"/>
-            <common:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
-            <common:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
-            <common:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
-            <common:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
-            <common:tagBooleanControl label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
+            <b:checkBox label="use table model" value="#{tableShowcase.useTableModel}"/>
+            <b:checkBox label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
+            <b:checkBox label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
+            <b:checkBox label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
+            <b:checkBox label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
         </common:tagsContainer>
     </ui:define>
 

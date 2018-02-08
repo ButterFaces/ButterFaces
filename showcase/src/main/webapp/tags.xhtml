@@ -12,22 +12,22 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{tagsShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{tagsShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{tagsShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{tagsShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{tagsShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{tagsShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{tagsShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{tagsShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{tagsShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
                                      value="#{tagsShowcase.styleClass}"
                                      values="#{tagsShowcase.styleClasses}"/>
-            <common:tagBooleanControl label="distinct" value="#{tagsShowcase.distinct}"/>
+            <b:checkBox label="distinct" value="#{tagsShowcase.distinct}"/>
             <common:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
             <common:tagStringControl label="confirmKeys" value="#{tagsShowcase.confirmKeys}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{tagsShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{tagsShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">

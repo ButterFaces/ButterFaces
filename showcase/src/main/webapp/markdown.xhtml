@@ -14,11 +14,11 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{markdownShowcase.label}" />
-            <common:tagBooleanControl label="hideLabel" value="#{markdownShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{markdownShowcase.readonly}" />
-            <common:tagBooleanControl label="required" value="#{markdownShowcase.required}" />
-            <common:tagBooleanControl label="disabled" value="#{markdownShowcase.disabled}" />
-            <common:tagBooleanControl label="rendered" value="#{markdownShowcase.rendered}" />
+            <b:checkBox label="hideLabel" value="#{markdownShowcase.hideLabel}" />
+            <b:checkBox label="readonly" value="#{markdownShowcase.readonly}" />
+            <b:checkBox label="required" value="#{markdownShowcase.required}" />
+            <b:checkBox label="disabled" value="#{markdownShowcase.disabled}" />
+            <b:checkBox label="rendered" value="#{markdownShowcase.rendered}" />
             <common:tagStringControl label="maxLength" value="#{markdownShowcase.maxLength}" />
             <common:tagStringControl label="language" value="#{markdownShowcase.language}"/>
             <common:tagEnumControl label="styleClass"
@@ -28,7 +28,7 @@
 
         <common:tagsContainer label="HTML5 tag attributes">
             <common:tagStringControl label="placeholder" value="#{markdownShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{markdownShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{markdownShowcase.autoFocus}" />
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -39,7 +39,7 @@
                                      popoverTitle="Add ajax child"
                                      popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{markdownShowcase.tooltip}" />
-            <common:tagBooleanControl label="validate" value="#{markdownShowcase.validation}" />
+            <b:checkBox label="validate" value="#{markdownShowcase.validation}" />
         </common:tagsContainer>
     </ui:define>
 
