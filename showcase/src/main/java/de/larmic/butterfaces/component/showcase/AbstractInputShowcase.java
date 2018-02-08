@@ -1,14 +1,14 @@
 package de.larmic.butterfaces.component.showcase;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.model.SelectItem;
+
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.AjaxType;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.model.SelectItem;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
@@ -62,7 +62,7 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         return items;
     }
 
-    public List<SelectItem> getLanguageExamples() {
+    public List<SelectItem> getLocaleExamples() {
         final List<SelectItem> items = new ArrayList<>();
 
         items.add(new SelectItem("en", "english (default)"));
@@ -76,7 +76,7 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         if (this.isAjax()) {
             final String execute = AjaxType.THIS == this.ajaxType ? "@this" : "input";
             codeExample.appendInnerContent(
-                    "            <f:ajax event=\"" + event + "\" execute=\"" + execute + "\" render=\"output\"/>");
+                "            <f:ajax event=\"" + event + "\" execute=\"" + execute + "\" render=\"output\"/>");
         }
     }
 
@@ -126,6 +126,10 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         return this.required;
     }
 
+    public void setRequired(final boolean required) {
+        this.required = required;
+    }
+
     @Override
     public boolean isDisabled() {
         return disabled;
@@ -134,10 +138,6 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
     @Override
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
-    }
-
-    public void setRequired(final boolean required) {
-        this.required = required;
     }
 
     public boolean isValidation() {

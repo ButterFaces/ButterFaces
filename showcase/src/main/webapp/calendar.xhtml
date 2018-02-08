@@ -11,7 +11,7 @@
         href="http://eonasdan.github.io/bootstrap-datetimepicker/"
         target="_blank">Bootstrap Datepicker</a> as jQuery plugin
         <p>See <a href="https://github.com/moment/moment/tree/develop/locale"
-                  target="_blank">Moment JS</a> for detailed language support.</p>
+                  target="_blank">Moment JS</a> for detailed locale support.</p>
     </ui:define>
 
     <ui:define name="tagsContainers">
@@ -40,16 +40,19 @@
             <b:checkBox label="pickTime" value="#{calendarShowcase.pickTime}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySise}">
+            <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySide}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
             <common:tagEnumControl label="styleClass"
                                    value="#{calendarShowcase.styleClass}"
                                    values="#{calendarShowcase.styleClasses}"/>
-            <common:tagEnumControl label="language"
-                                   value="#{calendarShowcase.language}"
-                                   values="#{calendarShowcase.languageExamples}"/>
+            <common:tagEnumControl label="locale"
+                                   value="#{calendarShowcase.locale}"
+                                   values="#{calendarShowcase.localeExamples}"/>
             <b:text label="format" value="#{calendarShowcase.format}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="viewMode" value="#{calendarShowcase.viewMode}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <common:tagEnumControl label="glyphicon"
@@ -89,15 +92,16 @@
 
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
-                        language="#{calendarShowcase.language}"
+                        locale="#{calendarShowcase.locale}"
                         format="#{calendarShowcase.format}"
-                        glyphiconTime="#{calendarShowcase.glyphiconTime}"
-                        glyphiconDate="#{calendarShowcase.glyphiconDate}"
-                        glyphiconUp="#{calendarShowcase.glyphiconUp}"
-                        glyphiconDown="#{calendarShowcase.glyphiconDown}"
+                        viewMode="#{calendarShowcase.viewMode}"
+                        iconTime="#{calendarShowcase.iconTime}"
+                        iconDate="#{calendarShowcase.iconDate}"
+                        iconUp="#{calendarShowcase.iconUp}"
+                        iconDown="#{calendarShowcase.iconDown}"
                         pickDate="#{calendarShowcase.pickDate}"
                         pickTime="#{calendarShowcase.pickTime}"
-                        sideBySide="#{calendarShowcase.sideBySise}"
+                        sideBySide="#{calendarShowcase.sideBySide}"
                         hideLabel="#{calendarShowcase.hideLabel}"
                         value="#{calendarShowcase.value}"
                         readonly="#{calendarShowcase.readonly}"

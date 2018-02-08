@@ -18,17 +18,18 @@ import de.larmic.butterfaces.util.StringUtils;
 public class CalendarShowcase extends AbstractInputShowcase implements Serializable {
 
     private CalendarIconType selectedIconType = CalendarIconType.DEFAULT;
-    private String glyphiconDate = null;
-    private String glyphiconTime = null;
-    private String glyphiconUp = null;
-    private String glyphiconDown = null;
+    private String iconDate = null;
+    private String iconTime = null;
+    private String iconUp = null;
+    private String iconDown = null;
     private String placeholder = "Enter date or click icon...";
     private boolean autoFocus;
     private boolean pickDate = true;
     private boolean pickTime = true;
-    private boolean sideBySise = false;
-    private String language = "en";
+    private boolean sideBySide = false;
+    private String locale = "en";
     private String format = null;
+    private String viewMode = null;
 
     @Override
     protected Object initValue() {
@@ -52,29 +53,32 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    value=\"" + getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
-        xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySise + "\"");
-        if(StringUtils.isNotEmpty(language)) {
-            xhtmlCodeExample.appendInnerContent("                    language=\"" + language + "\"");
+        xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySide + "\"");
+        if (StringUtils.isNotEmpty(locale)) {
+            xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale + "\"");
         }
-        if(StringUtils.isNotEmpty(format)){
+        if (StringUtils.isNotEmpty(format)) {
             xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
         }
-        if(StringUtils.isNotEmpty(glyphiconDate)) {
-            xhtmlCodeExample.appendInnerContent("                    glyphiconDate=\"" + glyphiconDate + "\"");
+        if (StringUtils.isNotEmpty(viewMode)) {
+            xhtmlCodeExample.appendInnerContent("                    viewMode=\"" + viewMode + "\"");
         }
-        if(StringUtils.isNotEmpty(glyphiconTime)) {
-            xhtmlCodeExample.appendInnerContent("                    glyphiconTime=\"" + glyphiconTime + "\"");
+        if (StringUtils.isNotEmpty(iconDate)) {
+            xhtmlCodeExample.appendInnerContent("                    iconDate=\"" + iconDate + "\"");
         }
-        if(StringUtils.isNotEmpty(glyphiconUp)) {
-            xhtmlCodeExample.appendInnerContent("                    glyphiconUp=\"" + glyphiconUp + "\"");
+        if (StringUtils.isNotEmpty(iconTime)) {
+            xhtmlCodeExample.appendInnerContent("                    iconTime=\"" + iconTime + "\"");
         }
-        if(StringUtils.isNotEmpty(glyphiconDown)) {
-            xhtmlCodeExample.appendInnerContent("                    glyphiconDown=\"" + glyphiconDown + "\"");
+        if (StringUtils.isNotEmpty(iconUp)) {
+            xhtmlCodeExample.appendInnerContent("                    iconUp=\"" + iconUp + "\"");
         }
-        if(StringUtils.isNotEmpty(getPlaceholder())) {
+        if (StringUtils.isNotEmpty(iconDown)) {
+            xhtmlCodeExample.appendInnerContent("                    iconDown=\"" + iconDown + "\"");
+        }
+        if (StringUtils.isNotEmpty(getPlaceholder())) {
             xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + getPlaceholder() + "\"");
         }
-        if(StringUtils.isNotEmpty(getStyleClass())) {
+        if (StringUtils.isNotEmpty(getStyleClass())) {
             xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
         }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + isReadonly() + "\"");
@@ -145,12 +149,12 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.pickTime = pickTime;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getLocale() {
+        return locale;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     public String getFormat() {
@@ -161,6 +165,14 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.format = format;
     }
 
+    public String getViewMode() {
+        return viewMode;
+    }
+
+    public void setViewMode(String viewMode) {
+        this.viewMode = viewMode;
+    }
+
     public CalendarIconType getSelectedIconType() {
         return selectedIconType;
     }
@@ -169,41 +181,41 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.selectedIconType = selectedIconType;
         switch (selectedIconType) {
             case DEFAULT:
-                glyphiconDate = null;
-                glyphiconTime = null;
-                glyphiconUp = null;
-                glyphiconDown = null;
+                iconDate = null;
+                iconTime = null;
+                iconUp = null;
+                iconDown = null;
                 break;
             case AWESOME:
-                glyphiconDate = "fa fa-calendar";
-                glyphiconTime = "fa fa-clock-o";
-                glyphiconUp = "fa fa-chevron-up";
-                glyphiconDown = "fa fa-chevron-down";
+                iconDate = "fa fa-calendar";
+                iconTime = "fa fa-clock-o";
+                iconUp = "fa fa-chevron-up";
+                iconDown = "fa fa-chevron-down";
                 break;
         }
     }
 
-    public String getGlyphiconTime() {
-        return glyphiconTime;
+    public String getIconTime() {
+        return iconTime;
     }
 
-    public String getGlyphiconDate() {
-        return glyphiconDate;
+    public String getIconDate() {
+        return iconDate;
     }
 
-    public String getGlyphiconUp() {
-        return glyphiconUp;
+    public String getIconUp() {
+        return iconUp;
     }
 
-    public String getGlyphiconDown() {
-        return glyphiconDown;
+    public String getIconDown() {
+        return iconDown;
     }
 
-    public boolean isSideBySise() {
-        return sideBySise;
+    public boolean isSideBySide() {
+        return sideBySide;
     }
 
-    public void setSideBySise(boolean sideBySise) {
-        this.sideBySise = sideBySise;
+    public void setSideBySide(boolean sideBySide) {
+        this.sideBySide = sideBySide;
     }
 }

@@ -1,22 +1,22 @@
 package de.larmic.butterfaces.component.html.text;
 
+import java.util.Arrays;
+import java.util.List;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.FacesComponent;
+
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-import java.util.Arrays;
-import java.util.List;
-
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head")
+    @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head")
 })
 @FacesComponent(HtmlCalendar.COMPONENT_TYPE)
 public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFocus, Placeholder {
@@ -25,15 +25,16 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
     public static final String COMPONENT_FAMILY = "de.larmic.butterfaces.component.family";
     public static final String RENDERER_TYPE = "de.larmic.butterfaces.component.renderkit.html_basic.CalendarRenderer";
 
-    protected static final String PROPERTY_GLYPHICON_TIME = "glyphiconTime";
-    protected static final String PROPERTY_GLYPHICON_DATE = "glyphiconDate";
-    protected static final String PROPERTY_GLYPHICON_UP = "glyphiconUp";
-    protected static final String PROPERTY_GLYPHICON_DOWN = "glyphiconDown";
+    protected static final String PROPERTY_ICON_TIME = "iconTime";
+    protected static final String PROPERTY_ICON_DATE = "iconDate";
+    protected static final String PROPERTY_ICON_UP = "iconUp";
+    protected static final String PROPERTY_ICON_DOWN = "iconDown";
     protected static final String PROPERTY_PICK_DATE = "pickDate";
     protected static final String PROPERTY_PICK_TIME = "pickTime";
-    protected static final String PROPERTY_LANGUAGE = "language";
+    protected static final String PROPERTY_LOCALE = "locale";
     protected static final String PROPERTY_FORMAT = "format";
     protected static final String PROPERTY_SIDE_BY_SIDE = "sideBySide";
+    protected static final String PROPERTY_VIEW_MODE = "viewMode";
 
     public HtmlCalendar() {
         super();
@@ -56,7 +57,6 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
 
     public void setPickDate(boolean pickDate) {
         getStateHelper().put(PROPERTY_PICK_DATE, pickDate);
-        ;
     }
 
     public boolean isPickTime() {
@@ -65,7 +65,6 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
 
     public void setPickTime(boolean pickTime) {
         getStateHelper().put(PROPERTY_PICK_TIME, pickTime);
-        ;
     }
 
     public boolean isSideBySide() {
@@ -76,12 +75,20 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
         getStateHelper().put(PROPERTY_SIDE_BY_SIDE, sideBySide);
     }
 
-    public String getLanguage() {
-        return (String) this.getStateHelper().eval(PROPERTY_LANGUAGE);
+    public String getViewMode() {
+        return (String) this.getStateHelper().eval(PROPERTY_VIEW_MODE);
     }
 
-    public void setLanguage(String language) {
-        this.updateStateHelper(PROPERTY_LANGUAGE, language);
+    public void setViewMode(String getViewMode) {
+        getStateHelper().put(PROPERTY_VIEW_MODE, getViewMode);
+    }
+
+    public String getLocale() {
+        return (String) this.getStateHelper().eval(PROPERTY_LOCALE);
+    }
+
+    public void setLocale(String locale) {
+        this.updateStateHelper(PROPERTY_LOCALE, locale);
     }
 
     public String getFormat() {
@@ -92,36 +99,36 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
         this.updateStateHelper(PROPERTY_FORMAT, format);
     }
 
-    public String getGlyphiconTime() {
-        return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_TIME);
+    public String getIconTime() {
+        return (String) this.getStateHelper().eval(PROPERTY_ICON_TIME);
     }
 
-    public void setGlyphiconTime(final String glyphicon) {
-        this.updateStateHelper(PROPERTY_GLYPHICON_TIME, glyphicon);
+    public void setIconTime(final String icon) {
+        this.updateStateHelper(PROPERTY_ICON_TIME, icon);
     }
 
-    public String getGlyphiconDate() {
-        return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_DATE);
+    public String getIconDate() {
+        return (String) this.getStateHelper().eval(PROPERTY_ICON_DATE);
     }
 
-    public void setGlyphiconDate(final String glyphicon) {
-        this.updateStateHelper(PROPERTY_GLYPHICON_DATE, glyphicon);
+    public void setIconDate(final String icon) {
+        this.updateStateHelper(PROPERTY_ICON_DATE, icon);
     }
 
-    public String getGlyphiconUp() {
-        return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_UP);
+    public String getIconUp() {
+        return (String) this.getStateHelper().eval(PROPERTY_ICON_UP);
     }
 
-    public void setGlyphiconUp(final String glyphicon) {
-        this.updateStateHelper(PROPERTY_GLYPHICON_UP, glyphicon);
+    public void setIconUp(final String icon) {
+        this.updateStateHelper(PROPERTY_ICON_UP, icon);
     }
 
-    public String getGlyphiconDown() {
-        return (String) this.getStateHelper().eval(PROPERTY_GLYPHICON_DOWN);
+    public String getIconDown() {
+        return (String) this.getStateHelper().eval(PROPERTY_ICON_DOWN);
     }
 
-    public void setGlyphiconDown(final String glyphicon) {
-        this.updateStateHelper(PROPERTY_GLYPHICON_DOWN, glyphicon);
+    public void setIconDown(final String icon) {
+        this.updateStateHelper(PROPERTY_ICON_DOWN, icon);
     }
 
     @Override

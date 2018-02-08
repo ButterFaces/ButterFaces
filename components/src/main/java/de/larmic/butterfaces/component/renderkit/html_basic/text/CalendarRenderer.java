@@ -1,19 +1,22 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
+
+    private static final Logger LOG = Logger.getLogger(CalendarRenderer.class.getName());
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -73,30 +76,35 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         return jQueryPluginCall.toString();
     }
 
-    private String createJQueryPluginCall(HtmlCalendar calendar) {
+    String createJQueryPluginCall(HtmlCalendar calendar) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String calendarDate = StringUtils.getNotNullValue(calendar.getGlyphiconDate(), "glyphicon glyphicon-calendar");
-        final String calendarTime = StringUtils.getNotNullValue(calendar.getGlyphiconTime(), "glyphicon glyphicon-time");
-        final String calendarUp = StringUtils.getNotNullValue(calendar.getGlyphiconUp(), "glyphicon glyphicon-chevron-up");
-        final String calendarDown = StringUtils.getNotNullValue(calendar.getGlyphiconDown(), "glyphicon glyphicon-chevron-down");
+        final String calendarDate = StringUtils.getNotNullValue(calendar.getIconDate(), "glyphicon glyphicon-calendar");
+        final String calendarTime = StringUtils.getNotNullValue(calendar.getIconTime(), "glyphicon glyphicon-time");
+        final String calendarUp = StringUtils.getNotNullValue(calendar.getIconUp(), "glyphicon glyphicon-chevron-up");
+        final String calendarDown = StringUtils.getNotNullValue(calendar.getIconDown(), "glyphicon glyphicon-chevron-down");
 
         jQueryPluginCall.append("datetimepicker({");
 
         if (StringUtils.isNotEmpty(calendar.getFormat())) {
-            jQueryPluginCall.append("format: \"").append(calendar.getFormat()).append("\",");
+            jQueryPluginCall.append("format: '").append(calendar.getFormat()).append("',");
         } else {
             if (calendar.isPickDate() && !calendar.isPickTime()) {
-                jQueryPluginCall.append("format: \"L\",");
+                jQueryPluginCall.append("format: 'L',");
             } else if (!calendar.isPickDate() && calendar.isPickTime()) {
-                jQueryPluginCall.append("format: \"LT\",");
+                jQueryPluginCall.append("format: 'LT',");
             }
         }
 
-        if (StringUtils.isNotEmpty(calendar.getLanguage())) {
-            jQueryPluginCall.append("locale: \"" + calendar.getLanguage() + "\",");
+        if (StringUtils.isNotEmpty(calendar.getLocale())) {
+            jQueryPluginCall.append("locale: '" + calendar.getLocale() + "',");
         }
-        jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
+        if (StringUtils.isNotEmpty(calendar.getViewMode())) {
+            jQueryPluginCall.append("viewMode: '" + calendar.getViewMode() + "',");
+        }
+        if (calendar.isSideBySide()) {
+            jQueryPluginCall.append("sideBySide: true,");
+        }
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
         jQueryPluginCall.append("date: '" + calendarDate + "',");

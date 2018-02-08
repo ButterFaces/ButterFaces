@@ -436,23 +436,23 @@
             <required>true</required>
         </attribute>
         <attribute>
-            <name>glyphiconTime</name>
+            <name>iconTime</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>glyphiconDate</name>
+            <name>iconDate</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>glyphiconUp</name>
+            <name>iconUp</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>glyphiconDown</name>
+            <name>iconDown</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <name>language</name>
+            <name>locale</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -466,6 +466,10 @@
         <attribute>
             <name>sideBySide</name>
             <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>viewMode</name>
+            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <name>hideLabel</name>
