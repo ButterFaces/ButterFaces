@@ -1,4 +1,4 @@
-///<reference path="definitions/external/tsd.d.ts"/>
+///<reference path="../../node_modules/@types/jee-jsf/index.d.ts"/>
 ///<reference path="butterfaces-overlay.ts"/>
 
 namespace ButterFaces {

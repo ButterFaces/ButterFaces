@@ -55,7 +55,6 @@
   "devDependencies": {
     "autoprefixer": "7.2.5",
     "gulp": "3.9.1",
-    "gulp-tsd": "0.1.1",
     "merge-stream": "1.0.1",
     "typescript": "2.7.1",
     "gulp-typescript": "3.2.2",
@@ -79,6 +78,8 @@
     "gulp-sizereport": "1.2.0",
     "uglify-js": "3.1.0",
     "@types/mustache": "0.8.30",
+    "@types/jquery": "3.3.0",
+    "@types/jee-jsf": "0.0.0",
     "rimraf": "2.6.2"
   }
 }
