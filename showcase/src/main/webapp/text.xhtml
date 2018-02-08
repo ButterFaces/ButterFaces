@@ -14,14 +14,14 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{textShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{textShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{textShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{textShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{textShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{textShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
-                                     value="#{textShowcase.styleClass}"
-                                     values="#{textShowcase.styleClasses}"/>
+                                   value="#{textShowcase.styleClass}"
+                                   values="#{textShowcase.styleClasses}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -30,32 +30,30 @@
             <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
             <common:tagStringControl label="min" value="#{textShowcase.min}"/>
             <common:tagStringControl label="max" value="#{textShowcase.max}"/>
-            <common:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{textShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
             <common:tagEnumControl label="ajax"
-                                     value="#{textShowcase.ajaxType}"
-                                     values="#{textShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
+                                   value="#{textShowcase.ajaxType}"
+                                   values="#{textShowcase.ajaxTypes}"
+                                   renderChildrenPopover="true"
+                                   popoverTitle="Add ajax child"
+                                   popoverContentMarkerClass="ajaxPopoverContent"/>
             <common:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
             <common:tagEnumControl label="facets"
-                                     value="#{textShowcase.selectedFacetType}"
-                                     values="#{textShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false"/>
-            <common:tagBooleanControl label="validate"
-                                        value="#{textShowcase.validation}"/>
-            <common:tagBooleanControl label="converter"
-                                        value="#{textShowcase.useConverter}"/>
+                                   value="#{textShowcase.selectedFacetType}"
+                                   values="#{textShowcase.availableFacetTypes}"
+                                   renderChildrenPopover="false"/>
+            <b:checkBox label="validate" value="#{textShowcase.validation}"/>
+            <b:checkBox label="converter" value="#{textShowcase.useConverter}"/>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent"
-                                         activeComponentNavigationId="text"
-                                         component="#{textShowcase}">
+                                       activeComponentNavigationId="text"
+                                       component="#{textShowcase}">
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
@@ -78,10 +76,10 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         listener="#{textShowcase.someListenerAction}"
-                        disabled="#{not textShowcase.ajax}" />
+                        disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcase.validation}" />
+                                  disabled="#{not textShowcase.validation}"/>
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
@@ -106,14 +104,14 @@
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         listener="#{textShowcase.someListenerAction}"
-                        disabled="#{not textShowcase.ajax}" />
+                        disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcase.validation}" />
+                                  disabled="#{not textShowcase.validation}"/>
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
-                <f:converter converterId="urlConverter" />
+                <f:converter converterId="urlConverter"/>
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
@@ -178,7 +176,8 @@
                     <button class="btn btn-outline-secondary" type="button">Go!</button>
                 </f:facet>
                 <f:facet name="input-group-btn-right">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">Action <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>

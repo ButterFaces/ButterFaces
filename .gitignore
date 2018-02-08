@@ -9,7 +9,6 @@ components/nodejs/src/butterfaces-dist-*
 components/nodejs/src/butterfaces-ts/*.js*
 components/nodejs/src/butterfaces-ts/definitions/external
 components/src/main/resources/META-INF/resources/fonts/*
-components/nodejs/bower_components
 components/nodejs/etc
 components/nodejs/node
 components/nodejs/node_modules

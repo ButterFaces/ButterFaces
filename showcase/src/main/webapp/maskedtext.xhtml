@@ -14,11 +14,11 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{maskedTextShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{maskedTextShowcase.rendered}"/>
+            <b:checkBox label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
+            <b:checkBox label="readonly" value="#{maskedTextShowcase.readonly}"/>
+            <b:checkBox label="required" value="#{maskedTextShowcase.required}"/>
+            <b:checkBox label="disabled" value="#{maskedTextShowcase.disabled}"/>
+            <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}"/>
             <common:tagEnumControl label="styleClass"
                                      value="#{maskedTextShowcase.styleClass}"
                                      values="#{maskedTextShowcase.styleClasses}"/>
@@ -30,7 +30,7 @@
             <common:tagStringControl label="pattern" value="#{maskedTextShowcase.pattern}"/>
             <common:tagStringControl label="min" value="#{maskedTextShowcase.min}"/>
             <common:tagStringControl label="max" value="#{maskedTextShowcase.max}"/>
-            <common:tagBooleanControl label="autofocus" value="#{maskedTextShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{maskedTextShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -45,7 +45,7 @@
                                      value="#{maskedTextShowcase.selectedFacetType}"
                                      values="#{maskedTextShowcase.availableFacetTypes}"
                                      renderChildrenPopover="false" />
-            <common:tagBooleanControl label="validate"
+            <b:checkBox label="validate"
                                         value="#{maskedTextShowcase.validation}"/>
             <common:tagEnumControl label="inputMask"
                                      value="#{maskedTextShowcase.selectedInputMaskType}"

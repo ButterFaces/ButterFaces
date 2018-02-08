@@ -14,8 +14,8 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{treeShowcase.rendered}"/>
-            <common:tagBooleanControl label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
+            <b:checkBox label="rendered" value="#{treeShowcase.rendered}"/>
+            <b:checkBox label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
             <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
             <common:tagStringControl label="spinnerText" value="#{treeShowcase.spinnerText}"/>
             <common:tagStringControl label="noEntriesText" value="#{treeShowcase.noEntriesText}"/>
@@ -37,7 +37,7 @@
             <common:tagEnumControl label="icons"
                                    value="#{treeShowcase.showcaseTreeNode.selectedIconType}"
                                    values="#{treeShowcase.iconTypes}"/>
-            <common:tagBooleanControl label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
+            <b:checkBox label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
         </common:tagsContainer>
     </ui:define>
 

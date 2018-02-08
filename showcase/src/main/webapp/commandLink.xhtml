@@ -15,23 +15,15 @@
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
             <common:tagStringControl label="value" value="#{commandLinkShowcase.value}"/>
-            <common:tagBooleanControl label="rendered" value="#{commandLinkShowcase.rendered}"/>
-            <common:tagBooleanControl label="disabled" value="#{commandLinkShowcase.disabled}"/>
+            <b:checkBox label="disabled" value="#{commandLinkShowcase.disabled}" />
+            <b:checkBox label="rendered" value="#{commandLinkShowcase.rendered}" />
             <common:tagEnumControl label="glyphicon"
                                      value="#{commandLinkShowcase.glyphicon}"
                                      values="#{commandLinkShowcase.glyphicons}"/>
-            <common:tagBooleanControl label="ajaxDisableLinkOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"/>
-            <common:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}"/>
-            <common:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}"/>
-            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}"/>
+            <b:checkBox label="ajaxDisableLinkOnRequest" value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}" />
+            <b:checkBox label="ajaxShowWaitingDotsOnRequest" value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}" />
+            <b:checkBox label="ajaxHideGlyphiconOnRequest" value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}" />
+            <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}" />
             <common:tagStringControl label="ajaxProcessingTextOnRequest"
                                        value="#{commandLinkShowcase.ajaxProcessingText}"/>
             <common:tagStringControl label="ajaxProcessingGlyphicon"
