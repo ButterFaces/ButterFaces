@@ -106,7 +106,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.13</version>
                 <configuration>
-                    <imageName>butterfaces/showcase</imageName>
+                    <imageName>butterfaces/showcase-snapshot</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
                     <imageTags>
@@ -195,7 +195,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <imageName>butterfaces/showcase</imageName>
+                            <imageName>butterfaces/showcase-snapshot</imageName>
                             <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                             <serverId>docker-hub</serverId>
                             <pushImage>true</pushImage>
