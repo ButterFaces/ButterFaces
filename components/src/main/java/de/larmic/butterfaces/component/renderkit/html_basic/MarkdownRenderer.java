@@ -34,7 +34,7 @@ public class MarkdownRenderer extends AbstractHtmlTagRenderer<HtmlMarkdown> {
         if (!markdown.isReadonly()) {
             writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), "textarea", createJQueryMarkdownPluginCall(markdown)), null);
         } else {
-            writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), null, createJQueryMarkdownToHtmlPluginCall()), null);
+            writer.writeText(RenderUtils.createJQueryPluginCall(markdown.getClientId(), null, "markdownReadonly()"), null);
         }
         writer.endElement("script");
 
@@ -57,7 +57,4 @@ public class MarkdownRenderer extends AbstractHtmlTagRenderer<HtmlMarkdown> {
         return jQueryPluginCall.toString();
     }
 
-    private String createJQueryMarkdownToHtmlPluginCall() {
-        return "markdownReadonly()";
-    }
 }
