@@ -18,7 +18,6 @@
     white-space: pre-wrap;
 }
 
-
 .butter-component-value-hiddenLabel {
     width: 100% !important;
 }
@@ -112,4 +111,10 @@ div.butter-component-expandable-ghost {
 .butter-component-value-hiddenLabel .input-group-addon .glyphicon,
 .butter-component-value .input-group-addon .glyphicon {
     line-height: 1.3;
+}
+
+.input-group-prepend .glyphicon,
+.input-group-append .glyphicon {
+    position: inherit;
+    display: inherit;
 }
