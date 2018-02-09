@@ -20,28 +20,28 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="hideLabel" value="#{calendarShowcase.hideLabel}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="readonly" value="#{calendarShowcase.readonly}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="required" value="#{calendarShowcase.required}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="disabled" value="#{calendarShowcase.disabled}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{calendarShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="pickDate" value="#{calendarShowcase.pickDate}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="pickTime" value="#{calendarShowcase.pickTime}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySide}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:treeBox label="styleClass" value="#{calendarShowcase.styleClass}" values="#{calendarShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
@@ -64,7 +64,7 @@
             <b:text label="placeholder" value="#{calendarShowcase.placeholder}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <b:checkBox label="autofocus" value="#{calendarShowcase.autoFocus}"/>
+            <b:checkBox event="change" label="autofocus" value="#{calendarShowcase.autoFocus}"/>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
