@@ -89,8 +89,8 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (StringUtils.isNotEmpty(calendar.getLocale())) {
             jQueryPluginCall.append("locale: '" + calendar.getLocale() + "',");
         }
-        if (StringUtils.isNotEmpty(calendar.getViewMode())) {
-            jQueryPluginCall.append("viewMode: '" + calendar.getViewMode() + "',");
+        if (calendar.getViewMode() != null) {
+            jQueryPluginCall.append("viewMode: '" + calendar.getViewMode().getValue() + "',");
         }
         if (calendar.isSideBySide()) {
             jQueryPluginCall.append("sideBySide: true,");

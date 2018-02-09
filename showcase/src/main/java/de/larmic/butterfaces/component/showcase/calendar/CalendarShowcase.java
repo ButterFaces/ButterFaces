@@ -1,5 +1,13 @@
 package de.larmic.butterfaces.component.showcase.calendar;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
+import de.larmic.butterfaces.component.html.text.HtmlCalendarViewMode;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
@@ -7,12 +15,6 @@ import de.larmic.butterfaces.component.showcase.type.Locale;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @ViewScoped
@@ -29,9 +31,9 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private boolean pickDate = true;
     private boolean pickTime = true;
     private boolean sideBySide = false;
-    private Locale locale = Locale.EN;
+    private Locale locale =null;
     private String format = null;
-    private String viewMode = null;
+    private HtmlCalendarViewMode viewMode = null;
 
     @Override
     protected Object initValue() {
@@ -56,14 +58,14 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySide + "\"");
-        if (locale != Locale.EN) {
+        if (locale != null) {
             xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale.name() + "\"");
         }
         if (StringUtils.isNotEmpty(format)) {
             xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
         }
-        if (StringUtils.isNotEmpty(viewMode)) {
-            xhtmlCodeExample.appendInnerContent("                    viewMode=\"" + viewMode + "\"");
+        if (viewMode != null) {
+            xhtmlCodeExample.appendInnerContent("                    viewMode=\"" + viewMode.getValue() + "\"");
         }
         if (StringUtils.isNotEmpty(iconDate)) {
             xhtmlCodeExample.appendInnerContent("                    iconDate=\"" + iconDate + "\"");
@@ -128,6 +130,10 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         return items;
     }
 
+    public List<HtmlCalendarViewMode> getViewModes() {
+        return Arrays.asList(HtmlCalendarViewMode.values());
+    }
+
     public String getPlaceholder() {
         return this.placeholder;
     }
@@ -180,11 +186,11 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.format = format;
     }
 
-    public String getViewMode() {
+    public HtmlCalendarViewMode getViewMode() {
         return viewMode;
     }
 
-    public void setViewMode(String viewMode) {
+    public void setViewMode(HtmlCalendarViewMode viewMode) {
         this.viewMode = viewMode;
     }
 

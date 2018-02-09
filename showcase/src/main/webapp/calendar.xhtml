@@ -46,13 +46,13 @@
             <b:treeBox label="styleClass" value="#{calendarShowcase.styleClass}" values="#{calendarShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
-            <b:treeBox label="locale" value="#{calendarShowcase.locale}" values="#{calendarShowcase.localeExamples}" required="true" showClearButton="false">
+            <b:treeBox label="locale" value="#{calendarShowcase.locale}" values="#{calendarShowcase.localeExamples}" showClearButton="true">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="viewMode" value="#{calendarShowcase.viewMode}" values="#{calendarShowcase.viewModes}" showClearButton="true">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
             <b:text label="format" value="#{calendarShowcase.format}">
-                <f:ajax event="keyup" execute="@this" render="output"/>
-            </b:text>
-            <b:text label="viewMode" value="#{calendarShowcase.viewMode}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:treeBox label="glyphicon" value="#{calendarShowcase.selectedIconType}" values="#{calendarShowcase.calendarIconTypes}" required="true" showClearButton="false">

@@ -469,7 +469,8 @@
         </attribute>
         <attribute>
             <name>viewMode</name>
-            <type>java.lang.String</type>
+            <type>de.larmic.butterfaces.component.html.text.HtmlCalendarViewMode</type>
+            <description>Must be one of (times, days, months, years, decades)</description>
         </attribute>
         <attribute>
             <name>hideLabel</name>

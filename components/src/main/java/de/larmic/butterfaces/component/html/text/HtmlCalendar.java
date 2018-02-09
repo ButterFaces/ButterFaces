@@ -76,12 +76,12 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
         getStateHelper().put(PROPERTY_SIDE_BY_SIDE, sideBySide);
     }
 
-    public String getViewMode() {
-        return (String) this.getStateHelper().eval(PROPERTY_VIEW_MODE);
+    public HtmlCalendarViewMode getViewMode() {
+        return (HtmlCalendarViewMode) this.getStateHelper().eval(PROPERTY_VIEW_MODE);
     }
 
-    public void setViewMode(String getViewMode) {
-        getStateHelper().put(PROPERTY_VIEW_MODE, getViewMode);
+    public void setViewMode(HtmlCalendarViewMode viewMode) {
+        getStateHelper().put(PROPERTY_VIEW_MODE, viewMode);
     }
 
     public String getLocale() {
