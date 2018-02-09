@@ -7,7 +7,6 @@ import de.larmic.butterfaces.component.showcase.type.AjaxType;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 
-import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +44,11 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         return AjaxType.NONE != this.getAjaxType();
     }
 
-    public List<SelectItem> getAjaxTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAjaxTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final AjaxType type : AjaxType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

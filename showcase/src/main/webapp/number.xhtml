@@ -53,12 +53,14 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="ajax"
-                                     value="#{numberShowcase.ajaxType}"
-                                     values="#{numberShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent"/>
+            <b:treeBox label="ajax" value="#{numberShowcase.ajaxType}" values="#{numberShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
             <b:text label="tooltip" value="#{numberShowcase.tooltip}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>

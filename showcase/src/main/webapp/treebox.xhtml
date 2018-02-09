@@ -60,12 +60,14 @@
                                    renderChildrenPopover="true"
                                    popoverTitle="Using templates"
                                    popoverContentMarkerClass="treePopoverContent"/>
-            <common:tagEnumControl label="ajax"
-                                   value="#{treeBoxShowcase.ajaxType}"
-                                   values="#{treeBoxShowcase.ajaxTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Add ajax child"
-                                   popoverContentMarkerClass="ajaxPopoverContent"/>
+            <b:treeBox label="ajax" value="#{treeBoxShowcase.ajaxType}" values="#{treeBoxShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
             <b:text label="tooltip" value="#{treeBoxShowcase.tooltip}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
