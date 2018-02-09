@@ -14,6 +14,7 @@ import de.larmic.butterfaces.component.html.feature.Placeholder;
 @ResourceDependencies({
     @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
     @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-guid.js", target = "head"),
     @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
     @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
     @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head")

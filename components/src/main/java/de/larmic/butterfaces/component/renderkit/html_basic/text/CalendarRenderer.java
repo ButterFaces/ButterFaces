@@ -32,7 +32,6 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             if (calendar.isPickDate() || calendar.isPickTime()) {
                 writer.startElement("div", component);
                 writer.writeAttribute("class", "input-group-append cursor-pointer", null);
-                writer.writeAttribute("data-target", "input[name='" + calendar.getClientId() + "']", null);
                 writer.writeAttribute("data-toggle", "datetimepicker", null);
                 writer.startElement("span", component);
                 if (!calendar.isPickDate()) {
@@ -54,10 +53,8 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (!calendar.isReadonly() && (calendar.isPickDate() || calendar.isPickTime())) {
             writer.startElement("script", calendar);
 
-            // TODO this should better be done with the JSF renderer!
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryAddMissingAttributesCall(calendar)), null);
-
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
+            writer.writeText(
+                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();"), null);
             writer.endElement("script");
         }
 
@@ -65,26 +62,19 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
-    private String createJQueryAddMissingAttributesCall(HtmlCalendar calendar) {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-
-        jQueryPluginCall.append("attr(\"data-target-input\", \"nearest\")");
-        jQueryPluginCall.append(".find(\"input\")");
-        jQueryPluginCall.append(".attr(\"data-target\", \"input[name='").append(calendar.getClientId()).append("']\")");
-        jQueryPluginCall.append(".addClass(\"datetimepicker-input\")");
-
-        return jQueryPluginCall.toString();
-    }
-
     String createJQueryPluginCall(HtmlCalendar calendar) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String calendarDate = StringUtils.getNotNullValue(calendar.getIconDate(), "glyphicon glyphicon-calendar");
-        final String calendarTime = StringUtils.getNotNullValue(calendar.getIconTime(), "glyphicon glyphicon-time");
-        final String calendarUp = StringUtils.getNotNullValue(calendar.getIconUp(), "glyphicon glyphicon-chevron-up");
-        final String calendarDown = StringUtils.getNotNullValue(calendar.getIconDown(), "glyphicon glyphicon-chevron-down");
-
-        jQueryPluginCall.append("datetimepicker({");
+        jQueryPluginCall.append("find('.input-group')");
+        jQueryPluginCall.append(".attr('id', elementId)");
+        jQueryPluginCall.append(".attr('data-target-input', 'nearest')");
+        jQueryPluginCall.append(".find('input')");
+        jQueryPluginCall.append(".attr('data-target', '#' + elementId)");
+        jQueryPluginCall.append(".addClass('datetimepicker-input')");
+        jQueryPluginCall.append(".siblings('.input-group-append')");
+        jQueryPluginCall.append(".attr('data-target', '#' + elementId)");
+        jQueryPluginCall.append(".parent()");
+        jQueryPluginCall.append(".datetimepicker({");
 
         if (StringUtils.isNotEmpty(calendar.getFormat())) {
             jQueryPluginCall.append("format: '").append(calendar.getFormat()).append("',");
@@ -105,12 +95,18 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (calendar.isSideBySide()) {
             jQueryPluginCall.append("sideBySide: true,");
         }
+
+        final String calendarDate = StringUtils.getNotNullValue(calendar.getIconDate(), "glyphicon glyphicon-calendar");
+        final String calendarTime = StringUtils.getNotNullValue(calendar.getIconTime(), "glyphicon glyphicon-time");
+        final String calendarUp = StringUtils.getNotNullValue(calendar.getIconUp(), "glyphicon glyphicon-chevron-up");
+        final String calendarDown = StringUtils.getNotNullValue(calendar.getIconDown(), "glyphicon glyphicon-chevron-down");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
         jQueryPluginCall.append("date: '" + calendarDate + "',");
         jQueryPluginCall.append("up: '" + calendarUp + "',");
         jQueryPluginCall.append("down: '" + calendarDown + "'");
         jQueryPluginCall.append("}");
+
         jQueryPluginCall.append("})");
 
         return jQueryPluginCall.toString();
