@@ -5,9 +5,9 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.example.TextAutoTrimWebXmlExample;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -105,11 +105,11 @@ public class SecretShowcase extends AbstractInputShowcase implements Serializabl
         codeExamples.add(new TextAutoTrimWebXmlExample());
     }
 
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAvailableFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

@@ -194,11 +194,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         return codeExample;
     }
 
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAvailableFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

@@ -69,10 +69,9 @@
             <b:text label="tooltip" value="#{textShowcase.tooltip}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <common:tagEnumControl label="facets"
-                                   value="#{textShowcase.selectedFacetType}"
-                                   values="#{textShowcase.availableFacetTypes}"
-                                   renderChildrenPopover="false"/>
+            <b:treeBox label="facets" value="#{textShowcase.selectedFacetType}" values="#{textShowcase.availableFacetTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:checkBox label="validate" value="#{textShowcase.validation}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>

@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -124,11 +125,11 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         generateDemoCSS(codeExamples);
     }
 
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAvailableFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
