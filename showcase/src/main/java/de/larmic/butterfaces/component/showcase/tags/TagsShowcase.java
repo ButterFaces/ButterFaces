@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.tree.Episodes;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -47,7 +48,9 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                maxTags=\"" + maxTags + "\"");
         xhtmlCodeExample.appendInnerContent("                confirmKeys=\"" + StringUtils.getNotNullValue(confirmKeys, "") + "\"");
         xhtmlCodeExample.appendInnerContent("                placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "")  + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");

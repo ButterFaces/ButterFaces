@@ -4,6 +4,7 @@ import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.textarea.example.TextAreaWebXmlExample;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
@@ -41,7 +42,9 @@ public class TextAreaShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    tooltip=\"" + this.getTooltip() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");

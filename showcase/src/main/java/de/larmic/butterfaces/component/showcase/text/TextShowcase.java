@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.example.TextAutoTrimWebXmlExample;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.event.AjaxBehaviorEvent;
@@ -70,7 +71,9 @@ public class TextShowcase extends AbstractInputShowcase implements Serializable 
         xhtmlCodeExample.appendInnerContent("                pattern=\"" + this.getPattern() + "\"");
         xhtmlCodeExample.appendInnerContent("                min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                max=\"" + this.getMax() + "\"");
-        xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                disabled=\"" + this.isDisabled() + "\"");

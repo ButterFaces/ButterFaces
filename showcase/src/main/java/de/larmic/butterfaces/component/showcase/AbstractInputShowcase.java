@@ -1,14 +1,15 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.model.SelectItem;
-
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.AjaxType;
-import de.larmic.butterfaces.util.StringUtils;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
+
+import javax.faces.model.SelectItem;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
 
@@ -24,7 +25,7 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
     private boolean hideLabel;
     private boolean disabled;
     private AjaxType ajaxType = AjaxType.NONE;
-    private String styleClass = null;
+    private StyleClass styleClass = StyleClass.DEFAULT;
 
     public AbstractInputShowcase() {
         this.value = this.initValue();
@@ -53,22 +54,12 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         return items;
     }
 
-    public List<SelectItem> getStyleClasses() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getStyleClasses() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
-        items.add(new SelectItem(null, "default (null)"));
-        items.add(new SelectItem("demo-big-label", "demo-big-label"));
-
-        return items;
-    }
-
-    public List<SelectItem> getLocaleExamples() {
-        final List<SelectItem> items = new ArrayList<>();
-
-        items.add(new SelectItem("en", "english (default)"));
-        items.add(new SelectItem("de", "german"));
-        items.add(new SelectItem("ru", "russian"));
-
+        for (final StyleClass type : StyleClass.values()) {
+            items.add(new EnumTreeBoxWrapper(type, type.label));
+        }
         return items;
     }
 
@@ -164,16 +155,20 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
         this.hideLabel = hideLabel;
     }
 
-    public String getStyleClass() {
+    public String getSelectedStyleClass() {
+        return styleClass != StyleClass.DEFAULT ? styleClass.label : null;
+    }
+
+    public StyleClass getStyleClass() {
         return styleClass;
     }
 
-    public void setStyleClass(String styleClass) {
+    public void setStyleClass(StyleClass styleClass) {
         this.styleClass = styleClass;
     }
 
     protected void generateDemoCSS(List<AbstractCodeExample> codeExamples) {
-        if (StringUtils.isNotEmpty(this.getStyleClass())) {
+        if (styleClass == StyleClass.BIG_LABEL) {
             final CssCodeExample cssCodeExample = new CssCodeExample();
             cssCodeExample.addCss(".demo-big-label .butter-component-label", "width: 250px;");
             cssCodeExample.addCss(".demo-big-label .butter-component-value", "width: calc(100% - 250px);");

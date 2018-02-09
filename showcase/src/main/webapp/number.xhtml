@@ -38,9 +38,9 @@
             <b:text label="step" value="#{numberShowcase.step}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{numberShowcase.styleClass}"
-                                     values="#{numberShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{numberShowcase.styleClass}" values="#{numberShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -82,7 +82,7 @@
                       max="#{numberShowcase.max}"
                       step="#{numberShowcase.step}"
                       onchange="console.log('ButterFaces.Test: check onchange')"
-                      styleClass="#{numberShowcase.styleClass} arquillian_component"
+                      styleClass="#{numberShowcase.selectedStyleClass}"
                       autoFocus="#{numberShowcase.autoFocus}">
                 <f:ajax event="change"
                         execute="@this"

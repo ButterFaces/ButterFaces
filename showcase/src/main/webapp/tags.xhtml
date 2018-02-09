@@ -29,9 +29,9 @@
             <b:checkBox label="rendered" value="#{tagsShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{tagsShowcase.styleClass}"
-                                     values="#{tagsShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{tagsShowcase.styleClass}" values="#{tagsShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:checkBox label="distinct" value="#{tagsShowcase.distinct}"/>
             <b:text label="maxTags" value="#{tagsShowcase.maxTags}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
@@ -87,7 +87,7 @@
                     placeholder="#{tagsShowcase.placeholder}"
                     autoFocus="#{tagsShowcase.autoFocus}"
                     onchange="console.log('ButterFaces.Test: check onchange')"
-                    styleClass="#{tagsShowcase.styleClass}">
+                    styleClass="#{tagsShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

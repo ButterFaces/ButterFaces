@@ -2,6 +2,7 @@ package de.larmic.butterfaces.component.showcase;
 
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
@@ -39,7 +40,9 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    value=\"" + this.getValue() + "\"");
         xhtmlCodeExample.appendInnerContent("                    description=\"" + description + "\"");
         xhtmlCodeExample.appendInnerContent("                    switch=\"" + this.isAsSwitch() + "\"");
-        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");

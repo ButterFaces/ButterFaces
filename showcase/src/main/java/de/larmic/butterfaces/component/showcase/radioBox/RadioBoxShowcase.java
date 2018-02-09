@@ -10,6 +10,7 @@ import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEp
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxExampleType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -59,7 +60,9 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    hideLabel=\"" + isHideLabel() + "\"");
         xhtmlCodeExample.appendInnerContent("                    value=\"#{myBean.selectedValue}\"");
         xhtmlCodeExample.appendInnerContent("                    values=\"#{myBean.values}\"");
-        xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                    disabled=\"" + this.isDisabled() + "\"");

@@ -1,10 +1,11 @@
 package de.larmic.butterfaces.component.showcase.maskedText;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
@@ -58,7 +59,9 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("                      pattern=\"" + this.getPattern() + "\"");
         xhtmlCodeExample.appendInnerContent("                      min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                      max=\"" + this.getMax() + "\"");
-        xhtmlCodeExample.appendInnerContent("                      styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                      styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                      readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                      required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                      disabled=\"" + this.isDisabled() + "\"");

@@ -31,9 +31,9 @@
             <b:checkBox label="rendered" value="#{textShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{textShowcase.styleClass}"
-                                   values="#{textShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{textShowcase.styleClass}" values="#{textShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -101,7 +101,7 @@
                     onkeydown="console.log('ButterFaces.Test: check onkeydown')"
                     onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -129,7 +129,7 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -157,7 +157,7 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         listener="#{textShowcase.someListenerAction}"
@@ -190,7 +190,7 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>

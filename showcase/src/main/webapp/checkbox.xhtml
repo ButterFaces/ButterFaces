@@ -36,9 +36,9 @@
             <b:checkBox label="rendered" value="#{checkBoxShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{checkBoxShowcase.styleClass}"
-                                     values="#{checkBoxShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{checkBoxShowcase.styleClass}" values="#{checkBoxShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -75,7 +75,7 @@
                         autoFocus="#{checkBoxShowcase.autoFocus}"
                         disabled="#{checkBoxShowcase.disabled}"
                         onchange="console.log('ButterFaces.Test: check onchange')"
-                        styleClass="#{checkBoxShowcase.styleClass}">
+                        styleClass="#{checkBoxShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other demoding"

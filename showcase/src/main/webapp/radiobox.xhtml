@@ -29,9 +29,9 @@
             <b:checkBox label="rendered" value="#{radioBoxShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{radioBoxShowcase.styleClass}"
-                                   values="#{radioBoxShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{radioBoxShowcase.styleClass}" values="#{radioBoxShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
@@ -79,7 +79,7 @@
                         rendered="#{radioBoxShowcase.rendered}"
                         disabled="#{radioBoxShowcase.disabled}"
                         layout="#{radioBoxShowcase.radioBoxLayoutType.label}"
-                        styleClass="#{radioBoxShowcase.styleClass}">
+                        styleClass="#{radioBoxShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

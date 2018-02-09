@@ -39,9 +39,9 @@
             <b:checkBox label="rendered" value="#{treeBoxShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{treeBoxShowcase.styleClass}"
-                                   values="#{treeBoxShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{treeBoxShowcase.styleClass}" values="#{treeBoxShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -122,7 +122,7 @@
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        showClearButton="#{treeBoxShowcase.showClearButton}"
                        onchange="console.log('ButterFaces.Test: check onchange')"
-                       styleClass="#{treeBoxShowcase.styleClass}">
+                       styleClass="#{treeBoxShowcase.selectedStyleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="selectedEntryTemplate">
                         <div class="stargateEpisodeItem">
@@ -179,7 +179,7 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        showClearButton="#{treeBoxShowcase.showClearButton}"
-                       styleClass="#{treeBoxShowcase.styleClass}">
+                       styleClass="#{treeBoxShowcase.selectedStyleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="selectedEntryTemplate">
                         <div class="stargateEpisodeItem">
@@ -240,7 +240,7 @@
                        placeholder="#{treeBoxShowcase.placeholder}"
                        autoFocus="#{treeBoxShowcase.autoFocus}"
                        showClearButton="#{treeBoxShowcase.showClearButton}"
-                       styleClass="#{treeBoxShowcase.styleClass}">
+                       styleClass="#{treeBoxShowcase.selectedStyleClass}">
                 <c:if test="#{treeBoxShowcase.selectedTreeBoxExampleType eq 'TEMPLATE'}">
                     <f:facet name="selectedEntryTemplate">
                         <div class="stargateEpisodeItem">

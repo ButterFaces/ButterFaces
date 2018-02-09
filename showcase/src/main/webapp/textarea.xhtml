@@ -34,9 +34,9 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}"/>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{textAreaShowcase.styleClass}"
-                                   values="#{textAreaShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{textAreaShowcase.styleClass}" values="#{textAreaShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -86,7 +86,7 @@
                         placeholder="#{textAreaShowcase.placeholder}"
                         autoFocus="#{textAreaShowcase.autoFocus}"
                         onkeyup="console.log('ButterFaces.Test: check onkeyup')"
-                        styleClass="#{textAreaShowcase.styleClass}">
+                        styleClass="#{textAreaShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"
                         render="output:outputComponent:outputValues output:other"

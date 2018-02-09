@@ -1,16 +1,18 @@
 package de.larmic.butterfaces.component.showcase.calendar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.type.Locale;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -27,7 +29,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private boolean pickDate = true;
     private boolean pickTime = true;
     private boolean sideBySide = false;
-    private String locale = "en";
+    private Locale locale = Locale.EN;
     private String format = null;
     private String viewMode = null;
 
@@ -54,8 +56,8 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    pickDate=\"" + pickDate + "\"");
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySide + "\"");
-        if (StringUtils.isNotEmpty(locale)) {
-            xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale + "\"");
+        if (locale != Locale.EN) {
+            xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale.name() + "\"");
         }
         if (StringUtils.isNotEmpty(format)) {
             xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
@@ -78,8 +80,8 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         if (StringUtils.isNotEmpty(getPlaceholder())) {
             xhtmlCodeExample.appendInnerContent("                    placeholder=\"" + getPlaceholder() + "\"");
         }
-        if (StringUtils.isNotEmpty(getStyleClass())) {
-            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                    styleClass=\"" + getSelectedStyleClass() + "\"");
         }
         xhtmlCodeExample.appendInnerContent("                    readonly=\"" + isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                    required=\"" + isRequired() + "\"");
@@ -108,11 +110,20 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         generateDemoCSS(codeExamples);
     }
 
-    public List<SelectItem> getCalendarIconTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getCalendarIconTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final CalendarIconType type : CalendarIconType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
+        }
+        return items;
+    }
+
+    public List<EnumTreeBoxWrapper> getLocaleExamples() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
+
+        for (final Locale type : Locale.values()) {
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
@@ -149,11 +160,15 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         this.pickTime = pickTime;
     }
 
-    public String getLocale() {
+    public String getSelectedLocale() {
+        return locale == Locale.EN ? "en" : (locale == Locale.ES ? "es" : "de");
+    }
+
+    public Locale getLocale() {
         return locale;
     }
 
-    public void setLocale(String locale) {
+    public void setLocale(Locale locale) {
         this.locale = locale;
     }
 

@@ -1,8 +1,9 @@
 package de.larmic.butterfaces.component.showcase;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -42,7 +43,9 @@ public class NumberShowcase extends AbstractInputShowcase implements Serializabl
         xhtmlCodeExample.appendInnerContent("                  min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                  max=\"" + this.getMax() + "\"");
         xhtmlCodeExample.appendInnerContent("                  step=\"" + this.getStep() + "\"");
-        xhtmlCodeExample.appendInnerContent("                  styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                  styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                  readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                  required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                  disabled=\"" + this.isDisabled() + "\"");

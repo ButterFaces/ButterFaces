@@ -37,9 +37,9 @@
             <b:text label="language" value="#{markdownShowcase.language}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{markdownShowcase.styleClass}"
-                                     values="#{markdownShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{markdownShowcase.styleClass}" values="#{markdownShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -86,7 +86,7 @@
                         autoFocus="#{markdownShowcase.autoFocus}"
                         language="#{markdownShowcase.language}"
                         onkeyup="console.log('ButterFaces.Test: check onkeyup')"
-                        styleClass="#{markdownShowcase.styleClass}">
+                        styleClass="#{markdownShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="textArea"
                         render="output:outputComponent:outputValues output:other"

@@ -32,9 +32,9 @@
             <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{maskedTextShowcase.styleClass}"
-                                   values="#{maskedTextShowcase.styleClasses}"/>
+            <b:treeBox label="styleClass" value="#{maskedTextShowcase.styleClass}" values="#{maskedTextShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -109,7 +109,7 @@
                           onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -137,7 +137,7 @@
                           autoFocus="#{maskedTextShowcase.autoFocus}"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -171,7 +171,7 @@
                           autoFocus="#{maskedTextShowcase.autoFocus}"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

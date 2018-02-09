@@ -43,21 +43,21 @@
             <b:checkBox label="sideBySide" value="#{calendarShowcase.sideBySide}">
                 <f:ajax execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{calendarShowcase.styleClass}"
-                                   values="#{calendarShowcase.styleClasses}"/>
-            <common:tagEnumControl label="locale"
-                                   value="#{calendarShowcase.locale}"
-                                   values="#{calendarShowcase.localeExamples}"/>
+            <b:treeBox label="styleClass" value="#{calendarShowcase.styleClass}" values="#{calendarShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="locale" value="#{calendarShowcase.locale}" values="#{calendarShowcase.localeExamples}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:text label="format" value="#{calendarShowcase.format}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:text label="viewMode" value="#{calendarShowcase.viewMode}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <common:tagEnumControl label="glyphicon"
-                                   value="#{calendarShowcase.selectedIconType}"
-                                   values="#{calendarShowcase.calendarIconTypes}"/>
+            <b:treeBox label="glyphicon" value="#{calendarShowcase.selectedIconType}" values="#{calendarShowcase.calendarIconTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
@@ -92,7 +92,7 @@
 
             <b:calendar id="calendar"
                         label="#{calendarShowcase.label}"
-                        locale="#{calendarShowcase.locale}"
+                        locale="#{calendarShowcase.selectedLocale}"
                         format="#{calendarShowcase.format}"
                         viewMode="#{calendarShowcase.viewMode}"
                         iconTime="#{calendarShowcase.iconTime}"
@@ -111,7 +111,7 @@
                         placeholder="#{calendarShowcase.placeholder}"
                         autoFocus="#{calendarShowcase.autoFocus}"
                         onchange="console.log('ButterFaces.Test: check onchange')"
-                        styleClass="#{calendarShowcase.styleClass}">
+                        styleClass="#{calendarShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
