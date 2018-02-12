@@ -47,15 +47,15 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                     value="#{commandLinkShowcase.commandLinkExampleType}"
-                                     values="#{commandLinkShowcase.commandLinkExamples}"/>
-            <common:tagEnumControl label="link type"
-                                     value="#{commandLinkShowcase.style}"
-                                     values="#{commandLinkShowcase.styles}"/>
-            <common:tagEnumControl label="ajax rendering"
-                                     value="#{commandLinkShowcase.render}"
-                                     values="#{commandLinkShowcase.renders}"/>
+            <b:treeBox label="submit" value="#{commandLinkShowcase.commandLinkExampleType}" values="#{commandLinkShowcase.commandLinkExamples}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="link type" value="#{commandLinkShowcase.style}" values="#{commandLinkShowcase.styles}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="ajax rendering" value="#{commandLinkShowcase.render}" values="#{commandLinkShowcase.renders}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -73,7 +73,7 @@
             <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClickWithDelay}"
-                           styleClass="arquillian_component #{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
                            ajaxProcessingTextOnRequest="#{commandLinkShowcase.ajaxProcessingText}"
@@ -83,13 +83,13 @@
                            ajaxShowWaitingDotsOnRequest="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}"
                            actionListener="#{commandLinkShowcase.actionListener}"
                            rendered="#{commandLinkShowcase.rendered}">
-                <f:ajax render="#{commandLinkShowcase.render}" onevent="logTest"/>
+                <f:ajax render="#{commandLinkShowcase.selectedRender}" onevent="logTest"/>
             </b:commandLink>
 
             <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="other link"
                            action="#{commandLinkShowcase.increaseClickWithDelay()}"
-                           styleClass="#{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            style="margin-left: 20px"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
@@ -150,7 +150,7 @@
             <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClick}"
-                           styleClass="arquillian_component #{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
                            ajaxProcessingTextOnRequest="#{commandLinkShowcase.ajaxProcessingText}"

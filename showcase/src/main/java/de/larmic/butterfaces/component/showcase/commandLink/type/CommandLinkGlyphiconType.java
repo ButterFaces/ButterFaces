@@ -1,4 +1,4 @@
-package de.larmic.butterfaces.component.showcase.commandLink;
+package de.larmic.butterfaces.component.showcase.commandLink.type;
 
 public enum CommandLinkGlyphiconType {
 	DEFAULT("No glyphicon", null),

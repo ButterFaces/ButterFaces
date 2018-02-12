@@ -2,13 +2,16 @@ package de.larmic.butterfaces.component.showcase.commandLink;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.commandLink.example.CommandLinkWebXmlExample;
+import de.larmic.butterfaces.component.showcase.commandLink.type.CommandLinkExampleType;
+import de.larmic.butterfaces.component.showcase.commandLink.type.CommandLinkGlyphiconType;
+import de.larmic.butterfaces.component.showcase.commandLink.type.CommandLinkRenderType;
+import de.larmic.butterfaces.component.showcase.commandLink.type.CommandLinkStyleType;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -23,7 +26,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     private String resetValue = "";
     private String value = "click me";
     private CommandLinkGlyphiconType glyphicon = CommandLinkGlyphiconType.BOOTSTRAP;
-    private String style = "btn btn-primary";
+    private CommandLinkStyleType style = CommandLinkStyleType.BOOTSTRAP_BUTTON;
     private int clicks = 0;
     private boolean ajaxDisableLinkOnRequest = true;
     private boolean ajaxShowWaitingDotsOnRequest = true;
@@ -31,7 +34,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     private boolean ajaxDisableRenderRegionsOnRequest = true;
     private String ajaxProcessingText = "Processing";
     private String ajaxProcessingGlyphicon = "fa fa-refresh fa-spin";
-    private String render = "disabledOnRequest otherDisabledOnRequest";
+    private CommandLinkRenderType render = CommandLinkRenderType.SECTIONS;
     private CommandLinkExampleType commandLinkExampleType = CommandLinkExampleType.AJAX;
 
     public void increaseClick() {
@@ -143,8 +146,12 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
         xhtmlCodeExample.appendInnerContent("\n        <b:commandLink id=\"input\"");
         xhtmlCodeExample.appendInnerContent("                       value=\"" + this.getValue() + "\"");
-        xhtmlCodeExample.appendInnerContent("                       glyphicon=\"" + this.getGlyphicon() + "\"");
-        xhtmlCodeExample.appendInnerContent("                       styleClass=\"" + this.getStyle() + "\"");
+        if (glyphicon != CommandLinkGlyphiconType.DEFAULT) {
+            xhtmlCodeExample.appendInnerContent("                       glyphicon=\"" + this.glyphicon.value + "\"");
+        }
+        if (style != CommandLinkStyleType.LINK) {
+            xhtmlCodeExample.appendInnerContent("                       styleClass=\"" + this.style.value + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                       ajaxDisableLinkOnRequest=\"" + this.isAjaxDisableLinkOnRequest() + "\"");
         xhtmlCodeExample.appendInnerContent("                       ajaxShowWaitingDotsOnRequest=\"" + this.isAjaxShowWaitingDotsOnRequest() + "\"");
         xhtmlCodeExample.appendInnerContent("                       ajaxHideGlyphiconOnRequest=\"" + this.isAjaxHideGlyphiconOnRequest() + "\"");
@@ -180,31 +187,29 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         return items;
     }
 
-    public List<SelectItem> getStyles() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getStyles() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
-        items.add(new SelectItem(null, "default link"));
-        items.add(new SelectItem("btn btn-primary", "Bootstrap button"));
-
+        for (final CommandLinkStyleType type : CommandLinkStyleType.values()) {
+            items.add(new EnumTreeBoxWrapper(type, type.label));
+        }
         return items;
     }
 
-    public List<SelectItem> getRenders() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getRenders() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
-        items.add(new SelectItem("disabledOnRequest otherDisabledOnRequest", "some sections"));
-        items.add(new SelectItem("@form", "@form"));
-        items.add(new SelectItem("@this", "@this"));
-        items.add(new SelectItem("@none", "@none"));
-
+        for (final CommandLinkRenderType type : CommandLinkRenderType.values()) {
+            items.add(new EnumTreeBoxWrapper(type, type.label));
+        }
         return items;
     }
 
-    public List<SelectItem> getCommandLinkExamples() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getCommandLinkExamples() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final CommandLinkExampleType type : CommandLinkExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
@@ -229,11 +234,15 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         this.glyphicon = glyphicon;
     }
 
-    public String getStyle() {
+    public String getSelectedStyle() {
+        return style.value;
+    }
+
+    public CommandLinkStyleType getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(CommandLinkStyleType style) {
         this.style = style;
     }
 
@@ -281,11 +290,15 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         this.ajaxDisableRenderRegionsOnRequest = ajaxDisableRenderRegionsOnRequest;
     }
 
-    public String getRender() {
+    public String getSelectedRender() {
+        return render.value;
+    }
+
+    public CommandLinkRenderType getRender() {
         return render;
     }
 
-    public void setRender(String render) {
+    public void setRender(CommandLinkRenderType render) {
         this.render = render;
     }
 
