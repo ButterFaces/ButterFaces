@@ -14,10 +14,8 @@
                              required="true" />
 	</composite:interface>
 
-	<composite:implementation>
-        <composite:insertChildren />
-
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+    <composite:implementation>
+        <composite:insertChildren/>
 
         <hr/>
 
@@ -31,11 +29,13 @@
             <h:panelGroup id="outputValues" styleClass="col-md-10">
                 <div class="input-group">
                     <span class="input-group-addon">Value:</span>
-                    <h:outputText value="#{cc.attrs.component.value}" styleClass="form-control arquillian_output_value"/>
+                    <h:outputText value="#{cc.attrs.component.value}"
+                                  styleClass="form-control arquillian_output_value"/>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">Readable value:</span>
-                    <h:outputText value="#{cc.attrs.component.readableValue}" styleClass="form-control arquillian_output_readableValue"/>
+                    <h:outputText value="#{cc.attrs.component.readableValue}"
+                                  styleClass="form-control arquillian_output_readableValue"/>
                 </div>
             </h:panelGroup>
         </div>
@@ -45,6 +45,6 @@
                 setActiveNavigation('#{cc.attrs.activeComponentNavigationId}');
             });
         </script>
-	</composite:implementation>
+    </composite:implementation>
 </h:body>
 </html>
