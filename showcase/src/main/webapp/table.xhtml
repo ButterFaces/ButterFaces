@@ -35,18 +35,18 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="ajax selection"
-                                   value="#{tableShowcase.selectionAjaxType}"
-                                   values="#{tableShowcase.ajaxSelectionTypes}"/>
-            <common:tagEnumControl label="custom toolbar"
-                                   value="#{tableShowcase.toolBarType}"
-                                   values="#{tableShowcase.toolBarTypes}"/>
-            <common:tagEnumControl label="column width"
-                                   value="#{tableShowcase.fourthColumnWidthType}"
-                                   values="#{tableShowcase.twoColumnWidthTypes}"/>
-            <common:tagEnumControl label="toolbar facets"
-                                   value="#{tableShowcase.toolbarFacetType}"
-                                   values="#{tableShowcase.toolBarFacetTypes}"/>
+            <b:treeBox label="ajax selection" value="#{tableShowcase.selectionAjaxType}" values="#{tableShowcase.ajaxSelectionTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="custom toolbar" value="#{tableShowcase.toolBarType}" values="#{tableShowcase.toolBarTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="column width" value="#{tableShowcase.fourthColumnWidthType}" values="#{tableShowcase.twoColumnWidthTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="toolbar facets" value="#{tableShowcase.toolbarFacetType}" values="#{tableShowcase.toolBarFacetTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:checkBox label="use table model" value="#{tableShowcase.useTableModel}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>

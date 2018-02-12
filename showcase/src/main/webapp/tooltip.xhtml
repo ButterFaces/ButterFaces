@@ -30,9 +30,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="components"
-                                     value="#{tooltipShowcase.selectedTooltTipType}"
-                                     values="#{tooltipShowcase.tooltipTypes}"/>
+            <b:treeBox label="components" value="#{tooltipShowcase.selectedTooltTipType}" values="#{tooltipShowcase.tooltipTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 

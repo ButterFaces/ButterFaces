@@ -16,9 +16,9 @@
             <b:checkBox label="rendered" value="#{prettyPrintShowcase.rendered}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="language"
-                                     value="#{prettyPrintShowcase.prettyPrintType}"
-                                     values="#{prettyPrintShowcase.prettyPrintTypes}"/>
+            <b:treeBox label="language" value="#{prettyPrintShowcase.prettyPrintType}" values="#{prettyPrintShowcase.prettyPrintTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 

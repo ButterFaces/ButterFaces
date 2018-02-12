@@ -6,7 +6,10 @@
 package de.larmic.butterfaces.component.showcase.table;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
-import de.larmic.butterfaces.component.showcase.example.*;
+import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
+import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
+import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
+import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.table.example.DemoPojoCodeExample;
 import de.larmic.butterfaces.component.showcase.table.example.TableWebXmlExample;
 import de.larmic.butterfaces.component.showcase.tree.SelectionAjaxType;
@@ -14,9 +17,9 @@ import de.larmic.butterfaces.event.TableSingleSelectionListener;
 import de.larmic.butterfaces.model.table.DefaultTableModel;
 import de.larmic.butterfaces.model.table.SortType;
 import de.larmic.butterfaces.model.table.TableToolbarRefreshListener;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -422,38 +425,38 @@ public class TableShowcase extends AbstractCodeShowcase implements Serializable 
         return myBean;
     }
 
-    public List<SelectItem> getAjaxSelectionTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAjaxSelectionTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final SelectionAjaxType type : SelectionAjaxType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getToolBarFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getToolBarFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final ToolbarFacetType type : ToolbarFacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getToolBarTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getToolBarTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final ToolBarType type : ToolBarType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getTwoColumnWidthTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTwoColumnWidthTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FourthColumnWidthType type : FourthColumnWidthType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

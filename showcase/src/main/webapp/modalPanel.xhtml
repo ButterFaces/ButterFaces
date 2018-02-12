@@ -23,9 +23,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="modal type"
-                                   value="#{modalPanelShowcase.modalPanelType}"
-                                   values="#{modalPanelShowcase.modalPanelTypes}"/>
+            <b:treeBox label="modal type" value="#{modalPanelShowcase.modalPanelType}" values="#{modalPanelShowcase.modalPanelTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 

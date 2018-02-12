@@ -76,9 +76,9 @@
             <b:checkBox label="validate" value="#{maskedTextShowcase.validation}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="inputMask"
-                                   value="#{maskedTextShowcase.selectedInputMaskType}"
-                                   values="#{maskedTextShowcase.inputMaskTypes}"/>
+            <b:treeBox label="inputMask" value="#{maskedTextShowcase.selectedInputMaskType}" values="#{maskedTextShowcase.inputMaskTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 

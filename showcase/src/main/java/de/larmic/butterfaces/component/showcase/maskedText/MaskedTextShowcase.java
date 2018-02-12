@@ -9,7 +9,6 @@ import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -134,15 +133,14 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         return items;
     }
 
-    public List<SelectItem> getInputMaskTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getInputMaskTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final InputMaskType type : InputMaskType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
-
 
     public String getPlaceholder() {
         return this.placeholder;

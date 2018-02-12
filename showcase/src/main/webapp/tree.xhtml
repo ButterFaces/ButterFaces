@@ -29,24 +29,28 @@
             <b:text label="noEntriesText" value="#{treeShowcase.noEntriesText}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <common:tagEnumControl label="searchBarMode"
-                                   value="#{treeShowcase.selectedSearchBarModeType}"
-                                   values="#{treeShowcase.seachBarModeTypes}"/>
+            <b:treeBox label="searchBarMode" value="#{treeShowcase.selectedSearchBarModeType}" values="#{treeShowcase.seachBarModeTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="template"
-                                   value="#{treeShowcase.selectedTreeTemplateType}"
-                                   values="#{treeShowcase.treeTemplateTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Using templates"
-                                   popoverContentMarkerClass="treePopoverContent"/>
-            <common:tagEnumControl label="ajax selection"
-                                   value="#{treeShowcase.selectionAjaxType}"
-                                   values="#{treeShowcase.ajaxSelectionTypes}"/>
-            <common:tagEnumControl label="icons"
-                                   value="#{treeShowcase.showcaseTreeNode.selectedIconType}"
-                                   values="#{treeShowcase.iconTypes}"/>
+            <b:treeBox label="template" value="#{treeShowcase.selectedTreeTemplateType}" values="#{treeShowcase.treeTemplateTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    <ul>
+                        <li><strong>default</strong> Childs will rendered with default template as nodes.</li>
+                        <li><strong>custom</strong> Use custom template for nodes rendering. See facet in showcase.</li>
+                    </ul>
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:treeBox label="ajax selection" value="#{treeShowcase.selectionAjaxType}" values="#{treeShowcase.ajaxSelectionTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="icons" value="#{treeShowcase.showcaseTreeNode.selectedIconType}" values="#{treeShowcase.iconTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:checkBox label="nodes expanded" value="#{treeShowcase.allExpanded}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>

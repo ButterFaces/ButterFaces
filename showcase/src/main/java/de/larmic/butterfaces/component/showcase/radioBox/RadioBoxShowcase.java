@@ -11,6 +11,7 @@ import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxLi
 import de.larmic.butterfaces.component.showcase.type.RadioBoxExampleType;
 import de.larmic.butterfaces.component.showcase.type.RadioBoxLayoutType;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -151,20 +152,20 @@ public class RadioBoxShowcase extends AbstractInputShowcase implements Serializa
         }
     }
 
-    public List<SelectItem> getExampleTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getExampleTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final RadioBoxExampleType type : RadioBoxExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getRadioLayoutTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getRadioLayoutTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final RadioBoxLayoutType type : RadioBoxLayoutType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

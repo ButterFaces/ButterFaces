@@ -1,16 +1,15 @@
 package de.larmic.butterfaces.component.showcase;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.type.PrettyPrintType;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -61,11 +60,11 @@ public class PrettyPrintShowcase extends AbstractCodeShowcase implements Seriali
         }
     }
 
-    public List<SelectItem> getPrettyPrintTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getPrettyPrintTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final PrettyPrintType type : PrettyPrintType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

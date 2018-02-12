@@ -16,9 +16,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                   value="#{repeatShowcase.selectedExampleType}"
-                                   values="#{repeatShowcase.exampleTypes}"/>
+            <b:treeBox label="examples" value="#{repeatShowcase.selectedExampleType}" values="#{repeatShowcase.exampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
