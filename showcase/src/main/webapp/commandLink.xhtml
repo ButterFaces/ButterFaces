@@ -23,9 +23,9 @@
             <b:checkBox label="rendered" value="#{commandLinkShowcase.rendered}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
-            <common:tagEnumControl label="glyphicon"
-                                     value="#{commandLinkShowcase.glyphicon}"
-                                     values="#{commandLinkShowcase.glyphicons}"/>
+            <b:treeBox label="glyphicon" value="#{commandLinkShowcase.glyphicon}" values="#{commandLinkShowcase.glyphicons}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:checkBox label="ajaxDisableLinkOnRequest" value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
@@ -70,7 +70,7 @@
                 action method will wait 2 seconds.
             </h:panelGroup>
 
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClickWithDelay}"
                            styleClass="arquillian_component #{commandLinkShowcase.style}"
@@ -86,7 +86,7 @@
                 <f:ajax render="#{commandLinkShowcase.render}" onevent="logTest"/>
             </b:commandLink>
 
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="other link"
                            action="#{commandLinkShowcase.increaseClickWithDelay()}"
                            styleClass="#{commandLinkShowcase.style}"
@@ -147,7 +147,7 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{commandLinkShowcase.commandLinkExampleType eq 'NO_AJAX'}">
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClick}"
                            styleClass="arquillian_component #{commandLinkShowcase.style}"

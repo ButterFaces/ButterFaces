@@ -5,6 +5,7 @@ import de.larmic.butterfaces.component.showcase.commandLink.example.CommandLinkW
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
 import javax.faces.model.SelectItem;
@@ -21,7 +22,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
 
     private String resetValue = "";
     private String value = "click me";
-    private String glyphicon = "glyphicon glyphicon-thumbs-up glyphicon-lg";
+    private CommandLinkGlyphiconType glyphicon = CommandLinkGlyphiconType.BOOTSTRAP;
     private String style = "btn btn-primary";
     private int clicks = 0;
     private boolean ajaxDisableLinkOnRequest = true;
@@ -97,7 +98,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     }
 
     private XhtmlCodeExample createXhtmlCodeExample() {
-        final boolean useFontAwesome = this.getGlyphicon() != null && this.getGlyphicon().contains("fa");
+        final boolean useFontAwesome = this.getGlyphicon() == CommandLinkGlyphiconType.AWESOME;
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
         xhtmlCodeExample.appendInnerContent("\n        <div class=\"row\">");
@@ -137,7 +138,7 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
     }
 
     private XhtmlCodeExample createXhtmlCodeExampleResetValues() {
-        final boolean useFontAwesome = this.getGlyphicon() != null && this.getGlyphicon().contains("fa");
+        final boolean useFontAwesome = this.getGlyphicon() == CommandLinkGlyphiconType.AWESOME;
         final XhtmlCodeExample xhtmlCodeExample = new XhtmlCodeExample(useFontAwesome);
 
         xhtmlCodeExample.appendInnerContent("\n        <b:commandLink id=\"input\"");
@@ -170,13 +171,12 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         return xhtmlCodeExample;
     }
 
-    public List<SelectItem> getGlyphicons() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getGlyphicons() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
-        items.add(new SelectItem(null, "No glyphicon"));
-        items.add(new SelectItem("glyphicon glyphicon-thumbs-up glyphicon-lg", "Bootstrap example"));
-        items.add(new SelectItem("fa fa-language fa-lg", "Font-Awesome example"));
-
+        for (final CommandLinkGlyphiconType type : CommandLinkGlyphiconType.values()) {
+            items.add(new EnumTreeBoxWrapper(type, type.label));
+        }
         return items;
     }
 
@@ -217,11 +217,15 @@ public class CommandLinkShowcase extends AbstractCodeShowcase implements Seriali
         this.value = value;
     }
 
-    public String getGlyphicon() {
+    public String getSelectedGlyphicon() {
+        return glyphicon.value;
+    }
+
+    public CommandLinkGlyphiconType getGlyphicon() {
         return glyphicon;
     }
 
-    public void setGlyphicon(String glyphicon) {
+    public void setGlyphicon(CommandLinkGlyphiconType glyphicon) {
         this.glyphicon = glyphicon;
     }
 
