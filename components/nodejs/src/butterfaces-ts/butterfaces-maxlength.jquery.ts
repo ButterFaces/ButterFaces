@@ -2,44 +2,72 @@
 ///<reference path="butterfaces-util-string.ts"/>
 ///<reference path="butterfaces-util-object.ts"/>
 
-(function ($: any) {
-    $.fn.butterMaxLength = function (maxLength: number, maxLengthText: string) {
-        let ERROR_STYLE_CLASS = "has-error";
-
-        return this.each(function () {
-            // console.log("initializing max length");
-            let $root = $(this);
-            let $valueElement = $root.find("textarea");
-            let $maxLength = $root.find(".butter-component-maxlength-counter");
-
-            if ($maxLength.length > 0) {
-                // console.log("found max length element");
-                let hasInitialValidationError = $root.hasClass(ERROR_STYLE_CLASS);
-
-                let _checkValue = function () {
-                    let value = $valueElement.val();
-                    // console.log("checking value");
-                    // console.log(value);
-                    if (!ButterFaces.Object.isNullOrUndefined(value)) {
-                        let freeLetterCount = maxLength - value.length;
-                        let formatted = ButterFaces.String.format(maxLengthText, [freeLetterCount, maxLength]);
-                        $maxLength.text(formatted);
-
-                        if (!hasInitialValidationError) {
-                            if (freeLetterCount < 0) {
-                                $root.addClass(ERROR_STYLE_CLASS);
-                            } else {
-                                $root.removeClass(ERROR_STYLE_CLASS);
-                            }
-                        }
-                    }
-                };
-
-                $valueElement.on("focus blur keyup cut paste", _checkValue);
-
-                // initial check
-                _checkValue();
-            }
+(function ($: JQueryStatic) {
+    // you have to extend jQuery with the fn["pluginName"] notation because in Typescript you can't extend
+    // the existing typing interface with fn.pluginName!
+    $.fn["butterMaxLength"] = function (options: ButterFaces.MaxLengthIndicatorOptions) {
+        return this.each((index, element) => {
+            new ButterFaces.MaxLengthIndicator($(element), options);
         });
     };
-}(jQuery));
+})(jQuery);
+
+namespace ButterFaces {
+    const ERROR_STYLE_CLASS = "has-error";
+
+    export interface MaxLengthIndicatorOptions {
+        maxLength: number;
+        maxLengthText: string;
+    }
+
+    export class MaxLengthIndicator {
+
+        private rootElement: JQuery;
+        private options: MaxLengthIndicatorOptions;
+
+        private valueElement: JQuery;
+        private maxLengthElement: JQuery;
+        private hasInitialValidationError: boolean;
+
+        constructor(rootElement: JQuery, options: MaxLengthIndicatorOptions) {
+            this.rootElement = rootElement;
+            this.options = options;
+            this.valueElement = this.rootElement.find("textarea");
+            this.maxLengthElement = this.rootElement.find(".butter-component-maxlength-counter");
+
+            if (this.maxLengthElement.length > 0) {
+                console.log("ButterFaces.MaxLengthIndicator: initializing comnponent");
+                this.hasInitialValidationError = this.rootElement.hasClass(ERROR_STYLE_CLASS);
+
+                console.log(this.valueElement);
+                let that = this;
+                this.valueElement.on("focus blur keyup cut paste", function () {
+                    that.checkValue();
+                });
+
+                // initial check
+                this.checkValue();
+            }
+        }
+
+        private checkValue(): void {
+            console.log("ButterFaces.MaxLengthIndicator: checking maxlength value");
+            let value: string = (<string>this.valueElement.val());
+
+            if (!ButterFaces.Object.isNullOrUndefined(value)) {
+                console.log("ButterFaces.MaxLengthIndicator: updating maxlength value");
+                let freeLetterCount = this.options.maxLength - value.length;
+                let formatted = ButterFaces.String.format(this.options.maxLengthText, [freeLetterCount, this.options.maxLength]);
+                this.maxLengthElement.text(formatted);
+
+                if (!this.hasInitialValidationError) {
+                    if (freeLetterCount < 0) {
+                        this.rootElement.addClass(ERROR_STYLE_CLASS);
+                    } else {
+                        this.rootElement.removeClass(ERROR_STYLE_CLASS);
+                    }
+                }
+            }
+        }
+    }
+}
