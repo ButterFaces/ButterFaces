@@ -1,7 +1,6 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:b="http://butterfaces.org/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -22,9 +21,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="additional header"
-                                     value="#{sectionShowcase.selectedAdditionalHeaderType}"
-                                     values="#{sectionShowcase.additionalHeaderTypes}"/>
+            <b:treeBox label="additional header" value="#{sectionShowcase.selectedAdditionalHeaderType}" values="#{sectionShowcase.additionalHeaderTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
