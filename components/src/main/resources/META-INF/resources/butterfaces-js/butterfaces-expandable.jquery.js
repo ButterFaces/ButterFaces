@@ -207,7 +207,7 @@
                     .addClass("butter-component-expandable-readonly-container")
                     .insertAfter(_label);
 
-            var _icon = $("<span>").addClass("glyphicon glyphicon-resize-full");
+            var _icon = $("<span>").addClass("input-group-text glyphicon glyphicon-resize-full");
 
             this.$originalElement.appendTo(_container);
             $("<div>")
@@ -252,7 +252,7 @@
                     .addClass("form-control")
                     .parent()
                     .addClass("input-group");
-            $("<span class='input-group-addon'><span class='glyphicon glyphicon-resize-full'></span></span>")
+            $("<span class='input-group-append'><span class='input-group-text glyphicon glyphicon-resize-full'></span></span>")
                     .insertAfter(this.$originalElement);
         },
 
