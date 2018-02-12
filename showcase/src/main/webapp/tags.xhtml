@@ -51,10 +51,9 @@
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                   value="#{tagsShowcase.selectedTagsExampleType}"
-                                   values="#{tagsShowcase.tagsExampleTypes}"
-                                   renderChildrenPopover="true"/>
+            <b:treeBox label="examples" value="#{tagsShowcase.selectedTagsExampleType}" values="#{tagsShowcase.tagsExampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
             <b:treeBox label="ajax" value="#{tagsShowcase.ajaxType}" values="#{tagsShowcase.ajaxTypes}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
                 <b:tooltip title="Add ajax child">

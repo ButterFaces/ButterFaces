@@ -15,7 +15,6 @@ import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -203,11 +202,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         return items;
     }
 
-    public List<SelectItem> getTreeBoxExampleTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTreeBoxExampleTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TreeBoxExampleType type : TreeBoxExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

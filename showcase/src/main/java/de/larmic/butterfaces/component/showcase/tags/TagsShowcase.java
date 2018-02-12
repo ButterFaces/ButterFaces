@@ -5,9 +5,9 @@ import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.tree.Episodes;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -78,11 +78,11 @@ public class TagsShowcase extends AbstractInputShowcase implements Serializable 
         generateDemoCSS(codeExamples);
     }
 
-    public List<SelectItem> getTagsExampleTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTagsExampleTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TagsExampleType type : TagsExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
