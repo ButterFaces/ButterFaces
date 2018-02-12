@@ -18,25 +18,25 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="disabled" value="#{commandLinkShowcase.disabled}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{commandLinkShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <common:tagEnumControl label="glyphicon"
                                      value="#{commandLinkShowcase.glyphicon}"
                                      values="#{commandLinkShowcase.glyphicons}"/>
             <b:checkBox label="ajaxDisableLinkOnRequest" value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="ajaxShowWaitingDotsOnRequest" value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="ajaxHideGlyphiconOnRequest" value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:text label="ajaxProcessingTextOnRequest" value="#{commandLinkShowcase.ajaxProcessingText}">
                 <f:ajax event="keyup" execute="@this" render="output"/>

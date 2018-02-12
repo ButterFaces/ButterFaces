@@ -17,7 +17,7 @@
             </b:text>
             <b:text label="badgeText" value="#{sectionShowcase.badgeText}"/>
             <b:checkBox label="rendered" value="#{sectionShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
 

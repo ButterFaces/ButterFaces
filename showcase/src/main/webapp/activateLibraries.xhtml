@@ -22,7 +22,7 @@
             <div class="col-md-4">
                 <common:tagsContainer label="Tag attributes">
                     <b:checkBox label="rendered" value="#{activateLibrariesShowcase.rendered}">
-                        <f:ajax execute="@this" render="output"/>
+                        <f:ajax event="change" execute="@this" render="output"/>
                     </b:checkBox>
                 </common:tagsContainer>
             </div>
