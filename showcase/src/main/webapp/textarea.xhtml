@@ -71,6 +71,11 @@
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="textarea"
                                        component="#{textAreaShowcase}">
 
+            <h:panelGroup layout="block" styleClass="alert alert-warning"
+                          rendered="#{textAreaShowcase.warningRendered}">
+                Currently <b>maxLength</b> and <b>expandable</b> are not working together. So only the <b>expandable</b> effect will be active in this case.
+            </h:panelGroup>
+
             <h:panelGroup layout="block" styleClass="alert alert-info"
                           rendered="#{not empty textAreaShowcase.placeholder}">
                 <strong>Hint:</strong> you can use multiline placeholders by adding '\n'.
