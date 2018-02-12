@@ -1,3 +1,5 @@
+@import "base";
+
 .panel {
     margin-bottom: 20px;
     background-color: #fff;
@@ -5,9 +7,7 @@
     border-radius: 4px;
 
     &.control {
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 14px;
-        line-height: 1.42857143;
+        .baseFontDesign;
         color: #333;
     }
 
@@ -32,15 +32,13 @@
     }
 
     .panel-heading {
+        .baseFontDesign;
         color: #737373;
         text-align: end;
         padding: 10px 15px;
         border-bottom: 1px solid transparent;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
-        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 14px;
-        line-height: 1.42857143;
     }
 
     .butter-component {
