@@ -9,10 +9,10 @@ import de.larmic.butterfaces.event.TreeNodeExpansionListener;
 import de.larmic.butterfaces.event.TreeNodeSelectionEvent;
 import de.larmic.butterfaces.event.TreeNodeSelectionListener;
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -162,29 +162,29 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         return myBean;
     }
 
-    public List<SelectItem> getAjaxSelectionTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAjaxSelectionTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final SelectionAjaxType type : SelectionAjaxType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getIconTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getIconTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TreeIconType type : TreeIconType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getSeachBarModeTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getSeachBarModeTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TreeSearchBarModeType type : TreeSearchBarModeType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
@@ -264,11 +264,11 @@ public class TreeShowcase extends AbstractCodeShowcase implements Serializable, 
         }
     }
 
-    public List<SelectItem> getTreeTemplateTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTreeTemplateTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TreeTemplateType type : TreeTemplateType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
