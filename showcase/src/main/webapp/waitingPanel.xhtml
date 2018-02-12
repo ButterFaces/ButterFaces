@@ -16,10 +16,10 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="blockpage" value="#{waitingPanelShowcase.blockpage}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{waitingPanelShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
     </ui:define>

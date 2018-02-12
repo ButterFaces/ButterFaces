@@ -17,19 +17,19 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="hideLabel" value="#{markdownShowcase.hideLabel}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="readonly" value="#{markdownShowcase.readonly}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="required" value="#{markdownShowcase.required}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="disabled" value="#{markdownShowcase.disabled}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{markdownShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:text label="maxLength" value="#{markdownShowcase.maxLength}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
@@ -47,7 +47,7 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="autofocus" value="#{markdownShowcase.autoFocus}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
 
@@ -64,7 +64,7 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="validate" value="#{markdownShowcase.validation}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
     </ui:define>

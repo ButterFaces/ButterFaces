@@ -16,24 +16,26 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="hideLabel" value="#{textAreaShowcase.hideLabel}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="readonly" value="#{textAreaShowcase.readonly}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="required" value="#{textAreaShowcase.required}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="disabled" value="#{textAreaShowcase.disabled}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{textAreaShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:text label="maxLength" value="#{textAreaShowcase.maxLength}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}"/>
+            <b:checkBox label="expandable" value="#{textAreaShowcase.expandable}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
             <b:treeBox label="styleClass" value="#{textAreaShowcase.styleClass}" values="#{textAreaShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
@@ -44,7 +46,7 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="autofocus" value="#{textAreaShowcase.autoFocus}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
 
@@ -61,7 +63,7 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="validate" value="#{textAreaShowcase.validation}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
     </ui:define>

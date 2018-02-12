@@ -13,13 +13,13 @@
    <ui:define name="tagsContainers">
       <common:tagsContainer label="Tag attributes">
          <b:checkBox label="showDetail" value="#{messagesShowcase.showDetail}">
-             <f:ajax execute="@this" render="output"/>
+             <f:ajax event="change" execute="@this" render="output"/>
          </b:checkBox>
          <b:checkBox label="globalOnly" value="#{messagesShowcase.globalOnly}">
-             <f:ajax execute="@this" render="output"/>
+             <f:ajax event="change" execute="@this" render="output"/>
          </b:checkBox>
          <b:checkBox label="rendered" value="#{messagesShowcase.rendered}">
-             <f:ajax execute="@this" render="output"/>
+             <f:ajax event="change" execute="@this" render="output"/>
          </b:checkBox>
       </common:tagsContainer>
    </ui:define>

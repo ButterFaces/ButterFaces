@@ -18,19 +18,19 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="hideLabel" value="#{maskedTextShowcase.hideLabel}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="readonly" value="#{maskedTextShowcase.readonly}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="required" value="#{maskedTextShowcase.required}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="disabled" value="#{maskedTextShowcase.disabled}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <b:treeBox label="styleClass" value="#{maskedTextShowcase.styleClass}" values="#{maskedTextShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
@@ -54,7 +54,7 @@
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
             <b:checkBox label="autofocus" value="#{maskedTextShowcase.autoFocus}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
         </common:tagsContainer>
 
@@ -74,7 +74,7 @@
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
             <b:checkBox label="validate" value="#{maskedTextShowcase.validation}">
-                <f:ajax execute="@this" render="output"/>
+                <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
             <common:tagEnumControl label="inputMask"
                                    value="#{maskedTextShowcase.selectedInputMaskType}"
