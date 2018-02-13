@@ -46,8 +46,11 @@
             <b:treeBox label="styleClass" value="#{calendarShowcase.styleClass}" values="#{calendarShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
-            <b:treeBox label="locale" value="#{calendarShowcase.locale}" values="#{calendarShowcase.localeExamples}" showClearButton="true">
+            <b:treeBox label="locale" value="#{calendarShowcase.locale}" values="#{calendarShowcase.localeExamples}" showClearButton="true" >
                 <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    If no locale is set 'en' will be used.
+                </b:tooltip>
             </b:treeBox>
             <b:treeBox label="viewMode" value="#{calendarShowcase.viewMode}" values="#{calendarShowcase.viewModes}" showClearButton="true">
                 <f:ajax event="change" execute="@this" render="output"/>

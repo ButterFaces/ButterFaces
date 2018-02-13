@@ -1,12 +1,5 @@
 package de.larmic.butterfaces.component.showcase.calendar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.html.text.HtmlCalendarViewMode;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
@@ -15,6 +8,13 @@ import de.larmic.butterfaces.component.showcase.type.Locale;
 import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.util.StringUtils;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -31,7 +31,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     private boolean pickDate = true;
     private boolean pickTime = true;
     private boolean sideBySide = false;
-    private Locale locale =null;
+    private Locale locale = null;
     private String format = null;
     private HtmlCalendarViewMode viewMode = null;
 
@@ -59,7 +59,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         xhtmlCodeExample.appendInnerContent("                    pickTime=\"" + pickTime + "\"");
         xhtmlCodeExample.appendInnerContent("                    sideBySide=\"" + sideBySide + "\"");
         if (locale != null) {
-            xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale.name() + "\"");
+            xhtmlCodeExample.appendInnerContent("                    locale=\"" + locale.value + "\"");
         }
         if (StringUtils.isNotEmpty(format)) {
             xhtmlCodeExample.appendInnerContent("                    format=\"" + format + "\"");
@@ -167,7 +167,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
     }
 
     public String getSelectedLocale() {
-        return locale == Locale.EN ? "en" : (locale == Locale.ES ? "es" : "de");
+        return locale == null ? null : locale.value;
     }
 
     public Locale getLocale() {

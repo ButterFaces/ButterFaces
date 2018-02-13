@@ -1,15 +1,15 @@
 package de.larmic.butterfaces.component.html.text;
 
-import java.util.Arrays;
-import java.util.List;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.FacesComponent;
-
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.InputComponentFacet;
 import de.larmic.butterfaces.component.html.feature.AutoFocus;
 import de.larmic.butterfaces.component.html.feature.Placeholder;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.FacesComponent;
+import java.util.Collections;
+import java.util.List;
 
 @ResourceDependencies({
     @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
@@ -44,7 +44,7 @@ public class HtmlCalendar extends HtmlText implements HtmlInputComponent, AutoFo
 
     @Override
     public List<InputComponentFacet> getSupportedFacets() {
-        return Arrays.asList(InputComponentFacet.CALENDAR);
+        return Collections.singletonList(InputComponentFacet.CALENDAR);
     }
 
     @Override
