@@ -14,59 +14,47 @@
             <div class="panel-heading">Components</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <ul class="nav navList componentsNavList">
-                            <li class="dropdown-header" role="presentation">Input components</li>
-                            <li><h:link value="b:calendar" outcome="/calendar" title="Butterfaces calendar component"/></li>
-                            <li><h:link value="b:checkbox" outcome="/checkbox" title="Butterfaces checkbox component"/></li>
-                            <li><h:link value="b:markdown" outcome="/markdown" title="Butterfaces text area component"/></li>
-                            <li><h:link value="b:maskedText" outcome="/maskedtext" title="Butterfaces masked text component"/></li>
-                            <li><h:link value="b:number" outcome="/number" title="Butterfaces number component"/></li>
-                            <li><h:link value="b:radiobox" outcome="/radiobox" title="Butterfaces radio box component"/></li>
-                            <li><h:link value="b:secret" outcome="/secret" title="Butterfaces secret component"/></li>
-                            <li><h:link value="b:tags" outcome="/tags" title="Butterfaces tags component"/></li>
-                            <li><h:link value="b:text" outcome="/text" title="Butterfaces text component"/></li>
-                            <li><h:link value="b:textarea" outcome="/textarea" title="Butterfaces text area component"/></li>
-                            <li><h:link value="b:treebox" outcome="/treebox" title="Butterfaces treebox component"/></li>
-                            <li class="divider" role="presentation">
-                                <hr/>
-                            </li>
-                            <li class="dropdown-header" role="presentation">Miscellaneous</li>
-                            <li><h:link value="b:activateLibraries" outcome="/activateLibraries" title="Butterfaces active libraries component"/></li>
-                            <li><h:link value="b:autoComplete"  outcome="/autoComplete" title="Butterfaces auto complete component"/></li>
-                            <li><h:link value="b:defaultAction" outcome="/defaultAction" title="Butterfaces default action component"/></li>
-                            <li><h:link value="b:messages" outcome="/messages" title="Butterfaces messages component"/></li>
-                            <li><h:link value="b:modalPanel" outcome="/modalPanel" title="Butterfaces modal panel component"/></li>
-                            <li><h:link value="b:tooltip"  outcome="/tooltip" title="Butterfaces tooltip component"/></li>
-                            <li><h:link value="b:waitingPanel" outcome="/waitingPanel" title="Butterfaces waiting panel component"/></li>
-                        </ul>
+                    <div class="col-sm-6 componentsNavList">
+                        <div class="components-header">Input components</div>
+                        <h:link value="b:calendar" outcome="/calendar" title="Butterfaces calendar component"/>
+                        <h:link value="b:checkbox" outcome="/checkbox" title="Butterfaces checkbox component"/>
+                        <h:link value="b:markdown" outcome="/markdown" title="Butterfaces text area component"/>
+                        <h:link value="b:maskedText" outcome="/maskedtext" title="Butterfaces masked text component"/>
+                        <h:link value="b:number" outcome="/number" title="Butterfaces number component"/>
+                        <h:link value="b:radiobox" outcome="/radiobox" title="Butterfaces radio box component"/>
+                        <h:link value="b:secret" outcome="/secret" title="Butterfaces secret component"/>
+                        <h:link value="b:tags" outcome="/tags" title="Butterfaces tags component"/>
+                        <h:link value="b:text" outcome="/text" title="Butterfaces text component"/>
+                        <h:link value="b:textarea" outcome="/textarea" title="Butterfaces text area component"/>
+                        <h:link value="b:treebox" outcome="/treebox" title="Butterfaces treebox component"/>
+                        <hr/>
+                        <div class="components-header">Miscellaneous</div>
+                        <h:link value="b:activateLibraries" outcome="/activateLibraries" title="Butterfaces active libraries component"/>
+                        <h:link value="b:autoComplete"  outcome="/autoComplete" title="Butterfaces auto complete component"/>
+                        <h:link value="b:defaultAction" outcome="/defaultAction" title="Butterfaces default action component"/>
+                        <h:link value="b:messages" outcome="/messages" title="Butterfaces messages component"/>
+                        <h:link value="b:modalPanel" outcome="/modalPanel" title="Butterfaces modal panel component"/>
+                        <h:link value="b:tooltip"  outcome="/tooltip" title="Butterfaces tooltip component"/>
+                        <h:link value="b:waitingPanel" outcome="/waitingPanel" title="Butterfaces waiting panel component"/>
                     </div>
-                    <div class="col-sm-6">
-                        <ul class="nav navList componentsNavList">
-                            <li class="dropdown-header" role="presentation">Actions</li>
-                            <li><h:link value="b:commandLink" outcome="/commandLink"  title="Butterfaces command link and button component"/></li>
-                            <li class="divider" role="presentation">
-                                <hr/>
-                            </li>
-                            <li class="dropdown-header" role="presentation">Container</li>
-                            <li><h:link value="b:labeledContainer"  outcome="/labeledContainer" title="Butterfaces labeled container component"/></li>
-                            <li><h:link value="b:prettyprint" outcome="/prettyprint" title="Butterfaces google pretty print component"/></li>
-                            <li><h:link value="b:section" outcome="/section" title="Butterfaces html section component"/></li>
-                            <li class="divider" role="presentation">
-                                <hr/>
-                            </li>
-                            <li class="dropdown-header" role="presentation">Data iteration</li>
-                            <li><h:link value="b:repeat" outcome="/repeat" title="Butterfaces repeat component"/></li>
-                            <li><h:link value="b:table" outcome="/table" title="Butterfaces table component"/></li>
-                            <li><h:link value="b:tree" outcome="/tree" title="Butterfaces tree component"/></li>
-                            <li class="divider" role="presentation">
-                                <hr/>
-                            </li>
-                            <li class="dropdown-header" role="presentation">jQuery Plugins</li>
-                            <li><h:link value="$.itemFilterField" outcome="/jquery/itemFilterField" title="Butterfaces JQuery plugin client side filtering component"/></li>
-                            <li><h:link value="$.overlay" outcome="/jquery/overlay" title="Butterfaces JQuery plugin disable and enable elements component"/></li>
-                            <li><h:link value="$.scroll" outcome="/jquery/scroll" title="Butterfaces JQuery plugin scroll component"/></li>
-                        </ul>
+                    <div class="col-sm-6 componentsNavList">
+                        <div class="components-header">Actions</div>
+                        <h:link value="b:commandLink" outcome="/commandLink"  title="Butterfaces command link and button component"/>
+                        <hr/>
+                        <div class="components-header">Container</div>
+                        <h:link value="b:labeledContainer"  outcome="/labeledContainer" title="Butterfaces labeled container component"/>
+                        <h:link value="b:prettyprint" outcome="/prettyprint" title="Butterfaces google pretty print component"/>
+                        <h:link value="b:section" outcome="/section" title="Butterfaces html section component"/>
+                        <hr/>
+                        <div class="components-header">ActiData iterationons</div>
+                        <h:link value="b:repeat" outcome="/repeat" title="Butterfaces repeat component"/>
+                        <h:link value="b:table" outcome="/table" title="Butterfaces table component"/>
+                        <h:link value="b:tree" outcome="/tree" title="Butterfaces tree component"/>
+                        <hr/>
+                        <div class="components-header">jQuery Plugins</div>
+                        <h:link value="$.itemFilterField" outcome="/jquery/itemFilterField" title="Butterfaces JQuery plugin client side filtering component"/>
+                        <h:link value="$.overlay" outcome="/jquery/overlay" title="Butterfaces JQuery plugin disable and enable elements component"/>
+                        <h:link value="$.scroll" outcome="/jquery/scroll" title="Butterfaces JQuery plugin scroll component"/>
                     </div>
                 </div>
 
@@ -75,7 +63,6 @@
                         <div class="col-md-12">
                             <ul class="fa-ul pull-right">
                                 <li class="experimental hideExperimentalAttention"><i class="fa fa-warning fa-lg"></i> experimental</li>
-                                <li class="mojarra hideMojarraAttention"><i class="fa fa-recycle fa-lg"></i> only mojarra version</li>
                                 <li class="newFeature hideNewFeatureAttention"><i class="fa fa-star fa-lg"></i> new feature</li>
                             </ul>
                         </div>

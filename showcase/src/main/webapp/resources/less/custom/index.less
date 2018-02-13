@@ -1,20 +1,32 @@
 @import "variables";
 
-.componentsNavList .mojarra sub.mojarra {
-    color: @mojarra-color;
-}
+.componentsNavList {
+    display: flex;
+    flex-direction: column;
 
-.componentsNavList .experimental {
-    color: @experimental-color;
-}
-
-.componentsNavList .newFeature {
-    color: @new-feature-color;
-}
-
-.nav.componentsNavList {
-    > li > a {
+    a {
+        color: #337ab7;
+        text-decoration: none;
         padding: 0 20px;
+
+        &:hover {
+            text-decoration: none;
+            background-color: #eee;
+        }
+    }
+
+    .components-header {
+        font-size: 12px;
+        color: #777;
+        padding: 0 20px;
+    }
+
+    .experimental {
+        color: @experimental-color;
+    }
+
+    .newFeature {
+        color: @new-feature-color;
     }
 }
 
