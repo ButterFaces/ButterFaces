@@ -33,7 +33,7 @@ var NODEJS_RESSOURCE_DIR = "./src";
 var paths = {
     npm: {
         jquery: "./node_modules/jquery/dist/**/*.{js,map}",
-        jqueryinputmask: "./node_modules/jquery.inputmask/dist/jquery.inputmask.bundle.js",
+        jqueryinputmask: "./node_modules/inputmask/dist/jquery.inputmask.bundle.js",
         prettify: "./node_modules/google-code-prettify/src/prettify.{js,css}",
         bootstrap_css: "./node_modules/bootstrap/dist/css/bootstrap.{css,css.map}",
         bootstrap_js: "./node_modules/bootstrap/dist/js/bootstrap.{js,map}",
