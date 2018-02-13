@@ -8,59 +8,89 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <strong>b:maskedText</strong> The text tag renders an HTML input element of the type "text" using <a href="https://github.com/RobinHerbots/jquery.inputmask" target="_blank">jQuery input mask</a> as jQuery plugin.
+        <strong>b:maskedText</strong> The text tag renders an HTML input element of the type "text" using <a
+        href="https://github.com/RobinHerbots/jquery.inputmask" target="_blank">jQuery input mask</a> as jQuery plugin.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{maskedTextShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{maskedTextShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{maskedTextShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{maskedTextShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{maskedTextShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{maskedTextShowcase.rendered}"/>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{maskedTextShowcase.styleClass}"
-                                     values="#{maskedTextShowcase.styleClasses}"/>
+            <b:text label="label" value="#{maskedTextShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{maskedTextShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{maskedTextShowcase.readonly}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{maskedTextShowcase.required}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{maskedTextShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{maskedTextShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="styleClass" value="#{maskedTextShowcase.styleClass}" values="#{maskedTextShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{maskedTextShowcase.placeholder}"/>
-            <common:tagStringControl label="type" value="#{maskedTextShowcase.type}"/>
-            <common:tagStringControl label="pattern" value="#{maskedTextShowcase.pattern}"/>
-            <common:tagStringControl label="min" value="#{maskedTextShowcase.min}"/>
-            <common:tagStringControl label="max" value="#{maskedTextShowcase.max}"/>
-            <common:tagBooleanControl label="autofocus" value="#{maskedTextShowcase.autoFocus}"/>
+            <b:text label="placeholder" value="#{maskedTextShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="type" value="#{maskedTextShowcase.type}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="pattern" value="#{maskedTextShowcase.pattern}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="min" value="#{maskedTextShowcase.min}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="max" value="#{maskedTextShowcase.max}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="autofocus" value="#{maskedTextShowcase.autoFocus}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="ajax"
-                                     value="#{maskedTextShowcase.ajaxType}"
-                                     values="#{maskedTextShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
-            <common:tagStringControl label="tooltip" value="#{maskedTextShowcase.tooltip}"/>
-            <common:tagEnumControl label="facets"
-                                     value="#{maskedTextShowcase.selectedFacetType}"
-                                     values="#{maskedTextShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false" />
-            <common:tagBooleanControl label="validate"
-                                        value="#{maskedTextShowcase.validation}"/>
-            <common:tagEnumControl label="inputMask"
-                                     value="#{maskedTextShowcase.selectedInputMaskType}"
-                                     values="#{maskedTextShowcase.inputMaskTypes}"/>
+            <b:treeBox label="ajax" value="#{maskedTextShowcase.ajaxType}" values="#{maskedTextShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:text label="tooltip" value="#{maskedTextShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:treeBox label="facets" value="#{maskedTextShowcase.selectedFacetType}" values="#{maskedTextShowcase.availableFacetTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="validate" value="#{maskedTextShowcase.validation}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="inputMask" value="#{maskedTextShowcase.selectedInputMaskType}" values="#{maskedTextShowcase.inputMaskTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent"
-                                         activeComponentNavigationId="maskedtext"
-                                         component="#{maskedTextShowcase}">
+                                       activeComponentNavigationId="maskedtext"
+                                       component="#{maskedTextShowcase}">
             <h:panelGroup layout="block"
                           styleClass="alert alert-warning"
                           rendered="#{maskedTextShowcase.selectedInputMaskType eq 'CURRENCY_BY_DATA'}">
-                <strong>Attention:</strong> You can use JSF 2.2 passthrough attributes to configure jQuery input mask plugin. Example could be find <a href="http://robinherbots.github.io/jquery.inputmask/" target="_blank">here</a>.
+                <strong>Attention:</strong> You can use JSF 2.2 passthrough attributes to configure jQuery input mask plugin. Example could be find
+                <a href="http://robinherbots.github.io/jquery.inputmask/" target="_blank">here</a>.
             </h:panelGroup>
 
             <b:maskedText id="text"
@@ -80,7 +110,7 @@
                           onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -108,7 +138,7 @@
                           autoFocus="#{maskedTextShowcase.autoFocus}"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -142,7 +172,7 @@
                           autoFocus="#{maskedTextShowcase.autoFocus}"
                           p:data-inputmask="#{maskedTextShowcase.dataInputMask}"
                           inputMask="#{maskedTextShowcase.inputMask}"
-                          styleClass="#{maskedTextShowcase.styleClass}">
+                          styleClass="#{maskedTextShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
@@ -154,10 +184,10 @@
                     #{maskedTextShowcase.tooltip}
                 </b:tooltip>
                 <f:facet name="input-group-btn-left">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <button class="btn btn-outline-secondary" type="button">Go!</button>
                 </f:facet>
                 <f:facet name="input-group-btn-right">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
                             aria-expanded="false">Action <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a href="#">Action</a></li>
@@ -173,6 +203,6 @@
 
     <ui:define name="other">
         <common:codeExamples component="#{maskedTextShowcase}"/>
-        <b:activateLibraries />
+        <b:activateLibraries/>
     </ui:define>
 </ui:composition>

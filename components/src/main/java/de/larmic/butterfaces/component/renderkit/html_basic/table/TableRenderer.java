@@ -195,7 +195,7 @@ public class TableRenderer extends HtmlBasicRenderer {
             tableStyleClass.append(" table-fixed");
         }
         if (table.isTableCondensed()) {
-            tableStyleClass.append(" table-condensed");
+            tableStyleClass.append(" table-sm");
         }
         if (table.isTableBordered()) {
             tableStyleClass.append(" table-bordered");

@@ -7,18 +7,23 @@
     </ui:define>
 
     <ui:define name="example">
-        <span id="disableBtn" class="btn btn-default" onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').show();">Disable</span>
-        <span id="enableBtn" class="btn btn-default" onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').hide();">Enable</span>
+        <span id="disableBtn" class="btn btn-outline-secondary"
+              onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').show();">Disable</span>
+        <span id="enableBtn" class="btn btn-outline-secondary"
+              onclick="new ButterFaces.Overlay(0, false, '.disableElementsContainer').hide();">Enable</span>
 
-        <div class="alert alert-info disableElementsContainer">
-            <div>Some text...</div>
-            <div>Some other text...</div>
-            <div><input value="An input field"></input></div>
+        <div class="alert alert-info disableElementsContainer" style="height:54px">
+            <div>Some text in a container with a height lower than 55px</div>
+        </div>
+
+        <div class="alert alert-info disableElementsContainer" style="height:104px">
+            <div>Some other text in a container with a height lower than 105px</div>
         </div>
 
         <div class="alert alert-info disableElementsContainer">
-            <div>Some text...</div>
-            <div>Some other text...</div>
+            <div>Some big text</div>
+            <div>... really big text...</div>
+            <div>... with a height bigger than 105px</div>
             <div><input value="An input field"></input></div>
         </div>
     </ui:define>

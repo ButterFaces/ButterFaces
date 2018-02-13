@@ -5,12 +5,12 @@
  */
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.component.html.HtmlCheckBox;
-import de.larmic.butterfaces.util.StringUtils;
-
+import java.io.IOException;
 import javax.faces.component.UIInput;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import de.larmic.butterfaces.component.html.HtmlCheckBox;
+import de.larmic.butterfaces.util.StringUtils;
 
 /**
  * @author Lars Michaelis

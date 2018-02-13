@@ -1,101 +1,102 @@
-.panel-components .experimentalHint {
-  padding-top: 30px;
-  font-size: smaller;
-}
+@import "variables";
+@import "base";
 
-.panel.panel-simple {
-  border-color: #ddd;
+.componentsNavList {
+    display: flex;
+    flex-direction: column;
 
-  .panel-heading {
-    color: #737373;
-    text-align: end;
-  }
+    .darkBlueLink;
 
-  .panel-body {
-    padding-top: 0;
-
-    p:first-of-type {
-      margin-top: 0;
-    }
-    p {
-      margin-bottom: 0;
-      margin-top: 20px;
+    a {
+        padding: 0 20px;
     }
 
-    h5 {
-      margin-top: 0;
-      margin-left: 18px;
+    .components-header {
+        font-size: 12px;
+        color: #777;
+        padding: 0 20px;
     }
-  }
+
+    .experimental {
+        color: @experimental-color;
+    }
+
+    .newFeature {
+        color: @new-feature-color;
+    }
 }
 
-.componentsNavList .mojarra sub.mojarra {
-  color: @mojarra-color;
-}
+.index-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 
-.componentsNavList .experimental {
-  color: @experimental-color;
-}
+    .components {
+        margin-right: 10px;
+        flex-grow: 1;
+    }
 
-.componentsNavList .newFeature {
-  color: @new-feature-color;
-}
+    .ease-to-use {
+        margin-right: 10px;
+        flex-grow: 1;
+        width: 300px;
+    }
 
-.nav.componentsNavList > li > a {
-  padding: 0 20px;
+    .why-butterfaces {
+        margin-right: 10px;
+        flex-grow: 1;
+        width: 300px;
+    }
 }
 
 .socialNetwork {
-  margin-top: 15px;
+    margin-top: 15px;
 }
 
 .socialNetwork .googleplus,
 .socialNetwork .twitter,
 .socialNetwork .github {
-  float: left;
-  margin-right: 20px;
+    float: left;
+    margin-right: 20px;
 }
 
 .maven-example,
 .maven-example pre {
-  font-size: 80%;
-  margin-left: 18px;
+    font-size: 80%;
+    margin-left: 18px;
 }
 
 .maven-example .prettyprint {
-  margin-left: 0;
-  margin-right: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.dropdown-menu.success.transparent,
-.btn.btn-success.transparent {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(92, 184, 92, 0.5);
-  border-color: rgba(255, 255, 255, 0.3);
-}
+.btn {
+    &.btn-success {
+        &.transparent {
+            color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(92, 184, 92, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
 
-.dropdown-menu.success.transparent li a,
-.dropdown-menu.primary.transparent li a {
-  color: rgba(255, 255, 255, 0.8);
-}
+            &:hover {
+                color: rgba(255, 255, 255, 1);
+                background-color: rgba(92, 184, 92, 1);
+                border-color: rgba(255, 255, 255, 1);
+            }
+        }
+    }
 
-.dropdown-menu.primary.transparent,
-.btn.btn-primary.transparent {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(51, 122, 183, 0.5);
-  border-color: rgba(255, 255, 255, 0.3);
-}
+    &.btn-primary {
+        &.transparent {
+            color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(51, 122, 183, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
 
-.dropdown-menu.success.transparent li a:hover,
-.btn.btn-success.transparent:hover {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(92, 184, 92, 0.9);
-  border-color: rgba(255, 255, 255, 0.7);
-}
-
-.dropdown-menu.primary.transparent li a:hover,
-.btn.btn-primary.transparent:hover {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(51, 122, 183, 0.9);
-  border-color: rgba(255, 255, 255, 0.7);
+            &:hover {
+                color: rgba(255, 255, 255, 1);
+                background-color: rgba(51, 122, 183, 1);
+                border-color: rgba(255, 255, 255, 1);
+            }
+        }
+    }
 }

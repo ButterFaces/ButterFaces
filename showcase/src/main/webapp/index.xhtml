@@ -20,68 +20,21 @@
                 </p>
 
                 <div>
-                    <a class="btn btn-success transparent hidden-sm hidden-xs"
+                    <a class="btn btn-sm btn-success transparent"
                        href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
                         <i class="fa fa-download"></i> Download ButterFaces library
                     </a>
-                    <a class="btn btn-success transparent hidden-sm hidden-xs"
-                       href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
-                        <i class="fa fa-download"></i> Download ButterFaces source
-                    </a>
 
-                    <div class="btn-group hidden-md hidden-lg">
-                        <button type="button" class="btn btn-success transparent">Download</button>
-                        <button type="button" class="btn btn-success transparent dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Menü ein-/ausblenden</span>
-                        </button>
-                        <ul class="dropdown-menu success transparent" role="menu">
-                            <li>
-                                <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}.jar">
-                                    <i class="fa fa-fw fa-download"></i> Download ButterFaces library
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://search.maven.org/remotecontent?filepath=de/larmic/butterfaces/components/#{version.lastestReleaseVersion}/components-#{version.lastestReleaseVersion}-sources.jar">
-                                    <i class="fa fa-fw fa-download"></i> Download ButterFaces source
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <a class="btn btn-primary transparent hidden-xs"
+                    <a class="btn btn-sm btn-primary transparent"
                        target="_blank"
                        href="https://github.com/ButterFaces/ButterFaces/issues">
                         <i class="fa fa-external-link"></i> View issue tracker
                     </a>
-                    <a class="btn btn-primary transparent hidden-xs"
+                    <a class="btn btn-sm btn-primary transparent"
                        target="_blank"
                        href="https://butterfaces.gitbooks.io/butterfaces/content/getting_started.html">
                         <i class="fa fa-external-link"></i> View getting started
                     </a>
-
-                    <div class="btn-group hidden-sm hidden-md hidden-lg">
-                        <button type="button" class="btn btn-primary transparent">Help</button>
-                        <button type="button" class="btn btn-primary transparent dropdown-toggle" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Menü ein-/ausblenden</span>
-                        </button>
-                        <ul class="dropdown-menu primary transparent" role="menu">
-                            <li>
-                                <a target="_blank"
-                                   href="https://github.com/ButterFaces/ButterFaces/issues">
-                                    <i class="fa fa-fw fa-external-link"></i> View issue tracker
-                                </a>
-                            </li>
-                            <li>
-                                <a target="_blank"
-                                   href="https://butterfaces.gitbooks.io/butterfaces/content/getting_started.html">
-                                    <i class="fa fa-fw fa-external-link"></i> View getting started
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
                 <h:panelGroup rendered="#{facesContext.externalContext.request.serverName ne 'localhost'}"
@@ -93,7 +46,7 @@
 
                         <!-- Fügen Sie dieses Tag an der Stelle ein, an der die Widget erscheinen soll. -->
                         <div class="g-follow" data-annotation="bubble" data-height="20"
-                             data-href="//plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
+                             data-href="https://plus.google.com/u/0/106961814726878390727" data-rel="publisher"></div>
                     </div>
 
                     <div class="twitter">
@@ -124,42 +77,10 @@
 
     <ui:define name="content">
 
-        <ui:remove>
-            <!--
-                use style class newFeature to mark a component as new feature
-                use style class experimental to mark a component as experimental (or in progress)
-                don't forget to mark element in header component too
-            -->
-        </ui:remove>
-
-        <div class="row hidden-sm">
-            <div class="col-sm-3">
-                <common:whyButterFaces/>
-            </div>
-
-            <div class="col-sm-4">
-                <common:easyToUse/>
-            </div>
-
-            <div class="col-sm-5">
-                <common:components/>
-            </div>
-        </div>
-
-        <div class="row visible-sm">
-            <div class="col-sm-6">
-                <common:whyButterFaces/>
-            </div>
-
-            <div class="col-sm-6">
-                <common:easyToUse/>
-            </div>
-        </div>
-
-        <div class="row visible-sm">
-            <div class="col-sm-12">
-                <common:components/>
-            </div>
+        <div class="index-content">
+            <common:whyButterFaces/>
+            <common:easyToUse/>
+            <common:components/>
         </div>
 
         <b:activateLibraries/>

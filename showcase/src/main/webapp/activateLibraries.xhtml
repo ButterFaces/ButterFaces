@@ -7,11 +7,13 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="header">
-        <p><strong>b:activateLibraries</strong> Adds bootstrap css and js, jQuery and pretty print to head part to activate libraries for sites not containing any other ButterFaces component.
-        In addition to that all butterfaces css, js and jQuery pluging will be added to head part.
+        <p>
+            <strong>b:activateLibraries</strong> Adds bootstrap css and js, jQuery and pretty print to head part to activate libraries for sites not containing any other ButterFaces component.
+            In addition to that all butterfaces css, js and jQuery pluging will be added to head part.
         </p>
         <p>
-            If web.xml parameter <strong>de.larmic.butterfaces.useCompressedResources</strong> is set (default is true) a compressed version of all resources are added instead of each resource.
+            If web.xml parameter
+            <strong>de.larmic.butterfaces.useCompressedResources</strong> is set (default is true) a compressed version of all resources are added instead of each resource.
         </p>
     </ui:define>
 
@@ -19,7 +21,9 @@
         <div class="row">
             <div class="col-md-4">
                 <common:tagsContainer label="Tag attributes">
-                    <common:tagBooleanControl label="rendered" value="#{activateLibrariesShowcase.rendered}"/>
+                    <b:checkBox label="rendered" value="#{activateLibrariesShowcase.rendered}">
+                        <f:ajax event="change" execute="@this" render="output"/>
+                    </b:checkBox>
                 </common:tagsContainer>
             </div>
 
@@ -39,7 +43,7 @@
             });
         </script>
 
-        <b:activateLibraries />
+        <b:activateLibraries/>
     </ui:define>
 
 </ui:composition>

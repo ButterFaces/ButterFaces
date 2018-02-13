@@ -1,16 +1,16 @@
 package de.larmic.butterfaces.component.showcase.container;
 
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
-import de.larmic.butterfaces.component.showcase.tree.Episode;
-import de.larmic.butterfaces.component.showcase.tree.Episodes;
 import de.larmic.butterfaces.component.showcase.container.examples.*;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.CssCodeExample;
 import de.larmic.butterfaces.component.showcase.table.DemoPojo;
 import de.larmic.butterfaces.component.showcase.table.example.DemoPojoCodeExample;
+import de.larmic.butterfaces.component.showcase.tree.Episode;
+import de.larmic.butterfaces.component.showcase.tree.Episodes;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -75,11 +75,11 @@ public class RepeatShowcase extends AbstractCodeShowcase implements Serializable
         return Arrays.asList(outerValue + "1", outerValue + "2", outerValue + "3");
     }
 
-    public List<SelectItem> getExampleTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getExampleTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final RepeatExampleType type : RepeatExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

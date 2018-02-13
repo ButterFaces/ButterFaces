@@ -1,32 +1,26 @@
 package de.larmic.butterfaces.component.showcase.tree;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.JavaCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxExampleEnum;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxExampleEnumJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfEnumsJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfNodesJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxListOfStringsJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxRootNodeJavaExample;
-import de.larmic.butterfaces.component.showcase.tree.examples.TreeBoxWebXmlExample;
+import de.larmic.butterfaces.component.showcase.tree.examples.*;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesCssExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxEpisodesJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxImageJavaExample;
 import de.larmic.butterfaces.component.showcase.tree.examples.stargate.TreeBoxListOfEpisodesJavaExample;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
 import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -102,7 +96,9 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         xhtmlCodeExample.appendInnerContent("                   value=\"#{myBean.selectedValue}\"");
         xhtmlCodeExample.appendInnerContent("                   values=\"#{myBean.values}\"");
         xhtmlCodeExample.appendInnerContent("                   placeholder=\"" + this.getPlaceholder() + "\"");
-        xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + StringUtils.getNotNullValue(this.getStyleClass(), "") + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                   styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                   readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                   disabled=\"" + this.isDisabled() + "\"");
         xhtmlCodeExample.appendInnerContent("                   inputTextProperty=\"" + this.getInputTextProperty() + "\"");
@@ -197,20 +193,20 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
         return codeExample;
     }
 
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAvailableFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getTreeBoxExampleTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTreeBoxExampleTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TreeBoxExampleType type : TreeBoxExampleType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

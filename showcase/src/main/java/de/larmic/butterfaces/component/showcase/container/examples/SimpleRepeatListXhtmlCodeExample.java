@@ -16,7 +16,7 @@ public class SimpleRepeatListXhtmlCodeExample extends XhtmlCodeExample {
         super(false);
 
         this.appendInnerContent("\n        <b:commandLink glyphicon=\"glyphicon glyphicon-refresh\"");
-        this.appendInnerContent("                           styleClass=\"btn btn-default\">");
+        this.appendInnerContent("                           styleClass=\"btn btn-outline-secondary\">");
         this.appendInnerContent("           <f:ajax execute=\"@this\" render=\"repeat\"/>");
         this.appendInnerContent("        </b:commandLink>");
 

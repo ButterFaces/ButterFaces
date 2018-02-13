@@ -111,31 +111,38 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         final UIComponent inputGroupAddonRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_ADDON_RIGHT);
         final UIComponent inputGroupBtnLeftFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_LEFT);
         final UIComponent inputGroupBtnRightFacet = component.getFacet(InnerComponentWrapperPartRenderer.INPUT_GROUP_BTN_RIGHT);
+
         if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonLeftFacet != null) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "input-group-prepend", null);
             writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-addon", null);
+            writer.writeAttribute("class", "input-group-text", null);
             inputGroupAddonLeftFacet.encodeAll(context);
             writer.endElement("span");
-        }
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
-            writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-btn", null);
+            writer.endElement("div");
+        } else if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnLeftFacet != null) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "input-group-prepend", null);
             inputGroupBtnLeftFacet.encodeAll(context);
-            writer.endElement("span");
+            writer.endElement("div");
         }
+
         super.encodeEnd(context, component);
         this.postEncodeInput(context, component);
+
         if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_ADDON) && inputGroupAddonRightFacet != null) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "input-group-append", null);
             writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-addon", null);
+            writer.writeAttribute("class", "input-group-text", null);
             inputGroupAddonRightFacet.encodeAll(context);
             writer.endElement("span");
-        }
-        if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnRightFacet != null) {
-            writer.startElement("span", component);
-            writer.writeAttribute("class", "input-group-btn", null);
+            writer.endElement("div");
+        } else if (htmlComponent.getSupportedFacets().contains(InputComponentFacet.BOOTSTRAP_INPUT_GROUP_LEFT_BTN) && inputGroupBtnRightFacet != null) {
+            writer.startElement("div", component);
+            writer.writeAttribute("class", "input-group-append", null);
             inputGroupBtnRightFacet.encodeAll(context);
-            writer.endElement("span");
+            writer.endElement("div");
         }
     }
 

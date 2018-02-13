@@ -8,9 +8,10 @@ import javax.faces.component.UIComponentBase;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-prettyprint.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-prettyprint.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "prettify.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "prettify.js", target = "head"),})
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-prettyprint.js", target = "head")
+})
 @FacesComponent(HtmlPrettyPrint.COMPONENT_TYPE)
 public class HtmlPrettyPrint extends UIComponentBase {
 

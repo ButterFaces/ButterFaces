@@ -11,37 +11,65 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{radioBoxShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{radioBoxShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{radioBoxShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{radioBoxShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{radioBoxShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{radioBoxShowcase.rendered}"/>
-            <common:tagEnumControl label="styleClass"
-                                   value="#{radioBoxShowcase.styleClass}"
-                                   values="#{radioBoxShowcase.styleClasses}"/>
+            <b:text label="label" value="#{radioBoxShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{radioBoxShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{radioBoxShowcase.readonly}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{radioBoxShowcase.required}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{radioBoxShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{radioBoxShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="styleClass" value="#{radioBoxShowcase.styleClass}" values="#{radioBoxShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                   value="#{radioBoxShowcase.exampleType}"
-                                   values="#{radioBoxShowcase.exampleTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Add selectItems children"
-                                   popoverContentMarkerClass="comboboxPopoverContent"/>
-            <!--common:tagEnumControl label="layout type"
-                                   value="#{radioBoxShowcase.radioBoxLayoutType}"
-                                   values="#{radioBoxShowcase.radioLayoutTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Add selectItems children"
-                                   popoverContentMarkerClass="radioboxLayoutPopoverContent"/-->
-            <common:tagEnumControl label="ajax"
-                                   value="#{radioBoxShowcase.ajaxType}"
-                                   values="#{radioBoxShowcase.ajaxTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Add ajax child"
-                                   popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{radioBoxShowcase.tooltip}"/>
+            <b:treeBox label="examples" value="#{radioBoxShowcase.exampleType}" values="#{radioBoxShowcase.exampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    <ul>
+                        <li><strong>string</strong> Add single f:selectItem for each string value</li>
+                        <li><strong>enum</strong> Add f:selectItems for enum value</li>
+                        <li><strong>object</strong> Add f:selectItems for object value and corresponding converter</li>
+                        <li><strong>template</strong> Add object as values and add templace facet</li>
+                    </ul>
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <!--
+            <b:treeBox label="layout type" value="#{radioBoxShowcase.radioBoxLayoutType}" values="#{radioBoxShowcase.radioLayoutTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    <ul>
+                        <li><strong>lineDirection</strong> Horizontally arrangement</li>
+                        <li><strong>pageDirection</strong> Vertically arrangemant</li>
+                    </ul>
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            -->
+            <b:treeBox label="ajax" value="#{radioBoxShowcase.ajaxType}" values="#{radioBoxShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:text label="tooltip" value="#{radioBoxShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 
@@ -65,7 +93,7 @@
                         rendered="#{radioBoxShowcase.rendered}"
                         disabled="#{radioBoxShowcase.disabled}"
                         layout="#{radioBoxShowcase.radioBoxLayoutType.label}"
-                        styleClass="#{radioBoxShowcase.styleClass}">
+                        styleClass="#{radioBoxShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

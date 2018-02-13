@@ -1,0 +1,20 @@
+.butter-component-section {
+  margin-bottom: 15px;
+
+  .butter-component-section-title {
+    font-size: 20px;
+    border-bottom: solid #ddd 1px;
+
+    .badge {
+      line-height: inherit;
+    }
+  }
+
+  .butter-component-section-content {
+    padding-top: 8px;
+  }
+
+  .butter-component-section-additional-header {
+    margin-left: auto;
+  }
+}

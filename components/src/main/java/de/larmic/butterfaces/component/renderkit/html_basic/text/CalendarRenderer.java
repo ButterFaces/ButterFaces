@@ -1,19 +1,22 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlCalendar;
 import de.larmic.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.util.StringUtils;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
+
+    private static final Logger LOG = Logger.getLogger(CalendarRenderer.class.getName());
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -27,16 +30,17 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         if (!calendar.isReadonly()) {
             super.encodeSuperEnd(context, component);
             if (calendar.isPickDate() || calendar.isPickTime()) {
-                writer.startElement("span", component);
-                writer.writeAttribute("class", "input-group-addon cursor-pointer", null);
+                writer.startElement("div", component);
+                writer.writeAttribute("class", "input-group-append cursor-pointer", null);
+                writer.writeAttribute("data-toggle", "datetimepicker", null);
                 writer.startElement("span", component);
                 if (!calendar.isPickDate()) {
-                    writer.writeAttribute("class", "glyphicon glyphicon-time", null);
+                    writer.writeAttribute("class", "input-group-text glyphicon glyphicon-time", null);
                 } else {
-                    writer.writeAttribute("class", "glyphicon glyphicon-calendar", null);
+                    writer.writeAttribute("class", "input-group-text glyphicon glyphicon-calendar", null);
                 }
                 writer.endElement("span");
-                writer.endElement("span");
+                writer.endElement("div");
             }
         }
 
@@ -48,8 +52,9 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
 
         if (!calendar.isReadonly() && (calendar.isPickDate() || calendar.isPickTime())) {
             writer.startElement("script", calendar);
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCall(calendar)), null);
-            writer.writeText(RenderUtils.createJQueryPluginCall(component.getClientId(), ".input-group", createJQueryPluginCallback(calendar)), null);
+
+            writer.writeText(
+                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();"), null);
             writer.endElement("script");
         }
 
@@ -57,46 +62,53 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
     }
 
-    private String createJQueryPluginCall(HtmlCalendar calendar) {
+    String createJQueryPluginCall(HtmlCalendar calendar) {
         final StringBuilder jQueryPluginCall = new StringBuilder();
 
-        final String calendarDate = StringUtils.getNotNullValue(calendar.getGlyphiconDate(), "glyphicon glyphicon-calendar");
-        final String calendarTime = StringUtils.getNotNullValue(calendar.getGlyphiconTime(), "glyphicon glyphicon-time");
-        final String calendarUp = StringUtils.getNotNullValue(calendar.getGlyphiconUp(), "glyphicon glyphicon-chevron-up");
-        final String calendarDown = StringUtils.getNotNullValue(calendar.getGlyphiconDown(), "glyphicon glyphicon-chevron-down");
-
-        jQueryPluginCall.append("datetimepicker({");
+        jQueryPluginCall.append("find('.input-group')");
+        jQueryPluginCall.append(".attr('id', elementId)");
+        jQueryPluginCall.append(".attr('data-target-input', 'nearest')");
+        jQueryPluginCall.append(".find('input')");
+        jQueryPluginCall.append(".attr('data-target', '#' + elementId)");
+        jQueryPluginCall.append(".addClass('datetimepicker-input')");
+        jQueryPluginCall.append(".siblings('.input-group-append')");
+        jQueryPluginCall.append(".attr('data-target', '#' + elementId)");
+        jQueryPluginCall.append(".parent()");
+        jQueryPluginCall.append(".datetimepicker({");
 
         if (StringUtils.isNotEmpty(calendar.getFormat())) {
-            jQueryPluginCall.append("format: \"").append(calendar.getFormat()).append("\",");
+            jQueryPluginCall.append("format: '").append(calendar.getFormat()).append("',");
         } else {
             if (calendar.isPickDate() && !calendar.isPickTime()) {
-                jQueryPluginCall.append("format: \"L\",");
+                jQueryPluginCall.append("format: 'L',");
             } else if (!calendar.isPickDate() && calendar.isPickTime()) {
-                jQueryPluginCall.append("format: \"LT\",");
+                jQueryPluginCall.append("format: 'LT',");
             }
         }
 
-        if (StringUtils.isNotEmpty(calendar.getLanguage())) {
-            jQueryPluginCall.append("locale: \"" + calendar.getLanguage() + "\",");
+        if (StringUtils.isNotEmpty(calendar.getLocale())) {
+            jQueryPluginCall.append("locale: '" + calendar.getLocale() + "',");
         }
-        jQueryPluginCall.append("sideBySide: " + calendar.isSideBySide() + ",");
+        if (calendar.getViewMode() != null) {
+            jQueryPluginCall.append("viewMode: '" + calendar.getViewMode().getValue() + "',");
+        }
+        if (calendar.isSideBySide()) {
+            jQueryPluginCall.append("sideBySide: true,");
+        }
+
+        final String calendarDate = StringUtils.getNotNullValue(calendar.getIconDate(), "glyphicon glyphicon-calendar");
+        final String calendarTime = StringUtils.getNotNullValue(calendar.getIconTime(), "glyphicon glyphicon-time");
+        final String calendarUp = StringUtils.getNotNullValue(calendar.getIconUp(), "glyphicon glyphicon-chevron-up");
+        final String calendarDown = StringUtils.getNotNullValue(calendar.getIconDown(), "glyphicon glyphicon-chevron-down");
         jQueryPluginCall.append("icons: {");
         jQueryPluginCall.append("time: '" + calendarTime + "',");
         jQueryPluginCall.append("date: '" + calendarDate + "',");
         jQueryPluginCall.append("up: '" + calendarUp + "',");
         jQueryPluginCall.append("down: '" + calendarDown + "'");
         jQueryPluginCall.append("}");
+
         jQueryPluginCall.append("})");
+
         return jQueryPluginCall.toString();
     }
-
-    private String createJQueryPluginCallback(HtmlCalendar calendar) {
-        final StringBuilder jQueryPluginCall = new StringBuilder();
-        jQueryPluginCall.append("on(\"dp.change\", function (e) {");
-        jQueryPluginCall.append(RenderUtils.createJQueryBySelector(calendar.getClientId(), ".butter-input-component") + ".trigger('change');");
-        jQueryPluginCall.append("})");
-        return jQueryPluginCall.toString();
-    }
-
 }

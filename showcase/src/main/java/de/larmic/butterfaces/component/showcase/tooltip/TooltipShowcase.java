@@ -1,16 +1,15 @@
 package de.larmic.butterfaces.component.showcase.tooltip;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
-
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -30,7 +29,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
 
         if (selectedTooltTipType == TooltipType.A) {
             xhtmlCodeExample.setWrappedByForm(false);
-            xhtmlCodeExample.appendInnerContent("        <a id=\"btn\" class=\"btn btn-default\">" + trigger + " me!</a>");
+            xhtmlCodeExample.appendInnerContent("        <a id=\"btn\" class=\"btn btn-outline-secondary\">" + trigger + " me!</a>");
 
             xhtmlCodeExample.appendInnerContent("        <b:tooltip id=\"input\"");
             xhtmlCodeExample.appendInnerContent("                   for=\"#btn\"");
@@ -47,7 +46,7 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("        </b:tooltip>", false);
         } else if (selectedTooltTipType == TooltipType.COMMAND_LINK) {
             xhtmlCodeExample.appendInnerContent("        <b:commandLink value=\"" + trigger + " me!\"");
-            xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                       styleClass=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("            <b:tooltip title=\"" + title + "\"");
             xhtmlCodeExample.appendInnerContent("                       trigger=\"" + trigger + "\"");
             xhtmlCodeExample.appendInnerContent("                       placement=\"" + placement + "\"");
@@ -107,11 +106,11 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
         codeExamples.add(xhtmlCodeExample);
     }
 
-    public List<SelectItem> getTooltipTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getTooltipTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final TooltipType type : TooltipType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

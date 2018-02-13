@@ -3,8 +3,8 @@ package de.larmic.butterfaces.component.showcase.container;
 import de.larmic.butterfaces.component.showcase.AbstractCodeShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -35,7 +35,7 @@ public class SectionShowcase extends AbstractCodeShowcase implements Serializabl
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (selectedAdditionalHeaderType == AdditionalHeaderType.BUTTON) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"additional-header\">");
-            xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-danger btn-xs\">");
+            xhtmlCodeExample.appendInnerContent("                <span class=\"btn btn-danger btn-sm\">");
             xhtmlCodeExample.appendInnerContent("                    additional button");
             xhtmlCodeExample.appendInnerContent("                </span>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
@@ -48,11 +48,11 @@ public class SectionShowcase extends AbstractCodeShowcase implements Serializabl
         codeExamples.add(xhtmlCodeExample);
     }
 
-    public List<SelectItem> getAdditionalHeaderTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAdditionalHeaderTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final AdditionalHeaderType type : AdditionalHeaderType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }

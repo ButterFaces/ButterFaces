@@ -8,8 +8,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-labeled-container.css", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head")
 })
 @FacesComponent(HtmlLabeledContainer.COMPONENT_TYPE)
 public class HtmlLabeledContainer extends UIComponentBase implements Tooltip, Label, HideLabel, StyleClass, Style {

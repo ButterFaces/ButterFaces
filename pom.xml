@@ -4,7 +4,7 @@
 
     <groupId>de.larmic.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-JEE7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -75,7 +75,7 @@
         <junit.version>4.12</junit.version>
         <el-api.version>2.2</el-api.version>
 
-        <version.wildfly.swarm>2018.1.0</version.wildfly.swarm>
+        <version.wildfly.swarm>2018.2.0</version.wildfly.swarm>
         <version.jbossas>10.0.0.Final</version.jbossas>
         <mockito-all.version>1.10.19</mockito-all.version>
         <javax.faces-api.version>2.2</javax.faces-api.version>
@@ -106,7 +106,6 @@
             <modules>
                 <module>components</module>
                 <module>showcase</module>
-                <module>test</module>
             </modules>
         </profile>
         <profile>

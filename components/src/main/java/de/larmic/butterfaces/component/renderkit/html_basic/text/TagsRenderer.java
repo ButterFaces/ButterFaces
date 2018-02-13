@@ -1,6 +1,19 @@
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlTags;
+import de.larmic.butterfaces.component.partrenderer.Constants;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
@@ -8,14 +21,6 @@ import de.larmic.butterfaces.component.renderkit.html_basic.text.part.TrivialCom
 import de.larmic.butterfaces.model.tree.DefaultNodeImpl;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.*;
 
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.FreeTextSeparators.getFreeTextSeparators;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
@@ -44,7 +49,7 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
                 new ReadonlyPartRenderer().renderReadonly(htmlTags, writer);
             } else {
                 writer.startElement(ELEMENT_DIV, component);
-                writer.writeAttribute("class", "butter-component-value", null);
+                writer.writeAttribute("class", Constants.COMPONENT_VALUE_CLASS, null);
                 super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
                 writer.endElement(ELEMENT_DIV);
             }

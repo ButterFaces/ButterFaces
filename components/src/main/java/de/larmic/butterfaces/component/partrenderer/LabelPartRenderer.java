@@ -5,6 +5,12 @@
  */
 package de.larmic.butterfaces.component.partrenderer;
 
+import java.io.IOException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import de.larmic.butterfaces.component.html.HtmlInputComponent;
 import de.larmic.butterfaces.component.html.HtmlTooltip;
 import de.larmic.butterfaces.component.html.feature.HideLabel;
@@ -12,12 +18,6 @@ import de.larmic.butterfaces.component.html.feature.Label;
 import de.larmic.butterfaces.component.html.feature.Readonly;
 import de.larmic.butterfaces.component.html.feature.Required;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
 /**
  * @author Lars Michaelis
@@ -52,7 +52,6 @@ public class LabelPartRenderer {
 
             writer.writeAttribute("class", StringUtils.concatWithSpace(
                     Constants.LABEL_STYLE_CLASS,
-                    Constants.BOOTSTRAP_CONTROL_LABEL,
                     shouldRenderTooltip(component) ? Constants.TOOLTIP_LABEL_CLASS : ""), null);
 
             if (!StringUtils.isEmpty(label)) {

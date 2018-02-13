@@ -14,40 +14,48 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="value" value="#{commandLinkShowcase.value}"/>
-            <common:tagBooleanControl label="rendered" value="#{commandLinkShowcase.rendered}"/>
-            <common:tagBooleanControl label="disabled" value="#{commandLinkShowcase.disabled}"/>
-            <common:tagEnumControl label="glyphicon"
-                                     value="#{commandLinkShowcase.glyphicon}"
-                                     values="#{commandLinkShowcase.glyphicons}"/>
-            <common:tagBooleanControl label="ajaxDisableLinkOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"/>
-            <common:tagBooleanControl label="ajaxShowWaitingDotsOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}"/>
-            <common:tagBooleanControl label="ajaxHideGlyphiconOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}"/>
-            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
-                                        labelStyleClass="largeBooleanControl"
-                                        value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}"/>
-            <common:tagStringControl label="ajaxProcessingTextOnRequest"
-                                       value="#{commandLinkShowcase.ajaxProcessingText}"/>
-            <common:tagStringControl label="ajaxProcessingGlyphicon"
-                                       value="#{commandLinkShowcase.ajaxProcessingGlyphicon}"/>
+            <b:text label="value" value="#{commandLinkShowcase.value}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="disabled" value="#{commandLinkShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{commandLinkShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="glyphicon" value="#{commandLinkShowcase.glyphicon}" values="#{commandLinkShowcase.glyphicons}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="ajaxDisableLinkOnRequest" value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="ajaxShowWaitingDotsOnRequest" value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="ajaxHideGlyphiconOnRequest" value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:text label="ajaxProcessingTextOnRequest" value="#{commandLinkShowcase.ajaxProcessingText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="ajaxProcessingGlyphicon" value="#{commandLinkShowcase.ajaxProcessingGlyphicon}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                     value="#{commandLinkShowcase.commandLinkExampleType}"
-                                     values="#{commandLinkShowcase.commandLinkExamples}"/>
-            <common:tagEnumControl label="link type"
-                                     value="#{commandLinkShowcase.style}"
-                                     values="#{commandLinkShowcase.styles}"/>
-            <common:tagEnumControl label="ajax rendering"
-                                     value="#{commandLinkShowcase.render}"
-                                     values="#{commandLinkShowcase.renders}"/>
+            <b:treeBox label="submit" value="#{commandLinkShowcase.commandLinkExampleType}" values="#{commandLinkShowcase.commandLinkExamples}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="link type" value="#{commandLinkShowcase.style}" values="#{commandLinkShowcase.styles}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="ajax rendering" value="#{commandLinkShowcase.render}" values="#{commandLinkShowcase.renders}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -62,10 +70,10 @@
                 action method will wait 2 seconds.
             </h:panelGroup>
 
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClickWithDelay}"
-                           styleClass="arquillian_component #{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
                            ajaxProcessingTextOnRequest="#{commandLinkShowcase.ajaxProcessingText}"
@@ -75,13 +83,13 @@
                            ajaxShowWaitingDotsOnRequest="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}"
                            actionListener="#{commandLinkShowcase.actionListener}"
                            rendered="#{commandLinkShowcase.rendered}">
-                <f:ajax render="#{commandLinkShowcase.render}" onevent="logTest"/>
+                <f:ajax render="#{commandLinkShowcase.selectedRender}" onevent="logTest"/>
             </b:commandLink>
 
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="other link"
                            action="#{commandLinkShowcase.increaseClickWithDelay()}"
-                           styleClass="#{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            style="margin-left: 20px"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
@@ -139,10 +147,10 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{commandLinkShowcase.commandLinkExampleType eq 'NO_AJAX'}">
-            <b:commandLink glyphicon="#{commandLinkShowcase.glyphicon}"
+            <b:commandLink glyphicon="#{commandLinkShowcase.selectedGlyphicon}"
                            value="#{commandLinkShowcase.value}"
                            action="#{commandLinkShowcase.increaseClick}"
-                           styleClass="arquillian_component #{commandLinkShowcase.style}"
+                           styleClass="#{commandLinkShowcase.selectedStyle}"
                            disabled="#{commandLinkShowcase.disabled}"
                            ajaxDisableLinkOnRequest="#{commandLinkShowcase.ajaxDisableLinkOnRequest}"
                            ajaxProcessingTextOnRequest="#{commandLinkShowcase.ajaxProcessingText}"
@@ -183,19 +191,19 @@
             </div>
 
             <b:commandLink value="render (no resetValues)"
-                           styleClass="btn btn-default"
+                           styleClass="btn btn-outline-secondary"
                            style="margin-right:4px;">
                 <f:ajax execute="@this" render="rerenderArea submit"/>
             </b:commandLink>
 
             <b:commandLink value="render (reset values)"
-                           styleClass="btn btn-default"
+                           styleClass="btn btn-outline-secondary"
                            style="margin-right:4px;">
                 <f:ajax execute="@this" render="rerenderArea submit" resetValues="true"/>
             </b:commandLink>
 
             <h:commandLink value="render (reset values but JSF2 default command link)"
-                           styleClass="btn btn-default">
+                           styleClass="btn btn-outline-secondary">
                 <f:ajax execute="@this" render="rerenderArea submit" resetValues="true"/>
             </h:commandLink>
         </h:panelGroup>

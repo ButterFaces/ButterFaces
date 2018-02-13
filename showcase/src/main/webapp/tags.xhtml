@@ -11,37 +11,60 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{tagsShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{tagsShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{tagsShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{tagsShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{tagsShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{tagsShowcase.rendered}"/>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{tagsShowcase.styleClass}"
-                                     values="#{tagsShowcase.styleClasses}"/>
-            <common:tagBooleanControl label="distinct" value="#{tagsShowcase.distinct}"/>
-            <common:tagStringControl label="maxTags" value="#{tagsShowcase.maxTags}"/>
-            <common:tagStringControl label="confirmKeys" value="#{tagsShowcase.confirmKeys}"/>
+            <b:text label="label" value="#{tagsShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{tagsShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{tagsShowcase.readonly}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{tagsShowcase.required}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{tagsShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{tagsShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="styleClass" value="#{tagsShowcase.styleClass}" values="#{tagsShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="distinct" value="#{tagsShowcase.distinct}"/>
+            <b:text label="maxTags" value="#{tagsShowcase.maxTags}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="confirmKeys" value="#{tagsShowcase.confirmKeys}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{tagsShowcase.placeholder}"/>
-            <common:tagBooleanControl label="autofocus" value="#{tagsShowcase.autoFocus}"/>
+            <b:text label="placeholder" value="#{tagsShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="autofocus" value="#{tagsShowcase.autoFocus}">
+                <f:ajax execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                   value="#{tagsShowcase.selectedTagsExampleType}"
-                                   values="#{tagsShowcase.tagsExampleTypes}"
-                                   renderChildrenPopover="true"/>
-            <common:tagEnumControl label="ajax"
-                                     value="#{tagsShowcase.ajaxType}"
-                                     values="#{tagsShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
-            <common:tagStringControl label="tooltip" value="#{tagsShowcase.tooltip}"/>
+            <b:treeBox label="examples" value="#{tagsShowcase.selectedTagsExampleType}" values="#{tagsShowcase.tagsExampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="ajax" value="#{tagsShowcase.ajaxType}" values="#{tagsShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:text label="tooltip" value="#{tagsShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 
@@ -65,7 +88,7 @@
                     placeholder="#{tagsShowcase.placeholder}"
                     autoFocus="#{tagsShowcase.autoFocus}"
                     onchange="console.log('ButterFaces.Test: check onchange')"
-                    styleClass="#{tagsShowcase.styleClass}">
+                    styleClass="#{tagsShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"

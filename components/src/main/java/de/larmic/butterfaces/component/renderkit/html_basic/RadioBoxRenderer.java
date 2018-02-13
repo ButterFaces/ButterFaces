@@ -5,13 +5,9 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic;
 
-import de.larmic.butterfaces.component.html.HtmlRadioBox;
-import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
-import de.larmic.butterfaces.context.StringHtmlEncoder;
-import de.larmic.butterfaces.resolver.MustacheResolver;
-import de.larmic.butterfaces.util.ReflectionUtil;
-import de.larmic.butterfaces.util.StringUtils;
-
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
@@ -19,9 +15,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+
+import de.larmic.butterfaces.component.html.HtmlRadioBox;
+import de.larmic.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import de.larmic.butterfaces.context.StringHtmlEncoder;
+import de.larmic.butterfaces.resolver.MustacheResolver;
+import de.larmic.butterfaces.util.ReflectionUtil;
+import de.larmic.butterfaces.util.StringUtils;
 
 /**
  * @author Lars Michaelis
@@ -53,10 +53,10 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
             final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
 
             if (radioBox.getValues() instanceof Iterable) {
-                int iterator = 0;
-                for (java.lang.Object o : (Iterable) radioBox.getValues()) {
-                    renderRadioBoxItem(writer, radioBox, radioBoxClientId, separatorChar, iterator, o);
-                    iterator++;
+                int index = 0;
+                for (java.lang.Object value : (Iterable) radioBox.getValues()) {
+                    renderRadioBoxItem(writer, radioBox, radioBoxClientId, separatorChar, index, value);
+                    index++;
                 }
             }
         }
@@ -101,18 +101,25 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
                                     HtmlRadioBox radioBox,
                                     String radioBoxClientId,
                                     char separatorChar,
-                                    int itemCounter,
+                                    int index,
                                     Object listItem) throws IOException {
-        final String radioItemClientId = radioBoxClientId + separatorChar + itemCounter;
+        final String radioItemClientId = radioBoxClientId + separatorChar + index;
         final boolean valueSelected = isValueSelected(radioBox.getValue(), listItem);
 
         writer.startElement("div", radioBox);
-        writer.writeAttribute("class", valueSelected ? "radio butter-radio-item-selected" : "radio", "class");
+        final StringBuilder styleClass = new StringBuilder(valueSelected ? "radio butter-radio-item-selected" : "radio");
+        styleClass.append(" d-flex");
+        if (index == 0) {
+            styleClass.append(" mt-2");
+        }
+        writer.writeAttribute("class", styleClass.toString(), "class");
+
         writer.startElement("input", radioBox);
         writer.writeAttribute("id", radioItemClientId, "clientId");
         writer.writeAttribute("type", "radio", "input");
         writer.writeAttribute("name", radioBoxClientId, "name");
         writer.writeAttribute("value", convertItemToIdentifier(listItem), "value");
+        writer.writeAttribute("class", "mt-1 mr-2", "class");
 
         if (valueSelected) {
             writer.writeAttribute("checked", true, "checked");

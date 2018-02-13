@@ -1,7 +1,6 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:b="http://butterfaces.org/components"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -12,15 +11,19 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{sectionShowcase.label}"/>
-            <common:tagStringControl label="badgeText" value="#{sectionShowcase.badgeText}"/>
-            <common:tagBooleanControl label="rendered" value="#{sectionShowcase.rendered}"/>
+            <b:text label="label" value="#{sectionShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="badgeText" value="#{sectionShowcase.badgeText}"/>
+            <b:checkBox label="rendered" value="#{sectionShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="additional header"
-                                     value="#{sectionShowcase.selectedAdditionalHeaderType}"
-                                     values="#{sectionShowcase.additionalHeaderTypes}"/>
+            <b:treeBox label="additional header" value="#{sectionShowcase.selectedAdditionalHeaderType}" values="#{sectionShowcase.additionalHeaderTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -33,7 +36,7 @@
                 <h:panelGroup rendered="#{sectionShowcase.selectedAdditionalHeaderType eq 'TEXT'}">
                     additional text
                 </h:panelGroup>
-                <h:panelGroup rendered="#{sectionShowcase.selectedAdditionalHeaderType eq 'BUTTON'}" styleClass="btn btn-danger btn-xs">
+                <h:panelGroup rendered="#{sectionShowcase.selectedAdditionalHeaderType eq 'BUTTON'}" styleClass="btn btn-danger btn-sm">
                     additional button
                 </h:panelGroup>
             </f:facet>

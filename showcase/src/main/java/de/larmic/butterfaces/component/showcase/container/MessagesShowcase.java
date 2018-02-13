@@ -42,7 +42,7 @@ public class MessagesShowcase extends AbstractCodeShowcase implements Serializab
 
         xhtmlCodeExample.appendInnerContent("        <div class=\"btn-group\">");
         xhtmlCodeExample.appendInnerContent("            <b:commandLink value=\"add fatal message\"");
-        xhtmlCodeExample.appendInnerContent("                           styleClass=\"btn btn-default\"");
+        xhtmlCodeExample.appendInnerContent("                           styleClass=\"btn btn-outline-secondary\"");
         xhtmlCodeExample.appendInnerContent("                           action=\"#{myBean.addFatalMessageToContext()}\">");
         xhtmlCodeExample.appendInnerContent("                <f:ajax execute=\"@this\" render=\"@form\"/>");
         xhtmlCodeExample.appendInnerContent("            </b:commandLink>");

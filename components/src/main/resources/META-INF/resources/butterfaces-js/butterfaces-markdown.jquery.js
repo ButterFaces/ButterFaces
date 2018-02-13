@@ -8,7 +8,7 @@
             .replace('&amp;', '&')
             .replace('&lt;', '<')
             .replace('&gt;', '>');
-        var markdownTextToHtml = markdown.toHTML(markdownText);
+        var markdownTextToHtml = new showdown.Converter().makeHtml(markdownText);
 
         $readonlyMarkdown.empty();
         $readonlyMarkdown.append(markdownTextToHtml);

@@ -1,28 +1,32 @@
 package de.larmic.butterfaces.component.html;
 
-import de.larmic.butterfaces.component.html.feature.*;
-import de.larmic.butterfaces.resolver.WebXmlParameters;
-
+import java.util.Collections;
+import java.util.List;
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
-import java.util.Collections;
-import java.util.List;
+
+import de.larmic.butterfaces.component.html.feature.AutoFocus;
+import de.larmic.butterfaces.component.html.feature.Label;
+import de.larmic.butterfaces.component.html.feature.MaxLength;
+import de.larmic.butterfaces.component.html.feature.Placeholder;
+import de.larmic.butterfaces.component.html.feature.Readonly;
+import de.larmic.butterfaces.component.html.feature.Tooltip;
+import de.larmic.butterfaces.resolver.WebXmlParameters;
 
 @ResourceDependencies({
         @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bower", name = "bootstrap.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-string.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-util-object.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-maxlength.jquery.js", target = "head"),
         @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-multiline-placeholder.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-expandable.jquery.js", target = "head")
+        @ResourceDependency(library = "butterfaces-dist-js", name = "butterfaces-expandable.jquery.js", target = "head")
 })
 @FacesComponent(HtmlTextArea.COMPONENT_TYPE)
 public class HtmlTextArea extends HtmlInputTextarea implements HtmlInputComponent, Placeholder, AutoFocus, Tooltip, Label, Readonly, MaxLength {

@@ -1,13 +1,14 @@
 package de.larmic.butterfaces.component.showcase.maskedText;
 
-import de.larmic.butterfaces.util.StringUtils;
 import de.larmic.butterfaces.component.showcase.AbstractInputShowcase;
 import de.larmic.butterfaces.component.showcase.example.AbstractCodeExample;
 import de.larmic.butterfaces.component.showcase.example.XhtmlCodeExample;
 import de.larmic.butterfaces.component.showcase.text.FacetType;
+import de.larmic.butterfaces.component.showcase.type.StyleClass;
+import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
+import de.larmic.butterfaces.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -58,7 +59,9 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         xhtmlCodeExample.appendInnerContent("                      pattern=\"" + this.getPattern() + "\"");
         xhtmlCodeExample.appendInnerContent("                      min=\"" + this.getMin() + "\"");
         xhtmlCodeExample.appendInnerContent("                      max=\"" + this.getMax() + "\"");
-        xhtmlCodeExample.appendInnerContent("                      styleClass=\"" + this.getStyleClass() + "\"");
+        if (this.getStyleClass() == StyleClass.BIG_LABEL) {
+            xhtmlCodeExample.appendInnerContent("                      styleClass=\"" + this.getSelectedStyleClass() + "\"");
+        }
         xhtmlCodeExample.appendInnerContent("                      readonly=\"" + this.isReadonly() + "\"");
         xhtmlCodeExample.appendInnerContent("                      required=\"" + this.isRequired() + "\"");
         xhtmlCodeExample.appendInnerContent("                      disabled=\"" + this.isDisabled() + "\"");
@@ -91,12 +94,12 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
         } else if (selectedFacetType == FacetType.INPUT_GROUP_BTN) {
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-left\">");
-            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\">");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-outline-secondary\">");
             xhtmlCodeExample.appendInnerContent("                     Go!");
             xhtmlCodeExample.appendInnerContent("                 </button>");
             xhtmlCodeExample.appendInnerContent("            </f:facet>");
             xhtmlCodeExample.appendInnerContent("            <f:facet name=\"input-group-btn-right\">");
-            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-default\"");
+            xhtmlCodeExample.appendInnerContent("                <button type=\"button\" class=\"btn btn-outline-secondary\"");
             xhtmlCodeExample.appendInnerContent("                        dropdown-toggle\"");
             xhtmlCodeExample.appendInnerContent("                        data-toggle=\"dropdown\"");
             xhtmlCodeExample.appendInnerContent("                        aria-expanded=\"false\">");
@@ -121,24 +124,23 @@ public class MaskedTextShowcase extends AbstractInputShowcase implements Seriali
         generateDemoCSS(codeExamples);
     }
 
-    public List<SelectItem> getAvailableFacetTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getAvailableFacetTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final FacetType type : FacetType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
 
-    public List<SelectItem> getInputMaskTypes() {
-        final List<SelectItem> items = new ArrayList<>();
+    public List<EnumTreeBoxWrapper> getInputMaskTypes() {
+        final List<EnumTreeBoxWrapper> items = new ArrayList<>();
 
         for (final InputMaskType type : InputMaskType.values()) {
-            items.add(new SelectItem(type, type.label));
+            items.add(new EnumTreeBoxWrapper(type, type.label));
         }
         return items;
     }
-
 
     public String getPlaceholder() {
         return this.placeholder;

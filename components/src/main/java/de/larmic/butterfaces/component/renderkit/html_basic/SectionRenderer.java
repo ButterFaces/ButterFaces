@@ -53,13 +53,13 @@ public class SectionRenderer extends HtmlBasicRenderer {
 
         if (labelNotEmpty) {
             writer.startElement(ELEMENT_DIV, component);
-            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title", null);
+            writer.writeAttribute(ATTRIBUTE_CLASS, "butter-component-section-title d-flex flex-row pb-2", null);
 
             writer.writeText(section.getLabel(), component, "label");
 
             if (StringUtils.isNotEmpty(section.getBadgeText())) {
                 writer.startElement(ELEMENT_SPAN, component);
-                writer.writeAttribute(ATTRIBUTE_CLASS, "badge", null);
+                writer.writeAttribute(ATTRIBUTE_CLASS, "badge badge-pill badge-secondary ml-1", null);
                 writer.writeText(section.getBadgeText(), component, "badgeText");
                 writer.endElement(ELEMENT_SPAN);
             }

@@ -1,0 +1,15 @@
+.butter-component-tags .form-control {
+  padding: 0;
+  height: auto;
+  min-height: 34px;
+}
+
+.butter-component-tags {
+  &.has-error .tr-input-wrapper {
+    border-color: #dc3545; // TODO use bootstrap variables
+  }
+
+  .tr-input-wrapper.readonly {
+    background-color: transparent;
+  }
+}

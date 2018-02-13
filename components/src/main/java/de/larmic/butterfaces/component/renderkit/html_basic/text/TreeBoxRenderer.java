@@ -5,7 +5,18 @@
  */
 package de.larmic.butterfaces.component.renderkit.html_basic.text;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+
 import de.larmic.butterfaces.component.html.text.HtmlTreeBox;
+import de.larmic.butterfaces.component.partrenderer.Constants;
 import de.larmic.butterfaces.component.partrenderer.ReadonlyPartRenderer;
 import de.larmic.butterfaces.component.partrenderer.RenderUtils;
 import de.larmic.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
@@ -17,16 +28,6 @@ import de.larmic.butterfaces.model.tree.EnumTreeBoxWrapper;
 import de.larmic.butterfaces.model.tree.Node;
 import de.larmic.butterfaces.resolver.WebXmlParameters;
 import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.createMustacheKeys;
 import static de.larmic.butterfaces.component.renderkit.html_basic.text.util.TrivialComponentsUtil.replaceDotInMustacheKeys;
@@ -167,7 +168,7 @@ public class TreeBoxRenderer extends AbstractHtmlTagRenderer<HtmlTreeBox> {
                 new ReadonlyPartRenderer().renderReadonly(treeBox, writer);
             } else {
                 writer.startElement(ELEMENT_DIV, component);
-                writer.writeAttribute("class", "butter-component-value", null);
+                writer.writeAttribute("class", Constants.COMPONENT_VALUE_CLASS, null);
                 super.encodeSuperEnd(FacesContext.getCurrentInstance(), component);
                 writer.endElement(ELEMENT_DIV);
             }

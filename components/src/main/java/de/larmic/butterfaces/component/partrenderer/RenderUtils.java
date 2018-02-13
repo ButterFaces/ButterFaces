@@ -1,11 +1,11 @@
 package de.larmic.butterfaces.component.partrenderer;
 
-import de.larmic.butterfaces.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ResponseWriter;
+
+import de.larmic.butterfaces.util.StringUtils;
 
 public class RenderUtils {
 
@@ -16,11 +16,12 @@ public class RenderUtils {
      * @param pluginFunctionCall the plugin function call (e.g. 'tooltip()')
      * @param writer             component writer
      * @param uiComponent        component to add script
+     *
      * @throws java.io.IOException if writer throws an error
      */
     public static void renderJQueryPluginCall(final String elementId, final String pluginFunctionCall,
                                               final ResponseWriter writer, final UIComponent uiComponent)
-            throws IOException {
+        throws IOException {
         final String jsCall = createJQueryPluginCall(elementId, pluginFunctionCall);
 
         writer.startElement("script", uiComponent);
@@ -29,14 +30,21 @@ public class RenderUtils {
     }
 
     public static String createJQueryPluginCall(final String elementId, final String pluginFunctionCall) {
-        return createJQueryPluginCall(elementId, null, pluginFunctionCall);
+        return createJQueryPluginCall(elementId, null, pluginFunctionCall, null);
+    }
+
+    public static String createJQueryPluginCall(final String elementId, final String childSelector, final String pluginFunctionCall) {
+        return createJQueryPluginCall(elementId, childSelector, pluginFunctionCall, null);
     }
 
     public static String createJQueryPluginCall(final String elementId, final String childSelector,
-                                                final String pluginFunctionCall) {
+                                                final String pluginFunctionCall, String previousCalls) {
         final StringBuilder jsCall = new StringBuilder();
 
         jsCall.append("jQuery(function () {");
+        if (StringUtils.isNotEmpty(previousCalls)) {
+            jsCall.append(previousCalls);
+        }
         jsCall.append(createJQueryBySelector(elementId, childSelector));
         jsCall.append(".");
         jsCall.append(pluginFunctionCall);
@@ -78,5 +86,4 @@ public class RenderUtils {
         sb.append("}");
         return sb.toString();
     }
-
 }
