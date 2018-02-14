@@ -5,14 +5,6 @@
  */
 package org.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
-import java.util.Map;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.FacesRenderer;
-
 import org.butterfaces.component.html.HtmlCheckBox;
 import org.butterfaces.component.html.HtmlInputComponent;
 import org.butterfaces.component.partrenderer.CheckBoxReadonlyPartRenderer;
@@ -20,10 +12,14 @@ import org.butterfaces.component.partrenderer.Constants;
 import org.butterfaces.component.partrenderer.InnerComponentCheckBoxWrapperPartRenderer;
 import org.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
 import org.butterfaces.util.StringJoiner;
-import org.butterfaces.component.partrenderer.Constants;
-import org.butterfaces.component.partrenderer.InnerComponentCheckBoxWrapperPartRenderer;
-import org.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
-import org.butterfaces.util.StringJoiner;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -49,6 +45,17 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
         }
 
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(checkBox, writer);
+    }
+
+    @Override
+    protected void encodeEnd(final HtmlCheckBox checkBox, final ResponseWriter writer) throws IOException {
+        if (checkBox.isSwitch() && !checkBox.isReadonly()) {
+            writer.startElement("script", checkBox);
+            writer.writeText("jQuery(function () {\n", null);
+            writer.writeText("ButterFaces.Checkbox.addSwitchClickEvent('" + checkBox.getClientId() + "');\n", null);
+            writer.writeText("});", null);
+            writer.endElement("script");
+        }
     }
 
     @Override

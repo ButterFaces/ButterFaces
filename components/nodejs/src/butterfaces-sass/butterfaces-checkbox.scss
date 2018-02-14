@@ -4,25 +4,19 @@
     }
 
     .butter-component-checkbox-description {
-        margin-left: 28px;
+        margin-left: 50px;
     }
 
     .butter-component-value-readonly .butter-component-checkbox-description {
-        margin-left: 8px;
+        //margin-left: 8px;
     }
 
     .slider {
-        float: left;
-        margin-top: -3px;
         width: 40px;
         height: 26px;
         background-color: #ccc;
-        bottom: 0;
         cursor: pointer;
-        left: 0;
         position: absolute;
-        right: 0;
-        top: 0;
         transition: .4s;
     }
 
@@ -40,7 +34,6 @@
     .butter-component-value-readonly-wrapper {
         .slider {
             cursor: not-allowed;
-            position: relative;
         }
     }
 
