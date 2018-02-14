@@ -64,38 +64,54 @@
 .maven-example pre {
     font-size: 80%;
     margin-left: 18px;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
-.maven-example .prettyprint {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.btn {
-    &.btn-success {
-        &.transparent {
-            color: rgba(255, 255, 255, 0.8);
-            background-color: rgba(92, 184, 92, 0.5);
-            border-color: rgba(255, 255, 255, 0.3);
-
-            &:hover {
-                color: rgba(255, 255, 255, 1);
-                background-color: rgba(92, 184, 92, 1);
-                border-color: rgba(255, 255, 255, 1);
-            }
-        }
+.maven-example {
+    small {
+        font-size: 12px;
     }
 
-    &.btn-primary {
-        &.transparent {
-            color: rgba(255, 255, 255, 0.8);
-            background-color: rgba(51, 122, 183, 0.5);
-            border-color: rgba(255, 255, 255, 0.3);
+    .prettyprint {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
 
-            &:hover {
-                color: rgba(255, 255, 255, 1);
-                background-color: rgba(51, 122, 183, 1);
-                border-color: rgba(255, 255, 255, 1);
+.transparent-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .btn {
+        margin: 4px;
+
+        &.btn-success {
+            &.transparent {
+                color: rgba(255, 255, 255, 0.8);
+                background-color: rgba(92, 184, 92, 0.5);
+                border-color: rgba(255, 255, 255, 0.3);
+
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                    background-color: rgba(92, 184, 92, 1);
+                    border-color: rgba(255, 255, 255, 1);
+                }
+            }
+        }
+
+        &.btn-primary {
+            &.transparent {
+                color: rgba(255, 255, 255, 0.8);
+                background-color: rgba(51, 122, 183, 0.5);
+                border-color: rgba(255, 255, 255, 0.3);
+
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                    background-color: rgba(51, 122, 183, 1);
+                    border-color: rgba(255, 255, 255, 1);
+                }
             }
         }
     }
