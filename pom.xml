@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.larmic.butterfaces</groupId>
+    <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
     <version>3.0.0-JEE7-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -170,12 +170,12 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>de.larmic.butterfaces</groupId>
+                <groupId>org.butterfaces</groupId>
                 <artifactId>components</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.larmic.butterfaces</groupId>
+                <groupId>org.butterfaces</groupId>
                 <artifactId>showcase</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>

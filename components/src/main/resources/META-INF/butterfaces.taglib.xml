@@ -12,7 +12,7 @@
     <tag>
         <tag-name>text</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.text</component-type>
+            <component-type>org.butterfaces.component.text</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -220,7 +220,7 @@
     <tag>
         <tag-name>maskedText</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.maskedText</component-type>
+            <component-type>org.butterfaces.component.maskedText</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -423,7 +423,7 @@
     <tag>
         <tag-name>calendar</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.calendar</component-type>
+            <component-type>org.butterfaces.component.calendar</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -469,7 +469,7 @@
         </attribute>
         <attribute>
             <name>viewMode</name>
-            <type>de.larmic.butterfaces.component.html.text.HtmlCalendarViewMode</type>
+            <type>org.butterfaces.component.html.text.HtmlCalendarViewMode</type>
             <description>Must be one of (times, days, months, years, decades)</description>
         </attribute>
         <attribute>
@@ -660,7 +660,7 @@
     <tag>
         <tag-name>tags</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.tags</component-type>
+            <component-type>org.butterfaces.component.tags</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -871,7 +871,7 @@
     <tag>
         <tag-name>treeBox</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.treeBox</component-type>
+            <component-type>org.butterfaces.component.treeBox</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1087,7 +1087,7 @@
     <tag>
         <tag-name>number</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.number</component-type>
+            <component-type>org.butterfaces.component.number</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1286,7 +1286,7 @@
     <tag>
         <tag-name>secret</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.secret</component-type>
+            <component-type>org.butterfaces.component.secret</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1469,7 +1469,7 @@
     <tag>
         <tag-name>textArea</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.textArea</component-type>
+            <component-type>org.butterfaces.component.textArea</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1660,7 +1660,7 @@
     <tag>
         <tag-name>markdown</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.markdown</component-type>
+            <component-type>org.butterfaces.component.markdown</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1851,7 +1851,7 @@
     <tag>
         <tag-name>radioBox</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.radioBox</component-type>
+            <component-type>org.butterfaces.component.radioBox</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1907,7 +1907,7 @@
     <tag>
         <tag-name>checkBox</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.checkBox</component-type>
+            <component-type>org.butterfaces.component.checkBox</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1971,7 +1971,7 @@
     <tag>
         <tag-name>section</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.section</component-type>
+            <component-type>org.butterfaces.component.section</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -1998,7 +1998,7 @@
     <tag>
         <tag-name>tooltip</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.tooltip</component-type>
+            <component-type>org.butterfaces.component.tooltip</component-type>
         </component>
         <attribute>
             <name>for</name>
@@ -2071,7 +2071,7 @@
     <tag>
         <tag-name>modalPanel</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.modal</component-type>
+            <component-type>org.butterfaces.component.modal</component-type>
         </component>
         <attribute>
             <name>title</name>
@@ -2125,7 +2125,7 @@
     <tag>
         <tag-name>prettyprint</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.prettyprint</component-type>
+            <component-type>org.butterfaces.component.prettyprint</component-type>
         </component>
         <attribute>
             <name>language</name>
@@ -2147,7 +2147,7 @@
     <tag>
         <tag-name>table</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.table.new</component-type>
+            <component-type>org.butterfaces.component.table.new</component-type>
         </component>
         <attribute>
             <description>
@@ -2199,7 +2199,7 @@
         </attribute>
         <attribute>
             <name>model</name>
-            <type>de.larmic.butterfaces.model.table.TableModel</type>
+            <type>org.butterfaces.model.table.TableModel</type>
             <required>false</required>
         </attribute>
         <attribute>
@@ -2228,7 +2228,7 @@
         <attribute>
             <name>singleSelectionListener</name>
             <required>false</required>
-            <type>de.larmic.butterfaces.event.TableSingleSelectionListener</type>
+            <type>org.butterfaces.event.TableSingleSelectionListener</type>
         </attribute>
         <attribute>
             <description>Disables regions to render after request while (ajax) request is running. Default is true.
@@ -2240,7 +2240,7 @@
     <tag>
         <tag-name>column</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.column.new</component-type>
+            <component-type>org.butterfaces.component.column.new</component-type>
         </component>
         <attribute>
             <description>
@@ -2312,7 +2312,7 @@
     <tag>
         <tag-name>tableToolbar</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.table.toolbar</component-type>
+            <component-type>org.butterfaces.component.table.toolbar</component-type>
         </component>
         <attribute>
             <name>rendered</name>
@@ -2336,7 +2336,7 @@
             <description>A listener called if toolbar refresh button is clicked.
             </description>
             <name>refreshListener</name>
-            <type>de.larmic.butterfaces.model.table.TableToolbarRefreshListener</type>
+            <type>org.butterfaces.model.table.TableToolbarRefreshListener</type>
             <required>false</required>
         </attribute>
         <attribute>
@@ -2350,7 +2350,7 @@
     <tag>
         <tag-name>activateLibraries</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.activateLibraries</component-type>
+            <component-type>org.butterfaces.component.activateLibraries</component-type>
         </component>
     </tag>
 
@@ -2474,7 +2474,7 @@
         </description>
         <tag-name>commandLink</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.commandLink</component-type>
+            <component-type>org.butterfaces.component.commandLink</component-type>
         </component>
         <attribute>
             <description>
@@ -2872,7 +2872,7 @@
     <tag>
         <tag-name>tree</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.tree</component-type>
+            <component-type>org.butterfaces.component.tree</component-type>
         </component>
         <attribute>
             <description>
@@ -2891,18 +2891,18 @@
         <attribute>
             <description>Tree model value.</description>
             <name>value</name>
-            <type>de.larmic.butterfaces.model.tree.Node</type>
+            <type>org.butterfaces.model.tree.Node</type>
             <required>true</required>
         </attribute>
         <attribute>
             <description>Selection listener called on selection changed.</description>
             <name>nodeSelectionListener</name>
-            <type>de.larmic.butterfaces.event.TreeNodeSelectionListener</type>
+            <type>org.butterfaces.event.TreeNodeSelectionListener</type>
         </attribute>
         <attribute>
             <description>Expansion listener called on node expanding or collapsing.</description>
             <name>nodeExpansionListener</name>
-            <type>de.larmic.butterfaces.event.TreeNodeExpansionListener</type>
+            <type>org.butterfaces.event.TreeNodeExpansionListener</type>
         </attribute>
         <attribute>
             <name>hideRootNode</name>
@@ -2959,7 +2959,7 @@
     <tag>
         <tag-name>waitingPanel</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.waitingPanel</component-type>
+            <component-type>org.butterfaces.component.waitingPanel</component-type>
         </component>
         <attribute>
             <description>
@@ -3003,7 +3003,7 @@
     <tag>
         <tag-name>defaultAction</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.defaultAction</component-type>
+            <component-type>org.butterfaces.component.defaultAction</component-type>
         </component>
         <attribute>
             <name>rendered</name>
@@ -3014,11 +3014,11 @@
     <tag>
         <tag-name>autoComplete</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.autoComplete</component-type>
+            <component-type>org.butterfaces.component.autoComplete</component-type>
         </component>
         <attribute>
             <name>autoComplete</name>
-            <type>de.larmic.butterfaces.model.text.AutoCompleteModel</type>
+            <type>org.butterfaces.model.text.AutoCompleteModel</type>
             <required>true</required>
         </attribute>
         <attribute>
@@ -3030,7 +3030,7 @@
     <tag>
         <tag-name>labeledContainer</tag-name>
         <component>
-            <component-type>de.larmic.butterfaces.component.labeledContainer</component-type>
+            <component-type>org.butterfaces.component.labeledContainer</component-type>
         </component>
         <attribute>
             <name>label</name>
@@ -3060,7 +3060,7 @@
         <tag-name>messages</tag-name>
         <description>Renders faces messages with bootstrap alert layout</description>
         <component>
-            <component-type>de.larmic.butterfaces.component.messages</component-type>
+            <component-type>org.butterfaces.component.messages</component-type>
         </component>
         <attribute>
             <description>
@@ -3113,7 +3113,7 @@
         <tag-name>repeat</tag-name>
         <description>&lt;b:repeat&gt; is a non visible component used to iterate through a data model.</description>
         <component>
-            <component-type>de.larmic.butterfaces.component.repeat</component-type>
+            <component-type>org.butterfaces.component.repeat</component-type>
         </component>
         <attribute>
             <description>
