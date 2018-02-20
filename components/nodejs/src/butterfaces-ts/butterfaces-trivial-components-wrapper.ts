@@ -49,14 +49,16 @@ namespace ButterFaces {
         });
 
         function escapeHtml(source: string) {
+            /* tslint:disable */
             const entityMap = {
                 "&": "&amp;",
                 "<": "&lt;",
                 ">": "&gt;",
-                //'"': "&quot;",
+                '"': "&quot;",
                 "'": "&#39;",
                 "/": "&#x2F;"
             };
+            /* tslint:enable */
 
             return source.replace(/[&<>"'\/]/g, s => entityMap[s]);
         }
