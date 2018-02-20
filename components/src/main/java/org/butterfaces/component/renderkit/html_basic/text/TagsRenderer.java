@@ -13,6 +13,7 @@ import org.butterfaces.model.tree.Node;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -66,6 +67,20 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
         writer.writeText("});", null);
 
         writer.endElement("script");
+    }
+
+    @Override
+    protected void setSubmittedValue(UIComponent component, Object value) {
+        if (component instanceof UIInput) {
+            final String decodedValue = value.toString()
+                .replace("&#x2F;", "/")
+                .replace("&quot;", "\"")
+                .replace("&#39;", "'")
+                .replace("&amp;", "&")
+                .replace("&lt;", "<")
+                .replace("&gt;", ">");
+            ((UIInput) component).setSubmittedValue(decodedValue);
+        }
     }
 
     private String createTagOptions(final HtmlTags tags) throws IOException {
@@ -144,7 +159,13 @@ public class TagsRenderer extends AbstractHtmlTagRenderer<HtmlTags> {
     }
 
     private String escapeDisplayValue(String value) {
-        return value.replaceAll("'", "\\\\'");
+        return value
+            .replace("&", "&amp;")
+            .replace("/", "&#x2F;")
+            .replace("\"", "&quot;")
+            .replace("'", "&#39;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;");
     }
 
     private String getSubmittedValueOrValue(final HtmlTags tags) {

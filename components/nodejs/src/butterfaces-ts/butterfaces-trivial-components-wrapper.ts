@@ -43,12 +43,24 @@ namespace ButterFaces {
                     .join(",");
             },
             freeTextEntryFactory: freeText => {
-                return {title: freeText};
+                return {title: escapeHtml(freeText)};
             },
             entryRenderingFunction: entry => `<div>${(entry as any).title}</div>`, // TODO template parameter
         });
-    }
 
+        function escapeHtml(source: string) {
+            const entityMap = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                //'"': "&quot;",
+                "'": "&#39;",
+                "/": "&#x2F;"
+            };
+
+            return source.replace(/[&<>"'\/]/g, s => entityMap[s]);
+        }
+    }
 
     interface ButterFacesTrivialTreeEntry {
         title: string;
