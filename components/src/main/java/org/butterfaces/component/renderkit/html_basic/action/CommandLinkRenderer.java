@@ -14,8 +14,6 @@ import org.butterfaces.resolver.UIComponentResolver;
 import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringJoiner;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringJoiner;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -157,11 +155,11 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
 
                 final AjaxClientIdResolver ajaxClientIdResolver = new AjaxClientIdResolver(link);
                 final String jQueryIDSelector = isAjaxDisableRenderReqionOnRequest(link, webXmlParameters)
-                        ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
+                    ? ajaxClientIdResolver.getjQueryRenderIDSelector() : "undefined";
 
                 writer.writeText(
-                        createDisableOnClickFunctionCall(link, processingText, processingGlyphicon, jQueryIDSelector),
-                        null
+                    createDisableOnClickFunctionCall(link, processingText, processingGlyphicon, jQueryIDSelector),
+                    null
                 );
 
                 writer.writeText("}", null);
@@ -392,7 +390,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         StringJoiner generatedStyleClassJoiner = StringJoiner.on(' ').join(StringUtils.getNotNullValue(styleClass, ""));
 
         if (link.isDisabled()) {
-            generatedStyleClassJoiner = generatedStyleClassJoiner.join("btn-disabled");
+            generatedStyleClassJoiner = generatedStyleClassJoiner.join("btn-disabled disabled");
         }
         if (StringUtils.isEmpty(link.getGlyphicon())) {
             generatedStyleClassJoiner = generatedStyleClassJoiner.join("no-glyphicon");
