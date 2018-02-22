@@ -14,7 +14,9 @@
             <b:text label="label" value="#{sectionShowcase.label}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
-            <b:text label="badgeText" value="#{sectionShowcase.badgeText}"/>
+            <b:text label="badgeText" value="#{sectionShowcase.badgeText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
             <b:checkBox label="rendered" value="#{sectionShowcase.rendered}">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:checkBox>
