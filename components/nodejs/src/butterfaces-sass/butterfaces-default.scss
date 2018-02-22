@@ -12,6 +12,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
+
+    abbr {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }
 
 .butter-component-value-readonly {

@@ -28,21 +28,39 @@
             </b:treeBox>
             <b:checkBox label="ajaxDisableLinkOnRequest" value="#{commandLinkShowcase.ajaxDisableLinkOnRequest}">
                 <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="ajaxDisableLinkOnRequest" placement="top">
+                    Disables link on click. Enables link on ajax complete. Default is true.
+                </b:tooltip>
             </b:checkBox>
             <b:checkBox label="ajaxShowWaitingDotsOnRequest" value="#{commandLinkShowcase.ajaxShowWaitingDotsOnRequest}">
                 <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="ajaxShowWaitingDotsOnRequest" placement="top">
+                    Show processing dots if (ajax) request is running. Needs disableOnClick to be true. Default is true.
+                </b:tooltip>
             </b:checkBox>
             <b:checkBox label="ajaxHideGlyphiconOnRequest" value="#{commandLinkShowcase.ajaxHideGlyphiconOnRequest}">
                 <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="ajaxHideGlyphiconOnRequest" placement="top">
+                    Hides glyphicon while (ajax) request is running. Needs disableOnClick to be true. Default is 'true'.
+                </b:tooltip>
             </b:checkBox>
             <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{commandLinkShowcase.ajaxDisableRenderRegionsOnRequest}">
                 <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="ajaxDisableRenderRegionsOnRequest" placement="top">
+                    Disables regions to render after request while (ajax) request is running. Needs disableOnClick to be true. Default is true.
+                </b:tooltip>
             </b:checkBox>
             <b:text label="ajaxProcessingTextOnRequest" value="#{commandLinkShowcase.ajaxProcessingText}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
+                <b:tooltip title="ajaxProcessingTextOnRequest" placement="top">
+                    Displayed processing text while (ajax) request is running. Needs disableOnClick to be true. Default is 'Processing'.
+                </b:tooltip>
             </b:text>
             <b:text label="ajaxProcessingGlyphicon" value="#{commandLinkShowcase.ajaxProcessingGlyphicon}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
+                <b:tooltip title="ajaxProcessingGlyphicon" placement="top">
+                    Displayed processing glyphicon while (ajax) request is running. Needs disableOnClick to be true. Default is empty (no special glyphicon is rendered).
+                </b:tooltip>
             </b:text>
         </common:tagsContainer>
 
