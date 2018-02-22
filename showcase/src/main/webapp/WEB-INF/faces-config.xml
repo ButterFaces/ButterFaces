@@ -6,7 +6,7 @@
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<application>
-        <resource-handler>de.larmic.butterfaces.handler.ButterFacesResourceHandler</resource-handler>
+        <resource-handler>org.butterfaces.handler.ButterFacesResourceHandler</resource-handler>
 
 		<locale-config>
 			<default-locale>en</default-locale>

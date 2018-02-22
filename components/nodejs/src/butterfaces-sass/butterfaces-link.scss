@@ -1,0 +1,30 @@
+@import "butterfaces-spinner";
+
+.butter-component-link {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+
+    &.btn-disabled {
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+
+    .butter-component-glyphicon-processing {
+        text-align: left;
+        width: 20px;
+        display: none;
+    }
+
+    .butter-component-spinner {
+        left: auto;
+        top: auto;
+
+        &.tiny {
+            margin: 0;
+        }
+    }
+}

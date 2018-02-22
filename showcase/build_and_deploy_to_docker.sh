@@ -1,0 +1,1 @@
+mvn clean package -Pshowcase-docker -Dmaven.test.skip=true

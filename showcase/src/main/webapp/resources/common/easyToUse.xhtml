@@ -3,14 +3,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:b="http://butterfaces.org/components"
-        >
+>
 
 <h:body>
     <composite:interface>
     </composite:interface>
 
     <composite:implementation>
-        <div class="panel panel-simple">
+        <div class="panel panel-simple panel-documentation ease-to-use">
             <div class="panel-heading">Easy to use</div>
             <div class="panel-body">
                 <p>
@@ -22,15 +22,19 @@
                 </h5>
                 <h5>
                     <small>You can easily use maven to add ButterFaces to your application as it is available in
-                        <a
-                                href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
-                                target="_blank">maven central respository</a>.
+                        <a href="http://search.maven.org/#search%7Cga%7C1%7Cbutterfaces"
+                           target="_blank">maven central respository</a>.
                     </small>
                 </h5>
                 <div class="maven-example">
                     <small>Use</small>
                     <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
-                    <small>to activate all components</small>
+                </div>
+
+                <div class="maven-example">
+                    <small>or</small>
+                    <b:prettyprint language="xml">#{dependencyExample.butterFacesV2MavenDependency}</b:prettyprint>
+                    <small>to activate all components.</small>
                 </div>
 
                 <p>

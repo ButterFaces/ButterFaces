@@ -1,0 +1,54 @@
+.butter-component-treebox {
+  .input-group .tr-input-wrapper {
+    flex: 1 1 1px;
+  }
+
+  &.has-error .tr-input-wrapper {
+    border-color: #dc3545; // TODO use bootstrap variables
+  }
+
+  .tr-editor-area.tr-combobox-entry.empty {
+    min-height: 34px;
+  }
+
+  .defaultEmptyEntry {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    color: gray;
+  }
+
+  &.butter-component-readonly {
+    .tr-input-wrapper {
+      border-style: none;
+
+      .tr-template-single-line {
+        padding-left: 0;
+      }
+    }
+  }
+
+  .content-wrapper {
+    height: 100%;
+    .additional-info {
+      white-space: pre-wrap;
+      max-width: 100%;
+    }
+  }
+}
+
+.tr-dropdown {
+  z-index: 1051 !important; /* bootstrap form-control has 2, should be fixed in trivial components */
+}
+
+.tr-dropdown .tr-template-icon-2-lines .content-wrapper .main-line,
+.butter-component-treebox .tr-template-icon-2-lines .content-wrapper .main-line {
+  line-height: 13px;
+}
+
+.tr-dropdown .tr-template-icon-2-lines .content-wrapper .additional-info,
+.butter-component-treebox .tr-template-icon-2-lines .content-wrapper .additional-info {
+  font-size: 82%;
+  color: #777;
+}

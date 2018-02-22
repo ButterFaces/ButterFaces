@@ -8,36 +8,52 @@
 
     <ui:define name="header">
         <strong>b:tree</strong> The tree tag renders an HTML element of the type "div" using <a
-            href="https://trivial-components.github.io/trivial-components/tree.html"
+            href="http://trivial-components.github.io/trivial-components/demo.html"
             target="_blank">Trivial Components Tree</a>.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{treeShowcase.rendered}"/>
-            <common:tagBooleanControl label="hideRootNode" value="#{treeShowcase.hideRootNode}"/>
-            <common:tagStringControl label="placeholder" value="#{treeShowcase.placeholder}"/>
-            <common:tagStringControl label="spinnerText" value="#{treeShowcase.spinnerText}"/>
-            <common:tagStringControl label="noEntriesText" value="#{treeShowcase.noEntriesText}"/>
-            <common:tagEnumControl label="searchBarMode"
-                                   value="#{treeShowcase.selectedSearchBarModeType}"
-                                   values="#{treeShowcase.seachBarModeTypes}"/>
+            <b:checkBox label="rendered" value="#{treeShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="hideRootNode" value="#{treeShowcase.hideRootNode}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:text label="placeholder" value="#{treeShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="spinnerText" value="#{treeShowcase.spinnerText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="noEntriesText" value="#{treeShowcase.noEntriesText}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:treeBox label="searchBarMode" value="#{treeShowcase.selectedSearchBarModeType}" values="#{treeShowcase.seachBarModeTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="template"
-                                   value="#{treeShowcase.selectedTreeTemplateType}"
-                                   values="#{treeShowcase.treeTemplateTypes}"
-                                   renderChildrenPopover="true"
-                                   popoverTitle="Using templates"
-                                   popoverContentMarkerClass="treePopoverContent"/>
-            <common:tagEnumControl label="ajax selection"
-                                   value="#{treeShowcase.selectionAjaxType}"
-                                   values="#{treeShowcase.ajaxSelectionTypes}"/>
-            <common:tagEnumControl label="icons"
-                                   value="#{treeShowcase.showcaseTreeNode.selectedIconType}"
-                                   values="#{treeShowcase.iconTypes}"/>
-            <common:tagBooleanControl label="nodes expanded" value="#{treeShowcase.allExpanded}"/>
+            <b:treeBox label="template" value="#{treeShowcase.selectedTreeTemplateType}" values="#{treeShowcase.treeTemplateTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip placement="top">
+                    <ul>
+                        <li><strong>default</strong> Childs will rendered with default template as nodes.</li>
+                        <li><strong>custom</strong> Use custom template for nodes rendering. See facet in showcase.</li>
+                    </ul>
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:treeBox label="ajax selection" value="#{treeShowcase.selectionAjaxType}" values="#{treeShowcase.ajaxSelectionTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="icons" value="#{treeShowcase.showcaseTreeNode.selectedIconType}" values="#{treeShowcase.iconTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="nodes expanded" value="#{treeShowcase.allExpanded}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -50,7 +66,7 @@
         </h:panelGroup>
 
         <b:tree id="tree"
-                value="#{treeShowcase.showcaseTreeNode.tree}"
+                value="#{treeShowcase.values}"
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"
                 spinnerText="#{treeShowcase.spinnerText}"
@@ -69,7 +85,7 @@
         </b:tree>
 
         <b:tree id="treeWithAjax"
-                value="#{treeShowcase.showcaseTreeNode.tree}"
+                value="#{treeShowcase.values}"
                 searchBarMode="#{treeShowcase.selectedSearchBarModeType.label}"
                 nodeSelectionListener="#{treeShowcase}"
                 nodeExpansionListener="#{treeShowcase}"

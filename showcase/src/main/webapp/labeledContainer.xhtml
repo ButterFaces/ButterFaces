@@ -1,25 +1,31 @@
 <ui:composition template="/WEB-INF/templates/defaultComponentBase.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://butterfaces.org/components"
-                xmlns:showcase="http://xmlns.jcp.org/jsf/composite/cc"
                 xmlns:common="http://xmlns.jcp.org/jsf/composite/common"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="header">
-        <strong>b:labeledContainer</strong> renderes a labeled container component wrapper for JSF components.
+        <strong>b:labeledContainer</strong> renders a labeled container component wrapper for JSF components.
     </ui:define>
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{labeledContainerShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{labeledContainerShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="rendered" value="#{labeledContainerShowcase.rendered}"/>
+            <b:text label="label" value="#{labeledContainerShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{labeledContainerShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{labeledContainerShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="example"
-                                     value="#{labeledContainerShowcase.exampleType}"
-                                     values="#{labeledContainerShowcase.exampleTypes}"/>
+            <b:treeBox label="example" value="#{labeledContainerShowcase.exampleType}" values="#{labeledContainerShowcase.exampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 

@@ -1,0 +1,24 @@
+.butter-component-tooltip-temp-content {
+    display: none;
+}
+
+.butter-component-tooltip-validation-error {
+    color: #dc3545;
+}
+
+.butter-component-tooltip-validation-error ul {
+    padding-left: 0;
+}
+
+.butter-component-tooltip-validation-error li {
+    list-style: none;
+}
+
+.butter-component-label-tooltip abbr span {
+    text-decoration: underline;
+    text-decoration-style:dotted;
+}
+
+.butter-component-label-tooltip abbr span.butter-component-required {
+    text-decoration: none;
+}

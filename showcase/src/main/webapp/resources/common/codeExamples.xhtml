@@ -2,13 +2,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:b="http://butterfaces.org/components"
-        >
+      xmlns:b="http://butterfaces.org/components">
 
 <h:body>
     <composite:interface>
         <composite:attribute name="component"
-                             type="de.larmic.butterfaces.component.showcase.AbstractCodeShowcase"
+                             type="org.butterfaces.component.showcase.AbstractCodeShowcase"
                              required="true"/>
     </composite:interface>
 
@@ -18,8 +17,8 @@
             <!-- Tabs-Navs -->
             <ul class="nav nav-tabs" role="tablist">
                 <ui:repeat value="#{cc.attrs.component.codeExamples}" var="example">
-                    <li role="presentation">
-                        <a href="##{example.tabId}" role="tab" data-toggle="tab">#{example.tabName}</a>
+                    <li class="nav-item">
+                        <a href="##{example.tabId}" class="nav-link" role="tab" data-toggle="tab">#{example.tabName}</a>
                     </li>
                 </ui:repeat>
             </ul>
@@ -42,8 +41,8 @@
                 butter.prettyprint.cleanup();
 
                 $(function() {
-                    $("li[role='presentation']").first().addClass("active");
-                    $("div[role='tabpanel']").first().addClass("in active");
+                    $(".code-examples").find(".nav-link").first().addClass("active show");
+                    $(".code-examples").find("div[role='tabpanel']").first().addClass("active show");
                 });
             </script>
         </h:panelGroup>

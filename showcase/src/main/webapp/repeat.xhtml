@@ -10,13 +10,15 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{repeatShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{repeatShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="examples"
-                                   value="#{repeatShowcase.selectedExampleType}"
-                                   values="#{repeatShowcase.exampleTypes}"/>
+            <b:treeBox label="examples" value="#{repeatShowcase.selectedExampleType}" values="#{repeatShowcase.exampleTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -34,7 +36,7 @@
                         <b:commandLink value="Play"
                                        action="#{repeatShowcase.play}"
                                        glyphicon="fa fa-play-circle-o"
-                                       styleClass="btn btn-default btn-xs">
+                                       styleClass="btn btn-outline-secondary btn-sm">
                             <f:ajax execute="@this"/>
                         </b:commandLink>
                     </div>
@@ -43,7 +45,7 @@
         </h:panelGroup>
 
         <h:panelGroup layout="block" rendered="#{repeatShowcase.selectedExampleType == 'SIMPLE'}">
-            <b:commandLink glyphicon="glyphicon glyphicon-refresh" styleClass="btn btn-default">
+            <b:commandLink glyphicon="glyphicon glyphicon-refresh" styleClass="btn btn-outline-secondary">
                 <f:ajax execute="@this" render="repeat"/>
             </b:commandLink>
             <h:panelGroup id="repeat" layout="block" styleClass="repeat-simple-list">

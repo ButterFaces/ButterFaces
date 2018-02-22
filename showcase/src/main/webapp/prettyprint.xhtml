@@ -13,10 +13,12 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{prettyPrintShowcase.rendered}"/>
-            <common:tagEnumControl label="language"
-                                     value="#{prettyPrintShowcase.prettyPrintType}"
-                                     values="#{prettyPrintShowcase.prettyPrintTypes}"/>
+            <b:checkBox label="rendered" value="#{prettyPrintShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="language" value="#{prettyPrintShowcase.prettyPrintType}" values="#{prettyPrintShowcase.prettyPrintTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -31,8 +33,6 @@
 
     <ui:define name="other">
         <common:codeExamples component="#{prettyPrintShowcase}"/>
-
-        <b:activateLibraries />
 
         <script type="text/javascript">
             jQuery(document).ready(function () {

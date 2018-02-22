@@ -13,49 +13,78 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{textShowcase.label}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{textShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{textShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{textShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{textShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{textShowcase.rendered}"/>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{textShowcase.styleClass}"
-                                     values="#{textShowcase.styleClasses}"/>
+            <b:text label="label" value="#{textShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="hideLabel" value="#{textShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{textShowcase.readonly}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{textShowcase.required}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{textShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{textShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="styleClass" value="#{textShowcase.styleClass}" values="#{textShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagStringControl label="placeholder" value="#{textShowcase.placeholder}"/>
-            <common:tagStringControl label="type" value="#{textShowcase.type}"/>
-            <common:tagStringControl label="pattern" value="#{textShowcase.pattern}"/>
-            <common:tagStringControl label="min" value="#{textShowcase.min}"/>
-            <common:tagStringControl label="max" value="#{textShowcase.max}"/>
-            <common:tagBooleanControl label="autofocus" value="#{textShowcase.autoFocus}"/>
+            <b:text label="placeholder" value="#{textShowcase.placeholder}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="type" value="#{textShowcase.type}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="pattern" value="#{textShowcase.pattern}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="min" value="#{textShowcase.min}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="max" value="#{textShowcase.max}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="autofocus" value="#{textShowcase.autoFocus}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="ajax"
-                                     value="#{textShowcase.ajaxType}"
-                                     values="#{textShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent" />
-            <common:tagStringControl label="tooltip" value="#{textShowcase.tooltip}"/>
-            <common:tagEnumControl label="facets"
-                                     value="#{textShowcase.selectedFacetType}"
-                                     values="#{textShowcase.availableFacetTypes}"
-                                     renderChildrenPopover="false"/>
-            <common:tagBooleanControl label="validate"
-                                        value="#{textShowcase.validation}"/>
-            <common:tagBooleanControl label="converter"
-                                        value="#{textShowcase.useConverter}"/>
+            <b:treeBox label="ajax" value="#{textShowcase.ajaxType}" values="#{textShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:text label="tooltip" value="#{textShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:treeBox label="facets" value="#{textShowcase.selectedFacetType}" values="#{textShowcase.availableFacetTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="validate" value="#{textShowcase.validation}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="converter" value="#{textShowcase.useConverter}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent"
-                                         activeComponentNavigationId="text"
-                                         component="#{textShowcase}">
+                                       activeComponentNavigationId="text"
+                                       component="#{textShowcase}">
             <b:text id="text"
                     label="#{textShowcase.label}"
                     hideLabel="#{textShowcase.hideLabel}"
@@ -73,15 +102,15 @@
                     onkeydown="console.log('ButterFaces.Test: check onkeydown')"
                     onkeyup="console.log('ButterFaces.Test: check onkeyup')"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         listener="#{textShowcase.someListenerAction}"
-                        disabled="#{not textShowcase.ajax}" />
+                        disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcase.validation}" />
+                                  disabled="#{not textShowcase.validation}"/>
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
@@ -101,19 +130,19 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other"
                         listener="#{textShowcase.someListenerAction}"
-                        disabled="#{not textShowcase.ajax}" />
+                        disabled="#{not textShowcase.ajax}"/>
                 <f:validateLength minimum="2"
                                   maximum="10"
-                                  disabled="#{not textShowcase.validation}" />
+                                  disabled="#{not textShowcase.validation}"/>
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
-                <f:converter converterId="urlConverter" />
+                <f:converter converterId="urlConverter"/>
             </b:text>
 
             <b:text id="textWithInputGroupAddon"
@@ -129,7 +158,7 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <f:ajax event="keyup"
                         execute="@this"
                         listener="#{textShowcase.someListenerAction}"
@@ -162,7 +191,7 @@
                     min="#{textShowcase.min}"
                     max="#{textShowcase.max}"
                     autoFocus="#{textShowcase.autoFocus}"
-                    styleClass="#{textShowcase.styleClass}">
+                    styleClass="#{textShowcase.selectedStyleClass}">
                 <b:tooltip rendered="#{not empty textShowcase.tooltip}">
                     #{textShowcase.tooltip}
                 </b:tooltip>
@@ -175,10 +204,11 @@
                                   maximum="10"
                                   disabled="#{not textShowcase.validation}"/>
                 <f:facet name="input-group-btn-left">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <button class="btn btn-outline-secondary" type="button">Go!</button>
                 </f:facet>
                 <f:facet name="input-group-btn-right">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action <span class="caret"></span></button>
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">Action <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>

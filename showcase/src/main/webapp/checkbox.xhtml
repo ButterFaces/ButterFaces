@@ -12,30 +12,53 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="label" value="#{checkBoxShowcase.label}"/>
-            <common:tagStringControl label="description" value="#{checkBoxShowcase.description}"/>
-            <common:tagBooleanControl label="hideLabel" value="#{checkBoxShowcase.hideLabel}"/>
-            <common:tagBooleanControl label="readonly" value="#{checkBoxShowcase.readonly}"/>
-            <common:tagBooleanControl label="required" value="#{checkBoxShowcase.required}"/>
-            <common:tagBooleanControl label="disabled" value="#{checkBoxShowcase.disabled}"/>
-            <common:tagBooleanControl label="rendered" value="#{checkBoxShowcase.rendered}"/>
-            <common:tagEnumControl label="styleClass"
-                                     value="#{checkBoxShowcase.styleClass}"
-                                     values="#{checkBoxShowcase.styleClasses}"/>
+            <b:text label="label" value="#{checkBoxShowcase.label}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="description" value="#{checkBoxShowcase.description}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="switch" value="#{checkBoxShowcase.asSwitch}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="hideLabel" value="#{checkBoxShowcase.hideLabel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="readonly" value="#{checkBoxShowcase.readonly}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="required" value="#{checkBoxShowcase.required}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="disabled" value="#{checkBoxShowcase.disabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{checkBoxShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:treeBox label="styleClass" value="#{checkBoxShowcase.styleClass}" values="#{checkBoxShowcase.styleClasses}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="HTML5 tag attributes">
-            <common:tagBooleanControl label="autofocus" value="#{checkBoxShowcase.autoFocus}"/>
+            <b:checkBox label="autofocus" value="#{checkBoxShowcase.autoFocus}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag control">
-            <common:tagEnumControl label="ajax"
-                                     value="#{checkBoxShowcase.ajaxType}"
-                                     values="#{checkBoxShowcase.ajaxTypes}"
-                                     renderChildrenPopover="true"
-                                     popoverTitle="Add ajax child"
-                                     popoverContentMarkerClass="ajaxPopoverContent"/>
-            <common:tagStringControl label="tooltip" value="#{checkBoxShowcase.tooltip}"/>
+            <b:treeBox label="ajax" value="#{checkBoxShowcase.ajaxType}" values="#{checkBoxShowcase.ajaxTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+                <b:tooltip title="Add ajax child">
+                    Adds f:ajax as child to component.
+                    <p />
+                    Change it and see JSF example.
+                </b:tooltip>
+            </b:treeBox>
+            <b:text label="tooltip" value="#{checkBoxShowcase.tooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
         </common:tagsContainer>
     </ui:define>
 
@@ -45,6 +68,7 @@
 
             <b:checkBox label="#{checkBoxShowcase.label}"
                         value="#{checkBoxShowcase.value}"
+                        switch="#{checkBoxShowcase.asSwitch}"
                         hideLabel="#{checkBoxShowcase.hideLabel}"
                         description="#{checkBoxShowcase.description}"
                         readonly="#{checkBoxShowcase.readonly}"
@@ -53,7 +77,7 @@
                         autoFocus="#{checkBoxShowcase.autoFocus}"
                         disabled="#{checkBoxShowcase.disabled}"
                         onchange="console.log('ButterFaces.Test: check onchange')"
-                        styleClass="#{checkBoxShowcase.styleClass}">
+                        styleClass="#{checkBoxShowcase.selectedStyleClass}">
                 <f:ajax event="change"
                         execute="@this"
                         render="output:outputComponent:outputValues output:other demoding"

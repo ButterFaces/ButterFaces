@@ -12,9 +12,15 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagStringControl label="delay" value="#{waitingPanelShowcase.delayInMillis}"/>
-            <common:tagBooleanControl label="blockpage" value="#{waitingPanelShowcase.blockpage}" />
-            <common:tagBooleanControl label="rendered" value="#{waitingPanelShowcase.rendered}"/>
+            <b:text label="delay" value="#{waitingPanelShowcase.delayInMillis}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="blockpage" value="#{waitingPanelShowcase.blockpage}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="rendered" value="#{waitingPanelShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

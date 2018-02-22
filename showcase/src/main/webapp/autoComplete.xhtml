@@ -11,11 +11,15 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{autoCompleteShowcase.rendered}"/>
+            <b:checkBox label="rendered" value="#{autoCompleteShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagBooleanControl label="ajax" value="#{autoCompleteShowcase.ajaxEnabled}"/>
+            <b:checkBox label="ajax" value="#{autoCompleteShowcase.ajaxEnabled}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 

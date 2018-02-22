@@ -1,0 +1,30 @@
+.butter-component-tree {
+
+  .glyphicon-node {
+    margin-top: 6px;
+  }
+
+  .tr-tree-entryTree {
+    display: inline-table;
+    width: 100%;
+  }
+
+  .tr-tree,
+  .tr-tree:focus,
+  .tr-tree.focus {
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+  }
+
+  .tr-tree .tr-treebox {
+    flex: 1 1 auto;
+  }
+
+  .content-wrapper {
+    .additional-info {
+      white-space: pre-wrap;
+      max-width: 100%;
+    }
+  }
+}

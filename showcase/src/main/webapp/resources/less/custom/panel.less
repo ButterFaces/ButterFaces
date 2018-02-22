@@ -1,0 +1,73 @@
+@import "base";
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    &.control {
+        .baseFontDesign;
+        color: #333;
+    }
+
+    &.panel-simple {
+        border-color: #ddd;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+
+        .panel-body {
+            padding-top: 0;
+
+            p:first-of-type {
+                margin-top: 0;
+            }
+            p {
+                margin-bottom: 0;
+                margin-top: 20px;
+            }
+
+            h5 {
+                margin-top: 0;
+                margin-left: 18px;
+            }
+
+            .experimentalHint {
+                padding-top: 30px;
+                font-size: smaller;
+            }
+        }
+    }
+
+    &.panel-documentation {
+        .baseFontDesign;
+        .darkBlueLink;
+
+        small {
+            font-size: 10pt;
+            line-height: 1;
+            color: #777;
+        }
+
+        h5 {
+            font-size: 1.0rem;
+        }
+    }
+
+    .panel-heading {
+        .baseFontDesign;
+        color: #737373;
+        text-align: end;
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .butter-component {
+        margin-bottom: 2px;
+    }
+
+    .panel-body {
+        padding: 15px;
+    }
+}

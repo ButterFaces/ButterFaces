@@ -57,10 +57,14 @@
         },
 
         _initButtons: function () {
-            var $addon = $("<span>")
-                .addClass("input-group-addon")
-                .addClass("butter-component-number-buttons")
+            var $outerAddon = $("<div>")
+                .addClass("input-group-append")
                 .insertAfter(this.$input);
+
+            var $addon = $("<span>")
+                .addClass("input-group-text")
+                .addClass("butter-component-number-buttons")
+                .appendTo($outerAddon);
 
             var self = this;
             $("<span>")

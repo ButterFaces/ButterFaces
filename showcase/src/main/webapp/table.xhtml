@@ -11,34 +11,57 @@
 
     <ui:define name="tagsContainers">
         <common:tagsContainer label="Tag attributes">
-            <common:tagBooleanControl label="rendered" value="#{tableShowcase.rendered}"/>
-            <common:tagBooleanControl label="tableBordered" value="#{tableShowcase.tableBordered}"/>
-            <common:tagBooleanControl label="tableCondensed" value="#{tableShowcase.tableCondensed}"/>
-            <common:tagBooleanControl label="tableStriped" value="#{tableShowcase.tableStriped}"/>
-            <common:tagStringControl label="refreshTooltip" value="#{tableShowcase.refreshTooltip}"/>
-            <common:tagStringControl label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}"/>
-            <common:tagBooleanControl label="ajaxDisableRenderRegionsOnRequest"
-                                      value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}"/>
+            <b:checkBox label="rendered" value="#{tableShowcase.rendered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableBordered" value="#{tableShowcase.tableBordered}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableCondensed" value="#{tableShowcase.tableCondensed}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="tableStriped" value="#{tableShowcase.tableStriped}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:text label="refreshTooltip" value="#{tableShowcase.refreshTooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:text label="columnOptionsTooltip" value="#{tableShowcase.columnOptionsTooltip}">
+                <f:ajax event="keyup" execute="@this" render="output"/>
+            </b:text>
+            <b:checkBox label="ajaxDisableRenderRegionsOnRequest" value="#{tableShowcase.ajaxDisableRenderRegionsOnRequest}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
 
         <common:tagsContainer label="Tag controls">
-            <common:tagEnumControl label="ajax selection"
-                                   value="#{tableShowcase.selectionAjaxType}"
-                                   values="#{tableShowcase.ajaxSelectionTypes}"/>
-            <common:tagEnumControl label="custom toolbar"
-                                   value="#{tableShowcase.toolBarType}"
-                                   values="#{tableShowcase.toolBarTypes}"/>
-            <common:tagEnumControl label="column width"
-                                   value="#{tableShowcase.fourthColumnWidthType}"
-                                   values="#{tableShowcase.twoColumnWidthTypes}"/>
-            <common:tagEnumControl label="toolbar facets"
-                                   value="#{tableShowcase.toolbarFacetType}"
-                                   values="#{tableShowcase.toolBarFacetTypes}"/>
-            <common:tagBooleanControl label="use table model" value="#{tableShowcase.useTableModel}"/>
-            <common:tagBooleanControl label="use selection listener" value="#{tableShowcase.useSelectionListener}"/>
-            <common:tagBooleanControl label="showRefreshButton" value="#{tableShowcase.showRefreshButton}"/>
-            <common:tagBooleanControl label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}"/>
-            <common:tagBooleanControl label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}"/>
+            <b:treeBox label="ajax selection" value="#{tableShowcase.selectionAjaxType}" values="#{tableShowcase.ajaxSelectionTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="custom toolbar" value="#{tableShowcase.toolBarType}" values="#{tableShowcase.toolBarTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="column width" value="#{tableShowcase.fourthColumnWidthType}" values="#{tableShowcase.twoColumnWidthTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:treeBox label="toolbar facets" value="#{tableShowcase.toolbarFacetType}" values="#{tableShowcase.toolBarFacetTypes}" required="true" showClearButton="false">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:treeBox>
+            <b:checkBox label="use table model" value="#{tableShowcase.useTableModel}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="use selection listener" value="#{tableShowcase.useSelectionListener}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showRefreshButton" value="#{tableShowcase.showRefreshButton}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showToggleColumnButton" value="#{tableShowcase.showToggleColumnButton}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
+            <b:checkBox label="showOrderColumnButton" value="#{tableShowcase.showOrderColumnButton}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
         </common:tagsContainer>
     </ui:define>
 
@@ -90,17 +113,17 @@
                         rendered="#{!(tableShowcase.selectionAjaxType eq 'NONE')}">
             <f:facet name="default-options-left">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'LEFT_FACET'}">
-                    <a class="btn btn-default">Left facet</a>
+                    <a class="btn btn-outline-secondary">Left facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:facet name="default-options-center">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'CENTER_FACET'}">
-                    <a class="btn btn-default">Center facet</a>
+                    <a class="btn btn-outline-secondary">Center facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:facet name="default-options-right">
                 <h:panelGroup rendered="#{tableShowcase.toolbarFacetType eq 'RIGHT_FACET'}">
-                    <a class="btn btn-default">Right facet</a>
+                    <a class="btn btn-outline-secondary">Right facet</a>
                 </h:panelGroup>
             </f:facet>
             <f:ajax event="refresh" render="output:numberOfRefreshes"
@@ -161,7 +184,7 @@
                       sortColumnEnabled="false"
                       label="Action">
                 <b:commandLink value="doSomething with #{rowItem.a}"
-                               styleClass="btn btn-warning btn-xs"
+                               styleClass="btn btn-warning btn-sm"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
@@ -195,7 +218,7 @@
                       colWidth="#{tableShowcase.colWidthColumn2}"
                       label="Action">
                 <b:commandLink value="doSomething"
-                               styleClass="btn btn-warning btn-xs"
+                               styleClass="btn btn-warning btn-sm"
                                action="#{tableShowcase.doSomethingWith(rowItem)}">
                     <f:ajax execute="@this" render="output:nodeTitle"/>
                 </b:commandLink>
@@ -238,6 +261,9 @@
 
     <ui:define name="other">
         <common:codeExamples component="#{tableShowcase}"/>
+
+        <!-- to enable butterItemFilterField() in PROJECT_STAGE development -->
+        <b:activateLibraries rendered="#{facesContext.application.projectStage eq 'Development'}" />
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
