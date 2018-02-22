@@ -195,7 +195,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <imageName>butterfaces/showcase</imageName>
+                            <imageName>butterfaces/showcase-v2</imageName>
                             <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                             <serverId>docker-hub</serverId>
                             <pushImage>true</pushImage>
