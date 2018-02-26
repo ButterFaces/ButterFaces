@@ -18,7 +18,6 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
-        <!-- for debugging -->
         <dependency>
             <groupId>org.butterfaces</groupId>
             <artifactId>components</artifactId>
