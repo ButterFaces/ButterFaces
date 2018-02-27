@@ -188,7 +188,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <imageName>butterfaces/showcase-snapshot</imageName>
+                            <imageName>butterfaces/showcase</imageName>
                             <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                             <serverId>docker-hub</serverId>
                             <pushImage>true</pushImage>
