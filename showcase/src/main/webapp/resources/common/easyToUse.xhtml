@@ -26,21 +26,30 @@
                            target="_blank">maven central respository</a>.
                     </small>
                 </h5>
-                <div class="maven-example">
-                    <small>Use</small>
-                    <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
-                </div>
 
                 <div class="maven-example">
-                    <small>or</small>
-                    <b:prettyprint language="xml">#{dependencyExample.butterFacesV3JEE7MavenDependency}</b:prettyprint>
-                    <small>to activate all components for JEE7</small>
-                </div>
-
-                <div class="maven-example">
-                    <small>or</small>
-                    <b:prettyprint language="xml">#{dependencyExample.butterFacesV2MavenDependency}</b:prettyprint>
-                    <small>to activate all components.</small>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#v3" role="tab" aria-controls="home" aria-selected="true">3.x</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#v3JEE7" role="tab" aria-controls="profile" aria-selected="false">3.x JEE7</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#v2" role="tab" aria-controls="contact" aria-selected="false">2.x</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="v3" role="tabpanel" aria-labelledby="home-tab">
+                            <b:prettyprint language="xml">#{dependencyExample.butterFacesMavenDependency}</b:prettyprint>
+                        </div>
+                        <div class="tab-pane fade" id="v3JEE7" role="tabpanel" aria-labelledby="profile-tab">
+                            <b:prettyprint language="xml">#{dependencyExample.butterFacesV3JEE7MavenDependency}</b:prettyprint>
+                        </div>
+                        <div class="tab-pane fade" id="v2" role="tabpanel" aria-labelledby="contact-tab">
+                            <b:prettyprint language="xml">#{dependencyExample.butterFacesV2MavenDependency}</b:prettyprint>
+                        </div>
+                    </div>
                 </div>
 
                 <p>
