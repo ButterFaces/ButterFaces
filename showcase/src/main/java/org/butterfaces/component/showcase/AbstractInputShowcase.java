@@ -6,11 +6,6 @@ import org.butterfaces.component.showcase.example.XhtmlCodeExample;
 import org.butterfaces.component.showcase.type.AjaxType;
 import org.butterfaces.component.showcase.type.StyleClass;
 import org.butterfaces.model.tree.EnumTreeBoxWrapper;
-import org.butterfaces.component.showcase.example.AbstractCodeExample;
-import org.butterfaces.component.showcase.example.CssCodeExample;
-import org.butterfaces.component.showcase.example.XhtmlCodeExample;
-import org.butterfaces.component.showcase.type.AjaxType;
-import org.butterfaces.component.showcase.type.StyleClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +39,10 @@ public abstract class AbstractInputShowcase extends AbstractCodeShowcase {
      * @return a readable value of field value (maybe translated enum or something).
      */
     public abstract String getReadableValue();
+
+    public boolean isReadableValueSupported() {
+        return false;
+    }
 
     public boolean isAjax() {
         return AjaxType.NONE != this.getAjaxType();

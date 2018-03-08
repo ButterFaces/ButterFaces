@@ -1,8 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://butterfaces.org/components"
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:composite="http://java.sun.com/jsf/composite" 
-	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+	  xmlns:composite="http://java.sun.com/jsf/composite" >
 
 <h:body>
 	<composite:interface>
@@ -27,16 +26,8 @@
 
             </div>
             <h:panelGroup id="outputValues" styleClass="col-md-10">
-                <div class="input-group">
-                    <span class="input-group-addon">Value:</span>
-                    <h:outputText value="#{cc.attrs.component.value}"
-                                  styleClass="form-control arquillian_output_value"/>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">Readable value:</span>
-                    <h:outputText value="#{cc.attrs.component.readableValue}"
-                                  styleClass="form-control arquillian_output_readableValue"/>
-                </div>
+                <b:text value="#{cc.attrs.component.value}" label="Value" readonly="true" />
+                <b:text value="#{cc.attrs.component.readableValue}" label="Readable value" readonly="true" rendered="#{cc.attrs.component.readableValueSupported}" />
             </h:panelGroup>
         </div>
 

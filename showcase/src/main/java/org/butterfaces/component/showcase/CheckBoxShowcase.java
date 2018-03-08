@@ -4,10 +4,6 @@ import org.butterfaces.component.showcase.example.AbstractCodeExample;
 import org.butterfaces.component.showcase.example.XhtmlCodeExample;
 import org.butterfaces.component.showcase.type.StyleClass;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.showcase.example.AbstractCodeExample;
-import org.butterfaces.component.showcase.example.XhtmlCodeExample;
-import org.butterfaces.component.showcase.type.StyleClass;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -32,6 +28,11 @@ public class CheckBoxShowcase extends AbstractInputShowcase implements Serializa
     @Override
     public String getReadableValue() {
         return (Boolean) this.getValue() ? "Ja" : "Nein";
+    }
+
+    @Override
+    public boolean isReadableValueSupported() {
+        return true;
     }
 
     @Override

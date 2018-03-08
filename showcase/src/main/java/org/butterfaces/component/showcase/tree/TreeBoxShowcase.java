@@ -56,6 +56,11 @@ public class TreeBoxShowcase extends AbstractInputShowcase implements Serializab
     }
 
     @Override
+    public boolean isReadableValueSupported() {
+        return true;
+    }
+
+    @Override
     public void buildCodeExamples(final List<AbstractCodeExample> codeExamples) {
         codeExamples.add(buildXhtmlCodeExample());
         if (selectedTreeBoxExampleType == TreeBoxExampleType.NODES) {
