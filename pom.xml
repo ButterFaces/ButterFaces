@@ -75,13 +75,12 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly -->
-        <version.wildfly.swarm>2018.2.0</version.wildfly.swarm>
-        <version.jbossas>11.0.0.Final</version.jbossas>
+        <version.wildfly.swarm>2018.3.0</version.wildfly.swarm>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
-        <mockito-all.version>1.10.19</mockito-all.version>
-        <assertj-core.version>2.1.0</assertj-core.version>
+        <mockito.version>2.15.0</mockito.version>
+        <assertj-core.version>3.9.1</assertj-core.version>
     </properties>
 
     <build>
@@ -185,8 +184,8 @@
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>${mockito-all.version}</version>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
