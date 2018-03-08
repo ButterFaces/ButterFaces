@@ -230,29 +230,16 @@
             </b:column>
         </b:table>
 
-        <h:panelGroup id="nodeTitle"
+        <h:panelGroup id="nodeTitle" styleClass="table-output-values"
                       layout="block">
             <hr/>
 
-            <h:panelGroup layout="block" styleClass="input-group"
-                          rendered="#{tableShowcase.selectionAjaxType eq 'AJAX'}">
-                <span class="input-group-addon">Table selected value:</span>
-                <h:outputText value="#{tableShowcase.selectedValue.a}"
-                              rendered="#{not empty tableShowcase.selectedValue}"
-                              styleClass="form-control arquillian_output_value"/>
-                <h:outputText value="-"
-                              rendered="#{empty tableShowcase.selectedValue}"
-                              styleClass="form-control arquillian_output_value"/>
+            <h:panelGroup layout="block" rendered="#{tableShowcase.selectionAjaxType eq 'AJAX'}">
+                <b:text value="#{tableShowcase.selectedValue.a}" label="Table selected value" readonly="true" />
             </h:panelGroup>
 
             <div class="input-group">
-                <span class="input-group-addon">Button selected value:</span>
-                <h:outputText value="#{tableShowcase.doSomethingWithRow}"
-                              rendered="#{not empty tableShowcase.doSomethingWithRow}"
-                              styleClass="form-control arquillian_output_value"/>
-                <h:outputText value="-"
-                              rendered="#{empty tableShowcase.doSomethingWithRow}"
-                              styleClass="form-control arquillian_output_value"/>
+                <b:text value="#{tableShowcase.doSomethingWithRow}" label="Button selected value" readonly="true" />
             </div>
         </h:panelGroup>
 
