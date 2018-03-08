@@ -17,7 +17,7 @@ public class DependencyExample implements Serializable {
     }
 
     public String getButterFacesV3JEE7MavenDependency() {
-        return createDependency("Bootstrap 4.0, JQuery 3.3.1","org.butterfaces", "components", "3.0.0-JEE");
+        return createDependency("Bootstrap 4.0, JQuery 3.3.1","org.butterfaces", "components", "3.0.0-JEE7");
     }
 
     public String getButterFacesV2MavenDependency() {
