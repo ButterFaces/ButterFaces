@@ -20,9 +20,14 @@
 
         <div class="row outputComponent">
             <div class="col-md-2">
-                <h:commandButton value="submit"
-                                 styleClass="btn btn-success"
-                                 action="#{cc.attrs.component.submit}"/>
+                <b:commandLink value="submit"
+                               glyphicon="fa fa-envelope-o"
+                               styleClass="btn btn-outline-secondary"
+                               action="#{cc.attrs.component.submit}">
+                    <b:tooltip>
+                        Submit the above component.
+                    </b:tooltip>
+                </b:commandLink>
 
             </div>
             <h:panelGroup id="outputValues" styleClass="col-md-10">
