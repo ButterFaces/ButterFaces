@@ -107,20 +107,10 @@
             <f:ajax event="toggle" render="nodeTitle" disabled="#{treeShowcase.ajaxDisabled}"/>
         </b:tree>
 
-        <h:panelGroup rendered="#{treeShowcase.ajaxRendered}">
+        <h:panelGroup id="nodeTitle" rendered="#{treeShowcase.ajaxRendered}">
             <hr/>
 
-            <div class="input-group">
-                <span class="input-group-addon">Selected value:</span>
-                <h:panelGroup id="nodeTitle" layout="block">
-                    <h:outputText value="#{treeShowcase.selectedNode.title}"
-                                  rendered="#{not empty treeShowcase.selectedNode}"
-                                  styleClass="form-control arquillian_output_value"/>
-                    <h:outputText value="-"
-                                  rendered="#{empty treeShowcase.selectedNode}"
-                                  styleClass="form-control arquillian_output_value"/>
-                </h:panelGroup>
-            </div>
+            <b:text value="#{treeShowcase.selectedNode.title}" label="Selected value" readonly="true"/>
         </h:panelGroup>
 
 
