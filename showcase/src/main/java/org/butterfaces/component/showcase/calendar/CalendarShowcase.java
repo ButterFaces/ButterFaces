@@ -8,10 +8,6 @@ import org.butterfaces.component.showcase.type.Locale;
 import org.butterfaces.component.showcase.type.StyleClass;
 import org.butterfaces.model.tree.EnumTreeBoxWrapper;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.html.text.HtmlCalendarViewMode;
-import org.butterfaces.component.showcase.type.Locale;
-import org.butterfaces.component.showcase.type.StyleClass;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -102,7 +98,7 @@ public class CalendarShowcase extends AbstractInputShowcase implements Serializa
         }
 
         if (StringUtils.isNotEmpty(getTooltip())) {
-            xhtmlCodeExample.appendInnerContent("            <b:tooltip>");
+            xhtmlCodeExample.appendInnerContent("            <b:tooltip placement=\"top\">");
             xhtmlCodeExample.appendInnerContent("                " + getTooltip());
             xhtmlCodeExample.appendInnerContent("            </b:tooltip>");
         }
