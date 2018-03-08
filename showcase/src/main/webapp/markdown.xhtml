@@ -72,7 +72,7 @@
     <ui:define name="output">
         <common:showcaseOuputComponent id="outputComponent" activeComponentNavigationId="markdown" component="#{markdownShowcase}">
             <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{not empty markdownShowcase.placeholder}">
-                <strong>Hint:</strong> you can use multiline placeholders by adding '\n'.
+                <strong>Hint:</strong>It's now possible to add a forced line break with two blank spaces at the end of the line.
             </h:panelGroup>
 
             <b:markdown id="markdown"
