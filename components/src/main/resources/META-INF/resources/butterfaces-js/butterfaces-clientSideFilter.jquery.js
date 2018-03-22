@@ -34,13 +34,15 @@
                         $filterableItemContainer = $(containerSelector);
                     }
 
-                    $filterableItemContainer.find('.filterable-item').each(function () {
-                        var $filterableItem = $(this);
+                    var filterableItems = $filterableItemContainer.find('.filterable-item');
+
+                    filterableItems.each(function (i, elem) {
+                        var $filterableItem = $(elem);
                         if ($filterableItem.is(':containsIgnoreCase(' + filterValue + ')')) {
-                            $filterableItem.removeClass("hidden");
+                            $filterableItem.removeAttr("hidden");
                             $filterableItem.highlight(filterValue);
                         } else {
-                            $filterableItem.addClass("hidden");
+                            $filterableItem.attr("hidden", "hidden");
                         }
 
                     });
