@@ -94,7 +94,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <arguments>-D${gpg.arguments}</arguments>
-                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-wildfly-swarm</releaseProfiles>
+                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-docker</releaseProfiles>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
