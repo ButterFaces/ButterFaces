@@ -12,20 +12,24 @@
     align-items: stretch;
     padding: 0 !important;
     width: 40px !important;
-}
 
-.butter-component-number-button {
-    cursor: pointer;
-}
+    .butter-component-number-button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 50%;
 
-.butter-component-number-button:hover {
-    background-color: #ddd;
-}
+        &:hover {
+            background-color: #ddd;
+        }
 
-.butter-component-number-button:first-child {
-    border-bottom: 1px solid #ccc;
-}
+        &:first-child {
+            border-bottom: 1px solid #ccc;
+        }
 
-.butter-component-number-button.disabled {
-    cursor: not-allowed;
+        &.disabled {
+            cursor: not-allowed;
+        }
+    }
 }
