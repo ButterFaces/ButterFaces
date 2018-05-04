@@ -75,7 +75,7 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly -->
-        <version.wildfly.swarm>2018.3.3</version.wildfly.swarm>
+        <version.wildfly.swarm>2018.5.0</version.wildfly.swarm>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
