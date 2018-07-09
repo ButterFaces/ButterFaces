@@ -6,7 +6,7 @@
 
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-ADD showcase-swarm.jar app.jar
+ADD showcase-thorntail.jar app.jar
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS="-Djava.net.preferIPv4Stack=true -XX:+PrintFlagsFinal -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar /app.jar" ]

@@ -74,8 +74,8 @@
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
-        <!-- wildfly -->
-        <version.wildfly.swarm>2018.5.0</version.wildfly.swarm>
+        <!-- wildfly swarm -->
+        <io.thorntail>2.0.0.Final</io.thorntail>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
@@ -141,11 +141,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>bom-all</artifactId>
-                <version>${version.wildfly.swarm}</version>
-                <scope>import</scope>
-                <type>pom</type>
+                <groupId>io.thorntail</groupId>
+                <artifactId>bom</artifactId>
+                <version>${io.thorntail}</version>
             </dependency>
             <dependency>
                 <groupId>javax</groupId>

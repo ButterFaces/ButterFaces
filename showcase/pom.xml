@@ -38,9 +38,9 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.0.2.Final</version>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${io.thorntail}</version>
                 <configuration>
                     <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
                 </configuration>
@@ -120,23 +120,25 @@
 
     <profiles>
         <profile>
-            <id>showcase-wildfly-swarm</id>
+            <id>showcase-thorntail</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.wildfly.swarm</groupId>
+                    <groupId>io.thorntail</groupId>
                     <artifactId>jsf</artifactId>
+                    <version>${io.thorntail}</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.wildfly.swarm</groupId>
+                    <groupId>io.thorntail</groupId>
                     <artifactId>cdi</artifactId>
+                    <version>${io.thorntail}</version>
                 </dependency>
             </dependencies>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.wildfly.swarm</groupId>
-                        <artifactId>wildfly-swarm-plugin</artifactId>
-                        <version>${version.wildfly.swarm}</version>
+                        <groupId>io.thorntail</groupId>
+                        <artifactId>thorntail-maven-plugin</artifactId>
+                        <version>${io.thorntail}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -163,9 +165,9 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.wildfly.swarm</groupId>
-                        <artifactId>wildfly-swarm-plugin</artifactId>
-                        <version>${version.wildfly.swarm}</version>
+                        <groupId>io.thorntail</groupId>
+                        <artifactId>thorntail-maven-plugin</artifactId>
+                        <version>${io.thorntail}</version>
                         <executions>
                             <execution>
                                 <goals>
