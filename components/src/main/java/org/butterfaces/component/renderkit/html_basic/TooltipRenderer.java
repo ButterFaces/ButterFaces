@@ -11,8 +11,8 @@ import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Tooltip;
 import org.butterfaces.component.html.text.HtmlTags;
 import org.butterfaces.component.html.text.HtmlTreeBox;
+import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringUtils;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -176,6 +176,10 @@ public class TooltipRenderer extends HtmlBasicRenderer {
                 return createParentReadonlyForElement(tooltip);
             }
 
+            if (new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isTooltipOnLabel()) {
+                return createParentForLabel(tooltip);
+            }
+
             return createParentForElement(tooltip);
         }
 
@@ -184,6 +188,10 @@ public class TooltipRenderer extends HtmlBasicRenderer {
 
     private String createParentReadonlyForElement(final HtmlTooltip tooltip) {
         return createParentForElement(tooltip) + ").find('.butter-component-value-readonly-wrapper'";
+    }
+
+    private String createParentForLabel(final HtmlTooltip tooltip) {
+        return createParentForElement(tooltip) + ").find('.butter-component-label'";
     }
 
     private String createParentForElement(final HtmlTooltip tooltip) {

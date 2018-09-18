@@ -5,10 +5,9 @@
  */
 package org.butterfaces.resolver;
 
-import javax.faces.context.ExternalContext;
+import org.butterfaces.util.StringUtils;
 
-import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
+import javax.faces.context.ExternalContext;
 
 /**
  * Easy way to get access of all butterfaces web.xml parameters.
@@ -54,6 +53,9 @@ public class WebXmlParameters {
     public static final String CTX_PARAM_SPINNER_TEXT = "org.butterfaces.spinnerText";
     public static final String DEFAULT_CTX_PARAM_SPINNER_TEXT = "Fetching data...";
 
+    public static final String CTX_PARAM_TOOLTIP_ON_LABEL = "org.butterfaces.tooltip.position.label";
+    public static final boolean DEFAULT_CTX_PARAM_TOOLTIP_ON_LABEL = false;
+
     public static final String CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = "org.butterfaces.ajaxDisableRenderRegionsOnRequest";
     public static final boolean DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = true;
 
@@ -78,6 +80,7 @@ public class WebXmlParameters {
     private final String noEntriesText;
     private final String spinnerText;
     private final String maxLengthText;
+    private final boolean tooltipOnLabel;
     private final boolean ajaxDisableRenderRegionsOnRequest;
     private final boolean autoTrimInputFields;
     private final boolean intergrationPrimeFacesDisableJQuery;
@@ -108,6 +111,8 @@ public class WebXmlParameters {
         this.maxLengthText = this.readParameter(CTX_PARAM_MAX_LENGTH_TEXT, DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT, externalContext);
 
         this.ajaxDisableRenderRegionsOnRequest = this.readParameter(CTX_PARAM_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, externalContext);
+
+        this.tooltipOnLabel = this.readParameter(CTX_PARAM_TOOLTIP_ON_LABEL, DEFAULT_CTX_PARAM_TOOLTIP_ON_LABEL, externalContext);
 
         this.autoTrimInputFields = this.readBooleanParameter(CTX_PARAM_AUTO_TRIM_INPUT_FIELDS, externalContext);
 
@@ -203,5 +208,9 @@ public class WebXmlParameters {
 
     public boolean isShowTreeBoxClearButton() {
         return showTreeBoxClearButton;
+    }
+
+    public boolean isTooltipOnLabel() {
+        return tooltipOnLabel;
     }
 }
