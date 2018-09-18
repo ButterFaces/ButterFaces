@@ -1,5 +1,15 @@
 (function ($) {
 
+    $.fn._closePopoverOnBlur = function (/* object */ data) {
+        return this.each(function () {
+            var root = $(this);
+
+            root.find('.butter-input-component').on('blur', function () {
+                root.popover('hide')
+            });
+        });
+    };
+
     $.fn._butterTooltip = function (/* object */ data) {
         var root = $(this);
 
@@ -47,7 +57,7 @@
 
             root.popover({
                 trigger: trigger,
-                placement: function(popover, source) {
+                placement: function (popover, source) {
                     return data.placement ? data.placement : (data.placementFunction ? data.placementFunction : new ButterFaces.Tooltip().calculateTooltipPosition(popover, source));
                 },
                 title: data.title,
