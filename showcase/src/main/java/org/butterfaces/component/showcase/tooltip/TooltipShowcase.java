@@ -2,6 +2,7 @@ package org.butterfaces.component.showcase.tooltip;
 
 import org.butterfaces.component.showcase.AbstractCodeShowcase;
 import org.butterfaces.component.showcase.example.AbstractCodeExample;
+import org.butterfaces.component.showcase.example.WebXmlCodeExample;
 import org.butterfaces.component.showcase.example.XhtmlCodeExample;
 import org.butterfaces.model.tree.EnumTreeBoxWrapper;
 
@@ -104,6 +105,20 @@ public class TooltipShowcase extends AbstractCodeShowcase implements Serializabl
         }
 
         codeExamples.add(xhtmlCodeExample);
+        codeExamples.add(createWebXmlExample());
+    }
+
+    private AbstractCodeExample createWebXmlExample() {
+        final WebXmlCodeExample webXmlCodeExample = new WebXmlCodeExample("web.xml", "webxml");
+
+        webXmlCodeExample.appendInnerContent("  <!-- If you want to position tooltips on label instead of component -->");
+        webXmlCodeExample.appendInnerContent("  <!-- default is false -->");
+        webXmlCodeExample.appendInnerContent("  <context-param>");
+        webXmlCodeExample.appendInnerContent("     <param-name>org.butterfaces.tooltip.position.label</param-name>");
+        webXmlCodeExample.appendInnerContent("     <param-value>true</param-value>");
+        webXmlCodeExample.appendInnerContent("  </context-param>");
+
+        return webXmlCodeExample;
     }
 
     public List<EnumTreeBoxWrapper> getTooltipTypes() {
