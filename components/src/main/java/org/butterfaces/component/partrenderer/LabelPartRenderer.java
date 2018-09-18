@@ -5,12 +5,6 @@
  */
 package org.butterfaces.component.partrenderer;
 
-import java.io.IOException;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.butterfaces.component.html.HtmlInputComponent;
 import org.butterfaces.component.html.HtmlTooltip;
 import org.butterfaces.component.html.feature.HideLabel;
@@ -18,7 +12,12 @@ import org.butterfaces.component.html.feature.Label;
 import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Required;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 /**
  * @author Lars Michaelis
@@ -42,25 +41,27 @@ public class LabelPartRenderer {
                                        final boolean required,
                                        final String label,
                                        final ResponseWriter writer,
-                                       final String clientId) throws IOException {
+                                       final String forClientId) throws IOException {
         final boolean hideLabel = component instanceof HideLabel && ((HideLabel) component).isHideLabel();
+        final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
 
         if (!hideLabel) {
             writer.startElement("label", component);
+            writer.writeAttribute("id", forClientId + separatorChar + "label", null);
             if (!readonly) {
-                writer.writeAttribute("for", clientId, null);
+                writer.writeAttribute("for", forClientId, null);
             }
 
             writer.writeAttribute("class", StringUtils.concatWithSpace(
-                    Constants.LABEL_STYLE_CLASS,
-                    shouldRenderTooltip(component) ? Constants.TOOLTIP_LABEL_CLASS : ""), null);
+                Constants.LABEL_STYLE_CLASS,
+                shouldRenderTooltip(component) ? Constants.TOOLTIP_LABEL_CLASS : ""), null);
 
             if (!StringUtils.isEmpty(label)) {
                 writer.startElement("abbr", component);
                 writer.startElement("span", component);
                 writer.writeText(label, null);
                 writer.endElement("span");
-                this.writeRequiredSpanIfNecessary(clientId, readonly, required, writer);
+                this.writeRequiredSpanIfNecessary(forClientId, readonly, required, writer);
                 writer.endElement("abbr");
             }
 
