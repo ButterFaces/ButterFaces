@@ -7,6 +7,7 @@ package org.butterfaces.component.renderkit.html_basic;
 
 import org.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import org.butterfaces.component.html.HtmlTooltip;
+import org.butterfaces.component.html.feature.HideLabel;
 import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Tooltip;
 import org.butterfaces.component.html.text.HtmlTags;
@@ -172,11 +173,11 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         } else if (tooltip.getParent() instanceof Tooltip) {
             final UIComponent parent = tooltip.getParent();
 
-            if (parent instanceof Readonly && !(parent instanceof HtmlTags) && !(parent instanceof HtmlTreeBox) && ((Readonly) parent).isReadonly()) {
+            if (isParentComponentReadonly(parent)) {
                 return createParentReadonlyForElement(tooltip);
             }
 
-            if (new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isTooltipOnLabel()) {
+            if (isParentComponentTooltipOnLabel(parent)) {
                 return createParentForLabel(tooltip);
             }
 
@@ -184,6 +185,18 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         }
 
         return null;
+    }
+
+    private boolean isParentComponentTooltipOnLabel(UIComponent parent) {
+        return new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isTooltipOnLabel()
+            && !((parent instanceof HideLabel) && ((HideLabel) parent).isHideLabel());
+    }
+
+    private boolean isParentComponentReadonly(UIComponent parent) {
+        return parent instanceof Readonly
+            && !(parent instanceof HtmlTags)
+            && !(parent instanceof HtmlTreeBox)
+            && ((Readonly) parent).isReadonly();
     }
 
     private String createParentReadonlyForElement(final HtmlTooltip tooltip) {
