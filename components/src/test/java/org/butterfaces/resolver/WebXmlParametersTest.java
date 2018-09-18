@@ -1,10 +1,10 @@
 package org.butterfaces.resolver;
 
-import javax.faces.context.ExternalContext;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+
+import javax.faces.context.ExternalContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -18,6 +18,7 @@ public class WebXmlParametersTest {
     private static final String OVERRIDDEN_MAX_LENGTH_TEXT = "{0} von {1} Zeichen";
 
     private static final boolean OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST = false;
+    private static final boolean OVERRIDDEN_TOOLTIP_ON_LABEL = true;
     private static final boolean OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS = false;
 
     private static final String OVERRIDDEN_REFRESH = "o_refresh";
@@ -43,7 +44,7 @@ public class WebXmlParametersTest {
     private ExternalContext overriddenValueExternalContext;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_NO_ENTRIES_TEXT)).thenReturn(OVERRIDDEN_NO_ENTRIES_TEXT);
@@ -75,16 +76,24 @@ public class WebXmlParametersTest {
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_AUTO_TRIM_INPUT_FIELDS)).thenReturn(OVERRIDDEN_AUTO_TRIM_INPUT_FIELDS + "");
 
         when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_INTEGRATION_PRIMEFACES_DISABLEJQUERY)).thenReturn("false");
+
+        when(overriddenValueExternalContext.getInitParameter(WebXmlParameters.CTX_PARAM_TOOLTIP_ON_LABEL)).thenReturn("true");
     }
 
     @Test
-    public void testIsAjaxDisableRenderRegionsOnRequest() throws Exception {
+    public void testIsAjaxDisableRenderRegionsOnRequest() {
         assertEquals(WebXmlParameters.DEFAULT_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(defaultValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
         assertEquals(OVERRIDDEN_AJAX_DISABLE_RENDER_REGIONS_ON_REQUEST, new WebXmlParameters(overriddenValueExternalContext).isAjaxDisableRenderRegionsOnRequest());
     }
 
     @Test
-    public void testGetSpinnerText() throws Exception {
+    public void testIsTooltipOnLabel() {
+        assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_TOOLTIP_ON_LABEL, new WebXmlParameters(defaultValueExternalContext).isTooltipOnLabel());
+        assertEquals(OVERRIDDEN_TOOLTIP_ON_LABEL, new WebXmlParameters(overriddenValueExternalContext).isTooltipOnLabel());
+    }
+
+    @Test
+    public void testGetSpinnerText() {
         assertEquals(WebXmlParameters.DEFAULT_CTX_PARAM_SPINNER_TEXT, new WebXmlParameters(defaultValueExternalContext).getSpinnerText());
         assertEquals(OVERRIDDEN_SPINNER_TEXT, new WebXmlParameters(overriddenValueExternalContext).getSpinnerText());
     }
