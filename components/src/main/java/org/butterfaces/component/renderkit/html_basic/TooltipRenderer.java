@@ -7,13 +7,13 @@ package org.butterfaces.component.renderkit.html_basic;
 
 import org.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import org.butterfaces.component.html.HtmlTooltip;
+import org.butterfaces.component.html.feature.HideLabel;
 import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Tooltip;
 import org.butterfaces.component.html.text.HtmlTags;
 import org.butterfaces.component.html.text.HtmlTreeBox;
+import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -78,6 +78,8 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.writeText("'" + StringUtils.getNotNullValue(tooltip.getViewport(), "body") + "'", null);
             writer.writeText("\n   })\n});", null);
 
+            renderClosePopoverJSOnBlurIfNecessary(tooltip, writer, forSelector);
+
             if (StringUtils.isNotEmpty(tooltip.getOnShow())
                     || StringUtils.isNotEmpty(tooltip.getOnShown())
                     || StringUtils.isNotEmpty(tooltip.getOnHide())
@@ -99,6 +101,15 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             }
 
             writer.endElement("script");
+        }
+    }
+
+    private void renderClosePopoverJSOnBlurIfNecessary(HtmlTooltip tooltip, ResponseWriter writer, String forSelector) throws IOException {
+        if (StringUtils.isEmpty(tooltip.getPlacementFunction()) || "hover".equalsIgnoreCase(tooltip.getPlacementFunction())) {
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("   jQuery(", null);
+            writer.writeText(forSelector, null);
+            writer.writeText(")._closePopoverOnBlur();\n});\n\n", null);
         }
     }
 
@@ -162,8 +173,12 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         } else if (tooltip.getParent() instanceof Tooltip) {
             final UIComponent parent = tooltip.getParent();
 
-            if (parent instanceof Readonly && !(parent instanceof HtmlTags) && !(parent instanceof HtmlTreeBox) && ((Readonly) parent).isReadonly()) {
+            if (isParentComponentReadonly(parent)) {
                 return createParentReadonlyForElement(tooltip);
+            }
+
+            if (isParentComponentTooltipOnLabel(parent)) {
+                return createParentForLabel(tooltip);
             }
 
             return createParentForElement(tooltip);
@@ -172,8 +187,24 @@ public class TooltipRenderer extends HtmlBasicRenderer {
         return null;
     }
 
+    private boolean isParentComponentTooltipOnLabel(UIComponent parent) {
+        return new WebXmlParameters(FacesContext.getCurrentInstance().getExternalContext()).isTooltipOnLabel()
+            && !((parent instanceof HideLabel) && ((HideLabel) parent).isHideLabel());
+    }
+
+    private boolean isParentComponentReadonly(UIComponent parent) {
+        return parent instanceof Readonly
+            && !(parent instanceof HtmlTags)
+            && !(parent instanceof HtmlTreeBox)
+            && ((Readonly) parent).isReadonly();
+    }
+
     private String createParentReadonlyForElement(final HtmlTooltip tooltip) {
         return createParentForElement(tooltip) + ").find('.butter-component-value-readonly-wrapper'";
+    }
+
+    private String createParentForLabel(final HtmlTooltip tooltip) {
+        return createParentForElement(tooltip) + ").find('.butter-component-label'";
     }
 
     private String createParentForElement(final HtmlTooltip tooltip) {

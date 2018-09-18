@@ -4,7 +4,7 @@
 
     <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.0.6-SNAPSHOT</version>
+    <version>3.0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -75,7 +75,7 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly swarm -->
-        <io.thorntail>2.0.0.Final</io.thorntail>
+        <io.thorntail>2.2.0.Final</io.thorntail>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
