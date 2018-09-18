@@ -12,7 +12,6 @@ import org.butterfaces.component.html.feature.Tooltip;
 import org.butterfaces.component.html.text.HtmlTags;
 import org.butterfaces.component.html.text.HtmlTreeBox;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -78,6 +77,8 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             writer.writeText("'" + StringUtils.getNotNullValue(tooltip.getViewport(), "body") + "'", null);
             writer.writeText("\n   })\n});", null);
 
+            renderClosePopoverJSOnBlurIfNecessary(tooltip, writer, forSelector);
+
             if (StringUtils.isNotEmpty(tooltip.getOnShow())
                     || StringUtils.isNotEmpty(tooltip.getOnShown())
                     || StringUtils.isNotEmpty(tooltip.getOnHide())
@@ -99,6 +100,15 @@ public class TooltipRenderer extends HtmlBasicRenderer {
             }
 
             writer.endElement("script");
+        }
+    }
+
+    private void renderClosePopoverJSOnBlurIfNecessary(HtmlTooltip tooltip, ResponseWriter writer, String forSelector) throws IOException {
+        if (StringUtils.isEmpty(tooltip.getPlacementFunction()) || "hover".equalsIgnoreCase(tooltip.getPlacementFunction())) {
+            writer.writeText("jQuery(document).ready(function() {\n", null);
+            writer.writeText("   jQuery(", null);
+            writer.writeText(forSelector, null);
+            writer.writeText(")._closePopoverOnBlur();\n});\n\n", null);
         }
     }
 
