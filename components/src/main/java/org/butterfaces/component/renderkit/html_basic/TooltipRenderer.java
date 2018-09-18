@@ -13,7 +13,6 @@ import org.butterfaces.component.html.text.HtmlTags;
 import org.butterfaces.component.html.text.HtmlTreeBox;
 import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringUtils;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
