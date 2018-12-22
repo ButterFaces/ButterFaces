@@ -11,7 +11,6 @@ import org.butterfaces.component.html.feature.Style;
 import org.butterfaces.component.html.feature.StyleClass;
 import org.butterfaces.component.html.feature.Validation;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -21,10 +20,6 @@ import java.io.IOException;
  * @author Lars Michaelis
  */
 public class OuterComponentWrapperPartRenderer {
-
-    public void renderComponentBegin(final UIComponent component, final ResponseWriter writer) throws IOException {
-        this.renderComponentBegin(component, writer, "");
-    }
 
     public void renderComponentBegin(final UIComponent component, final ResponseWriter writer, final String addtionalStyleClass) throws IOException {
         final String validationClass = component instanceof Validation && !((Validation) component).isValid() ? Constants.BOOTSTRAP_ERROR : "";

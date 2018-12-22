@@ -29,9 +29,7 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
 
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        final HtmlCheckBox checkBox = (HtmlCheckBox) component;
-        final String styleClass = checkBox.isSwitch() ? "butter-component-checkbox switch" : "butter-component-checkbox";
-        encodeBegin(context, component, styleClass);
+        encodeBegin(context, component, "butter-component-checkbox");
     }
 
     @Override
@@ -39,23 +37,13 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
         final HtmlCheckBox checkBox = (HtmlCheckBox) component;
 
         if (checkBox.isSwitch() && !checkBox.isReadonly()) {
-            writer.startElement("div", component);
-            writer.writeAttribute("class", "slider round", "styleClass");
-            writer.endElement("div");
+            writer.startElement("label", component);
+            writer.writeAttribute("class", "custom-control-label", "styleClass");
+            writer.writeAttribute("for", createInputClientId(FacesContext.getCurrentInstance(), component), "for");
+            writer.endElement("label");
         }
 
         new InnerComponentCheckBoxWrapperPartRenderer().renderInnerWrapperEnd(checkBox, writer);
-    }
-
-    @Override
-    protected void encodeEnd(final HtmlCheckBox checkBox, final ResponseWriter writer) throws IOException {
-        if (checkBox.isSwitch() && !checkBox.isReadonly()) {
-            writer.startElement("script", checkBox);
-            writer.writeText("jQuery(function () {\n", null);
-            writer.writeText("ButterFaces.Checkbox.addSwitchClickEvent('" + checkBox.getClientId() + "');\n", null);
-            writer.writeText("});", null);
-            writer.endElement("script");
-        }
     }
 
     @Override
@@ -67,9 +55,11 @@ public class CheckBoxRenderer extends AbstractHtmlTagRenderer<HtmlCheckBox> {
     protected void renderInputStyleClass(final HtmlInputComponent component,
                                          final ResponseWriter writer) throws IOException {
         final String validationMarkerClass = !component.isValid() ? Constants.INVALID_STYLE_CLASS : null;
+        final String switchClass = ((HtmlCheckBox) component).isSwitch() ? "custom-control-input" : null;
         final String styleClass = StringJoiner.on(" ")
                 .join(Constants.INPUT_COMPONENT_MARKER)
                 .join("mt-1 mr-2")
+                .join(switchClass)
                 .join(validationMarkerClass)
                 .toString();
         writer.writeAttribute("class", styleClass, "styleClass");

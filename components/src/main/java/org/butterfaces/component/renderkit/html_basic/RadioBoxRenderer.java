@@ -5,9 +5,13 @@
  */
 package org.butterfaces.component.renderkit.html_basic;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import org.butterfaces.component.html.HtmlRadioBox;
+import org.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
+import org.butterfaces.context.StringHtmlEncoder;
+import org.butterfaces.resolver.MustacheResolver;
+import org.butterfaces.util.ReflectionUtil;
+import org.butterfaces.util.StringUtils;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
@@ -15,16 +19,9 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.render.FacesRenderer;
-
-import org.butterfaces.component.html.HtmlRadioBox;
-import org.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
-import org.butterfaces.context.StringHtmlEncoder;
-import org.butterfaces.resolver.MustacheResolver;
-import org.butterfaces.util.ReflectionUtil;
-import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.renderkit.html_basic.text.AbstractHtmlTagRenderer;
-import org.butterfaces.util.ReflectionUtil;
-import org.butterfaces.util.StringUtils;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lars Michaelis
@@ -155,9 +152,6 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         this.renderEventValue(radioBox, writer, "onchange", "change");
 
         writer.endElement("input");
-
-        if (radioBox.getFacet("template") != null) {
-        }
 
         writer.startElement("label", radioBox);
         writer.writeAttribute("for", radioItemClientId, "for");

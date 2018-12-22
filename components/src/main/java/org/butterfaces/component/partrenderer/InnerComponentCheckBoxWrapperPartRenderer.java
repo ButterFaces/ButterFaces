@@ -5,13 +5,12 @@
  */
 package org.butterfaces.component.partrenderer;
 
-import java.io.IOException;
-import javax.faces.context.ResponseWriter;
-
 import org.butterfaces.component.base.renderer.HtmlBasicRenderer;
 import org.butterfaces.component.html.HtmlCheckBox;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.util.StringUtils;
+
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 /**
  * @author Lars Michaelis
@@ -35,7 +34,8 @@ public class InnerComponentCheckBoxWrapperPartRenderer {
 
             if (!StringUtils.isEmpty(component.getDescription())) {
                 writer.startElement(HtmlBasicRenderer.ELEMENT_DIV, component);
-                writer.writeAttribute("class", "checkbox d-flex", null);
+                final String styleClass = component.isSwitch() ? "checkbox d-flex custom-control custom-switch" : "checkbox d-flex";
+                writer.writeAttribute("class", styleClass, "styleClass");
             }
         }
     }
