@@ -75,7 +75,7 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly swarm -->
-        <io.thorntail>2.2.0.Final</io.thorntail>
+        <io.thorntail>2.2.1.Final</io.thorntail>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
