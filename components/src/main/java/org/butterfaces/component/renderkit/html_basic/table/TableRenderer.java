@@ -17,10 +17,6 @@ import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringJoiner;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.event.TableSingleSelectionListener;
-import org.butterfaces.util.StringJoiner;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -34,6 +30,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * Renderer for {@link HtmlTable}.
@@ -48,6 +46,9 @@ public class TableRenderer extends HtmlBasicRenderer {
     private boolean foundSelectedRow;
 
     private WebXmlParameters webXmlParameters;
+    
+    private BiFunction<FacesContext, HtmlTable, Optional<HtmlColumn>> getCollapsable = (context, table) -> table.getTableColumnCache(context).getCachedColumns().stream()
+        .filter(column -> column.getLabel().equals("collapsable")).findAny();
 
     @Override
     public void encodeBegin(final FacesContext context,
@@ -96,10 +97,11 @@ public class TableRenderer extends HtmlBasicRenderer {
             if (!table.isRowAvailable()) {
                 break;
             }
-
-            renderRowStart(table, writer);
-            renderRow(context, table, writer);
-            renderRowEnd(writer);
+    
+            Optional<HtmlColumn> collapsable = getCollapsable.apply(context, table);
+            renderRowStart(table, writer, collapsable);
+            renderRow(context, table, writer, collapsable);
+            renderRowEnd(context, table, writer, collapsable);
         }
 
         writer.endElement("tbody");
@@ -135,6 +137,9 @@ public class TableRenderer extends HtmlBasicRenderer {
             int columnNumber = 0;
 
             for (HtmlColumn column : tableColumnCache.getCachedColumns()) {
+                if (column.getLabel() != null && column.getLabel().equals("collapsable")) {
+                    continue; // This column will be rendered as its own row after this
+                }
                 writer.startElement("col", table);
                 writer.writeAttribute("class", "butter-table-colgroup", null);
                 writer.writeAttribute("columnNumber", "" + columnNumber, null);
@@ -168,6 +173,9 @@ public class TableRenderer extends HtmlBasicRenderer {
         int columnNumber = 0;
 
         for (HtmlColumn column : tableColumnCache.getCachedColumns()) {
+            if (column.getLabel() != null && column.getLabel().equals("collapsable")) {
+                continue; // This column will be rendered as its own row after this
+            }
             column.setWebXmlParameters(webXmlParameters);
             column.setColumnNumberUsedByTable(columnNumber);
             column.encodeBegin(context);
@@ -219,14 +227,21 @@ public class TableRenderer extends HtmlBasicRenderer {
         writer.endElement(HtmlBasicRenderer.ELEMENT_DIV);
     }
 
-    private void renderRowStart(final HtmlTable table,
-                                final ResponseWriter writer) throws IOException {
+    private void renderRowStart(final HtmlTable table, final ResponseWriter writer, Optional<HtmlColumn> collapsable) throws IOException {
         final String clientId = table.getClientId();
         final String baseClientId = clientId.substring(0, clientId.length() - (rowIndex + "").length() - 1);
 
         writer.startElement("tr", table);
         writer.writeAttribute("rowIndex", rowIndex, null);
-        final String rowClass = StringUtils.isNotEmpty(table.getRowClass()) ? "butter-table-row " + table.getRowClass() : "butter-table-row";
+        String rowClass = StringUtils.isNotEmpty(table.getRowClass()) ? "butter-table-row " + table.getRowClass() : "butter-table-row";
+        if (collapsable.isPresent()) {
+            rowClass += " clickable";
+        }
+        
+        if (collapsable.isPresent()) {
+            writer.writeAttribute("data-target", "#" + collapsable.get().getClientId().replace(":", "\\:"), null);
+            writer.writeAttribute("data-toggle", "collapse", null);
+        }
 
         if (!foundSelectedRow && this.isRowSelected(table, rowIndex)) {
             writer.writeAttribute("class", rowClass + " butter-table-row-selected", null);
@@ -251,13 +266,32 @@ public class TableRenderer extends HtmlBasicRenderer {
         rowIndex++;
     }
 
-    private void renderRowEnd(final ResponseWriter writer) throws IOException {
+    private void renderRowEnd(final FacesContext context, final HtmlTable table, final ResponseWriter writer, Optional<HtmlColumn> collapsable) throws IOException {
         writer.endElement("tr");
+        
+        if (collapsable.isPresent()) {
+            // TODO colWidth != colspan, calculation required
+//            table.getTableColumnCache(context).getCachedColumns().stream()
+//                .filter(column -> !column.getLabel().equals("collapsable"))
+//                .mapToInt(column -> column.getColWidth())
+    
+            HtmlColumn column = collapsable.get();
+            writer.startElement("tr", table);
+            writer.writeAttribute("id", column.getClientId(), null);
+            writer.writeAttribute("class", "collapse", null);
+            writer.startElement("td", table);
+            writer.writeAttribute("colspan", table.getTableColumnCache(context).getCachedColumns().size() - 1, null);
+            for (Iterator<UIComponent> gkids = getChildren(column); gkids.hasNext(); ) {
+                encodeRecursive(context, gkids.next());
+            }
+            writer.endElement("td");
+            writer.endElement("tr");
+        }
     }
 
     private void renderRow(final FacesContext context,
                            final HtmlTable table,
-                           final ResponseWriter writer) throws IOException {
+                           final ResponseWriter writer, Optional<HtmlColumn> collapsable) throws IOException {
         final TableColumnCache info = table.getTableColumnCache(context);
 
         int columnNumber = 0;
@@ -265,6 +299,10 @@ public class TableRenderer extends HtmlBasicRenderer {
         for (HtmlColumn column : info.getCachedColumns()) {
             if (table.isHideColumn(column)) {
                 continue;
+            }
+            
+            if (collapsable.isPresent() && collapsable.get().equals(column)) {
+                continue; // This column will be rendered as its own row after this
             }
 
             // Render the beginning of this cell
