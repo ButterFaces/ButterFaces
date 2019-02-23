@@ -75,12 +75,12 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly swarm -->
-        <io.thorntail>2.2.1.Final</io.thorntail>
+        <io.thorntail>2.3.0.Final</io.thorntail>
 
         <!-- testing -->
         <junit.version>4.12</junit.version>
-        <mockito.version>2.15.0</mockito.version>
-        <assertj-core.version>3.9.1</assertj-core.version>
+        <mockito.version>2.24.5</mockito.version>
+        <assertj-core.version>3.12.0</assertj-core.version>
     </properties>
 
     <build>
