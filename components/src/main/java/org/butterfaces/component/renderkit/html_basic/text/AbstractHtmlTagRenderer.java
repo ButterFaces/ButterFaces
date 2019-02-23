@@ -13,8 +13,6 @@ import org.butterfaces.component.html.InputComponentFacet;
 import org.butterfaces.component.html.text.part.HtmlAutoComplete;
 import org.butterfaces.component.partrenderer.*;
 import org.butterfaces.util.StringJoiner;
-import org.butterfaces.component.partrenderer.*;
-import org.butterfaces.util.StringJoiner;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -273,7 +271,7 @@ public abstract class AbstractHtmlTagRenderer<T extends HtmlInputComponent> exte
         }
     }
 
-    private String createInputClientId(FacesContext context, UIComponent component) {
+    protected String createInputClientId(FacesContext context, UIComponent component) {
         final char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
         return component.getClientId(context) + separatorChar + "inner";
     }

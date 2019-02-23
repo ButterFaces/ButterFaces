@@ -32,7 +32,9 @@
             <b:treeBox label="styleClass" value="#{tagsShowcase.styleClass}" values="#{tagsShowcase.styleClasses}" required="true" showClearButton="false">
                 <f:ajax event="change" execute="@this" render="output"/>
             </b:treeBox>
-            <b:checkBox label="distinct" value="#{tagsShowcase.distinct}"/>
+            <b:checkBox label="distinct" value="#{tagsShowcase.distinct}">
+                <f:ajax event="change" execute="@this" render="output"/>
+            </b:checkBox>
             <b:text label="maxTags" value="#{tagsShowcase.maxTags}">
                 <f:ajax event="keyup" execute="@this" render="output"/>
             </b:text>
