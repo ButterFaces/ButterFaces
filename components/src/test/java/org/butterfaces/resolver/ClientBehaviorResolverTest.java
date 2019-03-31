@@ -1,7 +1,7 @@
 package org.butterfaces.resolver;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ClientBehaviorResolverTest {
+class ClientBehaviorResolverTest {
 
     private static final String existingEvent = "existingEvent";
     private static final String notExistingEvent = "thisEventIsNotExistingInComponentMock";
@@ -27,8 +27,8 @@ public class ClientBehaviorResolverTest {
 
     private Map<String, List<ClientBehavior>> clientBehaviorsMock;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeAll
+    void setUp() {
         initMocks(this);
 
         clientBehaviorsMock = new HashMap<>();
@@ -56,7 +56,7 @@ public class ClientBehaviorResolverTest {
     }
 
     @Test
-    public void testResolveActiveAjaxBehavior() throws Exception {
+    void testResolveActiveAjaxBehavior() {
         assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, existingEvent)).isNotNull();
         assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, notExistingEvent)).isNull();
         assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, existingButNotActiveEvent)).isNull();

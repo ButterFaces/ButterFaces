@@ -2,18 +2,17 @@ package org.butterfaces.component.renderkit.html_basic.text;
 
 import org.butterfaces.component.html.text.HtmlCalendar;
 import org.butterfaces.component.html.text.HtmlCalendarViewMode;
-import org.butterfaces.component.html.text.HtmlCalendarViewMode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CalendarRendererTest {
+class CalendarRendererTest {
 
     private static final String PREPEND =
         "find('.input-group').attr('id', elementId).attr('data-target-input', 'nearest').find('input').attr('data-target', '#' + elementId).addClass('datetimepicker-input').siblings('.input-group-append').attr('data-target', '#' + elementId).parent().";
 
     @Test
-    public void createJQueryPluginCall() {
+    void createJQueryPluginCall() {
         final CalendarRenderer calendarRenderer = new CalendarRenderer();
 
         HtmlCalendar htmlCalendar = new HtmlCalendar();

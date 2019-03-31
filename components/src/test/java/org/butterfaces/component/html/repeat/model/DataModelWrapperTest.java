@@ -6,8 +6,7 @@
 package org.butterfaces.component.html.repeat.model;
 
 import org.butterfaces.component.html.repeat.visitor.DataVisitor;
-import org.butterfaces.component.html.repeat.visitor.DataVisitor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.model.DataModel;
 
@@ -16,10 +15,10 @@ import static org.mockito.Mockito.*;
 /**
  * @author Lars Michaelis
  */
-public class DataModelWrapperTest {
+class DataModelWrapperTest {
 
     @Test
-    public void testWalk() throws Exception {
+    void testWalk() throws Exception {
         final DataModel dataModelMock = mock(DataModel.class);
         final DataVisitor dataVisitorMock = mock(DataVisitor.class);
 

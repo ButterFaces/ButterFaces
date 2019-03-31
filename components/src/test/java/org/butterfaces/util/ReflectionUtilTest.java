@@ -5,32 +5,32 @@
  */
 package org.butterfaces.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Lars Michaelis
  */
-public class ReflectionUtilTest {
+class ReflectionUtilTest {
 
     @Test
-    public void testGetStringValueFromObjectByProperty() throws Exception {
+    void testGetStringValueFromObjectByProperty() {
         assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "aProperty")).isEqualTo("aPropertyByField");
     }
 
     @Test
-    public void testGetStringValueFromObjectByGetter() throws Exception {
+    void testGetStringValueFromObjectByGetter() {
         assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "bProperty")).isEqualTo("bPropertyByGetter");
     }
 
     @Test
-    public void testGetValueFromObjectByGetter() throws Exception {
+    void testGetValueFromObjectByGetter() {
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo", InnerDemoPojo.class)).hasSameClassAs(new InnerDemoPojo()).isNotNull();
     }
 
     @Test
-    public void testGetValuePropertyWithDotNotation() throws Exception {
+    void testGetValuePropertyWithDotNotation() {
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.cProperty", String.class)).isEqualTo("cPropertyByField");
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.dProperty", String.class)).isEqualTo("dPropertyByGetter");
         assertThat(new ReflectionUtil().getValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.eProperty", String.class)).isEqualTo("ePropertyByField");
@@ -38,7 +38,7 @@ public class ReflectionUtilTest {
     }
 
     @Test
-    public void testGetStringValuePropertyWithDotNotation() throws Exception {
+    void testGetStringValuePropertyWithDotNotation() {
         assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.cProperty")).isEqualTo("cPropertyByField");
         assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.dProperty")).isEqualTo("dPropertyByGetter");
         assertThat(new ReflectionUtil().getStringValueFromObject(new DemoPojo(), "innerDemoPojo.innerInnerDemoPojo.eProperty")).isEqualTo("ePropertyByField");

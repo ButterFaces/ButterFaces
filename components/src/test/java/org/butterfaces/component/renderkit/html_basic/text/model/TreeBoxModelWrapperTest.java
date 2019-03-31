@@ -7,8 +7,7 @@ package org.butterfaces.component.renderkit.html_basic.text.model;
 
 import org.butterfaces.component.html.text.HtmlTreeBox;
 import org.butterfaces.model.tree.DefaultNodeImpl;
-import org.butterfaces.component.html.text.HtmlTreeBox;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
@@ -18,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Lars Michaelis
  */
-public class TreeBoxModelWrapperTest {
+class TreeBoxModelWrapperTest {
 
     @Test
-    public void testCreateWrapperWithNodes() throws Exception {
+    void testCreateWrapperWithNodes() {
         final HtmlTreeBox treeBox = new HtmlTreeBox();
         treeBox.setValues(Arrays.asList(new DefaultNodeImpl<>("demo1"), new DefaultNodeImpl<>("demo2"), new DefaultNodeImpl<>("demo3")));
 
@@ -32,7 +31,7 @@ public class TreeBoxModelWrapperTest {
     }
 
     @Test
-    public void testCreateWrapperWithNodesAndStrings() throws Exception {
+    void testCreateWrapperWithNodesAndStrings() {
         final HtmlTreeBox treeBox = new HtmlTreeBox();
         treeBox.setValues(Arrays.asList("demo1", new DefaultNodeImpl<>("demo2"), "demo3"));
 
@@ -43,7 +42,7 @@ public class TreeBoxModelWrapperTest {
     }
 
     @Test
-    public void testCreateWrapperWithObjects() throws Exception {
+    void testCreateWrapperWithObjects() {
         final HtmlTreeBox treeBox = new HtmlTreeBox();
         treeBox.setValues(Arrays.asList(new SimpleObject("demo1"), new SimpleObject("demo2"), new SimpleObject("demo3")));
 
@@ -54,7 +53,7 @@ public class TreeBoxModelWrapperTest {
     }
 
     @Test
-    public void testCreateWrapperWithObjectsAndNodes() throws Exception {
+    void testCreateWrapperWithObjectsAndNodes() {
         final HtmlTreeBox treeBox = new HtmlTreeBox();
         treeBox.setValues(Arrays.asList(new DefaultNodeImpl<>("demo1", new SimpleObject("demo1")), new SimpleObject("demo2"), new SimpleObject("demo3")));
 
