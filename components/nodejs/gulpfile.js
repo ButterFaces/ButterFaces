@@ -20,7 +20,7 @@ var autoprefixer = require("autoprefixer");
 var tslint = require("gulp-tslint");
 var uglify = require("gulp-uglify");
 var UglifyJS = require("uglify-js");
-var minifyCSS = require("gulp-minify-css");
+var cleanCSS = require("gulp-clean-css");
 var gzip = require("gulp-gzip");
 var stripDebug = require("gulp-strip-debug");
 var sizereport = require("gulp-sizereport");
@@ -181,7 +181,7 @@ gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
-            noImplicitAny: true,
+            noImplicitAny: false,
             target: "es5"
         }));
 
@@ -204,7 +204,7 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
-            noImplicitAny: true,
+            noImplicitAny: false,
             target: "es5"
         }));
 
@@ -231,7 +231,7 @@ gulp.task("sass:compile", ["npm:copyDependenciesToDist"], function () {
                 rename(function (path) {
                     path.basename += ".min";
                 }),
-                minifyCSS()
+                cleanCSS()
             )
         ))
         .pipe(sourcemaps.write())
