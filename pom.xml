@@ -78,9 +78,9 @@
         <io.thorntail>2.4.0.Final</io.thorntail>
 
         <!-- testing -->
-        <junit-jupiter.version>5.4.1</junit-jupiter.version>
-        <mockito.version>2.24.5</mockito.version>
-        <assertj-core.version>3.12.0</assertj-core.version>
+        <junit-jupiter.version>5.4.2</junit-jupiter.version>
+        <mockito.version>2.27.0</mockito.version>
+        <assertj-core.version>3.12.2</assertj-core.version>
     </properties>
 
     <build>
