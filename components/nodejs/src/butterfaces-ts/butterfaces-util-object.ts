@@ -1,5 +1,5 @@
 namespace ButterFaces {
-    export class Object {
+    export class ObjectStatics {
         static isNullOrUndefined(value: any): boolean {
             return typeof value === "undefined" || value === null;
         }

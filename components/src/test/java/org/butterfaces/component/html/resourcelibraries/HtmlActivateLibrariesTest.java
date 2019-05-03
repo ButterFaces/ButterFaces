@@ -1,7 +1,6 @@
 package org.butterfaces.component.html.resourcelibraries;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -12,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HtmlActivateLibrariesTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class HtmlActivateLibrariesTest {
 
     @Test
-    public void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFolders() throws Exception {
+    void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFolders() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         for (ResourceDependency resourceDependency : resourceDependencies) {
@@ -35,12 +36,12 @@ public class HtmlActivateLibrariesTest {
                 }
             }
 
-            Assert.assertTrue("Resource '" + resourceDependency.name() + "' not found", foundResourceByName);
+            assertThat(foundResourceByName).isTrue();
         }
     }
 
     @Test
-    public void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFoldersCreatedByLess() throws Exception {
+    void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFoldersCreatedByLess() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         for (ResourceDependency resourceDependency : resourceDependencies) {
@@ -60,12 +61,12 @@ public class HtmlActivateLibrariesTest {
                 }
             }
 
-            Assert.assertTrue("Resource '" + resourceDependency.name() + "' not found", foundResourceByName);
+            assertThat(foundResourceByName).isTrue();
         }
     }
 
     @Test
-    public void testAssertThatAllResourcesAreAnnotatedInResourceComponent() throws Exception {
+    void testAssertThatAllResourcesAreAnnotatedInResourceComponent() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
         this.assertResourcesInSubDirectory(resourceDependencies, "butterfaces-dist-bundle-dev-js");
@@ -83,7 +84,7 @@ public class HtmlActivateLibrariesTest {
                 }
             }
 
-            Assert.assertTrue("Resource '" + fileName + "' not found", foundResource);
+            assertThat(foundResource).isTrue();
         }
     }
 

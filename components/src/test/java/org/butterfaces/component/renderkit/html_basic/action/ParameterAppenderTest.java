@@ -5,17 +5,17 @@
  */
 package org.butterfaces.component.renderkit.html_basic.action;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Lars Michaelis
  */
-public class ParameterAppenderTest {
+class ParameterAppenderTest {
 
     @Test
-    public void testAppendProperty() throws Exception {
+    void testAppendProperty() {
         final StringBuilder builder = new StringBuilder();
 
         ParameterAppender.appendProperty(builder, "demo1", "ding1");

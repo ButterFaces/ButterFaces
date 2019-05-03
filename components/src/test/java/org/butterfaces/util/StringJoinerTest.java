@@ -5,7 +5,7 @@
  */
 package org.butterfaces.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,30 +15,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Lars Michaelis
  */
-public class StringJoinerTest {
+class StringJoinerTest {
 
-    public static final List<String> VALUES = Arrays.asList("ding", "dong", "test", "me");
+    static final List<String> VALUES = Arrays.asList("ding", "dong", "test", "me");
 
     @Test
-    public void testJoinWithCommaSeparator() throws Exception {
+    void testJoinWithCommaSeparator() {
         assertThat(StringJoiner.on(',').join(VALUES).toString()).isEqualTo("ding,dong,test,me");
         assertThat(StringJoiner.on(", ").join(VALUES).toString()).isEqualTo("ding, dong, test, me");
     }
 
     @Test
-    public void testJoinWithSpaceSeparator() throws Exception {
+    void testJoinWithSpaceSeparator() {
         assertThat(StringJoiner.on(" ").join(VALUES).toString()).isEqualTo("ding dong test me");
     }
 
     @Test
-    public void testJoinWithWrapper() throws Exception {
+    void testJoinWithWrapper() {
         assertThat(StringJoiner.on('|').join(VALUES).wrappedBy("'").toString()).isEqualTo("'ding'|'dong'|'test'|'me'");
         assertThat(StringJoiner.on('|').join(VALUES).wrappedBy('\'').toString()).isEqualTo("'ding'|'dong'|'test'|'me'");
         assertThat(StringJoiner.on(" | ").join(VALUES).wrappedBy("'").toString()).isEqualTo("'ding' | 'dong' | 'test' | 'me'");
     }
 
     @Test
-    public void testChainingJoins() throws Exception {
+    void testChainingJoins() {
         assertThat(StringJoiner.on(" ").join("ding").join("dong").toString()).isEqualTo("ding dong");
         assertThat(StringJoiner.on(" ").join(VALUES).join("too").toString()).isEqualTo("ding dong test me too");
         assertThat(StringJoiner.on(" ").join("hi").join(VALUES).toString()).isEqualTo("hi ding dong test me");

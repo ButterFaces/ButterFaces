@@ -58,7 +58,7 @@ namespace ButterFaces {
         private checkValue(): void {
             let value: string = (<string>this.valueElement.val());
 
-            if (!ButterFaces.Object.isNullOrUndefined(value)) {
+            if (!ButterFaces.ObjectStatics.isNullOrUndefined(value)) {
                 console.log("ButterFaces.MaxLengthIndicator: updating maxlength value");
                 let freeLetterCount = this.options.maxLength - value.length;
                 let formatted = ButterFaces.String.format(this.options.maxLengthText, [freeLetterCount, this.options.maxLength]);

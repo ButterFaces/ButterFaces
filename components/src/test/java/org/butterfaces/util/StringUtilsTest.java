@@ -5,17 +5,17 @@
  */
 package org.butterfaces.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Lars Michaelis
  */
-public class StringUtilsTest {
+class StringUtilsTest {
 
     @Test
-    public void testIsEmpty() throws Exception {
+    void testIsEmpty() {
         assertThat(StringUtils.isEmpty(null)).isTrue();
         assertThat(StringUtils.isEmpty("")).isTrue();
         assertThat(StringUtils.isEmpty(" ")).isFalse();
@@ -23,7 +23,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testIsNotEmpty() throws Exception {
+    void testIsNotEmpty() {
         assertThat(StringUtils.isNotEmpty(null)).isFalse();
         assertThat(StringUtils.isNotEmpty("")).isFalse();
         assertThat(StringUtils.isNotEmpty(" ")).isTrue();

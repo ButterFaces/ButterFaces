@@ -43,7 +43,7 @@ namespace ButterFaces {
                     }
 
                     if (showDots) {
-                        $commandLink.find(".butter-component-glyphicon-processing").startDots();
+                        ($commandLink.find(".butter-component-glyphicon-processing") as any).startDots();
                         $commandLink.find(".butter-component-glyphicon-processing").css("display", "inline-block");
                         $commandLink.find(".butter-component-glyphicon-text").html(linkProcessingText);
                     }
@@ -62,7 +62,7 @@ namespace ButterFaces {
                     // console.log('ajax request success');
                     $commandLink.removeClass("disabled");
                     if (showDots) {
-                        $commandLink.find(".butter-component-glyphicon-processing").stopDots();
+                        ($commandLink.find(".butter-component-glyphicon-processing") as any).stopDots();
                         $commandLink.find(".butter-component-glyphicon-processing").css("display", "none");
                         $commandLink.find(".butter-component-glyphicon-text").html(linkText ? linkText : "");
                     }
@@ -100,7 +100,7 @@ namespace ButterFaces {
 
             if (form.onsubmit) {
                 let result = form.onsubmit();
-                if (ButterFaces.Object.isNullOrUndefined(result) || result) {
+                if (ButterFaces.ObjectStatics.isNullOrUndefined(result) || result) {
                     form.submit();
                 }
             } else {

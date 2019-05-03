@@ -5,7 +5,7 @@
  */
 package org.butterfaces.model.tree;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Lars Michaelis
  */
-public class EnumTreeBoxWrapperTest {
+class EnumTreeBoxWrapperTest {
 
     @Test
-    public void testEquals() throws Exception {
+    void testEquals() {
         final EnumTreeBoxWrapper enumTreeBoxWrapper1 = new EnumTreeBoxWrapper(TestEnum.TEST1, "test1");
         final EnumTreeBoxWrapper enumTreeBoxWrapper2 = new EnumTreeBoxWrapper(TestEnum.TEST2, "test2");
 
@@ -28,7 +28,7 @@ public class EnumTreeBoxWrapperTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    void testToString() {
         assertThat(new EnumTreeBoxWrapper(TestEnum.TEST1, "test1").toString()).isEqualTo("test1");
         assertThat(new EnumTreeBoxWrapper(TestEnum.TEST2, "test2").toString()).isEqualTo("test2");
     }
