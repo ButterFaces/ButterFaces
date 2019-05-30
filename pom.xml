@@ -70,7 +70,7 @@
         <javax.faces-api.version>2.3</javax.faces-api.version>
 
         <!-- maven plugin dependency version -->
-        <maven-release-plugin.version>2.5</maven-release-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
