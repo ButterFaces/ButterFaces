@@ -126,11 +126,6 @@ public class HtmlBasicRenderer extends Renderer {
         return null;
     }
 
-    protected boolean isBehaviorSource(final String behaviorSourceId,
-                                       final String componentClientId) {
-        return (behaviorSourceId != null && behaviorSourceId.equals(componentClientId));
-    }
-
     protected void setSubmittedValue(final UIComponent component,
                                      final Object value) {
         if (component instanceof UIInput) {
@@ -166,8 +161,8 @@ public class HtmlBasicRenderer extends Renderer {
                                      final ResponseWriter writer,
                                      final String attributeName) throws IOException {
         if (component.getAttributes().get(attributeName) != null
-                && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
-                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
+            && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
+            && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, component.getAttributes().get(attributeName).toString().trim(), attributeName);
         }
     }
@@ -186,8 +181,8 @@ public class HtmlBasicRenderer extends Renderer {
                                      final String attributeName,
                                      final String matchingValue) throws IOException {
         if (component.getAttributes().get(attributeName) != null
-                && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())
-                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
+            && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())
+            && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, matchingValue, attributeName);
         }
     }
@@ -208,7 +203,12 @@ public class HtmlBasicRenderer extends Renderer {
         }
     }
 
-    protected String getCurrentValue(FacesContext context, final UIComponent component) {
+    private boolean isBehaviorSource(final String behaviorSourceId,
+                                     final String componentClientId) {
+        return (behaviorSourceId != null && behaviorSourceId.equals(componentClientId));
+    }
+
+    private String getCurrentValue(FacesContext context, final UIComponent component) {
 
         if (component instanceof UIInput) {
             Object submittedValue = ((UIInput) component).getSubmittedValue();
@@ -242,7 +242,7 @@ public class HtmlBasicRenderer extends Renderer {
         // no-op unless overridden
     }
 
-    protected boolean shouldRenderAttribute(Object value) {
+    private boolean shouldRenderAttribute(Object value) {
         if (value == null)
             return false;
 
@@ -288,9 +288,9 @@ public class HtmlBasicRenderer extends Renderer {
     protected boolean shouldWriteIdAttribute(UIComponent component) {
         String id;
         return (null != (id = component.getId()) &&
-                (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
-                        ((component instanceof ClientBehaviorHolder) &&
-                                !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
+            (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
+                ((component instanceof ClientBehaviorHolder) &&
+                    !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
     }
 
     protected void encodeRecursive(final FacesContext context,
