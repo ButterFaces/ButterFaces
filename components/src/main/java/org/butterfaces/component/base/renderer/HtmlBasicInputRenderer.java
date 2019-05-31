@@ -35,24 +35,15 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
         Converter converter = this.getValueHolderConverter(component);
 
         if (null == converter && null != valueExpression) {
-            Class converterType = valueExpression.getType(context.getELContext());
-            // if converterType is null, assume the modelType is "String".
-            if (converterType == null ||
-                converterType == Object.class) {
+            final Class converterType = valueExpression.getType(context.getELContext());
+
+            if (this.shouldNotBeConverted(converterType, context)) {
                 this.logFine("No conversion necessary for value {0} of component {1}", submittedValue, component.getId());
                 return newValue;
             }
 
-            // If the converterType is a String, and we don't have a
-            // converter-for-class for java.lang.String, assume the type is
-            // "String".
-            if (converterType == String.class && !hasStringConverter(context)) {
-                this.logFine("No conversion necessary for value {0} of component {1}", submittedValue, component.getId());
-                return newValue;
-            }
             // if getType returns a type for which we support a default
             // conversion, acquire an appropriate converter instance.
-
             try {
                 converter = context.getApplication().createConverter(converterType);
                 this.logFine("Created converter ({0}) for type {1} for component {2}.",
@@ -77,6 +68,16 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
         }
 
         return converter.getAsObject(context, component, newValue);
+    }
+
+    /**
+     * If converterType is null, assume the modelType is "String".
+     * If the converterType is a String, and we don't have a converter-for-class for java.lang.String, assume the type is "String".
+     */
+    private boolean shouldNotBeConverted(final Class converterType, final FacesContext context) {
+        return converterType == null
+            || converterType == Object.class
+            || (converterType == String.class && !hasStringConverter(context));
     }
 
     private void logFine(final String message, final Object... parameters) {
