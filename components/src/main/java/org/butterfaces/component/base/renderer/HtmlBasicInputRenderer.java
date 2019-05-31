@@ -77,7 +77,7 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
     private boolean shouldNotBeConverted(final Class converterType, final FacesContext context) {
         return converterType == null
             || converterType == Object.class
-            || (converterType == String.class && !hasStringConverter(context));
+            || (converterType == String.class && hasNoStringConverter(context));
     }
 
     private void logFine(final String message, final Object... parameters) {
@@ -101,13 +101,13 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
         return null;
     }
 
-    private boolean hasStringConverter(final FacesContext context) {
+    private boolean hasNoStringConverter(final FacesContext context) {
         if (!hasStringConverterSet) {
             hasStringConverter = context.getApplication().createConverter(String.class) != null;
             hasStringConverterSet = true;
         }
 
-        return hasStringConverter;
+        return !hasStringConverter;
     }
 
 }
