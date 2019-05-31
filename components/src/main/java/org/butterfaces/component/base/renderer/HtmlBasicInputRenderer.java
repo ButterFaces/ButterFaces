@@ -6,7 +6,6 @@
 package org.butterfaces.component.base.renderer;
 
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -39,7 +38,7 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
             Class converterType = valueExpression.getType(context.getELContext());
             // if converterType is null, assume the modelType is "String".
             if (converterType == null ||
-                    converterType == Object.class) {
+                converterType == Object.class) {
                 this.logFine("No conversion necessary for value {0} of component {1}", submittedValue, component.getId());
                 return newValue;
             }
@@ -48,13 +47,7 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
             // converter-for-class for java.lang.String, assume the type is
             // "String".
             if (converterType == String.class && !hasStringConverter(context)) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                            "No conversion necessary for value {0} of component {1}",
-                            new Object[]{
-                                    submittedValue,
-                                    component.getId()});
-                }
+                this.logFine("No conversion necessary for value {0} of component {1}", submittedValue, component.getId());
                 return newValue;
             }
             // if getType returns a type for which we support a default
@@ -62,24 +55,13 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
 
             try {
                 converter = context.getApplication().createConverter(converterType);
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                            "Created converter ({0}) for type {1} for component {2}.",
-                            new Object[]{
-                                    converter.getClass().getName(),
-                                    converterType.getName(),
-                                    component.getId()});
-                }
+                this.logFine("Created converter ({0}) for type {1} for component {2}.",
+                    converter.getClass().getName(),
+                    converterType.getName(),
+                    component.getId());
             } catch (Exception e) {
-                if (LOGGER.isLoggable(Level.SEVERE)) {
-                    LOGGER.log(Level.SEVERE,
-                            "Could not instantiate converter for type {0}: {1}",
-                            new Object[]{
-                                    converterType,
-                                    e.toString()});
-                    LOGGER.log(Level.SEVERE, "", e);
-                }
-                return (null);
+                this.log(Level.SEVERE, "Could not instantiate converter for type {0}: {1}", e, converterType, e.toString());
+                return null;
             }
         } else if (converter == null) {
             // if there is no valueExpression and converter attribute set,
@@ -94,19 +76,19 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
             return newValue;
         }
 
-        if (converter != null) {
-            return converter.getAsObject(context, component, newValue);
-        } else {
-            final FacesMessage msg = new FacesMessage("null Converter", "Could not convert " + newValue);
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            throw new ConverterException(msg);
-        }
-
+        return converter.getAsObject(context, component, newValue);
     }
 
     private void logFine(final String message, final Object... parameters) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.log(Level.FINE, message, parameters);
+        this.log(Level.FINE, message, null, parameters);
+    }
+
+    private void log(final Level level, final String message, final Throwable throwable, final Object... parameters) {
+        if (LOGGER.isLoggable(level)) {
+            LOGGER.log(level, message, parameters);
+            if (throwable != null) {
+                LOGGER.log(level, "", throwable);
+            }
         }
     }
 
