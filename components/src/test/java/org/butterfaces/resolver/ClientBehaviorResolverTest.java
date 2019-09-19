@@ -57,8 +57,8 @@ class ClientBehaviorResolverTest {
 
     @Test
     void testResolveActiveAjaxBehavior() {
-        assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, existingEvent)).isNotNull();
-        assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, notExistingEvent)).isNull();
-        assertThat(ClientBehaviorResolver.resolveActiveAjaxBehavior(componentMock, existingButNotActiveEvent)).isNull();
+        assertThat(ClientBehaviorResolver.findFirstActiveAjaxBehavior(componentMock, existingEvent)).isPresent();
+        assertThat(ClientBehaviorResolver.findFirstActiveAjaxBehavior(componentMock, notExistingEvent)).isNotPresent();
+        assertThat(ClientBehaviorResolver.findFirstActiveAjaxBehavior(componentMock, existingButNotActiveEvent)).isNotPresent();
     }
 }
