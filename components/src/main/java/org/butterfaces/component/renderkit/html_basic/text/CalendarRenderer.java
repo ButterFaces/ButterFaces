@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
+import java.util.Optional;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
@@ -53,15 +54,10 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             writer.writeText(
                 RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();\n"), null);
 
-            final String ajax = createAjaxEventFunction(calendar, "change");
-            if (ajax != null) {
-                final String test = RenderUtils.createJQueryBySelector(component.getClientId() + ":inner", null)
-                    + ".parent().on('change.datetimepicker', function(e) {\n"
-                    + "if (typeof e.oldDate !== 'undefined') {\n"
-                    + ajax + ";\n"
-                    + "}\n});";
+            final Optional<String> ajaxChangeEventFix = createAjaxChangeEventFix(calendar);
 
-                writer.writeText(test, null);
+            if (ajaxChangeEventFix.isPresent()) {
+                writer.writeText(ajaxChangeEventFix.get(), null);
             }
 
             writer.endElement("script");
@@ -69,6 +65,21 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    private Optional<String> createAjaxChangeEventFix(final HtmlCalendar calendar) {
+        final String ajaxEventFunction = createAjaxEventFunction(calendar, "change");
+        if (ajaxEventFunction != null) {
+            final String jqueryAjaxCall = RenderUtils.createJQueryBySelector(calendar.getClientId() + ":inner", null)
+                + ".parent().on('change.datetimepicker', function(e) {\n"
+                + "if (typeof e.oldDate !== 'undefined') {\n"
+                + ajaxEventFunction + ";\n"
+                + "}\n});";
+
+            return Optional.of(jqueryAjaxCall);
+        }
+
+        return Optional.empty();
     }
 
     String createJQueryPluginCall(HtmlCalendar calendar) {

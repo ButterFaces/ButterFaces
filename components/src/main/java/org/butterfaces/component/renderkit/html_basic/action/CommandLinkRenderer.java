@@ -24,10 +24,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Lars Michaelis
@@ -240,15 +237,16 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
                                 final UIComponent component) throws IOException {
         final HtmlCommandLink link = (HtmlCommandLink) component;
         final ResponseWriter writer = context.getResponseWriter();
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(link, "action");
+        final Optional<AjaxBehavior> ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(link, "action");
 
-        if (link.isAjaxDisableLinkOnRequest() && ajaxBehavior != null) {
-            if (StringUtils.isNotEmpty(ajaxBehavior.getOnevent())) {
-                onEventCallback = ajaxBehavior.getOnevent();
+        if (link.isAjaxDisableLinkOnRequest() && ajaxBehavior.isPresent()) {
+            final AjaxBehavior behavior = ajaxBehavior.get();
+            if (StringUtils.isNotEmpty(behavior.getOnevent())) {
+                onEventCallback = behavior.getOnevent();
             }
 
-            ajaxBehavior.setOnevent(getOnEventListenerName(component));
-            ajaxBehavior.setOnerror(getOnEventListenerName(component));
+            behavior.setOnevent(getOnEventListenerName(component));
+            behavior.setOnerror(getOnEventListenerName(component));
         }
 
         // TODO check resetValues
@@ -280,8 +278,8 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         this.renderEventValue(component, writer, "onkeydown", "keydown");
         this.renderEventValue(component, writer, "onkeyup", "keyup");
         this.renderEventValue(component, writer, "onblur", "blur");
-        if (ajaxBehavior != null) {
-            this.renderOnClickEventValue(component, writer, new JsfAjaxRequest(link, ajaxBehavior, "action").toString());
+        if (ajaxBehavior.isPresent()) {
+            this.renderOnClickEventValue(component, writer, new JsfAjaxRequest(link, ajaxBehavior.get(), "action").toString());
         } else {
             final String submitHandler = buildJavaScriptFormSubmitCall(context, component, getTrimmedTarget(component));
             this.renderOnClickEventValue(component, writer, submitHandler);
@@ -302,9 +300,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
 
         // reset ajax behaviour because otherwise a render of this component will not be work correctly (wrong js
         // callback is registered if onevent is set on f:ajax.
-        if (ajaxBehavior != null) {
-            ajaxBehavior.setOnevent(onEventCallback);
-        }
+        ajaxBehavior.ifPresent(behavior -> behavior.setOnevent(onEventCallback));
     }
 
     private String getTrimmedTarget(final UIComponent component) throws IOException {

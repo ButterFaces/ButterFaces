@@ -6,7 +6,6 @@ import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -326,7 +325,8 @@ public class HtmlBasicRenderer extends Renderer {
     }
 
     protected String createAjaxEventFunction(UIComponentBase component, String eventName) {
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(component, eventName);
-        return ajaxBehavior != null ? new JsfAjaxRequest(component, ajaxBehavior, eventName).toString() : null;
+        return ClientBehaviorResolver.findFirstActiveAjaxBehavior(component, eventName)
+            .map(behavior -> new JsfAjaxRequest(component, behavior, eventName).toString())
+            .orElse(null);
     }
 }

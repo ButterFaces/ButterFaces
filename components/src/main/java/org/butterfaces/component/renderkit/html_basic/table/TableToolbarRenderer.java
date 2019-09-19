@@ -12,15 +12,12 @@ import org.butterfaces.component.html.table.HtmlTable;
 import org.butterfaces.component.html.table.HtmlTableToolbar;
 import org.butterfaces.component.partrenderer.RenderUtils;
 import org.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
-import org.butterfaces.model.table.json.JsonToModelConverter;
 import org.butterfaces.model.table.TableColumnOrdering;
 import org.butterfaces.model.table.TableColumnVisibility;
+import org.butterfaces.model.table.json.JsonToModelConverter;
 import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.UIComponentResolver;
 import org.butterfaces.resolver.WebXmlParameters;
-import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCache;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -34,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Lars Michaelis
@@ -152,11 +150,11 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                                       final HtmlTableToolbar tableToolbar,
                                                       final HtmlTable table,
                                                       final WebXmlParameters webXmlParameters) throws IOException {
-        final AjaxBehavior toggleAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
-        final AjaxBehavior orderAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
+        final Optional<AjaxBehavior> toggleAjaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
+        final Optional<AjaxBehavior> orderAjaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
 
-        if (toggleAjaxBehavior != null && table.getTableColumnVisibilityModel() != null
-                || orderAjaxBehavior != null && table.getTableOrderingModel() != null) {
+        if (toggleAjaxBehavior.isPresent() && table.getTableColumnVisibilityModel() != null
+                || orderAjaxBehavior.isPresent() && table.getTableOrderingModel() != null) {
             writer.startElement(ELEMENT_DIV, tableToolbar);
             writer.writeAttribute("class", "btn-group", null);
 
@@ -188,7 +186,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeAttribute("data-original-column", columnNumber, null);
                 writer.writeAttribute("data-column-model-identifier", cachedColumn.getModelUniqueIdentifier(), null);
 
-                if (toggleAjaxBehavior != null && table.getTableColumnVisibilityModel() != null) {
+                if (toggleAjaxBehavior.isPresent() && table.getTableColumnVisibilityModel() != null) {
                     final List<String> rerenderIds = JsfAjaxRequest.createRerenderIds(tableToolbar, HtmlTableToolbar.EVENT_TOGGLE_COLUMN);
                     rerenderIds.add(table.getClientId());
                     this.renderToggleColumnInput(writer, tableToolbar, rerenderIds, cachedColumn, table, webXmlParameters);
@@ -200,7 +198,7 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                 writer.writeText(cachedColumn.getLabel(), null);
                 writer.endElement("label");
 
-                if (orderAjaxBehavior != null && table.getTableOrderingModel() != null) {
+                if (orderAjaxBehavior.isPresent() && table.getTableOrderingModel() != null) {
                     final List<String> rerenderIds = JsfAjaxRequest.createRerenderIds(tableToolbar, HtmlTableToolbar.EVENT_ORDER_COLUMN);
                     rerenderIds.add(table.getClientId());
                     this.renderOrderColumnSpan(writer, tableToolbar, rerenderIds, columnNumber, webXmlParameters);
@@ -280,18 +278,19 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
                                                  final WebXmlParameters webXmlParameters) throws IOException {
         final String eventName = "refresh";
 
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tableToolbar, eventName);
-        if (ajaxBehavior != null) {
+        final Optional<AjaxBehavior> ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tableToolbar, eventName);
+        if (ajaxBehavior.isPresent()) {
+            final AjaxBehavior behavior = ajaxBehavior.get();
             final JsfAjaxRequest jsfAjaxRequest = new JsfAjaxRequest(tableToolbar.getClientId(), true)
                     .setRender(tableToolbar, eventName)
                     .addRender(table.getClientId())
                     .setEvent(eventName)
-                    .addOnEventHandler(ajaxBehavior.getOnevent())
-                    .addOnErrorHandler(ajaxBehavior.getOnerror())
+                    .addOnEventHandler(behavior.getOnevent())
+                    .addOnErrorHandler(behavior.getOnerror())
                     .setBehaviorEvent(eventName);
 
             if (isAjaxDisableRenderReqionOnRequest(tableToolbar, webXmlParameters)) {
-                final List<String> renderIds = new ArrayList<>(ajaxBehavior.getRender());
+                final List<String> renderIds = new ArrayList<>(behavior.getRender());
                 renderIds.add(table.getClientId());
                 final StringBuilder onEvent = new StringBuilder("ButterFaces.Ajax.disableElementsOnRequest(data, [");
                 onEvent.append(StringUtils.joinWithCommaSeparator(renderIds, true));

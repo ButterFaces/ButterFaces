@@ -5,22 +5,23 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ClientBehaviorResolver {
 
-    public static AjaxBehavior findFirstActiveAjaxBehavior(final UIComponentBase component, final String eventName) {
+    public static Optional<AjaxBehavior> findFirstActiveAjaxBehavior(final UIComponentBase component, final String eventName) {
         if (component != null) {
             final List<ClientBehavior> behaviors = component.getClientBehaviors().get(eventName);
             if (behaviors != null) {
                 for (ClientBehavior behavior : behaviors) {
                     if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
-                        return (AjaxBehavior) behavior;
+                        return Optional.of((AjaxBehavior) behavior);
                     }
                 }
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
     /**
