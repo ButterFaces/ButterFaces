@@ -325,8 +325,8 @@ public class HtmlBasicRenderer extends Renderer {
         return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
     }
 
-    private String createAjaxEventFunction(UIComponentBase component, String eventName) {
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
+    protected String createAjaxEventFunction(UIComponentBase component, String eventName) {
+        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(component, eventName);
         return ajaxBehavior != null ? new JsfAjaxRequest(component, ajaxBehavior, eventName).toString() : null;
     }
 }

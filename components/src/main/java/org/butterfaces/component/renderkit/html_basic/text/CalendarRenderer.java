@@ -1,26 +1,19 @@
 package org.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import org.butterfaces.component.html.text.HtmlCalendar;
 import org.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import org.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import org.butterfaces.component.partrenderer.RenderUtils;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import org.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.util.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
-
-    private static final Logger LOG = Logger.getLogger(CalendarRenderer.class.getName());
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -58,7 +51,19 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             writer.startElement("script", calendar);
 
             writer.writeText(
-                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();"), null);
+                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();\n"), null);
+
+            final String ajax = createAjaxEventFunction(calendar, "change");
+            if (ajax != null) {
+                final String test = RenderUtils.createJQueryBySelector(component.getClientId() + ":inner", null)
+                    + ".parent().on('change.datetimepicker', function(e) {\n"
+                    + "if (typeof e.oldDate !== 'undefined') {\n"
+                    + ajax + ";\n"
+                    + "}\n});";
+
+                writer.writeText(test, null);
+            }
+
             writer.endElement("script");
         }
 
