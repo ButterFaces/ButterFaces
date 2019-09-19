@@ -13,6 +13,10 @@
 
     <name>ButterFaces showcase</name>
 
+    <properties>
+        <docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -97,7 +101,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>1.2.0</version>
+                <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <imageName>butterfaces/showcase</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
@@ -181,7 +185,7 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.4.13</version>
+                        <version>${docker-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>build-docker-image</id>
