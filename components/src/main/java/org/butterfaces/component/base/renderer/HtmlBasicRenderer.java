@@ -14,10 +14,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.render.Renderer;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Basic butterfaces renderer.
@@ -190,15 +187,15 @@ public class HtmlBasicRenderer extends Renderer {
                                     final ResponseWriter writer,
                                     final String attributeName,
                                     final String eventName) throws IOException {
-        final String componentEventFunction = createComponentEventFunction(component, attributeName);
-        final String ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
+        final Optional<String> componentEventFunction = createComponentEventFunction(component, attributeName);
+        final Optional<String> ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
 
-        if (componentEventFunction != null && ajaxEventFunction != null) {
-            writer.writeAttribute(attributeName, ajaxEventFunction + ";" + componentEventFunction, null);
-        } else if (componentEventFunction != null) {
-            writer.writeAttribute(attributeName, componentEventFunction, null);
-        } else if (ajaxEventFunction != null) {
-            writer.writeAttribute(attributeName, ajaxEventFunction, null);
+        if (componentEventFunction.isPresent() && ajaxEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, ajaxEventFunction.get() + ";" + componentEventFunction.get(), null);
+        } else if (componentEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, componentEventFunction.get(), null);
+        } else if (ajaxEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, ajaxEventFunction.get(), null);
         }
     }
 
@@ -316,17 +313,18 @@ public class HtmlBasicRenderer extends Renderer {
         if (component.getChildCount() > 0) {
             return component.getChildren().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.emptyIterator();
         }
     }
 
-    protected String createComponentEventFunction(UIComponent component, String attributeName) {
-        return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
+    protected Optional<String> createComponentEventFunction(UIComponent component, String attributeName) {
+        return component.getAttributes().get(attributeName) instanceof String
+            ? Optional.of((String) component.getAttributes().get(attributeName))
+            : Optional.empty();
     }
 
-    protected String createAjaxEventFunction(UIComponentBase component, String eventName) {
+    protected Optional<String> createAjaxEventFunction(UIComponentBase component, String eventName) {
         return ClientBehaviorResolver.findFirstActiveAjaxBehavior(component, eventName)
-            .map(behavior -> new JsfAjaxRequest(component, behavior, eventName).toString())
-            .orElse(null);
+            .map(behavior -> new JsfAjaxRequest(component, behavior, eventName).toString());
     }
 }

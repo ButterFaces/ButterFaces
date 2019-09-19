@@ -79,7 +79,7 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
         final String resetValues = params.get("javax.faces.partial.resetValues");
         final String render = params.get("javax.faces.partial.render");
 
-        if (StringUtils.isNotEmpty(resetValues) && StringUtils.isNotEmpty(render) && Boolean.valueOf(resetValues)) {
+        if (StringUtils.isNotEmpty(resetValues) && StringUtils.isNotEmpty(render) && Boolean.parseBoolean(resetValues)) {
             final String[] split = render.split(" ");
 
             for (String clientId : split) {
@@ -371,9 +371,9 @@ public class CommandLinkRenderer extends HtmlBasicRenderer {
     }
 
     private void renderOnClickEventValue(UIComponent component, ResponseWriter writer, String onClickEvent) throws IOException {
-        final String componentEventFunction = createComponentEventFunction(component, "onclick");
-        if (componentEventFunction != null) {
-            writer.writeAttribute("onclick", onClickEvent + ";" + componentEventFunction + ";return false", "onclick");
+        final Optional<String> componentEventFunction = createComponentEventFunction(component, "onclick");
+        if (componentEventFunction.isPresent()) {
+            writer.writeAttribute("onclick", onClickEvent + ";" + componentEventFunction.get() + ";return false", "onclick");
         } else {
             writer.writeAttribute("onclick", onClickEvent + ";return false", "onclick");
         }

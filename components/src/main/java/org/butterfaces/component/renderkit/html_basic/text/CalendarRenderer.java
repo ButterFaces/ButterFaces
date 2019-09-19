@@ -68,12 +68,12 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
     }
 
     private Optional<String> createAjaxChangeEventFix(final HtmlCalendar calendar) {
-        final String ajaxEventFunction = createAjaxEventFunction(calendar, "change");
-        if (ajaxEventFunction != null) {
+        final Optional<String> ajaxEventFunction = createAjaxEventFunction(calendar, "change");
+        if (ajaxEventFunction.isPresent()) {
             final String jqueryAjaxCall = RenderUtils.createJQueryBySelector(calendar.getClientId() + ":inner", null)
                 + ".parent().on('change.datetimepicker', function(e) {\n"
                 + "if (typeof e.oldDate !== 'undefined') {\n"
-                + ajaxEventFunction + ";\n"
+                + ajaxEventFunction.get() + ";\n"
                 + "}\n});";
 
             return Optional.of(jqueryAjaxCall);
