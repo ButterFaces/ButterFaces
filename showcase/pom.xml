@@ -120,7 +120,7 @@
 
     <profiles>
         <profile>
-            <id>showcase-thorntail</id>
+            <id>showcase-with-thorntail</id>
             <dependencies>
                 <dependency>
                     <groupId>io.thorntail</groupId>
@@ -151,7 +151,7 @@
             </build>
         </profile>
         <profile>
-            <id>showcase-docker</id>
+            <id>showcase-with-thorntail-in-docker</id>
             <dependencies>
                 <dependency>
                     <groupId>io.thorntail</groupId>

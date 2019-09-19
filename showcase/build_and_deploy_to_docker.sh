@@ -1,1 +1,1 @@
-mvn clean package -Pshowcase-docker -Dmaven.test.skip=true
+mvn clean package -Pshowcase-with-thorntail-in-docker -Dmaven.test.skip=true

@@ -75,12 +75,12 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- wildfly swarm -->
-        <io.thorntail>2.4.0.Final</io.thorntail>
+        <io.thorntail>2.5.0.Final</io.thorntail>
 
         <!-- testing -->
-        <junit-jupiter.version>5.4.2</junit-jupiter.version>
-        <mockito.version>2.28.2</mockito.version>
-        <assertj-core.version>3.12.2</assertj-core.version>
+        <junit-jupiter.version>5.5.2</junit-jupiter.version>
+        <mockito.version>3.0.0</mockito.version>
+        <assertj-core.version>3.13.2</assertj-core.version>
     </properties>
 
     <build>
@@ -94,7 +94,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <arguments>-D${gpg.arguments}</arguments>
-                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-docker</releaseProfiles>
+                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-with-thorntail-in-docker</releaseProfiles>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
