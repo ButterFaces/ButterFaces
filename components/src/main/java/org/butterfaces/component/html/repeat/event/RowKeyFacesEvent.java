@@ -6,7 +6,6 @@
 package org.butterfaces.component.html.repeat.event;
 
 import org.butterfaces.component.html.repeat.UIDataAdaptor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
@@ -48,7 +47,7 @@ public class RowKeyFacesEvent extends FacesEvent {
     }
 
     public void processListener(FacesListener listener) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public UIDataAdaptor getComponent() {
