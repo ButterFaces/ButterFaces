@@ -199,7 +199,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
+        if ("click".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node node = nodesMap.get(nodeNumber);
@@ -211,7 +211,7 @@ public class TreeRenderer extends HtmlBasicRenderer {
             } catch (NumberFormatException e) {
                 // here is nothing to do
             }
-        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
+        } else if ("toggle".equals(behaviorEvent)) {
             try {
                 final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node cachedNode = nodesMap.get(nodeNumber);
