@@ -115,6 +115,7 @@ class JsfAjaxRequestTest {
                 + ", onevent: function(data){myEventHandler(data);}"
                 + ", onerror: function(data){myErrorHandler(data);}"
                 + ", params: myParams"
+                + ", 'butterfaces.params': myParams"
                 + "});");
 
         request.setBehaviorEvent("myBehaviorEvent");
@@ -123,6 +124,7 @@ class JsfAjaxRequestTest {
                 + ", onevent: function(data){myEventHandler(data);}"
                 + ", onerror: function(data){myErrorHandler(data);}"
                 + ", params: myParams"
+                + ", 'butterfaces.params': myParams"
                 + ", 'javax.faces.behavior.event': 'myBehaviorEvent'"
                 + "});");
     }

@@ -15,6 +15,7 @@ import org.butterfaces.component.renderkit.html_basic.table.cache.TableColumnCac
 import org.butterfaces.model.table.TableColumnOrdering;
 import org.butterfaces.model.table.TableColumnVisibility;
 import org.butterfaces.model.table.json.JsonToModelConverter;
+import org.butterfaces.resolver.AjaxRequestParameter;
 import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.UIComponentResolver;
 import org.butterfaces.resolver.WebXmlParameters;
@@ -123,19 +124,20 @@ public class TableToolbarRenderer extends HtmlBasicRenderer {
         final ExternalContext external = context.getExternalContext();
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
-        final HtmlTable table = getTableComponent(tableToolbar);
-        final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
 
         if (behaviorEvent != null) {
+            final HtmlTable table = getTableComponent(tableToolbar);
+            final String tableUniqueIdentifier = table.getModelUniqueIdentifier();
+
             if (HtmlTableToolbar.EVENT_TOGGLE_COLUMN.equals(behaviorEvent) && table.getTableColumnVisibilityModel() != null) {
-                final TableColumnVisibility visibility = new JsonToModelConverter().convertTableColumnVisibility(tableUniqueIdentifier, params.get("params"));
+                final TableColumnVisibility visibility = new JsonToModelConverter().convertTableColumnVisibility(tableUniqueIdentifier, AjaxRequestParameter.findRequestParameter(context));
                 table.getTableColumnVisibilityModel().update(visibility);
             } else if (behaviorEvent.equals(HtmlTableToolbar.EVENT_REFRESH_TABLE)) {
                 if (tableToolbar.getTableToolbarRefreshListener() != null) {
                     tableToolbar.getTableToolbarRefreshListener().onPreRefresh();
                 }
             } else if (HtmlTableToolbar.EVENT_ORDER_COLUMN.equals(behaviorEvent) && table.getTableOrderingModel() != null) {
-                final TableColumnOrdering ordering = new JsonToModelConverter().convertTableColumnOrdering(tableUniqueIdentifier, params.get("params"));
+                final TableColumnOrdering ordering = new JsonToModelConverter().convertTableColumnOrdering(tableUniqueIdentifier, AjaxRequestParameter.findRequestParameter(context));
                 table.getTableOrderingModel().update(ordering);
             }
         }
