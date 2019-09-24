@@ -11,6 +11,7 @@ import org.butterfaces.event.TreeNodeExpansionListener;
 import org.butterfaces.event.TreeNodeSelectionEvent;
 import org.butterfaces.event.TreeNodeSelectionListener;
 import org.butterfaces.model.tree.Node;
+import org.butterfaces.resolver.AjaxRequestParameter;
 import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.MustacheResolver;
 import org.butterfaces.resolver.WebXmlParameters;
@@ -198,9 +199,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
+        if ("click".equals(behaviorEvent)) {
             try {
-                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node node = nodesMap.get(nodeNumber);
                 if (nodeSelectionListener != null) {
                     final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
@@ -210,9 +211,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
             } catch (NumberFormatException e) {
                 // here is nothing to do
             }
-        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
+        } else if ("toggle".equals(behaviorEvent)) {
             try {
-                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node cachedNode = nodesMap.get(nodeNumber);
                 if (cachedNode != null) {
                     if (cachedNode.isCollapsed()) {

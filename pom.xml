@@ -71,11 +71,7 @@
 
         <!-- maven plugin dependency version -->
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-
-        <!-- wildfly swarm -->
-        <io.thorntail>2.5.0.Final</io.thorntail>
 
         <!-- testing -->
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
@@ -141,11 +137,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.thorntail</groupId>
-                <artifactId>bom</artifactId>
-                <version>${io.thorntail}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javax.javaee-api.version}</version>
@@ -161,6 +152,7 @@
                 <groupId>javax.faces</groupId>
                 <artifactId>javax.faces-api</artifactId>
                 <version>${javax.faces-api.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.butterfaces</groupId>

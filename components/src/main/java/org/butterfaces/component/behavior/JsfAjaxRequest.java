@@ -236,6 +236,12 @@ public class JsfAjaxRequest {
                 isAtLeastOneOptionSet = true;
             }
 
+            if (StringUtils.isNotEmpty(params)) {
+                writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
+                sb.append("'butterfaces.params': ").append(params);
+                isAtLeastOneOptionSet = true;
+            }
+
             if (StringUtils.isNotEmpty(behaviorEvent)) {
                 writeSeparatorIfNecessary(sb, isAtLeastOneOptionSet);
                 sb.append("'javax.faces.behavior.event': '").append(behaviorEvent).append("'");
