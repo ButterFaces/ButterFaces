@@ -17,10 +17,6 @@ import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.WebXmlParameters;
 import org.butterfaces.util.StringJoiner;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.event.TableSingleSelectionListener;
-import org.butterfaces.util.StringJoiner;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -34,6 +30,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Renderer for {@link HtmlTable}.
@@ -235,9 +232,9 @@ public class TableRenderer extends HtmlBasicRenderer {
             writer.writeAttribute("class", rowClass, null);
         }
 
-        final AjaxBehavior clickAjaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(table, "click");
+        final Optional<AjaxBehavior> clickAjaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(table, "click");
 
-        if (clickAjaxBehavior != null && table.getSingleSelectionListener() != null) {
+        if (clickAjaxBehavior.isPresent() && table.getSingleSelectionListener() != null) {
             final JsfAjaxRequest ajaxRequest = new JsfAjaxRequest(baseClientId, true)
                     .setEvent("click_" + rowIndex)
                     .setRender(table, "click")

@@ -3,8 +3,7 @@ package org.butterfaces.component.renderkit.html_basic.text;
 import org.butterfaces.component.html.text.HtmlText;
 import org.butterfaces.component.html.text.part.HtmlAutoComplete;
 import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.RenderUtils;
+import org.butterfaces.resolver.AjaxRequestParameter;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -39,7 +38,7 @@ public class TextRenderer extends AbstractHtmlTagRenderer<HtmlText> {
             final ExternalContext external = context.getExternalContext();
             final Map<String, String> params = external.getRequestParameterMap();
             final String behaviorEvent = params.get("javax.faces.behavior.event");
-            final String searchValue = params.get("params");
+            final String searchValue = AjaxRequestParameter.findRequestParameter(context);
 
             if ("autocomplete".equals(behaviorEvent) && StringUtils.isNotEmpty(searchValue)) {
                 autoCompleteChild.getCachedAutoCompleteValues().clear();

@@ -4,7 +4,7 @@
 
     <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.1.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -65,22 +65,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- dependency versions -->
-        <javax.javaee-api.version>8.0</javax.javaee-api.version>
+        <javax.javaee-api.version>8.0.1</javax.javaee-api.version>
         <el-api.version>3.0.0</el-api.version>
         <javax.faces-api.version>2.3</javax.faces-api.version>
 
         <!-- maven plugin dependency version -->
-        <maven-release-plugin.version>2.5</maven-release-plugin.version>
-        <maven-embedded-glassfish-plugin.version>3.1</maven-embedded-glassfish-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
-        <!-- wildfly swarm -->
-        <io.thorntail>2.4.0.Final</io.thorntail>
-
         <!-- testing -->
-        <junit-jupiter.version>5.4.2</junit-jupiter.version>
-        <mockito.version>2.27.0</mockito.version>
-        <assertj-core.version>3.12.2</assertj-core.version>
+        <junit-jupiter.version>5.5.2</junit-jupiter.version>
+        <mockito.version>3.0.0</mockito.version>
+        <assertj-core.version>3.13.2</assertj-core.version>
     </properties>
 
     <build>
@@ -94,7 +90,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <arguments>-D${gpg.arguments}</arguments>
-                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-docker</releaseProfiles>
+                    <releaseProfiles>sonatype-oss-release,nodejs-all,showcase-with-thorntail-in-docker</releaseProfiles>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
@@ -141,11 +137,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.thorntail</groupId>
-                <artifactId>bom</artifactId>
-                <version>${io.thorntail}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javax.javaee-api.version}</version>
@@ -161,6 +152,7 @@
                 <groupId>javax.faces</groupId>
                 <artifactId>javax.faces-api</artifactId>
                 <version>${javax.faces-api.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.butterfaces</groupId>

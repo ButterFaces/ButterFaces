@@ -1,13 +1,11 @@
 /*
- * Copyright Lars Michaelis and Stephan Zerhusen 2016.
+ * Copyright Lars Michaelis and Stephan Zerhusen 2019.
  * Distributed under the MIT License.
  * (See accompanying file README.md file or copy at http://opensource.org/licenses/MIT)
  */
 package org.butterfaces.component.base.renderer;
 
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -27,73 +25,34 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
     private boolean hasStringConverterSet = false;
 
     @Override
-    public Object getConvertedValue(FacesContext context, UIComponent component,
-                                    Object submittedValue)
-            throws ConverterException {
+    public Object getConvertedValue(final FacesContext context,
+                                    final UIComponent component,
+                                    final Object submittedValue) throws ConverterException {
 
-        String newValue = (String) submittedValue;
+        final String newValue = (String) submittedValue;
         // if we have no local value, try to get the valueExpression.
-        ValueExpression valueExpression = component.getValueExpression("value");
-        Converter converter = null;
-
-        // If there is a converter attribute, use it to to ask application
-        // instance for a converter with this identifer.
-        if (component instanceof ValueHolder) {
-            converter = ((ValueHolder) component).getConverter();
-        }
+        final ValueExpression valueExpression = component.getValueExpression("value");
+        Converter converter = this.getValueHolderConverter(component);
 
         if (null == converter && null != valueExpression) {
-            Class converterType = valueExpression.getType(context.getELContext());
-            // if converterType is null, assume the modelType is "String".
-            if (converterType == null ||
-                    converterType == Object.class) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                            "No conversion necessary for value {0} of component {1}",
-                            new Object[]{
-                                    submittedValue,
-                                    component.getId()});
-                }
+            final Class converterType = valueExpression.getType(context.getELContext());
+
+            if (this.shouldNotBeConverted(converterType, context)) {
+                this.logFine("No conversion necessary for value {0} of component {1}", submittedValue, component.getId());
                 return newValue;
             }
 
-            // If the converterType is a String, and we don't have a
-            // converter-for-class for java.lang.String, assume the type is
-            // "String".
-            if (converterType == String.class && !hasStringConverter(context)) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                            "No conversion necessary for value {0} of component {1}",
-                            new Object[]{
-                                    submittedValue,
-                                    component.getId()});
-                }
-                return newValue;
-            }
             // if getType returns a type for which we support a default
             // conversion, acquire an appropriate converter instance.
-
             try {
-                Application application = context.getApplication();
-                converter = application.createConverter(converterType);
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                            "Created converter ({0}) for type {1} for component {2}.",
-                            new Object[]{
-                                    converter.getClass().getName(),
-                                    converterType.getClass().getName(),
-                                    component.getId()});
-                }
+                converter = context.getApplication().createConverter(converterType);
+                this.logFine("Created converter ({0}) for type {1} for component {2}.",
+                    converter.getClass().getName(),
+                    converterType.getName(),
+                    component.getId());
             } catch (Exception e) {
-                if (LOGGER.isLoggable(Level.SEVERE)) {
-                    LOGGER.log(Level.SEVERE,
-                            "Could not instantiate converter for type {0}: {1}",
-                            new Object[]{
-                                    converterType,
-                                    e.toString()});
-                    LOGGER.log(Level.SEVERE, "", e);
-                }
-                return (null);
+                this.log(Level.SEVERE, "Could not instantiate converter for type {0}: {1}", e, converterType, e.toString());
+                return null;
             }
         } else if (converter == null) {
             // if there is no valueExpression and converter attribute set,
@@ -101,35 +60,54 @@ public class HtmlBasicInputRenderer extends HtmlBasicRenderer {
             // figuring out the type. So for the selectOne and
             // selectMany, converter has to be set if there is no
             // valueExpression attribute set on the component.
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE,
-                        "No conversion necessary for value {0} of component {1}",
-                        new Object[]{
-                                submittedValue,
-                                component.getId()});
-                LOGGER.fine(" since there is no explicitly registered converter "
-                        + "and the component value is not bound to a model property");
-            }
+            final String message = "No conversion necessary for value {0} of component {1} "
+                + "since there is no explicitly registered converter "
+                + "and the component value is not bound to a model property";
+            this.logFine(message, submittedValue, component.getId());
             return newValue;
         }
 
-        if (converter != null) {
-            return converter.getAsObject(context, component, newValue);
-        } else {
-            final FacesMessage msg = new FacesMessage("null Converter", "Could not convert " + newValue);
-            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            throw new ConverterException(msg);
-        }
-
+        return converter.getAsObject(context, component, newValue);
     }
 
-    private boolean hasStringConverter(FacesContext context) {
+    /**
+     * If converterType is null, assume the modelType is "String".
+     * If the converterType is a String, and we don't have a converter-for-class for java.lang.String, assume the type is "String".
+     */
+    private boolean shouldNotBeConverted(final Class converterType, final FacesContext context) {
+        return converterType == null
+            || converterType == Object.class
+            || (converterType == String.class && hasNoStringConverter(context));
+    }
+
+    private void logFine(final String message, final Object... parameters) {
+        this.log(Level.FINE, message, null, parameters);
+    }
+
+    private void log(final Level level, final String message, final Throwable throwable, final Object... parameters) {
+        if (LOGGER.isLoggable(level)) {
+            LOGGER.log(level, message, parameters);
+            if (throwable != null) {
+                LOGGER.log(level, "", throwable);
+            }
+        }
+    }
+
+    private Converter getValueHolderConverter(final UIComponent component) {
+        // If there is a converter attribute, use it to to ask application instance for a converter with this identifier.
+        if (component instanceof ValueHolder) {
+            return ((ValueHolder) component).getConverter();
+        }
+        return null;
+    }
+
+    private boolean hasNoStringConverter(final FacesContext context) {
         if (!hasStringConverterSet) {
             hasStringConverter = context.getApplication().createConverter(String.class) != null;
             hasStringConverterSet = true;
         }
 
-        return hasStringConverter;
+        return !hasStringConverter;
     }
 
 }

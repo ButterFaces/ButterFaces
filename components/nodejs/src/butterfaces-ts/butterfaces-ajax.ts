@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/jee-jsf/index.d.ts"/>
+///<reference path="../type-definition/jsf-ajax/index.d.ts"/>
 ///<reference path="butterfaces-overlay.ts"/>
 
 namespace ButterFaces {
@@ -8,6 +8,7 @@ namespace ButterFaces {
                 "javax.faces.behavior.event": event,
                 render: renderIds.join(", "),
                 params: params,
+                "butterfaces.params": params,
                 onevent: (function (data) {
                     // console.log(data);
                     if (disableRenderIds) {

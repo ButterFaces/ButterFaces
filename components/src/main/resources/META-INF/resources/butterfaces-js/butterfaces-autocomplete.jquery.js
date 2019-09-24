@@ -160,11 +160,13 @@
             // console.log("starting request");
 
             var id = self.$input.parent().parent().attr('id');
+            var params = self.$input.val();
 
             jsf.ajax.request(id, "autocomplete", {
                 "javax.faces.behavior.event": "autocomplete",
                 render: self.autocompleteId,
-                params: self.$input.val(),
+                params: params,
+                "butterfaces.params": params,
                 onevent: function (data) {
                     if (data.status === "success") {
                         // console.log("request finished");

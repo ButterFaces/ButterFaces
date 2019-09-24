@@ -33,7 +33,7 @@ public class JsonToModelConverter {
             final String identifier = attribute[0].split(":")[1];
             final String visible = attribute[1].split(":")[1];
 
-            if (Boolean.valueOf(visible)) {
+            if (Boolean.parseBoolean(visible)) {
                 visibleColumns.add(identifier);
             } else {
                 invisibleColumns.add(identifier);

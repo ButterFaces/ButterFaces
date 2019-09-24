@@ -11,15 +11,10 @@ import org.butterfaces.event.TreeNodeExpansionListener;
 import org.butterfaces.event.TreeNodeSelectionEvent;
 import org.butterfaces.event.TreeNodeSelectionListener;
 import org.butterfaces.model.tree.Node;
+import org.butterfaces.resolver.AjaxRequestParameter;
 import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.resolver.MustacheResolver;
 import org.butterfaces.resolver.WebXmlParameters;
-import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.component.renderkit.html_basic.text.model.CachedNodesInitializer;
-import org.butterfaces.component.renderkit.html_basic.text.part.TrivialComponentsEntriesNodePartRenderer;
-import org.butterfaces.event.TreeNodeExpansionListener;
-import org.butterfaces.event.TreeNodeSelectionEvent;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -30,10 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @FacesRenderer(componentFamily = HtmlTree.COMPONENT_FAMILY, rendererType = HtmlTree.RENDERER_TYPE)
 public class TreeRenderer extends HtmlBasicRenderer {
@@ -171,16 +163,17 @@ public class TreeRenderer extends HtmlBasicRenderer {
                                  final String variableName,
                                  final String eventName,
                                  final String trivialCallback) throws IOException {
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tree, eventName);
+        final Optional<AjaxBehavior> ajaxBehavior = ClientBehaviorResolver.findFirstActiveAjaxBehavior(tree, eventName);
 
-        if (ajaxBehavior != null) {
+        if (ajaxBehavior.isPresent()) {
+            final AjaxBehavior behavior = ajaxBehavior.get();
             writer.writeText(variableName + "." + trivialCallback + ".addListener(function(node) {", null);
             final String ajaxRequest = new JsfAjaxRequest(tree.getClientId(), true)
                     .setEvent(eventName)
                     .setRender(tree, eventName)
                     .setParams("node.id")
-                    .addOnEventHandler(ajaxBehavior.getOnevent())
-                    .addOnErrorHandler(ajaxBehavior.getOnerror())
+                    .addOnEventHandler(behavior.getOnevent())
+                    .addOnErrorHandler(behavior.getOnerror())
                     .setBehaviorEvent(eventName).toString();
             writer.writeText(ajaxRequest, null);
             writer.writeText("});", null);
@@ -206,9 +199,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
         final Map<String, String> params = external.getRequestParameterMap();
         final String behaviorEvent = params.get("javax.faces.behavior.event");
 
-        if (behaviorEvent != null && "click".equals(behaviorEvent)) {
+        if ("click".equals(behaviorEvent)) {
             try {
-                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node node = nodesMap.get(nodeNumber);
                 if (nodeSelectionListener != null) {
                     final Integer selectedNodeNumber = getSelectedNodeNumber(tree, nodesMap);
@@ -218,9 +211,9 @@ public class TreeRenderer extends HtmlBasicRenderer {
             } catch (NumberFormatException e) {
                 // here is nothing to do
             }
-        } else if (behaviorEvent != null && "toggle".equals(behaviorEvent)) {
+        } else if ("toggle".equals(behaviorEvent)) {
             try {
-                final Integer nodeNumber = Integer.valueOf(params.get("params"));
+                final Integer nodeNumber = Integer.valueOf(AjaxRequestParameter.findRequestParameter(context));
                 final Node cachedNode = nodesMap.get(nodeNumber);
                 if (cachedNode != null) {
                     if (cachedNode.isCollapsed()) {

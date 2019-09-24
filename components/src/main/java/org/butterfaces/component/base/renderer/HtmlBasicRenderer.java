@@ -6,7 +6,6 @@ import org.butterfaces.resolver.ClientBehaviorResolver;
 import org.butterfaces.util.StringUtils;
 
 import javax.faces.component.*;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -15,10 +14,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.render.Renderer;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Basic butterfaces renderer.
@@ -126,11 +122,6 @@ public class HtmlBasicRenderer extends Renderer {
         return null;
     }
 
-    protected boolean isBehaviorSource(final String behaviorSourceId,
-                                       final String componentClientId) {
-        return (behaviorSourceId != null && behaviorSourceId.equals(componentClientId));
-    }
-
     protected void setSubmittedValue(final UIComponent component,
                                      final Object value) {
         if (component instanceof UIInput) {
@@ -166,8 +157,8 @@ public class HtmlBasicRenderer extends Renderer {
                                      final ResponseWriter writer,
                                      final String attributeName) throws IOException {
         if (component.getAttributes().get(attributeName) != null
-                && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
-                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
+            && StringUtils.isNotEmpty(component.getAttributes().get(attributeName).toString())
+            && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, component.getAttributes().get(attributeName).toString().trim(), attributeName);
         }
     }
@@ -186,8 +177,8 @@ public class HtmlBasicRenderer extends Renderer {
                                      final String attributeName,
                                      final String matchingValue) throws IOException {
         if (component.getAttributes().get(attributeName) != null
-                && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())
-                && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
+            && matchingValue.equalsIgnoreCase(component.getAttributes().get(attributeName).toString())
+            && shouldRenderAttribute(component.getAttributes().get(attributeName))) {
             writer.writeAttribute(attributeName, matchingValue, attributeName);
         }
     }
@@ -196,19 +187,24 @@ public class HtmlBasicRenderer extends Renderer {
                                     final ResponseWriter writer,
                                     final String attributeName,
                                     final String eventName) throws IOException {
-        final String componentEventFunction = createComponentEventFunction(component, attributeName);
-        final String ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
+        final Optional<String> componentEventFunction = createComponentEventFunction(component, attributeName);
+        final Optional<String> ajaxEventFunction = createAjaxEventFunction((UIComponentBase) component, eventName);
 
-        if (componentEventFunction != null && ajaxEventFunction != null) {
-            writer.writeAttribute(attributeName, ajaxEventFunction + ";" + componentEventFunction, null);
-        } else if (componentEventFunction != null) {
-            writer.writeAttribute(attributeName, componentEventFunction, null);
-        } else if (ajaxEventFunction != null) {
-            writer.writeAttribute(attributeName, ajaxEventFunction, null);
+        if (componentEventFunction.isPresent() && ajaxEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, ajaxEventFunction.get() + ";" + componentEventFunction.get(), null);
+        } else if (componentEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, componentEventFunction.get(), null);
+        } else if (ajaxEventFunction.isPresent()) {
+            writer.writeAttribute(attributeName, ajaxEventFunction.get(), null);
         }
     }
 
-    protected String getCurrentValue(FacesContext context, final UIComponent component) {
+    private boolean isBehaviorSource(final String behaviorSourceId,
+                                     final String componentClientId) {
+        return (behaviorSourceId != null && behaviorSourceId.equals(componentClientId));
+    }
+
+    private String getCurrentValue(FacesContext context, final UIComponent component) {
 
         if (component instanceof UIInput) {
             Object submittedValue = ((UIInput) component).getSubmittedValue();
@@ -242,7 +238,7 @@ public class HtmlBasicRenderer extends Renderer {
         // no-op unless overridden
     }
 
-    protected boolean shouldRenderAttribute(Object value) {
+    private boolean shouldRenderAttribute(Object value) {
         if (value == null)
             return false;
 
@@ -288,9 +284,9 @@ public class HtmlBasicRenderer extends Renderer {
     protected boolean shouldWriteIdAttribute(UIComponent component) {
         String id;
         return (null != (id = component.getId()) &&
-                (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
-                        ((component instanceof ClientBehaviorHolder) &&
-                                !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
+            (!id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX) ||
+                ((component instanceof ClientBehaviorHolder) &&
+                    !((ClientBehaviorHolder) component).getClientBehaviors().isEmpty())));
     }
 
     protected void encodeRecursive(final FacesContext context,
@@ -317,16 +313,18 @@ public class HtmlBasicRenderer extends Renderer {
         if (component.getChildCount() > 0) {
             return component.getChildren().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.emptyIterator();
         }
     }
 
-    protected String createComponentEventFunction(UIComponent component, String attributeName) {
-        return component.getAttributes().get(attributeName) instanceof String ? (String) component.getAttributes().get(attributeName) : null;
+    protected Optional<String> createComponentEventFunction(UIComponent component, String attributeName) {
+        return component.getAttributes().get(attributeName) instanceof String
+            ? Optional.of((String) component.getAttributes().get(attributeName))
+            : Optional.empty();
     }
 
-    private String createAjaxEventFunction(UIComponentBase component, String eventName) {
-        final AjaxBehavior ajaxBehavior = ClientBehaviorResolver.resolveActiveAjaxBehavior(component, eventName);
-        return ajaxBehavior != null ? new JsfAjaxRequest(component, ajaxBehavior, eventName).toString() : null;
+    protected Optional<String> createAjaxEventFunction(UIComponentBase component, String eventName) {
+        return ClientBehaviorResolver.findFirstActiveAjaxBehavior(component, eventName)
+            .map(behavior -> new JsfAjaxRequest(component, behavior, eventName).toString());
     }
 }

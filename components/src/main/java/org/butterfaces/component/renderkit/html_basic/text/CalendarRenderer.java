@@ -1,26 +1,20 @@
 package org.butterfaces.component.renderkit.html_basic.text;
 
-import java.io.IOException;
-import java.util.logging.Logger;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
-
 import org.butterfaces.component.html.text.HtmlCalendar;
 import org.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
 import org.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
 import org.butterfaces.component.partrenderer.RenderUtils;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.partrenderer.InnerComponentWrapperPartRenderer;
-import org.butterfaces.component.partrenderer.OuterComponentWrapperPartRenderer;
-import org.butterfaces.component.partrenderer.RenderUtils;
-import org.butterfaces.util.StringUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.FacesRenderer;
+import java.io.IOException;
+import java.util.Optional;
 
 @FacesRenderer(componentFamily = HtmlCalendar.COMPONENT_FAMILY, rendererType = HtmlCalendar.RENDERER_TYPE)
 public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
-
-    private static final Logger LOG = Logger.getLogger(CalendarRenderer.class.getName());
 
     @Override
     public void encodeEnd(final FacesContext context, final UIComponent component) throws IOException {
@@ -58,12 +52,34 @@ public class CalendarRenderer extends AbstractHtmlTagRenderer<HtmlCalendar> {
             writer.startElement("script", calendar);
 
             writer.writeText(
-                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();"), null);
+                RenderUtils.createJQueryPluginCall(component.getClientId(), null, createJQueryPluginCall(calendar), "var elementId = ButterFaces.Guid.newGuid();\n"), null);
+
+            final Optional<String> ajaxChangeEventFix = createAjaxChangeEventFix(calendar);
+
+            if (ajaxChangeEventFix.isPresent()) {
+                writer.writeText(ajaxChangeEventFix.get(), null);
+            }
+
             writer.endElement("script");
         }
 
         // Open outer component wrapper div
         new OuterComponentWrapperPartRenderer().renderComponentEnd(writer);
+    }
+
+    private Optional<String> createAjaxChangeEventFix(final HtmlCalendar calendar) {
+        final Optional<String> ajaxEventFunction = createAjaxEventFunction(calendar, "change");
+        if (ajaxEventFunction.isPresent()) {
+            final String jqueryAjaxCall = RenderUtils.createJQueryBySelector(calendar.getClientId() + ":inner", null)
+                + ".parent().on('change.datetimepicker', function(e) {\n"
+                + "if (typeof e.oldDate !== 'undefined') {\n"
+                + ajaxEventFunction.get() + ";\n"
+                + "}\n});";
+
+            return Optional.of(jqueryAjaxCall);
+        }
+
+        return Optional.empty();
     }
 
     String createJQueryPluginCall(HtmlCalendar calendar) {

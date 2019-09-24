@@ -5,13 +5,20 @@
     <parent>
         <groupId>org.butterfaces</groupId>
         <artifactId>butterfaces</artifactId>
-        <version>3.1.2-SNAPSHOT</version>
+        <version>3.1.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>showcase</artifactId>
     <packaging>war</packaging>
 
     <name>ButterFaces showcase</name>
+
+    <properties>
+        <!-- wildfly swarm -->
+        <io.thorntail>2.5.0.Final</io.thorntail>
+
+        <docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -25,26 +32,18 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>3.9</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>1.5.0</version>
+            <version>1.6</version>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <groupId>io.thorntail</groupId>
-                <artifactId>thorntail-maven-plugin</artifactId>
-                <version>${io.thorntail}</version>
-                <configuration>
-                    <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.lesscss</groupId>
                 <artifactId>lesscss-maven-plugin</artifactId>
@@ -97,7 +96,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>1.2.0</version>
+                <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <imageName>butterfaces/showcase</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
@@ -120,7 +119,7 @@
 
     <profiles>
         <profile>
-            <id>showcase-thorntail</id>
+            <id>showcase-with-thorntail-in-docker</id>
             <dependencies>
                 <dependency>
                     <groupId>io.thorntail</groupId>
@@ -139,37 +138,9 @@
                         <groupId>io.thorntail</groupId>
                         <artifactId>thorntail-maven-plugin</artifactId>
                         <version>${io.thorntail}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>package</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>showcase-docker</id>
-            <dependencies>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>jsf</artifactId>
-                    <version>${io.thorntail}</version>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>cdi</artifactId>
-                    <version>${io.thorntail}</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.thorntail</groupId>
-                        <artifactId>thorntail-maven-plugin</artifactId>
-                        <version>${io.thorntail}</version>
+                        <configuration>
+                            <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
@@ -181,7 +152,7 @@
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.4.13</version>
+                        <version>${docker-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>build-docker-image</id>
