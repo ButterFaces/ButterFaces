@@ -108,10 +108,7 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
 
         writer.startElement("div", radioBox);
         final StringBuilder styleClass = new StringBuilder(valueSelected ? "radio butter-radio-item-selected" : "radio");
-        styleClass.append(" d-flex");
-        if (index == 0) {
-            styleClass.append(" mt-2");
-        }
+        styleClass.append(" d-flex align-items-baseline mt-2");
         writer.writeAttribute("class", styleClass.toString(), "class");
 
         writer.startElement("input", radioBox);
@@ -119,7 +116,7 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
         writer.writeAttribute("type", "radio", "input");
         writer.writeAttribute("name", radioBoxClientId, "name");
         writer.writeAttribute("value", convertItemToIdentifier(listItem), "value");
-        writer.writeAttribute("class", "mt-1 mr-2", "class");
+        writer.writeAttribute("class", "mr-2", "class");
 
         if (valueSelected) {
             writer.writeAttribute("checked", true, "checked");
@@ -155,6 +152,7 @@ public class RadioBoxRenderer extends AbstractHtmlTagRenderer<HtmlRadioBox> {
 
         writer.startElement("label", radioBox);
         writer.writeAttribute("for", radioItemClientId, "for");
+        writer.writeAttribute("class", "mb-0", "class");
         if (radioBox.getFacet("template") != null) {
             String encodedTemplate = StringHtmlEncoder.encodeComponentWithSurroundingDiv(FacesContext.getCurrentInstance(), radioBox.getFacet("template"));
             final List<String> mustacheKeys = MustacheResolver.getMustacheKeys(encodedTemplate);
