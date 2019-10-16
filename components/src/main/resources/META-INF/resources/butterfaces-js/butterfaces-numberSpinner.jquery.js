@@ -19,9 +19,7 @@
             this.$input = $(element).find("input");
             this._initInput();
             this._initOptions(options);
-            this._counter = null;
-            this.setCounter(0);
-            this._isValueSet = false;
+            this._initCounter();
             this._initButtons();
             this._initArrowKeys();
             this._initMouseWheel();
@@ -127,6 +125,24 @@
                     self.increaseCounter();
                 }
             });
+        },
+
+        _initCounter: function() {
+            this._counter = null;
+            this._isValueSet = false;
+
+            var value = this.$input.val();
+            if (!this._isStringEmpty(value)) {
+                var parsedInt = parseInt(value);
+                if (!isNaN(parsedInt)) {
+                    this.setCounter(parsedInt);
+                    this._isValueSet = true;
+                }
+            }
+
+            if (!this._isValueSet) {
+                this.setCounter(0);
+            }
         },
 
         _setValueOnBlur: function () {

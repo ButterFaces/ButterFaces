@@ -45,7 +45,7 @@ public class WebXmlParameters {
     public static final String DEFAULT_ORDER_RIGHT_GLYPHICON = "glyphicon glyphicon-chevron-right";
 
     public static final String CTX_PARAM_MAX_LENGTH_TEXT = "org.butterfaces.maxLengthText";
-    public static final String DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT = "{0} of {1} characters";
+    public static final String DEFAULT_CTX_PARAM_MAX_LENGTH_TEXT = "{0} of {1} characters left";
 
     public static final String CTX_PARAM_NO_ENTRIES_TEXT = "org.butterfaces.noEntriesText";
     public static final String DEFAULT_CTX_PARAM_NO_ENTRIES_TEXT = "No matching entries...";
