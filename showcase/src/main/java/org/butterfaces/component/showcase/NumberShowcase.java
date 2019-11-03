@@ -4,10 +4,6 @@ import org.butterfaces.component.showcase.example.AbstractCodeExample;
 import org.butterfaces.component.showcase.example.XhtmlCodeExample;
 import org.butterfaces.component.showcase.type.StyleClass;
 import org.butterfaces.util.StringUtils;
-import org.butterfaces.component.showcase.example.AbstractCodeExample;
-import org.butterfaces.component.showcase.example.XhtmlCodeExample;
-import org.butterfaces.component.showcase.type.StyleClass;
-import org.butterfaces.util.StringUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
