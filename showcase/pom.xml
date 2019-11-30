@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.butterfaces</groupId>
         <artifactId>butterfaces</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>showcase</artifactId>
@@ -20,7 +20,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-validator.version>1.6</commons-validator.version>
 
-        <docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -97,33 +97,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
-                <configuration>
-                    <imageName>butterfaces/showcase</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <serverId>docker-hub</serverId>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}-thorntail.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
             <id>showcase-with-thorntail-in-docker</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>io.thorntail</groupId>
@@ -155,33 +137,54 @@
                     </plugin>
                     <plugin>
                         <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${docker-maven-plugin.version}</version>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>${dockerfile-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>build-docker-image</id>
+                                <id>build-and-tag-latest</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>tag-version</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>${project.version}</tag>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-latest</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>latest</tag>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-version</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>${project.version}</tag>
+                                </configuration>
+                            </execution>
                         </executions>
                         <configuration>
-                            <imageName>butterfaces/showcase</imageName>
-                            <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                            <serverId>docker-hub</serverId>
-                            <pushImage>true</pushImage>
-                            <imageTags>
-                                <imageTag>${project.version}</imageTag>
-                                <imageTag>latest</imageTag>
-                            </imageTags>
-                            <resources>
-                                <resource>
-                                    <targetPath>/</targetPath>
-                                    <directory>${project.build.directory}</directory>
-                                    <include>${project.build.finalName}-thorntail.jar</include>
-                                </resource>
-                            </resources>
+                            <repository>butterfaces/showcase</repository>
+                            <dockerfile>src/main/docker/Dockerfile</dockerfile>
+                            <buildArgs>
+                                <JAR_FILE>${project.build.finalName}-thorntail.jar</JAR_FILE>
+                            </buildArgs>
+                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                         </configuration>
                     </plugin>
                 </plugins>

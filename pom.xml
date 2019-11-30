@@ -4,7 +4,7 @@
 
     <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.2.1-SNAPSHOT</version>
+    <version>3.3.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -75,7 +75,7 @@
 
         <!-- testing -->
         <junit-jupiter.version>5.5.2</junit-jupiter.version>
-        <mockito.version>3.1.0</mockito.version>
+        <mockito.version>3.2.0</mockito.version>
         <assertj-core.version>3.14.0</assertj-core.version>
     </properties>
 
