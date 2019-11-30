@@ -48,7 +48,7 @@
     "showdown": "1.9.1",
     "markdown": "0.5.0",
     "to-markdown": "3.1.1",
-    "mustache": "3.0.1",
+    "mustache": "3.1.0",
     "trivial-components": "0.1.20",
     "jquery-ui": "1.12.1",
     "glyphicons-only-bootstrap": "1.0.1"
