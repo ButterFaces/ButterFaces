@@ -369,7 +369,7 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(gulp.dest(paths.destination.bundle_js));
 
     return merge(buildButterFacesOnlyBundle, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
-})
+});
 
 gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
     var thirdPartyBundle = gulp.src([
