@@ -5,21 +5,13 @@ import org.butterfaces.component.html.InputComponentFacet;
 import org.butterfaces.component.html.feature.Label;
 import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Tooltip;
-import org.butterfaces.component.html.feature.Label;
-import org.butterfaces.component.html.feature.Readonly;
-import org.butterfaces.component.html.feature.Tooltip;
 import org.butterfaces.component.html.text.validator.DefaultNumberValidator;
 
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 import java.util.Collections;
 import java.util.List;
 
