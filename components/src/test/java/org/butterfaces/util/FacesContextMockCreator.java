@@ -31,7 +31,7 @@ public class FacesContextMockCreator {
         when(facesContextMock.getApplication()).thenReturn(mock(Application.class));
         when(facesContextMock.getRenderKit()).thenReturn(renderKitMock);
         when(facesContextMock.getResponseWriter()).thenReturn(mock(ResponseWriter.class));
-        when(facesContextMock.getViewRoot()).thenReturn(new UIViewRoot()); // mock is no support, because can not stub createUniqueId()
+        when(facesContextMock.getViewRoot()).thenReturn(mock(UIViewRoot.class));
         when(facesContextMock.getClientIdsWithMessages()).thenReturn(Collections.<String>emptyIterator());
 
         try {
