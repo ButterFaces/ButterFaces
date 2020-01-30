@@ -1,6 +1,6 @@
 package org.butterfaces.resolver;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -44,7 +44,7 @@ class WebXmlParametersTest {
     @Mock
     private ExternalContext overriddenValueExternalContext;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMocks(this);
 
