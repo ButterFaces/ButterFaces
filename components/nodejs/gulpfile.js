@@ -15,6 +15,11 @@ const cleanCSS = require("gulp-clean-css");
 const autoprefixer = require("autoprefixer");
 const multipipe = require("multipipe");
 const mirror = require("gulp-mirror");
+const ts = require("gulp-typescript");
+const uglify = require("gulp-uglify");
+const UglifyJS = require("uglify-js");
+const gzip = require("gulp-gzip");
+const stripDebug = require("gulp-strip-debug");
 
 // PATHS ===============================================================================
 
@@ -178,7 +183,30 @@ const compileAndCopyScssFiles = () => {
         .pipe(dest(paths.destination.css));
 };
 
+const compileTypescriptToBundle = () => {
+    const tsResult = src(paths.source.typescripts)
+        .pipe(sourcemaps.init())
+        .pipe(ts({
+            noImplicitAny: false,
+            target: "es5"
+        }));
+
+    return tsResult.js
+        .pipe(concat("butterfaces-ts-bundle.js"))
+        .pipe(stripDebug())
+        .pipe(mirror(
+            multipipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                uglify()
+            )
+        ))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
 // PUBLIC TASKS ===============================================================================
 
 exports.cleanDist = cleanDist;
-exports.default = series(copyResources, compileAndCopyScssFiles);
+exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle));
