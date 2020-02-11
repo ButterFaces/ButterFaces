@@ -13,9 +13,9 @@
     <name>ButterFaces components</name>
 
     <properties>
-        <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
         <frontend-maven-plugin.nodeVersion>v13.7.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>6.13.6</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.npmVersion>6.13.7</frontend-maven-plugin.npmVersion>
 
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
     </properties>
@@ -91,7 +91,7 @@
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>clean</arguments>
+                                    <arguments>cleanDestinations</arguments>
                                 </configuration>
                             </execution>
                             <execution>
