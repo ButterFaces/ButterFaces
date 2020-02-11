@@ -89,7 +89,7 @@ const paths = {
 
 // TASK FUNCTIONS ===========================================================================
 
-const cleanDist = () => {
+const cleanDestinations = () => {
     return src([
         paths.destination.root,
         paths.destination.css,
@@ -412,7 +412,22 @@ const bundleDevThirdPartyBootstrap = () => {
 
 const createDevAndProdBundles = parallel(bundleButterFacesOnly, bundleButterFacesWithJQuery, bundleButterFacesWithBootstrap, bundleButterFacesWithBootstrapAndJQuery, bundleDevThirdParty, bundleDevThirdPartyJQuery, bundleDevThirdPartyBootstrap);
 
+const zipResourcesAndBundles = () => {
+    return src([
+        paths.destination.css + "/**/*",
+        paths.destination.js + "/**/*",
+        paths.destination.bundle_js + "/**/*",
+        paths.destination.bundle_dev_js + "/**/*",
+        "!" + paths.destination.css + "/**/*.gz",
+        "!" + paths.destination.js + "/**/*.gz",
+        "!" + paths.destination.bundle_js + "/**/*.gz",
+        "!" + paths.destination.bundle_dev_js + "/**/*.gz"
+    ], {base: "."})
+        .pipe(gzip())
+        .pipe(dest("."));
+};
+
 // PUBLIC TASKS ===============================================================================
 
-exports.cleanDist = cleanDist;
-exports.default = series(copyResources, compileResources, createDevAndProdBundles);
+exports.cleanDestinations = cleanDestinations;
+exports.default = series(copyResources, compileResources, createDevAndProdBundles, zipResourcesAndBundles);
