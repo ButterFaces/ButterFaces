@@ -247,7 +247,172 @@ const buildJavascriptComponentsBundle = () => {
 
 const compileResources = parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles, buildJavascriptComponentsBundle);
 
+const bundleButterFacesOnly = () => {
+    return src([
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/showdown.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
+        paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
+        paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .pipe(concat("butterfaces-all-bundle.min.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
+const bundleButterFacesWithJQuery = () => {
+    return src([
+        paths.destination.npm + "/jquery.min.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/showdown.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
+        paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
+        paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .pipe(concat("butterfaces-all-with-jquery-bundle.min.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
+const bundleButterFacesWithBootstrap = () => {
+    return src([
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/showdown.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
+        paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
+        paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .pipe(concat("butterfaces-all-with-bootstrap-bundle.min.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
+const bundleButterFacesWithBootstrapAndJQuery = () => {
+    return src([
+        paths.destination.npm + "/jquery.min.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/showdown.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js",
+        paths.destination.bundle_js + "/butterfaces-ts-bundle.min.js",
+        paths.destination.bundle_js + "/butterfaces-js-bundle.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-all-with-jquery-and-bootstrap-bundle.min.js"))
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
+const bundleDevThirdParty = () => {
+    return src([
+        paths.destination.npm + "/prettify.js",
+        paths.destination.npm + "/moment-with-locales.js",
+        paths.destination.npm + "/moment-timezone.min.js",
+        paths.destination.npm + "/tempusdominus-core.js",
+        paths.destination.npm + "/tempusdominus-bootstrap-4.js",
+        paths.destination.npm + "/jquery.inputmask.bundle.js",
+        paths.destination.npm + "/version.js",
+        paths.destination.npm + "/position.js",
+        paths.destination.npm + "/showdown.js",
+        paths.destination.npm + "/markdown.js",
+        paths.destination.npm + "/to-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.js",
+        paths.destination.npm + "/bootstrap-markdown.*.js",
+        paths.destination.npm + "/mustache.min.js",
+        paths.destination.npm + "/trivial-components.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
+
+const bundleDevThirdPartyJQuery = () => {
+    return src([
+        paths.destination.npm + "/jquery.min.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party-jquery.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
+
+const bundleDevThirdPartyBootstrap = () => {
+    return src([
+        paths.destination.npm + "/popper.js",
+        paths.destination.npm + "/bootstrap.js"
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-third-party-bootstrap.js"))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
+
+const createDevAndProdBundles = parallel(bundleButterFacesOnly, bundleButterFacesWithJQuery, bundleButterFacesWithBootstrap, bundleButterFacesWithBootstrapAndJQuery, bundleDevThirdParty, bundleDevThirdPartyJQuery, bundleDevThirdPartyBootstrap);
+
 // PUBLIC TASKS ===============================================================================
 
 exports.cleanDist = cleanDist;
-exports.default = series(copyResources, compileResources);
+exports.default = series(copyResources, compileResources, createDevAndProdBundles);
