@@ -178,6 +178,7 @@ gulp.task("typescript:lint", function () {
 });
 
 gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
+    // Minify and strip debug and build bundle file
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
@@ -201,6 +202,7 @@ gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
 });
 
 gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
+    // for development usage
     var tsResult = gulp.src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
@@ -222,6 +224,7 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
 });
 
 gulp.task("sass:compile", ["npm:copyDependenciesToDist"], function () {
+    // Compile sass, rename it to .min and minify them and copy to paths.destination.css
     return gulp.src([paths.source.sass])
         .pipe(sourcemaps.init())
         .pipe(sass())
@@ -258,6 +261,12 @@ gulp.task("javascript:buildComponentsBundle", function () {
 gulp.task("compileResources", ["sass:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
 
 gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
+    // build 4 bundles:
+    // butterfaces only
+    // butterfaces + jquery
+    // butterfaces + bootstrap
+    // butterfaces + jquery + bootstrap
+
     var buildButterFacesOnlyBundle = gulp.src([
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
@@ -372,6 +381,8 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
 });
 
 gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
+    // concat all third party java script resources and put it to paths.destination.bundle_dev_js
+    // build all bundles without butterfaces stuff
     var thirdPartyBundle = gulp.src([
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
