@@ -168,7 +168,7 @@ const compileAndCopyScssFiles = () => {
     return src([paths.source.sass])
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(postcss([autoprefixer({browsers: ["> 2%"]})]))
+        .pipe(postcss([autoprefixer()])) // supported browsers configured in .browserslistrc
         .pipe(mirror(
             multipipe(
                 rename(function (path) {
