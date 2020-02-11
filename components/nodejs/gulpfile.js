@@ -206,7 +206,29 @@ const compileTypescriptToBundle = () => {
         .pipe(dest(paths.destination.bundle_js));
 };
 
+const compileTypescriptToSingleFiles = () => {
+    // for development usage
+    const tsResult = src(paths.source.typescripts)
+        .pipe(sourcemaps.init())
+        .pipe(ts({
+            noImplicitAny: false,
+            target: "es5"
+        }));
+
+    return tsResult.js
+        .pipe(mirror(
+            multipipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                uglify()
+            )
+        ))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.js));
+};
+
 // PUBLIC TASKS ===============================================================================
 
 exports.cleanDist = cleanDist;
-exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle));
+exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles));
