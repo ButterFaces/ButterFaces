@@ -245,7 +245,9 @@ const buildJavascriptComponentsBundle = () => {
         .pipe(dest(paths.destination.bundle_js));
 };
 
+const compileResources = parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles, buildJavascriptComponentsBundle);
+
 // PUBLIC TASKS ===============================================================================
 
 exports.cleanDist = cleanDist;
-exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles, buildJavascriptComponentsBundle));
+exports.default = series(copyResources, compileResources);
