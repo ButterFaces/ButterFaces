@@ -5,7 +5,6 @@
 
 const {src, dest, parallel, series} = require('gulp');
 const clean = require('gulp-clean');
-const debug = require('gulp-debug');
 const concat = require('gulp-concat');
 const rename = require("gulp-rename");
 const sourcemaps = require("gulp-sourcemaps");
@@ -17,7 +16,6 @@ const multipipe = require("multipipe");
 const mirror = require("gulp-mirror");
 const ts = require("gulp-typescript");
 const uglify = require("gulp-uglify");
-const UglifyJS = require("uglify-js");
 const gzip = require("gulp-gzip");
 const stripDebug = require("gulp-strip-debug");
 

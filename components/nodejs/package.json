@@ -62,8 +62,6 @@
     "gulp-clean": "0.4.0",
     "gulp-clean-css": "4.2.0",
     "gulp-concat": "2.6.1",
-    "gulp-csso": "4.0.1",
-    "gulp-debug": "4.0.0",
     "gulp-gzip": "1.4.2",
     "gulp-mirror": "1.0.0",
     "gulp-postcss": "8.0.0",
@@ -76,7 +74,6 @@
     "gulp-uglify": "3.0.2",
     "multipipe": "3.0.1",
     "rimraf": "3.0.2",
-    "typescript": "3.7.5",
-    "uglify-js": "3.7.7"
+    "typescript": "3.7.5"
   }
 }
