@@ -228,7 +228,24 @@ const compileTypescriptToSingleFiles = () => {
         .pipe(dest(paths.destination.js));
 };
 
+const buildJavascriptComponentsBundle = () => {
+    return src(paths.source.javascript)
+        .pipe(sourcemaps.init())
+        .pipe(concat("butterfaces-js-bundle.js"))
+        .pipe(stripDebug())
+        .pipe(mirror(
+            multipipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                uglify()
+            )
+        ))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.bundle_js));
+};
+
 // PUBLIC TASKS ===============================================================================
 
 exports.cleanDist = cleanDist;
-exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles));
+exports.default = series(copyResources, parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles, buildJavascriptComponentsBundle));
