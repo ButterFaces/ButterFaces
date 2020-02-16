@@ -1,0 +1,7 @@
+# Browsers that we support
+# for queries look at https://github.com/browserslist/browserslist#queries
+
+> 2%
+last 2 versions
+Firefox ESR
+not dead
