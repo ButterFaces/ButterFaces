@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/trivial-components/dist/js/bundle/trivial-components-global.d.ts"/>
+///<reference path="../../node_modules/trivial-components/dist/tsd/index.d.ts"/>
 ///<reference path="../../node_modules/@types/mustache/index.d.ts"/>
 
 namespace ButterFaces {
@@ -22,26 +22,30 @@ namespace ButterFaces {
         return new TrivialComponents.TrivialTagComboBox<ButterFacesTrivialEntry>($input, {
 
             autoComplete: options.autoComplete,
-            allowFreeText: true,
+            // TODO 267 migrate to selectionAcceptor
+            // allowFreeText: true,
             showTrigger: options.showTrigger,
-            distinct: options.distinct,
+            // TODO 267 couldn't find any usage in src in 0.1.20 -> just remove in migration?
+            // distinct: options.distinct,
             editingMode: options.editingMode,
             matchingOptions: {
                 matchingMode: "contains",
                 ignoreCase: true,
                 maxLevenshteinDistance: 0
             },
-
-            maxSelectedEntries: options.maxSelectedEntries,
+            // TODO 267 couldn't find any usage in src in 0.1.20 -> just remove in migration?
+            // maxSelectedEntries: options.maxSelectedEntries,
             selectedEntries: options.selectedEntries,
             freeTextSeparators: options.freeTextSeparators as any, // TODO remove this cast when trivial components is fixed
             entries: options.entries,
 
-            valueFunction: entries => {
-                return entries
-                    .map(entry => (entry as any).id != null ? (entry as any).id : (entry as any).title)
-                    .join(",");
-            },
+            // TODO 267 migrate to ?
+            // valueFunction: entries => {
+            //     return entries
+            //         .map(entry => (entry as any).id != null ? (entry as any).id : (entry as any).title)
+            //         .join(",");
+            // },
+
             freeTextEntryFactory: freeText => {
                 return {title: escapeHtml(freeText)};
             },
@@ -91,13 +95,17 @@ namespace ButterFaces {
             spinnerTemplate: options.spinnerTemplate,
             noEntriesTemplate: options.noEntriesTemplate,
             entries: options.entries,
-            queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
-                (entry: any, queryString: string, nodeDepth: number) => {
+            queryFunction: TrivialComponents.defaultTreeQueryFunctionFactory(
+                options.entries,
+                (entry: any, queryString: string) => {
                     // TODO remove null parameter after trivial component is fixed
                     let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null).length > 0;
                     let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null).length > 0;
                     return titleMatches || descriptionMatches;
-                })
+                },
+                "children",
+                "expanded"
+            )
         });
     }
 
@@ -152,33 +160,46 @@ namespace ButterFaces {
                                                   spinnerTemplate: string,
                                                   noEntriesTemplate: string,
                                                   entries: ButterFacesTrivialEntry[]
-                                              }): TrivialComponents.TrivialTreeComboBox<ButterFacesTrivialEntry> {
-        return new TrivialComponents.TrivialTreeComboBox<ButterFacesTrivialEntry>($input, {
-            allowFreeText: false,
-            entryToEditorTextFunction: entry => entry[options.inputTextProperty],
+                                              }): TrivialComponents.TrivialTreeBox<ButterFacesTrivialEntry> {
+        return new TrivialComponents.TrivialTreeBox<ButterFacesTrivialEntry>($input, {
+            // TODO 267 migrate to selectionAcceptor
+            // allowFreeText: true,
+
+            // TODO 267 migrate to ?
+            // entryToEditorTextFunction: entry => entry[options.inputTextProperty],
             entryRenderingFunction: (entry, depth) => Mustache.render(options.templates[Math.min(options.templates.length - 1, depth)], entry),
-            selectedEntryRenderingFunction: entry => {
-                if (!entry || (entry as any)._isEmptyEntry) {
-                    return options.emptyEntryTemplate || "";
-                } else if (options.selectedEntryTemplate) {
-                    return Mustache.render(options.selectedEntryTemplate, entry);
-                } else {
-                    return Mustache.render(options.templates[0], entry);
-                }
-            },
-            editingMode: options.editingMode,
-            showClearButton: options.showClearButton,
+
+            // TODO 267 migrate to ?
+            // selectedEntryRenderingFunction: entry => {
+            //     if (!entry || (entry as any)._isEmptyEntry) {
+            //         return options.emptyEntryTemplate || "";
+            //     } else if (options.selectedEntryTemplate) {
+            //         return Mustache.render(options.selectedEntryTemplate, entry);
+            //     } else {
+            //         return Mustache.render(options.templates[0], entry);
+            //     }
+            // },
+
+            // TODO 267 migrate to ?
+            // editingMode: options.editingMode,
+
+            // TODO 267 migrate to ?
+            // showClearButton: options.showClearButton,
             selectedEntry: options.selectedEntry,
             spinnerTemplate: options.spinnerTemplate,
             noEntriesTemplate: options.noEntriesTemplate,
             entries: options.entries,
-            queryFunction: TrivialComponents.customTreeQueryFunctionFactory(options.entries, "children", "expanded",
-                (entry: any, queryString: string, nodeDepth: number) => {
-                    // TODO remove null parameter after trivial component is fixed
-                    let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null).length > 0;
-                    let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null).length > 0;
-                    return titleMatches || descriptionMatches;
-                })
+
+            // TODO 267 migrate to lazyChildrenQueryFunction
+            // queryFunction: TrivialComponents.defaultTreeQueryFunctionFactory(
+            //     options.entries,
+            //     (entry: any, queryString: string, nodeDepth: number) => {
+            //         // TODO remove null parameter after trivial component is fixed
+            //         let titleMatches = entry.title && TrivialComponents.trivialMatch(entry.title, queryString, null).length > 0;
+            //         let descriptionMatches = entry.description && TrivialComponents.trivialMatch(entry.description, queryString, null).length > 0;
+            //         return titleMatches || descriptionMatches;
+            //     }, "children", "expanded"
+            // )
         });
     }
 
