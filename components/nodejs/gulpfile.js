@@ -1,36 +1,30 @@
-/*
- Recipes for using Gulp:
- https://github.com/gulpjs/gulp/tree/master/docs/recipes
- */
+// this may help on MacOS when gyp / xcode errors occure on "npm install":
+// https://github.com/schnerd/d3-scale-cluster/issues/7#issuecomment-550579897
 
-// DEPENDENCIES ===============================================================================
+// REQUIREMENTS ===============================================================================
 
-var gulp = require("gulp");
-var merge = require("merge-stream");
-var ts = require("gulp-typescript");
-var concat = require("gulp-concat");
-var sourcemaps = require("gulp-sourcemaps");
-var del = require("del");
-var pipe = require("multipipe");
-var sass = require("gulp-sass");
-var mirror = require("gulp-mirror");
-var rename = require("gulp-rename");
-var postcss = require("gulp-postcss");
-var autoprefixer = require("autoprefixer");
-var tslint = require("gulp-tslint");
-var uglify = require("gulp-uglify");
-var UglifyJS = require("uglify-js");
-var cleanCSS = require("gulp-clean-css");
-var gzip = require("gulp-gzip");
-var stripDebug = require("gulp-strip-debug");
-var sizereport = require("gulp-sizereport");
+const {src, dest, parallel, series} = require('gulp');
+const clean = require('gulp-clean');
+const concat = require('gulp-concat');
+const rename = require("gulp-rename");
+const sourcemaps = require("gulp-sourcemaps");
+const sass = require("gulp-sass");
+const postcss = require("gulp-postcss");
+const cleanCSS = require("gulp-clean-css");
+const autoprefixer = require("autoprefixer");
+const multipipe = require("multipipe");
+const mirror = require("gulp-mirror");
+const ts = require("gulp-typescript");
+const uglify = require("gulp-uglify");
+const gzip = require("gulp-gzip");
+const stripDebug = require("gulp-strip-debug");
 
-// CONSTANTS ===============================================================================
+// PATHS ===============================================================================
 
-var RESSOURCE_DIR = "../src/main/resources/META-INF/resources";
-var NODEJS_RESSOURCE_DIR = "./src";
+const RESSOURCE_DIR = "../src/main/resources/META-INF/resources";
+const NODEJS_RESSOURCE_DIR = "./src";
 
-var paths = {
+const paths = {
     npm: {
         jquery: "./node_modules/jquery/dist/**/*.{js,map}",
         jqueryinputmask: "./node_modules/inputmask/dist/jquery.inputmask.bundle.js",
@@ -91,23 +85,23 @@ var paths = {
     }
 };
 
-// DIST GOALS ===============================================================================
+// TASK FUNCTIONS ===========================================================================
 
-gulp.task("clean", function (cb) {
-    del([
-            paths.destination.root,
-            paths.destination.css,
-            paths.destination.js,
-            paths.destination.npm,
-            paths.destination.npm_font,
-            paths.destination.bundle_js,
-            paths.destination.bundle_dev_js
-        ],
-        {force: true}, cb);
-});
+const cleanDestinations = () => {
+    return src([
+        paths.destination.root,
+        paths.destination.css,
+        paths.destination.js,
+        paths.destination.bundle_js,
+        paths.destination.bundle_dev_js,
+        paths.destination.npm,
+        paths.destination.npm_font
+    ], {read: false, allowEmpty: true})
+        .pipe(clean({force: true}));
+};
 
-gulp.task("npm:copyDependenciesToDist", function () {
-    var copyDependenciesToDist = gulp.src([
+const copyNpmDependenciesToDist = () => {
+    return src([
         paths.npm.jquery,
         paths.npm.jqueryinputmask,
         paths.npm.jquery_ui_position,
@@ -150,35 +144,45 @@ gulp.task("npm:copyDependenciesToDist", function () {
         paths.npm.tempusdominus_bootstrap_css,
         paths.npm.tempusdominus_bootstrap_js
     ])
-        .pipe(gulp.dest(paths.destination.npm));
+        .pipe(dest(paths.destination.npm));
+};
 
-    var copyGlyphiconsToDist = gulp.src([
+const copyGlyphiconsToDist = () => {
+    return src([
         paths.npm.glyphicons_css
     ])
         .pipe(rename("glyphicons.css"))
-        .pipe(gulp.dest(paths.destination.npm));
+        .pipe(dest(paths.destination.npm));
+};
 
-    var copyFontDependenciesToDist = gulp.src([
+const copyFontDependenciesToDist = () => {
+    return src([
         paths.npm.glyphicon_fonts
     ])
-        .pipe(gulp.dest(paths.destination.npm_font));
+        .pipe(dest(paths.destination.npm_font));
+};
 
-    return merge(copyDependenciesToDist, copyGlyphiconsToDist, copyFontDependenciesToDist);
-});
+const copyResources = parallel(copyNpmDependenciesToDist, copyGlyphiconsToDist, copyFontDependenciesToDist);
 
-gulp.task("typescript:lint", function () {
-    return gulp.src([
-        paths.source.typescripts,
-        "!" + paths.destination.ts_external_definitions + "/**/*.ts"
-    ])
-        .pipe(tslint({
-            formatter: "verbose"
-        }))
-        .pipe(tslint.report())
-});
+const compileAndCopyScssFiles = () => {
+    return src([paths.source.sass])
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(postcss([autoprefixer()])) // supported browsers configured in .browserslistrc
+        .pipe(mirror(
+            multipipe(
+                rename(function (path) {
+                    path.basename += ".min";
+                }),
+                cleanCSS()
+            )
+        ))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.destination.css));
+};
 
-gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
-    var tsResult = gulp.src(paths.source.typescripts)
+const compileTypescriptToBundle = () => {
+    const tsResult = src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
             noImplicitAny: false,
@@ -189,7 +193,7 @@ gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
         .pipe(concat("butterfaces-ts-bundle.js"))
         .pipe(stripDebug())
         .pipe(mirror(
-            pipe(
+            multipipe(
                 rename(function (path) {
                     path.basename += ".min";
                 }),
@@ -197,11 +201,12 @@ gulp.task("typescript:compileToBundle", ["typescript:lint"], function () {
             )
         ))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
-});
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
-    var tsResult = gulp.src(paths.source.typescripts)
+const compileTypescriptToSingleFiles = () => {
+    // for development usage
+    const tsResult = src(paths.source.typescripts)
         .pipe(sourcemaps.init())
         .pipe(ts({
             noImplicitAny: false,
@@ -210,7 +215,7 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
 
     return tsResult.js
         .pipe(mirror(
-            pipe(
+            multipipe(
                 rename(function (path) {
                     path.basename += ".min";
                 }),
@@ -218,33 +223,16 @@ gulp.task("typescript:compileToSingleFiles", ["typescript:lint"], function () {
             )
         ))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.js));
-});
+        .pipe(dest(paths.destination.js));
+};
 
-gulp.task("sass:compile", ["npm:copyDependenciesToDist"], function () {
-    return gulp.src([paths.source.sass])
-        .pipe(sourcemaps.init())
-        .pipe(sass())
-        .pipe(postcss([autoprefixer({browsers: ["> 2%"]})]))
-        .pipe(mirror(
-            pipe(
-                rename(function (path) {
-                    path.basename += ".min";
-                }),
-                cleanCSS()
-            )
-        ))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.css));
-});
-
-gulp.task("javascript:buildComponentsBundle", function () {
-    return gulp.src(paths.source.javascript)
+const buildJavascriptComponentsBundle = () => {
+    return src(paths.source.javascript)
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-js-bundle.js"))
         .pipe(stripDebug())
         .pipe(mirror(
-            pipe(
+            multipipe(
                 rename(function (path) {
                     path.basename += ".min";
                 }),
@@ -252,13 +240,13 @@ gulp.task("javascript:buildComponentsBundle", function () {
             )
         ))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
-});
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-gulp.task("compileResources", ["sass:compile", "typescript:compileToBundle", "typescript:compileToSingleFiles", "javascript:buildComponentsBundle"]);
+const compileResources = parallel(compileAndCopyScssFiles, compileTypescriptToBundle, compileTypescriptToSingleFiles, buildJavascriptComponentsBundle);
 
-gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
-    var buildButterFacesOnlyBundle = gulp.src([
+const bundleButterFacesOnly = () => {
+    return src([
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
         paths.destination.npm + "/moment-timezone.min.js",
@@ -282,9 +270,11 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(uglify())
         .pipe(concat("butterfaces-all-bundle.min.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-    var buildAllWithJQueryBundle = gulp.src([
+const bundleButterFacesWithJQuery = () => {
+    return src([
         paths.destination.npm + "/jquery.min.js",
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
@@ -309,9 +299,11 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-jquery-bundle.min.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-    var buildAllWithBootstrapBundle = gulp.src([
+const bundleButterFacesWithBootstrap = () => {
+    return src([
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
         paths.destination.npm + "/moment-timezone.min.js",
@@ -337,9 +329,11 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(uglify())
         .pipe(concat("butterfaces-all-with-bootstrap-bundle.min.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-    var buildAllWithJQueryAndBootstrapBundle = gulp.src([
+const bundleButterFacesWithBootstrapAndJQuery = () => {
+    return src([
         paths.destination.npm + "/jquery.min.js",
         paths.destination.npm + "/moment-with-locales.js",
         paths.destination.npm + "/moment-timezone.min.js",
@@ -366,13 +360,11 @@ gulp.task("javascript:buildAllBundle", ["compileResources"], function () {
         .pipe(stripDebug())
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_js));
+        .pipe(dest(paths.destination.bundle_js));
+};
 
-    return merge(buildButterFacesOnlyBundle, buildAllWithJQueryBundle, buildAllWithBootstrapBundle, buildAllWithJQueryAndBootstrapBundle);
-})
-
-gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
-    var thirdPartyBundle = gulp.src([
+const bundleDevThirdParty = () => {
+    return src([
         paths.destination.npm + "/prettify.js",
         paths.destination.npm + "/moment-with-locales.js",
         paths.destination.npm + "/moment-timezone.min.js",
@@ -392,30 +384,34 @@ gulp.task("javascript:buildAllDevBundle", ["compileResources"], function () {
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
 
-    var thirdPartyJQueryBundle = gulp.src([
+const bundleDevThirdPartyJQuery = () => {
+    return src([
         paths.destination.npm + "/jquery.min.js"
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party-jquery.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
 
-    var thirdPartyBootstrapBundle = gulp.src([
+const bundleDevThirdPartyBootstrap = () => {
+    return src([
         paths.destination.npm + "/popper.js",
         paths.destination.npm + "/bootstrap.js"
     ])
         .pipe(sourcemaps.init())
         .pipe(concat("butterfaces-third-party-bootstrap.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.destination.bundle_dev_js));
+        .pipe(dest(paths.destination.bundle_dev_js));
+};
 
-    return merge(thirdPartyBundle, thirdPartyJQueryBundle, thirdPartyBootstrapBundle);
-});
+const createDevAndProdBundles = parallel(bundleButterFacesOnly, bundleButterFacesWithJQuery, bundleButterFacesWithBootstrap, bundleButterFacesWithBootstrapAndJQuery, bundleDevThirdParty, bundleDevThirdPartyJQuery, bundleDevThirdPartyBootstrap);
 
-gulp.task("dist:zip", ["javascript:buildAllBundle", "javascript:buildAllDevBundle"], function () {
-    return gulp.src([
+const zipResourcesAndBundles = () => {
+    return src([
         paths.destination.css + "/**/*",
         paths.destination.js + "/**/*",
         paths.destination.bundle_js + "/**/*",
@@ -426,38 +422,10 @@ gulp.task("dist:zip", ["javascript:buildAllBundle", "javascript:buildAllDevBundl
         "!" + paths.destination.bundle_dev_js + "/**/*.gz"
     ], {base: "."})
         .pipe(gzip())
-        .pipe(gulp.dest("."));
-});
+        .pipe(dest("."));
+};
 
-gulp.task("sizereport:css", function () {
-    return gulp.src([
-        paths.destination.css + "/*.css",
-        "!" + paths.destination.css + "/*.sourcemaps.css"
-    ])
-        .pipe(sizereport({gzip: true}));
-});
+// PUBLIC TASKS ===============================================================================
 
-gulp.task("sizereport:js", function () {
-    return gulp.src([
-        paths.destination.js + "/*.js",
-        "!" + paths.destination.js + "/*.min.js",
-    ])
-        .pipe(sizereport({
-            gzip: true,
-            minifier: function (contents, filepath) {
-                if (filepath.match(/\.min\./g)) {
-                    return contents;
-                }
-                return UglifyJS.minify(contents, {fromString: true}).code;
-            }
-        }));
-});
-
-// MAIN GOALS ===============================================================================
-
-gulp.task("dist:build", ["compileResources", "dist:zip"]);
-
-gulp.task("sizereports", ["sizereport:js", "sizereport:css", "dist:build"]);
-
-// gulp.task("default", ["dist:build", "sizereports"]);
-gulp.task("default", ["dist:build"]);
+exports.cleanDestinations = cleanDestinations;
+exports.default = series(copyResources, compileResources, createDevAndProdBundles, zipResourcesAndBundles);

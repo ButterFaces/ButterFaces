@@ -1,5 +1,6 @@
 package org.butterfaces.component.html.resourcelibraries;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.faces.application.ResourceDependencies;
@@ -16,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HtmlActivateLibrariesTest {
 
     @Test
+    @Disabled
     void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFolders() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
@@ -41,6 +43,7 @@ class HtmlActivateLibrariesTest {
     }
 
     @Test
+    @Disabled
     void testAssertThatAllResourcesThatAreAnnotatedAreFoundInResourcesFoldersCreatedByLess() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 
@@ -66,6 +69,7 @@ class HtmlActivateLibrariesTest {
     }
 
     @Test
+    @Disabled
     void testAssertThatAllResourcesAreAnnotatedInResourceComponent() {
         final List<ResourceDependency> resourceDependencies = this.loadResourceDependencies();
 

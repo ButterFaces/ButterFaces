@@ -2,7 +2,7 @@ package org.butterfaces.component.renderkit.html_basic.text.part;
 
 import org.butterfaces.model.tree.DefaultNodeImpl;
 import org.butterfaces.model.tree.Node;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -14,7 +14,7 @@ class TrivialComponentsEntriesNodePartRendererTest {
     private List<Node> nodeList;
     private Map<Integer, Node> nodeMap;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         nodeList = new ArrayList<>();
         nodeList.add(createNode("unit-test-node-name-1", "unit-test-node-description-1"));

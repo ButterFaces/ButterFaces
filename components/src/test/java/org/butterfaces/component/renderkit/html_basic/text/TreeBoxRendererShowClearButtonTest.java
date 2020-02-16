@@ -2,7 +2,7 @@ package org.butterfaces.component.renderkit.html_basic.text;
 
 import org.butterfaces.component.html.text.HtmlTreeBox;
 import org.butterfaces.resolver.WebXmlParameters;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,7 +20,7 @@ public class TreeBoxRendererShowClearButtonTest {
     @Mock
     private HtmlTreeBox htmlTreeBoxMock;
 
-    @BeforeAll
+    @BeforeEach
     public void init() {
         renderer = new TreeBoxRenderer();
         MockitoAnnotations.initMocks(this);

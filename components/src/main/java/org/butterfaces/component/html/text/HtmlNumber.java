@@ -5,32 +5,25 @@ import org.butterfaces.component.html.InputComponentFacet;
 import org.butterfaces.component.html.feature.Label;
 import org.butterfaces.component.html.feature.Readonly;
 import org.butterfaces.component.html.feature.Tooltip;
-import org.butterfaces.component.html.feature.Label;
-import org.butterfaces.component.html.feature.Readonly;
-import org.butterfaces.component.html.feature.Tooltip;
+import org.butterfaces.component.html.text.validator.DefaultNumberValidator;
 
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
 import java.util.Collections;
 import java.util.List;
 
 @ResourceDependencies({
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-number.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
-        @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
+    @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-default.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-css", name = "butterfaces-number.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-css", name = "dist-butterfaces-bootstrap.css", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-jquery.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-dist-bundle-dev-js", name = "butterfaces-third-party-bootstrap.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-js", name = "butterfaces-01-baseClass.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-js", name = "butterfaces-tooltip.jquery.js", target = "head"),
+    @ResourceDependency(library = "butterfaces-js", name = "butterfaces-numberSpinner.jquery.js", target = "head")
 })
 @FacesComponent(HtmlNumber.COMPONENT_TYPE)
 public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Tooltip, Label, Readonly {
@@ -51,24 +44,7 @@ public class HtmlNumber extends HtmlInputText implements HtmlInputComponent, Too
         super();
         this.setRendererType(RENDERER_TYPE);
 
-        addValidator(new Validator() {
-            @Override
-            public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-                try {
-                    final long longValue = Long.parseLong(value.toString());
-
-                    if (getMin() != null && !"".equals(getMin()) && longValue < Integer.valueOf(getMin())) {
-                        throw new ValidatorException(new FacesMessage("Number is to small", String.format("%s is to small", value)));
-                    }
-
-                    if (getMax() != null && !"".equals(getMax()) && longValue > Integer.valueOf(getMax())) {
-                        throw new ValidatorException(new FacesMessage("Number is to big", String.format("%s is to big", value)));
-                    }
-                } catch (NumberFormatException e) {
-                    throw new ValidatorException(new FacesMessage("No number", String.format("%s is no number", value)));
-                }
-            }
-        });
+        addValidator(new DefaultNumberValidator());
     }
 
     @Override

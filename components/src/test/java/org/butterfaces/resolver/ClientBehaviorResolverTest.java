@@ -1,6 +1,6 @@
 package org.butterfaces.resolver;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.faces.component.UIComponentBase;
@@ -27,7 +27,7 @@ class ClientBehaviorResolverTest {
 
     private Map<String, List<ClientBehavior>> clientBehaviorsMock;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMocks(this);
 
