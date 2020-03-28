@@ -421,7 +421,7 @@ const zipResourcesAndBundles = () => {
         "!" + paths.destination.bundle_js + "/**/*.gz",
         "!" + paths.destination.bundle_dev_js + "/**/*.gz"
     ], {base: "."})
-        .pipe(gzip())
+        .pipe(gzip({ gzipOptions: { level: 9 } }))
         .pipe(dest("."));
 };
 
