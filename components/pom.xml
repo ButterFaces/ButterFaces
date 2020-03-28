@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.butterfaces</groupId>
         <artifactId>butterfaces</artifactId>
-        <version>3.3.3-SNAPSHOT</version>
+        <version>3.3.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>components</artifactId>
@@ -14,7 +14,7 @@
 
     <properties>
         <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v13.7.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.nodeVersion>v13.11.0</frontend-maven-plugin.nodeVersion>
         <frontend-maven-plugin.npmVersion>6.13.7</frontend-maven-plugin.npmVersion>
 
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>

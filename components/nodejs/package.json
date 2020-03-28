@@ -74,6 +74,6 @@
     "gulp-uglify": "3.0.2",
     "multipipe": "3.0.1",
     "rimraf": "3.0.2",
-    "typescript": "3.7.5"
+    "typescript": "3.8.3"
   }
 }
