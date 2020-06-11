@@ -15,7 +15,7 @@
 
     <properties>
         <!-- wildfly swarm -->
-        <io.thorntail>2.6.0.Final</io.thorntail>
+        <io.thorntail>2.7.0.Final</io.thorntail>
 
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-validator.version>1.6</commons-validator.version>
