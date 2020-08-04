@@ -4,7 +4,7 @@
 
     <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.4.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
@@ -75,9 +75,9 @@
 
         <!-- testing -->
         <junit-jupiter.version>5.6.2</junit-jupiter.version>
-        <mockito.version>3.3.3</mockito.version>
-        <assertj-core.version>3.15.0</assertj-core.version>
-        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
+        <mockito.version>3.4.6</mockito.version>
+        <assertj-core.version>3.16.1</assertj-core.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     </properties>
 
     <build>
