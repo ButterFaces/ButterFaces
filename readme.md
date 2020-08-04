@@ -1,4 +1,7 @@
-# ButterFaces a smart JSF framework [![Build Status](https://travis-ci.org/ButterFaces/ButterFaces.svg?branch=master)](https://travis-ci.org/ButterFaces/ButterFaces)
+# ButterFaces a smart JSF framework
+
+[![Build Status](https://travis-ci.org/ButterFaces/ButterFaces.svg?branch=development)](https://travis-ci.org/ButterFaces/ButterFaces)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is ButterFaces?
 

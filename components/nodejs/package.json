@@ -35,7 +35,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ButterFaces/ButterFaces",
   "dependencies": {
-    "bootstrap": "4.5.0",
+    "bootstrap": "4.5.1",
     "bootstrap-markdown": "2.10.0",
     "glyphicons-only-bootstrap": "1.0.1",
     "google-code-prettify": "1.0.5",
@@ -43,8 +43,8 @@
     "jquery": "3.5.1",
     "jquery-ui": "1.12.1",
     "markdown": "0.5.0",
-    "moment": "2.24.0",
-    "moment-timezone": "0.5.27",
+    "moment": "2.27.0",
+    "moment-timezone": "0.5.31",
     "mustache": "3.1.0",
     "popper.js": "1.16.1",
     "showdown": "1.9.1",
@@ -74,6 +74,6 @@
     "gulp-uglify": "3.0.2",
     "multipipe": "3.0.1",
     "rimraf": "3.0.2",
-    "typescript": "3.8.3"
+    "typescript": "3.9.7"
   }
 }
