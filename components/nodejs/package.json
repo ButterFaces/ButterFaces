@@ -43,7 +43,7 @@
     "jquery": "3.5.1",
     "jquery-ui": "1.12.1",
     "markdown": "0.5.0",
-    "moment": "2.24.0",
+    "moment": "2.27.0",
     "moment-timezone": "0.5.27",
     "mustache": "3.1.0",
     "popper.js": "1.16.1",
