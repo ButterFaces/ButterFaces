@@ -75,7 +75,7 @@
 
         <!-- testing -->
         <junit-jupiter.version>5.6.2</junit-jupiter.version>
-        <mockito.version>3.3.3</mockito.version>
+        <mockito.version>3.4.6</mockito.version>
         <assertj-core.version>3.16.1</assertj-core.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     </properties>
