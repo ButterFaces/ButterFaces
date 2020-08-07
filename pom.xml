@@ -4,7 +4,7 @@
 
     <groupId>org.butterfaces</groupId>
     <artifactId>butterfaces</artifactId>
-    <version>3.4.3-SNAPSHOT</version>
+    <version>3.4.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>ButterFaces</name>
