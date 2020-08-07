@@ -35,7 +35,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ButterFaces/ButterFaces",
   "dependencies": {
-    "bootstrap": "4.5.1",
+    "bootstrap": "4.5.2",
     "bootstrap-markdown": "2.10.0",
     "glyphicons-only-bootstrap": "1.0.1",
     "google-code-prettify": "1.0.5",
