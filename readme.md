@@ -1,6 +1,6 @@
 # ButterFaces a smart JSF framework
 
-[![Build Status](https://travis-ci.org/ButterFaces/ButterFaces.svg?branch=development)](https://travis-ci.org/ButterFaces/ButterFaces)
+![Java CI with Maven](https://github.com/ButterFaces/ButterFaces/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is ButterFaces?
