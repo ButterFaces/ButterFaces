@@ -14,8 +14,8 @@
 
     <properties>
         <frontend-maven-plugin.version>1.11.0</frontend-maven-plugin.version>
-        <frontend-maven-plugin.nodeVersion>v15.4.0</frontend-maven-plugin.nodeVersion>
-        <frontend-maven-plugin.npmVersion>7.0.15</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.nodeVersion>v14.15.3</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>6.14.10</frontend-maven-plugin.npmVersion>
 
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
     </properties>
