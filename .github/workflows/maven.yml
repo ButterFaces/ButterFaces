@@ -25,10 +25,10 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Compile java ${{ matrix.java }}
-        run: mvn clean compile
+        run: mvn clean compile -P '!nodejs-all' -P '!showcase-with-thorntails-in-docker'
 
       - name: Test java ${{ matrix.java }}
-        run: mvn test
+        run: mvn test -P '!nodejs-all' -P '!showcase-with-thorntails-in-docker'
 
       - name: Build java ${{ matrix.java }}
         run: mvn package -P '!nodejs-all' -P '!showcase-with-thorntails-in-docker'
