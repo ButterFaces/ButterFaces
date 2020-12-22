@@ -1,5 +1,5 @@
 {
-  "name": "ButterFaces",
+  "name": "butterfaces",
   "version": "3.0.0",
   "description": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
   "readme": "ButterFaces NodeJS to build css and javascript resource from less and typescript",
@@ -58,6 +58,7 @@
     "@types/jquery": "^3.5.5",
     "@types/mustache": "^4.1.0",
     "autoprefixer": "^10.1.0",
+    "postcss": "^8.2.1",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.3.0",
