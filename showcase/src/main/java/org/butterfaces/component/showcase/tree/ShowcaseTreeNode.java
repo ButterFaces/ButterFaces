@@ -7,7 +7,7 @@ public class ShowcaseTreeNode {
 
     private TreeIconType selectedIconType = TreeIconType.IMAGE;
 
-    private Node rootNode;
+    private final Node rootNode;
 
     public ShowcaseTreeNode() {
         final Node inbox = createNode("Inbox", "resources/images/arrow-down.png", "glyphicon-download", "43 unread");
@@ -36,7 +36,7 @@ public class ShowcaseTreeNode {
 
         rootNode = createNode("rootNode", "resources/images/folder.png", "glyphicon-folder-open", "Project X");
         rootNode.getSubNodes().add(mail);
-        rootNode.getSubNodes().add(createNode("Special Sign \"\'", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \"'"));
+        rootNode.getSubNodes().add(createNode("Special Sign \"'", "resources/images/folder.png", "glyphicon-folder-open", "Special Sign \"'"));
         rootNode.getSubNodes().add(createNode("Title </script>", "resources/images/folder.png", "glyphicon-folder-open", "Script end tag"));
     }
 
