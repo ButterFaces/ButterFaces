@@ -43,14 +43,14 @@
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "markdown": "0.5.0",
-    "moment": "2.27.0",
-    "moment-timezone": "0.5.31",
-    "mustache": "3.1.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
+    "mustache": "^4.1.0",
     "popper.js": "^1.16.1",
     "showdown": "^1.9.1",
     "tempusdominus-bootstrap-4": "^5.39.0",
     "tempusdominus-core": "^5.19.0",
-    "to-markdown": "3.1.1",
+    "to-markdown": "^3.1.1",
     "trivial-components": "0.1.20"
   },
   "devDependencies": {
