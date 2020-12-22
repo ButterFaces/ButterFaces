@@ -17,8 +17,8 @@
         <!-- wildfly swarm -->
         <io.thorntail>2.7.0.Final</io.thorntail>
 
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-validator.version>1.6</commons-validator.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-validator.version>1.7</commons-validator.version>
 
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     </properties>

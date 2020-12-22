@@ -23,7 +23,7 @@ public class TreeBoxRendererShowClearButtonTest {
     @BeforeEach
     public void init() {
         renderer = new TreeBoxRenderer();
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
