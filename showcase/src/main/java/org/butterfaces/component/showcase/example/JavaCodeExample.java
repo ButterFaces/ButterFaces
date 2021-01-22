@@ -114,7 +114,7 @@ public class JavaCodeExample extends AbstractCodeExample {
             stringBuilder.append("@ViewScoped\n@Named\n");
         }
         if (classAnnotation != null) {
-            stringBuilder.append(classAnnotation + "\n");
+            stringBuilder.append(classAnnotation).append("\n");
         }
     }
 

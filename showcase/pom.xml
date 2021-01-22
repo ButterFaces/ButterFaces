@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.butterfaces</groupId>
         <artifactId>butterfaces</artifactId>
-        <version>3.4.3-SNAPSHOT</version>
+        <version>3.5.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>showcase</artifactId>
@@ -14,11 +14,10 @@
     <name>ButterFaces showcase</name>
 
     <properties>
-        <!-- wildfly swarm -->
-        <io.thorntail>2.7.0.Final</io.thorntail>
+        <wildfly>21.0.1.Final</wildfly>
 
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-validator.version>1.6</commons-validator.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-validator.version>1.7</commons-validator.version>
 
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
     </properties>
@@ -102,39 +101,12 @@
 
     <profiles>
         <profile>
-            <id>showcase-with-thorntail-in-docker</id>
+            <id>showcase-in-docker</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>jsf</artifactId>
-                    <version>${io.thorntail}</version>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>cdi</artifactId>
-                    <version>${io.thorntail}</version>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>io.thorntail</groupId>
-                        <artifactId>thorntail-maven-plugin</artifactId>
-                        <version>${io.thorntail}</version>
-                        <configuration>
-                            <propertiesFile>${project.basedir}/src/main/resources/wildfly.properties</propertiesFile>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>package</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
@@ -182,7 +154,7 @@
                             <repository>butterfaces/showcase</repository>
                             <dockerfile>src/main/docker/Dockerfile</dockerfile>
                             <buildArgs>
-                                <JAR_FILE>${project.build.finalName}-thorntail.jar</JAR_FILE>
+                                <JAR_FILE>${project.build.finalName}.war</JAR_FILE>
                             </buildArgs>
                             <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                         </configuration>
