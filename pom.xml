@@ -74,9 +74,9 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 
         <!-- testing -->
-        <junit-jupiter.version>5.7.0</junit-jupiter.version>
-        <mockito.version>3.6.28</mockito.version>
-        <assertj-core.version>3.18.1</assertj-core.version>
+        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <mockito.version>3.10.0</mockito.version>
+        <assertj-core.version>3.19.0</assertj-core.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     </properties>
 
