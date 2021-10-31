@@ -41,7 +41,7 @@
     "google-code-prettify": "1.0.5",
     "inputmask": "^5.0.5",
     "jquery": "^3.5.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "markdown": "^0.5.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
